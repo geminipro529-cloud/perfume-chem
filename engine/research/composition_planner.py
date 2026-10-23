@@ -1881,12 +1881,46 @@ def _allocation_weight(choice: Choice) -> float:
     return weight
 
 
+def _releases_to_fill(choice: Choice, liquid_total_ul: int, stage: int) -> bool:
+    """Whether the bulk fallback's ``stage`` lets this row pass its design cap.
+
+    Never a row with an identity hard cap or a normal-use ceiling; a row that
+    carries a named note from stage 0, volume and structure rows from stage 1,
+    and rows with no explicit restraint share from stage 2.
+    """
+
+    if (
+        _hard_cap_ul(choice.candidate, liquid_total_ul) is not None
+        or _normal_use_ceiling_cap_ul(choice.candidate, liquid_total_ul) is not None
+    ):
+        return False
+    role = choice.role
+    if role.serves_requested_facet:
+        return True
+    if stage == 0:
+        return False
+    if role.function in {"volume", "structure"}:
+        return True
+    return stage == 2 and role.max_raw_share is None
+
+
+def _may_pass_design_cap(choice: Choice) -> bool:
+    """False for a generic bridge, layer or accent slot: under the active
+    ceiling it never takes spill past its design cap (a generic volume slot
+    still may, as the bulk fallback releases it)."""
+
+    role = choice.role
+    return not getattr(role, "generic_slot", False) or role.function == "volume"
+
+
 def _allocate_with_bulk_fallback(
     total: int,
     free_rows: Sequence[tuple[int, float, int | None]],
     choices: Sequence[Choice],
     liquid_total_ul: int,
     holds: list[str],
+    *,
+    outside_active: Decimal = Decimal(0),
 ) -> dict[int, int]:
     """Allocate within every cap; if that cannot fill the total, release soft role caps.
 
@@ -1905,6 +1939,16 @@ def _allocate_with_bulk_fallback(
     them is never withheld because of them.  Each row pushed past its
     screening default is named in a SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL
     hold instead of the role-cap one.
+
+    Each stage lifts its rows by one common multiplier on their own design
+    caps (``_spill_under_active_ceiling``), so a 10% lead, an accord or the
+    amber base rise together (a generic bridge, layer or accent slot is not
+    lifted: ``_may_pass_design_cap``), and no row passes ROW_ACTIVE_CEILING_SHARE of
+    the active oil (``outside_active`` is the fixed and weighed rows' share of
+    it).  Only when no stage fills the total under that ceiling do the stages
+    release to the stage limits and fill by allocation weight, as before; the
+    design is never withheld for the ceiling, and ``_hold_active_ceiling``
+    names what is left above it.
     """
 
     try:
@@ -1925,16 +1969,7 @@ def _allocate_with_bulk_fallback(
     }
 
     def releasable(index: int, stage: int) -> bool:
-        role = choices[index].role
-        if index in firm:
-            return False
-        if index in named:
-            return True
-        if stage == 0:
-            return False
-        if role.function in {"volume", "structure"}:
-            return True
-        return stage == 2 and role.max_raw_share is None
+        return _releases_to_fill(choices[index], liquid_total_ul, stage)
 
     defaults = {
         index: default
@@ -1956,24 +1991,46 @@ def _allocate_with_bulk_fallback(
         return _ifra_cap_ul(choices[index].candidate, liquid_total_ul)
 
     stages = ((0,) if named else ()) + (1, 2) + ((3,) if defaults else ())
-    allocated: dict[int, int] = {}
-    for stage in stages:
-        relaxed = [
+
+    def spills(index: int, stage: int) -> bool:
+        return releasable(index, stage) and _may_pass_design_cap(choices[index])
+
+    def relaxed_for(
+        stage: int, released_rows: Any = releasable
+    ) -> list[tuple[int, float, int | None]]:
+        return [
             (
                 index,
                 weight,
                 released(index)
-                if releasable(index, min(stage, 2))
+                if released_rows(index, min(stage, 2))
                 else (without_default(index, cap) if stage == 3 else cap),
             )
             for index, weight, cap in free_rows
         ]
-        try:
-            allocated = _allocate_capped(total, relaxed)
+
+    allocated: dict[int, int] = {}
+    for stage in stages:
+        lifted = {
+            index
+            for index, _weight, _cap in free_rows
+            if spills(index, min(stage, 2)) or (stage == 3 and index in defaults)
+        }
+        spilled = _spill_under_active_ceiling(
+            total, free_rows, relaxed_for(stage, spills), lifted, choices, outside_active
+        )
+        if spilled is not None:
+            allocated = spilled
             break
-        except ValueError:
-            if stage == stages[-1]:
-                raise
+    else:
+        # No stage fills the total under the active ceiling: release as before.
+        for stage in stages:
+            try:
+                allocated = _allocate_capped(total, relaxed_for(stage))
+                break
+            except ValueError:
+                if stage == stages[-1]:
+                    raise
     for index, _weight, cap in free_rows:
         amount = allocated.get(index, 0)
         stock_id = choices[index].candidate.stock.stock_id
@@ -1987,6 +2044,129 @@ def _allocate_with_bulk_fallback(
 # The rows that carry the notes a brief names together hold at least this
 # share of the formula's fragrance-active volume (AGENTS.md Rule 3).
 NAMED_NOTE_FLOOR_SHARE = Decimal("0.40")
+# No single row carries more than this share of the formula's active oil: the
+# release gate's single-material limit (gates._gate_coty_single_material_limit)
+# and the duel's (yardstick.SINGLE_MATERIAL_LIMIT_PCT).  A row's active is its
+# volume times its stock strength (a functional carrier counts 0); weighed
+# solids count 1 mg as 1 uL in the total but are never cut for it.
+ROW_ACTIVE_CEILING_SHARE = Decimal("0.40")
+
+
+def _active_ceiling_ul(choice: Choice, others_active: Decimal) -> int | None:
+    """The most uL of this row that keeps it at or under ROW_ACTIVE_CEILING_SHARE
+    of the active oil while the other rows carry ``others_active``; None for a
+    row with no active (a functional carrier)."""
+
+    strength = _active_ul(choice, 1)
+    if strength <= 0:
+        return None
+    share = ROW_ACTIVE_CEILING_SHARE
+    exact = share / (1 - share) * others_active / strength
+    return int(exact.to_integral_value(rounding=ROUND_FLOOR))
+
+
+def _under_active_ceiling(
+    upper: dict[int, Decimal], strength: dict[int, Decimal], outside_active: Decimal
+) -> tuple[dict[int, Decimal], set[int]]:
+    """Each row at its ``upper`` volume, or lower where that would put it above
+    ROW_ACTIVE_CEILING_SHARE of the active total; the largest such amounts, and
+    the rows the ceiling holds.
+
+    The rows the ceiling holds each carry exactly the ceiling share of a total
+    they are part of, so at most two can be held; the others keep ``upper``.
+    """
+
+    share = ROW_ACTIVE_CEILING_SHARE
+    held: set[int] = set()
+    total = outside_active + sum((upper[i] * strength[i] for i in upper), Decimal(0))
+    for index in sorted(upper, key=lambda i: (-upper[i] * strength[i], i)):
+        if (
+            strength[index] <= 0
+            or upper[index] * strength[index] <= share * total
+            or share * (len(held) + 1) >= 1
+        ):
+            break
+        held.add(index)
+        rest = outside_active + sum(
+            (upper[i] * strength[i] for i in upper if i not in held), Decimal(0)
+        )
+        total = rest / (1 - share * len(held))
+    return {i: share * total / strength[i] if i in held else upper[i] for i in upper}, held
+
+
+def _spill_under_active_ceiling(
+    total: int,
+    free_rows: Sequence[tuple[int, float, int | None]],
+    relaxed: Sequence[tuple[int, float, int | None]],
+    lifted: set[int],
+    choices: Sequence[Choice],
+    outside_active: Decimal,
+) -> dict[int, int] | None:
+    """Fill ``total`` with one common multiplier k on the lifted rows' design caps.
+
+    A lifted row takes k times its design cap, never more than its ``relaxed``
+    limit (the cap its stage releases it to) or its active ceiling; every other
+    row takes its design cap, never more than its active ceiling.  k is the
+    smallest that fills the total (bisection), so the spill is proportional to
+    each lifted row's own cap.  None when no k fills the total under the
+    ceilings.  Only called once ``_allocate_capped`` has failed, so every cap
+    here is a number.
+    """
+
+    caps = {index: Decimal(cap or 0) for index, _weight, cap in free_rows}
+    limits = {index: limit for index, _weight, limit in relaxed}
+    strength = {index: _active_ul(choices[index], 1) for index in caps}
+
+    def filled(k: Decimal) -> tuple[dict[int, Decimal], set[int]]:
+        upper = {}
+        for index, cap in caps.items():
+            room = cap
+            if index in lifted:
+                room = k * cap
+                if limits[index] is not None:
+                    room = min(room, Decimal(limits[index]))
+            upper[index] = room
+        return _under_active_ceiling(upper, strength, outside_active)
+
+    def volume(k: Decimal) -> Decimal:
+        return sum(filled(k)[0].values(), Decimal(0))
+
+    # At k = total every lifted row is held by its limit or its ceiling alone.
+    low, high = Decimal(1), Decimal(max(1, total))
+    if volume(high) < total:
+        return None
+    for _ in range(60):
+        middle = (low + high) / 2
+        if volume(middle) >= total:
+            high = middle
+        else:
+            low = middle
+    exact, held = filled(high)
+    amounts = {
+        index: int(value.to_integral_value(rounding=ROUND_FLOOR)) for index, value in exact.items()
+    }
+    remainder = total - sum(amounts.values())
+    # The rounding remainder goes first to the rows the ceiling does not hold
+    # that have a fractional part (a row at a whole-microlitre cap has none),
+    # then to a lifted row with room under its limit, and only then to a held
+    # row, which would pass its ceiling by that microlitre.
+    free = sorted(index for index in exact if index not in held)
+    for index in sorted(
+        (i for i in free if exact[i] > amounts[i]), key=lambda i: (-(exact[i] - amounts[i]), i)
+    )[: max(0, remainder)]:
+        amounts[index] += 1
+        remainder -= 1
+    for index in (i for i in free if i in lifted):
+        room = remainder if limits[index] is None else min(remainder, limits[index] - amounts[index])
+        if room > 0:
+            amounts[index] += room
+            remainder -= room
+    for index in sorted(
+        (i for i in held if exact[i] > amounts[i]), key=lambda i: (-(exact[i] - amounts[i]), i)
+    )[: max(0, remainder)]:
+        amounts[index] += 1
+        remainder -= 1
+    return amounts if remainder == 0 else None
 
 
 def _firm_cap_ul(choice: Choice, liquid_total_ul: int) -> int | None:
@@ -2020,6 +2200,8 @@ def _lead_with_named_notes(
     choices: Sequence[Choice],
     liquid_total_ul: int,
     holds: list[str],
+    *,
+    solid_active: Decimal = Decimal(0),
 ) -> dict[int, int]:
     """Make the notes a brief names lead the formula it composes.
 
@@ -2058,6 +2240,11 @@ def _lead_with_named_notes(
     the floor short, the design is kept with a NAMED_NOTE_FLOOR_SHORT hold
     giving the share reached; a generic slot the named rows cannot outgrow
     keeps its volume under a GENERIC_SLOT_ABOVE_NAMED_LEAD hold.
+
+    No row is given volume past its active ceiling (ROW_ACTIVE_CEILING_SHARE
+    of the active oil; ``solid_active`` is the weighed rows' part of it).  A
+    named row at its ceiling (within 1 uL) carries the floor share by itself,
+    so the floor then counts as met.
     """
 
     amounts = {**fixed_liquid, **allocated}
@@ -2081,6 +2268,35 @@ def _lead_with_named_notes(
             return Decimal(0)
         return sum(active(state, index) for index in named_all) / total
 
+    def ceiling(state: dict[int, int], index: int) -> int | None:
+        others = solid_active + sum(active(state, row) for row in state if row != index)
+        return _active_ceiling_ul(choices[index], others)
+
+    def pinned(state: dict[int, int], index: int) -> bool:
+        """One more microlitre, from the weakest donor with any to give, would
+        put this row past its active ceiling."""
+
+        give_up = min(
+            (
+                _active_ul(choices[row], 1)
+                for row in donors
+                if row in state and state[row] > _MIN_RAW_TRANSFER_UL
+            ),
+            default=Decimal(0),
+        )
+        others = solid_active - give_up + sum(
+            active(state, row) for row in state if row != index
+        )
+        limit = _active_ceiling_ul(choices[index], others)
+        return limit is not None and state[index] + 1 > limit
+
+    def floor_met(state: dict[int, int]) -> bool:
+        # A named row at its active ceiling (within 1 uL) holds the floor share
+        # by itself; what is short is the last microlitre's rounding.
+        return named_share(state) >= NAMED_NOTE_FLOOR_SHARE or any(
+            pinned(state, index) for index in named
+        )
+
     def move(
         state: dict[int, int],
         take: dict[int, int],
@@ -2089,21 +2305,27 @@ def _lead_with_named_notes(
         freed = sum(take.values())
         if freed == 0:
             return state
+        moved = dict(state)
+        for index, amount in take.items():
+            moved[index] -= amount
+
+        def room_for(index: int) -> int | None:
+            # Firm room and active-ceiling room, on the state the volume lands in.
+            limits = [
+                max(0, limit - moved[index])
+                for limit in (firm[index], ceiling(moved, index))
+                if limit is not None
+            ]
+            return min(limits) if limits else None
+
         room = [
-            (
-                index,
-                _allocation_weight(choices[index]),
-                None if firm[index] is None else max(0, firm[index] - state[index]),
-            )
+            (index, _allocation_weight(choices[index]), room_for(index))
             for index in (named if recipients is None else recipients)
         ]
         try:
             placed = _allocate_capped(freed, room)
         except ValueError:
             return None
-        moved = dict(state)
-        for index, amount in take.items():
-            moved[index] -= amount
         for index, amount in placed.items():
             moved[index] += amount
         return moved
@@ -2137,7 +2359,8 @@ def _lead_with_named_notes(
             high = low
         reachable = move(base, take(high), recipients) or base
         if named_share(reachable) < NAMED_NOTE_FLOOR_SHARE:
-            return reachable, False
+            reachable = top_up(reachable, recipients)
+            return reachable, floor_met(reachable)
         low = 0.0
         for _ in range(40):
             middle = (low + high) / 2
@@ -2148,8 +2371,38 @@ def _lead_with_named_notes(
                 low = middle
         return move(base, take(high), recipients) or base, True
 
+    def top_up(state: dict[int, int], recipients: Sequence[int] | None = None) -> dict[int, int]:
+        """``state`` with single microlitres moved from the donors (weakest
+        stock first) to the recipients while the floor is short and one fits.
+
+        The even take moves a whole microlitre from every donor at once, so it
+        can stop a few microlitres under a named row's active ceiling."""
+
+        targets = named if recipients is None else recipients
+        if not any(
+            (limit := ceiling(state, row)) is not None and (firm[row] is None or limit < firm[row])
+            for row in targets
+        ):
+            return state  # Only firm caps bind: the even take already filled them.
+        order = sorted(donors, key=lambda row: (_active_ul(choices[row], 1), row))
+        for _ in range(4 * len(donors) + 8):
+            if named_share(state) >= NAMED_NOTE_FLOOR_SHARE:
+                break
+            for row in order:
+                moved = (
+                    move(state, {row: 1}, recipients)
+                    if state[row] > _MIN_RAW_TRANSFER_UL
+                    else None
+                )
+                if moved is not None:
+                    state = moved
+                    break
+            else:
+                break
+        return state
+
     state = amounts
-    if named_share(state) < NAMED_NOTE_FLOOR_SHARE:
+    if not floor_met(state):
         state, reached = reach_floor(amounts)
         if not reached:
             percent = (named_share(state) * 100).quantize(Decimal("0.1"))
@@ -2220,7 +2473,7 @@ def _lead_with_named_notes(
             and index not in named_all
             and active(current, index) > named_lead
         }
-        if named_share(current) < NAMED_NOTE_FLOOR_SHARE:
+        if not floor_met(current):
             rules.add("floor")
         if star_all:
             star_lead = max(active(current, index) for index in star_all)
@@ -2250,7 +2503,7 @@ def _lead_with_named_notes(
         if (
             moved is not None
             and "floor" not in broken(state)
-            and named_share(moved) < NAMED_NOTE_FLOOR_SHARE
+            and not floor_met(moved)
         ):
             topped, reached = reach_floor(moved, takers)
             moved = topped if reached else None
@@ -2271,6 +2524,161 @@ def _lead_with_named_notes(
             holds.append(
                 f"ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:{choices[index].candidate.stock.stock_id}"
             )
+    return {index: state[index] for index in allocated}
+
+
+def _hold_active_ceiling(
+    allocated: dict[int, int],
+    free_rows: Sequence[tuple[int, float, int | None]],
+    fixed_liquid: dict[int, int],
+    choices: Sequence[Choice],
+    liquid_total_ul: int,
+    holds: list[str],
+    *,
+    solid_active: Decimal = Decimal(0),
+) -> dict[int, int]:
+    """Bring every free row down to its active ceiling; the last allocation step.
+
+    A free row above ROW_ACTIVE_CEILING_SHARE of the active oil (``solid_active``
+    is the weighed rows' part of it) gives the least volume that brings it to
+    its ceiling to the other free rows, in proportion to their design caps and
+    never past their own ceilings: first within the design caps, then within
+    the firm caps (not for a generic bridge, layer or accent slot the bulk
+    fallback never releases), each row pushed past its design cap named in the
+    fallback's ROLE_CAP_EXCEEDED_TO_FILL_TOTAL or
+    SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL hold.  A named row gives to the
+    other named rows first, so the named floor holds.  A requested quantity
+    and a row that must use an exact preferred material are never cut.  A row
+    the other rows cannot take (all of) the excess from keeps it under a
+    ROW_ABOVE_ACTIVE_CEILING hold.  The liquid total is unchanged.
+    """
+
+    if not allocated:
+        return allocated
+    caps = {index: cap for index, _weight, cap in free_rows}
+    state = {**fixed_liquid, **allocated}
+    strength = {index: _active_ul(choices[index], 1) for index in state}
+    named = {index for index in allocated if choices[index].role.serves_requested_facet}
+    firm = {index: _firm_cap_ul(choices[index], liquid_total_ul) for index in allocated}
+    # A generic bridge, layer or accent slot never passes its design cap here
+    # (a generic volume slot the fallback releases may).
+    may_pass_cap = {
+        index
+        for index in allocated
+        if not getattr(choices[index].role, "generic_slot", False)
+        or (
+            _may_pass_design_cap(choices[index])
+            and _releases_to_fill(choices[index], liquid_total_ul, 2)
+        )
+    }
+
+    def ceiling(current: dict[int, int], index: int) -> int | None:
+        others = solid_active + sum(
+            (current[row] * strength[row] for row in current if row != index), Decimal(0)
+        )
+        return _active_ceiling_ul(choices[index], others)
+
+    def above(current: dict[int, int], index: int) -> bool:
+        limit = ceiling(current, index)
+        return limit is not None and current[index] > limit
+
+    def give(
+        current: dict[int, int], amount: int, groups: Sequence[Sequence[int]]
+    ) -> dict[int, int] | None:
+        moved = dict(current)
+        remaining = amount
+        for group in groups:
+            for past_cap in (False, True):
+                if remaining == 0:
+                    return moved
+                rows = []
+                for index in group:
+                    if past_cap and index not in may_pass_cap:
+                        continue
+                    limits = [
+                        max(0, limit - moved[index])
+                        for limit in (firm[index] if past_cap else caps.get(index), ceiling(moved, index))
+                        if limit is not None
+                    ]
+                    rows.append((index, float(caps.get(index) or 1), min(limits) if limits else None))
+                rooms = [room for _index, _weight, room in rows]
+                placed = remaining if None in rooms else min(remaining, sum(rooms))
+                if placed <= 0:
+                    continue
+                for index, value in _allocate_capped(placed, rows).items():
+                    moved[index] += value
+                remaining -= placed
+        return moved if remaining == 0 else None
+
+    stuck: set[int] = set()
+    for _ in range(4 * len(state)):
+        over = sorted(
+            (
+                index
+                for index in allocated
+                if index not in stuck
+                and not choices[index].role.exact_preference_required
+                and above(state, index)
+            ),
+            key=lambda index: (-state[index] * strength[index], index),
+        )
+        if not over:
+            break
+        index = over[0]
+        others = [row for row in allocated if row != index]
+        groups = (
+            ([row for row in others if row in named], [row for row in others if row not in named])
+            if index in named
+            else (others,)
+        )
+
+        def cut(amount: int) -> dict[int, int] | None:
+            current = dict(state)
+            current[index] -= amount
+            return give(current, amount, groups)
+
+        # The largest cut the other rows can take, then the least of it that
+        # brings the row to its ceiling (both by bisection: a larger cut
+        # leaves less ceiling room in the other rows and less excess here).
+        low, high = 0, state[index] - (ceiling(state, index) or 0)
+        if cut(high) is None:
+            while high - low > 1:
+                middle = (low + high) // 2
+                if cut(middle) is None:
+                    high = middle
+                else:
+                    low = middle
+            high = low
+        best = cut(high) if high > 0 else None
+        if best is None or above(best, index):
+            holds.append(f"ROW_ABOVE_ACTIVE_CEILING:{choices[index].candidate.stock.stock_id}")
+            stuck.add(index)
+            if best is not None:
+                state = best
+            continue
+        low = 0
+        while high - low > 1:
+            middle = (low + high) // 2
+            candidate = cut(middle)
+            if candidate is not None and not above(candidate, index):
+                high = middle
+            else:
+                low = middle
+        state = cut(high) or best
+    for index in allocated:
+        if index not in stuck and not choices[index].role.exact_preference_required and above(state, index):
+            holds.append(f"ROW_ABOVE_ACTIVE_CEILING:{choices[index].candidate.stock.stock_id}")
+    for index in allocated:
+        cap = caps.get(index)
+        if state[index] <= allocated[index] or cap is None or state[index] <= cap:
+            continue
+        default = _screening_default_cap_ul(choices[index], liquid_total_ul)
+        kind = (
+            "SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL"
+            if default is not None and state[index] > default
+            else "ROLE_CAP_EXCEEDED_TO_FILL_TOTAL"
+        )
+        holds.append(f"{kind}:{choices[index].candidate.stock.stock_id}")
     return {index: state[index] for index in allocated}
 
 
@@ -2443,15 +2851,34 @@ def _formula_rows(
     ]
     if not free_rows and fixed_total != liquid_total_ul:
         raise ValueError("explicit liquid doses do not fill the requested liquid total")
+    # Weighed solids count 1 mg as 1 uL in the active oil the ceiling is a share of.
+    solid_active = sum(
+        (_active_ul(choices[index], amount) for index, amount in solid_amounts.items()), Decimal(0)
+    )
+    fixed_active = sum(
+        (_active_ul(choices[index], amount) for index, amount in fixed_liquid.items()), Decimal(0)
+    )
     allocated = (
         _allocate_with_bulk_fallback(
-            liquid_total_ul - fixed_total, free_rows, choices, liquid_total_ul, holds
+            liquid_total_ul - fixed_total,
+            free_rows,
+            choices,
+            liquid_total_ul,
+            holds,
+            outside_active=solid_active + fixed_active,
         )
         if free_rows
         else {}
     )
     allocated = _lead_with_named_notes(
-        allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds
+        allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds,
+        solid_active=solid_active,
+    )
+    # The active ceiling stays the last allocation step: a later step (such as
+    # the active and long-lasting floors) goes between the lead pass and it.
+    allocated = _hold_active_ceiling(
+        allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds,
+        solid_active=solid_active,
     )
 
     rows: list[dict[str, Any]] = []

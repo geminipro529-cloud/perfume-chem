@@ -204,13 +204,15 @@ def test_a_raise_stops_at_the_accord_lead_active_volume(patched, monkeypatch):
 
 def test_a_checked_lead_gives_no_volume_that_would_put_its_support_above_it(patched, monkeypatch):
     # The lead is a donor here (not a character row) with 250 uL of room, the
-    # other donor has 15; the support's raise to 50 uL comes from the other.
+    # other donor has 30; the support's raise to 50 uL comes from the other.
+    # (With a 30 uL other donor the raise would put the support past 40% of
+    # the active oil, which no raise may do.)
     result = _accord_run(
         monkeypatch, lead_fraction="0.1", support_ul=40, support_oav_per_ul=0.021,
-        lead_role="modifier", filler=(30, "texture", 1.0),
+        lead_role="modifier", filler=(60, "texture", 1.0),
     )
     amounts = {r["identity_name"]: r["amount_decimal"] for r in result["rows"]}
-    assert amounts == {"Lead": "500", "Support": "50", "Filler": "20"}
+    assert amounts == {"Lead": "500", "Support": "50", "Filler": "50"}
 
 
 def test_a_support_already_above_its_lead_is_not_raised(patched, monkeypatch):

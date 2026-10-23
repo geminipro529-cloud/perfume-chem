@@ -19,7 +19,10 @@ re-checked, staying inside every limit the composer already applies:
 * an accord's lead (``composition_planner.accord_lead_checked``): a raise may
   not lift an accord support above its lead's active volume, a support
   already above it is not raised, and the lead gives no volume that would
-  leave a support above it.
+  leave a support above it;
+* the active ceiling (``composition_planner.ROW_ACTIVE_CEILING_SHARE``): a
+  raise may not put any row above that share of the active oil (weighed
+  solids count 1 mg as 1 uL) unless the composed formula already had it there.
 
 The added microlitres come from the volume/diffusion row(s) first, then
 proportionally from other detectable non-character rows, so the liquid total
@@ -220,9 +223,12 @@ def _blocking_checks(formula: Mapping[str, Any], name: str) -> set[str]:
 
 def _limit_label(check: str) -> str:
     kind = check.split(":", 1)[0]
-    return {"ifra": "IFRA Cat 4", "hedione_share": "Hedione share", "musk_count": "musk count"}.get(
-        kind, kind,
-    )
+    return {
+        "ifra": "IFRA Cat 4",
+        "hedione_share": "Hedione share",
+        "musk_count": "musk count",
+        "row_active_ceiling": "40% active ceiling",
+    }.get(kind, kind)
 
 
 def apply_detection_pass(
@@ -305,6 +311,7 @@ def apply_detection_pass(
     from engine.research.composition_planner import (
         _DESIGN_FUNCTIONAL_CARRIERS,
         NAMED_NOTE_FLOOR_SHARE,
+        ROW_ACTIVE_CEILING_SHARE,
         accord_lead_checked,
         accord_lead_role_id,
     )
@@ -328,6 +335,23 @@ def apply_detection_pass(
         return sum((current[i] * strength[i] for i in current if i in named_rows), Decimal(0)) / total
 
     named_floor = min(NAMED_NOTE_FLOOR_SHARE, named_share(original)) if named_rows else None
+
+    # Weighed solids are never raised, but count 1 mg as 1 uL in the active oil.
+    solid_active = sum(
+        (
+            Decimal(str(row.get("amount_decimal"))) * Decimal(str(row.get("stock_fraction_decimal") or 1))
+            for row in rows
+            if row.get("amount_unit") == "mg"
+        ),
+        Decimal(0),
+    )
+
+    def above_ceiling(current: Mapping[int, Decimal]) -> set[int]:
+        total = solid_active + sum((current[i] * strength[i] for i in current), Decimal(0))
+        return {i for i in current if current[i] * strength[i] > ROW_ACTIVE_CEILING_SHARE * total}
+
+    # A row the composed formula already had above the ceiling is not held to it here.
+    above_at_compose = above_ceiling(original)
 
     # An accord support (slot: its lead's slot, the accord separator, a number)
     # whose lead the composer checks keeps no more active volume than the lead.
@@ -483,6 +507,19 @@ def apply_detection_pass(
                     break
                 worst = max(sorted(gains), key=lambda i: gains[i])
                 limit_hit[worst] = "named notes' lead share"
+                del wants[worst]
+                trial = donated(wants)
+            if not wants:
+                continue
+            # No raise puts a row above the active ceiling: a raised row that
+            # crosses it is dropped, else the raise of the weakest stock (it
+            # shrinks the active total most) until no row crosses.
+            while wants and (crossed := above_ceiling(trial) - above_at_compose):
+                raised = sorted(crossed & set(wants))
+                worst = raised[0] if raised else min(
+                    sorted(wants), key=lambda i: (strength[i], -(wants[i] - amounts[i])),
+                )
+                limit_hit[worst] = _limit_label("row_active_ceiling")
                 del wants[worst]
                 trial = donated(wants)
             if not wants:

@@ -56,7 +56,9 @@ def test_a_support_above_its_lead_comes_down_to_the_lead(monkeypatch) -> None:
     assert _active(choices[1], result[1]) <= _active(choices[0], result[0])
     # The support keeps the lead's active volume; its excess goes to the
     # named rows that are no support, and the unnamed row is left alone.
-    assert result == {0: 1890, 1: 120, 2: 2190, 3: 1800}
+    # Violet leaf already sits past 40% of the active oil once the support
+    # has given up its excess, so the orris lead takes all of it.
+    assert result == {0: 2580, 1: 120, 2: 1500, 3: 1800}
     assert holds == []
 
 
