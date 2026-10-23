@@ -26,18 +26,19 @@ def test_formula_state_preserves_raw_and_active_dose():
 
 
 def test_supplier_sg_with_unstated_temperature_is_not_labelled_a_25c_density():
-    # Aldehyde C-8 carries a PerfumersWorld SG with no reference temperature;
-    # Hedione carries a TGSC specific gravity at 25 C.
+    # Floralozone carries a PerfumersWorld SG with no reference temperature;
+    # Hedione carries a TGSC specific gravity at 25 C. (Aldehyde C-8 was the
+    # fixture until the 2026-10-23 master merge gave it a Perflavory value.)
     state = build_formula_state(
-        {"Aldehyde C-8 Octanal": 10.0, "Hedione": 10.0},
+        {"Floralozone": 10.0, "Hedione": 10.0},
         batch_volume_ml=30.0,
     )
     rows = {m.name: m for m in state.materials}
 
-    assert rows["Aldehyde C-8 Octanal"].density_source == (
+    assert rows["Floralozone"].density_source == (
         "registry:data_spine.supplier_sg_unstated_temp"
     )
-    assert rows["Aldehyde C-8 Octanal"].density_g_ml == 0.818
+    assert rows["Floralozone"].density_g_ml == 0.951
     assert rows["Hedione"].density_source == "registry:data_spine.density_25c"
 
 

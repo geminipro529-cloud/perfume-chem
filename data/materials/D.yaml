@@ -118,11 +118,11 @@
 - canonical_name: D-Limonene
   aliases:
   - d-limonene
-  cas:
+  cas: 5989-27-5
   smiles:
   inchikey:
   mw_g_mol: 136.2
-  density_25c_g_ml: 0.84
+  density_25c_g_ml: 0.8402
   logp: 4.6
   functional_groups: []
   chirality:
@@ -170,8 +170,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: 'SG 0.8400, supplier-reported (PerfumersWorld 3CQ00276 "D-Limonene"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
-    density_basis: supplier_sg_temperature_unstated
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.8402; https://www.chemicalbook.com/ChemicalProductProperty_EN_CB51098856.htm; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 5989-27-5; https://www.perfumersworld.com/view.php?pro_id=3CQ00276'
 - canonical_name: Damascenone
   aliases:
   - damascenone
@@ -225,11 +225,11 @@
 - canonical_name: Damascol
   aliases:
   - damascol
-  cas:
+  cas: 4927-36-0
   smiles:
   inchikey:
   mw_g_mol: 194.3
-  density_25c_g_ml: 0.958
+  density_25c_g_ml: 0.963
   logp:
   functional_groups: []
   chirality:
@@ -268,8 +268,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: 'SG 0.9580, supplier-reported (PerfumersWorld 3IL00139 "Damascol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
-    density_basis: supplier_sg_temperature_unstated
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.9590-0.9670; https://www.aacipl.com/products/damascol; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 4927-36-0; https://www.perfumersworld.com/view.php?pro_id=3IL00139'
 - canonical_name: Damascone Beta
   aliases: []
   cas: "23726-91-2"
@@ -485,7 +485,7 @@
   inchikey:
   mw_g_mol: 192.3
   density_25c_g_ml: 0.93
-  logp: 3.37
+  logp: 4.2
   functional_groups: []
   chirality:
   vp_25c_pa: 3.59
@@ -514,8 +514,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC=CC(=O)C1C(C)C=CCC1(C)C, D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. RDKit MW 192.302 matches the YAML MW within 0.1. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
-    logp_source: 'rdkit-crippen-estimate'
+    logp: '22 Oct 2026 missing-data pass: stated; raw 4.2; https://www.perflavory.com/docs/doc1006961.html'
     smiles: 'Structure stated in the 2026-10-23 wiring spec (output/_wire_spec_20261023.md section A), RDKit-canonicalised by D:\agent-cache\tools\chemprops.py, run 2026-10-23; RDKit MW 192.302 matches the YAML MW within 0.1'
 - canonical_name: Delta Decalactone
   aliases:
@@ -1142,7 +1141,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Dihydrojasmone
   aliases: []
-  cas:
+  cas: 1128-08-1
   smiles:
   inchikey:
   mw_g_mol: 166.3
@@ -1178,7 +1177,8 @@
     odt_eth_ppm: engine.odor_thresholds.ODT_DATA
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.91100 to 0.91700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1009071.html, page "dihydrojasmone, 1128-08-1"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 0.914 x 0.99705 = 0.9113'
+    density_25c_g_ml: 'TGSC: Specific Gravity: 0.91100 to 0.91700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1009071.html, page "dihydrojasmone, 1128-08-1"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 0.914 x 0.99705 = 0.9113; alternative source: PerfumersWorld spec document https://www.perfumersworld.com/document-list.php?pro_id=5JN10948, range 0.912-0.917, temperature not stated (22 Oct 2026 missing-data pass)'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 1128-08-1; https://www.perfumersworld.com/view.php?pro_id=4JN00149'
 - canonical_name: Dihydromyrcenol
   aliases:
   - dihydromyrcenol
@@ -1346,11 +1346,11 @@
 - canonical_name: Dimethyl Benzyl Carbinyl Acetate
   aliases:
   - Dimethyl Benzyl Carbinyl Acetate (DBCA)
-  cas:
+  cas: 151-05-3
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml: 0.995
+  density_25c_g_ml: 0.9985
   logp:
   functional_groups: []
   chirality:
@@ -1383,8 +1383,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: 'SG 0.9950, supplier-reported (PerfumersWorld 3LF00157 "Dimethyl Benzyl Carbinyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
-    density_basis: supplier_sg_temperature_unstated
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.9985; https://www.thegoodscentscompany.com/msds/md101416.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 151-05-3; https://www.thegoodscentscompany.com/msds/md101416.html'
 - canonical_name: Dimethyl Benzyl Carbinyl Butyrate
   aliases: []
   cas:

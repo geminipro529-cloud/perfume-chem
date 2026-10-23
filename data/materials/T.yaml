@@ -2741,7 +2741,7 @@
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.89000 to 0.94000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1020712.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Tobacco Absolute
   aliases: []
-  cas:
+  cas: 8037-19-2
   smiles:
   inchikey:
   mw_g_mol: 195.0
@@ -2781,6 +2781,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8037-19-2; https://thegoodscentscompany.com/data/ab1029151.html'
 - canonical_name: Tobacco F-TEC
   aliases:
   - TOBACCO F-TEC
@@ -3986,7 +3987,7 @@
   smiles:
   inchikey:
   mw_g_mol: 220.0
-  density_25c_g_ml:
+  density_25c_g_ml: 0.95
   logp: 3.0
   functional_groups: []
   chirality:
@@ -4022,6 +4023,7 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.95; https://thegoodscentscompany.com/data/ab1101401.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Tuberose Absolute (India)
   aliases:
   - tuberose absolute (india)
@@ -4074,7 +4076,7 @@
   - marigold eo
   cas: 8016-84-0
   mw_g_mol: 155.0
-  density_25c_g_ml: 0.85
+  density_25c_g_ml: 0.88
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -4091,10 +4093,9 @@
   trp_targets: null
   user_stock_dilution: 10.0
   user_in_inventory: true
-
   provenance:
-    density_25c_g_ml: 'SG 0.8500, supplier-reported (PerfumersWorld 7NH00426 "Tagetes Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
-    density_basis: supplier_sg_temperature_unstated
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.860 - 0.900 (spec); batch result 0.877; https://lazenskakava.s24.cdn-upgates.com/5/567503c28cf917-867503c28cf3c9.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
+
 - canonical_name: Tuberose Absolute (volume grade)
   aliases:
   - tuberose absolute (volume grade)
