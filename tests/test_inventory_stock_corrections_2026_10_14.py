@@ -179,6 +179,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Actually I have a Ambrox super 10% stock",
         # 23 Oct 15:03 UTC: the Anise EO card, "a neat bottle, the 1% in DPG, or both?" (STK-147).
         "Both",
+        # 23 Oct 21:41 UTC, Good Girl Gone Bad thread: his PW Orange Flower Absolute 10% (STK-148).
+        "What? I have orange flower absolute 10% in DPG from PW",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -215,7 +217,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 148)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 149)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
