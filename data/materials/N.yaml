@@ -630,11 +630,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Nerolidol
   aliases: []
-  cas: null
+  cas: 7212-44-4
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.873
   logp: null
   functional_groups: []
   chirality: null
@@ -664,6 +664,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 7212-44-4; https://www.perfumersworld.com/view.php?pro_id=3LM00319'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.870 to 0.876; https://www.thegoodscentscompany.com/data/rw1009032.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Nerolin Bromelia
   aliases:
   - nerolin bromelia
@@ -672,7 +674,7 @@
   smiles: CCOc1ccc2ccccc2c1
   inchikey: GUMOJENFFHZAFP-UHFFFAOYSA-N
   mw_g_mol: 172.22
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.064
   logp: 3.8
   functional_groups:
   - ether
@@ -716,6 +718,7 @@
     logp: engine.skin_interaction
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.0640; https://www.chemicalbook.com/ChemicalProductProperty_EN_CB9219355.htm; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Nerolin Yara Yara
   aliases:
   - Nerolin Yara yara
@@ -755,12 +758,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Neryl Acetate
   aliases: []
-  cas: null
+  cas: 141-12-8
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 196.29
+  density_25c_g_ml: 0.9095
+  logp: 3.98
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -789,6 +792,10 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 141-12-8; https://www.perflavory.com/docs/doc1033552.html'
+    mw_g_mol: '22 Oct 2026 missing-data pass: stated; raw 196.29; https://www.perflavory.com/docs/doc1033552.html'
+    logp: '22 Oct 2026 missing-data pass: stated; raw 3.98; https://www.perflavory.com/docs/doc1033552.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.905 to 0.914; https://thegoodscentscompany.com/data/rw1033552.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: NEW MOWN HAY F-TEC
   aliases: []
   cas: null
@@ -1161,7 +1168,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 224.38
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.915
   logp: 5.7
   functional_groups: []
   chirality: null
@@ -1205,6 +1212,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     vp_25c_pa: 'Firmenich SDS v13 (2024) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/967412_NORLIMBANOL__SDS_NZ_EN.pdf: 0.194 Pa at 25 C, OECD 104; replaces the unsourced 0.067; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     cas: 'Firmenich Norlimbanol SDS v13 (2024): CAS 70788-30-6 (stereo-unspecified); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.915; https://thegoodscentscompany.com/data/rw1020712.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: NUT F-TEC
   aliases: []
   cas: null
@@ -1282,11 +1290,11 @@
 - canonical_name: Nutmeg EO
   aliases:
   - nutmeg eo
-  cas: null
+  cas: 8008-45-5
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.895
   logp: null
   functional_groups: []
   chirality: null
@@ -1313,6 +1321,8 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8008-45-5; '
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.895; https://www.perflavory.com/docs/doc1009111.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Nutmeg Essential Oil
   aliases: []
   cas: null

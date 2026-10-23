@@ -108,11 +108,11 @@
 - canonical_name: Cabreuva Essential Oil
   aliases:
   - "Cabreuva EO"
-  cas: null
+  cas: 68188-03-4
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.8865
   logp: null
   functional_groups: []
   chirality: null
@@ -142,6 +142,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 68188-03-4; https://www.thegoodscentscompany.com/data/es1014101.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.880-0.893; https://www.thegoodscentscompany.com/data/es1014101.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Cade Oil Rectified
   aliases: [cade oil, cade, cade rectified, juniper tar, huile de cade]
   cas: 8013-10-3
@@ -551,7 +553,7 @@
   inchikey:
   mw_g_mol: 178.23
   density_25c_g_ml: 1.065
-  logp:
+  logp: 2.5
   functional_groups: []
   chirality:
   vp_25c_pa: 0.3
@@ -579,6 +581,7 @@
     density_25c_g_ml: 'ECHA 1.065 g/cm3 at 20 C (20 C value); TGSC range was 1.038-1.046. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.3 Pa at 24 C; EPI estimate was 1.33 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
+    logp: '22 Oct 2026 missing-data pass: stated; raw 2.5; https://www.perflavory.com/docs/doc1023691.html'
 - canonical_name: Caramel Furanone 0.003%
   aliases: []
   cas: null
@@ -1405,7 +1408,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 160.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.0095
   logp: 2.5
   functional_groups: []
   chirality: null
@@ -1436,6 +1439,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     user_in_inventory: inventory.txt
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 1.0095; https://www.hekserij.nl/wp-content/uploads/2025/07/1Doc-23187-Cassis-base-345B-Fir-2025-03.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Castoreum F-TEC
   aliases:
   - CASTOREUM F-TEC
@@ -1716,7 +1720,7 @@
   aliases:
   - cedarwood virginia
   - Cedarwood oil Virginia
-  cas: null
+  cas: 8000-27-9
   smiles: null
   inchikey: null
   mw_g_mol: 222.37
@@ -1754,6 +1758,7 @@
     user_in_inventory: inventory.txt
     logp: engine.ingredient_intelligence:clogp
     density_25c_g_ml: manual:estimated_cedar_EO
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8000-27-9; https://thegoodscentscompany.com/data/es1002991.html'
 - canonical_name: Cedarwood Virginian Essential Oil
   aliases: []
   cas: null
@@ -1798,7 +1803,7 @@
   inchikey: null
   # 2026-10-08: was 234.38; corrected from the molecular formula
   mw_g_mol: 236.40
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9765
   logp: 6.1
   functional_groups: []
   chirality: null
@@ -1836,6 +1841,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     vp_25c_pa: 'estimate kept at 0.35 Pa; bound only: IFF SDS 2020 https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Cedramber_IFF_SDS.pdf "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     logp: 'ChemicalBook, unmarked (estimate): 6.1; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.973-0.980; https://scent.vn/en/products/cedramber-aroma-chemical; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Cedrat FCF Sicilian
   aliases:
   - cedrat fcf sicilian
@@ -1969,11 +1975,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cedroxyde
   aliases: []
-  cas: null
+  cas: 71735-79-0
   smiles: null
   inchikey: null
   mw_g_mol: 238.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.974
   logp: 3.5
   functional_groups: []
   chirality: null
@@ -2008,6 +2014,8 @@
     logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 71735-79-0; https://thegoodscentscompany.com/data/rw1021871.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.974; https://thegoodscentscompany.com/data/rw1021871.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Cedryl Acetate
   aliases: []
   cas: '77-54-3'
@@ -2943,11 +2951,11 @@
   aliases:
   - "Cinnamyl alcohol 50% in DPG"
   - "Cinnamyl Alcohol 50% w/w in DPG"
-  cas: null
+  cas: 104-54-1
   smiles: null
   inchikey: null
   mw_g_mol: 134.18
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.044
   logp: null
   functional_groups: []
   chirality: null
@@ -2984,6 +2992,8 @@
     user_stock_dilution: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     user_in_inventory: inventory.txt
     vp_25c_pa: 'UNSOURCED (kept): no measured, HSDB, ECHA or RIFM value found on 2026-10-08. Supplier figures conflict: Parchem "0.012000 mm/Hg @ 25.00 C" (1.6 Pa) vs Loba Chemie SDS "< 0.01 hPa at 25C" (< 1 Pa) and ChemicalBook "<0.01 mm Hg (25 C)" (via material-data-firecrawl/followup-20261008/F2_vapour_pressures.md)'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 104-54-1; https://www.perfumersworld.com/view.php?pro_id=2SV00105'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.044; https://www.chemicalbook.com/ChemicalProductProperty_EN_CB5771763.htm; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Cinnamyl Aldehyde
   aliases:
   - Cinnamyl aldehyde
@@ -3366,11 +3376,11 @@
 - canonical_name: cis-3-Hexenol
   aliases:
   - cis-3-hexenol
-  cas: null
+  cas: 928-96-1
   smiles: null
   inchikey: null
   mw_g_mol: 100.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.848
   logp: 1.6
   functional_groups: []
   chirality: null
@@ -3413,6 +3423,8 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: '22 Oct 2026 missing-data pass: stated; raw 928-96-1; https://www.perfumersworld.com/view.php?pro_id=4GL00225'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.848; https://www.sigmaaldrich.com/US/en/product/aldrich/h12900; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Cis-3-Hexenyl Salicylate
   aliases:
   - cis-3-hexenyl salicylate
@@ -3856,11 +3868,11 @@
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.85000 to 0.86000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007032.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Citronellyl Acetate
   aliases: []
-  cas: null
+  cas: 150-84-5
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.888
   logp: null
   functional_groups: []
   chirality: null
@@ -3890,6 +3902,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 150-84-5; https://www.perflavory.com/docs/doc1012172.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.883-0.893; https://www.chemicalbook.com/tds-coa/citronellyl-acetate.htm; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Citronellyl Formate
   aliases: []
   cas: null
@@ -4295,11 +4309,11 @@
     stevens_n: engine.odor_thresholds
 - canonical_name: Clary Sage EO
   aliases: []
-  cas: null
+  cas: 8016-63-5
   smiles: null
   inchikey: null
   mw_g_mol: 196.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.91
   logp: null
   functional_groups: []
   chirality: null
@@ -4337,6 +4351,8 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8016-63-5; https://www.perfumersworld.com/view.php?pro_id=7HH00121'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.890 to 0.930; https://www.zayataroma.com/sites/zayataroma.com/files/coa-pdf/za.coa_clary_sage.eab725727fr39225b.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Clary Sage Essential Oil
   aliases: []
   cas: null
@@ -4525,7 +4541,7 @@
 - canonical_name: Clearwood
   aliases:
   - clearwood
-  cas: null
+  cas: 1450625-49-6
   smiles: null
   inchikey: null
   mw_g_mol: 222.4
@@ -4567,6 +4583,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 1450625-49-6; https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/clearwood-fir/'
 - canonical_name: Clove Bud EO
   aliases:
   - clove bud eo
@@ -4679,11 +4696,11 @@
   - clove eo (india)
   - clove eo india
   - clove eo
-  cas: null
+  cas: 8000-34-8
   smiles: null
   inchikey: null
   mw_g_mol: 164.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.049
   logp: 2.5
   functional_groups: []
   chirality: null
@@ -4715,6 +4732,8 @@
     odt_eth_ppm: engine.odor_thresholds
     logp: pubchem_cid_3314
     user_in_inventory: inventory.txt
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8000-34-8; https://www.thegoodscentscompany.com/data/es1014451.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 1.049; https://www.perflavory.com/docs/doc1014452.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Clove Fleuressence
   aliases: []
   cas: null
@@ -4795,7 +4814,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 250.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.898
   logp: 4.0
   functional_groups: []
   chirality: null
@@ -4840,6 +4859,7 @@
     odt_air_ppb: legacy estimated effective threshold
     odt_eth_ppm: legacy estimated effective threshold
     user_in_inventory: user-confirmed 2026-07-18
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.898; https://www.biolandes.com/wp-content/uploads/fiche-technique-E0806.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Cocoa Absolute Grasse
   aliases:
   - Cocoa absolute grasse
@@ -4965,7 +4985,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 260.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.96
   logp: 3.5
   functional_groups: []
   chirality: null
@@ -5003,6 +5023,7 @@
     odt_air_ppb: legacy estimated effective threshold
     odt_eth_ppm: legacy estimated effective threshold
     user_in_inventory: user-confirmed 2026-07-18
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9600; https://www.perfumersworld.com/view.php?pro_id=1VT23924; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Coconut F-TEC
   aliases:
   - COCONUT F-TEC
@@ -5712,7 +5733,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.09
   logp: null
   functional_groups: []
   chirality: null
@@ -5746,6 +5767,7 @@
   notes: 'IFF proprietary costus base, not a single molecule (Fraterworks, reseller: "IFF produce this wonderful base"; PerfumersWorld COA 5UW08963 for the 1% in DPG grade: "Proprietary Perfume Compound and Dipropylene Glycol. Complex mixture of aroma chemicals, homologues, isomers, and isolates", no CAS). The former mw_g_mol 200.0 and vp_25c_pa 0.001 were placeholders, not data, and are removed (2026-10-14): a blend has no single MW, VP or air ODT, and its composition is not published. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.09; https://www.perfumersworld.com/view.php?pro_id=4UW09665; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Costus Olifac Iff
   aliases: []
   cas: null
@@ -6040,11 +6062,11 @@
 - canonical_name: Cyclamen Aldehyde
   aliases:
   - cyclamen aldehyde
-  cas: null
+  cas: 103-95-7
   smiles: null
   inchikey: null
   mw_g_mol: 190.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.95
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -6092,6 +6114,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: reference value; raw 103-95-7; https://www.thegoodscentscompany.com/data/rw1004112.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 0.95; https://www.thegoodscentscompany.com/data/rw1004112.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Cyclamen F-TEC
   aliases:
   - CYCLAMEN F-TEC
@@ -6315,11 +6339,11 @@
 - canonical_name: Cypress Essential Oil
   aliases:
   - "Cypress EO"
-  cas: null
+  cas: 8013-86-3
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.8805
   logp: null
   functional_groups: []
   chirality: null
@@ -6349,11 +6373,13 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8013-86-3; https://www.thegoodscentscompany.com/data/es1004291.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.8805; https://www.perflavory.com/docs/doc1004291.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: coumarin (neat powder)
   aliases:
   - Coumarin powder
   - Coumarin neat
-  cas: null
+  cas: 91-64-5
   smiles: null
   inchikey: null
   mw_g_mol: 146.2
@@ -6374,6 +6400,8 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    cas: '22 Oct 2026 missing-data pass: stated; raw 91-64-5; https://www.tcichemicals.com/AT/en/p/C0395'
 - canonical_name: Cassia Essential Oil
   aliases:
   - Cassia Essential Oil (Cinnamomum cassia, India)

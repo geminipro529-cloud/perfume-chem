@@ -79,7 +79,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 238.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.966
   logp: 5.45
   functional_groups: []
   chirality: null
@@ -122,6 +122,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.961 to 0.971; https://scent.vn/en/products/habanolide-aroma-chemical; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Hair Conditioner Base - Unscentedhaircond
   aliases:
   - Hair Conditioner Base - unscentedHAIRCOND
@@ -198,7 +199,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Hay Absolute
   aliases: []
-  cas: null
+  cas: 8031-00-3
   smiles: null
   inchikey: null
   mw_g_mol: null
@@ -236,6 +237,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8031-00-3; https://www.perfumersworld.com/view.php?pro_id=8NY00523'
 - canonical_name: Hedione
   aliases:
   - hedione
@@ -296,11 +298,11 @@
 - canonical_name: Hedione HC
   aliases:
   - hedione hc
-  cas: null
+  cas: 24851-98-7
   smiles: null
   inchikey: null
   mw_g_mol: 226.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.0015
   logp: 2.7
   functional_groups: []
   chirality: null
@@ -333,6 +335,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    cas: '22 Oct 2026 missing-data pass: stated; raw 24851-98-7; https://www.perflavory.com/docs/doc1015272.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 1.0015; https://www.perflavory.com/docs/doc1015272.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Hedione High Cis
   aliases: []
   cas: null
@@ -633,7 +637,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 284.43
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9383
   logp: 4.68
   functional_groups: []
   chirality: null
@@ -671,6 +675,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     vp_25c_pa: 'Firmenich marketing sheet https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/HELVETOLIDE_947650.pdf "0.02 Pa @20 C" x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.03 Pa; SDS conflict (17.2 Pa at 20 C, https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Helvetolide_Firmenich_SDS.pdf) rejected as a unit slip; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     logp: 'Firmenich SDS v13 (2024), method A.8: 4.68 (same as RIFM 1994a); marketing sheet 5.46 not used; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: measured; raw 0.93833; https://shop.perfumersapprentice.com/msds/7667.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Hercolyn D
   aliases: []
   cas: null
@@ -905,7 +910,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 222.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.037
   logp: 5.7
   functional_groups: []
   chirality: null
@@ -946,16 +951,17 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 6259-76-3 (https://www.thegoodscentscompany.com/data/rw1002751.html)'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 1.037; https://www.thegoodscentscompany.com/data/rw1002751.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Himalayan Cedarwood EO
   aliases:
   - himalayan cedarwood eo
   - cedarwood himalayan eo
   - himalayan cedarwood
-  cas: null
+  cas: 68991-36-6
   smiles: null
   inchikey: null
   mw_g_mol: 204.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.924
   logp: 4.5
   functional_groups: []
   chirality: null
@@ -987,14 +993,16 @@
     odt_eth_ppm: engine.odor_thresholds
     logp: pubchem_cid_11586487
     user_in_inventory: inventory.txt
+    cas: '22 Oct 2026 missing-data pass: stated; raw 68991-36-6; https://www.thegoodscentscompany.com/data/es1031791.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.924; https://scent.vn/en/products/cedarwood-himalaya-essential-oil; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Hindinol
   aliases: []
-  cas: null
+  cas: 28219-60-5
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 194.3175
+  density_25c_g_ml: 0.92
+  logp: 4.65
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -1023,6 +1031,10 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9200; https://www.perfumersworld.com/view.php?pro_id=4WX24656; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 28219-60-5; https://www.perflavory.com/docs/doc1013511.html'
+    mw_g_mol: '22 Oct 2026 missing-data pass: stated; raw 194.31754; https://www.perflavory.com/docs/doc1013511.html'
+    logp: '22 Oct 2026 missing-data pass: stated; raw 4.65; https://www.perflavory.com/docs/doc1013511.html'
 - canonical_name: Ho Essential Oil
   aliases: []
   cas: null
@@ -1488,7 +1500,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 180.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.906
   logp: 3.0
   vp_25c_pa: 0.5
   vp_source: "est/literature"
@@ -1498,3 +1510,5 @@
   user_in_inventory: true
   character: 'immortelle hay-curry-floral (Helichrysum italicum)'
   notes: "material intake batch 2026-08-07"
+  provenance:
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.906; https://thegoodscentscompany.com/data/es1062881.html; temperature as printed by source (often 20 C), not corrected to 25 C'

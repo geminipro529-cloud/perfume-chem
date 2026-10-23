@@ -382,7 +382,7 @@
   smiles:
   inchikey:
   mw_g_mol: 220.0
-  density_25c_g_ml:
+  density_25c_g_ml: 1.0465
   logp: 3.0
   functional_groups:
   - natural oleogum-resin extract
@@ -439,6 +439,7 @@
     user_in_inventory: "inventory.txt (added 2026-07-16; 50% w/w in DPG stock, user-confirmed 2026-08-07)"
     user_stock_dilution: "inventory.txt (user-confirmed 2026-08-07: 50% w/w in DPG)"
     supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=2QK21856
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.0465; https://biolandes.com/wp-content/uploads/fiche-securite-P81182518000.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Olibanum Resinoid Absolute - Solid
   aliases: []
   cas:
@@ -858,12 +859,12 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Orange Peel EO
   aliases: []
-  cas:
+  cas: 8008-57-9
   smiles:
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 136.23)
   mw_g_mol: 136.23
-  density_25c_g_ml:
+  density_25c_g_ml: 0.844
   logp:
   functional_groups: []
   chirality:
@@ -890,6 +891,8 @@
   notes:
   provenance:
     user_in_inventory: inventory.txt
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8008-57-9; https://www.thegoodscentscompany.com/data/ex1033461.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.844; https://thegoodscentscompany.com/data/es1101551.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Oranger Crystals
   aliases:
   - Methyl beta-naphthyl ketone
@@ -1237,7 +1240,7 @@
 - canonical_name: Orris Butter 50% in EtOH
   aliases:
   - orris butter 50%
-  cas:
+  cas: 8002-73-1
   smiles:
   inchikey:
   mw_g_mol:
@@ -1268,13 +1271,14 @@
   notes: Orris butter diluted by mass to 50% in ethanol by the user; no purity assay inferred.
   provenance:
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8002-73-1; https://www.perfumersworld.com/view.php?pro_id=8IA00344'
 - canonical_name: Orris Concrete Orris Butter
   aliases: []
-  cas:
+  cas: 8002-73-1
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.93
   logp:
   functional_groups: []
   chirality:
@@ -1310,6 +1314,8 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9300; https://www.perfumersworld.com/view.php?pro_id=8IA00344; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8002-73-1; '
 - canonical_name: Orris F-TEC
   aliases: []
   cas:
@@ -1741,7 +1747,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: osmanthus absolute
   aliases: []
-  cas:
+  cas: 68917-05-5
   smiles:
   inchikey:
   mw_g_mol: 200.0
@@ -1781,9 +1787,10 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
+    cas: '22 Oct 2026 missing-data pass: stated; raw 68917-05-5; https://www.perfumersworld.com/view.php?pro_id=8ND00346'
 - canonical_name: oakmoss absolute
   aliases: []
-  cas:
+  cas: 90028-68-5
   smiles:
   inchikey:
   mw_g_mol: 400.0
@@ -1823,6 +1830,7 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
+    cas: '22 Oct 2026 missing-data pass: stated; raw 90028-68-5; https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Oakmoss%20extracts.pdf'
 
 - canonical_name: Osmanthus Absolute (volume grade)
   aliases:

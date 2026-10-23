@@ -114,7 +114,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Vanilla Absolute
   aliases: []
-  cas:
+  cas: 8024-06-4
   smiles:
   inchikey:
   mw_g_mol:
@@ -157,6 +157,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8024-06-4; '
 - canonical_name: Vanillin
   aliases:
   - vanillin
@@ -164,7 +165,7 @@
   smiles:
   inchikey:
   mw_g_mol: 152.2
-  density_25c_g_ml:
+  density_25c_g_ml: 1.056
   logp: 1.2
   functional_groups: []
   chirality:
@@ -219,6 +220,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 121-33-5 (https://www.thegoodscentscompany.com/data/rw1011712.html)'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.056; https://commonchemistry.cas.org/detail?cas_rn=121-33-5&search=121-33-5; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Veloutone
   aliases: []
   cas: '65443-14-3'
@@ -426,7 +428,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.075
   logp:
   functional_groups: []
   chirality:
@@ -456,6 +458,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 1.070 to 1.080; https://www.thegoodscentscompany.com/data/rw1002152.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Verdyl Propionate
   aliases: []
   cas:
@@ -917,7 +920,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.997
   logp:
   functional_groups: []
   chirality:
@@ -950,6 +953,7 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.979 to 1.015; https://www.thegoodscentscompany.com/data/rw1051731.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Violet F-TEC
   aliases:
   - VIOLET F-TEC
@@ -1037,7 +1041,7 @@
   smiles:
   inchikey:
   mw_g_mol: 220.0
-  density_25c_g_ml:
+  density_25c_g_ml: 0.9485
   logp: 4.0
   functional_groups:
   - natural_mixture
@@ -1082,6 +1086,7 @@
     composite_oav: engine.pipeline.natural_absolute_decomposition
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     user_in_inventory: inventory.txt
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.94700 to 0.95000; https://www.thegoodscentscompany.com/data/ab1019171.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Virgin Coconut Oil - Fixed Oil
   aliases: []
   cas:

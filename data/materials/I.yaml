@@ -309,7 +309,7 @@
   smiles:
   inchikey:
   mw_g_mol: 117.2
-  density_25c_g_ml:
+  density_25c_g_ml: 1.22
   logp: 2.1
   functional_groups: []
   chirality:
@@ -364,6 +364,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 120-72-9 (https://www.thegoodscentscompany.com/data/rw1006511.html)'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.22; https://pubchem.ncbi.nlm.nih.gov/compound/indole; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Indolene
   aliases: []
   cas:
@@ -762,11 +763,11 @@
 - canonical_name: Isobutyl Quinoline
   aliases:
   - ibq
-  cas:
+  cas: 65442-31-1
   smiles:
   inchikey:
   mw_g_mol: 185.3
-  density_25c_g_ml:
+  density_25c_g_ml: 1.012
   logp: 2.9
   functional_groups: []
   chirality:
@@ -812,6 +813,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 65442-31-1; https://www.perfumersworld.com/view.php?pro_id=9UP00247'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 1.008 to 1.016; https://www.perfumersworld.com/document-list.php?pro_id=9UP00247&tab=sds; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Isobutyl Salicylate
   aliases:
   - isobutyl salicylate
@@ -1193,7 +1196,7 @@
   smiles:
   inchikey:
   mw_g_mol: 200.0
-  density_25c_g_ml:
+  density_25c_g_ml: 0.901
   logp: 3.5
   functional_groups: []
   chirality:
@@ -1229,6 +1232,7 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9010; https://perfumersworld.com/view.php?pro_id=8NY23449; temperature as printed by source (often 20 C), not corrected to 25 C'
 
 - canonical_name: Isobutavan
   aliases:

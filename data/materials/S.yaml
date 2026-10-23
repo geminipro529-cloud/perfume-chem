@@ -1275,7 +1275,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.94
   logp: null
   functional_groups: []
   chirality: null
@@ -1305,14 +1305,15 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.94; https://www.perfumersworld.com/view.php?pro_id=6WX24054; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Sandalwood EO
   aliases:
   - sandalwood eo
-  cas: null
+  cas: 8006-87-9
   smiles: null
   inchikey: null
   mw_g_mol: 220.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.974
   logp: null
   functional_groups: []
   chirality: null
@@ -1339,6 +1340,8 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8006-87-9; https://www.thegoodscentscompany.com/data/es1010871.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.97000 to 0.97800; https://www.thegoodscentscompany.com/data/es1010871.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Sandalwood Essential Oil
   aliases: []
   cas: null
@@ -1741,11 +1744,11 @@
 - canonical_name: Scentenal
   aliases:
   - scentenal
-  cas: null
+  cas: 86803-90-9
   smiles: null
   inchikey: null
   mw_g_mol: 166.2
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.075
   logp: 2.0
   functional_groups: []
   chirality: null
@@ -1798,6 +1801,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 86803-90-9; https://www.perfumersworld.com/view.php?pro_id=4YM22431'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.075; https://www.perfumersworld.com/view.php?pro_id=4YM22431; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Seaweed F-TEC
   aliases:
   - SEAWEED F-TEC
@@ -1875,11 +1880,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Siam Benzoin
   aliases: []
-  cas: null
+  cas: 9000-72-0
   smiles: null
   inchikey: null
   mw_g_mol: 212.24
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.119
   logp: null
   functional_groups: []
   chirality: null
@@ -1906,6 +1911,8 @@
   provenance:
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    cas: '22 Oct 2026 missing-data pass: stated; raw 9000-72-0; https://thegoodscentscompany.com/data/rs1000281.html'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.108 to 1.130; https://www.scentree.co/en/Siam_benzoin_resinoid.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Skatole
   aliases:
   - skatole
@@ -3081,11 +3088,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Sweet Orange Essential Oil
   aliases: []
-  cas: null
+  cas: 8008-57-9
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.844
   logp: null
   functional_groups: []
   chirality: null
@@ -3115,6 +3122,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8008-57-9; https://www.thegoodscentscompany.com/msds/md100294.html; by name (Kenny 22 Oct: use the name when the MSR CAS is not good)'
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.84200 to 0.84600; https://www.thegoodscentscompany.com/msds/md100294.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: SWEET Vanilla F-TEC
   aliases:
   - SWEET VANILLA F-TEC
@@ -3272,7 +3281,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 154.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.891
   logp: 3.2
   functional_groups: []
   chirality: null
@@ -3290,6 +3299,8 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
+  provenance:
+    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.884 - 0.898 (spec); batch result 0.889; https://www.madarcorporation.com/spec-sheets/essential-oil/spike-lavender/Spike%20Lavender%20-%204512405%20All%20docs.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: 'Sandalwood Base 3X'
   aliases: ['sandalwood base x3', 'sandalwood base']
   cas: None
