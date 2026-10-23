@@ -61088,7 +61088,7 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": 0.5,
+    "odt": 0.3,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
@@ -61183,11 +61183,18 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 0.066,
+          "clp": 4.7
+        }
       }
     ],
     "mw": 236.4,
-    "vp": 0.066,
-    "clp": 4.7
+    "vp": 0.08,
+    "clp": 5.1
   },
   {
     "name": "Ambrofix Crystals (solid)",
@@ -61214,7 +61221,7 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": 0.5,
+    "odt": 0.3,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
@@ -61249,11 +61256,18 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 0.066,
+          "clp": 4.7
+        }
       }
     ],
     "mw": 236.4,
-    "vp": 0.066,
-    "clp": 4.7
+    "vp": 0.08,
+    "clp": 5.1
   },
   {
     "name": "Amyl Cinnamic Aldehyde (ACA)",

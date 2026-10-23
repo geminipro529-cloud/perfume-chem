@@ -4479,22 +4479,28 @@
   inchikey: null
   mw_g_mol: 236.4
   density_25c_g_ml: null
-  logp: 4.7
+  logp: 5.1
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.066
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.08
+  vp_source: RIFM_measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 0.5
+  odt_air_ppb: 0.3
   odt_eth_ppm: 0.005
   stevens_n: null
   or_targets: []
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  notes: 'Same molecule as the Ambrofix and Ambrox Super rows (ambroxide, CAS 6790-58-5), so the molecular data match them. The stock stays a separate record (the crystalline bottle); no substitution between bottles is implied.'
+  provenance:
+    logp: 'matched to the Ambrofix / Ambrox Super rows (23 Oct 2026): RIFM assessment log Kow 5.09 (RIFM 2013d), https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6790-58-5.pdf; replaces the superseded engine.skin_interaction 4.7'
+    vp_25c_pa: 'matched to the Ambrofix / Ambrox Super rows (23 Oct 2026): RIFM 0.054 Pa at 20 C measured (RIFM 1998d) x 1.51 (20 to 25 C) = 0.08 Pa; replaces the unsourced 0.066'
+    odt_air_ppb: 'matched to engine.odor_thresholds ambrofix / ambrox super (0.3 ppb, 23 Oct 2026); replaces the unsourced 0.5'
+    odt_eth_ppm: 'matches engine.odor_thresholds ambrofix / ambrox super (0.005)'
 
 - name: Allyl Cyclohexyl Propionate
   aliases:
