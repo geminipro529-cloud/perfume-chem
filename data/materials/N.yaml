@@ -791,7 +791,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'

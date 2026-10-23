@@ -511,7 +511,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC=CC(=O)C1C(C)C=CCC1(C)C, D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. RDKit MW 192.302 matches the YAML MW within 0.1. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC=CC(=O)C1C(C)C=CCC1(C)C, D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. RDKit MW 192.302 matches the YAML MW within 0.1. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'Structure stated in the 2026-10-23 wiring spec (output/_wire_spec_20261023.md section A), RDKit-canonicalised by D:\agent-cache\tools\chemprops.py, run 2026-10-23; RDKit MW 192.302 matches the YAML MW within 0.1'
 - canonical_name: Delta Decalactone
@@ -1336,7 +1336,7 @@
     density_25c_g_ml: 'ECHA about 0.979 g/cm3 at 20 C (20 C value); JECFA 0.972-0.977; mp 24 C. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'ESTIMATE kept: EPI Suite 3.94 Pa via TGSC. ECHA value DISPUTED: 100 Pa at 25 C (extrapolated, reliability 2), 25x the estimate and too high for a C10 aromatic tertiary alcohol boiling near 220 C; not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(C)(O)Cc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(C)(O)Cc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 100-86-7 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Dimethyl Benzyl Carbinyl Acetate
@@ -1688,7 +1688,7 @@
     density_25c_g_ml: 'ECHA 1.008 g/cm3 at 20 C (20 C value), neat material (Kenny''s stock is the PW 10% in DPG). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.11 Pa at 20 C; EPI estimate was 0.0588 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES O=CCCC=C1CC2CC1C1CCCC21 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES O=CCCC=C1CC2CC1C1CCCC21 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 30168-23-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Dynascone

@@ -2126,7 +2126,7 @@
   inchikey: null
   mw_g_mol: 154.25
   density_25c_g_ml: 0.93
-  logp: 2.5
+  logp: 2.98
   functional_groups: []
   chirality: null
   vp_25c_pa: 5.64
@@ -2158,8 +2158,8 @@
     density_25c_g_ml: 'TGSC specific gravity 0.930-0.936 @ 25 C, midpoint x 0.99705'
     vp_25c_pa: 'experimental-database value at 24 C on the EPI Suite page via TGSC (ep1011252), not an estimate'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC1=CCC(C(C)(C)O)CC1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
-    logp_source: 'rdkit-crippen-estimate'
+    logp: 'MEASURED log Kow 2.98: HSDB via PubChem CID 17100 Experimental Properties > LogP (ref 58), citing Li J, Perdue EM, Preprints of Papers Presented at the 209th ACS National Meeting, Anaheim CA, 1995, 35:134-7. Second measured value 3.28: SangsterLogP via PubChem (ref 105), citing Griffin S, Wyllie SG, Markham J, J Chromatogr A 1999;864(2):221-8 (RP-HPLC), doi:10.1016/s0021-9673(99)01009-2. Read 2026-10-23 from https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/17100/JSON?heading=LogP; replaces the RDKit Crippen estimate'
+    logp_source: 'HSDB (PubChem CID 17100): Li & Perdue 1995, 209th ACS National Meeting preprints 35:134-7'
     smiles: 'PubChem structure resolved from CAS 98-55-5 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Alpha-Male Concentratea
   aliases:
@@ -3716,7 +3716,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 104-21-2 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
@@ -4575,5 +4575,5 @@
     cas: 'PubChem record for CAS 77-83-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     smiles: 'PubChem structure resolved from CAS 77-83-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES CCOC(=O)C1OC1(C)c1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCOC(=O)C1OC1(C)c1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCOC(=O)C1OC1(C)c1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: rdkit-crippen-estimate

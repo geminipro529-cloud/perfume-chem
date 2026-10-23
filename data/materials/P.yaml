@@ -396,7 +396,7 @@
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1003972.html; PW 1PF01952 page'
     vp_25c_pa: 'ESTIMATE: EPI Suite (solid basis) via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026); white crystals, mp 74-76 C; no density found'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES Cc1ccc(OC(=O)Cc2ccccc2)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES Cc1ccc(OC(=O)Cc2ccccc2)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 101-94-0 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Para-Methyl Acetophenone
@@ -989,7 +989,7 @@
     density_25c_g_ml: 'ECHA 0.963 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study (Nectaryl, 95962-14-4) 0.009 Pa at 20 C; EPI estimate was 0.049 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC1=CCC(C(C)CC2CCCC2=O)CC1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC1=CCC(C(C)CC2CCCC2=O)CC1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 95962-14-4 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Pear Valerate
@@ -1474,7 +1474,7 @@
     density_25c_g_ml: 'ECHA 1.05 g/cm3 at 20 C (20 C value); TGSC/Perflavory SG 1.042-1.048. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.77 Pa at 25 C (EPI estimate 0.701 Pa agrees). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(C)C(=O)OCCOc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(C)C(=O)OCCOc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 103-60-6 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Phenyl Acetaldehyde
@@ -1686,7 +1686,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(=O)OC(C)(C)CCc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(=O)OC(C)(C)CCc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 103-07-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES CC(=O)OC(C)(C)CCc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
@@ -3673,6 +3673,6 @@
   provenance:
     cas: 'PubChem CID 7476 (4''-methoxyacetophenone)'
     vp_25c_pa: 'MEASURED: 6.44E-03 mmHg at 25 C (Jones, J Chem Eng Data 5:196, 1960) via PubChem CID 7476; solid, mp 38 C, so no 25 C liquid density (1.0818 g/cm3 at 41 C, CRC)'
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES COc1ccc(C(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. A 2026-10-23 search found no measured log Kow (RIFM/TGSC gave only estimates)'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES COc1ccc(C(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 100-06-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
