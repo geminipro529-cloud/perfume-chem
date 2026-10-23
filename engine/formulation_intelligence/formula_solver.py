@@ -46,6 +46,7 @@ from engine.research.composition_planner import (
     _hard_cap_ul,
     _ifra_cap_ul,
 )
+from future_modules._shared_types import NoteTier, get_note_tier_from_vp
 
 
 @dataclass(frozen=True, slots=True)
@@ -1152,7 +1153,8 @@ def _without_trace_grades(
     here whose name carries every word of the trace stock's name, and that
     no other stock the brief names is (``reserved``: "lavender eo" beside
     "Lavender EO (BONTAUX SAS)" keeps the 1% grade). A trace stock with no
-    stronger owned grade stays eligible.
+    stronger owned grade stays eligible, and so does a fast top material's
+    (``_is_fast_top``): its weak grade is the dose, not a handling dilution.
     """
 
     strong = [
@@ -1166,7 +1168,24 @@ def _without_trace_grades(
         row for row in ranked
         if float(row[1].candidate.stock.dilution) >= _TRACE_STOCK_FRACTION
         or not any(frozenset(_chemical_identity(row[1]).split()) <= words for words in strong)
+        or _is_fast_top(row[1])
     ]
+
+
+def _is_fast_top(capability: MaterialCapability) -> bool:
+    """The material's vapour pressure is in the top note tier (VP_NOTE_TIERS).
+
+    At 50 Pa or more at 25 C a material is a fast top note, owned at a weak
+    grade because a little is enough: at a lead's share its 10% grade carries
+    ten times the active volume of its 1% grade, and a fruit facet led that
+    way overdoses the opening with ester. Owned trace grades this keeps:
+    Hexyl Acetate (194 Pa) and Benzaldehyde (120 Pa). A heart oil such as
+    Lavender EO (3.5 Pa) or Rose Oxide (5.3 Pa) still leads on its stronger
+    grade.
+    """
+
+    vp = capability.candidate.profile.vp
+    return vp is not None and get_note_tier_from_vp(float(vp)) is NoteTier.TOP
 
 
 def _rank_for_state(

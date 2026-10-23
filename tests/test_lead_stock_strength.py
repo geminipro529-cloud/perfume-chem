@@ -17,13 +17,13 @@ from engine.formulation_intelligence import formula_solver as fs
 from engine.formulation_intelligence.formula_design_runtime import design_formula
 
 
-def _cap(name, dilution, *, stock_id=None, design_ready=True):
+def _cap(name, dilution, *, stock_id=None, design_ready=True, vp=None):
     return SimpleNamespace(
         identity_name=name,
         stock_id=stock_id or f"{name}@{dilution}",
         candidate=SimpleNamespace(
             stock=SimpleNamespace(dilution=dilution),
-            profile=SimpleNamespace(synergies=()),
+            profile=SimpleNamespace(synergies=(), vp=vp),
         ),
         character_map={},
         note="heart",
@@ -91,9 +91,44 @@ def test_two_named_lavender_grades_each_keep_a_design_ready_stock():
 
 
 def test_a_same_name_stronger_grade_also_counts(monkeypatch):
-    ranked = [(9.2, _cap("Hexyl Acetate", .01)), (9.1, _cap("Hexyl Acetate", .1))]
+    ranked = [(9.2, _cap("Rose Oxide", .01, vp=5.3)), (9.1, _cap("Rose Oxide", .1, vp=5.3))]
+    out = _ranked(_role("facet_rose"), ranked, monkeypatch)
+    assert [(c.identity_name, c.candidate.stock.dilution) for c in out] == [("Rose Oxide", .1)]
+
+
+@pytest.mark.parametrize("vp", [50.0, 194.0])
+def test_a_fast_top_lead_keeps_its_weak_grade(monkeypatch, vp):
+    ranked = [(9.2, _cap("Hexyl Acetate", .01, vp=vp)), (9.1, _cap("Hexyl Acetate", .1, vp=vp))]
     out = _ranked(_role("facet_fruit"), ranked, monkeypatch)
-    assert [(c.identity_name, c.candidate.stock.dilution) for c in out] == [("Hexyl Acetate", .1)]
+    assert [(c.identity_name, c.candidate.stock.dilution) for c in out] == [
+        ("Hexyl Acetate", .01), ("Hexyl Acetate", .1),
+    ]
+
+
+def test_a_heart_tier_lead_still_skips_its_weak_grade(monkeypatch):
+    # Just under the top tier, and the lavender oils' own profile values.
+    ranked = [(9.2, _cap("Hexyl Acetate", .01, vp=49.9)), (9.1, _cap("Hexyl Acetate", .1, vp=49.9))]
+    assert [c.candidate.stock.dilution for c in _ranked(_role("facet_fruit"), ranked, monkeypatch)] == [.1]
+    ranked = [(15.2, _cap("Lavender EO", .01, vp=3.5)), (15.1, _cap("Lavender EO (BONTAUX SAS)", 1.0, vp=22.0))]
+    assert _top(_role("facet_aromatic_lavender"), ranked, monkeypatch) == ["Lavender EO (BONTAUX SAS)"]
+
+
+def test_the_owned_fast_top_grades_are_the_ones_kept():
+    """Read from the owned stock: which trace grades with a stronger owned
+    grade the top-tier test keeps. A heart or base material is not one."""
+
+    from engine.formulation_intelligence.material_capability_index import (
+        build_material_capability_index,
+    )
+
+    capabilities = build_material_capability_index().capabilities
+    trace = {
+        c.identity_name for c in capabilities
+        if c.design_ready and float(c.candidate.stock.dilution) < fs._TRACE_STOCK_FRACTION
+        and fs._is_fast_top(c)
+    }
+    assert {"Hexyl Acetate", "Benzaldehyde"} <= trace
+    assert not trace & {"Lavender EO", "Rose Oxide", "Beta Ionone", "Ethyl Maltol"}
 
 
 def test_a_trace_role_keeps_its_dilution(monkeypatch):
@@ -132,3 +167,19 @@ def test_the_fougere_lavender_lead_carries_its_share(mode):
     for row in leads:
         assert "lavender" in row["identity_name"].casefold()
         assert float(row["stock_fraction_decimal"]) >= .05, row["identity_name"]
+
+
+@pytest.mark.parametrize("mode", ["FAST_SKETCH", "DEEP_COMPOSE"])
+def test_a_fruit_lead_on_hexyl_acetate_keeps_the_one_percent_grade(mode):
+    result = design_formula(idea="A pear and apple fruity floral over a warm balsamic base.",
+                            liquid_concentrate_ul_decimal="6000", design_mode=mode)
+    # The solved formula and the structural control; a stock-alternative
+    # variant steps off the control's stocks and may take the 10% grade.
+    formulas = [result["optimized_formula"], result["design_variants"][0]["formula"]]
+    leads = [
+        row for formula in formulas for row in formula["rows"]
+        if row["slot"] == "facet_fruit" and row["identity_name"] == "Hexyl Acetate"
+    ]
+    assert len(leads) == 2
+    for row in leads:
+        assert float(row["stock_fraction_decimal"]) < .05, row["stock_label"]
