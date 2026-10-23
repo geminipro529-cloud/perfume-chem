@@ -956,7 +956,7 @@
   inchikey:
   mw_g_mol: 220.36
   density_25c_g_ml: 0.963
-  logp:
+  logp: 4.344
   functional_groups: []
   chirality:
   vp_25c_pa: 0.009
@@ -984,6 +984,7 @@
     density_25c_g_ml: 'ECHA 0.963 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study (Nectaryl, 95962-14-4) 0.009 Pa at 20 C; EPI estimate was 0.049 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
+    logp: '23 Oct 2026 second missing-data pass: labelled estimate (Kenny chose Fill estimates, 13 Oct); raw 4.344; https://www.thegoodscentscompany.com/data/rw1052381.html'
 - canonical_name: Pear Valerate
   aliases:
   - peranat
@@ -1601,7 +1602,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9595
   logp: null
   functional_groups: []
   chirality: null
@@ -1638,6 +1639,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '22 Oct 2026 missing-data pass: stated; raw 103-05-9; https://www.ventos.com/index.php/en/producto/1967/DIMETHYL+PHENYL+ETHYL+CARBINOL/223'
+    density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 0.957-0.962; https://www.thegoodscentscompany.com/data/rw1016711.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Phenyl Ethyl Dimethyl Carbinyl Acetate
   aliases: []
   cas: null
@@ -3630,7 +3632,7 @@
   inchikey:
   mw_g_mol: 150.17
   density_25c_g_ml:
-  logp:
+  logp: 1.74
   functional_groups: []
   chirality:
   vp_25c_pa: 0.86
@@ -3655,3 +3657,4 @@
   provenance:
     cas: 'PubChem CID 7476 (4''-methoxyacetophenone)'
     vp_25c_pa: 'MEASURED: 6.44E-03 mmHg at 25 C (Jones, J Chem Eng Data 5:196, 1960) via PubChem CID 7476; solid, mp 38 C, so no 25 C liquid density (1.0818 g/cm3 at 41 C, CRC)'
+    logp: '23 Oct 2026 second missing-data pass: stated; raw 1.74; https://www.perflavory.com/docs/doc1000111.html'

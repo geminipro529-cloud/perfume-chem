@@ -751,7 +751,7 @@
 - canonical_name: juniper berry eo
   aliases:
   - Juniper Berry EO
-  cas: null
+  cas: 8012-91-7
   smiles: null
   inchikey: null
   mw_g_mol: 136.2
@@ -774,6 +774,7 @@
   user_in_inventory: true
   provenance:
     density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.8640; https://www.perfumersworld.com/view.php?pro_id=7KH00262; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 8012-91-7; https://www.perfumersworld.com/view.php?pro_id=7KH00262'
 
 - canonical_name: Jasmine Sambac Blossoms
   aliases:

@@ -1002,7 +1002,7 @@
 - canonical_name: Leafovert
   aliases:
   - leafovert
-  cas: null
+  cas: 67633-96-9
   smiles: null
   inchikey: null
   mw_g_mol: 154.3
@@ -1055,6 +1055,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9650; https://www.perfumersworld.com/view.php?pro_id=4GI15439; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 67633-96-9; https://www.perfumersworld.com/view.php?pro_id=4GI15439'
 - canonical_name: Leather F-TEC
   aliases:
   - LEATHER F-TEC
@@ -1239,7 +1240,7 @@
   aliases:
   - Lemon FCF oil Sicilian
   - lemon fcf sicilian
-  cas: null
+  cas: 8008-56-8
   smiles: null
   inchikey: null
   mw_g_mol: 136.7
@@ -1276,6 +1277,7 @@
     odt_eth_ppm: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 8008-56-8; https://www.perfumersworld.com/view.php?pro_id=7CC24029'
 - canonical_name: Lemon Fleuressence
   aliases: []
   cas: null

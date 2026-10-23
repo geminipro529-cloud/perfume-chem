@@ -442,7 +442,7 @@
   inchikey:
   mw_g_mol: 194.32
   density_25c_g_ml: 0.961
-  logp:
+  logp: 3.7
   functional_groups: []
   chirality:
   vp_25c_pa: 0.67
@@ -474,6 +474,7 @@
     density_25c_g_ml: 'TGSC specific gravity 0.961-0.967 @ 25 C (https://www.thegoodscentscompany.com/data/rw1025111.html), midpoint x 0.99705; PW prints 0.9610'
     vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: '23 Oct 2026 second missing-data pass: stated; raw 3.7; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/decatone'
 - canonical_name: Delta Damascone
   aliases:
   - delta damascone
@@ -1300,7 +1301,7 @@
   inchikey:
   mw_g_mol: 150.22
   density_25c_g_ml: 0.979
-  logp:
+  logp: 2.269
   functional_groups: []
   chirality:
   vp_25c_pa: 3.94
@@ -1332,6 +1333,7 @@
     density_25c_g_ml: 'ECHA about 0.979 g/cm3 at 20 C (20 C value); JECFA 0.972-0.977; mp 24 C. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'ESTIMATE kept: EPI Suite 3.94 Pa via TGSC. ECHA value DISPUTED: 100 Pa at 25 C (extrapolated, reliability 2), 25x the estimate and too high for a C10 aromatic tertiary alcohol boiling near 220 C; not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: '23 Oct 2026 second missing-data pass: labelled estimate (Kenny chose Fill estimates, 13 Oct); raw 2.269; http://www.perflavory.com/docs/doc1004412.html'
 - canonical_name: Dimethyl Benzyl Carbinyl Acetate
   aliases: []
   cas: 151-05-3
@@ -1644,7 +1646,7 @@
   inchikey:
   mw_g_mol: 204.31
   density_25c_g_ml: 1.008
-  logp:
+  logp: 4.1
   functional_groups: []
   chirality:
   vp_25c_pa: 0.11
@@ -1680,6 +1682,7 @@
     density_25c_g_ml: 'ECHA 1.008 g/cm3 at 20 C (20 C value), neat material (Kenny''s stock is the PW 10% in DPG). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.11 Pa at 20 C; EPI estimate was 0.0588 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: '23 Oct 2026 second missing-data pass: stated; raw 4.1; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/dupical'
 - canonical_name: Dynascone
   aliases:
   - dynascone

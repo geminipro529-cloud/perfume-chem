@@ -1504,7 +1504,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: rose de mai absolute
   aliases: []
-  cas: null
+  cas: 8007-01-0
   smiles: null
   inchikey: null
   mw_g_mol: 220.0
@@ -1544,6 +1544,7 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 8007-01-0; https://perfumersworld.com/view.php?pro_id=8RM00395'
 - canonical_name: Rose Essential Oil
   aliases:
   - Rose Essential Oil (Rosa Damascena, India)

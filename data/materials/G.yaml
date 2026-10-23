@@ -922,7 +922,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 182.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.0205
   logp: null
   functional_groups: []
   chirality: null
@@ -963,6 +963,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 19700-21-1 (https://www.thegoodscentscompany.com/data/rw1454691.html)'
+    density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 1.018 to 1.023; https://www.thegoodscentscompany.com/data/rw1019861.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Geraniol
   aliases:
   - geraniol
@@ -1762,7 +1763,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 157.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.885
   logp: 3.0
   functional_groups: []
   chirality: null
@@ -1795,6 +1796,7 @@
     odt_eth_ppm: engine.odor_thresholds
     user_in_inventory: inventory.txt
     cas: '22 Oct 2026 missing-data pass: stated; raw 8000-46-2; https://www.thegoodscentscompany.com/data/es1005471.html'
+    density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 0.860 to 0.910; https://www.nhrorganicoils.com/uploads/20250814165547e_Geranium_Spec.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Grapefruit FCF
   aliases:
   - grapefruit fcf

@@ -499,7 +499,7 @@
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 190.3, corrected to 192.26)
   mw_g_mol: 190.28
-  density_25c_g_ml:
+  density_25c_g_ml: 0.955
   logp: 3.3
   functional_groups: []
   chirality:
@@ -548,6 +548,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '22 Oct 2026 missing-data pass: stated; raw 67634-15-5; https://www.perfumersworld.com/view.php?pro_id=4YM00191'
+    density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 0.951-0.959; https://www.perflavory.com/docs/doc1005231.html (mirror of https://www.thegoodscentscompany.com/data/rw1005231.html) ; https://www.perfumersworld.com/; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Florhydral
   aliases:
   - florhydral

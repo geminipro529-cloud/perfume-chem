@@ -431,7 +431,7 @@
   - heliotropal
   - piperonal
   - HELIOTROPAL
-  cas: null
+  cas: 120-57-0
   smiles: null
   inchikey: null
   mw_g_mol: 150.13
@@ -471,6 +471,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 120-57-0; https://www.perfumersworld.com/view.php?pro_id=6VN21924'
 - canonical_name: Heliotrope Base - Heliotropin Replacement
   aliases: []
   cas: null
@@ -1005,7 +1006,7 @@
   logp: 4.65
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 0.032
   vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
@@ -1035,6 +1036,7 @@
     cas: '22 Oct 2026 missing-data pass: stated; raw 28219-60-5; https://www.perflavory.com/docs/doc1013511.html'
     mw_g_mol: '22 Oct 2026 missing-data pass: stated; raw 194.31754; https://www.perflavory.com/docs/doc1013511.html'
     logp: '22 Oct 2026 missing-data pass: stated; raw 4.65; https://www.perflavory.com/docs/doc1013511.html'
+    vp_25c_pa: '23 Oct 2026 second missing-data pass: stated; raw 0.032; https://assets.takasago.com/prod/default/s3fs-public/2022-02/19_Hindinol.pdf'
 - canonical_name: Ho Essential Oil
   aliases: []
   cas: null

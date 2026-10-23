@@ -766,7 +766,7 @@
   logp: 3.98
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 3.33
   vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
@@ -796,6 +796,7 @@
     mw_g_mol: '22 Oct 2026 missing-data pass: stated; raw 196.29; https://www.perflavory.com/docs/doc1033552.html'
     logp: '22 Oct 2026 missing-data pass: stated; raw 3.98; https://www.perflavory.com/docs/doc1033552.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.905 to 0.914; https://thegoodscentscompany.com/data/rw1033552.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    vp_25c_pa: '23 Oct 2026 second missing-data pass: stated; raw 3.33; https://www.scentree.co/en/Neryl_acetate.html'
 - canonical_name: NEW MOWN HAY F-TEC
   aliases: []
   cas: null

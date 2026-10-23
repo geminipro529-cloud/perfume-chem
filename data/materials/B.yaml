@@ -1796,7 +1796,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Birch Tar Rectified
   aliases: []
-  cas: null
+  cas: 8001-88-5
   smiles: null
   inchikey: null
   mw_g_mol: 124.1
@@ -1839,6 +1839,7 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 8001-88-5; https://www.perfumersworld.com/view.php?pro_id=7TP00822'
 - canonical_name: Bitter Orange Essential Oil
   aliases: []
   cas: null
