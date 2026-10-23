@@ -424,7 +424,7 @@
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.93700 to 0.94500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1002461.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: Verdyl Acetate
   aliases: []
-  cas:
+  cas: 5413-60-5
   smiles:
   inchikey:
   mw_g_mol:
@@ -459,6 +459,7 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 1.070 to 1.080; https://www.thegoodscentscompany.com/data/rw1002152.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '23 Oct 2026 deep-research pass (3-0 verified): RIFM assessment uses 5413-60-5 (tricyclodecenyl acetate; synonyms Verdyl acetate, Jasmacyclene, Herbaflorat) as the primary CAS and covers 2500-83-6 and 54830-99-8 as isomers of the same material, all C12H16O2; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5413-60-5.pdf'
 - canonical_name: Verdyl Propionate
   aliases: []
   cas:
@@ -916,7 +917,7 @@
 - canonical_name: Vetiveryl Acetate
   aliases:
   - vetiveryl acetate
-  cas:
+  cas: 62563-80-8
   smiles:
   inchikey:
   mw_g_mol:
@@ -954,6 +955,7 @@
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.979 to 1.015; https://www.thegoodscentscompany.com/data/rw1051731.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '23 Oct 2026 deep-research pass (3-0 verified): IFRA_STD_002 ''Acetylated Vetiver oil'' lists CAS 84082-84-8, 68917-34-0, 73246-97-6 and 62563-80-8 and names ''Vetyveryl acetate'' as a commercial synonym; 62563-80-8 is also on the supplier page. 117-98-6 names a single chemical, not the acetylated oil (SCCS/1599/18), and was dropped after the 44th Amendment; https://IFRAfragrance.org/standards/IFRA_STD_002.pdf'
 - canonical_name: Violet F-TEC
   aliases:
   - VIOLET F-TEC

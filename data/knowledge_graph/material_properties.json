@@ -83268,7 +83268,7 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -83278,7 +83278,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt": null,
@@ -83349,10 +83350,17 @@
         "fields": {
           "vp": 0.701
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "clp": null
+        }
       }
     ],
     "mw": 208.26,
-    "vp": 0.77
+    "vp": 0.77,
+    "clp": 3.2
   },
   {
     "name": "Velvione",

@@ -1434,7 +1434,7 @@
   inchikey: null
   mw_g_mol: 208.26
   density_25c_g_ml: 1.05
-  logp: null
+  logp: 3.2
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.77
@@ -1466,6 +1466,7 @@
     density_25c_g_ml: 'ECHA 1.05 g/cm3 at 20 C (20 C value); TGSC/Perflavory SG 1.042-1.048. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.77 Pa at 25 C (EPI estimate 0.701 Pa agrees). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: '23 Oct 2026 deep-research pass (3-0 verified): RIFM fragrance ingredient safety assessment for CAS 103-60-6 reports measured log Kow 3.2 at 24 C (RIFM 1994b); EPI Suite estimate 3.01 not used; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-60-6.pdf'
 - canonical_name: Phenyl Acetaldehyde
   aliases:
   - Phenyl acetaldehyde
