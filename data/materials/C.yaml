@@ -657,6 +657,7 @@
 - canonical_name: Caraway Seed Essential Oil
   aliases:
   - "Caraway Seed Oil"
+  - "Caraway Seed EO"
   cas: null
   smiles: null
   inchikey: null
@@ -1564,7 +1565,8 @@
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
     user_in_inventory: inventory.txt
 - canonical_name: Cedarwood Chinese Essential Oil
-  aliases: []
+  aliases:
+  - "Cedarwood EO (China; species unspecified)"
   cas: null
   smiles: null
   inchikey: null
@@ -2729,6 +2731,7 @@
 - canonical_name: Cinnamon Bark EO
   aliases:
   - cinnamon bark eo
+  - "Cinnamon Bark EO (Telvada)"
   cas: null
   smiles: null
   inchikey: null

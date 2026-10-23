@@ -994,7 +994,8 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Aldehyde C-16 Ethyl Methyl Phenyl Glycidate
-  aliases: []
+  aliases:
+  - "Aldehyde C16 EMPG"
   cas: '77-83-8'
   smiles: null
   inchikey: null
@@ -1622,6 +1623,7 @@
 - canonical_name: Allyl Amyl Glycolate
   aliases:
   - allyl amyl glycolate
+  - "Allyl Amyl Glycolate (AAG)"
   cas: '67634-00-8'
   smiles: null
   inchikey: null
