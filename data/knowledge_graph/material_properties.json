@@ -75668,11 +75668,19 @@
         "fields": {
           "vp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 174.2,
+          "vp": 7.3,
+          "clp": 1.0
+        }
       }
     ],
-    "mw": 174.2,
-    "vp": 7.3,
-    "clp": 1.0,
+    "mw": 188.22,
+    "vp": 7.95,
+    "clp": 1.72,
     "note": "unassigned",
     "role": "unassigned",
     "texture": "",
@@ -76164,11 +76172,17 @@
         "fields": {
           "vp": 0.133
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 4.007
+        }
       }
     ],
     "mw": 236.35,
     "vp": 0.242,
-    "clp": 4.007,
+    "clp": 3.8,
     "note": "unassigned",
     "role": "unassigned",
     "texture": "",
@@ -77712,11 +77726,18 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 387.0,
+          "clp": 2.667
+        }
       }
     ],
     "mw": 144.21,
-    "vp": 387.0,
-    "clp": 2.667,
+    "vp": 200.0,
+    "clp": 2.7,
     "note": "unassigned",
     "role": "unassigned",
     "texture": "",
@@ -82521,10 +82542,16 @@
         "fields": {
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 0.67
+        }
       }
     ],
     "mw": 194.32,
-    "vp": 0.67,
+    "vp": 7.08,
     "clp": 3.7
   },
   {

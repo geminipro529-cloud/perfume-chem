@@ -1004,10 +1004,10 @@
   inchikey:
   mw_g_mol: 144.21
   density_25c_g_ml:
-  logp: 2.667
+  logp: 2.7
   functional_groups: []
   chirality:
-  vp_25c_pa: 387.0
+  vp_25c_pa: 200.0
   vp_source: TGSC_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
@@ -1037,8 +1037,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://scentspiracy.com/fragrance-ingredients/p/manzanate and https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "CAS No.: 39255-32-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "Molecular weight 144.21" (C8H16O2) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    logp: 'ESTIMATE: TGSC "logP (o/w): 2.667 (est)"; https://www.perflavory.com/docs/doc1006801.html (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
-    vp_25c_pa: 'ESTIMATE: TGSC "2.906000 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 387 Pa; https://www.perflavory.com/docs/doc1006801.html (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    logp: '23 Oct 2026 source check: Givaudan product page ''Log Pow 2,7''; replaces the TGSC estimate 2.667; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate'
+    vp_25c_pa: '23 Oct 2026 source check: Givaudan product page ''Vapour pressure 1.9997 hPa'' = 200 Pa, temperature not printed (Givaudan''s other pages state 25 C); replaces the TGSC estimate 387 Pa; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate'
 - canonical_name: Maple Lactone
   aliases:
   - maple lactone

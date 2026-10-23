@@ -1532,7 +1532,7 @@
   inchikey: null
   mw_g_mol: 236.35
   density_25c_g_ml: 1.0089
-  logp: 4.007
+  logp: 3.8
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.242
@@ -1565,9 +1565,9 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1492991.html; "CAS Number: 68901-32-6"; the isomer mixture also carries "94087-23-7 (isomeric mixture)" (https://www.scentspiracy.com/fragrance-ingredients/p/glycolierral) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1492991.html; "Molecular Weight: 236.35468000", calculated from C15H24O2 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    logp: 'ESTIMATE: TGSC 4.007 (est); scentspiracy "Log Pow: 3.8" (method not stated) agrees within 0.5 (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
     vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00181 mm Hg @ 25 C = 0.242 Pa (https://www.thegoodscentscompany.com/episys/ep1492991.html); scentspiracy 0.24 Pa @ 25 C agrees; TGSC datasheet 0.133 Pa (est) is low (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.00886; https://perfumersupplyhouse.com/wp-content/uploads/2020/10/MSDS-GLYCOLIERRAL-1.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
+    logp: '23 Oct 2026 source check: Givaudan product page ''Log Pow 3,8''; replaces the TGSC estimate 4.007; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/glycolierral'
 - canonical_name: Gourmande F-TEC
   aliases:
   - GOURMANDE F-TEC

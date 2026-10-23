@@ -445,7 +445,7 @@
   logp: 3.7
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.67
+  vp_25c_pa: 7.08
   vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
@@ -472,9 +472,9 @@
   provenance:
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1025111.html; PW 4CF19148 page'
     density_25c_g_ml: 'TGSC specific gravity 0.961-0.967 @ 25 C (https://www.thegoodscentscompany.com/data/rw1025111.html), midpoint x 0.99705; PW prints 0.9610'
-    vp_25c_pa: 'ESTIMATE: EPI Suite via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: '23 Oct 2026 second missing-data pass: stated; raw 3.7; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/decatone'
+    vp_25c_pa: '23 Oct 2026 source check: Givaudan product page ''Vapour pressure 0.0708 hPa (25°C)'' = 7.08 Pa; replaces the EPI Suite estimate 0.67 Pa; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/decatone'
 - canonical_name: Delta Damascone
   aliases:
   - delta damascone
