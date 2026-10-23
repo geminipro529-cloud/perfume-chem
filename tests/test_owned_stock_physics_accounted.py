@@ -53,7 +53,8 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Rhubofix": (("odt",), _NO_AIR_ODT),
     "Veloutone": (("odt",), _NO_AIR_ODT),
     # Filled 2026-10-23 with RDKit MW and a labelled Crippen log P; still no air threshold.
-    "Aldehyde C16 EMPG": (("odt", "vp"), _NO_AIR_ODT_1023 + "; chemprops found no measured-data VP fit"),
+    # Merged 2026-10-23 into the older entry, whose VP is a labelled TGSC estimate.
+    "Aldehyde C16 EMPG": (("odt",), _NO_AIR_ODT_1023),
     "Canthoxal": (("odt",), _NO_AIR_ODT_1023),
     "Cedroxyde": (("odt",), _NO_AIR_ODT_1023),
     "Citronellyl Acetate": (("odt",), _NO_AIR_ODT_1023),
