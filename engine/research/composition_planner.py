@@ -1380,8 +1380,13 @@ def _preference_rank(candidate: Candidate, role: RoleSpec) -> int | None:
     return None
 
 
+# A CAS number in parentheses names the same material, not another one:
+# "Vetikon (7403-42-1)" is the owned Vetikon's design-only twin.
+_CAS_IN_PARENTHESES = re.compile(r"\(\s*\d{2,7}-\d{2}-\d\s*\)")
+
+
 def _grade_identity(candidate: Candidate) -> str:
-    return _key(candidate.stock.identity_name or candidate.stock.name)
+    return _key(_CAS_IN_PARENTHESES.sub(" ", candidate.stock.identity_name or candidate.stock.name))
 
 
 def _owned_grade_ranks(candidates: Sequence[Candidate], role: RoleSpec) -> dict[str, int | None]:

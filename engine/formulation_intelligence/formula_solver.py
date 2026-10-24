@@ -87,10 +87,15 @@ class _BeamState:
         return dict(self.group_counts)
 
 
+# A CAS number in parentheses names the same material, not another one:
+# "Vetikon (7403-42-1)" is the owned Vetikon's design-only twin.
+_CAS_IN_PARENTHESES = re.compile(r"\(\s*\d{2,7}-\d{2}-\d\s*\)")
+
+
 def _chemical_identity(capability: MaterialCapability) -> str:
     """Aggregate alternate stock preparations of the same design identity."""
 
-    return _identity_key(capability.identity_name)
+    return _identity_key(_CAS_IN_PARENTHESES.sub(" ", capability.identity_name))
 
 
 def _identity_key(name: str) -> str:

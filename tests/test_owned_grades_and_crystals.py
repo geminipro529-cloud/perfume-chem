@@ -269,6 +269,40 @@ def test_a_capsule_preference_for_an_unowned_grade_passes_to_the_owned_grade():
     ]
 
 
+_OWNED_VETIKON = "inventory:v5:135f51f25d430bfd4f99"
+_VETIKON_CAS_TWIN = "inventory:text-design-only:b2adf14551e32246c0e3"  # "Vetikon (7403-42-1)"
+
+
+def test_a_brief_naming_vetikon_gets_the_owned_vetikon_once():
+    # The design-only "Vetikon (7403-42-1)" stock is the owned Vetikon with
+    # its CAS number in the name; keyed on the raw name it was a second
+    # material, the brief's anchor, beside the owned Vetikon.
+    from engine.research.formula_design import design_inventory_formula
+
+    result = design_inventory_formula(idea="a vetiver with vetikon", max_materials=8)
+    rows = [
+        row for row in result["optimized_formula"]["rows"]
+        if "vetikon" in row["identity_name"].casefold()
+    ]
+    assert [row["stock_id"] for row in rows] == [_OWNED_VETIKON], rows
+    assert _capabilities()[_OWNED_VETIKON].execution_ready
+    assert not _capabilities()[_VETIKON_CAS_TWIN].execution_ready
+
+
+def test_the_planner_reads_a_cas_numbered_grade_as_its_material():
+    from engine.research import composition_planner as cp
+
+    twin = _planner_candidate("Vetikon (7403-42-1)", "Vetikon (7403-42-1) (neat)", owned=False, explicit=True)
+    owned = _planner_candidate("Vetikon", "Vetikon (neat)", owned=True, explicit=True)
+    assert cp._grade_identity(twin) == cp._grade_identity(owned)
+    ranked = [(20.0, twin), (19.0, owned)]
+    assert [c.stock.stock_id for _s, c in cp._without_unowned_grades(ranked)] == ["Vetikon (neat)"]
+    # Only a CAS number goes: an origin in parentheses still names another stock.
+    haiti = _planner_candidate("Vetiver EO (Haiti)", "Vetiver EO (Haiti)", owned=True)
+    plain = _planner_candidate("Vetiver EO", "Vetiver EO", owned=False)
+    assert cp._grade_identity(haiti) != cp._grade_identity(plain)
+
+
 def test_guard_a_grade_the_brief_names_is_kept_beside_an_owned_grade_it_does_not():
     from engine.research import composition_planner as cp
 
