@@ -2202,6 +2202,12 @@ NAMED_NOTE_FLOOR_SHARE = Decimal("0.40")
 # volume times its stock strength (a functional carrier counts 0); weighed
 # solids count 1 mg as 1 uL in the total but are never cut for it.
 ROW_ACTIVE_CEILING_SHARE = Decimal("0.40")
+# A row the bulk fallback would not release (an explicit restraint share) may
+# still take a lead's excess over the ceiling, but at most doubling its design
+# dose (``_hold_active_ceiling``); a generic bridge, layer or accent slot never.
+# Its design dose is its design cap, or the dose an earlier step (the floors)
+# gave it when that is more.
+CEILING_ABSORB_MAX_FACTOR = 2
 # The release gate counts a row as long-lasting below this vapour pressure at
 # 25 C (gates.TENACITY_LONG_LASTING_VP_25C_PA; a test pins the two equal).  The
 # planner reads the gate's own reference VP through material_resolver rather
@@ -3209,17 +3215,22 @@ def _hold_active_ceiling(
     A free row above ROW_ACTIVE_CEILING_SHARE of the active oil (``solid_active``
     is the weighed rows' part of it) gives the least volume that brings it to
     its ceiling to the other free rows, in proportion to their design caps and
-    never past their own ceilings: first within the design caps, then within
-    the firm caps for the rows the bulk fallback's last role-cap stage releases
-    (``_releases_to_fill`` at stage 2: never a generic bridge, layer or accent
-    slot, a role with an explicit restraint share, or a row with an identity
-    hard cap or normal-use ceiling), each row pushed past its design cap named
-    in a ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING hold, or
-    SCREENING_DEFAULT_EXCEEDED_FOR_ACTIVE_CEILING when it passed its screening
-    default (the total was already full).  A named row gives to the
+    never past their own ceilings, in three tiers: first within the design
+    caps; then within the firm caps for the rows the bulk fallback's last
+    role-cap stage releases (``_releases_to_fill`` at stage 2: no generic
+    bridge, layer or accent slot, role with an explicit restraint share, or
+    row with an identity hard cap or normal-use ceiling); then the other rows
+    that are no generic bridge, layer or accent slot, each within its firm
+    cap and CEILING_ABSORB_MAX_FACTOR times its design dose (its design cap,
+    or the dose it came in with when the floors step set it above that).
+    Each row pushed
+    past its design cap is named in a ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING
+    hold, or SCREENING_DEFAULT_EXCEEDED_FOR_ACTIVE_CEILING when it passed its
+    screening default (the total was already full).  A named row gives to the
     other named rows first, so the named floor holds.  A requested quantity
-    and a row that must use an exact preferred material are never cut.  A row
-    the other rows cannot take (all of) the excess from keeps it under a
+    and a row that must use an exact preferred material are never cut
+    (``_formula_rows`` names one above its ceiling).  A row the other rows
+    cannot take (all of) the excess from keeps it under a
     ROW_ABOVE_ACTIVE_CEILING hold.  The liquid total is unchanged.
     """
 
@@ -3230,16 +3241,31 @@ def _hold_active_ceiling(
     strength = {index: _active_ul(choices[index], 1) for index in state}
     named = {index for index in allocated if choices[index].role.serves_requested_facet}
     firm = {index: _firm_cap_ul(choices[index], liquid_total_ul) for index in allocated}
-    # Only a row the bulk fallback's last role-cap stage would release may pass
-    # its design cap here, and never its firm cap: not a generic bridge, layer
-    # or accent slot, a role with an explicit restraint share, or a row with an
-    # identity hard cap or normal-use ceiling.
-    may_pass_cap = {
-        index
-        for index in allocated
-        if _may_pass_design_cap(choices[index])
-        and _releases_to_fill(choices[index], liquid_total_ul, 2)
+    # Past the design caps, a row the bulk fallback's last role-cap stage would
+    # release takes the excess first, up to its firm cap; then any other row
+    # that is no generic bridge, layer or accent slot, up to its firm cap and
+    # CEILING_ABSORB_MAX_FACTOR times its design dose: its design cap, or the
+    # dose it comes in with when an earlier step (the floors) set it above that.
+    passable = {index for index in allocated if _may_pass_design_cap(choices[index])}
+    released = {
+        index for index in passable if _releases_to_fill(choices[index], liquid_total_ul, 2)
     }
+
+    def tier_bound(index: int, tier: int) -> tuple[bool, int | None]:
+        """Whether the row takes excess in this tier, and the volume it may reach."""
+
+        cap = caps.get(index)
+        if tier == 0:
+            return True, cap
+        if tier == 1:
+            return index in released, firm[index]
+        design = None if cap is None else max(cap, allocated[index])
+        bounds = [
+            bound
+            for bound in (firm[index], None if design is None else CEILING_ABSORB_MAX_FACTOR * design)
+            if bound is not None
+        ]
+        return index in passable - released, min(bounds) if bounds else None
 
     def ceiling(current: dict[int, int], index: int) -> int | None:
         others = solid_active + sum(
@@ -3257,16 +3283,17 @@ def _hold_active_ceiling(
         moved = dict(current)
         remaining = amount
         for group in groups:
-            for past_cap in (False, True):
+            for tier in (0, 1, 2):
                 if remaining == 0:
                     return moved
                 rows = []
                 for index in group:
-                    if past_cap and index not in may_pass_cap:
+                    takes, bound = tier_bound(index, tier)
+                    if not takes:
                         continue
                     limits = [
                         max(0, limit - moved[index])
-                        for limit in (firm[index] if past_cap else caps.get(index), ceiling(moved, index))
+                        for limit in (bound, ceiling(moved, index))
                         if limit is not None
                     ]
                     rows.append((index, float(caps.get(index) or 1), min(limits) if limits else None))

@@ -226,11 +226,12 @@ def _ceiling_pass(choices: list[Any]) -> tuple[dict[int, int], list[str]]:
     return planner._hold_active_ceiling(allocated, free_rows, {}, choices, TOTAL, holds), holds
 
 
-def test_a_restraint_share_row_never_takes_another_row_s_excess(firm_caps: dict[str, int]) -> None:
+def test_a_restraint_share_row_never_passes_twice_its_design_cap(firm_caps: dict[str, int]) -> None:
     # A 3% restraint share on a 1% stock (design cap 180 uL) once took over
     # 5,000 uL of a volume row's excess.  The bulk fallback never releases a
-    # role with an explicit restraint share, nor a row with a hard cap, so no
-    # row can take the excess here: the volume row keeps it, named.
+    # role with an explicit restraint share, so it takes another row's excess
+    # only up to twice its design cap, and a row with a hard cap never past
+    # it: the volume row keeps the rest, named.
     firm_caps.update({"Cedramber": 300})
     choices = [
         _choice("Habanolide", function="volume", max_raw_share=0.2),
@@ -242,10 +243,13 @@ def test_a_restraint_share_row_never_takes_another_row_s_excess(firm_caps: dict[
     result, holds = _ceiling_pass(choices)
 
     assert sum(result.values()) == TOTAL
-    assert result[1] <= 180
+    assert result[1] <= planner.CEILING_ABSORB_MAX_FACTOR * 180 == 360
     assert result[2] <= 300
     assert _shares(choices, result)[0] > CEILING
-    assert holds == ["ROW_ABOVE_ACTIVE_CEILING:stock:Habanolide"]
+    assert sorted(holds) == [
+        "ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING:stock:Isobutyl Quinoline",
+        "ROW_ABOVE_ACTIVE_CEILING:stock:Habanolide",
+    ]
 
 
 def test_a_row_the_fallback_would_release_takes_the_excess_and_says_why(
@@ -253,7 +257,9 @@ def test_a_row_the_fallback_would_release_takes_the_excess_and_says_why(
 ) -> None:
     # A row with no restraint share may pass its design cap for the ceiling,
     # as the fallback's last role-cap stage would release it; the total was
-    # already full, so its hold says it was for the ceiling.
+    # already full, so its hold says it was for the ceiling.  It takes the
+    # excess before the restraint-share row, which then takes at most twice
+    # its design cap.
     firm_caps.update({"Cedramber": 300})
     choices = [
         _choice("Habanolide", function="volume", max_raw_share=0.2),
@@ -266,12 +272,86 @@ def test_a_row_the_fallback_would_release_takes_the_excess_and_says_why(
     result, holds = _ceiling_pass(choices)
 
     assert sum(result.values()) == TOTAL
-    assert result[1] <= caps[1] and result[2] <= 300
+    assert result[1] <= planner.CEILING_ABSORB_MAX_FACTOR * caps[1] and result[2] <= 300
     assert result[3] > caps[3]
-    assert _shares(choices, result)[3] <= CEILING
+    # Hedione stops only at its own ceiling.
+    assert CEILING - Decimal("0.001") < _shares(choices, result)[3] <= CEILING
     assert sorted(holds) == [
         "ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING:stock:Hedione",
+        "ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING:stock:Isobutyl Quinoline",
         "ROW_ABOVE_ACTIVE_CEILING:stock:Habanolide",
+    ]
+
+
+def test_restraint_rows_take_a_named_lead_s_excess_up_to_twice_their_design_caps(
+    firm_caps: dict[str, int], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The green-fig duel brief: the bulk fallback gives a named lead the spill
+    # beside rows that each carry an explicit restraint share, and the lead
+    # shipped at 72.5% of the active oil.  Those rows take its excess, each at
+    # most doubling its design dose; a generic bridge slot never passes its cap.
+    monkeypatch.setattr(planner, "_screening_default_cap_ul", lambda *_args: None)
+    bridge = planner.Choice(
+        planner.RoleSpec("bridge", "Bridge", "heart", "bridge", 0.1, (),
+                         max_raw_share=0.05, generic_slot=True),
+        _stocked("Bridge"), 1.0, (),
+    )
+    choices = [
+        _choice("Lead", named=True),
+        _choice("Rest A", max_raw_share=0.12),
+        _choice("Rest B", max_raw_share=0.10),
+        _choice("Rest C", 0.1, max_raw_share=0.10),
+        bridge,
+    ]
+    caps = [planner._design_cap_ul(choice, TOTAL) for choice in choices]
+    assert caps == [1800, 720, 600, 600, 300]
+    allocated, _holds = _fallback(choices)
+    assert _shares(choices, allocated)[0] > CEILING
+
+    result, holds = _ceiling_pass(choices)
+
+    assert sum(result.values()) == TOTAL
+    assert _shares(choices, result)[0] <= CEILING
+    for index in (1, 2, 3):
+        assert caps[index] < result[index] <= planner.CEILING_ABSORB_MAX_FACTOR * caps[index]
+    assert result[4] <= caps[4]
+    assert sorted(holds) == sorted(
+        f"ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING:stock:Rest {name}" for name in "ABC"
+    )
+
+
+def test_a_restraint_row_set_above_its_design_cap_doubles_from_the_dose_it_came_with(
+    firm_caps: dict[str, int], monkeypatch: pytest.MonkeyPatch
+) -> None:
+    # The floors step pushed the long-lasting "Rest A" past its 600 uL design
+    # cap to 1600 uL (green fig: Violet Leaf Absolute 900 -> 2438); its design
+    # dose is then 1600, and it may take the lead's excess up to 3200 uL.
+    monkeypatch.setattr(planner, "_screening_default_cap_ul", lambda *_args: None)
+    choices = [
+        _choice("Lead", named=True),
+        _choice("Rest A", max_raw_share=0.10),
+        _choice("Rest B", max_raw_share=0.05),
+        _choice("Rest C", max_raw_share=0.05),
+        _choice("Rest D", max_raw_share=0.05),
+    ]
+    free_rows = [
+        (index, planner._allocation_weight(choice), planner._design_cap_ul(choice, TOTAL))
+        for index, choice in enumerate(choices)
+    ]
+    assert [cap for _index, _weight, cap in free_rows] == [1800, 600, 300, 300, 300]
+    # The three 5% rows alone, doubled, would leave the lead at 43%.
+    allocated = {0: 3500, 1: 1600, 2: 300, 3: 300, 4: 300}
+    holds: list[str] = []
+
+    result = planner._hold_active_ceiling(allocated, free_rows, {}, choices, TOTAL, holds)
+
+    assert sum(result.values()) == TOTAL
+    assert _shares(choices, result)[0] <= CEILING
+    assert 1600 < result[1] <= planner.CEILING_ABSORB_MAX_FACTOR * 1600
+    for index in (2, 3, 4):
+        assert result[index] <= planner.CEILING_ABSORB_MAX_FACTOR * 300
+    assert sorted(holds) == [
+        f"ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING:stock:Rest {name}" for name in "ABCD"
     ]
 
 
