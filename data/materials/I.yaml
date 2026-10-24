@@ -1193,7 +1193,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: immortelle absolute
   aliases: []
-  cas:
+  cas: 8023-95-8
   smiles:
   inchikey:
   mw_g_mol: 200.0
@@ -1235,6 +1235,7 @@
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'SG 0.9010, supplier-reported (PerfumersWorld 8NY23449 "Immortelle Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.9010; https://perfumersworld.com/view.php?pro_id=8NY23449; temperature as printed by source (often 20 C), not corrected to 25 C'
     density_basis: supplier_sg_temperature_unstated
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 8023-95-8; https://www.perfumersworld.com/view.php?pro_id=5NY23688'
 
 - canonical_name: Isobutavan
   aliases:

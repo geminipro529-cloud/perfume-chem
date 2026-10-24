@@ -1187,7 +1187,7 @@
   inchikey: DCSKAMGZSIRJAQ-UHFFFAOYSA-N
   mw_g_mol: 168.28
   density_25c_g_ml: 0.919
-  logp: 2.9
+  logp: 3.3
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 8.6)
@@ -1228,7 +1228,6 @@
     smiles: pubchem:4-tert-Pentylcyclohexanone
     inchikey: pubchem:4-tert-Pentylcyclohexanone
     mw_g_mol: pubchem:4-tert-Pentylcyclohexanone
-    logp: pubchem:4-tert-Pentylcyclohexanone
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -1237,6 +1236,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.91800 to 0.92600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003401.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 4-tert-amylcyclohexanone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/16587-71-6.pdf: "Log KOW: 3.3 (RIFM, 2010c), 3.4 (EPI Suite)"; measured 3.3 used; replaces the unsourced 2.9'
 - canonical_name: Orris Butter 50% in EtOH
   aliases:
   - orris butter 50%

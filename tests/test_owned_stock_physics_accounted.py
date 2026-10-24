@@ -62,8 +62,9 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Dimethyl Benzyl Carbinol": (("odt",), _NO_AIR_ODT_1023),
     "Dupical": (("odt",), _NO_AIR_ODT_1023),
     "Neryl Acetate": (
-        ("odt", "vp"),
-        _NO_AIR_ODT_1023 + "; chemprops returned geranyl acetate's VP record, so no VP is used",
+        ("odt",),
+        _NO_AIR_ODT_1023 + "; VP from ScenTree since the 2026-10-24 master merge (chemprops returned "
+        "geranyl acetate's VP record, which is not used)",
     ),
     "Para-Acetanisole": (("odt",), _NO_AIR_ODT_1023),
     "Para-Cresyl Phenyl Acetate": (("odt",), _NO_AIR_ODT_1023),
@@ -78,8 +79,8 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Costus Olifac": (("logp", "mw", "vp"), "IFF proprietary base with no CAS; the old MW and VP were placeholders"),
     "Tuberose Base": (_ALL, "maker and composition of this base are not recorded"),
     "Hindinol": (
-        ("odt", "vp"),
-        "CAS 28219-60-5 confirmed on PubChem 2026-10-23 (RDKit MW, Crippen log P); no VP source yet (not in chemprops/thermo); "
+        ("odt",),
+        "CAS 28219-60-5 confirmed on PubChem 2026-10-23 (RDKit MW, Crippen log P); VP from the Takasago Hindinol sheet (master's 2026-10-23 data pass); "
         + _NO_AIR_ODT_1023,
     ),
     "Rhodinol": (
@@ -94,6 +95,11 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
         "only a Plumeria alba concrete re-extracted in ethanol was found, a different product",
     ),
     "Lemon Terpeneless Oil Sicilian": (_ALL, "no GC table for a terpeneless or folded lemon oil found"),
+    "Orange Flower Absolute": (
+        _ALL,
+        "PerfumersWorld 10% in DPG (STK-148, added on master 2026-10-23); no constituent "
+        "data searched yet",
+    ),
     "Mate Absolute": (_ALL, "the one absolute-type table (US 9434908, Table 5) could not be read"),
     "Fir Essential Oil": (_ALL, "PerfumersWorld 7KG07758 does not state the Abies species; no GC-MS"),
     "Ginger Lily Oil": (_ALL, "PerfumersWorld record is empty (SG 0.0000, CAS TBA)"),

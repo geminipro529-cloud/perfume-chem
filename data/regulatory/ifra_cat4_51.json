@@ -4268,20 +4268,6 @@
       "source_url": "https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf",
       "verified_on": "2026-10-23"
     },
-    "p-Cresyl Methyl Ether": {
-      "status": "no_standard",
-      "standard": null,
-      "aliases": [
-        "PCME",
-        "p-Cresyl Methyl Ether (PCME)"
-      ],
-      "note": "4-Methylanisole. No standard for CAS 104-93-8 (or the name) in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), checked 2026-10-23. CAS source: Kenny's PerfumersWorld snapshot 20261007_01a1152f (supplier-recorded).",
-      "cas": [
-        "104-93-8"
-      ],
-      "source_url": "https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf",
-      "verified_on": "2026-10-23"
-    },
     "Azarbre": {
       "status": "no_standard",
       "standard": null,
@@ -4335,6 +4321,23 @@
         "28219-60-5"
       ],
       "source_url": "https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf",
+      "verified_on": "2026-10-23"
+    },
+    "p-Cresyl Methyl Ether": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "p-Cresyl Methyl Ether (PCME)",
+        "Para-Cresyl Methyl Ether",
+        "PCME",
+        "p-Methylanisole",
+        "4-Methylanisole"
+      ],
+      "note": "RIFM's fragrance ingredient safety assessment for p-methylanisole (CAS 104-93-8) states \"8. IFRA standard: None.\" Loaded on Kenny's answer \"Load it\" (23 Oct 2026 21:28 UTC, Stock data thread card asking whether to load PCME as having no IFRA standard). Also: no standard for CAS 104-93-8 (or the name) in the IFRA 51st Amendment index (https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/ifra-51st-amendment-index-of-ifra-standards.pdf), checked 2026-10-23.",
+      "cas": [
+        "104-93-8"
+      ],
+      "source_url": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-93-8.pdf",
       "verified_on": "2026-10-23"
     }
   },

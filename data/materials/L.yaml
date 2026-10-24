@@ -1002,16 +1002,16 @@
 - canonical_name: Leafovert
   aliases:
   - leafovert
-  cas: null
+  cas: 67633-96-9
   smiles: null
   inchikey: null
-  mw_g_mol: 154.3
+  mw_g_mol: 158.19
   density_25c_g_ml: 0.965
-  logp: 2.0
+  logp: 2.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.5
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 24.9312
+  vp_source: 'EPI'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.01
@@ -1041,13 +1041,10 @@
   character: null
   notes: null
   provenance:
-    mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -1056,6 +1053,11 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.9650, supplier-reported (PerfumersWorld 4GI15439 "Leafovert"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.9650; https://www.perfumersworld.com/view.php?pro_id=4GI15439; temperature as printed by source (often 20 C), not corrected to 25 C'
     density_basis: supplier_sg_temperature_unstated
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 67633-96-9; https://www.perfumersworld.com/view.php?pro_id=4GI15439'
+    mw_g_mol: '23 Oct 2026 third data pass: PubChem for CAS 67633-96-9 (the CAS on PerfumersWorld 4GI15439): (Z)-hex-3-en-1-yl methyl carbonate C8H14O3, MolecularWeight 158.19; replaces the unsourced 154.3'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, cis-3-hexenyl methyl carbonate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf: "Log Pow = 2.6 (RIFM, 2013), 2.47 (EPI Suite)"; measured 2.6 used; replaces the unsourced 2.0'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, cis-3-hexenyl methyl carbonate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf: "0.187 mm Hg at 25 C (EPI Suite)" = 24.9 Pa (estimate; FMA 0.3 mm Hg at 20 C agrees in size); replaces the unsourced 0.5 Pa (50 times lower)'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Leather F-TEC
   aliases:
   - LEATHER F-TEC
@@ -1240,7 +1242,7 @@
   aliases:
   - Lemon FCF oil Sicilian
   - lemon fcf sicilian
-  cas: null
+  cas: 8008-56-8
   smiles: null
   inchikey: null
   mw_g_mol: 136.7
@@ -1277,6 +1279,7 @@
     odt_eth_ppm: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 8008-56-8; https://www.perfumersworld.com/view.php?pro_id=7CC24029'
 - canonical_name: Lemon Fleuressence
   aliases: []
   cas: null

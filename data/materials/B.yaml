@@ -1139,8 +1139,8 @@
   logp: 3.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.0104
+  vp_source: 'HSDB'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0002
@@ -1171,7 +1171,6 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1185,6 +1184,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 118-58-1 (https://www.thegoodscentscompany.com/data/rw1001792.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 1.17300 to 1.18100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001792.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    vp_25c_pa: '23 Oct 2026 third data pass: PubChem CID 8363 Vapor Pressure (HSDB, citing the ECHA registration dossier): "7.8X10-5 mm Hg at 25 C /OECD Guideline 104 (Vapour Pressure Curve)/" = 0.0104 Pa, measured; https://pubchem.ncbi.nlm.nih.gov/compound/8363; confirms the placeholder 0.01 Pa, which now has a source'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Bergamot Essential Oil
   aliases: []
   cas: null
@@ -1498,7 +1499,7 @@
   cas: '23726-91-2'
   smiles: null
   inchikey: null
-  mw_g_mol: 190.3
+  mw_g_mol: 192.3
   density_25c_g_ml: 0.929
   logp: 3.68
   functional_groups: []
@@ -1540,6 +1541,7 @@
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.92800 to 0.93600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000881.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
     vp_25c_pa: 'Firmenich SDS v13 (2024) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Damascone_Beta_Firmenich_SDS.pdf: 2.6 Pa at 25 C, OECD 104; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     logp: 'same Firmenich SDS: log Kow 3.68 (OECD 117); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    mw_g_mol: '23 Oct 2026 third data pass: PubChem CID for CAS 23726-91-2: beta-damascone C13H20O, MolecularWeight 192.30; the old 190.3 was the C13H18O (damascenone) weight'
 - canonical_name: Beta Homocyclocitral
   aliases: []
   cas: null
@@ -1798,7 +1800,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Birch Tar Rectified
   aliases: []
-  cas: null
+  cas: 8001-88-5
   smiles: null
   inchikey: null
   mw_g_mol: 124.1
@@ -1841,6 +1843,7 @@
     trp.TRPV1: engine.trigeminal
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 8001-88-5; https://www.perfumersworld.com/view.php?pro_id=7TP00822'
 - canonical_name: Bitter Orange Essential Oil
   aliases: []
   cas: null
@@ -2596,11 +2599,11 @@
   inchikey: null
   mw_g_mol: 190.28
   density_25c_g_ml: 0.955
-  logp: 2.8
+  logp: 3.49
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 1.04
+  vp_source: 'TGSC_est'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -2630,17 +2633,18 @@
   notes: null
   provenance:
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
-    vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 18127-01-0 (https://www.thegoodscentscompany.com/data/rw1023831.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.95500 to 0.96100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1023831.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    vp_25c_pa: '23 Oct 2026 third data pass: TGSC EPI Suite page for 3-(4-tert-butylphenyl)propanal 18127-01-0: "Subcooled liquid VP: 0.00781 mm Hg (25 deg C, Mod-Grain method)" = "1.04 Pa"; the liquid-state value is used because Bourgeonal is a liquid and EPI''s 0.666 Pa assumes its estimated melting point of 46 C (estimate; TGSC data page prints 0.009 mmHg = 1.2 Pa), http://www.thegoodscentscompany.com/episys/ep1023831.html; replaces the placeholder 0.01 Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
+    logp: '23 Oct 2026 third data pass: TGSC same page: "logP (o/w): 3.486 (est)" (estimate; PubChem XLogP3 3.3 agrees in size); replaces the unsourced 2.8'
 - canonical_name: BROOM F-TEC
   aliases: []
   cas: null

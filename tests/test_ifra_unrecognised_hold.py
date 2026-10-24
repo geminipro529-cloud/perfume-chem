@@ -200,6 +200,11 @@ STILL_HELD = {
     # Sweet Orange and both Isoraldeines were linked on 2026-10-16.)
     # 2026-10-21 ("Load all"): Rhodinol is checked against the geraniol standard; Para-Acetanisole,
     # Rum Ether and most sweep arrivals are recorded as having no IFRA standard.
+    # 2026-10-23 ("Load it"): p-Cresyl Methyl Ether 10% is recorded as having no IFRA standard
+    # (RIFM's assessment for CAS 104-93-8: "IFRA standard: None").
+    # Added 2026-10-23: Kenny's PW Orange Flower Absolute 10% in DPG; no IFRA table row and no
+    # constituent row yet, so it holds by name.
+    "Orange Flower Absolute",
 }
 
 

@@ -499,7 +499,7 @@
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 190.3, corrected to 192.26)
   mw_g_mol: 190.28
-  density_25c_g_ml: 0.951
+  density_25c_g_ml: 0.955
   logp: 3.3
   functional_groups: []
   chirality:
@@ -547,9 +547,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: 'SG 0.9510, supplier-reported (PerfumersWorld 4YM00191 "Floralozone"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
-    density_basis: supplier_sg_temperature_unstated
     cas: '22 Oct 2026 missing-data pass: stated; raw 67634-15-5; https://www.perfumersworld.com/view.php?pro_id=4YM00191'
+    density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 0.951-0.959; https://www.perflavory.com/docs/doc1005231.html (mirror of https://www.thegoodscentscompany.com/data/rw1005231.html) ; https://www.perfumersworld.com/; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Florhydral
   aliases:
   - florhydral
@@ -616,12 +615,12 @@
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)
   mw_g_mol: 172.26
   density_25c_g_ml: 0.9515
-  logp: 2.5
+  logp: 1.65
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 3.0, corrected to 0.007)
-  vp_25c_pa: 0.007
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.5999
+  vp_source: 'EPI'
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.005
@@ -649,17 +648,18 @@
   notes:
   provenance:
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
-    vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 63500-71-0 (https://www.thegoodscentscompany.com/data/rw1045182.html)'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 0.9515; https://www.thegoodscentscompany.com/data/rw1045182.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 2-isobutyl-4-methyltetrahydro-2H-pyran-4-ol, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/63500-71-0.pdf: "Log KOW: 1.65 CV = 0.7% (RIFM, 1989a), 2.16 (EPI Suite)"; measured 1.65 used; replaces the unsourced 2.5'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, Florol, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/63500-71-0.pdf: "0.00712 mm Hg @ 20 C (EPI Suite 4.0), 0.012 mm Hg @ 25 C (EPI Suite)" = 1.6 Pa (estimate); replaces the unsourced 0.007, which was the 20 C mm Hg number read as Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Flower Bouquet F-TEC
   aliases:
   - FLOWER BOUQUET F-TEC
@@ -1467,16 +1467,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fructone B
   aliases: []
-  cas: '6413-10-1'
+  cas: 6290-17-1
   smiles:
   inchikey:
-  mw_g_mol: 174.20
-  density_25c_g_ml: 1.081
-  logp: 1.0
+  mw_g_mol: 188.22
+  density_25c_g_ml: 1.048
+  logp: 1.72
   functional_groups: []
   chirality:
-  vp_25c_pa: 7.3
-  vp_source: supplier_sheet_23C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 7.95
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1500,15 +1500,14 @@
     other: {}
   families: []
   character:
-  notes: 'VP left null (2026-10-08): IFF "Vapor pressure: 0.047713 mm Hg @ 23 C" = 6.36 Pa at 23 C, method not stated (https://www.iff.com/?p=7704); TGSC "0.219000 mmHg @ 25.00 C. (est)" = 29.2 Pa (https://thegoodscentscompany.com/data/rw1033271.html); 4.6-fold conflict, neither measured at 25 C. Identity: ethyl 2-(2-methyl-1,3-dioxolan-2-yl)acetate; the "Fructone B" grade label is not confirmed as distinct from IFF Fructone. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
+  notes: 'Fructone B is ethyl 2,4-dimethyl-1,3-dioxolane-2-acetate (the propylene glycol ketal, Fraistone, CAS 6290-17-1), not IFF Fructone (6413-10-1). Corrected 23 Oct 2026 from the PW product page and the RIFM assessment; the earlier values were Fructone data. RIFM: IFRA standard None.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: 'https://thegoodscentscompany.com/data/rw1033271.html and https://www.iff.com/?p=7704; "CAS Number: 6413-10-1" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    mw_g_mol: 'https://thegoodscentscompany.com/data/rw1033271.html; "Molecular Weight:174.19638000", calculated from C8H14O4 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    logp: 'https://www.iff.com/?p=7704 (IFF, producer); "Log P: 1.0", method not stated. TGSC gives 0.982 (not marked est) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    density_25c_g_ml: 'https://thegoodscentscompany.com/data/rw1033271.html; supplier range "Specific Gravity:1.07910 to 1.08910 @ 25.00 C."; midpoint 1.0841 x 0.99705 (water at 25 C) = 1.0809 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    vp_25c_pa: 'SUPPLIER, temperature-adjusted (2026-10-14): IFF "0.047713 mm Hg @ 23 C" = 6.36 Pa, x1.15 to 25 C at dHvap 50 kJ/mol = 7.3 Pa. TGSC 0.219 mmHg (est) = 29.2 Pa is 4x higher. IFF makes Fructone. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
-    cas_identity_conflict: '2026-10-23 chem check: Fructone is CAS 6413-10-1 (PubChem CID 80865, C8H14O4, MW 174.19), but PerfumersWorld 3FG00196 lists 6290-17-1 (CID 95392, C9H16O4, MW 188.22, the 2,4-dimethyl homologue). Which one Kenny''s bottle is stays open pending its label; the cas field was already 6413-10-1 and was not changed here.'
+    cas: '23 Oct 2026 source check: Kenny''s bottle (PW 3FG00196) is the propylene glycol ketal, not Fructone; PW page: ''CAS No. 6290-17-1'', ''Ethyl acetoacetate propyleneglycol ketal : Dimethyldioxolan : Fraistone''; https://www.perfumersworld.com/view.php?pro_id=3FG00196; RIFM assessment ''CAS Registry Number: 6290-17-1'' https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
+    mw_g_mol: 'RIFM assessment 6290-17-1: ''Molecular Weight: 188.22'' (C9H16O4); https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
+    logp: 'ESTIMATE (labelled; Kenny chose Fill estimates, 13 Oct): RIFM assessment 6290-17-1 ''Log KOW: 1.72 (US EPA, 2012a)'' = EPI Suite KOWWIN; no measured value found; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
+    density_25c_g_ml: 'RIFM assessment 6290-17-1: ''Specific Gravity: 1.04800 to 1.05400 @ 25.00 °C''; midpoint 1.051 x 0.99705 (water at 25 C) = 1.048 g/mL; PW page SG 1.0390 (temperature not printed); https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
+    vp_25c_pa: 'ESTIMATE (labelled): RIFM assessment 6290-17-1 ''Vapor Pressure: 0.0596 mm Hg @ 25 °C (US EPA, 2012a)'' = 7.95 Pa (EPI Suite); no measured value found; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
 - canonical_name: Fruity Ionone F-TEC
   aliases:
   - FRUITY IONONE F-TEC

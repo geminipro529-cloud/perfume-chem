@@ -430,7 +430,7 @@
   inchikey: GLZPCOQZEFWAFX-YFHOEESVSA-N
   mw_g_mol: 154.25
   density_25c_g_ml: 0.876
-  logp: 2.9
+  logp: 2.7
   functional_groups:
   - alcohol
   - terpene
@@ -466,10 +466,10 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.87500 to 0.88300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008952.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, nerol, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-25-2.pdf: "Log KOW: 2.7 (RIFM, 1999b), 3.47 (EPI Suite)"; measured 2.7 used; replaces the unsourced 2.9'
 - canonical_name: Neroli EO
   aliases:
   - neroli eo
@@ -766,7 +766,7 @@
   logp: 3.98
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
+  vp_25c_pa: 3.33
   vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
@@ -796,8 +796,8 @@
     smiles: 'PubChem structure resolved from CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; also: 22 Oct 2026 missing-data pass: stated; raw 196.29; https://www.perflavory.com/docs/doc1033552.html'
     cas: 'PubChem record for CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23; also: 22 Oct 2026 missing-data pass: stated; raw 141-12-8; https://www.perflavory.com/docs/doc1033552.html'
-    vp_25c_pa: 'not set: chemprops returned the geranyl acetate thermo record for this CAS (2026-10-23), so the VP was withheld'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.905 to 0.914; https://thegoodscentscompany.com/data/rw1033552.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    vp_25c_pa: '23 Oct 2026 second missing-data pass: stated; raw 3.33; https://www.scentree.co/en/Neryl_acetate.html'
 - canonical_name: NEW MOWN HAY F-TEC
   aliases: []
   cas: null
@@ -1169,7 +1169,7 @@
   cas: '70788-30-6'
   smiles: null
   inchikey: null
-  mw_g_mol: 224.38
+  mw_g_mol: 226.4
   density_25c_g_ml: 0.915
   logp: 5.7
   functional_groups: []
@@ -1207,7 +1207,6 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    mw_g_mol: engine.skin_interaction
     logp: 'same Firmenich SDS: log Kow 5.59-5.79 (OECD 123), midpoint 5.7; replaces engine.skin_interaction 5.2; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
@@ -1215,6 +1214,7 @@
     vp_25c_pa: 'Firmenich SDS v13 (2024) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/967412_NORLIMBANOL__SDS_NZ_EN.pdf: 0.194 Pa at 25 C, OECD 104; replaces the unsourced 0.067; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     cas: 'Firmenich Norlimbanol SDS v13 (2024): CAS 70788-30-6 (stereo-unspecified); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.915; https://thegoodscentscompany.com/data/rw1020712.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    mw_g_mol: '23 Oct 2026 third data pass: PubChem for CAS 70788-30-6: 2,2,6-trimethyl-alpha-propylcyclohexanepropanol C15H30O, MolecularWeight 226.40; replaces the unsourced 224.38'
 - canonical_name: NUT F-TEC
   aliases: []
   cas: null
@@ -1444,11 +1444,11 @@
   inchikey: null
   mw_g_mol: 204.3
   density_25c_g_ml: null
-  logp: 3.0
+  logp: 3.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.1
+  vp_source: 'supplier'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.002
@@ -1474,16 +1474,17 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 1637294-12-2 (https://www.thegoodscentscompany.com/data/rw1804751.html)'
+    vp_25c_pa: '23 Oct 2026 third data pass: Givaudan producer page, Nympheal 3-(4-isobutyl-2-methylphenyl)propanal, https://www.givaudan.com/print/2733726: "Vapour pressure 0.001 hPa" = 0.1 Pa (temperature not printed); replaces the placeholder 0.01 Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
+    logp: '23 Oct 2026 third data pass: Givaudan producer page, same URL: "Log Pow 3.7"; replaces the unsourced 3.0'
 - canonical_name: nagarmortha oil
   aliases:
   - Nagarmortha Oil
