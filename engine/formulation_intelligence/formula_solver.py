@@ -1707,7 +1707,7 @@ def _lasting_spice_limitations(
     """
 
     position, role = next(
-        ((i, r) for i, r in enumerate(brief.roles) if r.provenance == LASTING_SPICE_PROVENANCE),
+        ((i, r) for i, r in enumerate(brief.roles) if getattr(r, "provenance", None) == LASTING_SPICE_PROVENANCE),
         (None, None),
     )
     if role is None or any(_is_lasting_spice(a.capability) for a in assignments):
