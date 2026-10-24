@@ -25,6 +25,24 @@ def test_formula_state_preserves_raw_and_active_dose():
     assert abs(sum(m.mole_fraction for m in state.materials) - 1.0) < 1e-9
 
 
+def test_supplier_sg_with_unstated_temperature_is_not_labelled_a_25c_density():
+    # Dynascone carries a PerfumersWorld SG with no reference temperature;
+    # Hedione carries a TGSC specific gravity at 25 C. (Aldehyde C-8, then
+    # Floralozone, were the fixture until the 2026-10-23 and 2026-10-24 master
+    # merges gave them Perflavory/TGSC values.)
+    state = build_formula_state(
+        {"Dynascone": 10.0, "Hedione": 10.0},
+        batch_volume_ml=30.0,
+    )
+    rows = {m.name: m for m in state.materials}
+
+    assert rows["Dynascone"].density_source == (
+        "registry:data_spine.supplier_sg_unstated_temp"
+    )
+    assert rows["Dynascone"].density_g_ml == 0.921
+    assert rows["Hedione"].density_source == "registry:data_spine.density_25c"
+
+
 def test_formula_state_computes_ppm_and_oav_when_data_exists():
     state = build_formula_state(
         {"Hedione": 1000.0, "Iso E Super": 1000.0},

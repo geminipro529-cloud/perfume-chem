@@ -1505,8 +1505,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '23 Oct 2026 source check: Kenny''s bottle (PW 3FG00196) is the propylene glycol ketal, not Fructone; PW page: ''CAS No. 6290-17-1'', ''Ethyl acetoacetate propyleneglycol ketal : Dimethyldioxolan : Fraistone''; https://www.perfumersworld.com/view.php?pro_id=3FG00196; RIFM assessment ''CAS Registry Number: 6290-17-1'' https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
     mw_g_mol: 'RIFM assessment 6290-17-1: ''Molecular Weight: 188.22'' (C9H16O4); https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
-    density_25c_g_ml: 'RIFM assessment 6290-17-1: ''Specific Gravity: 1.04800 to 1.05400 @ 25.00 °C''; midpoint 1.051 x 0.99705 (water at 25 C) = 1.048 g/mL; PW page SG 1.0390 (temperature not printed); https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
     logp: 'ESTIMATE (labelled; Kenny chose Fill estimates, 13 Oct): RIFM assessment 6290-17-1 ''Log KOW: 1.72 (US EPA, 2012a)'' = EPI Suite KOWWIN; no measured value found; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
+    density_25c_g_ml: 'RIFM assessment 6290-17-1: ''Specific Gravity: 1.04800 to 1.05400 @ 25.00 °C''; midpoint 1.051 x 0.99705 (water at 25 C) = 1.048 g/mL; PW page SG 1.0390 (temperature not printed); https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
     vp_25c_pa: 'ESTIMATE (labelled): RIFM assessment 6290-17-1 ''Vapor Pressure: 0.0596 mm Hg @ 25 °C (US EPA, 2012a)'' = 7.95 Pa (EPI Suite); no measured value found; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
 - canonical_name: Fruity Ionone F-TEC
   aliases:

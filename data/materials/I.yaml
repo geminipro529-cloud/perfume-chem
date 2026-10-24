@@ -481,6 +481,7 @@
 - canonical_name: Iris Florentina Root Extract
   aliases:
   - iris florentina (orris) root extract
+  - MySkinRecipes Iris Florentina Orris Root cosmetic extract
   cas:
   smiles:
   inchikey:
@@ -813,8 +814,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: '22 Oct 2026 missing-data pass: stated; raw 65442-31-1; https://www.perfumersworld.com/view.php?pro_id=9UP00247'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 1.008 to 1.016; https://www.perfumersworld.com/document-list.php?pro_id=9UP00247&tab=sds; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 65442-31-1; https://www.perfumersworld.com/view.php?pro_id=9UP00247'
 - canonical_name: Isobutyl Salicylate
   aliases:
   - isobutyl salicylate
@@ -1232,7 +1233,8 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9010; https://perfumersworld.com/view.php?pro_id=8NY23449; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_25c_g_ml: 'SG 0.9010, supplier-reported (PerfumersWorld 8NY23449 "Immortelle Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.9010; https://perfumersworld.com/view.php?pro_id=8NY23449; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_basis: supplier_sg_temperature_unstated
     cas: '23 Oct 2026 second missing-data pass: stated; raw 8023-95-8; https://www.perfumersworld.com/view.php?pro_id=5NY23688'
 
 - canonical_name: Isobutavan

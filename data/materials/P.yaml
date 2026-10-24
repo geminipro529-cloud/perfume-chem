@@ -312,7 +312,7 @@
   aliases:
   - "p-Cresyl Methyl Ether (PCME)"
   - para-Cresyl Methyl Ether
-  - "p-Cresyl Methyl Ether"
+  - p-Cresyl Methyl Ether
   cas: '104-93-8'
   smiles: null
   inchikey: null
@@ -361,7 +361,7 @@
   aliases:
   - para-Cresyl Phenyl Acetate
   cas: '101-94-0'
-  smiles: null
+  smiles: 'Cc1ccc(OC(=O)Cc2ccccc2)cc1'
   inchikey: null
   mw_g_mol: 226.27
   density_25c_g_ml: null
@@ -401,6 +401,7 @@
     vp_25c_pa: 'ESTIMATE: EPI Suite (solid basis) via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026); white crystals, mp 74-76 C; no density found'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: '22 Oct 2026 missing-data pass: stated; raw 3.79; https://www.perflavory.com/docs/doc1003971.html'
+    smiles: 'PubChem structure resolved from CAS 101-94-0 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Para-Methyl Acetophenone
   aliases:
   - para-Methyl Acetophenone
@@ -529,7 +530,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 192.3
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.881
   logp: 2.5
   functional_groups: []
   chirality: null
@@ -581,6 +582,8 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.8810, supplier-reported (PerfumersWorld 4IG05175 "Parmavert"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Parsley Seed Essential Oil
   aliases: []
   cas: null
@@ -877,8 +880,9 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 0.9500, supplier-reported (PerfumersWorld 7WB13670 "Patchouli Light Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.9500; https://www.perfumersworld.com/view.php?pro_id=7WB13670; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_basis: supplier_sg_temperature_unstated
     cas: '22 Oct 2026 missing-data pass: stated; raw 8014-09-3; https://www.perfumersworld.com/view.php?pro_id=7WB13670'
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9500; https://www.perfumersworld.com/view.php?pro_id=7WB13670; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: PEACH F-TEC
   aliases: []
   cas: null
@@ -957,8 +961,9 @@
   aliases:
   - nectaryl
   - peach cyclopentanone
+  - MySkinRecipes Peach Cyclopentanone Peach Ketone
   cas: '95962-14-4'
-  smiles:
+  smiles: 'CC1=CCC(C(C)CC2CCCC2=O)CC1'
   inchikey:
   mw_g_mol: 220.36
   density_25c_g_ml: 0.963
@@ -991,15 +996,17 @@
     vp_25c_pa: 'MEASURED: ECHA key study (Nectaryl, 95962-14-4) 0.009 Pa at 20 C; EPI estimate was 0.049 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
     logp: '23 Oct 2026 second missing-data pass: labelled estimate (Kenny chose Fill estimates, 13 Oct); raw 4.344; https://www.thegoodscentscompany.com/data/rw1052381.html'
+    smiles: 'PubChem structure resolved from CAS 95962-14-4 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Pear Valerate
   aliases:
   - peranat
+  - MySkinRecipes Pear Valerate Peranat
   cas: '90397-38-9'
-  smiles:
+  smiles: 'CCCC(C)COC(=O)C(C)CCC'
   inchikey:
   mw_g_mol: 200.32
   density_25c_g_ml: 0.8564
-  logp:
+  logp: 3.4
   functional_groups: []
   chirality:
   vp_25c_pa: 13.9
@@ -1021,12 +1028,15 @@
   supplier:
   families: []
   character:
-  notes: MySkinRecipes order 2199458 'Pear Valerate, Peranat', neat as supplied; CAS and purity not asserted.
+  notes: 'MySkinRecipes order 2199458 ''Pear Valerate, Peranat'', neat as supplied; CAS and purity not asserted. Identity 2026-10-23: CAS 90397-38-9 (2-methylpentyl 2-methylpentanoate, PubChem CID 163588) confirmed on PubChem; the link from the MySkinRecipes "Peranat" product to this CAS is unverified.'
   provenance:
     cas: 'Kao PERANAT https://chemical.kao.com/en/products/B0010631_en/; 2-methylpentyl 2-methylpentanoate'
     density_25c_g_ml: 'ECHA 0.8564 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'ESTIMATE kept: EPI Suite 13.9 Pa via TGSC. ECHA value DISPUTED: "ca. 8.7 kPa at 20 C" (reliability 2) is not credible for a C12 ester; not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
+    smiles: 'PubChem CID 163588 structure for CAS 90397-38-9 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCCC(C)COC(=O)C(C)CCC (PubChem CID 163588 structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured'
+    logp_source: rdkit-crippen-estimate
 - canonical_name: Peonile
   aliases:
   - peonile
@@ -1440,7 +1450,7 @@
 - canonical_name: Phenoxy Ethyl Isobutyrate
   aliases: []
   cas: '103-60-6'
-  smiles: null
+  smiles: 'CC(C)C(=O)OCCOc1ccccc1'
   inchikey: null
   mw_g_mol: 208.26
   density_25c_g_ml: 1.05
@@ -1477,6 +1487,7 @@
     vp_25c_pa: 'MEASURED: ECHA key study 0.77 Pa at 25 C (EPI estimate 0.701 Pa agrees). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: '23 Oct 2026 deep-research pass (3-0 verified): RIFM fragrance ingredient safety assessment for CAS 103-60-6 reports measured log Kow 3.2 at 24 C (RIFM 1994b); EPI Suite estimate 3.01 not used; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-60-6.pdf'
+    smiles: 'PubChem structure resolved from CAS 103-60-6 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Phenyl Acetaldehyde
   aliases:
   - Phenyl acetaldehyde
@@ -1568,8 +1579,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: '22 Oct 2026 missing-data pass: stated; raw 101-48-4; https://www.parchem.com/api/get-pdf/phenyl-acetaldehyde-dimethyl-acetal-004663.pdf'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 1.003; https://www.parchem.com/api/get-pdf/phenyl-acetaldehyde-dimethyl-acetal-004663.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 101-48-4; https://www.parchem.com/api/get-pdf/phenyl-acetaldehyde-dimethyl-acetal-004663.pdf'
 - canonical_name: Phenyl Ethyl Acetate
   aliases: []
   cas: null
@@ -1653,12 +1664,12 @@
     density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 0.957-0.962; https://www.thegoodscentscompany.com/data/rw1016711.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Phenyl Ethyl Dimethyl Carbinyl Acetate
   aliases: []
-  cas: null
-  smiles: null
+  cas: '103-07-1'
+  smiles: 'CC(=O)OC(C)(C)CCc1ccccc1'
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 206.285
+  density_25c_g_ml: 0.979
+  logp: 2.96
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -1687,6 +1698,13 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(=O)OC(C)(C)CCc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 103-07-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    mw_g_mol: 'RDKit exact from SMILES CC(=O)OC(C)(C)CCc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    cas: 'PubChem record for CAS 103-07-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    density_25c_g_ml: 'SG 0.9790, supplier-reported (PerfumersWorld 3LR00160 "Phenyl Ethyl Dimethyl Carbinyl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Phenyl Ethyl Formate
   aliases: []
   cas: null
@@ -3484,8 +3502,8 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
-    cas: '22 Oct 2026 missing-data pass: stated; raw 103-45-7; https://www.perflavory.com/docs/doc1010032.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 1.032; https://www.perflavory.com/docs/doc1010032.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 103-45-7; https://www.perflavory.com/docs/doc1010032.html'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, phenethyl acetate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-45-7.pdf: "Log KOW: 2.4 at 25 C (RIFM, 1995b), 2.57 (EPI Suite)"; measured 2.4 used; replaces the unsourced 2.3'
 - canonical_name: petitgrain eo paraguay
   aliases: []
@@ -3529,8 +3547,8 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
-    cas: '22 Oct 2026 missing-data pass: stated; raw 8014-17-3; https://www.thegoodscentscompany.com/data/es1009872.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.87800 to 0.88900; https://www.thegoodscentscompany.com/data/es1009872.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8014-17-3; https://www.thegoodscentscompany.com/data/es1009872.html'
 - canonical_name: pine eo
   aliases:
   - Pine EO
@@ -3556,14 +3574,15 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
   provenance:
-    cas: '22 Oct 2026 missing-data pass: stated; raw 84012-35-1; https://www.perfumersworld.com/view.php?pro_id=7KQ07511'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.871; https://thegoodscentscompany.com/data/es1019031.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 84012-35-1; https://www.perfumersworld.com/view.php?pro_id=7KQ07511'
 - canonical_name: Peppermint Essential Oil
   aliases:
   - Peppermint Essential Oil (Mentha piperita, India)
   - peppermint essential oil
   - peppermint eo
   - mentha piperita eo
+  - peppermint eo (neat)
   cas: 8006-90-4
   smiles:
   inchikey:
@@ -3640,7 +3659,7 @@
   - 4'-methoxyacetophenone
   - p-acetanisole
   cas: '100-06-1'
-  smiles:
+  smiles: 'COc1ccc(C(C)=O)cc1'
   inchikey:
   mw_g_mol: 150.17
   density_25c_g_ml:
@@ -3670,3 +3689,4 @@
     cas: 'PubChem CID 7476 (4''-methoxyacetophenone)'
     vp_25c_pa: 'MEASURED: 6.44E-03 mmHg at 25 C (Jones, J Chem Eng Data 5:196, 1960) via PubChem CID 7476; solid, mp 38 C, so no 25 C liquid density (1.0818 g/cm3 at 41 C, CRC)'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, acetanisole, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/100-06-1.pdf: "Log KOW: 1.75 (EPI Suite), 1.79+-0.00 at 20 C (RIFM, 2017d)"; measured 1.79 used; replaces the 1.74 from Perflavory'
+    smiles: 'PubChem structure resolved from CAS 100-06-1 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'

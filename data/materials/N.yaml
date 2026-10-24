@@ -664,8 +664,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: '22 Oct 2026 missing-data pass: stated; raw 7212-44-4; https://www.perfumersworld.com/view.php?pro_id=3LM00319'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.870 to 0.876; https://www.thegoodscentscompany.com/data/rw1009032.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 7212-44-4; https://www.perfumersworld.com/view.php?pro_id=3LM00319'
 - canonical_name: Nerolin Bromelia
   aliases:
   - nerolin bromelia
@@ -758,8 +758,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Neryl Acetate
   aliases: []
-  cas: 141-12-8
-  smiles: null
+  cas: '141-12-8'
+  smiles: 'CC(=O)OC/C=C(/C)CCC=C(C)C'
   inchikey: null
   mw_g_mol: 196.29
   density_25c_g_ml: 0.9095
@@ -792,9 +792,10 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: '22 Oct 2026 missing-data pass: stated; raw 141-12-8; https://www.perflavory.com/docs/doc1033552.html'
-    mw_g_mol: '22 Oct 2026 missing-data pass: stated; raw 196.29; https://www.perflavory.com/docs/doc1033552.html'
     logp: '22 Oct 2026 missing-data pass: stated; raw 3.98; https://www.perflavory.com/docs/doc1033552.html'
+    smiles: 'PubChem structure resolved from CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    mw_g_mol: 'RDKit exact from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; also: 22 Oct 2026 missing-data pass: stated; raw 196.29; https://www.perflavory.com/docs/doc1033552.html'
+    cas: 'PubChem record for CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23; also: 22 Oct 2026 missing-data pass: stated; raw 141-12-8; https://www.perflavory.com/docs/doc1033552.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.905 to 0.914; https://thegoodscentscompany.com/data/rw1033552.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     vp_25c_pa: '23 Oct 2026 second missing-data pass: stated; raw 3.33; https://www.scentree.co/en/Neryl_acetate.html'
 - canonical_name: NEW MOWN HAY F-TEC
@@ -1322,8 +1323,8 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    cas: '22 Oct 2026 missing-data pass: stated; raw 8008-45-5; '
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.895; https://www.perflavory.com/docs/doc1009111.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8008-45-5; '
 - canonical_name: Nutmeg Essential Oil
   aliases: []
   cas: null
@@ -1544,7 +1545,7 @@
   - neroli eo (neat)
   cas: 8016-38-4
   mw_g_mol: 170.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.86
   logp: 2.5
   functional_groups: []
   chirality: null
@@ -1561,3 +1562,6 @@
   trp_targets: null
   user_stock_dilution: neat  # user-confirmed 2026-09-06; 10% alias is historical identity only
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: 'SG 0.8600, supplier-reported (PerfumersWorld 7CN00318 "Neroli Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
+    density_basis: supplier_sg_temperature_unstated

@@ -157,8 +157,9 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'SG 1.0800, supplier-reported (PerfumersWorld 8VW08619 "Vanilla Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 23 Oct 2026 third data pass: PerfumersWorld 8VW08619 "Specific Gravity 1.0800" ("viscous liquid to solid"), https://www.perfumersworld.com/view.php?pro_id=8VW08619; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle); supplier value preferred over the TGSC 1.02'
+    density_basis: supplier_sg_temperature_unstated
     cas: '22 Oct 2026 missing-data pass: stated; raw 8024-06-4; '
-    density_25c_g_ml: '23 Oct 2026 third data pass: PerfumersWorld 8VW08619 "Specific Gravity 1.0800" ("viscous liquid to solid"), https://www.perfumersworld.com/view.php?pro_id=8VW08619; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle); supplier value preferred over the TGSC 1.02'
 - canonical_name: Vanillin
   aliases:
   - vanillin
@@ -225,7 +226,7 @@
 - canonical_name: Veloutone
   aliases: []
   cas: '65443-14-3'
-  smiles:
+  smiles: 'CCCCCC1(CCC(C1=O)(C)C)C'
   inchikey:
   mw_g_mol: 196.33
   density_25c_g_ml: 0.867
@@ -265,10 +266,11 @@
     logp: 'RIFM fragrance ingredient safety assessment, Veloutone, CAS 65443-14-3, Food Chem. Toxicol. 110 Suppl 1 (2017) S662-S669, doi:10.1016/j.fct.2017.10.009; "4.34 (US EPA, 2012a)", EPI Suite estimate, not measured (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     density_25c_g_ml: 'Vigon SDS 502847; "SG 0.87 @25 C" single value; 0.87 x 0.99705 (water at 25 C) = 0.8674 g/mL (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     vp_25c_pa: 'ESTIMATE, literature common ground: RIFM 2017 quotes US EPA 0.0163 mm Hg @ 25 C = 2.17 Pa; TGSC rw1000241 0.026 mmHg @ 25 C (est) = 3.47 Pa agrees; the FMA 0.4 mm Hg @ 20 C (53 Pa) is a 15-25x outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    smiles: 'PubChem CID 103402 structure for CAS 65443-14-3 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: Velvione
   aliases: []
   cas: '37609-25-9'
-  smiles:
+  smiles: 'O=C1CCCC=CCCCCCCCCCC1'
   inchikey:
   mw_g_mol: 236.4
   density_25c_g_ml: 0.93
@@ -305,6 +307,7 @@
     vp_25c_pa: 'MEASURED: ECHA key study 0.02 Pa at 20 C (not corrected to 25 C); EPI estimate was 0.0044 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: '23 Oct 2026 third data pass: Givaudan producer page, Velvione (Givaudan Code 1382293), https://www.givaudan.com/print/1314921: "Log Pow >6.0"; loaded at the lower bound 6.0 (the true value may be higher); fills an empty field'
+    smiles: 'Structure stated in the 2026-10-23 wiring spec (output/_wire_spec_20261023.md section A), RDKit-canonicalised by D:\agent-cache\tools\chemprops.py, run 2026-10-23; RDKit MW 236.399 matches the YAML MW within 0.1'
 - canonical_name: Verbena Oil
   aliases: []
   cas:
@@ -639,6 +642,7 @@
   aliases:
   - vetikon
   - methyl cedryl ketone
+  - Vetikon (7403-42-1)
   cas: 7403-42-1
   smiles: CC1(C)C2CCC1(C)C(C)(C)C2C(=O)C
   inchikey:

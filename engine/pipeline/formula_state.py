@@ -1226,7 +1226,13 @@ def _build_formula_state_cached(
             density_source = "fallback:default_1_g_ml"
         else:
             density = float(registry_density)
-            density_source = "registry:data_spine.density_25c"
+            # A supplier SG whose reference temperature is unstated is not a
+            # 25 C density; say so instead of labelling it density_25c.
+            density_basis = (getattr(reg_mat, "provenance", None) or {}).get("density_basis")
+            if density_basis == "supplier_sg_temperature_unstated":
+                density_source = "registry:data_spine.supplier_sg_unstated_temp"
+            else:
+                density_source = "registry:data_spine.density_25c"
         modeled_active_g = active_ul * density / 1000.0
         stock_spec = stock_specs.get(name, {})
         stock_fraction_basis = str(stock_spec.get("fraction_basis", "unspecified"))

@@ -191,6 +191,7 @@
   - jasmine absolute
   - jasmine absolute 10% in dpg
   - Jasmine Absolute (10% in DPG)
+  - Jasmine Absolute (Jasminum grandiflorum)
   cas: 8022-96-6
   smiles: null
   inchikey: null
@@ -242,7 +243,8 @@
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     user_in_inventory: inventory.txt
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9100; https://www.perfumersworld.com/view.php?pro_id=8JN00254; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_25c_g_ml: 'SG 0.9100, supplier-reported (PerfumersWorld 8JN00254 "Jasmine Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.9100; https://www.perfumersworld.com/view.php?pro_id=8JN00254; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Jasmine Absolute 10% In Palm Oil Fractionated
   aliases:
   - Jasmine Absolute 10% in Palm Oil Fractionated
@@ -774,7 +776,8 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
   provenance:
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.8640; https://www.perfumersworld.com/view.php?pro_id=7KH00262; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_25c_g_ml: 'SG 0.8640, supplier-reported (PerfumersWorld 7KH00262 "Juniper Berry Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU; also: 22 Oct 2026 missing-data pass: stated; raw 0.8640; https://www.perfumersworld.com/view.php?pro_id=7KH00262; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_basis: supplier_sg_temperature_unstated
     cas: '23 Oct 2026 second missing-data pass: stated; raw 8012-91-7; https://www.perfumersworld.com/view.php?pro_id=7KH00262'
 
 - canonical_name: Jasmine Sambac Blossoms
@@ -783,7 +786,7 @@
   - jasmine sambac flowers
   cas: null
   mw_g_mol: 220.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.937
   logp: 3.0
   functional_groups: []
   chirality: null
@@ -800,3 +803,6 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  provenance:
+    density_25c_g_ml: 'SG 0.9370, supplier-reported (PerfumersWorld 6JN07707 "Jasmine Sambac Blossoms"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated

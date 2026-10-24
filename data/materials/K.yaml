@@ -239,6 +239,6 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: '22 Oct 2026 missing-data pass: stated; raw 81786-73-4; https://www.perfumersworld.com/view.php?pro_id=4WI10591'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.862 to 0.871; https://www.perfumersworld.com/document-list.php?pro_id=4WI10591; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 81786-73-4; https://www.perfumersworld.com/view.php?pro_id=4WI10591'
     mw_g_mol: '23 Oct 2026 third data pass: PubChem for CAS 81786-73-4: pentamethylheptenone (acetyl diisoamylene) C12H22O, MolecularWeight 182.30; replaces the unsourced 206.33'

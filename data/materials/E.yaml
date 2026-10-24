@@ -157,8 +157,8 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    cas: '22 Oct 2026 missing-data pass: stated; raw 8023-89-0; https://www.perfumersworld.com/view.php?pro_id=7QC00902'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.852 to 0.878; https://docs.newdirectionsaromatics.com/msds/COA_ElemiEssentialOil.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8023-89-0; https://www.perfumersworld.com/view.php?pro_id=7QC00902'
 - canonical_name: Elemi Essential Oil
   aliases: []
   cas:
@@ -396,16 +396,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Ethyl Acetoacetate
   aliases: []
-  cas:
-  smiles:
+  cas: '141-97-9'
+  smiles: 'CCOC(=O)CC(C)=O'
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
-  logp:
+  mw_g_mol: 130.143
+  density_25c_g_ml: 1.024
+  logp: 0.53
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 105.4
+  vp_source: NIST_WebBook_Antoine_extrapolated
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -430,6 +430,14 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCOC(=O)CC(C)=O (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
+    logp_source: 'rdkit-crippen-estimate'
+    smiles: 'PubChem structure resolved from CAS 141-97-9 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    mw_g_mol: 'RDKit exact from SMILES CCOC(=O)CC(C)=O (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    cas: 'PubChem record for CAS 141-97-9 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    vp_25c_pa: '105.4 Pa at 25 C from the NIST WebBook Antoine fit via D:\agent-cache\tools\chemprops.py (run 2026-10-23); EXTRAPOLATED: the fit covers 301.7-454 K'
+    density_25c_g_ml: 'SG 1.0240, supplier-reported (PerfumersWorld 3FG00172 "Ethyl Acetoacetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Ethyl Amyl Ketone
   aliases: []
   cas:
@@ -544,21 +552,21 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Ethyl Butyrate
   aliases: []
-  cas:
-  smiles:
+  cas: '105-54-4'
+  smiles: 'CCCC(=O)OCC'
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
-  logp:
+  mw_g_mol: 116.16
+  density_25c_g_ml: 0.875
+  logp: 1.71
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2011.0
+  vp_source: Poling_Antoine
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.04
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -578,6 +586,15 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    logp: 'MEASURED log Kow 1.71: SangsterLogP via PubChem CID 7762 Experimental Properties > LogP (ref 75), citing Abraham MH, Chadha HS, Whiting GS, Mitchell RC, J Pharm Sci 1994;83(8):1085-1100, doi:10.1002/jps.2600830806. Read 2026-10-23 from https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/7762/JSON?heading=LogP; replaces the RDKit Crippen estimate'
+    logp_source: 'SangsterLogP (PubChem CID 7762): Abraham et al. 1994, J Pharm Sci 83:1085-1100'
+    smiles: 'PubChem structure resolved from CAS 105-54-4 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    mw_g_mol: 'RDKit exact from SMILES CCCC(=O)OCC (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    cas: 'PubChem record for CAS 105-54-4 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
+    vp_25c_pa: '2011.0 Pa at 25 C from the Poling et al. Antoine fit (298-422.7 K, not extrapolated) via D:\agent-cache\tools\chemprops.py (run 2026-10-23). Second source: the NIST WebBook Antoine fit gives 2304 Pa'
+    density_25c_g_ml: 'SG 0.8750, supplier-reported (PerfumersWorld 3FD00174 "Ethyl Butyrate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
+    density_basis: supplier_sg_temperature_unstated
+    odt_air_ppb: 'Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/content/900450144.pdf, Table 2 (ppm, v/v): "Ethyl n-butyrate 0.000040" ppm v/v = 0.040 ppb (x 1000; measured, triangle odor bag). No ethanol-solution threshold found'
 - canonical_name: Ethyl Isovalerate
   aliases: []
   cas:
@@ -1330,6 +1347,7 @@
   aliases:
   - evernyl
   - Evernyl Crystals
+  - Evernyl (crystals)
   cas: 4707-47-5
   smiles:
   inchikey:

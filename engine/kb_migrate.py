@@ -144,6 +144,8 @@ def _merge_material(
     row["density_25c_g_ml"] = yaml_e.get("density_25c_g_ml")
     row["logp"] = yaml_e.get("logp")
     row["vp_25c_pa"] = yaml_e.get("vp_25c_pa")
+    # A YAML VP keeps its own provenance (e.g. ``TGSC_est``, ``HSDB``).
+    row["vp_source"] = yaml_e.get("vp_source") if row["vp_25c_pa"] is not None else None
     row["user_stock_dilution"] = (
         str(yaml_e.get("user_stock_dilution") or "") if yaml_e.get("user_stock_dilution") else None
     )
@@ -197,7 +199,7 @@ def _merge_material(
         # ⚠️ YAML always wins for VP (even over _VERIFIED_VP override)
         if yaml_e.get("vp_25c_pa") is not None:
             row["vp_25c_pa"] = yaml_e["vp_25c_pa"]
-            row["vp_source"] = None
+            row["vp_source"] = yaml_e.get("vp_source")
             row["vp_flag"] = None
 
     # ── 3. ODT_DATA (priority for ODT values, overrides profile but not YAML) ──

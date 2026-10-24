@@ -355,7 +355,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.868; https://www.perfumersworld.com/view.php?pro_id=3RB07724; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_25c_g_ml: 'SG 0.8680, supplier-reported (PerfumersWorld 3RB07724 "Rhodinol ex Citronella"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.868; https://www.perfumersworld.com/view.php?pro_id=3RB07724; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_basis: supplier_sg_temperature_unstated
 - canonical_name: Rhodinol Ex-Natural
   aliases: []
   cas: null
@@ -395,7 +396,7 @@
 - canonical_name: Rhubofix
   aliases: []
   cas: '41816-03-9'
-  smiles: null
+  smiles: 'CC1C2(O1)CC3CC2C4C3CC=C(C4)C'
   inchikey: null
   mw_g_mol: 204.31
   density_25c_g_ml: 1.023
@@ -434,7 +435,9 @@
     mw_g_mol: 'https://www.scentspiracy.com/fragrance-ingredients/p/rhubofix (secondary site); "204.31 g/mol" (C14H20O) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir (Hekserij, supplier); "Log P: 3.1", method not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     vp_25c_pa: 'ESTIMATE, low confidence (2026-10-14): dsm-firmenich Studio "0.00735 Pa at 20C" and Hekserij "0,007 Pa" read as mmHg (Studio pages have printed EPI mmHg values labelled Pa) = 0.98 and 0.93 Pa; these then agree with TGSC 0.003 mmHg (est) = 0.40 Pa and a boiling-point estimate of about 1.3 Pa (range 0.4-1.3 Pa). Read literally, 0.007 Pa would be 57-190x below the others. The unit slip is not confirmed on the Rhubofix page. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
-    density_25c_g_ml: '23 Oct 2026 third data pass: PerfumersWorld 3FL06757 "Specific Gravity 1.0230", https://www.perfumersworld.com/view.php?pro_id=3FL06757; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle)'
+    density_25c_g_ml: 'SG 1.0230, supplier-reported (PerfumersWorld 3FL06757 "Rhubofix"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 23 Oct 2026 third data pass: PerfumersWorld 3FL06757 "Specific Gravity 1.0230", https://www.perfumersworld.com/view.php?pro_id=3FL06757; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle)'
+    density_basis: supplier_sg_temperature_unstated
+    smiles: 'PubChem CID 94522 structure for CAS 41816-03-9 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: Rice Bran Oil - Fixed Oil
   aliases: []
   cas: null
@@ -1017,8 +1020,8 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: '22 Oct 2026 missing-data pass: stated; raw 8007-01-0; https://www.thegoodscentscompany.com/data/es1024951.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.848 to 0.868; https://www.thegoodscentscompany.com/data/es1024951.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '22 Oct 2026 missing-data pass: stated; raw 8007-01-0; https://www.thegoodscentscompany.com/data/es1024951.html'
 - canonical_name: ROSE OTTO F-TEC
   aliases: []
   cas: null
@@ -1507,7 +1510,8 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: rose de mai absolute
-  aliases: []
+  aliases:
+  - MySkinRecipes Rose De Mai Absolute
   cas: 8007-01-0
   smiles: null
   inchikey: null
