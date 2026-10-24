@@ -230,6 +230,40 @@ def test_a_support_of_a_trace_grade_lead_is_raised_as_before(patched, monkeypatc
     assert (support["status"], support["dose_after_ul"]) == ("raised", "80")
 
 
+def test_no_donor_ends_under_ten_microlitres_or_its_composed_dose(patched, monkeypatch):
+    # A silent row takes 19 uL from three small detectable donors.  Half of an
+    # 18 uL donor is 9 uL and half of a 6 uL one is 3 uL: the duel disqualifies
+    # any pour under 10 uL, so a donor keeps 10 uL, or all of a dose composed
+    # under 10 uL.
+    caps, _ = patched
+    caps["Quiet"] = (Decimal(69), "role cap")
+    rows = [
+        _row(0, "Lead", 500, "character", "heart", "facet_lead"),
+        _row(1, "Quiet", 50, "structure", "base", "base_wood_layer"),
+        _row(2, "Small", 18, "texture", "top", "top_green_layer"),
+        _row(3, "Big", 20, "texture", "top", "top_citrus_layer"),
+        _row(4, "Trace", 6, "texture", "top", "top_spice_layer"),
+    ]
+    per_ul = {"Lead": 0.01, "Quiet": 0.015, "Small": 1.0, "Big": 1.0, "Trace": 1.0}
+    monkeypatch.setattr(
+        dp, "_simulate",
+        lambda rows, amounts: {
+            rows[i]["identity_name"]: {w: float(a) * per_ul[rows[i]["identity_name"]] for w in WINDOWS}
+            for i, a in amounts.items()
+        },
+    )
+
+    result = dp.apply_detection_pass(
+        {"rows": rows}, role_plan=None, interpretation={}, formula_name="t", index=[object()],
+    )
+
+    assert _status(result, "Quiet")["status"] == "raised"
+    assert _liquid(result) == Decimal(594)
+    for before, after in zip(rows, result["rows"], strict=True):
+        composed = Decimal(before["amount_decimal"])
+        assert Decimal(after["amount_decimal"]) >= min(composed, Decimal(10)), after
+
+
 def test_intended_window_mapping():
     assert dp.intended_windows({"role": "texture", "note": "top"}) == ("opening", "top")
     assert dp.intended_windows({"role": "modifier", "note": "top"}) == ("opening", "top")

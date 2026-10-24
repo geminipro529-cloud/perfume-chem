@@ -343,6 +343,108 @@ def test_a_detection_raise_that_would_break_the_long_lasting_floor_is_rejected(m
     assert [row["amount_decimal"] for row in result["rows"]] == ["100", str(int(_floor_ul()))]
 
 
+def test_a_diluted_long_lasting_raise_keeps_the_long_lasting_measure(monkeypatch) -> None:
+    # "Slow" is a 10% long-lasting stock: each uL raised adds 0.1 uL of
+    # long-lasting active, and each uL the neat long-lasting "Fixer" gives
+    # takes 1 uL.  The formula is under the floor (430 uL), so the measure
+    # may not fall: "Fresh" (not long-lasting) gives first, and the raise keeps
+    # the largest part the measure allows (166 uL: 150 from Fresh, 16 from Fixer).
+    rows = [
+        _drow(0, "Lead", 400, "character", "facet_lead"),
+        _drow(1, "Heart", 400, "character", "facet_heart"),
+        _drow(2, "Slow", 300, "structure", "base_resin_layer", fraction="0.1"),
+        _drow(3, "Fixer", 400, "volume", "base_musk_layer"),
+        _drow(4, "Fresh", 300, "texture", "top_green_layer"),
+    ]
+    per_ul = {"Lead": 0.01, "Heart": 0.01, "Slow": 0.0022, "Fixer": 0.01, "Fresh": 0.01}
+    monkeypatch.setattr(
+        dp, "_simulate",
+        lambda rows, amounts: {
+            rows[i]["identity_name"]: {
+                window: float(amount) * per_ul[rows[i]["identity_name"]] for window in dp.WINDOWS
+            }
+            for i, amount in amounts.items()
+        },
+    )
+    monkeypatch.setattr(dp, "_row_cap", lambda row, role, index, total: (Decimal(5000), "role cap"))
+    monkeypatch.setattr(dp, "_blocking_checks", lambda formula, name: set())
+    monkeypatch.setattr(planner, "_long_lasting_material", lambda name: name in {"Slow", "Fixer"})
+
+    result = dp.apply_detection_pass(
+        {"rows": rows}, role_plan=None, interpretation={}, formula_name="t", index=[object()],
+    )
+
+    amounts = {row["identity_name"]: row["amount_decimal"] for row in result["rows"]}
+    assert amounts == {"Lead": "400", "Heart": "400", "Slow": "466", "Fixer": "384", "Fresh": "150"}
+    slow = next(e for e in result["detection_check"]["roles"] if e["material"] == "Slow")
+    assert slow["status"] == "raised"
+    long_active = Decimal(amounts["Slow"]) * Decimal("0.1") + Decimal(amounts["Fixer"])
+    assert long_active >= Decimal(430)
+
+
+def _row_measures(rows: Sequence[dict]) -> tuple[Decimal, Decimal]:
+    """(uL/mL of long-lasting active on the 30 mL basis, % of the concentrate active)."""
+
+    active = long_active = raw = Decimal(0)
+    for row in rows:
+        amount = Decimal(row["amount_decimal"])
+        raw += amount
+        if planner._key(row["identity_name"]) in planner._DESIGN_FUNCTIONAL_CARRIERS:
+            continue
+        part = amount * Decimal(row["stock_fraction_decimal"])
+        active += part
+        if planner._long_lasting_material(row["identity_name"]):
+            long_active += part
+    return long_active / planner.LONGEVITY_FLOOR_BOTTLE_ML, active / raw * 100
+
+
+def _composed_rows(formula: dict) -> list[dict]:
+    """The formula's rows as composed, before the detection pass moved them."""
+
+    rows = [dict(row) for row in formula["rows"]]
+    for adjustment in formula["detection_check"]["adjustments"]:
+        rows[adjustment["row_index"]]["amount_decimal"] = adjustment["amount_before_decimal"]
+    return rows
+
+
+def test_the_detection_pass_keeps_a_briefs_long_lasting_measure() -> None:
+    # The pass used to raise the 10% Labdanum from 336 to 1344 uL with volume
+    # from neat long-lasting rows (Hedione HC, Romandolide, ...), taking the
+    # formula from 49.8 to 41.6 uL/mL of long-lasting material.
+    result = design_inventory_formula(idea="pipe tobacco and vanilla")
+    formula = result["optimized_formula"]
+    before, _ = _row_measures(_composed_rows(formula))
+    after, _ = _row_measures(formula["rows"])
+    assert after >= min(before, planner.LONG_LASTING_FLOOR_UL_PER_ML), (before, after)
+
+
+def test_the_floor_holds_describe_the_rows_the_detection_pass_delivers() -> None:
+    # The pass raises rows of this brief: the floor holds are measured on the
+    # delivered rows, not on the composer's rows before the pass.
+    result = design_inventory_formula(idea="vanilla tonka gourmand")
+    formula = result["optimized_formula"]
+    assert formula["detection_check"]["adjustments"]
+    long_per_ml, active_pct = _row_measures(formula["rows"])
+    for holds in (result["constraint_audit"]["holds"], result["critic"]["issues"]):
+        figures = {
+            hold.split(":", 1)[0]: Decimal(hold.split(":", 1)[1])
+            for hold in holds
+            if hold.startswith(("LONG_LASTING_FLOOR_SHORT:", "ACTIVE_SHARE_FLOOR_SHORT:"))
+        }
+        assert (long_per_ml < planner.LONG_LASTING_FLOOR_UL_PER_ML) == (
+            "LONG_LASTING_FLOOR_SHORT" in figures
+        )
+        assert (active_pct < planner.ACTIVE_SHARE_FLOOR * 100) == (
+            "ACTIVE_SHARE_FLOOR_SHORT" in figures
+        )
+        if "LONG_LASTING_FLOOR_SHORT" in figures:
+            assert abs(figures["LONG_LASTING_FLOOR_SHORT"] - long_per_ml) <= Decimal("0.1")
+        if "ACTIVE_SHARE_FLOOR_SHORT" in figures:
+            assert abs(figures["ACTIVE_SHARE_FLOOR_SHORT"] - active_pct) <= Decimal("0.1")
+    # The primary variant's critic is the report's critic.
+    assert result["design_variants"][0]["critic"]["issues"] == result["critic"]["issues"]
+
+
 def test_a_named_weighed_crystal_counts_in_the_named_share(plain_caps: dict[str, int]) -> None:
     # A named amber crystal lead of 525 mg beside a named note Kenny owns only
     # at 1%: counted, the crystal already carries the floor share, so the lead

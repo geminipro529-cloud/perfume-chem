@@ -27,7 +27,7 @@ from datetime import date
 from decimal import ROUND_FLOOR, ROUND_HALF_UP, Decimal, InvalidOperation
 from functools import lru_cache
 from pathlib import Path
-from typing import Any, Sequence
+from typing import Any, Mapping, Sequence
 
 from engine.ifra_standards import single_material_limit_pct
 from engine.ingredient_intelligence import MaterialProfile, get_profile
@@ -2764,13 +2764,7 @@ def _longevity_floor_holds(
         Decimal(0),
     )
     raw = Decimal(sum(amount for _index, amount in rows))
-    share = active / raw if raw > 0 else Decimal(0)
-    holds: list[str] = []
-    if long_active < LONG_LASTING_FLOOR_ACTIVE_UL:
-        reached = (long_active / LONGEVITY_FLOOR_BOTTLE_ML).quantize(Decimal("0.1"))
-        holds.append(f"LONG_LASTING_FLOOR_SHORT:{reached}")
-    if share < ACTIVE_SHARE_FLOOR:
-        holds.append(f"ACTIVE_SHARE_FLOOR_SHORT:{(share * 100).quantize(Decimal('0.1'))}")
+    holds = _floor_short_holds(active, long_active, raw)
     if holds:
         for index in sorted(state):
             choice = choices[index]
@@ -2781,6 +2775,64 @@ def _longevity_floor_holds(
                 and state[index] * 10 > liquid_total_ul
             ):
                 holds.append(f"WEAK_GRADE_NAMED_ROW:{choice.candidate.stock.stock_id}")
+    return holds
+
+
+def _floor_short_holds(active: Decimal, long_active: Decimal, raw: Decimal) -> list[str]:
+    """LONG_LASTING_FLOOR_SHORT / ACTIVE_SHARE_FLOOR_SHORT for the floors' measure:
+    ``long_active`` uL of long-lasting active and ``active`` uL of active in
+    ``raw`` uL of concentrate (weighed solids count 1 mg as 1 uL)."""
+
+    share = active / raw if raw > 0 else Decimal(0)
+    holds: list[str] = []
+    if long_active < LONG_LASTING_FLOOR_ACTIVE_UL:
+        reached = (long_active / LONGEVITY_FLOOR_BOTTLE_ML).quantize(Decimal("0.1"))
+        holds.append(f"LONG_LASTING_FLOOR_SHORT:{reached}")
+    if share < ACTIVE_SHARE_FLOOR:
+        holds.append(f"ACTIVE_SHARE_FLOOR_SHORT:{(share * 100).quantize(Decimal('0.1'))}")
+    return holds
+
+
+# The holds ``_longevity_floor_holds`` writes.
+LONGEVITY_FLOOR_HOLD_PREFIXES = (
+    "LONG_LASTING_FLOOR_SHORT:", "ACTIVE_SHARE_FLOOR_SHORT:", "WEAK_GRADE_NAMED_ROW:",
+)
+
+
+def longevity_floor_holds_of_rows(
+    rows: Sequence[Mapping[str, Any]], named_slots: frozenset[str] = frozenset(),
+) -> list[str]:
+    """``_longevity_floor_holds`` read from delivered formula rows.
+
+    The same measure: a row's active is its amount times its stock fraction (a
+    functional carrier has none, a weighed solid counts 1 mg as 1 uL), and it is
+    long-lasting by ``_long_lasting_material``.  ``named_slots`` are the slots
+    of the rows serving the brief's named notes (WEAK_GRADE_NAMED_ROW).
+    """
+
+    active = long_active = raw = liquid = Decimal(0)
+    for row in rows:
+        amount = Decimal(str(row.get("amount_decimal") or 0))
+        raw += amount
+        if row.get("amount_unit") != "mg":
+            liquid += amount
+        name = str(row.get("identity_name") or row.get("material") or "")
+        if _key(name) in _DESIGN_FUNCTIONAL_CARRIERS:
+            continue
+        part = amount * Decimal(str(row.get("stock_fraction_decimal") or 1))
+        active += part
+        if _long_lasting_material(name):
+            long_active += part
+    holds = _floor_short_holds(active, long_active, raw)
+    if holds:
+        holds.extend(
+            f"WEAK_GRADE_NAMED_ROW:{row.get('stock_id')}"
+            for row in rows
+            if row.get("amount_unit") != "mg"
+            and str(row.get("slot")) in named_slots
+            and Decimal(str(row.get("stock_fraction_decimal") or 1)) < Decimal("0.25")
+            and Decimal(str(row.get("amount_decimal") or 0)) * 10 > liquid
+        )
     return holds
 
 
