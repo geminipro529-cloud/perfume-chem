@@ -326,13 +326,16 @@ def apply_detection_pass(
         i for i in original
         if (role := roles.get(str(rows[i].get("slot")))) is not None and _is_named_note(role)
     }
-    strength = {
-        i: Decimal(0)
-        if _key(str(rows[i].get("identity_name") or rows[i].get("material") or ""))
-        in _DESIGN_FUNCTIONAL_CARRIERS
-        else Decimal(str(rows[i].get("stock_fraction_decimal") or 1))
-        for i in original
-    }
+    def material_of(row: Mapping[str, Any]) -> str:
+        return str(row.get("identity_name") or row.get("material") or "")
+
+    def strength_of(row: Mapping[str, Any]) -> Decimal:
+        # Active per uL (or per mg of a weighed solid); a functional carrier has none.
+        if _key(material_of(row)) in _DESIGN_FUNCTIONAL_CARRIERS:
+            return Decimal(0)
+        return Decimal(str(row.get("stock_fraction_decimal") or 1))
+
+    strength = {i: strength_of(rows[i]) for i in original}
 
     def named_share(current: Mapping[int, Decimal]) -> Decimal:
         total = sum((current[i] * strength[i] for i in current), Decimal(0))
@@ -345,7 +348,7 @@ def apply_detection_pass(
     # Weighed solids are never raised, but count 1 mg as 1 uL in the active oil.
     solid_active = sum(
         (
-            Decimal(str(row.get("amount_decimal"))) * Decimal(str(row.get("stock_fraction_decimal") or 1))
+            Decimal(str(row.get("amount_decimal"))) * strength_of(row)
             for row in rows
             if row.get("amount_unit") == "mg"
         ),
@@ -354,15 +357,12 @@ def apply_detection_pass(
 
     # The long-lasting floor: the composer's own test (the release gate's
     # reference VP at 25 C), on the same 1 mg = 1 uL basis for weighed solids.
-    def material_of(row: Mapping[str, Any]) -> str:
-        return str(row.get("identity_name") or row.get("material") or "")
-
     long_lasting = {
         i: strength[i] > 0 and _long_lasting_material(material_of(rows[i])) for i in original
     }
     solid_long_active = sum(
         (
-            Decimal(str(row.get("amount_decimal"))) * Decimal(str(row.get("stock_fraction_decimal") or 1))
+            Decimal(str(row.get("amount_decimal"))) * strength_of(row)
             for row in rows
             if row.get("amount_unit") == "mg" and _long_lasting_material(material_of(row))
         ),

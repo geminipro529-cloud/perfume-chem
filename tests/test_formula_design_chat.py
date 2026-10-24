@@ -767,15 +767,26 @@ def test_formula_design_uses_a_low_odor_carrier_for_quiet_skin_structure() -> No
     assert 900 <= int(carrier["amount_decimal"]) <= 960
     checks = result["composition_checks"]["checks"]
     assert not [c for c in checks if c["check"] == "ifra" and c["status"] == "FAIL"]
+    # No row carries more than 40% of the active oil (the carrier counts
+    # none), unless the formula names it in a ROW_ABOVE_ACTIVE_CEILING hold:
+    # the rows that could take its excess could not.
+    above = {
+        hold.split(":", 1)[1]
+        for hold in result["constraint_audit"]["holds"]
+        if hold.startswith("ROW_ABOVE_ACTIVE_CEILING:")
+    }
     active = {
-        row["slot"]: (
+        row["stock_id"]: (
             0.0
             if row["slot"] == "quiet_carrier"
             else float(row["amount_decimal"]) * float(row["stock_fraction_decimal"])
         )
         for row in rows
     }
-    assert all(value <= 0.40 * sum(active.values()) for value in active.values()), active
+    assert all(
+        value <= 0.40 * sum(active.values()) or stock_id in above
+        for stock_id, value in active.items()
+    ), (active, above)
     slots = {row["slot"] for row in rows}
     assert "clean_paper" not in slots
     assert "book_leather" not in slots

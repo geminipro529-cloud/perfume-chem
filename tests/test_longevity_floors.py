@@ -375,6 +375,43 @@ def test_a_named_weighed_crystal_counts_in_the_named_share(plain_caps: dict[str,
     assert totals["mass_total_mg"] == crystal["amount_decimal"]
 
 
+def test_the_short_holds_describe_the_rows_the_ceiling_pass_delivers(
+    plain_caps: dict[str, int]
+) -> None:
+    # Half the concentrate is a capped carrier, so the long-lasting Hedione
+    # (2100 uL after the bulk fallback, over the floor) carries 70% of the
+    # active oil; the ceiling pass then gives 600 uL of it to the Linalool
+    # modifier, which takes the formula under the long-lasting floor.
+    plain_caps.update({"Benzyl Benzoate": 3000})
+    choices = [
+        _choice("Benzyl Benzoate", share=.50, cap=.50, function="fixative"),
+        _choice("Hedione", share=.30, cap=.05, function="volume"),
+        _choice("Linalool", share=.10, function="modifier"),
+        _choice("Dihydromyrcenol", share=.10, cap=.05),
+    ]
+    before = _floors(choices, _composed(choices, []), [])
+    assert _long_active(choices, before) >= _floor_ul()
+
+    rows, totals, holds = planner._formula_rows(choices, liquid_total_ul=TOTAL, quantities=())
+    state = {index: int(row["amount_decimal"]) for index, row in enumerate(rows)}
+
+    assert sum(state.values()) == int(totals["liquid_total_ul"]) == TOTAL
+    assert state[1] < before[1]
+    long_per_ml = (_long_active(choices, state) / planner.LONGEVITY_FLOOR_BOTTLE_ML).quantize(
+        Decimal("0.1")
+    )
+    active_pct = (_active(choices, state) / TOTAL * 100).quantize(Decimal("0.1"))
+    assert long_per_ml < planner.LONG_LASTING_FLOOR_UL_PER_ML
+    short = sorted(
+        hold for hold in holds
+        if hold.startswith(("LONG_LASTING_FLOOR_SHORT:", "ACTIVE_SHARE_FLOOR_SHORT:"))
+    )
+    assert short == [
+        f"ACTIVE_SHARE_FLOOR_SHORT:{active_pct}",
+        f"LONG_LASTING_FLOOR_SHORT:{long_per_ml}",
+    ]
+
+
 def test_a_light_brief_reaches_the_floor_or_carries_the_hold() -> None:
     result = design_inventory_formula(idea="A fresh citrus cologne")
     formula = result["optimized_formula"] or result["initial_formula"]

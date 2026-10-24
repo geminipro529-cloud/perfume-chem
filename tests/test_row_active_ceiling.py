@@ -44,16 +44,33 @@ def _formulas(result: dict[str, Any]) -> list[dict[str, Any]]:
     return [result["optimized_formula"], *variants]
 
 
+def _named_above_ceiling(result: dict[str, Any], formula: dict[str, Any]) -> set[str]:
+    """The stock ids the formula's own holds name above the ceiling (the
+    report's holds are the optimized formula's; a variant's are not shown)."""
+
+    if formula["rows"] != result["optimized_formula"]["rows"]:
+        return set()
+    return {
+        hold.split(":", 1)[1]
+        for hold in result["constraint_audit"]["holds"]
+        if hold.startswith("ROW_ABOVE_ACTIVE_CEILING:")
+    }
+
+
 @pytest.mark.parametrize("brief", [_WHITE_MUSK, _QUIET_SKIN], ids=["white_musk", "quiet_skin"])
 def test_no_composed_row_passes_the_active_ceiling(brief: dict[str, Any]) -> None:
+    # Every row, liquid or weighed, is at or under the ceiling, or the formula
+    # names it in a ROW_ABOVE_ACTIVE_CEILING hold (the rows that could take its
+    # excess could not).
     result = design_inventory_formula(**brief)
     for formula in _formulas(result):
         rows = formula["rows"]
         total_active = sum(_row_active(row) for row in rows)
+        named = _named_above_ceiling(result, formula)
         over = {
             row["identity_name"]: float(_row_active(row) / total_active)
             for row in rows
-            if row["amount_unit"] == "uL" and _row_active(row) > CEILING * total_active
+            if _row_active(row) > CEILING * total_active and row["stock_id"] not in named
         }
         assert not over, over
         liquid = sum(Decimal(row["amount_decimal"]) for row in rows if row["amount_unit"] == "uL")
@@ -189,6 +206,97 @@ def test_too_few_rows_keep_the_design_and_name_the_rows_above_the_ceiling() -> N
     over = [hold for hold in holds if hold.startswith("ROW_ABOVE_ACTIVE_CEILING:")]
     assert over
     assert {hold.split(":", 1)[1] for hold in over} <= {row["stock_id"] for row in rows}
+
+
+def _ceiling_pass(choices: list[Any]) -> tuple[dict[int, int], list[str]]:
+    free_rows = [
+        (index, planner._allocation_weight(choice), planner._design_cap_ul(choice, TOTAL))
+        for index, choice in enumerate(choices)
+    ]
+    allocated, _fallback_holds = _fallback(choices)
+    holds: list[str] = []
+    return planner._hold_active_ceiling(allocated, free_rows, {}, choices, TOTAL, holds), holds
+
+
+def test_a_restraint_share_row_never_takes_another_row_s_excess(firm_caps: dict[str, int]) -> None:
+    # A 3% restraint share on a 1% stock (design cap 180 uL) once took over
+    # 5,000 uL of a volume row's excess.  The bulk fallback never releases a
+    # role with an explicit restraint share, nor a row with a hard cap, so no
+    # row can take the excess here: the volume row keeps it, named.
+    firm_caps.update({"Cedramber": 300})
+    choices = [
+        _choice("Habanolide", function="volume", max_raw_share=0.2),
+        _choice("Isobutyl Quinoline", 0.01, max_raw_share=0.03),
+        _choice("Cedramber"),
+    ]
+    assert planner._design_cap_ul(choices[1], TOTAL) == 180
+
+    result, holds = _ceiling_pass(choices)
+
+    assert sum(result.values()) == TOTAL
+    assert result[1] <= 180
+    assert result[2] <= 300
+    assert _shares(choices, result)[0] > CEILING
+    assert holds == ["ROW_ABOVE_ACTIVE_CEILING:stock:Habanolide"]
+
+
+def test_a_row_the_fallback_would_release_takes_the_excess_and_says_why(
+    firm_caps: dict[str, int]
+) -> None:
+    # A row with no restraint share may pass its design cap for the ceiling,
+    # as the fallback's last role-cap stage would release it; the total was
+    # already full, so its hold says it was for the ceiling.
+    firm_caps.update({"Cedramber": 300})
+    choices = [
+        _choice("Habanolide", function="volume", max_raw_share=0.2),
+        _choice("Isobutyl Quinoline", 0.01, max_raw_share=0.03),
+        _choice("Cedramber"),
+        _choice("Hedione"),
+    ]
+    caps = [planner._design_cap_ul(choice, TOTAL) for choice in choices]
+
+    result, holds = _ceiling_pass(choices)
+
+    assert sum(result.values()) == TOTAL
+    assert result[1] <= caps[1] and result[2] <= 300
+    assert result[3] > caps[3]
+    assert _shares(choices, result)[3] <= CEILING
+    assert sorted(holds) == [
+        "ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING:stock:Hedione",
+        "ROW_ABOVE_ACTIVE_CEILING:stock:Habanolide",
+    ]
+
+
+def test_a_weighed_solid_above_the_ceiling_is_named_and_never_cut() -> None:
+    from engine.formulation_intelligence.material_capability_index import (
+        build_material_capability_index,
+    )
+
+    crystal = next(
+        capability.candidate
+        for capability in build_material_capability_index().capabilities
+        if capability.identity_name == "Ambrox Super" and capability.candidate.solid
+    )
+    choices = [
+        planner.Choice(
+            planner.RoleSpec("r_amber", "Ambrox Super", "base", "structure", 0.2, ()),
+            crystal, 1.0, (),
+        )
+    ]
+    for identity in ("Habanolide", "Ethylene Brassylate"):
+        role = planner.RoleSpec(f"r_{identity}", identity, "base", "volume", 0.4, ())
+        choices.append(planner.Choice(role, _capability(identity, 1.0).candidate, 1.0, ()))
+    # 5000 mg of neat crystal beside 6000 uL of neat liquid: 45% of the active.
+    quantities = [
+        {"scope": "MATERIAL_DOSE", "material": "Ambrox Super", "amount_decimal": "5000", "unit": "mg"}
+    ]
+
+    rows, totals, holds = planner._formula_rows(choices, liquid_total_ul=TOTAL, quantities=quantities)
+
+    solid = rows[0]
+    assert (solid["amount_unit"], solid["amount_decimal"]) == ("mg", "5000")
+    assert totals["liquid_total_ul"] == str(TOTAL)
+    assert f"ROW_ABOVE_ACTIVE_CEILING:{solid['stock_id']}" in holds
 
 
 def _synthetic(stock_id: str, *, named: bool = False) -> Any:

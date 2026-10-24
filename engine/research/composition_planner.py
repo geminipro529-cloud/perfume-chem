@@ -1757,6 +1757,8 @@ def _ambrox_crystal_mg(
     crystal_indices: Sequence[int],
     fixed_liquid: dict[int, int],
     liquid_total_ul: int,
+    *,
+    outside_active: Decimal = Decimal(0),
 ) -> dict[int, int]:
     """Each rule-dosed crystal's mass: the active its 25% solution would carry.
 
@@ -1767,6 +1769,9 @@ def _ambrox_crystal_mg(
     liquids with the crystal outside them, so the solvent the solution would
     have brought is shared by the whole formula pro rata.  This pass's holds
     describe a formula nobody compounds, so they are dropped.
+    ``outside_active`` is the active of the rows outside this allocation (the
+    requested liquid doses and the other weighed solids), as the caller's own
+    allocation takes it.
     """
 
     dilution = float(AMBROX_CRYSTAL_REFERENCE_DILUTION)
@@ -1784,7 +1789,8 @@ def _ambrox_crystal_mg(
     ]
     unused_holds: list[str] = []
     allocated = _allocate_with_bulk_fallback(
-        liquid_total_ul - sum(fixed_liquid.values()), free_rows, stand_in, liquid_total_ul, unused_holds
+        liquid_total_ul - sum(fixed_liquid.values()), free_rows, stand_in, liquid_total_ul, unused_holds,
+        outside_active=outside_active,
     )
     allocated = _lead_with_named_notes(
         allocated, free_rows, fixed_liquid, stand_in, liquid_total_ul, unused_holds
@@ -2735,6 +2741,49 @@ def _lead_with_named_notes(
     return {index: state[index] for index in allocated}
 
 
+def _longevity_floor_holds(
+    state: dict[int, int],
+    choices: Sequence[Choice],
+    liquid_total_ul: int,
+    solid_amounts: dict[int, int] | None = None,
+) -> list[str]:
+    """The holds for the longevity floors ``state`` leaves short.
+
+    ``state`` is every liquid row (requested quantities included); weighed
+    solids count 1 mg as 1 uL.  LONG_LASTING_FLOOR_SHORT gives the uL/mL of
+    long-lasting active reached and ACTIVE_SHARE_FLOOR_SHORT the percentage of
+    the concentrate that is active; when either is short, each named row of a
+    weak grade (under a quarter active) holding over a tenth of the volume is
+    named in a WEAK_GRADE_NAMED_ROW hold.
+    """
+
+    rows = [*state.items(), *(solid_amounts or {}).items()]
+    active = sum((_active_ul(choices[index], amount) for index, amount in rows), Decimal(0))
+    long_active = sum(
+        (_active_ul(choices[index], amount) for index, amount in rows if _is_long_lasting(choices[index])),
+        Decimal(0),
+    )
+    raw = Decimal(sum(amount for _index, amount in rows))
+    share = active / raw if raw > 0 else Decimal(0)
+    holds: list[str] = []
+    if long_active < LONG_LASTING_FLOOR_ACTIVE_UL:
+        reached = (long_active / LONGEVITY_FLOOR_BOTTLE_ML).quantize(Decimal("0.1"))
+        holds.append(f"LONG_LASTING_FLOOR_SHORT:{reached}")
+    if share < ACTIVE_SHARE_FLOOR:
+        holds.append(f"ACTIVE_SHARE_FLOOR_SHORT:{(share * 100).quantize(Decimal('0.1'))}")
+    if holds:
+        for index in sorted(state):
+            choice = choices[index]
+            fraction = Decimal(str(choice.candidate.stock.dilution))
+            if (
+                choice.role.serves_requested_facet
+                and fraction < Decimal("0.25")
+                and state[index] * 10 > liquid_total_ul
+            ):
+                holds.append(f"WEAK_GRADE_NAMED_ROW:{choice.candidate.stock.stock_id}")
+    return holds
+
+
 def _meet_longevity_floors(
     allocated: dict[int, int],
     free_rows: Sequence[tuple[int, float, int | None]],
@@ -2744,6 +2793,7 @@ def _meet_longevity_floors(
     holds: list[str],
     *,
     solid_amounts: dict[int, int] | None = None,
+    report_short: bool = True,
 ) -> dict[int, int]:
     """Give the formula at least Kenny's weakest reference active and longevity.
 
@@ -2789,7 +2839,9 @@ def _meet_longevity_floors(
     ACTIVE_SHARE_FLOOR_SHORT (the percentage reached), with a
     WEAK_GRADE_NAMED_ROW hold for each named row that is the reason - a weak
     grade (under a quarter active) holding over a tenth of the volume, which
-    the named-note floor pins where it is.
+    the named-note floor pins where it is (``_longevity_floor_holds``).
+    ``report_short=False`` leaves that report to the caller: _formula_rows
+    makes it on the rows it delivers, after the active ceiling pass.
     """
 
     if not allocated:
@@ -3076,23 +3128,8 @@ def _meet_longevity_floors(
                                 f"{choices[index].candidate.stock.stock_id}"
                             )
 
-    short = False
-    if long_active(state) < LONG_LASTING_FLOOR_ACTIVE_UL:
-        short = True
-        reached = (long_active(state) / LONGEVITY_FLOOR_BOTTLE_ML).quantize(Decimal("0.1"))
-        holds.append(f"LONG_LASTING_FLOOR_SHORT:{reached}")
-    if active_share(state) < ACTIVE_SHARE_FLOOR:
-        short = True
-        holds.append(
-            f"ACTIVE_SHARE_FLOOR_SHORT:{(active_share(state) * 100).quantize(Decimal('0.1'))}"
-        )
-    if short:
-        for index in sorted(named_all):
-            fraction = Decimal(str(choices[index].candidate.stock.dilution))
-            if fraction < Decimal("0.25") and state[index] * 10 > liquid_total_ul:
-                holds.append(
-                    f"WEAK_GRADE_NAMED_ROW:{choices[index].candidate.stock.stock_id}"
-                )
+    if report_short:
+        holds.extend(_longevity_floor_holds(state, choices, liquid_total_ul, solids))
     return {index: state[index] for index in allocated}
 
 
@@ -3112,10 +3149,13 @@ def _hold_active_ceiling(
     is the weighed rows' part of it) gives the least volume that brings it to
     its ceiling to the other free rows, in proportion to their design caps and
     never past their own ceilings: first within the design caps, then within
-    the firm caps (not for a generic bridge, layer or accent slot the bulk
-    fallback never releases), each row pushed past its design cap named in the
-    fallback's ROLE_CAP_EXCEEDED_TO_FILL_TOTAL or
-    SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL hold.  A named row gives to the
+    the firm caps for the rows the bulk fallback's last role-cap stage releases
+    (``_releases_to_fill`` at stage 2: never a generic bridge, layer or accent
+    slot, a role with an explicit restraint share, or a row with an identity
+    hard cap or normal-use ceiling), each row pushed past its design cap named
+    in a ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING hold, or
+    SCREENING_DEFAULT_EXCEEDED_FOR_ACTIVE_CEILING when it passed its screening
+    default (the total was already full).  A named row gives to the
     other named rows first, so the named floor holds.  A requested quantity
     and a row that must use an exact preferred material are never cut.  A row
     the other rows cannot take (all of) the excess from keeps it under a
@@ -3129,16 +3169,15 @@ def _hold_active_ceiling(
     strength = {index: _active_ul(choices[index], 1) for index in state}
     named = {index for index in allocated if choices[index].role.serves_requested_facet}
     firm = {index: _firm_cap_ul(choices[index], liquid_total_ul) for index in allocated}
-    # A generic bridge, layer or accent slot never passes its design cap here
-    # (a generic volume slot the fallback releases may).
+    # Only a row the bulk fallback's last role-cap stage would release may pass
+    # its design cap here, and never its firm cap: not a generic bridge, layer
+    # or accent slot, a role with an explicit restraint share, or a row with an
+    # identity hard cap or normal-use ceiling.
     may_pass_cap = {
         index
         for index in allocated
-        if not getattr(choices[index].role, "generic_slot", False)
-        or (
-            _may_pass_design_cap(choices[index])
-            and _releases_to_fill(choices[index], liquid_total_ul, 2)
-        )
+        if _may_pass_design_cap(choices[index])
+        and _releases_to_fill(choices[index], liquid_total_ul, 2)
     }
 
     def ceiling(current: dict[int, int], index: int) -> int | None:
@@ -3241,11 +3280,12 @@ def _hold_active_ceiling(
         cap = caps.get(index)
         if state[index] <= allocated[index] or cap is None or state[index] <= cap:
             continue
+        # The total was already full: this row took another row's excess.
         default = _screening_default_cap_ul(choices[index], liquid_total_ul)
         kind = (
-            "SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL"
+            "SCREENING_DEFAULT_EXCEEDED_FOR_ACTIVE_CEILING"
             if default is not None and state[index] > default
-            else "ROLE_CAP_EXCEEDED_TO_FILL_TOTAL"
+            else "ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING"
         )
         holds.append(f"{kind}:{choices[index].candidate.stock.stock_id}")
     return {index: state[index] for index in allocated}
@@ -3417,9 +3457,18 @@ def _formula_rows(
     fixed_total = sum(fixed_liquid.values())
     if fixed_total > liquid_total_ul:
         raise ValueError("explicit liquid material doses exceed the requested liquid total")
+    fixed_active = sum(
+        (_active_ul(choices[index], amount) for index, amount in fixed_liquid.items()), Decimal(0)
+    )
     if rule_dosed_crystals:
         solid_amounts.update(
-            _ambrox_crystal_mg(choices, rule_dosed_crystals, fixed_liquid, liquid_total_ul)
+            _ambrox_crystal_mg(
+                choices, rule_dosed_crystals, fixed_liquid, liquid_total_ul,
+                outside_active=fixed_active + sum(
+                    (_active_ul(choices[index], mg) for index, mg in solid_amounts.items()),
+                    Decimal(0),
+                ),
+            )
         )
     free_rows = [
         (index, _allocation_weight(choice), _design_cap_ul(choice, liquid_total_ul))
@@ -3431,9 +3480,6 @@ def _formula_rows(
     # Weighed solids count 1 mg as 1 uL in the active oil the ceiling is a share of.
     solid_active = sum(
         (_active_ul(choices[index], amount) for index, amount in solid_amounts.items()), Decimal(0)
-    )
-    fixed_active = sum(
-        (_active_ul(choices[index], amount) for index, amount in fixed_liquid.items()), Decimal(0)
     )
     allocated = (
         _allocate_with_bulk_fallback(
@@ -3463,6 +3509,7 @@ def _formula_rows(
     allocated = _meet_longevity_floors(
         allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds,
         solid_amounts=solid_amounts,
+        report_short=False,
     )
     # The active ceiling stays the last allocation step: the active and
     # long-lasting floors run before it.
@@ -3470,6 +3517,28 @@ def _formula_rows(
         allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds,
         solid_active=solid_active,
     )
+    if allocated:
+        # The floors' SHORT holds describe the rows delivered: the ceiling
+        # pass may have moved volume after the floors step.
+        holds.extend(
+            _longevity_floor_holds(
+                {**fixed_liquid, **allocated}, choices, liquid_total_ul, solid_amounts
+            )
+        )
+    # A weighed solid is never cut for the ceiling; one above it is named.
+    liquid_active = sum(
+        (
+            _active_ul(choices[index], amount)
+            for index, amount in {**fixed_liquid, **allocated}.items()
+        ),
+        Decimal(0),
+    )
+    for index, mg in solid_amounts.items():
+        limit = _active_ceiling_ul(
+            choices[index], liquid_active + solid_active - _active_ul(choices[index], mg)
+        )
+        if limit is not None and mg > limit:
+            holds.append(f"ROW_ABOVE_ACTIVE_CEILING:{choices[index].candidate.stock.stock_id}")
 
     rows: list[dict[str, Any]] = []
     liquid_sum = 0
