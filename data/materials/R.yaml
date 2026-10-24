@@ -157,8 +157,8 @@
   logp: null
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.001
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.0955
+  vp_source: 'EPI'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0004
@@ -188,12 +188,13 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 5471-51-2 (https://www.thegoodscentscompany.com/data/rw1020771.html)'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 4-(p-hydroxyphenyl)-2-butanone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5471-51-2.pdf: "0.000716 mm Hg @ 25 C (EPI Suite)" = 0.0955 Pa (estimate; solid); replaces the unsourced 0.001, which was the mm Hg number read as Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Red Mandarin EO
   aliases:
   - red mandarin eo
@@ -397,7 +398,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 204.31
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.023
   logp: 3.1
   functional_groups: []
   chirality: null
@@ -426,13 +427,14 @@
     other: {}
   families: []
   character: null
-  notes: 'VP and density left null (2026-10-08). VP: dsm-firmenich "0.00735 Pa at 20C" (https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880) and Hekserij "Vapor pressure: 0.007 Pa" with no stated temperature (https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir); no 25 C value. Hekserij "Density: 1.03" has no stated temperature. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md.'
+  notes: 'VP and density left null (2026-10-08). VP: dsm-firmenich "0.00735 Pa at 20C" (https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880) and Hekserij "Vapor pressure: 0.007 Pa" with no stated temperature (https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir); no 25 C value. Hekserij "Density: 1.03" has no stated temperature. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880 (dsm-firmenich, producer); "CAS# 0041816-03-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.scentspiracy.com/fragrance-ingredients/p/rhubofix (secondary site); "204.31 g/mol" (C14H20O) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir (Hekserij, supplier); "Log P: 3.1", method not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     vp_25c_pa: 'ESTIMATE, low confidence (2026-10-14): dsm-firmenich Studio "0.00735 Pa at 20C" and Hekserij "0,007 Pa" read as mmHg (Studio pages have printed EPI mmHg values labelled Pa) = 0.98 and 0.93 Pa; these then agree with TGSC 0.003 mmHg (est) = 0.40 Pa and a boiling-point estimate of about 1.3 Pa (range 0.4-1.3 Pa). Read literally, 0.007 Pa would be 57-190x below the others. The unit slip is not confirmed on the Rhubofix page. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
+    density_25c_g_ml: '23 Oct 2026 third data pass: PerfumersWorld 3FL06757 "Specific Gravity 1.0230", https://www.perfumersworld.com/view.php?pro_id=3FL06757; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle)'
 - canonical_name: Rice Bran Oil - Fixed Oil
   aliases: []
   cas: null
@@ -1099,11 +1101,11 @@
   inchikey: null
   mw_g_mol: 154.3
   density_25c_g_ml: 0.866
-  logp: 2.9
+  logp: 3.58
   functional_groups: []
   chirality: null
-  vp_25c_pa: 5.3
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 77.0
+  vp_source: 'RIFM_measured'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1136,13 +1138,15 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 16409-43-1 (https://www.thegoodscentscompany.com/data/rw1035651.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.86500 to 0.87300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1035651.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, tetrahydro-4-methyl-2-(2-methylpropen-1-yl)pyran, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/16409-43-1.pdf: "log Pow = 3.58 [RIFM, 2013a], for two isomers"; measured; replaces the unsourced 2.9'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, rose oxide, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/16409-43-1.pdf: "p20 C = 0.53 hPa; p25 C = 0.77 hPa; p50 C = 4.0 hPa [RIFM, 2013a]" = 77 Pa measured (EPI 0.657 mm Hg = 88 Pa agrees); replaces the unsourced 5.3'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: ROSE PETAL F-TEC
   aliases: []
   cas: null
@@ -1504,7 +1508,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: rose de mai absolute
   aliases: []
-  cas: null
+  cas: 8007-01-0
   smiles: null
   inchikey: null
   mw_g_mol: 220.0
@@ -1544,6 +1548,7 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
+    cas: '23 Oct 2026 second missing-data pass: stated; raw 8007-01-0; https://perfumersworld.com/view.php?pro_id=8RM00395'
 - canonical_name: Rose Essential Oil
   aliases:
   - Rose Essential Oil (Rosa Damascena, India)

@@ -154,7 +154,7 @@
   inchikey:
   mw_g_mol: 206.33
   density_25c_g_ml: 0.9253
-  logp: 2.5
+  logp: 4.2
   functional_groups: []
   chirality:
   vp_25c_pa: 0.817
@@ -189,12 +189,12 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=6II13551 (Kenny''s supplier): "CAS 1335-46-2", "1-(2,6,6- trimethyl-1-cyclohex-2-enyl)pent-1-en-3-one" (methyl ionone, mixture of isomers) (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
     density_25c_g_ml: 'TGSC https://thegoodscentscompany.com/data/rw1006171.html (CAS 1335-46-2): "0.92400 to 0.93200 @ 25.00 C."; midpoint 0.928 x 0.99705 g/mL (water at 25 C) = 0.9253; PerfumersWorld lists SG 0.9240 (no temperature)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, methyl ionone (mixture of isomers), CAS 1335-46-2 as on this row, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf: "Log Pow = 4.0; 4.1; 4.2 and 4.3 (RIFM, 2013b), 4.6 (RIFM, 1994a), 4.84 (EPI Suite)"; 4.2 is the middle of the RIFM 2013b measurements; replaces the unsourced 2.5'
 - canonical_name: Undecavertol
   aliases:
   - undecavertol

@@ -116,7 +116,7 @@
   inchikey:
   mw_g_mol: 256.34
   density_25c_g_ml: 1.05
-  logp: 3.6
+  logp: 3.65
   functional_groups: []
   chirality:
   vp_25c_pa: 0.028
@@ -152,9 +152,9 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '22 Oct 2026 missing-data pass: stated; raw 54982-83-1; https://www.thegoodscentscompany.com/data/rw1001991.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 1.040 to 1.060; https://www.thegoodscentscompany.com/data/rw1001991.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, ethylene dodecanedioate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/54982-83-1.pdf: "Log Kow: 3.65 at 20 C [RIFM, 1999b], 4.22 [US EPA, 2012a]"; measured; replaces the unsourced 3.6'
