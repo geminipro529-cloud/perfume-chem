@@ -277,6 +277,59 @@ def test_a_functional_carrier_never_counts_and_never_grows(plain_caps: dict[str,
     assert sum(after.values()) == TOTAL
 
 
+_TWICE_GIVING_DONORS = {
+    # Linalool gives within the long-lasting rows' caps, then again when the
+    # second pass lets them pass their role caps.
+    "within_then_past_cap": (
+        [
+            ("Benzyl Benzoate", 1.0, .60, .70, "fixative", False),
+            ("Linalool", 1.0, .10, .10, "modifier", False),
+            ("Hedione", 1.0, .05, .05, "structure", False),
+            ("Cedarwood Virginia", 1.0, .05, .05, "structure", False),
+            ("Habanolide", 1.0, .05, .05, "structure", False),
+        ],
+        {0: 5000, 1: 400, 2: 200, 3: 200, 4: 200},
+        1,
+    ),
+    # The 10% Neroli gives to the neat rows for the active floor, then to the
+    # long-lasting rows for the long-lasting floor.
+    "active_then_long_lasting": (
+        [
+            ("Benzyl Benzoate", 1.0, .50, .50, "fixative", False),
+            ("Neroli EO", 0.1, .20, .20, "modifier", False),
+            ("Linalool", 1.0, .10, .50, "character", True),
+            ("Dihydromyrcenol", 1.0, .10, .50, "character", True),
+            ("Hedione", 1.0, .05, .0834, "structure", False),
+            ("Cedarwood Virginia", 1.0, .05, .0834, "structure", False),
+        ],
+        {0: 3000, 1: 1000, 2: 600, 3: 600, 4: 400, 5: 400},
+        1,
+    ),
+}
+
+
+@pytest.mark.parametrize("case", sorted(_TWICE_GIVING_DONORS))
+def test_a_donor_giving_in_several_passes_keeps_half_its_entry_dose(
+    plain_caps: dict[str, int], case: str
+) -> None:
+    # "Keep half" was measured at the start of each pass, so a donor giving in
+    # two of them kept a quarter ("vanilla tonka gourmand": Linalool 83 -> 21).
+    spec, before, donor = _TWICE_GIVING_DONORS[case]
+    choices = [
+        _choice(name, dilution, share=share, cap=cap, function=function, named=named,
+                role_id=f"facet_{name.split()[0].lower()}" if named else None)
+        for name, dilution, share, cap, function, named in spec
+    ]
+    holds: list[str] = []
+
+    after = _floors(choices, before, holds)
+
+    assert sum(after.values()) == TOTAL
+    assert after[donor] < before[donor]
+    for index, entry in before.items():
+        assert after[index] >= max(min(entry, 10), -(-entry // 2)), (index, before, after)
+
+
 def test_the_amber_base_rows_are_left_alone_by_the_floor_step(plain_caps: dict[str, int]) -> None:
     # The amber lead is long-lasting and the amber layer is not, so without the
     # rule one would take volume and the other would give it.

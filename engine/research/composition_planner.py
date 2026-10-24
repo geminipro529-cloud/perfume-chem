@@ -2880,8 +2880,9 @@ def _meet_longevity_floors(
        So the neat donors give first, and the diluted ones only in a second
        round, for what the first could not reach.
 
-    Each donor keeps at least half of its allocation and at least the minimum
-    raw transfer.  A named row never donates (it may receive), and neither
+    Each donor keeps at least half of the dose it had when this step began,
+    however many of the passes it gives in, and at least the minimum raw
+    transfer (all of a smaller dose).  A named row never donates (it may receive), and neither
     does a requested quantity, a row that must use an exact preferred
     material, a functional carrier, an accent or any amber-base row: the amber
     base moves only with the whole formula.  A move is refused when it would
@@ -2924,6 +2925,13 @@ def _meet_longevity_floors(
     star_all = {index for index in state if getattr(choices[index].role, "star_note", False)}
     role_ids = {index: getattr(choices[index].role, "role_id", "") or "" for index in state}
     by_role = {role_id: index for index, role_id in role_ids.items() if role_id}
+    # What a donor keeps is measured against its dose when the floors step
+    # starts, across every pass: at least half of it and the minimum raw
+    # transfer (all of a smaller dose), however many passes it gives in.
+    donor_floor = {
+        index: max(min(amount, _MIN_RAW_TRANSFER_UL), -(-amount // 2))
+        for index, amount in state.items()
+    }
 
     def active(current: dict[int, int], index: int) -> Decimal:
         return Decimal(current[index]) * strength[index]
@@ -3071,11 +3079,7 @@ def _meet_longevity_floors(
             given: dict[int, int] = {}
             for index in donors:
                 base = current[index]
-                keep = max(
-                    min(base, _MIN_RAW_TRANSFER_UL),
-                    -(-base // 2),
-                    int(base * (1 - fraction)),
-                )
+                keep = min(base, max(donor_floor[index], int(base * (1 - fraction))))
                 given[index] = base - keep
             return given
 
