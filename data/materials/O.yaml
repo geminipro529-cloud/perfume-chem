@@ -1751,7 +1751,7 @@
   smiles:
   inchikey:
   mw_g_mol: 200.0
-  density_25c_g_ml: 0.921
+  density_25c_g_ml:
   logp: 3.2
   functional_groups: []
   chirality:
@@ -1787,8 +1787,7 @@
     odt_air_ppb: estimated
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
-    density_25c_g_ml: 'SG 0.9210, supplier-reported (PerfumersWorld 8ND00346 "Osmanthus Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
-    density_basis: supplier_sg_temperature_unstated
+    density_25c_g_ml: 'Held 24 Oct 2026 (fix commit on #144): PerfumersWorld SG 0.9210 (8ND00346 "Osmanthus Absolute", temperature not stated, matched by product name only) is not loaded. At 0.921 the DHI 2011 osmanthus recognizer drops to OAV 0.9886, just under 1, so tests/test_dhi_2011_formula.py and tests/test_dhi_2011_v31_current_stock.py fail; held as in #142 for Kenny''s formula call'
     cas: '22 Oct 2026 missing-data pass: stated; raw 68917-05-5; https://www.perfumersworld.com/view.php?pro_id=8ND00346'
 - canonical_name: oakmoss absolute
   aliases: []

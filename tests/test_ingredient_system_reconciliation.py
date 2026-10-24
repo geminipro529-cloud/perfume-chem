@@ -149,7 +149,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # 2026-10-15: citronellol odt_air 40 -> 1.6 and rhodinol / rhodinol ex
     # citronella 0.3 -> 1.6 (Elsharif & Buettner 2017, 10 ng/L air); reverting
     # only those three gives aa5581d0….
-    assert digest == "1b161002ee87002edea0cd5f65bbe33ccd5c701cfe3fa25dd718cc5185028fcf"
+    # 2026-10-23: ethyl butyrate air ODT 0.04 ppb added (Nagata 2003); without that one
+    # entry the digest is 1b161002….
+    assert digest == "31c5f96ca25e311dc9291bde787f112e999c4f616c4cbc9db28f608da9567288"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

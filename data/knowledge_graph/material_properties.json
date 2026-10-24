@@ -63596,11 +63596,18 @@
         "fields": {
           "odor_family": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.129,
+          "clp": 2.1
+        }
       }
     ],
     "mw": 196.2,
-    "vp": 0.129,
-    "clp": 2.1,
+    "vp": 0.0013,
+    "clp": 2.8,
     "note": "base",
     "role": "character",
     "texture": "skin-effect",
@@ -63647,9 +63654,9 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
-        "mw": "profile:ingredient_intelligence.mw",
-        "vp": "profile:ingredient_intelligence.vp",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "synergies": [
@@ -63661,8 +63668,12 @@
     "odt": 0.3,
     "odt_ethanol_ppm": 0.5,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "vfy": "PEER_EST",
+      "sources": [
+        "Structural analogue (orcinol esters) ~0.3 ppb; RIFM/Arctander note extreme dilution potency"
+      ],
+      "note": "Tier C — structural surrogate (orcinol ester class)",
+      "declared_vfy": "PEER_EST"
     },
     "current_stocks": [],
     "inventory_text_records": [
@@ -66769,9 +66780,9 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
-        "mw": "profile:ingredient_intelligence.mw",
-        "vp": "profile:ingredient_intelligence.vp",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "synergies": [
@@ -66785,7 +66796,11 @@
     "odt_ethanol_ppm": 1.0,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "sources": [
+        "No peer-reviewed air-phase ODT found in indexed literature"
+      ],
+      "note": "Auto-tagged by audit 2026-05-11",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [],
     "inventory_text_records": [
@@ -80304,8 +80319,8 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
-        "mw": "profile:ingredient_intelligence.mw",
-        "vp": "profile:ingredient_intelligence.vp",
+        "mw": "registry:data_spine.mw",
+        "vp": "estimated:unsourced_placeholder.vp_25c",
         "clp": "profile:ingredient_intelligence.clogp"
       }
     },
@@ -80319,8 +80334,12 @@
     "odt": 1.0,
     "odt_ethanol_ppm": 1.5,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "vfy": "DERIVED",
+      "sources": [
+        "Whole oil/natural — no single air-phase ODT exists in peer-reviewed literature"
+      ],
+      "note": "Auto-tagged by audit 2026-05-11",
+      "declared_vfy": "DERIVED"
     },
     "current_stocks": [],
     "inventory_text_records": [
@@ -81038,10 +81057,16 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 1.87
+        }
       }
     ],
     "mw": 198.3,
-    "vp": 1.87,
+    "vp": 2.393,
     "clp": 4.22
   },
   {
@@ -83607,7 +83632,7 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "clp": {
-        "status": "UNKNOWN"
+        "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "activity_coef": {
         "status": "UNKNOWN"
@@ -83617,7 +83642,8 @@
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
-        "vp": "registry:data_spine.vp_25c"
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt": null,
@@ -83682,10 +83708,17 @@
           "mw": null,
           "vp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "clp": null
+        }
       }
     ],
     "mw": 200.32,
-    "vp": 13.9
+    "vp": 13.9,
+    "clp": 3.4
   },
   {
     "name": "Phenoxy Ethyl Isobutyrate",
