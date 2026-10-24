@@ -3587,19 +3587,15 @@ def _formula_rows(
                 {**fixed_liquid, **allocated}, choices, liquid_total_ul, solid_amounts
             )
         )
-    # A weighed solid is never cut for the ceiling; one above it is named.
-    liquid_active = sum(
-        (
-            _active_ul(choices[index], amount)
-            for index, amount in {**fixed_liquid, **allocated}.items()
-        ),
-        Decimal(0),
-    )
-    for index, mg in solid_amounts.items():
-        limit = _active_ceiling_ul(
-            choices[index], liquid_active + solid_active - _active_ul(choices[index], mg)
-        )
-        if limit is not None and mg > limit:
+    # Every delivered row above its ceiling is named: a requested quantity, a
+    # row that must use an exact preferred material and a weighed solid are
+    # never cut for it, and a free row may keep an excess no other row took.
+    delivered = [*fixed_liquid.items(), *allocated.items(), *solid_amounts.items()]
+    row_active = {index: _active_ul(choices[index], amount) for index, amount in delivered}
+    total_active = sum(row_active.values(), Decimal(0))
+    for index, amount in delivered:
+        limit = _active_ceiling_ul(choices[index], total_active - row_active[index])
+        if limit is not None and amount > limit:
             holds.append(f"ROW_ABOVE_ACTIVE_CEILING:{choices[index].candidate.stock.stock_id}")
 
     rows: list[dict[str, Any]] = []

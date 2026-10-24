@@ -26,6 +26,10 @@ _QUIET_SKIN = dict(
     max_materials=6,
 )
 _WHITE_MUSK = dict(idea="a white musk laundry scent")
+# An exact-preference row above the ceiling (Tuberlia Base 54.6%, Cedarwood
+# Virginia 43.5%) is never cut for it, and used to go unnamed.
+_WHITE_FLORAL = dict(idea="jasmine tuberose white floral")
+_PINE_RAIN = dict(idea="pine forest after rain")
 
 
 def _row_active(row: dict[str, Any]) -> Decimal:
@@ -57,7 +61,11 @@ def _named_above_ceiling(result: dict[str, Any], formula: dict[str, Any]) -> set
     }
 
 
-@pytest.mark.parametrize("brief", [_WHITE_MUSK, _QUIET_SKIN], ids=["white_musk", "quiet_skin"])
+@pytest.mark.parametrize(
+    "brief",
+    [_WHITE_MUSK, _QUIET_SKIN, _WHITE_FLORAL, _PINE_RAIN],
+    ids=["white_musk", "quiet_skin", "white_floral", "pine_rain"],
+)
 def test_no_composed_row_passes_the_active_ceiling(brief: dict[str, Any]) -> None:
     # Every row, liquid or weighed, is at or under the ceiling, or the formula
     # names it in a ROW_ABOVE_ACTIVE_CEILING hold (the rows that could take its
@@ -265,6 +273,23 @@ def test_a_row_the_fallback_would_release_takes_the_excess_and_says_why(
         "ROLE_CAP_EXCEEDED_FOR_ACTIVE_CEILING:stock:Hedione",
         "ROW_ABOVE_ACTIVE_CEILING:stock:Habanolide",
     ]
+
+
+def test_a_requested_quantity_above_the_ceiling_is_named_and_never_cut() -> None:
+    # 4000 uL of neat Habanolide in 6000 uL of neat rows: 66.7% of the active.
+    choices = []
+    for identity in ("Habanolide", "Ethylene Brassylate", "Hedione"):
+        role = planner.RoleSpec(f"r_{identity}", identity, "base", "volume", 0.3, ())
+        choices.append(planner.Choice(role, _capability(identity, 1.0).candidate, 1.0, ()))
+    quantities = [
+        {"scope": "MATERIAL_DOSE", "material": "Habanolide", "amount_decimal": "4000", "unit": "uL"}
+    ]
+
+    rows, totals, holds = planner._formula_rows(choices, liquid_total_ul=TOTAL, quantities=quantities)
+
+    assert rows[0]["amount_decimal"] == "4000"
+    assert totals["liquid_total_ul"] == str(TOTAL)
+    assert f"ROW_ABOVE_ACTIVE_CEILING:{rows[0]['stock_id']}" in holds
 
 
 def test_a_weighed_solid_above_the_ceiling_is_named_and_never_cut() -> None:
