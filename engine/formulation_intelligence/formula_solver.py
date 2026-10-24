@@ -425,10 +425,12 @@ def _allows_multiple_musks(request: str, roles: Sequence[SemanticRole]) -> bool:
 # The release gate's musk count limit (gates._MUSK_COUNT_LIMIT): a skin-musk
 # accord may hold a second musk, never a third.
 _MAX_FORMULA_MUSKS = 2
-# "Not only musk but amber too" asks for more than musk, never for one musk.
+# "Not only musk but amber too" and "not the only musk" ask for more than
+# musk, never for one musk.
 _SINGLE_MUSK_PHRASE = re.compile(
-    r"\b(?:(?<!\bnot[\s-])only[\s-]+one|the[\s-]+only|(?<!\bnot[\s-]only[\s-])one|single"
-    r"|(?<!\bnot[\s-])only)[\s-]+musk\b"
+    r"\b(?:(?<!\bnot[\s-])only[\s-]+one|(?<!\bnot[\s-])the[\s-]+only"
+    r"|(?<!\bnot[\s-]only[\s-])one|single"
+    r"|(?<!\bnot[\s-])(?<!\bnot[\s-]the[\s-])only)[\s-]+musk\b"
 )
 _MORE_MUSK_WORDS = frozenset({"another", "other", "second", "more", "extra"})
 

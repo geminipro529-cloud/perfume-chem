@@ -162,6 +162,9 @@ def test_not_only_musk_is_not_a_request_for_one_musk():
     # as "only musk" and blocked the skin-musk accord's second musk.
     assert not fs._single_musk_requested("a skin scent, not only musk but amber too", ())
     assert not fs._single_musk_requested("not only one musk but two", ())
+    # "Not the only musk" read as "the only musk" and gave one musk.
+    assert not fs._single_musk_requested("a violet iris musk perfume, and not the only musk", ())
+    assert not fs._single_musk_requested("ambrettolide, but not the only musk", ())
     assert fs._single_musk_requested("a skin scent with only one musk", ())
     assert fs._single_musk_requested("a skin scent where ambrettolide is the only musk", ())
 
