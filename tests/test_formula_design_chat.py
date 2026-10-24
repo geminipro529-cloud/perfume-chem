@@ -787,6 +787,23 @@ def test_formula_design_uses_a_low_odor_carrier_for_quiet_skin_structure() -> No
         value <= 0.40 * sum(active.values()) or stock_id in above
         for stock_id, value in active.items()
     ), (active, above)
+    # The other rows stay modest.  The soft close-diffusion row used to take
+    # the whole rest; under the 40% ceiling it cannot, so a row past 1000 uL
+    # must be one the fill-to-total fallback released past its screening
+    # default and names in that hold (here Bergamot beside Phenethyl Alcohol).
+    # A row with its own restraint share or a normal-use ceiling never is.
+    released = {
+        hold.split(":", 1)[1]
+        for hold in result["constraint_audit"]["holds"]
+        if hold.startswith("SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL:")
+    }
+    assert all(
+        int(row["amount_decimal"]) <= 1000 or row["stock_id"] in released
+        for row in rows
+        if row["slot"] not in {"quiet_carrier", "quiet_diffusion"}
+    ), [(row["slot"], row["amount_decimal"]) for row in rows]
+    by_slot = {row["slot"]: int(row["amount_decimal"]) for row in rows}
+    assert by_slot["warm_skin"] <= 720 and by_slot["warm_wood"] <= 600, by_slot
     slots = {row["slot"] for row in rows}
     assert "clean_paper" not in slots
     assert "book_leather" not in slots
