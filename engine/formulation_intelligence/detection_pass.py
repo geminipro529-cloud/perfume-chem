@@ -914,10 +914,23 @@ def _with_floor_holds(
     return {**owner, block: refreshed}
 
 
+def critic_as_delivered(
+    critic: Mapping[str, Any],
+    formula: Mapping[str, Any],
+    role_plan: Sequence[Mapping[str, Any]] | None,
+) -> dict[str, Any]:
+    """The solver's ``critic`` with its longevity floor holds measured on
+    ``formula`` as the pass delivered it, as attach_detection_checks records
+    it on a design variant; a replay compares the two."""
+
+    return dict(_with_floor_holds({"critic": critic}, "critic", "issues", formula, role_plan)["critic"])
+
+
 __all__ = [
     "NOTE",
     "apply_detection_pass",
     "attach_detection_checks",
+    "critic_as_delivered",
     "intended_windows",
     "solver_formula",
 ]

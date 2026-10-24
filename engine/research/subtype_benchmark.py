@@ -25,7 +25,7 @@ from unittest.mock import patch
 
 from engine.formulation_intelligence import architecture_bridge, subtype_research
 from engine.formulation_intelligence import formula_solver as solver
-from engine.formulation_intelligence.detection_pass import solver_formula
+from engine.formulation_intelligence.detection_pass import critic_as_delivered, solver_formula
 from engine.formulation_intelligence.formula_critic import critique_formula
 from engine.formulation_intelligence.formula_design_runtime import design_formula
 from engine.formulation_intelligence.liking_tie_break import Liking
@@ -293,8 +293,9 @@ def _replay_planning(result: dict[str, Any]) -> tuple[bool, tuple[SemanticBrief,
         raw = result["semantic_brief"]
         # SemanticBrief.as_dict() leaves out an empty unmapped_requested_notes,
         # an unread fragrance_family and an empty star_role_ids so existing
-        # briefs keep their payload and design hashes.
-        expected = {f.name for f in fields(SemanticBrief)}
+        # briefs keep their payload and design hashes. lasting_spice_over_limit
+        # is never serialized, so a brief that carries it is not a control.
+        expected = {f.name for f in fields(SemanticBrief)} - {"lasting_spice_over_limit"}
         optional = {"unmapped_requested_notes", "fragrance_family", "star_role_ids"}
         if not expected - optional <= set(raw) <= expected or raw["architecture_plan"]:
             raise ValueError("missing or non-control semantic brief")
@@ -580,6 +581,10 @@ def _execution_verified(
                                                   tuple(missing), tuple(rows), totals, tuple(holds), receipt)
                 critic = critique_formula(brief=brief, solve=solved, interpretation=interpretation,
                                           max_materials=result["effective_material_limit"], liquid_total_ul=int(total)).as_dict()
+                # The detection pass re-measures the critic's floor holds on
+                # the delivered rows; replay that on the returned formula.
+                if not duplicate:
+                    critic = critic_as_delivered(critic, variant["formula"], variant.get("role_plan"))
                 if _hash(attempt["suppressed_critic"] if duplicate else variant["critic"]) != _hash(critic):
                     return False
                 if not duplicate and _hash(variant["solver"]) != _hash(receipt):
