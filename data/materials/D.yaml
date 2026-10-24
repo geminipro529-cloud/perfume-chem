@@ -527,9 +527,9 @@
   logp: 2.5
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.003)
-  vp_25c_pa: 0.003
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # SYNCED 2026-05-30 (null -> 0.003, unsourced); replaced 24 Oct 2026 by the sourced EPI estimate (see provenance)
+  vp_25c_pa: 0.633
+  vp_source: 'TGSC_est'
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -570,6 +570,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 705-86-2 (https://www.thegoodscentscompany.com/data/rw1013411.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.95800 to 0.97600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1013411.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    vp_25c_pa: '24 Oct 2026 (coordinator request, stock thread): The Good Scents Company EPI Suite page for delta-decalactone (CAS 705-86-2), http://www.thegoodscentscompany.com/episys/ep1013411.html: "VP(mm Hg,25 deg C): 0.00475 (Modified Grain method)" and "VP (Pa, 25 deg C) : 0.633 (Modified Grain method)" (an estimate). Its supplier-data page (https://www.thegoodscentscompany.com/data/rw1013411.html) lists "Vapor Pressure: 0.001000 mmHg @ 20.00 C" = 0.133 Pa with no source stated; that is 4.8 times lower than the EPI figure before any correction from 20 C to 25 C. The EPI 25 C figure is loaded because the other vapour pressures in this data pass are on the same 25 C basis (gamma-decalactone: RIFM EPI 0.683 Pa). Replaces the unsourced 0.003 Pa, which was 44 to 210 times lower than both figures. ChemicalBook''s "0.63 Pa at 25" matches the EPI number and is not an independent source.'
+    vp_source: 'same source as vp_25c_pa (24 Oct 2026, Delta Decalactone VP request)'
 - canonical_name: Delta Dodecalactone
   aliases:
   - delta dodecalactone

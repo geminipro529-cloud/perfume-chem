@@ -15,7 +15,7 @@
     "data/materials/A.yaml": "09eb1f196cdbb32822ad3b1a3b69db04b8ae2c02f59cb98a46394fb7d1c6a33b",
     "data/materials/B.yaml": "f0473ead5b7b7c23d383c81787c3caaec6c06b187e0494ea8f94de8150cdbae9",
     "data/materials/C.yaml": "05415c915ff4a9d01475f5124ed5a8fcf555267a0e038eaf86233578ece703c6",
-    "data/materials/D.yaml": "e801d650c73f81400dcc40126e74e129529e9ef9353944398c81f3b7c22da92a",
+    "data/materials/D.yaml": "1b2635deff66c135c4ad4fe2f2ebe96ef1f9de722030037738346073a7ae2eb1",
     "data/materials/E.yaml": "b868c3cc300f4cf9addd2fd1bd02726e967788ae8874fbcae4a610aa5c2479a7",
     "data/materials/F.yaml": "e627058406a15211c7a03a9b3d784d1db1f382d5f0889a1684c2cac1785b8fbe",
     "data/materials/G.yaml": "cb4a47065696dc7af997ff6513d0ba683d040a307b17af272684db45d39ee3fa",
@@ -53,7 +53,7 @@
     "rows_with_profile": 296,
     "rows_with_registry": 324,
     "rows_with_odt": 303,
-    "rows_with_unresolved_scalar_disagreements": 118
+    "rows_with_unresolved_scalar_disagreements": 119
   },
   "rows": [
     {
@@ -4972,7 +4972,12 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {}
+      "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.003,
+          "registry": 0.633
+        }
+      }
     },
     {
       "source_rows": [
@@ -6390,6 +6395,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "f94a7a1486a55268c91555528af44d5bce50a895c3acde755864bedba9a30b71",
+  "output_sha256": "94056aea0bfeeba081ff9266e591b0ec78953abc3fbf1d9f0ea7b95135f27b1e",
   "input_cache_sha256": "f94a7a1486a55268c91555528af44d5bce50a895c3acde755864bedba9a30b71"
 }
