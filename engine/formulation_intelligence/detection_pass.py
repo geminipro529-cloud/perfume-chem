@@ -21,8 +21,9 @@ re-checked, staying inside every limit the composer already applies:
   already above it is not raised, and the lead gives no volume that would
   leave a support above it;
 * the active ceiling (``composition_planner.ROW_ACTIVE_CEILING_SHARE``): a
-  raise may not put any row above that share of the active oil (weighed
-  solids count 1 mg as 1 uL) unless the composed formula already had it there;
+  raise may not put any row, liquid or weighed, above that share of the
+  active oil (weighed solids count 1 mg as 1 uL), nor a row the composed
+  formula already had above it past the share it had there;
 * the long-lasting floor (``composition_planner.LONG_LASTING_FLOOR_ACTIVE_UL``,
   the floors step's own measure: active volume of the materials the
   ``_long_lasting_material`` test counts): a raise and its donors may not take
@@ -351,16 +352,6 @@ def apply_detection_pass(
 
     named_floor = min(NAMED_NOTE_FLOOR_SHARE, named_share(original)) if named_rows else None
 
-    # Weighed solids are never raised, but count 1 mg as 1 uL in the active oil.
-    solid_active = sum(
-        (
-            Decimal(str(row.get("amount_decimal"))) * strength_of(row)
-            for row in rows
-            if row.get("amount_unit") == "mg"
-        ),
-        Decimal(0),
-    )
-
     # The long-lasting floor: the composer's own test (the release gate's
     # reference VP at 25 C), on the same 1 mg = 1 uL basis for weighed solids.
     long_lasting = {
@@ -384,12 +375,36 @@ def apply_detection_pass(
     # that was already short of it.
     long_floor = min(LONG_LASTING_FLOOR_ACTIVE_UL, long_active(original))
 
-    def above_ceiling(current: Mapping[int, Decimal]) -> set[int]:
-        total = solid_active + sum((current[i] * strength[i] for i in current), Decimal(0))
-        return {i for i in current if current[i] * strength[i] > ROW_ACTIVE_CEILING_SHARE * total}
+    # Each weighed row's active (1 mg as 1 uL): never raised, but its share of
+    # the active oil moves with every raise.
+    solid_rows = {
+        i: Decimal(str(row.get("amount_decimal"))) * strength_of(row)
+        for i, row in enumerate(rows)
+        if row.get("amount_unit") == "mg"
+    }
 
-    # A row the composed formula already had above the ceiling is not held to it here.
-    above_at_compose = above_ceiling(original)
+    def row_actives(current: Mapping[int, Decimal]) -> dict[int, Decimal]:
+        return {**{i: current[i] * strength[i] for i in current}, **solid_rows}
+
+    composed = row_actives(original)
+    composed_total = sum(composed.values(), Decimal(0))
+
+    def above_ceiling(current: Mapping[int, Decimal]) -> set[int]:
+        """The rows, liquid or weighed, above the active ceiling in ``current``;
+        a row the composed formula already had above it counts only past the
+        share it had there."""
+
+        actives = row_actives(current)
+        total = sum(actives.values(), Decimal(0))
+        return {
+            i
+            for i, part in actives.items()
+            if part > ROW_ACTIVE_CEILING_SHARE * total
+            and (
+                composed[i] <= ROW_ACTIVE_CEILING_SHARE * composed_total
+                or part * composed_total > composed[i] * total
+            )
+        }
 
     # An accord support (slot: its lead's slot, the accord separator, a number)
     # whose lead the composer checks keeps no more active volume than the lead.
@@ -614,7 +629,7 @@ def apply_detection_pass(
             # No raise puts a row above the active ceiling: a raised row that
             # crosses it is dropped, else the raise of the weakest stock (it
             # shrinks the active total most) until no row crosses.
-            while wants and (crossed := above_ceiling(trial) - above_at_compose):
+            while wants and (crossed := above_ceiling(trial)):
                 raised = sorted(crossed & set(wants))
                 worst = raised[0] if raised else min(
                     sorted(wants), key=lambda i: (strength[i], -(wants[i] - amounts[i])),

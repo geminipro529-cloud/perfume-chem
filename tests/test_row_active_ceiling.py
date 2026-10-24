@@ -388,3 +388,55 @@ def test_a_detection_raise_that_puts_a_third_row_past_the_ceiling_is_rejected(mo
     assert quiet["status"] == "silent_at_cap"
     assert quiet["binding_limit"] == "40% active ceiling"
     assert [r["amount_decimal"] for r in result["rows"]] == ["780", "700", "520", "100"]
+
+
+def _detection(monkeypatch, rows: list[dict], per_ul: dict[str, float]) -> dict:
+    monkeypatch.setattr(
+        dp, "_simulate",
+        lambda rows, amounts: {
+            rows[i]["identity_name"]: {w: float(a) * per_ul[rows[i]["identity_name"]] for w in dp.WINDOWS}
+            for i, a in amounts.items()
+        },
+    )
+    monkeypatch.setattr(dp, "_row_cap", lambda row, role, index, total: (Decimal(5000), "role cap"))
+    monkeypatch.setattr(dp, "_blocking_checks", lambda formula, name: set())
+    monkeypatch.setattr(planner, "_long_lasting_material", lambda name: False)
+    return dp.apply_detection_pass(
+        {"rows": rows}, role_plan=None, interpretation={}, formula_name="t", index=[object()],
+    )
+
+
+def test_a_detection_raise_that_puts_a_weighed_row_past_the_ceiling_is_rejected(monkeypatch) -> None:
+    # Raising the silent 1% row from 50 to 100 uL takes 50 uL of neat Filler
+    # out of the active oil, so the 390 mg crystal, 39.4% of it as composed,
+    # would carry 41.5%.
+    rows = [
+        {**_drow(0, "Crystal", 390, "structure", "base", "facet_amber_mineral"), "amount_unit": "mg"},
+        _drow(1, "Lead", 330, "character", "heart", "facet_lead"),
+        _drow(2, "Quiet", 50, "structure", "base", "base_wood_layer", fraction="0.01"),
+        _drow(3, "Filler", 270, "volume", "base", "base_musk_layer"),
+    ]
+
+    result = _detection(monkeypatch, rows, {"Lead": 0.01, "Quiet": 0.015, "Filler": 0.01})
+
+    quiet = next(e for e in result["detection_check"]["roles"] if e["material"] == "Quiet")
+    assert quiet["status"] == "silent_at_cap"
+    assert quiet["binding_limit"] == "40% active ceiling"
+    assert [r["amount_decimal"] for r in result["rows"]] == ["390", "330", "50", "270"]
+
+
+def test_a_row_composed_above_the_ceiling_is_not_raised_past_its_share(monkeypatch) -> None:
+    # "Quiet" carries half the active oil as composed (the composer named it);
+    # raising it to 750 uL would take it to 62.5%.
+    rows = [
+        _drow(0, "Lead", 300, "character", "heart", "facet_lead"),
+        _drow(1, "Quiet", 600, "structure", "base", "base_wood_layer"),
+        _drow(2, "Filler", 300, "volume", "base", "base_musk_layer"),
+    ]
+
+    result = _detection(monkeypatch, rows, {"Lead": 0.01, "Quiet": 0.0015, "Filler": 0.01})
+
+    quiet = next(e for e in result["detection_check"]["roles"] if e["material"] == "Quiet")
+    assert quiet["status"] == "silent_at_cap"
+    assert quiet["binding_limit"] == "40% active ceiling"
+    assert [r["amount_decimal"] for r in result["rows"]] == ["300", "600", "300"]
