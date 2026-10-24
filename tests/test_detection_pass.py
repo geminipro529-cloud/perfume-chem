@@ -166,6 +166,104 @@ def test_solver_formula_reads_a_respelled_amount_as_the_same_dose(patched):
     assert [r["amount_decimal"] for r in restored["rows"]] == [r["amount_decimal"] for r in _formula()["rows"]]
 
 
+# An accord: a lead at 500 uL (50 uL active as a 10% stock) and its neat
+# support; the filler gives the added volume.
+def _accord_run(
+    monkeypatch, *, lead_fraction: str, support_ul: int, support_oav_per_ul: float,
+    lead_role: str = "character", filler: tuple = (1000, "volume", 0.01),
+):
+    filler_ul, filler_role, filler_oav_per_ul = filler
+    rows = [
+        _row(0, "Lead", 500, lead_role, "heart", "facet_lead"),
+        _row(1, "Support", support_ul, "modifier", "heart", "facet_lead__accord_1"),
+        _row(2, "Filler", filler_ul, filler_role, "heart", "diffusion_texture"),
+    ]
+    rows[0]["stock_fraction_decimal"] = lead_fraction
+    per_ul = {"Lead": 0.01, "Support": support_oav_per_ul, "Filler": filler_oav_per_ul}
+
+    def simulate(rows, amounts):
+        return {
+            rows[i]["identity_name"]: {w: float(amount) * per_ul[rows[i]["identity_name"]] for w in WINDOWS}
+            for i, amount in amounts.items()
+        }
+
+    monkeypatch.setattr(dp, "_simulate", simulate)
+    return dp.apply_detection_pass(
+        {"rows": rows}, role_plan=None, interpretation={}, formula_name="t", index=[object()],
+    )
+
+
+def test_a_raise_stops_at_the_accord_lead_active_volume(patched, monkeypatch):
+    # Silent at 40 uL, detectable from 48 uL; doubling would reach 80 uL.
+    result = _accord_run(monkeypatch, lead_fraction="0.1", support_ul=40, support_oav_per_ul=0.021)
+    support = _status(result, "Support")
+    assert support["status"] == "raised"
+    assert (support["dose_before_ul"], support["dose_after_ul"]) == ("40", "50")
+    assert _liquid(result) == Decimal(1540)
+
+
+def test_a_checked_lead_gives_no_volume_that_would_put_its_support_above_it(patched, monkeypatch):
+    # The lead is a donor here (not a character row) with 250 uL of room, the
+    # other donor has 30; the support's raise to 50 uL comes from the other.
+    # (With a 30 uL other donor the raise would put the support past 40% of
+    # the active oil, which no raise may do.)
+    result = _accord_run(
+        monkeypatch, lead_fraction="0.1", support_ul=40, support_oav_per_ul=0.021,
+        lead_role="modifier", filler=(60, "texture", 1.0),
+    )
+    amounts = {r["identity_name"]: r["amount_decimal"] for r in result["rows"]}
+    assert amounts == {"Lead": "500", "Support": "50", "Filler": "50"}
+
+
+def test_a_support_already_above_its_lead_is_not_raised(patched, monkeypatch):
+    result = _accord_run(monkeypatch, lead_fraction="0.1", support_ul=60, support_oav_per_ul=0.01)
+    support = _status(result, "Support")
+    assert support["status"] == "silent_at_cap"
+    assert support["dose_after_ul"] == "60"
+    assert support["binding_limit"] == "accord lead's active volume"
+
+
+def test_a_support_of_a_trace_grade_lead_is_raised_as_before(patched, monkeypatch):
+    # A 1% lead (5 uL active): active volumes are not compared.
+    result = _accord_run(monkeypatch, lead_fraction="0.01", support_ul=40, support_oav_per_ul=0.021)
+    support = _status(result, "Support")
+    assert (support["status"], support["dose_after_ul"]) == ("raised", "80")
+
+
+def test_no_donor_ends_under_ten_microlitres_or_its_composed_dose(patched, monkeypatch):
+    # A silent row takes 19 uL from three small detectable donors.  Half of an
+    # 18 uL donor is 9 uL and half of a 6 uL one is 3 uL: the duel disqualifies
+    # any pour under 10 uL, so a donor keeps 10 uL, or all of a dose composed
+    # under 10 uL.
+    caps, _ = patched
+    caps["Quiet"] = (Decimal(69), "role cap")
+    rows = [
+        _row(0, "Lead", 500, "character", "heart", "facet_lead"),
+        _row(1, "Quiet", 50, "structure", "base", "base_wood_layer"),
+        _row(2, "Small", 18, "texture", "top", "top_green_layer"),
+        _row(3, "Big", 20, "texture", "top", "top_citrus_layer"),
+        _row(4, "Trace", 6, "texture", "top", "top_spice_layer"),
+    ]
+    per_ul = {"Lead": 0.01, "Quiet": 0.015, "Small": 1.0, "Big": 1.0, "Trace": 1.0}
+    monkeypatch.setattr(
+        dp, "_simulate",
+        lambda rows, amounts: {
+            rows[i]["identity_name"]: {w: float(a) * per_ul[rows[i]["identity_name"]] for w in WINDOWS}
+            for i, a in amounts.items()
+        },
+    )
+
+    result = dp.apply_detection_pass(
+        {"rows": rows}, role_plan=None, interpretation={}, formula_name="t", index=[object()],
+    )
+
+    assert _status(result, "Quiet")["status"] == "raised"
+    assert _liquid(result) == Decimal(594)
+    for before, after in zip(rows, result["rows"], strict=True):
+        composed = Decimal(before["amount_decimal"])
+        assert Decimal(after["amount_decimal"]) >= min(composed, Decimal(10)), after
+
+
 def test_intended_window_mapping():
     assert dp.intended_windows({"role": "texture", "note": "top"}) == ("opening", "top")
     assert dp.intended_windows({"role": "modifier", "note": "top"}) == ("opening", "top")

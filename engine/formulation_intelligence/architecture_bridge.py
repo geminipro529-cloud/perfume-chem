@@ -91,6 +91,14 @@ def _digest(value: Any) -> str:
     ).hexdigest()
 
 
+def _role_digest(role: SemanticRole) -> str:
+    """A role's own constraints. Its cited-accord part is left out, as role
+    equality leaves it out, so a refinement of a cited lead still matches
+    its canonical role and every other role keeps its earlier hash."""
+
+    return _digest({key: value for key, value in asdict(role).items() if key != "accord"})
+
+
 def role_plan_signature(roles: Sequence[SemanticRole]) -> str:
     """Executable differences, not label wording, IDs, or role ordering."""
     plans = [
@@ -414,8 +422,8 @@ def protected_roles_preserved(
         and all((a == original and b == refined) if a.role_id == target else a == b
                 for a, b in zip(control_roles, roles))
         and binding.get("target_role_id") == target
-        and binding.get("operation_before_sha256") == _digest(asdict(original))
-        and binding.get("operation_after_sha256") == _digest(asdict(refined))
+        and binding.get("operation_before_sha256") == _role_digest(original)
+        and binding.get("operation_after_sha256") == _role_digest(refined)
     )
 
 
@@ -465,8 +473,8 @@ def option_binding(
             binding["role_id"] = option["target_role_id"]
             before = next(r for r in control_roles if r.role_id == binding["role_id"])
             after = next(r for r in roles if r.role_id == binding["role_id"])
-            binding["operation_before_sha256"] = _digest(asdict(before))
-            binding["operation_after_sha256"] = _digest(asdict(after))
+            binding["operation_before_sha256"] = _role_digest(before)
+            binding["operation_after_sha256"] = _role_digest(after)
         binding["protected_constraints_preserved"] = protected_roles_preserved(control_roles, roles, protected, binding)
     return binding
 

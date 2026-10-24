@@ -17,6 +17,7 @@ from dataclasses import asdict, dataclass, field, replace
 from functools import lru_cache
 from typing import Any, Iterable, Mapping, Sequence
 
+from engine.formulation_intelligence import note_accord_specs
 from engine.formulation_intelligence.contracts import EvidenceClass, ProvenanceRef
 from engine.formulation_intelligence.family_structure import (
     FAMILY_ROLE_PREFIX,
@@ -39,6 +40,7 @@ from engine.formulation_intelligence.target_compiler import (
     TemporalTransformation,
     compile_target_intent,
 )
+from engine.research.composition_planner import ACCORD_SUPPORT_SEPARATOR, AccordPart
 from engine.research.request_interpretation import plain_stock_name
 
 
@@ -91,6 +93,21 @@ class SemanticRole:
     provenance: str = "PROMPT_DERIVED_FACET"
     knowledge_role_slot: str | None = None
     descriptor_requirement: str | None = None
+    # The role's part in a cited note accord (note_accord_specs.py), or None.
+    # Left out of the brief payload while None, so other briefs keep their
+    # hashes. Not compared: a cited lead stays equal to the canonical facet
+    # role a v5 Deep Compose refinement must find unchanged.
+    accord: AccordPart | None = field(default=None, compare=False)
+
+    def __post_init__(self) -> None:
+        # A role read back from a JSON role plan carries its accord as a mapping.
+        if isinstance(self.accord, Mapping):
+            raw = self.accord
+            object.__setattr__(self, "accord", AccordPart(
+                note=raw["note"], part=raw["part"], job=raw.get("job"), function=raw["function"],
+                source_ids=tuple(raw["source_ids"]),
+                stocks=tuple((str(name), float(fraction)) for name, fraction in raw["stocks"]),
+            ))
 
 
 @dataclass(frozen=True, slots=True)
@@ -121,9 +138,17 @@ class SemanticBrief:
     # accord supports). Omitted from as_dict() while empty, like the fields
     # above, so briefs without a star keep their payload and design hashes.
     star_role_ids: tuple[str, ...] = ()
+    # The query terms of a lasting spice role the brief names but its
+    # material limit left no room for; the solver's limitations say why.
+    # Never in as_dict(), so briefs keep their payload and design hashes.
+    lasting_spice_over_limit: tuple[str, ...] = ()
 
     def as_dict(self) -> dict[str, Any]:
         payload = asdict(self)
+        del payload["lasting_spice_over_limit"]
+        for role in payload["roles"]:
+            if role["accord"] is None:
+                del role["accord"]
         if not self.unmapped_requested_notes:
             del payload["unmapped_requested_notes"]
         if self.fragrance_family is None:
@@ -711,7 +736,92 @@ _LAYER_SHARE_BUDGET = .30
 _LIGHT_BRIEF = re.compile(
     r"\b(?:fresh|cologne|aquatic|citrus|light|transparent|clean|airy|sheer|spring|summer|dewy|delicate)\b"
 )
+# The citrus top layer opens a formula only where citrus belongs: the brief
+# names a citrus or a cologne, or its family is built on one.  Per
+# docs/fragrance_families_reference.md, those families are the chypre (bergamot
+# is the first of its three pillars), the citrus family, the green (its summary
+# table names bergamot as a core material; "a lighter, more modern
+# interpretation of the Chypre structure"), the fougere (its core accord opens
+# on bergamot and lemon) and the aromatic ("often accompanied by a citrus
+# top").  Given to every brief, one citrus stock opened nearly every formula:
+# Red Mandarin EO was in 26 of the 34 duel and benchmark formulas.  Without the
+# layer, the family's other top words (pepper, cardamom, galbanum) open it.
+_CITRUS_BRIEF_WORDS = (
+    "neroli", "cologne", "tangerine", "clementine", "kumquat", "citron", "cedrat",
+    "pomelo", "bigarade", "zest", "hesperidic", "lemonade", "lemongrass",
+)
+_CITRUS_LED_FAMILIES = frozenset({"chypre", "citrus", "green", "fougere", "aromatic"})
+_CITRUS_LAYER_MARKERS: tuple[str, ...] = next(
+    spec[7] for spec in _NOTE_LAYERS if spec[0] == "top_citrus_layer"
+)
+# A citrus the brief names: whole words, with a plural or adjective ending
+# ("limes", "zesty"), so "limestone" and "citronellol" name none.
+_CITRUS_WORD = re.compile(
+    r"(?<![a-z0-9])("
+    + "|".join(re.escape(word) for word in (*_CITRUS_LAYER_MARKERS, *_CITRUS_BRIEF_WORDS))
+    + r")(?:s|es|y)?(?![a-z0-9])"
+)
 _WARM_BRIEF = re.compile(r"\b(?:warm|dark|deep|resin|resinous|amber|incense|balsam|balsamic|vanilla|oriental|evening|rich|leather|smoky|tobacco)\b")
+
+# A brief that names a spice gets one spice that lasts.  The spice facet's
+# stock is a visible pepper or cardamom, gone by the drydown (Pink Pepper EO
+# 0.505 Pa, Black Pepper EO 0.375 Pa); this role takes only an owned spice
+# below the release gate's long-lasting vapour pressure, which the solver
+# checks (formula_solver._is_lasting_spice).  Whole words, with a plural,
+# adjective or past-participle ending ("cloves", "gingery", "spiced",
+# "peppered"), so "allspice" is its own word.
+LASTING_SPICE_PROVENANCE = "LASTING_SPICE"
+_LASTING_SPICE_WORDS = (
+    "spice", "spicy", "pepper", "peppery", "peppercorn", "pink pepper", "black pepper",
+    "saffron", "cardamom", "cinnamon", "clove", "nutmeg", "mace", "ginger", "cumin",
+    "coriander", "allspice", "pimento", "cassia", "caraway", "star anise",
+)
+_LASTING_SPICE_WORD = re.compile(
+    r"(?<![a-z0-9])("
+    + "|".join(re.escape(word) for word in sorted(_LASTING_SPICE_WORDS, key=len, reverse=True))
+    + r")(?:s|es|y|ed|d)?(?![a-z0-9])"
+)
+# Kenny's four pepper references carry Safraleine 10% at 1.9-2.8% of raw.
+_LASTING_SPICE_SHARE, _LASTING_SPICE_MAX_RAW_SHARE = .025, .03
+
+
+def _lasting_spice_role(text: str, avoid: Sequence[str]) -> SemanticRole | None:
+    """The brief's one lasting spice role, or None when it names no spice it wants.
+
+    A brief whose must_avoid turns spice down ("no spice", "spicy notes")
+    gets none, and an avoided phrase ("pink pepper") names no spice.
+    """
+
+    for raw in avoid:
+        item = _key(raw)
+        for prefix in ("any ", "all ", "the ", "no "):
+            item = item.removeprefix(prefix)
+        for suffix in (" materials", " material", " notes", " note", " accord"):
+            item = item.removesuffix(suffix)
+        if item in {"spice", "spices", "spicy", "spiced"}:
+            return None
+    # A spice the brief turns down in its own words ("not spiced", "never
+    # spicy") names none, as with the citrus words.
+    masked = _mask_avoided_phrases(text, avoid)
+    words = tuple(dict.fromkeys(
+        match.group(1) for match in _LASTING_SPICE_WORD.finditer(masked)
+        if not _NEGATED_BEFORE.search(masked[: match.start()])
+    ))
+    if not words:
+        return None
+    return SemanticRole(
+        role_id="lasting_spice",
+        label="Lasting spice",
+        note="base",
+        function="modifier",
+        query_terms=_dedupe((*words, "spice", "spicy")),
+        character_weights=(("spicy", 1.0), ("warmth", .35)),
+        share=_LASTING_SPICE_SHARE,
+        required=False,
+        max_raw_share=_LASTING_SPICE_MAX_RAW_SHARE,
+        provenance=LASTING_SPICE_PROVENANCE,
+        descriptor_requirement="heart_spice",
+    )
 
 
 def _names_marker(text: str, markers: Sequence[str]) -> bool:
@@ -719,6 +829,47 @@ def _names_marker(text: str, markers: Sequence[str]) -> bool:
 
     words = _key(text).split()
     return any(word.startswith(marker) for word in words for marker in markers if " " not in marker)
+
+
+# A citrus word the brief turns down in its own words ("not citrusy",
+# "nothing like a cologne") names no citrus.
+_NEGATED_BEFORE = re.compile(
+    r"(?:^| )(?:not|non|no|nor|never|without|unlike|nothing like|anything but)"
+    r"(?: (?:a|an|the|any|too|so|very|overly))* $"
+)
+
+
+def _avoided_citrus(avoid: Sequence[str]) -> set[str]:
+    """The citrus words must_avoid names, whatever their wrapper or ending ("any colognes")."""
+
+    words: set[str] = set()
+    for raw in avoid:
+        item = _key(translate_note_phrases(raw))
+        for prefix in ("any ", "all ", "the ", "no "):
+            item = item.removeprefix(prefix)
+        for suffix in (" materials", " material", " notes", " note", " accord"):
+            item = item.removesuffix(suffix)
+        if match := _CITRUS_WORD.fullmatch(item):
+            words.add(match.group(1))
+    return words
+
+
+def _citrus_belongs(text: str, avoid: Sequence[str], family: FamilyStructure | None) -> bool:
+    """True when a citrus opens this brief: its family is built on one, or it names one.
+
+    A citrus word counts only where the brief wants it: not one must_avoid
+    rejects ("cologne" also rejects "colognes"), and not one the brief turns
+    down itself ("not citrusy").
+    """
+
+    if family is not None and family.family_id in _CITRUS_LED_FAMILIES:
+        return True
+    rejected = _avoided_citrus(avoid)
+    text = _mask_avoided_phrases(text, avoid)
+    return any(
+        match.group(1) not in rejected and not _NEGATED_BEFORE.search(text[: match.start()])
+        for match in _CITRUS_WORD.finditer(text)
+    )
 
 
 def _family_word_layer(family: FamilyStructure, note: str, word: str) -> tuple[Any, ...] | None:
@@ -838,6 +989,11 @@ def _note_layers(
             descriptor_requirement=requirement,
         )
 
+    citrus_belongs = _citrus_belongs(complexity_text, avoid, family)
+    # The lead words of layers left out for that reason: they get no family
+    # role either, so the family's bergamot does not come back as a role of
+    # its own and take the citrus layer's place.
+    withheld: set[str] = set()
     layers: list[SemanticRole] = []
     for role_id, label, note, requirement, share, terms, weights, markers, kind, skip in _NOTE_LAYERS:
         if is_avoided(markers) or skipped(skip):
@@ -846,7 +1002,11 @@ def _note_layers(
         if covered and requirement != "base_wood":
             continue
         family_terms = family_words_for(family, note, markers) if family is not None else ()
-        if family is not None and not family_terms and not _names_marker(complexity_text, markers):
+        if (
+            family is not None and not family_terms and not _names_marker(complexity_text, markers)
+            # A citrus the brief names opens it in any family ("a pear with clementine").
+            and not (role_id == "top_citrus_layer" and citrus_belongs)
+        ):
             continue
         if family_terms and kind == _ACCENT:
             # The family's own materials for this nuance get accent roles below.
@@ -864,13 +1024,16 @@ def _note_layers(
             # A wood-led brief gets a second, contrasting wood family; the
             # solver's family buckets keep it from repeating the first one.
             role_id, label = "base_wood_contrast", "Contrasting base wood"
+        if role_id == "top_citrus_layer" and not citrus_belongs:
+            withheld.add(terms[0])
+            continue
         layers.append(layer_role(role_id, label, note, terms, weights, share, kind, requirement))
     if family is None:
         return tuple(layers)
 
     # The family's materials no role asks for and no layer looks for first.
     asked = " ".join(_key(text) for text in every_note)
-    first_terms = {layer.query_terms[0] for layer in layers if layer.query_terms}
+    first_terms = {layer.query_terms[0] for layer in layers if layer.query_terms} | withheld
     placed: set[str] = set()
     for note in ("top", "heart", "base"):
         for word in family.tier(note):
@@ -1003,6 +1166,8 @@ def _roles(
     )
     anchors = {f" {_key(role.exact_material or '')} ": role for role in roles}
     supported_anchors: set[str] = set()
+    # The note each supported anchor leads, for its cited accord.
+    anchor_facets: dict[str, FacetDefinition] = {}
     for facet in facets:
         if len(roles) >= maximum:
             break
@@ -1034,6 +1199,7 @@ def _roles(
                     and len(roles) < maximum - _DEEP_COMPOSE_RESERVE
                 ):
                     supported_anchors.add(anchor.role_id)
+                    anchor_facets[anchor.role_id] = facet
                     roles.append(_anchor_support(anchor, facet))
                 continue
         # A rooty-and-transparent iris has one recognizer with two requested
@@ -1056,6 +1222,8 @@ def _roles(
                 descriptor_requirement=_FACET_DESCRIPTOR_REQUIREMENTS.get(facet.facet_id),
             )
         )
+    lasting_spice = _lasting_spice_role(f"{formula_name} {request}", avoid)
+    lasting_spice_at = len(roles)
 
     # Functional coverage is a hard architecture requirement, not a beauty
     # score.  These roles inherit the prompt's character vector and therefore
@@ -1142,6 +1310,16 @@ def _roles(
             continue
         roles.append(role)
         coverage.add(note)
+
+    # The lasting spice follows the brief's own notes, so the search fills it
+    # before a bridge or layer can take its stock, yet it covers no register
+    # (a 3% spice is not the drydown structure) and leaves the layers as they
+    # were.  It adds a material to the formula; an exact material count keeps
+    # it only where the count has room.
+    if lasting_spice is not None and len(roles) < (maximum if target_count is None else role_target):
+        roles.insert(lasting_spice_at, lasting_spice)
+        if target_count is None:
+            role_target = min(maximum, role_target + 1)
 
     # The count built without layers; layers and accords never shrink a
     # formula below it.
@@ -1269,7 +1447,7 @@ def _roles(
     roles = fill(roles, role_target)
     roles = roles[:maximum]
     if target_count is None:
-        roles = _with_accords(roles, maximum)
+        roles = _with_accords(roles, maximum, request_key, anchor_facets)
         # Layers and accords add to the formula the composer built before
         # layering; at a tight ceiling they never leave it smaller.  The
         # Deep Compose places are only kept free from layers and accords.
@@ -1284,8 +1462,10 @@ def _roles(
 # two supporting stocks of the same note, with their own matching odor and a
 # different family, are added beside it in a 62/23/15 proportion.
 ACCORD_SUPPORT_PROVENANCE = "ACCORD_SUPPORT"
-ACCORD_SUPPORT_SEPARATOR = "__accord_"
 _ACCORD_SPLIT = (.62, .23, .15)
+# The same-query supports a note gets today; a cited helper placed beyond
+# them has no same-query support to fall back to.
+TODAY_SUPPORT_PLACES = len(_ACCORD_SPLIT) - 1
 _ACCORD_FUNCTIONS = frozenset({"character", "structure", "texture"})
 
 
@@ -1345,42 +1525,196 @@ def _anchor_support(anchor: SemanticRole, facet: FacetDefinition) -> SemanticRol
     )
 
 
-def _with_accords(roles: list[SemanticRole], maximum: int) -> list[SemanticRole]:
+def _cited_accords(
+    leads: Sequence[tuple[SemanticRole, str]],
+    request_key: str,
+) -> dict[str, note_accord_specs.AccordSpec]:
+    """Each lead, with the facet id of the note it leads, whose note has a
+    cited accord spec the brief names.
+
+    A spec applies once per note, to its first lead in brief order: the
+    iris facets share one spec, so only the first iris lead builds it; a
+    later one is left out and keeps today's same-query supports.
+    """
+
+    cited: dict[str, note_accord_specs.AccordSpec] = {}
+    seen: set[str] = set()
+    for lead, facet_id in leads:
+        spec = note_accord_specs.accord_spec_for(facet_id)
+        if spec is None or not any(_phrase_present(request_key, word) for word in spec.named_by):
+            continue
+        if spec.note not in seen:
+            cited[lead.role_id] = spec
+        seen.add(spec.note)
+    return cited
+
+
+def _accord_part(
+    spec: note_accord_specs.AccordSpec,
+    node: note_accord_specs.NodeRef,
+    stocks: Sequence[note_accord_specs.StockRef],
+    job: str | None = None,
+) -> AccordPart:
+    return AccordPart(
+        note=spec.note,
+        part="lead" if job is None else "helper",
+        job=job,
+        function=node.function,
+        source_ids=node.source_ids,
+        stocks=tuple((stock.name, stock.fraction) for stock in stocks),
+    )
+
+
+def _cited_lead(lead: SemanticRole, spec: note_accord_specs.AccordSpec) -> SemanticRole:
+    """The lead, carrying the spec's lead part.
+
+    Its query words stay the facet's own, so the role still equals the
+    canonical facet role a v5 Deep Compose refinement looks for; the solver
+    puts the cited lead stocks first when it scores the role.
+    """
+
+    return replace(lead, accord=_accord_part(spec, spec.lead, spec.lead_stocks))
+
+
+def _cited_helper(
+    lead: SemanticRole,
+    spec: note_accord_specs.AccordSpec,
+    number: int,
+    place: int,
+) -> SemanticRole:
+    """Helper ``number`` of a cited accord, in support place ``place``: it
+    may take only the spec's own stocks."""
+
+    helper = spec.helpers[number - 1]
+    return SemanticRole(
+        role_id=f"{lead.role_id}{ACCORD_SUPPORT_SEPARATOR}{place}",
+        label=f"{lead.label}: {spec.note} accord helper {number} ({helper.job})",
+        note=lead.note,
+        function=lead.function,
+        query_terms=_dedupe(stock.name for stock in helper.stocks),
+        character_weights=lead.character_weights,
+        share=lead.share * helper.share_of_lead,
+        required=False,
+        max_raw_share=(lead.max_raw_share or .28) * helper.share_of_lead,
+        provenance=ACCORD_SUPPORT_PROVENANCE,
+        accord=_accord_part(spec, helper.node, helper.stocks, helper.job),
+    )
+
+
+def _anchor_helper_lead(anchor: SemanticRole, facet: FacetDefinition) -> SemanticRole:
+    """The anchor as a cited helper's lead: its id, label and share, with
+    the note, function, odor and cap of the facet it leads, as its own
+    support takes them."""
+
+    return replace(
+        anchor, note=facet.note, function=facet.function,
+        character_weights=facet.character_weights, max_raw_share=facet.max_raw_share,
+    )
+
+
+def _with_accords(
+    roles: list[SemanticRole],
+    maximum: int,
+    request_key: str = "",
+    anchor_facets: Mapping[str, FacetDefinition] | None = None,
+) -> list[SemanticRole]:
+    anchor_facets = anchor_facets or {}
     leads = _accord_leads(roles)
+    lead_ids = {lead.role_id for lead in leads}
+    # A note with a cited spec the brief names keeps today's first same-query
+    # support in its first place (it often carries the note's key odorant,
+    # such as an irone beside a weak orris lead) and gets the spec's helpers
+    # in the places after it.  A stock the brief names that leads a covered
+    # note (Lavender EO for "lavender") builds the note's accord the same
+    # way: its own support stays in place 1.
+    cited = _cited_accords(
+        [
+            (role, anchor_facets[role.role_id].facet_id if role.role_id in anchor_facets
+             else role.role_id[len("facet_"):])
+            for role in roles
+            if role.role_id in anchor_facets
+            or (role.role_id in lead_ids and role.role_id.startswith("facet_"))
+        ],
+        request_key,
+    )
+    owners = [role for role in roles if role.role_id in lead_ids or role.role_id in cited]
+    places = {
+        owner.role_id: TODAY_SUPPORT_PLACES if owner.role_id not in cited
+        else 1 + len(cited[owner.role_id].helpers)
+        for owner in owners
+    }
     budget = maximum - len(roles) - _DEEP_COMPOSE_RESERVE
-    supports: dict[str, int] = {}
+    supports: dict[str, int] = {owner.role_id: 1 for owner in owners if owner.role_id in anchor_facets}
     # One support per requested note first, then a second, so a tight
     # material limit spreads depth across notes instead of piling on one.
-    for depth in (1, 2):
-        for lead in leads:
+    # An anchor's first support is already in the brief.
+    for depth in range(1, max(places.values(), default=0) + 1):
+        for owner in owners:
             if budget <= 0:
                 break
-            supports[lead.role_id] = depth
+            if depth > places[owner.role_id] or depth <= supports.get(owner.role_id, 0):
+                continue
+            supports[owner.role_id] = depth
             budget -= 1
     expanded: list[SemanticRole] = []
     for role in roles:
+        anchor_id = accord_lead_role_id(role)
+        if anchor_id in anchor_facets and anchor_id in cited and role.role_id.endswith(
+            f"{ACCORD_SUPPORT_SEPARATOR}1"
+        ):
+            anchor = next(item for item in roles if item.role_id == anchor_id)
+            expanded.append(role)
+            expanded.extend(
+                _cited_helper(_anchor_helper_lead(anchor, anchor_facets[anchor_id]), cited[anchor_id],
+                              place - 1, place)
+                for place in range(2, supports[anchor_id] + 1)
+            )
+            continue
+        if role.role_id in anchor_facets and role.role_id in cited:
+            expanded.append(_cited_lead(role, cited[role.role_id]))
+            continue
         count = supports.get(role.role_id, 0)
+        spec = cited.get(role.role_id)
+        if spec is not None:
+            expanded.append(_cited_lead(role, spec))
+            expanded.extend(
+                accord_support_clone(role, 1) if place == 1
+                else _cited_helper(role, spec, place - 1, place)
+                for place in range(1, count + 1)
+            )
+            continue
         if not count:
             expanded.append(role)
             continue
         expanded.append(role)
-        for index in range(1, count + 1):
-            # Relative to the lead, which keeps its full share.
-            fraction = _ACCORD_SPLIT[index] / _ACCORD_SPLIT[0]
-            expanded.append(SemanticRole(
-                role_id=f"{role.role_id}{ACCORD_SUPPORT_SEPARATOR}{index}",
-                label=f"{role.label}: supporting accord material {index}",
-                note=role.note,
-                function=role.function,
-                query_terms=role.query_terms,
-                character_weights=role.character_weights,
-                share=role.share * fraction,
-                required=False,
-                max_raw_share=(role.max_raw_share or .28) * fraction,
-                provenance=ACCORD_SUPPORT_PROVENANCE,
-                descriptor_requirement=role.descriptor_requirement,
-            ))
+        expanded.extend(accord_support_clone(role, index) for index in range(1, count + 1))
     return expanded
+
+
+def accord_support_clone(lead: SemanticRole, index: int) -> SemanticRole:
+    """Today's same-query support ``index`` of ``lead``: the note's query,
+    odor and descriptor requirement, at the 62/23/15 proportion.
+
+    The formula solver fills a cited helper's slot with this role when none
+    of the helper's own stocks can go in and ``index`` is one of today's
+    ``TODAY_SUPPORT_PLACES``.
+    """
+
+    # Relative to the lead, which keeps its full share.
+    fraction = _ACCORD_SPLIT[index] / _ACCORD_SPLIT[0]
+    return SemanticRole(
+        role_id=f"{lead.role_id}{ACCORD_SUPPORT_SEPARATOR}{index}",
+        label=f"{lead.label}: supporting accord material {index}",
+        note=lead.note,
+        function=lead.function,
+        query_terms=lead.query_terms,
+        character_weights=lead.character_weights,
+        share=lead.share * fraction,
+        required=False,
+        max_raw_share=(lead.max_raw_share or .28) * fraction,
+        provenance=ACCORD_SUPPORT_PROVENANCE,
+        descriptor_requirement=lead.descriptor_requirement,
+    )
 
 
 def compile_semantic_brief(
@@ -1442,6 +1776,15 @@ def compile_semantic_brief(
         ),
         avoid=avoid,
         family=family,
+    )
+    # _roles leaves the lasting spice out only where the material limit has
+    # no room for it.
+    lasting_spice = _lasting_spice_role(f"{reading_name} {reading_raw}", avoid)
+    lasting_spice_over_limit = (
+        lasting_spice.query_terms
+        if lasting_spice is not None
+        and not any(role.provenance == LASTING_SPICE_PROVENANCE for role in roles)
+        else ()
     )
 
     request_digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()
@@ -1540,6 +1883,7 @@ def compile_semantic_brief(
         ),
         fragrance_family=family.heading if family is not None else None,
         star_role_ids=_star_role_ids(roles, reading_raw, facets),
+        lasting_spice_over_limit=lasting_spice_over_limit,
     )
 
 
@@ -1547,12 +1891,15 @@ __all__ = [
     "ACCENT_MAX_RAW_SHARE",
     "ACCENT_PROVENANCE",
     "FACET_IDENTITY_REQUIREMENTS",
+    "LASTING_SPICE_PROVENANCE",
     "LAYER_MAX_RAW_SHARE",
     "LAYER_PROVENANCE",
     "FacetDefinition",
     "SemanticBrief",
     "SemanticRole",
+    "TODAY_SUPPORT_PLACES",
     "accord_lead_role_id",
+    "accord_support_clone",
     "compile_semantic_brief",
     "role_identity_requirement",
 ]
