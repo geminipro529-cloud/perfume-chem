@@ -213,7 +213,77 @@ def test_a_spiced_or_peppered_brief_gets_a_lasting_spice() -> None:
         assert "lasting_spice" in _role_ids(result), (idea, _role_ids(result))
         lasting = _lasting_rows(result)
         limitations = result["architecture_attempts"][0]["solver"].get("limitations", [])
-        assert [row["slot"] for row in lasting] == ["lasting_spice"] or limitations, (idea, lasting)
+        assert [row["slot"] for row in lasting] == ["lasting_spice"] or any(
+            line.startswith("LASTING_SPICE_") for line in limitations
+        ), (idea, lasting, limitations)
+
+
+def test_a_spice_the_brief_turns_down_names_no_lasting_spice() -> None:
+    # "spiced" names a spice; "not spiced" turns it down, as "not citrusy"
+    # turns down a citrus.  It used to get a lasting Safraleine row.
+    from engine.formulation_intelligence.semantic_brief_adapter import _lasting_spice_role
+
+    turned_down = ("a warm amber, not spiced", "a warm amber, never spiced", "a warm amber, not spicy")
+    for idea in turned_down:
+        assert _lasting_spice_role(idea, ()) is None, idea
+        result = design_formula(idea=idea, liquid_concentrate_ul_decimal="6000")
+        assert "lasting_spice" not in _role_ids(result), (idea, _role_ids(result))
+        assert not _lasting_rows(result), (idea, _lasting_rows(result))
+    result = design_formula(idea="a spiced amber", liquid_concentrate_ul_decimal="6000")
+    assert "lasting_spice" in _role_ids(result), _role_ids(result)
+    assert [row["slot"] for row in _lasting_rows(result)] == ["lasting_spice"]
+
+
+def _owned_lasting_spice_lines(reason: str) -> list[str]:
+    from engine.formulation_intelligence.formula_solver import _is_lasting_spice
+
+    owned = [
+        capability for capability in build_material_capability_index().capabilities
+        if capability.execution_ready and _is_lasting_spice(capability)
+    ]
+    assert owned
+    return [
+        f"LASTING_SPICE_REFUSED:{capability.identity_name} at "
+        f"{float(capability.candidate.stock.dilution):g}: {reason}"
+        for capability in owned
+    ]
+
+
+def test_a_material_limit_without_room_for_the_lasting_spice_says_so() -> None:
+    # Four materials leave no room for the role; the brief used to end with
+    # no lasting spice and no word of why.
+    result = design_formula(
+        idea="A pink pepper perfume using at most 4 materials", liquid_concentrate_ul_decimal="6000",
+    )
+    assert "lasting_spice" not in _role_ids(result), _role_ids(result)
+    assert not _lasting_rows(result)
+    expected = _owned_lasting_spice_lines("the material limit")
+    attempt = result["architecture_attempts"][0]
+    assert attempt["solver"].get("limitations") == expected, attempt["solver"].get("limitations")
+    assert set(expected) <= set(result["critic"]["limitations"]), result["critic"]["limitations"]
+    # The brief carries the left-out role to the solver, not into its payload.
+    assert "lasting_spice_over_limit" not in result["semantic_brief"]
+
+
+def test_a_curated_capsule_without_a_spice_role_says_so() -> None:
+    # The intimate-skin capsule fills its own roles, none of them a lasting
+    # spice; the brief's cardamom used to end with no lasting spice and no
+    # word of why.
+    result = design_formula(
+        idea="a quiet skin scent with cardamom", liquid_concentrate_ul_decimal="6000",
+    )
+    assert result["concept_family"] == "intimate_skin", result["concept_family"]
+    assert "architecture_attempts" not in result
+    assert not _lasting_rows(result)
+    expected = _owned_lasting_spice_lines("the curated capsule has no spice role")
+    lines = [line for line in result["critic"]["limitations"] if line.startswith("LASTING_SPICE_")]
+    assert lines == expected, result["critic"]["limitations"]
+
+
+def test_guard_a_curated_capsule_brief_without_a_spice_gets_no_spice_line() -> None:
+    result = design_formula(idea="a quiet skin scent", liquid_concentrate_ul_decimal="6000")
+    assert result["concept_family"] == "intimate_skin", result["concept_family"]
+    assert not [line for line in result["critic"]["limitations"] if "LASTING_SPICE" in line]
 
 
 def test_guard_an_avoided_spiced_phrase_names_no_lasting_spice() -> None:

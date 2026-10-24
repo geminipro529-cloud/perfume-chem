@@ -4103,6 +4103,35 @@ def _reference_context(
     }
 
 
+def _capsule_lasting_spice_limitations(
+    text: str, avoid: Sequence[str], rows: Sequence[Mapping[str, Any]],
+) -> list[str]:
+    """Why a curated capsule holds no lasting spice for a brief that names a spice.
+
+    The capsule's roles are its own and none is the solver's lasting spice,
+    so the owner sees one LASTING_SPICE_REFUSED line per owned lasting spice
+    (or LASTING_SPICE_NOT_OWNED), as the solver's limitations give them.
+    """
+
+    from engine.formulation_intelligence.formula_solver import (
+        _is_lasting_spice,
+        lasting_spice_refusals,
+    )
+    from engine.formulation_intelligence.material_capability_index import (
+        build_material_capability_index,
+    )
+    from engine.formulation_intelligence.semantic_brief_adapter import _lasting_spice_role
+
+    role = _lasting_spice_role(text, avoid)
+    if role is None:
+        return []
+    index = build_material_capability_index()
+    placed = {str(row.get("stock_id")) for row in rows}
+    if any(capability.stock_id in placed and _is_lasting_spice(capability) for capability in index.capabilities):
+        return []
+    return lasting_spice_refusals(index, role.query_terms, "the curated capsule has no spice role")
+
+
 def _opaque_composition_limitations(
     rows: Sequence[dict[str, Any]],
     avoid: Sequence[str],
@@ -4472,6 +4501,8 @@ def compose_inventory_formula(
     issues.extend(note_issues)
     composition_limitations = _opaque_composition_limitations(rows, avoid)
     limitations = list(composition_limitations)
+    if concept is not None:
+        limitations.extend(_capsule_lasting_spice_limitations(design_text, avoid, rows))
     if temporal_hypothesis is not None:
         limitations.append("TEMPORAL_BEHAVIOR_NOT_PHYSICALLY_VALIDATED")
     if interpretation["appeal_mode"] == "GLOBAL_CROWD_PLEASING":

@@ -1697,6 +1697,38 @@ def _unplaced_cited_helpers(
     return unplaced
 
 
+def _owned_lasting_spices(index: MaterialCapabilityIndex) -> list[MaterialCapability]:
+    return [cap for cap in index.capabilities if cap.execution_ready and _is_lasting_spice(cap)]
+
+
+def _lasting_spice_refused(capability: MaterialCapability, reason: str) -> str:
+    return (
+        f"LASTING_SPICE_REFUSED:{capability.identity_name} at "
+        f"{float(capability.candidate.stock.dilution):g}: {reason}"
+    )
+
+
+def lasting_spice_refusals(
+    index: MaterialCapabilityIndex, query_terms: Sequence[str], reason: str,
+) -> list[str]:
+    """A brief's named spice got no lasting spice, for one ``reason``.
+
+    LASTING_SPICE_NOT_OWNED when the index holds no owned spice below the
+    long-lasting vapour pressure, else one LASTING_SPICE_REFUSED line per owned
+    lasting-spice stock with ``reason`` (the material limit, a curated capsule
+    without a spice role).
+    """
+
+    owned = _owned_lasting_spices(index)
+    if not owned:
+        words = tuple(t for t in query_terms if t not in {"spice", "spicy"})
+        return [
+            f"LASTING_SPICE_NOT_OWNED: no owned spice stock below {_LASTING_VP_PA:g} Pa "
+            f"({', '.join(words or tuple(query_terms)[:1])})"
+        ]
+    return [_lasting_spice_refused(capability, reason) for capability in owned]
+
+
 def _lasting_spice_limitations(
     brief: SemanticBrief,
     assignments: Sequence[SolvedAssignment],
@@ -1710,22 +1742,22 @@ def _lasting_spice_limitations(
     long-lasting vapour pressure.  Otherwise one LASTING_SPICE_REFUSED line per
     owned lasting-spice stock, with the reason the search's own rules give
     against the stocks placed before the role (the avoid list, as with
-    "no leather" and Safraleine).
+    "no leather" and Safraleine), or the material limit when the brief had no
+    room for the role.
     """
 
+    if any(_is_lasting_spice(a.capability) for a in assignments):
+        return []
     position, role = next(
         ((i, r) for i, r in enumerate(brief.roles) if getattr(r, "provenance", None) == LASTING_SPICE_PROVENANCE),
         (None, None),
     )
-    if role is None or any(_is_lasting_spice(a.capability) for a in assignments):
-        return []
-    owned = [cap for cap in index.capabilities if cap.execution_ready and _is_lasting_spice(cap)]
+    if role is None:
+        over_limit = tuple(getattr(brief, "lasting_spice_over_limit", ()))
+        return lasting_spice_refusals(index, over_limit, "the material limit") if over_limit else []
+    owned = _owned_lasting_spices(index)
     if not owned:
-        words = tuple(t for t in role.query_terms if t not in {"spice", "spicy"})
-        return [
-            f"LASTING_SPICE_NOT_OWNED: no owned spice stock below {_LASTING_VP_PA:g} Pa "
-            f"({', '.join(words or role.query_terms[:1])})"
-        ]
+        return lasting_spice_refusals(index, role.query_terms, "")
     earlier = {prior.role_id for prior in brief.roles[:position]}
     prior = [(a.role, a.capability, a.score) for a in assignments if a.role.role_id in earlier]
     groups: dict[str, int] = {}
@@ -1748,10 +1780,7 @@ def _lasting_spice_limitations(
             enforce_own_odor_avoid=enforce_own_odor_avoid, liquid_total_ul=liquid_total_ul,
             single_musk=single_musk,
         )
-        lines.append(
-            f"LASTING_SPICE_REFUSED:{capability.identity_name} at "
-            f"{float(capability.candidate.stock.dilution):g}: {reason or 'not kept by the search'}"
-        )
+        lines.append(_lasting_spice_refused(capability, reason or "not kept by the search"))
     return lines
 
 
@@ -2244,4 +2273,4 @@ def solve_formula(
 _liking_lookup = LikingLookup
 
 
-__all__ = ["FormulaSolveResult", "SolvedAssignment", "solve_formula"]
+__all__ = ["FormulaSolveResult", "SolvedAssignment", "lasting_spice_refusals", "solve_formula"]

@@ -138,9 +138,14 @@ class SemanticBrief:
     # accord supports). Omitted from as_dict() while empty, like the fields
     # above, so briefs without a star keep their payload and design hashes.
     star_role_ids: tuple[str, ...] = ()
+    # The query terms of a lasting spice role the brief names but its
+    # material limit left no room for; the solver's limitations say why.
+    # Never in as_dict(), so briefs keep their payload and design hashes.
+    lasting_spice_over_limit: tuple[str, ...] = ()
 
     def as_dict(self) -> dict[str, Any]:
         payload = asdict(self)
+        del payload["lasting_spice_over_limit"]
         for role in payload["roles"]:
             if role["accord"] is None:
                 del role["accord"]
@@ -795,8 +800,12 @@ def _lasting_spice_role(text: str, avoid: Sequence[str]) -> SemanticRole | None:
             item = item.removesuffix(suffix)
         if item in {"spice", "spices", "spicy", "spiced"}:
             return None
+    # A spice the brief turns down in its own words ("not spiced", "never
+    # spicy") names none, as with the citrus words.
+    masked = _mask_avoided_phrases(text, avoid)
     words = tuple(dict.fromkeys(
-        match.group(1) for match in _LASTING_SPICE_WORD.finditer(_mask_avoided_phrases(text, avoid))
+        match.group(1) for match in _LASTING_SPICE_WORD.finditer(masked)
+        if not _NEGATED_BEFORE.search(masked[: match.start()])
     ))
     if not words:
         return None
@@ -1768,6 +1777,15 @@ def compile_semantic_brief(
         avoid=avoid,
         family=family,
     )
+    # _roles leaves the lasting spice out only where the material limit has
+    # no room for it.
+    lasting_spice = _lasting_spice_role(f"{reading_name} {reading_raw}", avoid)
+    lasting_spice_over_limit = (
+        lasting_spice.query_terms
+        if lasting_spice is not None
+        and not any(role.provenance == LASTING_SPICE_PROVENANCE for role in roles)
+        else ()
+    )
 
     request_digest = hashlib.sha256(raw.encode("utf-8")).hexdigest()
     provenance = ProvenanceRef(
@@ -1865,6 +1883,7 @@ def compile_semantic_brief(
         ),
         fragrance_family=family.heading if family is not None else None,
         star_role_ids=_star_role_ids(roles, reading_raw, facets),
+        lasting_spice_over_limit=lasting_spice_over_limit,
     )
 
 
