@@ -17540,7 +17540,7 @@
     "formula_str": "C10H18O2",
     "mw": 170.3,
     "bp": null,
-    "vp": 0.003,
+    "vp": 0.633,
     "clp": 2.5,
     "odt": 10.0,
     "odt_ethanol_ppm": 2.0,
@@ -17742,6 +17742,12 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "mw": 170.25
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.003
         }
       }
     ],
