@@ -2124,6 +2124,64 @@ NAMED_NOTE_FLOOR_SHARE = Decimal("0.40")
 # volume times its stock strength (a functional carrier counts 0); weighed
 # solids count 1 mg as 1 uL in the total but are never cut for it.
 ROW_ACTIVE_CEILING_SHARE = Decimal("0.40")
+# The release gate counts a row as long-lasting below this vapour pressure at
+# 25 C (gates.TENACITY_LONG_LASTING_VP_25C_PA; a test pins the two equal).  The
+# planner reads the gate's own reference VP through material_resolver rather
+# than importing the gate.
+LONG_LASTING_VP_25C_PA = 0.1
+# Kenny's weakest reference formula carries 57.2 uL of long-lasting material
+# per mL of its 30 mL bottle (median 66), and 52.7% of its concentrate is
+# active material (median 73%).  Every composed formula reaches at least those
+# two floors, by moving volume between its own rows.
+LONG_LASTING_FLOOR_UL_PER_ML = Decimal("57")
+ACTIVE_SHARE_FLOOR = Decimal("0.52")
+# The bottle the floor is per mL of (composition_checks.DEFAULT_BOTTLE_ML and
+# yardstick.BOTTLE_ML; a test pins all three equal).
+LONGEVITY_FLOOR_BOTTLE_ML = Decimal("30")
+# 57 uL/mL x 30 mL: the long-lasting active volume a formula holds.
+LONG_LASTING_FLOOR_ACTIVE_UL = LONG_LASTING_FLOOR_UL_PER_ML * LONGEVITY_FLOOR_BOTTLE_ML
+# The amber base moves only with the whole formula (the weighed-crystal rule):
+# no floor step moves one of its rows.  The identities are
+# formula_solver._AMBER_BASE_WORDS; the roles are the amber facet with its
+# accord supports and the adapter's base amber layer.
+_AMBER_BASE_IDENTITY_WORDS = ("ambrox", "ambrofix", "amber xtreme", "ambrocenide", "ambermax")
+_AMBER_BASE_ROLE_IDS = frozenset({"facet_amber_mineral", "base_amber_layer"})
+
+
+@lru_cache(maxsize=None)
+def _long_lasting_material(name: str) -> bool:
+    """Whether the release gate's reference VP at 25 C for ``name`` is long-lasting."""
+
+    from engine.material_resolver import gate_vp_25c_pa
+
+    vp = gate_vp_25c_pa(name)
+    return vp is not None and float(vp) < LONG_LASTING_VP_25C_PA
+
+
+def _is_long_lasting(choice: Choice) -> bool:
+    """Whether the release gate counts this row's material as long-lasting.
+
+    The gate's own reference VP (material_resolver.gate_vp_25c_pa), never the
+    design profile's ``vp``.  A material with no VP counts False, and so does a
+    functional carrier, which carries no fragrance-active material at all.
+    """
+
+    stock = choice.candidate.stock
+    name = str(stock.identity_name or stock.name)
+    if _key(name) in _DESIGN_FUNCTIONAL_CARRIERS:
+        return False
+    return _long_lasting_material(name)
+
+
+def _is_amber_base_row(choice: Choice) -> bool:
+    """Whether this row is part of the amber base (never moved alone)."""
+
+    stock = choice.candidate.stock
+    identity = _key(stock.identity_name or stock.name)
+    if any(word in identity for word in _AMBER_BASE_IDENTITY_WORDS):
+        return True
+    role_id = getattr(choice.role, "role_id", "") or ""
+    return (accord_lead_role_id(role_id) or role_id) in _AMBER_BASE_ROLE_IDS
 
 
 def _active_ceiling_ul(choice: Choice, others_active: Decimal) -> int | None:
@@ -2276,6 +2334,7 @@ def _lead_with_named_notes(
     holds: list[str],
     *,
     solid_active: Decimal = Decimal(0),
+    named_solid_active: Decimal = Decimal(0),
 ) -> dict[int, int]:
     """Make the notes a brief names lead the formula it composes.
 
@@ -2319,6 +2378,12 @@ def _lead_with_named_notes(
     of the active oil; ``solid_active`` is the weighed rows' part of it).  A
     named row at its ceiling (within 1 uL) carries the floor share by itself,
     so the floor then counts as met.
+
+    A named weighed row (``named_solid_active``: an Ambrox crystal lead the
+    brief names) counts its mg as uL in the named share and in the active
+    volume the share is of.  Its mass is fixed, so the floor is reached by
+    moving liquid volume as ever, but a named crystal is no longer invisible
+    to the floor, which used to drain the unnamed rows around it.
     """
 
     amounts = {**fixed_liquid, **allocated}
@@ -2337,10 +2402,12 @@ def _lead_with_named_notes(
         return _active_ul(choices[index], state[index])
 
     def named_share(state: dict[int, int]) -> Decimal:
-        total = sum(active(state, index) for index in state)
+        total = named_solid_active + sum(active(state, index) for index in state)
         if total <= 0:
             return Decimal(0)
-        return sum(active(state, index) for index in named_all) / total
+        return (
+            named_solid_active + sum(active(state, index) for index in named_all)
+        ) / total
 
     def ceiling(state: dict[int, int], index: int) -> int | None:
         others = solid_active + sum(active(state, row) for row in state if row != index)
@@ -2598,6 +2665,367 @@ def _lead_with_named_notes(
             holds.append(
                 f"ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:{choices[index].candidate.stock.stock_id}"
             )
+    return {index: state[index] for index in allocated}
+
+
+def _meet_longevity_floors(
+    allocated: dict[int, int],
+    free_rows: Sequence[tuple[int, float, int | None]],
+    fixed_liquid: dict[int, int],
+    choices: Sequence[Choice],
+    liquid_total_ul: int,
+    holds: list[str],
+    *,
+    solid_amounts: dict[int, int] | None = None,
+) -> dict[int, int]:
+    """Give the formula at least Kenny's weakest reference active and longevity.
+
+    Two floors, reached by moving raw volume between the formula's own rows
+    (never by adding, swapping or inventing one):
+
+    A. Active material: at least ACTIVE_SHARE_FLOOR of the concentrate is
+       fragrance-active.  Raw volume moves from the diluted unnamed rows (the
+       carrier is what the formula lacks) to the neat rows, long-lasting neat
+       rows first, in proportion to their allocation weight.
+    B. Long-lasting material: at least LONG_LASTING_FLOOR_ACTIVE_UL of active
+       volume has a reference VP at 25 C under LONG_LASTING_VP_25C_PA
+       (``_is_long_lasting``), which is LONG_LASTING_FLOOR_UL_PER_ML per mL of
+       a LONGEVITY_FLOOR_BOTTLE_ML bottle.  Raw volume moves from the unnamed
+       rows that are not long-lasting to the long-lasting ones, neat rows
+       first, in proportion to allocation weight times stock strength.  First
+       within the recipients' design caps; then a second pass may push a
+       long-lasting recipient past its role cap (never a firm or IFRA cap, and
+       never a generic bridge, layer or accent slot, ``_may_pass_design_cap``,
+       so a light brief's base layers keep their 3% cap), each such row named
+       in a ROLE_CAP_EXCEEDED_FOR_LONGEVITY_FLOOR hold.
+
+       A donor's own strength decides what its volume does to the rest of the
+       formula: taking from a neat row and giving to a neat row leaves the
+       active total where it was, while taking from a diluted one grows it and
+       so shrinks every share of it, which the named-note floor may refuse.
+       So the neat donors give first, and the diluted ones only in a second
+       round, for what the first could not reach.
+
+    Each donor keeps at least half of its allocation and at least the minimum
+    raw transfer.  A named row never donates (it may receive), and neither
+    does a requested quantity, a row that must use an exact preferred
+    material, a functional carrier, an accent or any amber-base row: the amber
+    base moves only with the whole formula.  A move is refused when it would
+    break the named-note floor, put a generic slot above the named lead, break
+    the star rule, put an accord support above its lead, lift a row past its
+    40% active ceiling or lower a floor that already holds.  Weighed solids
+    count 1 mg as 1 uL in both floors and are never moved; the liquid total is
+    unchanged.
+
+    What the moves cannot reach is reported, not forced: a formula short of a
+    floor keeps LONG_LASTING_FLOOR_SHORT (the uL/mL reached) or
+    ACTIVE_SHARE_FLOOR_SHORT (the percentage reached), with a
+    WEAK_GRADE_NAMED_ROW hold for each named row that is the reason - a weak
+    grade (under a quarter active) holding over a tenth of the volume, which
+    the named-note floor pins where it is.
+    """
+
+    if not allocated:
+        return allocated
+    solids = dict(solid_amounts or {})
+    solid_raw = Decimal(sum(solids.values()))
+    solid_active = sum((_active_ul(choices[index], mg) for index, mg in solids.items()), Decimal(0))
+    solid_long = sum(
+        (
+            _active_ul(choices[index], mg)
+            for index, mg in solids.items()
+            if _is_long_lasting(choices[index])
+        ),
+        Decimal(0),
+    )
+    caps = {index: cap for index, _weight, cap in free_rows}
+    firm = {index: _firm_cap_ul(choices[index], liquid_total_ul) for index in allocated}
+    state = {**fixed_liquid, **allocated}
+    strength = {index: _active_ul(choices[index], 1) for index in state}
+    long_lasting = {index: _is_long_lasting(choices[index]) for index in state}
+    neat = {index: float(choices[index].candidate.stock.dilution) >= 0.999 for index in state}
+    named_all = {index for index in state if choices[index].role.serves_requested_facet}
+    star_all = {index for index in state if getattr(choices[index].role, "star_note", False)}
+    role_ids = {index: getattr(choices[index].role, "role_id", "") or "" for index in state}
+    by_role = {role_id: index for index, role_id in role_ids.items() if role_id}
+
+    def active(current: dict[int, int], index: int) -> Decimal:
+        return Decimal(current[index]) * strength[index]
+
+    def liquid_active(current: dict[int, int]) -> Decimal:
+        return sum((active(current, index) for index in current), Decimal(0))
+
+    def long_active(current: dict[int, int]) -> Decimal:
+        return solid_long + sum(
+            (active(current, index) for index in current if long_lasting[index]), Decimal(0)
+        )
+
+    def active_share(current: dict[int, int]) -> Decimal:
+        raw = Decimal(sum(current.values())) + solid_raw
+        if raw <= 0:
+            return Decimal(0)
+        return (liquid_active(current) + solid_active) / raw
+
+    def named_share(current: dict[int, int]) -> Decimal:
+        total = solid_active + liquid_active(current)
+        if total <= 0:
+            return Decimal(0)
+        return (
+            sum((active(current, index) for index in current if index in named_all), Decimal(0))
+            + sum(
+                (
+                    _active_ul(choices[index], mg)
+                    for index, mg in solids.items()
+                    if choices[index].role.serves_requested_facet
+                ),
+                Decimal(0),
+            )
+        ) / total
+
+    def ceiling(current: dict[int, int], index: int) -> int | None:
+        others = solid_active + sum(
+            (active(current, row) for row in current if row != index), Decimal(0)
+        )
+        return _active_ceiling_ul(choices[index], others)
+
+    def broken(current: dict[int, int]) -> set[object]:
+        """The composer's ordering rules this state breaks, as comparable marks."""
+
+        rules: set[object] = set()
+        if named_all:
+            lead = max(active(current, index) for index in named_all)
+            rules |= {
+                ("generic", index)
+                for index in allocated
+                if getattr(choices[index].role, "generic_slot", False)
+                and index not in named_all
+                and active(current, index) > lead
+            }
+        if star_all:
+            star_lead = max(active(current, index) for index in star_all)
+            rules |= {
+                ("star", index)
+                for index in current
+                if index not in star_all and active(current, index) > star_lead
+            }
+        for index in current:
+            lead_id = accord_lead_role_id(role_ids[index])
+            lead_index = by_role.get(lead_id) if lead_id is not None else None
+            if lead_index is None or not accord_lead_checked(
+                current[lead_index], choices[lead_index].candidate.stock.dilution
+            ):
+                continue
+            if active(current, index) > active(current, lead_index):
+                rules.add(("accord", index))
+        total = solid_active + liquid_active(current)
+        rules |= {
+            ("ceiling", index)
+            for index in current
+            if strength[index] > 0 and active(current, index) > ROW_ACTIVE_CEILING_SHARE * total
+        }
+        return rules
+
+    def allowed(current: dict[int, int], candidate: dict[int, int]) -> bool:
+        # A floor that holds is never lowered below itself, and one already
+        # short is never lowered further.
+        if named_all and named_share(candidate) < min(
+            NAMED_NOTE_FLOOR_SHARE, named_share(current)
+        ):
+            return False
+        if long_active(candidate) < min(LONG_LASTING_FLOOR_ACTIVE_UL, long_active(current)):
+            return False
+        if active_share(candidate) < min(ACTIVE_SHARE_FLOOR, active_share(current)):
+            return False
+        return not (broken(candidate) - broken(current))
+
+    def move(
+        current: dict[int, int],
+        take: dict[int, int],
+        groups: Sequence[Sequence[int]],
+        weight: Any,
+        past_role_caps: frozenset[int] = frozenset(),
+    ) -> dict[int, int] | None:
+        """``current`` with ``take`` moved to the recipient groups in order."""
+
+        freed = sum(take.values())
+        if freed <= 0:
+            return current
+        moved = dict(current)
+        for index, amount in take.items():
+            moved[index] -= amount
+        remaining = freed
+        for group in groups:
+            if remaining <= 0:
+                break
+            rows = []
+            for index in group:
+                limit = firm[index] if index in past_role_caps else caps.get(index)
+                limits = [
+                    max(0, value - moved[index])
+                    for value in (limit, ceiling(moved, index))
+                    if value is not None
+                ]
+                rows.append((index, weight(index), min(limits) if limits else None))
+            rooms = [room for _index, _weight, room in rows]
+            placed = remaining if None in rooms else min(remaining, sum(rooms))
+            if placed <= 0:
+                continue
+            try:
+                for index, value in _allocate_capped(placed, rows).items():
+                    moved[index] += value
+            except ValueError:
+                return None
+            remaining -= placed
+        return moved if remaining == 0 else None
+
+    def reach(
+        current: dict[int, int],
+        donors: Sequence[int],
+        groups: Sequence[Sequence[int]],
+        met: Any,
+        weight: Any,
+        past_role_caps: frozenset[int] = frozenset(),
+    ) -> dict[int, int]:
+        """``current`` with the same fraction of every donor moved to the
+        recipients: the smallest fraction that meets the floor, or the largest
+        one the rules allow.  Both the floor and the volume freed grow with the
+        fraction, so bisection finds them, as the lead pass's reach_floor does."""
+
+        def take(fraction: float) -> dict[int, int]:
+            given: dict[int, int] = {}
+            for index in donors:
+                base = current[index]
+                keep = max(
+                    min(base, _MIN_RAW_TRANSFER_UL),
+                    -(-base // 2),
+                    int(base * (1 - fraction)),
+                )
+                given[index] = base - keep
+            return given
+
+        def attempt(fraction: float) -> dict[int, int] | None:
+            candidate = move(current, take(fraction), groups, weight, past_role_caps)
+            if candidate is None or not allowed(current, candidate):
+                return None
+            return candidate
+
+        low, high = 0.0, 1.0
+        if attempt(high) is None:
+            for _ in range(40):
+                middle = (low + high) / 2
+                if attempt(middle) is None:
+                    high = middle
+                else:
+                    low = middle
+            high = low
+        reachable = attempt(high) or current
+        if not met(reachable):
+            return reachable
+        low = 0.0
+        for _ in range(40):
+            middle = (low + high) / 2
+            candidate = attempt(middle)
+            if candidate is not None and met(candidate):
+                high = middle
+            else:
+                low = middle
+        return attempt(high) or reachable
+
+    def movable(index: int) -> bool:
+        choice = choices[index]
+        return (
+            not choice.role.exact_preference_required
+            and strength[index] > 0
+            and not str(role_ids[index]).endswith("_accent")
+            and not _is_amber_base_row(choice)
+        )
+
+    free = [index for index in sorted(allocated) if movable(index)]
+    donor_rows = [index for index in free if index not in named_all]
+
+    if active_share(state) < ACTIVE_SHARE_FLOOR:
+        donors = [index for index in donor_rows if not neat[index]]
+        recipients = [index for index in free if neat[index]]
+        groups = [
+            group
+            for group in (
+                [index for index in recipients if long_lasting[index]],
+                [index for index in recipients if not long_lasting[index]],
+            )
+            if group
+        ]
+        if donors and groups:
+            state = reach(
+                state,
+                donors,
+                groups,
+                lambda current: active_share(current) >= ACTIVE_SHARE_FLOOR,
+                lambda index: _allocation_weight(choices[index]),
+            )
+
+    if long_active(state) < LONG_LASTING_FLOOR_ACTIVE_UL:
+        donors = [index for index in donor_rows if not long_lasting[index]]
+        recipients = [index for index in free if long_lasting[index]]
+        groups = [
+            group
+            for group in (
+                [index for index in recipients if neat[index]],
+                [index for index in recipients if not neat[index]],
+            )
+            if group
+        ]
+
+        def weight(index: int) -> float:
+            return _allocation_weight(choices[index]) * float(
+                choices[index].candidate.stock.dilution
+            )
+
+        def met(current: dict[int, int]) -> bool:
+            return long_active(current) >= LONG_LASTING_FLOOR_ACTIVE_UL
+
+        rounds = (
+            [index for index in donors if neat[index]],
+            [index for index in donors if not neat[index]],
+        )
+        if donors and groups:
+            for round_donors in rounds:
+                if round_donors and not met(state):
+                    state = reach(state, round_donors, groups, met, weight)
+            if not met(state):
+                # Second pass: a long-lasting recipient may pass its role cap.
+                past = frozenset(
+                    index for index in recipients if _may_pass_design_cap(choices[index])
+                )
+                before = dict(state)
+                if past:
+                    for round_donors in rounds:
+                        if round_donors and not met(state):
+                            state = reach(state, round_donors, groups, met, weight, past)
+                    for index in sorted(past):
+                        cap = caps.get(index)
+                        if cap is not None and state[index] > cap and state[index] > before[index]:
+                            holds.append(
+                                "ROLE_CAP_EXCEEDED_FOR_LONGEVITY_FLOOR:"
+                                f"{choices[index].candidate.stock.stock_id}"
+                            )
+
+    short = False
+    if long_active(state) < LONG_LASTING_FLOOR_ACTIVE_UL:
+        short = True
+        reached = (long_active(state) / LONGEVITY_FLOOR_BOTTLE_ML).quantize(Decimal("0.1"))
+        holds.append(f"LONG_LASTING_FLOOR_SHORT:{reached}")
+    if active_share(state) < ACTIVE_SHARE_FLOOR:
+        short = True
+        holds.append(
+            f"ACTIVE_SHARE_FLOOR_SHORT:{(active_share(state) * 100).quantize(Decimal('0.1'))}"
+        )
+    if short:
+        for index in sorted(named_all):
+            fraction = Decimal(str(choices[index].candidate.stock.dilution))
+            if fraction < Decimal("0.25") and state[index] * 10 > liquid_total_ul:
+                holds.append(
+                    f"WEAK_GRADE_NAMED_ROW:{choices[index].candidate.stock.stock_id}"
+                )
     return {index: state[index] for index in allocated}
 
 
@@ -2952,12 +3380,25 @@ def _formula_rows(
         if free_rows
         else {}
     )
+    named_solid_active = sum(
+        (
+            _active_ul(choices[index], amount)
+            for index, amount in solid_amounts.items()
+            if choices[index].role.serves_requested_facet
+        ),
+        Decimal(0),
+    )
     allocated = _lead_with_named_notes(
         allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds,
         solid_active=solid_active,
+        named_solid_active=named_solid_active,
     )
-    # The active ceiling stays the last allocation step: a later step (such as
-    # the active and long-lasting floors) goes between the lead pass and it.
+    allocated = _meet_longevity_floors(
+        allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds,
+        solid_amounts=solid_amounts,
+    )
+    # The active ceiling stays the last allocation step: the active and
+    # long-lasting floors run before it.
     allocated = _hold_active_ceiling(
         allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds,
         solid_active=solid_active,

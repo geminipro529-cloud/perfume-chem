@@ -22,7 +22,11 @@ re-checked, staying inside every limit the composer already applies:
   leave a support above it;
 * the active ceiling (``composition_planner.ROW_ACTIVE_CEILING_SHARE``): a
   raise may not put any row above that share of the active oil (weighed
-  solids count 1 mg as 1 uL) unless the composed formula already had it there.
+  solids count 1 mg as 1 uL) unless the composed formula already had it there;
+* the long-lasting floor (``composition_planner.LONG_LASTING_FLOOR_ACTIVE_UL``,
+  the same ``_long_lasting_material`` test the composer uses): a raise may not
+  take the formula's long-lasting active volume below the floor, or below what
+  the composed formula had when that was already less.
 
 The added microlitres come from the volume/diffusion row(s) first, then
 proportionally from other detectable non-character rows, so the liquid total
@@ -310,8 +314,10 @@ def apply_detection_pass(
     from engine.formulation_intelligence.formula_solver import _is_named_note
     from engine.research.composition_planner import (
         _DESIGN_FUNCTIONAL_CARRIERS,
+        LONG_LASTING_FLOOR_ACTIVE_UL,
         NAMED_NOTE_FLOOR_SHARE,
         ROW_ACTIVE_CEILING_SHARE,
+        _long_lasting_material,
         accord_lead_checked,
         accord_lead_role_id,
     )
@@ -345,6 +351,32 @@ def apply_detection_pass(
         ),
         Decimal(0),
     )
+
+    # The long-lasting floor: the composer's own test (the release gate's
+    # reference VP at 25 C), on the same 1 mg = 1 uL basis for weighed solids.
+    def material_of(row: Mapping[str, Any]) -> str:
+        return str(row.get("identity_name") or row.get("material") or "")
+
+    long_lasting = {
+        i: strength[i] > 0 and _long_lasting_material(material_of(rows[i])) for i in original
+    }
+    solid_long_active = sum(
+        (
+            Decimal(str(row.get("amount_decimal"))) * Decimal(str(row.get("stock_fraction_decimal") or 1))
+            for row in rows
+            if row.get("amount_unit") == "mg" and _long_lasting_material(material_of(row))
+        ),
+        Decimal(0),
+    )
+
+    def long_active(current: Mapping[int, Decimal]) -> Decimal:
+        return solid_long_active + sum(
+            (current[i] * strength[i] for i in current if long_lasting[i]), Decimal(0)
+        )
+
+    # Never below the floor, and never below what the composer reached when
+    # that was already short of it.
+    long_floor = min(LONG_LASTING_FLOOR_ACTIVE_UL, long_active(original))
 
     def above_ceiling(current: Mapping[int, Decimal]) -> set[int]:
         total = solid_active + sum((current[i] * strength[i] for i in current), Decimal(0))
@@ -507,6 +539,20 @@ def apply_detection_pass(
                     break
                 worst = max(sorted(gains), key=lambda i: gains[i])
                 limit_hit[worst] = "named notes' lead share"
+                del wants[worst]
+                trial = donated(wants)
+            if not wants:
+                continue
+            # The long-lasting floor holds: volume donated by a slow row leaves
+            # the formula with less long-lasting material, so the raise of the
+            # row that is not long-lasting taking the most volume is dropped
+            # until the floor holds again.
+            while wants and long_active(trial) < long_floor:
+                taking = {i: wants[i] - amounts[i] for i in wants if not long_lasting[i]}
+                if not taking:
+                    break
+                worst = max(sorted(taking), key=lambda i: taking[i])
+                limit_hit[worst] = "long-lasting floor"
                 del wants[worst]
                 trial = donated(wants)
             if not wants:
