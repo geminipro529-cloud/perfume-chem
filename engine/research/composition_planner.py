@@ -3578,9 +3578,10 @@ def _formula_rows(
         allocated, free_rows, fixed_liquid, choices, liquid_total_ul, holds,
         solid_active=solid_active,
     )
-    if allocated:
-        # The floors' SHORT holds describe the rows delivered: the ceiling
-        # pass may have moved volume after the floors step.
+    if fixed_liquid or allocated or solid_amounts:
+        # The floors' SHORT holds describe the rows delivered (every one of
+        # them requested, too): the ceiling pass may have moved volume after
+        # the floors step.
         holds.extend(
             _longevity_floor_holds(
                 {**fixed_liquid, **allocated}, choices, liquid_total_ul, solid_amounts

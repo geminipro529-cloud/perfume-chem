@@ -567,6 +567,26 @@ def test_the_short_holds_describe_the_rows_the_ceiling_pass_delivers(
     ]
 
 
+def test_a_formula_of_requested_rows_only_still_carries_the_floor_holds() -> None:
+    # Every liquid row is a requested quantity, so nothing is allocated; the
+    # delivered rows still carry no long-lasting material and say so.
+    choices = [
+        _choice("Linalool", share=.5, function="volume"),
+        _choice("Dihydromyrcenol", share=.5, function="volume"),
+    ]
+    quantities = [
+        {"scope": "MATERIAL_DOSE", "material": name, "amount_decimal": "3000", "unit": "uL"}
+        for name in ("Linalool", "Dihydromyrcenol")
+    ]
+
+    rows, totals, holds = planner._formula_rows(choices, liquid_total_ul=TOTAL, quantities=quantities)
+
+    assert [row["amount_decimal"] for row in rows] == ["3000", "3000"]
+    assert totals["liquid_total_ul"] == str(TOTAL)
+    assert "LONG_LASTING_FLOOR_SHORT:0.0" in holds
+    assert not [hold for hold in holds if hold.startswith("ACTIVE_SHARE_FLOOR_SHORT:")]
+
+
 def test_a_light_brief_reaches_the_floor_or_carries_the_hold() -> None:
     result = design_inventory_formula(idea="A fresh citrus cologne")
     formula = result["optimized_formula"] or result["initial_formula"]
