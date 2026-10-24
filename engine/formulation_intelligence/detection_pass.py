@@ -15,11 +15,28 @@ re-checked, staying inside every limit the composer already applies:
   raise that creates a FAIL the formula did not already have is rejected;
 * the named notes' lead (``composition_planner.NAMED_NOTE_FLOOR_SHARE``): a
   raise may not take the rows that serve the brief's named notes below the
-  active-volume share the composer gave them, capped at the floor share.
+  active-volume share the composer gave them, capped at the floor share;
+* an accord's lead (``composition_planner.accord_lead_checked``): a raise may
+  not lift an accord support above its lead's active volume, a support
+  already above it is not raised, and the lead gives no volume that would
+  leave a support above it;
+* the active ceiling (``composition_planner.ROW_ACTIVE_CEILING_SHARE``): a
+  raise may not put any row, liquid or weighed, above that share of the
+  active oil (weighed solids count 1 mg as 1 uL), nor a row the composed
+  formula already had above it past the share it had there;
+* the long-lasting floor (``composition_planner.LONG_LASTING_FLOOR_ACTIVE_UL``,
+  the floors step's own measure: active volume of the materials the
+  ``_long_lasting_material`` test counts): a raise and its donors may not take
+  that measure below the floor, or below what the composed formula had when
+  that was already less.  A diluted long-lasting stock adds only its active
+  part, so it is held to this as much as a row that is not long-lasting.
 
 The added microlitres come from the volume/diffusion row(s) first, then
-proportionally from other detectable non-character rows, so the liquid total
-is unchanged. No row is dropped or swapped, user-fixed quantities and
+proportionally from other detectable non-character rows (rows that are not
+long-lasting first when the long-lasting floor would otherwise break), so the
+liquid total is unchanged.  A donor keeps half its composed dose and never
+goes under 10 uL (``composition_planner._MIN_RAW_TRANSFER_UL``), or under its
+composed dose when that was smaller. No row is dropped or swapped, user-fixed quantities and
 must-preserve/explicit anchors are never changed, and weighed solids (mg) are
 not simulated.
 
@@ -32,7 +49,7 @@ never as silent.
 from __future__ import annotations
 
 import re
-from decimal import ROUND_FLOOR, Decimal
+from decimal import ROUND_CEILING, ROUND_FLOOR, Decimal
 from typing import Any, Mapping, Sequence
 
 WINDOWS = ("opening", "top", "heart", "late_heart", "drydown")
@@ -216,9 +233,12 @@ def _blocking_checks(formula: Mapping[str, Any], name: str) -> set[str]:
 
 def _limit_label(check: str) -> str:
     kind = check.split(":", 1)[0]
-    return {"ifra": "IFRA Cat 4", "hedione_share": "Hedione share", "musk_count": "musk count"}.get(
-        kind, kind,
-    )
+    return {
+        "ifra": "IFRA Cat 4",
+        "hedione_share": "Hedione share",
+        "musk_count": "musk count",
+        "row_active_ceiling": "40% active ceiling",
+    }.get(kind, kind)
 
 
 def apply_detection_pass(
@@ -300,20 +320,29 @@ def apply_detection_pass(
     from engine.formulation_intelligence.formula_solver import _is_named_note
     from engine.research.composition_planner import (
         _DESIGN_FUNCTIONAL_CARRIERS,
+        _MIN_RAW_TRANSFER_UL,
+        LONG_LASTING_FLOOR_ACTIVE_UL,
         NAMED_NOTE_FLOOR_SHARE,
+        ROW_ACTIVE_CEILING_SHARE,
+        _long_lasting_material,
+        accord_lead_checked,
+        accord_lead_role_id,
     )
 
     named_rows = {
         i for i in original
         if (role := roles.get(str(rows[i].get("slot")))) is not None and _is_named_note(role)
     }
-    strength = {
-        i: Decimal(0)
-        if _key(str(rows[i].get("identity_name") or rows[i].get("material") or ""))
-        in _DESIGN_FUNCTIONAL_CARRIERS
-        else Decimal(str(rows[i].get("stock_fraction_decimal") or 1))
-        for i in original
-    }
+    def material_of(row: Mapping[str, Any]) -> str:
+        return str(row.get("identity_name") or row.get("material") or "")
+
+    def strength_of(row: Mapping[str, Any]) -> Decimal:
+        # Active per uL (or per mg of a weighed solid); a functional carrier has none.
+        if _key(material_of(row)) in _DESIGN_FUNCTIONAL_CARRIERS:
+            return Decimal(0)
+        return Decimal(str(row.get("stock_fraction_decimal") or 1))
+
+    strength = {i: strength_of(rows[i]) for i in original}
 
     def named_share(current: Mapping[int, Decimal]) -> Decimal:
         total = sum((current[i] * strength[i] for i in current), Decimal(0))
@@ -322,6 +351,100 @@ def apply_detection_pass(
         return sum((current[i] * strength[i] for i in current if i in named_rows), Decimal(0)) / total
 
     named_floor = min(NAMED_NOTE_FLOOR_SHARE, named_share(original)) if named_rows else None
+
+    # The long-lasting floor: the composer's own test (the release gate's
+    # reference VP at 25 C), on the same 1 mg = 1 uL basis for weighed solids.
+    long_lasting = {
+        i: strength[i] > 0 and _long_lasting_material(material_of(rows[i])) for i in original
+    }
+    solid_long_active = sum(
+        (
+            Decimal(str(row.get("amount_decimal"))) * strength_of(row)
+            for row in rows
+            if row.get("amount_unit") == "mg" and _long_lasting_material(material_of(row))
+        ),
+        Decimal(0),
+    )
+
+    def long_active(current: Mapping[int, Decimal]) -> Decimal:
+        return solid_long_active + sum(
+            (current[i] * strength[i] for i in current if long_lasting[i]), Decimal(0)
+        )
+
+    # Never below the floor, and never below what the composer reached when
+    # that was already short of it.
+    long_floor = min(LONG_LASTING_FLOOR_ACTIVE_UL, long_active(original))
+
+    # Each weighed row's active (1 mg as 1 uL): never raised, but its share of
+    # the active oil moves with every raise.
+    solid_rows = {
+        i: Decimal(str(row.get("amount_decimal"))) * strength_of(row)
+        for i, row in enumerate(rows)
+        if row.get("amount_unit") == "mg"
+    }
+
+    def row_actives(current: Mapping[int, Decimal]) -> dict[int, Decimal]:
+        return {**{i: current[i] * strength[i] for i in current}, **solid_rows}
+
+    composed = row_actives(original)
+    composed_total = sum(composed.values(), Decimal(0))
+
+    def above_ceiling(current: Mapping[int, Decimal]) -> set[int]:
+        """The rows, liquid or weighed, above the active ceiling in ``current``;
+        a row the composed formula already had above it counts only past the
+        share it had there."""
+
+        actives = row_actives(current)
+        total = sum(actives.values(), Decimal(0))
+        return {
+            i
+            for i, part in actives.items()
+            if part > ROW_ACTIVE_CEILING_SHARE * total
+            and (
+                composed[i] <= ROW_ACTIVE_CEILING_SHARE * composed_total
+                or part * composed_total > composed[i] * total
+            )
+        }
+
+    # An accord support (slot: its lead's slot, the accord separator, a number)
+    # whose lead the composer checks keeps no more active volume than the lead.
+    slot_rows = {str(rows[i].get("slot")): i for i in original}
+    accord_lead = {
+        i: slot_rows.get(lead_slot)
+        for i in original
+        if (lead_slot := accord_lead_role_id(str(rows[i].get("slot") or ""))) is not None
+    }
+
+    def checked_lead(current: Mapping[int, Decimal], i: int) -> int | None:
+        """The lead row support ``i`` is held to, or None (no support, or not checked)."""
+
+        lead = accord_lead.get(i)
+        if lead is None or strength[i] <= 0 or strength[lead] <= 0 or not accord_lead_checked(
+            current[lead], rows[lead].get("stock_fraction_decimal") or 1,
+        ):
+            return None
+        return lead
+
+    def accord_ceiling(current: Mapping[int, Decimal], i: int) -> Decimal | None:
+        """Raw uL at which support ``i`` matches its lead's active volume now."""
+
+        lead = checked_lead(current, i)
+        if lead is None:
+            return None
+        return (current[lead] * strength[lead] / strength[i]).to_integral_value(rounding=ROUND_FLOOR)
+
+    def accord_lead_floors(current: Mapping[int, Decimal], wants: Mapping[int, Decimal]) -> dict[int, Decimal]:
+        """Raw uL under which a checked lead would carry less active volume than a support."""
+
+        floors: dict[int, Decimal] = {}
+        for i in accord_lead:
+            lead = checked_lead(current, i)
+            if lead is not None:
+                need = (wants.get(i, current[i]) * strength[i] / strength[lead]).to_integral_value(
+                    rounding=ROUND_CEILING,
+                )
+                floors[lead] = max(floors.get(lead, Decimal(0)), need)
+        return floors
 
     def run_raises(
         frozen: Mapping[int, str],
@@ -343,6 +466,11 @@ def apply_detection_pass(
                     limit_hit[i] = label
                     continue
                 target = min(cap, amounts[i] * STEP_FACTOR).to_integral_value(rounding=ROUND_FLOOR)
+                ceiling = accord_ceiling(amounts, i)
+                if ceiling is not None and ceiling < target:
+                    # A support is not raised past its lead's active volume,
+                    # nor at all when it already carries more (a held one).
+                    target, label = ceiling, "accord lead's active volume"
                 if target > amounts[i]:
                     wants[i] = target
                 else:
@@ -372,7 +500,21 @@ def apply_detection_pass(
             ]
             volume = [i for i in donors if str(rows[i].get("role")) == "volume"]
             others = [i for i in donors if i not in volume]
-            room = {i: amounts[i] - (original[i] * DONOR_FLOOR).to_integral_value() for i in donors}
+            # A donor keeps half its composed dose and never goes under the
+            # smallest raw transfer (or under its composed dose when that was
+            # smaller): the duel disqualifies a pour under 10 uL.
+            room = {
+                i: amounts[i] - max(
+                    (original[i] * DONOR_FLOOR).to_integral_value(),
+                    min(original[i], Decimal(_MIN_RAW_TRANSFER_UL)),
+                )
+                for i in donors
+            }
+            # A checked accord lead gives no volume that would leave one of its
+            # supports (as raised this round) above its active volume.
+            for lead, floor in accord_lead_floors(amounts, wants).items():
+                if lead in room:
+                    room[lead] = min(room[lead], amounts[lead] - floor)
             needed = sum((wants[i] - amounts[i] for i in wants), Decimal(0))
             available = sum((max(Decimal(0), room[i]) for i in donors), Decimal(0))
             if available < needed:
@@ -388,12 +530,22 @@ def apply_detection_pass(
                 needed = sum((wants[i] - amounts[i] for i in wants), Decimal(0))
             if not wants:
                 break
+            # Set when the default donors would break the long-lasting floor.
+            lasting_last = False
 
             def donated(wants: Mapping[int, Decimal]) -> dict[int, Decimal]:
                 trial = dict(amounts)
                 trial.update(wants)
                 remaining = sum((wants[i] - amounts[i] for i in wants), Decimal(0))
-                for group in (volume, others):
+                groups: Sequence[Sequence[int]] = (volume, others)
+                if lasting_last:
+                    # Rows that are not long-lasting give first.
+                    groups = [
+                        [i for i in group if long_lasting[i] is lasting]
+                        for lasting in (False, True)
+                        for group in (volume, others)
+                    ]
+                for group in groups:
                     pool = sum((max(Decimal(0), room[i]) for i in group), Decimal(0))
                     if remaining <= 0 or pool <= 0:
                         continue
@@ -415,6 +567,9 @@ def apply_detection_pass(
                 return trial
 
             trial = donated(wants)
+            if long_active(trial) < long_floor:
+                lasting_last = True
+                trial = donated(wants)
             # The named notes keep their lead: moving volume from a diluted
             # donor to a stronger row grows the active total, so the raise
             # adding the most active volume is dropped until the named share
@@ -430,6 +585,65 @@ def apply_detection_pass(
                 del wants[worst]
                 trial = donated(wants)
             if not wants:
+                continue
+            # The long-lasting floor holds (the floors step's measure): volume
+            # donated by a slow row leaves the formula with less long-lasting
+            # material, and a raised row adds only its own long-lasting active
+            # part (none for a row that is not long-lasting, a tenth for a 10%
+            # long-lasting stock).  Rows that are not long-lasting give first;
+            # then the raise adding the least long-lasting active per uL (ties:
+            # the one taking the most volume) keeps the largest part that holds
+            # the floor, or is refused, until the floor holds again.
+            while wants and long_active(trial) < long_floor:
+                if not lasting_last:
+                    lasting_last = True
+                    trial = donated(wants)
+                    continue
+                worst = min(
+                    sorted(wants),
+                    key=lambda i: (
+                        strength[i] if long_lasting[i] else Decimal(0), -(wants[i] - amounts[i]),
+                    ),
+                )
+
+                def keeps_floor(extra: int, worst: int = worst) -> bool:
+                    part = {**wants, worst: amounts[worst] + extra}
+                    return long_active(donated(part)) >= long_floor
+
+                kept, refused = 0, int(wants[worst] - amounts[worst])
+                if keeps_floor(0):
+                    while refused - kept > 1:
+                        middle = (kept + refused) // 2
+                        if keeps_floor(middle):
+                            kept = middle
+                        else:
+                            refused = middle
+                limit_hit[worst] = "long-lasting floor"
+                if kept > 0:
+                    wants[worst] = amounts[worst] + kept
+                else:
+                    del wants[worst]
+                trial = donated(wants)
+            if not wants:
+                continue
+            # No raise puts a row above the active ceiling: a raised row that
+            # crosses it is dropped, else the raise of the weakest stock (it
+            # shrinks the active total most) until no row crosses.
+            while wants and (crossed := above_ceiling(trial)):
+                raised = sorted(crossed & set(wants))
+                worst = raised[0] if raised else min(
+                    sorted(wants), key=lambda i: (strength[i], -(wants[i] - amounts[i])),
+                )
+                limit_hit[worst] = _limit_label("row_active_ceiling")
+                del wants[worst]
+                trial = donated(wants)
+            if not wants:
+                continue
+            # Dropping a raise for the ceiling may have taken back long-lasting
+            # active it added: the round's raises then all stop at the floor.
+            if long_active(trial) < long_floor:
+                for i in wants:
+                    limit_hit[i] = "long-lasting floor"
                 continue
             new_fail = _blocking_checks(as_formula(trial), formula_name) - baseline_fail
             if new_fail:
@@ -620,24 +834,103 @@ def attach_detection_checks(report: dict[str, Any]) -> dict[str, Any]:
         return done[key]
 
     enhanced = dict(report)
+    main: Mapping[str, Any] | None = None
     for field in ("optimized_formula", "initial_formula"):
         formula = enhanced.get(field)
         if isinstance(formula, Mapping) and formula.get("rows"):
+            main = main or formula
             enhanced[field] = run(formula)
     if "design_variants" in enhanced:
         enhanced["design_variants"] = [
-            {**v, "formula": run(v["formula"])}
+            _with_floor_holds(
+                {**v, "formula": run(v["formula"])}, "critic", "issues",
+                run(v["formula"]), plans.get(id(v["formula"])),
+            )
             if isinstance(v, Mapping) and isinstance(v.get("formula"), Mapping) and v["formula"].get("rows")
             else v
             for v in variants
         ]
+    if main is not None:
+        # The report's own holds describe its main formula as delivered.
+        delivered, plan = run(main), plans.get(id(main))
+        enhanced = _with_floor_holds(enhanced, "critic", "issues", delivered, plan)
+        enhanced = _with_floor_holds(enhanced, "constraint_audit", "holds", delivered, plan)
+        audit = enhanced.get("constraint_audit")
+        if isinstance(audit, Mapping) and "holds" in audit:
+            enhanced["status"] = _hold_state(enhanced.get("status"), bool(audit["holds"]))
     return enhanced
+
+
+# States that say only whether any hold remains: (with holds, without).
+_HOLD_STATE_PAIRS = (
+    ("PASS_WITH_HOLDS", "PASS"),
+    ("ACCEPTED_WITH_HOLDS", "ACCEPTED_AS_DESIGN_HYPOTHESIS"),
+    ("INVENTORY_GROUNDED_DESIGN_READY_WITH_HOLDS", "INVENTORY_GROUNDED_DESIGN_READY"),
+)
+
+
+def _hold_state(state: Any, held: bool) -> Any:
+    for with_holds, without in _HOLD_STATE_PAIRS:
+        if state in (with_holds, without):
+            return with_holds if held else without
+    return state
+
+
+def _with_floor_holds(
+    owner: dict[str, Any],
+    block: str,
+    field: str,
+    formula: Mapping[str, Any],
+    role_plan: Sequence[Mapping[str, Any]] | None,
+) -> dict[str, Any]:
+    """``owner`` with ``owner[block][field]``'s longevity floor holds measured
+    on ``formula``, as the pass delivered it.
+
+    The composer's floor holds (composition_planner._longevity_floor_holds)
+    describe its rows before the pass; when the pass moved volume they are
+    measured again on the delivered rows, by the same measure.
+    """
+
+    from engine.formulation_intelligence.formula_solver import _is_named_note
+    from engine.research.composition_planner import (
+        LONGEVITY_FLOOR_HOLD_PREFIXES,
+        longevity_floor_holds_of_rows,
+    )
+
+    holder = owner.get(block)
+    if not (formula.get("detection_check") or {}).get("adjustments") or not isinstance(holder, Mapping):
+        return owner
+    holds = holder.get(field)
+    if not isinstance(holds, list):
+        return owner
+    named = frozenset(slot for slot, role in _role_records(role_plan).items() if _is_named_note(role))
+    kept = [hold for hold in holds if not str(hold).startswith(LONGEVITY_FLOOR_HOLD_PREFIXES)]
+    merged = [*kept, *longevity_floor_holds_of_rows(formula.get("rows", []), named)]
+    if holds == sorted(holds, key=str):
+        merged.sort(key=str)
+    refreshed = {**holder, field: merged}
+    if "state" in holder:
+        refreshed["state"] = _hold_state(holder["state"], bool(merged))
+    return {**owner, block: refreshed}
+
+
+def critic_as_delivered(
+    critic: Mapping[str, Any],
+    formula: Mapping[str, Any],
+    role_plan: Sequence[Mapping[str, Any]] | None,
+) -> dict[str, Any]:
+    """The solver's ``critic`` with its longevity floor holds measured on
+    ``formula`` as the pass delivered it, as attach_detection_checks records
+    it on a design variant; a replay compares the two."""
+
+    return dict(_with_floor_holds({"critic": critic}, "critic", "issues", formula, role_plan)["critic"])
 
 
 __all__ = [
     "NOTE",
     "apply_detection_pass",
     "attach_detection_checks",
+    "critic_as_delivered",
     "intended_windows",
     "solver_formula",
 ]

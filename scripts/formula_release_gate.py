@@ -47,6 +47,7 @@ from engine.ifra_standards import ETHANOL_DENSITY_G_ML
 from engine.mixer.instructions import build_formula_compounding_protocol
 from engine.optimizer.models import ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
+from engine.perception.role_reading import build_role_reading, role_reading_text_lines
 from engine.pipeline.analysis import render_pipeline_analysis
 from engine.pipeline.audit_log import append_event, config_summary
 from engine.pipeline.gates import (
@@ -246,6 +247,25 @@ def _build_config(args: argparse.Namespace) -> ReleaseGateConfig:
         audit_source=args.audit_source or str(args.formula_file),
         expected_retail_price_thb=args.expected_retail_price_thb or 1500.0,
     )
+
+
+def _role_reading(gate_result, oav_result) -> dict[str, object]:
+    """Informational row-role reading of the gate's frames; it sets no status.
+
+    ``index_rows`` are the concentrate rows ``score_luxury`` reads (``oav``
+    unrounded). Any exception becomes an ERROR entry for this formula so the
+    diagnostic can never stop the gate.
+    """
+    try:
+        return build_role_reading(
+            gate_result.simulation,
+            index_rows=[
+                {"name": material.name, "oav": material.oav}
+                for material in oav_result.state.materials
+            ],
+        )
+    except Exception as exc:  # informational only: never stops the gate
+        return {"status": "ERROR", "error": f"{type(exc).__name__}: {exc}"}
 
 
 def _format_oav_table(state) -> list[dict]:
@@ -961,6 +981,7 @@ def main(
         )
         oav_result = analyze_oav_authority(oav_req, gate_report=gate_result)
         oav_table = _format_oav_table(oav_result.state)
+        role_reading = _role_reading(gate_result, oav_result)
         record_stage("oav_authority", stage_started_ns)
 
         g15_gate = next(
@@ -1109,6 +1130,7 @@ def main(
                 }
                 for w in oav_result.time_windows
             ],
+            "role_reading": role_reading,
             "prior_analysis_binding": _prior_analysis_binding(formula, run_hashes),
         }
 
@@ -1340,6 +1362,8 @@ def main(
             for gate in report["gates"]:
                 detail = f" - {gate['detail']}" if gate.get("detail") else ""
                 print(f"  {gate['status']}: {gate['gate']}{detail}")
+            for line in role_reading_text_lines(report["role_reading"]):
+                print(line)
 
     if args.print_analysis:
         print(cli_transport_text(analysis_text))

@@ -236,6 +236,10 @@ class MaterialState:
     # constituent row's starting mass still present (profile order), then that
     # of the unresolved remainder. Empty = nothing has evaporated.
     natural_composite_remaining: tuple[float, ...] = ()
+    # A natural's per-constituent modeled vapour concentration (name, ppm v/v)
+    # from its constituent profile; empty for other rows. Read one constituent
+    # at a time (yardstick note markers), never summed (Rule 4).
+    constituent_vapor_ppm: tuple[tuple[str, float], ...] = ()
     formula_optimization_authority: bool = field(default=False, init=False)
 
     @property
@@ -771,6 +775,11 @@ class FormulaState:
                         else None
                     ),
                     natural_composite_remaining=natural_remaining[m.name],
+                    constituent_vapor_ppm=(
+                        composite_result.constituent_vapor_ppm
+                        if composite_result is not None
+                        else ()
+                    ),
                     **projection,
                 )
             )
@@ -1619,6 +1628,11 @@ def _build_formula_state_cached(
                     and matrix_source == "explicit"
                     and finished_mass_g > 0
                     else None
+                ),
+                constituent_vapor_ppm=(
+                    composite_result.constituent_vapor_ppm
+                    if composite_result is not None
+                    else ()
                 ),
                 **projection,
             )

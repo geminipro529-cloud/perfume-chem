@@ -60,13 +60,15 @@ def test_warm_brief_layers_every_register_and_adds_small_accents() -> None:
 
     slots = _slots(result)
     assert {
-        "top_citrus_layer",
         "top_green_layer",
         "heart_floral_layer",
         "heart_powder_layer",
         "heart_spice_accent",
         "base_shadow_accent",
     } <= slots, sorted(slots)
+    # A musk brief names no citrus and has no family built on one, so its
+    # top is the green layer, not a citrus layer.
+    assert "top_citrus_layer" not in slots, sorted(slots)
     _assert_supports_stay_small(result)
 
 
@@ -74,14 +76,17 @@ def test_warm_woody_amber_layers_every_register_from_its_family() -> None:
     # WOODY AMBER in docs/fragrance_families_reference.md: bergamot and
     # cardamom on top, amber, rose and incense in the heart, woods and ambrox
     # below. It has no place for a green, powder, musk or smoky layer.
+    # It is not built on a citrus (chypre, fougere and citrus are), so the
+    # cardamom opens it: no citrus layer, and no bergamot role in its place.
     result = _design(WARM_AMBER, "Evening Amber")
     roles = {role["role_id"]: role for role in result["semantic_brief"]["roles"]}
 
     slots = _slots(result)
-    assert {"top_citrus_layer", "heart_floral_layer", "base_resin_layer", "base_wood_contrast"} <= slots, sorted(slots)
-    absent = {"top_green_layer", "heart_powder_layer", "heart_spice_accent", "base_musk_layer", "base_shadow_accent"}
+    assert {"heart_floral_layer", "base_resin_layer", "base_wood_contrast"} <= slots, sorted(slots)
+    absent = {"top_citrus_layer", "top_green_layer", "heart_powder_layer", "heart_spice_accent",
+              "base_musk_layer", "base_shadow_accent"}
     assert not absent & slots, sorted(slots)
-    assert roles["top_citrus_layer"]["query_terms"][0] == "bergamot", roles["top_citrus_layer"]
+    assert "family_cardamom_accent" in roles and "family_bergamot_layer" not in roles, sorted(roles)
     assert roles["heart_floral_layer"]["query_terms"][0] == "rose", roles["heart_floral_layer"]
     _assert_supports_stay_small(result)
 
@@ -127,7 +132,7 @@ def test_floral_brief_skips_floral_layer_and_light_brief_skips_resin() -> None:
 @pytest.mark.parametrize(("idea", "name", "remaining"), [
     (WARM_MUSK, "Evening Musk", {"top_green_layer", "base_shadow_accent"}),
     # A family brief: the woody amber's cardamom accent goes with the spice.
-    (WARM_AMBER, "Evening Amber", {"top_citrus_layer", "base_resin_layer", "base_wood_contrast"}),
+    (WARM_AMBER, "Evening Amber", {"base_resin_layer", "base_wood_contrast"}),
 ])
 def test_must_avoid_removes_matching_layer_and_accent(idea: str, name: str, remaining: set) -> None:
     slots = _slots(_design(idea, name, must_avoid=("floral", "spice")))

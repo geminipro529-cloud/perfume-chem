@@ -164,8 +164,9 @@ def test_a_released_volume_row_is_named_by_its_default_not_its_role_cap() -> Non
 
 def test_spare_volume_goes_to_the_named_note_before_the_structure_rows() -> None:
     # The defaults leave the total unfillable.  The named note takes the
-    # spare (past its role cap, and said so); the structure row and the
-    # defaulted row stay within their caps.
+    # spare first (past its role cap, and said so), but no row passes 40% of
+    # the active oil, so the volume and structure rows take the rest (past
+    # their screening defaults, and said so).
     choices = [
         _choice(_stocked("Alpha Damascone")),
         _choice(_stocked("Cedramber"), function="volume"),
@@ -175,7 +176,15 @@ def test_spare_volume_goes_to_the_named_note_before_the_structure_rows() -> None
     allocated, holds = _fallback(choices)
 
     assert sum(allocated.values()) == TOTAL
-    assert allocated[1] <= planner._design_cap_ul(choices[1], TOTAL)
-    assert allocated[2] <= planner._design_cap_ul(choices[2], TOTAL)
+    assert allocated[0] <= planner._design_cap_ul(choices[0], TOTAL)
+    active = {index: planner._active_ul(choices[index], amount) for index, amount in allocated.items()}
+    total_active = sum(active.values())
+    assert all(value <= planner.ROW_ACTIVE_CEILING_SHARE * total_active for value in active.values())
+    # The named note sits at its ceiling: one more microlitre would pass it.
+    assert active[3] + 1 > planner.ROW_ACTIVE_CEILING_SHARE * (total_active + 1)
     assert allocated[3] > planner._design_cap_ul(choices[3], TOTAL)
-    assert holds == ["ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:stock:Phenethyl Alcohol"]
+    assert sorted(holds) == [
+        "ROLE_CAP_EXCEEDED_TO_FILL_TOTAL:stock:Phenethyl Alcohol",
+        "SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL:stock:Amber Xtreme",
+        "SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL:stock:Cedramber",
+    ]

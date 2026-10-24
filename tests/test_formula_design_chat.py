@@ -762,15 +762,48 @@ def test_formula_design_uses_a_low_odor_carrier_for_quiet_skin_structure() -> No
     assert carrier["identity_name"] == "Benzyl Benzoate"
     # Benzyl Benzoate is IFRA-restricted (4.8% of the finished perfume).  The
     # composer once gave it 3,106 uL, 13.7% of the bottle and a gate FAIL; it
-    # now stops at its IFRA cap and the soft close-diffusion row takes the rest.
+    # now stops at its IFRA cap, and the rest is spread so that no row carries
+    # more than 40% of the active oil (the carrier counts none).
     assert 900 <= int(carrier["amount_decimal"]) <= 960
     checks = result["composition_checks"]["checks"]
     assert not [c for c in checks if c["check"] == "ifra" and c["status"] == "FAIL"]
+    # No row carries more than 40% of the active oil (the carrier counts
+    # none), unless the formula names it in a ROW_ABOVE_ACTIVE_CEILING hold:
+    # the rows that could take its excess could not.
+    above = {
+        hold.split(":", 1)[1]
+        for hold in result["constraint_audit"]["holds"]
+        if hold.startswith("ROW_ABOVE_ACTIVE_CEILING:")
+    }
+    active = {
+        row["stock_id"]: (
+            0.0
+            if row["slot"] == "quiet_carrier"
+            else float(row["amount_decimal"]) * float(row["stock_fraction_decimal"])
+        )
+        for row in rows
+    }
     assert all(
-        int(row["amount_decimal"]) <= 1000
+        value <= 0.40 * sum(active.values()) or stock_id in above
+        for stock_id, value in active.items()
+    ), (active, above)
+    # The other rows stay modest.  The soft close-diffusion row used to take
+    # the whole rest; under the 40% ceiling it cannot, so a row past 1000 uL
+    # must be one the fill-to-total fallback released past its screening
+    # default and names in that hold (here Bergamot beside Phenethyl Alcohol).
+    # A row with its own restraint share or a normal-use ceiling never is.
+    released = {
+        hold.split(":", 1)[1]
+        for hold in result["constraint_audit"]["holds"]
+        if hold.startswith("SCREENING_DEFAULT_EXCEEDED_TO_FILL_TOTAL:")
+    }
+    assert all(
+        int(row["amount_decimal"]) <= 1000 or row["stock_id"] in released
         for row in rows
         if row["slot"] not in {"quiet_carrier", "quiet_diffusion"}
-    )
+    ), [(row["slot"], row["amount_decimal"]) for row in rows]
+    by_slot = {row["slot"]: int(row["amount_decimal"]) for row in rows}
+    assert by_slot["warm_skin"] <= 720 and by_slot["warm_wood"] <= 600, by_slot
     slots = {row["slot"] for row in rows}
     assert "clean_paper" not in slots
     assert "book_leather" not in slots
@@ -984,6 +1017,12 @@ def test_formula_design_does_not_add_third_tuberose_source_by_default() -> None:
     assert len(tuberose_rows) == 2
 
 
+def _active_amount(row: dict) -> float:
+    """A row's active amount: uL times stock fraction, or mg of a neat solid."""
+
+    return float(row["amount_decimal"]) * float(row["stock_fraction_decimal"])
+
+
 def _base_layer_rows(result: dict) -> dict[str, dict]:
     return {
         row["slot"]: row
@@ -1069,5 +1108,7 @@ def test_formula_design_builds_each_requested_note_as_an_accord() -> None:
         assert len(identities) == 3
         for support in supports:
             assert support["note"] == lead["note"]
-            # The lead keeps the named character; supports add nuance.
-            assert int(support["amount_decimal"]) < int(lead["amount_decimal"])
+            # The lead keeps the named character; supports add nuance.  The
+            # amber lead is weighed Ambrox crystals (mg, neat), so rows are
+            # compared by active amount: amount times stock fraction.
+            assert _active_amount(support) < _active_amount(lead)

@@ -140,6 +140,7 @@ def test_release_cli_skips_legacy_loader_and_keeps_authoritative_gate(
     gate_result = SimpleNamespace(
         config_summary=config_summary,
         formula_state=state,
+        simulation=(),
         as_dict=lambda: {
             "number": 1,
             "name": "Test Formula",

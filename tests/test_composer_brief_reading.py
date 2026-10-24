@@ -42,6 +42,10 @@ _PINK_PEPPER = "Pink Pepper EO (Schinus molle; neat / as supplied)"
         ("Lavande Ambrée", "lavender amber"),
         ("Fleur d'Oranger", "orange blossom"),
         ("Bois de Santal", "sandalwood"),
+        # The reading drops accented letters: "fougère" read as no family.
+        ("Fougère Agrumes", "fougere citrus"),
+        ("Hespéridé, cédrat", "citrus, cedrat"),
+        ("Clémentine, pomélo, zeste", "clementine, pomelo, zest"),
         # Citron is also an English word (the cedrat fruit): left alone.
         ("Citron Vert", "Citron Vert"),
         # Whole words only: "Rosewood" and "ambrette" are not French notes.
@@ -227,6 +231,51 @@ def test_sandalwood_oil_lead_is_backed_by_a_sandalwood_molecule() -> None:
     assert any(word in name for name in supports for word in _SANDALWOOD_MOLECULES), rows
 
 
+def test_a_creamy_wood_that_does_not_name_sandalwood_keeps_todays_supports() -> None:
+    result = design_formula(idea="a soft creamy wood")
+    rows = _rows_by_slot(result)
+
+    assert rows["facet_creamy_wood"] == "Sandalwood EO", rows
+    supports = [rows.get(f"facet_creamy_wood__accord_{n}", "").casefold() for n in (1, 2)]
+    assert any(word in name for name in supports for word in _SANDALWOOD_MOLECULES), rows
+    assert not any(
+        row.get("accord") for row in result["initial_formula"]["rows"]
+        if str(row.get("slot", "")).startswith("facet_creamy_wood")
+    )
+
+
+def test_a_named_sandalwood_takes_only_its_cited_helper() -> None:
+    # Naming sandalwood builds the cited sandalwood accord (note_accord_specs):
+    # support place 1 keeps today's same-query support, with no job, and the
+    # helper in place 2 takes only the spec's stock; when that cannot go in,
+    # the receipt says why and the place holds today's second support, with
+    # no job, or stays empty.  No uncited molecule carries the helper's job.
+    from engine.formulation_intelligence.note_accord_specs import accord_spec_for
+
+    result = design_formula(idea="creamy sandalwood with real orris")
+    rows = _rows_by_slot(result)
+    assert rows["facet_creamy_wood"] == "Sandalwood EO", rows
+    (helper,) = accord_spec_for("creamy_wood").helpers
+    cited = {stock.name for stock in helper.stocks}
+    unplaced = {
+        entry["role_id"]
+        for variant in result["design_variants"]
+        for entry in variant["solver"].get("unplaced_accord_helpers", ())
+    }
+    jobs = {
+        row["slot"]: row.get("accord")
+        for row in result["initial_formula"]["rows"]
+        if str(row.get("slot", "")).startswith("facet_creamy_wood__accord_")
+    }
+    first, slot = "facet_creamy_wood__accord_1", "facet_creamy_wood__accord_2"
+    assert rows.get(first) not in cited and jobs.get(first) is None, (rows, jobs)
+    if slot in unplaced:
+        assert rows.get(slot) not in cited and jobs.get(slot) is None, (rows, jobs)
+    else:
+        assert rows[slot] in cited, rows
+        assert jobs[slot]["job"] == helper.job, jobs
+
+
 @pytest.fixture(scope="module")
 def capabilities() -> dict:
     return {cap.identity_name: cap for cap in build_material_capability_index().capabilities}
@@ -290,6 +339,69 @@ def test_a_fougere_gets_no_layer_its_structure_has_no_place_for() -> None:
     assert "heart_creamy_texture" not in roles and "heart_powder_layer" not in roles, sorted(roles)
     # Layers it keeps look first for the family's own materials.
     assert tuple(roles["top_citrus_layer"]["query_terms"][:2]) == ("bergamot", "lemon"), roles["top_citrus_layer"]
+
+
+@pytest.mark.parametrize(
+    ("idea", "has_citrus"),
+    [
+        # Given to every brief, the citrus layer put Red Mandarin EO in 26 of
+        # the 34 duel and benchmark formulas (21 Oct 2026).
+        ("a warm woody amber for evening", False),
+        ("a clean musky skin scent", False),
+        ("iris and violet", False),
+        # A chypre and a fougere are built on bergamot; a cologne is citrus.
+        ("rose chypre with patchouli and oakmoss depth", True),
+        ("an aromatic fougere", True),
+        ("an aromatic fougère", True),
+        # A green opens on bergamot too; an aromatic is "often accompanied by
+        # a citrus top" (docs/fragrance_families_reference.md).
+        ("a green tea", True),
+        ("a lavender and sage aromatic", True),
+        ("a woody amber cologne for evening", True),
+        ("a tangerine dream woody amber", True),
+        ("a zesty woody amber", True),
+        ("a warm woody amber with limes", True),
+        # A citrus the brief names opens it in a family with no citrus word.
+        ("a juicy pear fruit with clementine", True),
+        ("a rose and jasmine bouquet with tangerine", True),
+    ],
+)
+def test_a_citrus_top_layer_only_where_citrus_belongs(idea: str, has_citrus: bool) -> None:
+    roles = {role["role_id"] for role in _brief(idea=idea)["roles"]}
+
+    assert ("top_citrus_layer" in roles) is has_citrus, sorted(roles)
+    if not has_citrus:
+        # The layer's lead word does not come back as a family role instead.
+        assert "family_bergamot_layer" not in roles, sorted(roles)
+
+
+@pytest.mark.parametrize(
+    "kwargs",
+    [
+        # A word the brief rejects calls for no citrus, whatever its ending,
+        # accent or wording.
+        {"idea": "a warm woody amber, the opposite of an eau de cologne", "must_avoid": ("eau de cologne",)},
+        {"idea": "a warm woody amber, the opposite of the colognes my dad wore", "must_avoid": ("cologne",)},
+        {"idea": "a warm woody amber, the opposite of a clémentine", "must_avoid": ("clémentine",)},
+        {"idea": "a white musk laundry, not citrusy"},
+        {"idea": "a warm woody amber for evening, nothing like a cologne"},
+        # Whole words only: a limestone is no lime.
+        {"idea": "a warm woody amber for evening", "formula_name": "Limestone"},
+    ],
+)
+def test_no_citrus_layer_from_a_rejected_or_partial_word(kwargs: dict) -> None:
+    roles = {role["role_id"] for role in _brief(**kwargs)["roles"]}
+
+    assert "top_citrus_layer" not in roles, sorted(roles)
+
+
+def test_a_brief_without_its_citrus_layer_still_builds() -> None:
+    # Filtering the family's bergamot out of the opening bridge as well left
+    # this brief with no diffusion role in Quick compose (21 Oct 2026).
+    result = design_formula(idea="a powdery orris root")
+
+    assert "top_citrus_layer" not in {role["role_id"] for role in result["semantic_brief"]["roles"]}
+    assert result["status"].startswith("INVENTORY_GROUNDED_DESIGN_READY"), result["reason_codes"]
 
 
 def test_family_materials_get_roles_of_their_own() -> None:
