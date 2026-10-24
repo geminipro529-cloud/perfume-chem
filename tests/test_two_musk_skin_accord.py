@@ -157,6 +157,15 @@ def test_single_musk_request_is_read_from_the_brief_and_its_avoid_list():
     ) == "one-musk rule (the brief asks for one musk)"
 
 
+def test_not_only_musk_is_not_a_request_for_one_musk():
+    # "Not only musk but amber too" asks for more than musk; it used to read
+    # as "only musk" and blocked the skin-musk accord's second musk.
+    assert not fs._single_musk_requested("a skin scent, not only musk but amber too", ())
+    assert not fs._single_musk_requested("not only one musk but two", ())
+    assert fs._single_musk_requested("a skin scent with only one musk", ())
+    assert fs._single_musk_requested("a skin scent where ambrettolide is the only musk", ())
+
+
 def test_deep_compose_brief_asking_for_one_musk_keeps_one():
     two = _musk_rows(design_formula(idea="a violet iris musk perfume", design_mode="DEEP_COMPOSE"))
     one = _musk_rows(design_formula(

@@ -762,8 +762,9 @@ _WARM_BRIEF = re.compile(r"\b(?:warm|dark|deep|resin|resinous|amber|incense|bals
 # stock is a visible pepper or cardamom, gone by the drydown (Pink Pepper EO
 # 0.505 Pa, Black Pepper EO 0.375 Pa); this role takes only an owned spice
 # below the release gate's long-lasting vapour pressure, which the solver
-# checks (formula_solver._is_lasting_spice).  Whole words, with a plural or
-# adjective ending ("cloves", "gingery"), so "allspice" is its own word.
+# checks (formula_solver._is_lasting_spice).  Whole words, with a plural,
+# adjective or past-participle ending ("cloves", "gingery", "spiced",
+# "peppered"), so "allspice" is its own word.
 LASTING_SPICE_PROVENANCE = "LASTING_SPICE"
 _LASTING_SPICE_WORDS = (
     "spice", "spicy", "pepper", "peppery", "peppercorn", "pink pepper", "black pepper",
@@ -773,7 +774,7 @@ _LASTING_SPICE_WORDS = (
 _LASTING_SPICE_WORD = re.compile(
     r"(?<![a-z0-9])("
     + "|".join(re.escape(word) for word in sorted(_LASTING_SPICE_WORDS, key=len, reverse=True))
-    + r")(?:s|es|y)?(?![a-z0-9])"
+    + r")(?:s|es|y|ed|d)?(?![a-z0-9])"
 )
 # Kenny's four pepper references carry Safraleine 10% at 1.9-2.8% of raw.
 _LASTING_SPICE_SHARE, _LASTING_SPICE_MAX_RAW_SHARE = .025, .03
@@ -792,7 +793,7 @@ def _lasting_spice_role(text: str, avoid: Sequence[str]) -> SemanticRole | None:
             item = item.removeprefix(prefix)
         for suffix in (" materials", " material", " notes", " note", " accord"):
             item = item.removesuffix(suffix)
-        if item in {"spice", "spices", "spicy"}:
+        if item in {"spice", "spices", "spicy", "spiced"}:
             return None
     words = tuple(dict.fromkeys(
         match.group(1) for match in _LASTING_SPICE_WORD.finditer(_mask_avoided_phrases(text, avoid))

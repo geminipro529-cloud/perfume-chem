@@ -1380,6 +1380,70 @@ def _preference_rank(candidate: Candidate, role: RoleSpec) -> int | None:
     return None
 
 
+def _grade_identity(candidate: Candidate) -> str:
+    return _key(candidate.stock.identity_name or candidate.stock.name)
+
+
+def _owned_grade_ranks(candidates: Sequence[Candidate], role: RoleSpec) -> dict[str, int | None]:
+    """Each candidate's preference rank for ``role``, by stock id.
+
+    A curated capsule may prefer a grade the owner does not hold (the skin
+    capsule's "ambrettolide 10" while he owns the neat stock).  The preference
+    names the material, so an owned (execution-ready) grade of the same
+    identity takes the not-owned grade's rank; the curated data stays as
+    written.  A grade the brief names itself passes its rank only to an owned
+    grade the brief names too.
+    """
+
+    ranks = {candidate.stock.stock_id: _preference_rank(candidate, role) for candidate in candidates}
+    not_owned: dict[tuple[str, bool], int] = {}
+    for candidate in candidates:
+        rank = ranks[candidate.stock.stock_id]
+        if rank is not None and not candidate.stock.execution_ready:
+            key = (_grade_identity(candidate), candidate.explicit)
+            not_owned[key] = min(rank, not_owned.get(key, rank))
+    if not not_owned:
+        return ranks
+    for candidate in candidates:
+        if not candidate.stock.execution_ready:
+            continue
+        identity = _grade_identity(candidate)
+        inherited = [
+            rank for (name, explicit), rank in not_owned.items()
+            if name == identity and (candidate.explicit or not explicit)
+        ]
+        own = ranks[candidate.stock.stock_id]
+        if inherited:
+            ranks[candidate.stock.stock_id] = min(inherited if own is None else [*inherited, own])
+    return ranks
+
+
+def _without_unowned_grades(ranked: list[tuple[float, Candidate]]) -> list[tuple[float, Candidate]]:
+    """Leave out a not-owned grade when the role admits an owned grade of its identity.
+
+    The owned grade wins in every role, whatever the score; a grade the brief
+    names itself gives way only to an owned grade the brief names too.
+    """
+
+    owned: dict[str, bool] = {}
+    for _score, candidate in ranked:
+        if candidate.stock.execution_ready:
+            identity = _grade_identity(candidate)
+            owned[identity] = owned.get(identity, False) or candidate.explicit
+    kept = []
+    for row in ranked:
+        candidate = row[1]
+        owned_named = owned.get(_grade_identity(candidate))
+        if (
+            not candidate.stock.execution_ready
+            and owned_named is not None
+            and (owned_named or not candidate.explicit)
+        ):
+            continue
+        kept.append(row)
+    return kept
+
+
 def _candidate_group(candidate: Candidate) -> str:
     probe = _candidate_probe(candidate)
     if "musk" in probe or any(
@@ -1419,9 +1483,9 @@ def _score_candidate(
     *,
     previous_stock_ids: set[str],
     selected_names: Sequence[str],
+    rank: int | None,
 ) -> float:
     score = 0.0
-    rank = _preference_rank(candidate, role)
     if rank is not None:
         # Preference order is deliberate accord logic.  Secondary metadata
         # bonuses must not silently promote a lower-ranked substitute above a
@@ -1594,11 +1658,12 @@ def _select_choices(
     group_counts: dict[str, int] = {}
     for role in roles:
         ranked: list[tuple[float, Candidate]] = []
+        ranks = _owned_grade_ranks(candidates, role)
         for candidate in candidates:
             identity = _selection_identity(candidate)
             if identity in used or _avoid_candidate(candidate, avoid):
                 continue
-            rank = _preference_rank(candidate, role)
+            rank = ranks[candidate.stock.stock_id]
             if role.exact_preference_required and rank is None:
                 continue
             if role.preferred_materials and rank is None and not role.descriptor_weights:
@@ -1618,8 +1683,10 @@ def _select_choices(
                 role,
                 previous_stock_ids=previous_stock_ids,
                 selected_names=[choice.candidate.stock.identity_name or choice.candidate.stock.name for choice in choices],
+                rank=rank,
             )
             ranked.append((score, candidate))
+        ranked = _without_unowned_grades(ranked)
         ranked.sort(
             key=lambda row: (
                 -row[0],

@@ -156,7 +156,9 @@ def test_a_brief_that_avoids_leather_gets_no_safraleine() -> None:
     assert lasting[0]["identity_name"] != "Safraleine", lasting
 
 
-def test_no_owned_lasting_spice_leaves_the_role_empty_and_says_so() -> None:
+def test_owned_lasting_spices_the_avoid_list_refuses_leave_the_role_empty_and_say_why() -> None:
+    # Both owned lasting spices exist and the avoid list turns each down by
+    # its own descriptor.  The receipt used to say none was owned.
     result = design_formula(
         idea="A pink pepper perfume",
         liquid_concentrate_ul_decimal="6000",
@@ -168,10 +170,62 @@ def test_no_owned_lasting_spice_leaves_the_role_empty_and_says_so() -> None:
     assert attempt["state"] == "SOLVED", attempt["state"]
     assert "Lasting spice" not in attempt["missing_roles"]
     assert _rows(result)
-    assert any(
-        limitation.startswith("LASTING_SPICE_NOT_OWNED: no owned spice stock below 0.1 Pa (")
-        for limitation in attempt["solver"].get("limitations", [])
-    ), attempt["solver"].get("limitations")
+    expected = [
+        "LASTING_SPICE_REFUSED:Ethyl Safranate at 0.1: the brief's avoid list (its own descriptor)",
+        "LASTING_SPICE_REFUSED:Safraleine at 0.1: the brief's avoid list (its own descriptor)",
+    ]
+    assert attempt["solver"].get("limitations") == expected, attempt["solver"].get("limitations")
+    # The owner-facing critic carries the solver's limitations too.
+    assert set(expected) <= set(result["critic"]["limitations"]), result["critic"]["limitations"]
+
+
+def test_an_index_without_an_owned_lasting_spice_says_none_is_owned() -> None:
+    from dataclasses import replace
+
+    from engine.formulation_intelligence.formula_solver import _is_lasting_spice, solve_formula
+    from engine.formulation_intelligence.semantic_brief_adapter import compile_semantic_brief
+
+    index = build_material_capability_index()
+    owned = {
+        capability.stock_id for capability in index.capabilities
+        if capability.execution_ready and _is_lasting_spice(capability)
+    }
+    assert owned
+    without = replace(index, capabilities=tuple(
+        capability for capability in index.capabilities if capability.stock_id not in owned
+    ))
+    brief = compile_semantic_brief(
+        formula_name="Pink Pepper", request="A pink pepper perfume", interpretation={}, max_materials=60,
+    )
+    assert "lasting_spice" in [role.role_id for role in brief.roles]
+    solve = solve_formula(brief=brief, index=without, liquid_total_ul=6000, explicit_quantities=(), avoid=())
+    assert solve.status == "SOLVED", solve.status
+    assert solve.solver_receipt.get("limitations") == [
+        "LASTING_SPICE_NOT_OWNED: no owned spice stock below 0.1 Pa (pink pepper)"
+    ], solve.solver_receipt.get("limitations")
+
+
+def test_a_spiced_or_peppered_brief_gets_a_lasting_spice() -> None:
+    # "spiced" and "peppered" name a spice; the role used to take only a
+    # plural or adjective ending.
+    for idea in ("A spiced amber with vetiver", "A peppered vetiver"):
+        result = design_formula(idea=idea, liquid_concentrate_ul_decimal="6000")
+        assert "lasting_spice" in _role_ids(result), (idea, _role_ids(result))
+        lasting = _lasting_rows(result)
+        limitations = result["architecture_attempts"][0]["solver"].get("limitations", [])
+        assert [row["slot"] for row in lasting] == ["lasting_spice"] or limitations, (idea, lasting)
+
+
+def test_guard_an_avoided_spiced_phrase_names_no_lasting_spice() -> None:
+    from engine.formulation_intelligence.semantic_brief_adapter import _lasting_spice_role
+
+    assert _lasting_spice_role("A warm amber with vetiver, no spiced notes", ("no spiced notes",)) is None
+    assert _lasting_spice_role("A vetiver, no spiced rum", ("spiced rum",)) is None
+    assert _lasting_spice_role("A peppered vetiver", ("spiced notes",)) is None
+    result = design_formula(
+        idea="A warm amber with vetiver, no spiced notes", liquid_concentrate_ul_decimal="6000",
+    )
+    assert "lasting_spice" not in _role_ids(result), _role_ids(result)
 
 
 def test_the_lasting_vapour_pressure_is_the_release_gates() -> None:

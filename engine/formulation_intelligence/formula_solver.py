@@ -420,7 +420,11 @@ def _allows_multiple_musks(request: str, roles: Sequence[SemanticRole]) -> bool:
 # The release gate's musk count limit (gates._MUSK_COUNT_LIMIT): a skin-musk
 # accord may hold a second musk, never a third.
 _MAX_FORMULA_MUSKS = 2
-_SINGLE_MUSK_PHRASE = re.compile(r"\b(?:only[\s-]+one|the[\s-]+only|one|single|only)[\s-]+musk\b")
+# "Not only musk but amber too" asks for more than musk, never for one musk.
+_SINGLE_MUSK_PHRASE = re.compile(
+    r"\b(?:(?<!\bnot[\s-])only[\s-]+one|the[\s-]+only|(?<!\bnot[\s-]only[\s-])one|single"
+    r"|(?<!\bnot[\s-])only)[\s-]+musk\b"
+)
 _MORE_MUSK_WORDS = frozenset({"another", "other", "second", "more", "extra"})
 
 
@@ -1686,6 +1690,64 @@ def _unplaced_cited_helpers(
     return unplaced
 
 
+def _lasting_spice_limitations(
+    brief: SemanticBrief,
+    assignments: Sequence[SolvedAssignment],
+    index: MaterialCapabilityIndex,
+    avoid: Sequence[str],
+    liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
+) -> list[str]:
+    """Why the brief's lasting spice role holds no lasting spice; [] when one went in.
+
+    LASTING_SPICE_NOT_OWNED only when the index holds no owned spice below the
+    long-lasting vapour pressure.  Otherwise one LASTING_SPICE_REFUSED line per
+    owned lasting-spice stock, with the reason the search's own rules give
+    against the stocks placed before the role (the avoid list, as with
+    "no leather" and Safraleine).
+    """
+
+    position, role = next(
+        ((i, r) for i, r in enumerate(brief.roles) if r.provenance == LASTING_SPICE_PROVENANCE),
+        (None, None),
+    )
+    if role is None or any(_is_lasting_spice(a.capability) for a in assignments):
+        return []
+    owned = [cap for cap in index.capabilities if cap.execution_ready and _is_lasting_spice(cap)]
+    if not owned:
+        words = tuple(t for t in role.query_terms if t not in {"spice", "spicy"})
+        return [
+            f"LASTING_SPICE_NOT_OWNED: no owned spice stock below {_LASTING_VP_PA:g} Pa "
+            f"({', '.join(words or role.query_terms[:1])})"
+        ]
+    earlier = {prior.role_id for prior in brief.roles[:position]}
+    prior = [(a.role, a.capability, a.score) for a in assignments if a.role.role_id in earlier]
+    groups: dict[str, int] = {}
+    for _role, capability, _score in prior:
+        _count_groups(groups, capability)
+    state = _BeamState(
+        assignments=tuple(prior),
+        used_identities=frozenset(_chemical_identity(cap) for _role, cap, _score in prior),
+        group_counts=tuple(sorted(groups.items())),
+        objective=0.0,
+        lasting_spice_brief=True,
+    )
+    allow_multiple_musks = _allows_multiple_musks(brief.normalized_request, brief.roles)
+    single_musk = _single_musk_requested(brief.normalized_request, avoid)
+    enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
+    lines = []
+    for capability in owned:
+        reason = _block_reason(
+            capability, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
+            enforce_own_odor_avoid=enforce_own_odor_avoid, liquid_total_ul=liquid_total_ul,
+            single_musk=single_musk,
+        )
+        lines.append(
+            f"LASTING_SPICE_REFUSED:{capability.identity_name} at "
+            f"{float(capability.candidate.stock.dilution):g}: {reason or 'not kept by the search'}"
+        )
+    return lines
+
+
 def _solve_assignments(
     *,
     brief: SemanticBrief,
@@ -2147,15 +2209,11 @@ def solve_formula(
         # Optional roles, so they never withhold the formula: recorded beside
         # missing_roles with the reason each cited stock could not go in.
         receipt["unplaced_accord_helpers"] = unplaced_helpers
-    lasting_role = next((r for r in brief.roles if r.provenance == LASTING_SPICE_PROVENANCE), None)
-    if lasting_role is not None and not any(_is_lasting_spice(a.capability) for a in assignments):
+    lasting_limitations = _lasting_spice_limitations(brief, assignments, index, avoid, liquid_total_ul)
+    if lasting_limitations:
         # An optional role, so the formula is not withheld: the receipt says
-        # the brief's spice will not last.
-        words = tuple(t for t in lasting_role.query_terms if t not in {"spice", "spicy"})
-        receipt["limitations"] = [
-            f"LASTING_SPICE_NOT_OWNED: no owned spice stock below {_LASTING_VP_PA:g} Pa "
-            f"({', '.join(words or lasting_role.query_terms[:1])})"
-        ]
+        # the brief's spice will not last, and why.
+        receipt["limitations"] = lasting_limitations
     if identity_words:
         receipt["identity_requirements"] = {
             role_id: list(words) for role_id, words in sorted(identity_words.items())

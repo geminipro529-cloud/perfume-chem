@@ -71,6 +71,8 @@ def critique_formula(
     limitations.extend(
         f"NAMED_FRUIT_RECOGNITION_UNVERIFIED:{name}" for name in brief.requested_fruits
     )
+    # The solver's own limitations (a brief's spice that will not last).
+    limitations.extend(str(item) for item in solve.solver_receipt.get("limitations", ()))
     passed: list[str] = []
     rows = list(solve.rows)
     if brief.architecture_plan.get("operation"):

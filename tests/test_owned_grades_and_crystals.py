@@ -227,6 +227,59 @@ def test_guard_a_brief_without_ambrox_gets_no_ambrox_row():
         assert not [row for row in formula["rows"] if "ambrox" in row["identity_name"].casefold()]
 
 
+def test_the_quiet_skin_capsule_takes_the_owned_neat_ambrettolide():
+    # The intimate-skin capsule prefers "ambrettolide 10", a grade Kenny does
+    # not own; its warm_skin row used to be that design-only 10% stock.  The
+    # preference names the material, so his owned neat grade takes it.
+    from engine.research.formula_design import design_inventory_formula
+
+    result = design_inventory_formula(
+        idea=(
+            "Create a six-material intimate human skin scent with soft warmth and "
+            "close diffusion, not detergent, shampoo or loud clean musk."
+        ),
+        formula_name="Quiet Human Six",
+        max_materials=6,
+    )
+    (row,) = [row for row in result["optimized_formula"]["rows"] if row["slot"] == "warm_skin"]
+    assert row["stock_id"] == _NEAT_AMBRETTOLIDE, row
+    assert _capabilities()[_NEAT_AMBRETTOLIDE].execution_ready
+
+
+def _planner_candidate(name, label, *, owned, explicit=False):
+    stock = SimpleNamespace(
+        stock_id=label, name=label, identity_name=name, raw_name=label, physical_form="",
+        fraction_basis="", carrier="", execution_ready=owned,
+    )
+    return SimpleNamespace(stock=stock, explicit=explicit)
+
+
+def test_a_capsule_preference_for_an_unowned_grade_passes_to_the_owned_grade():
+    from engine.research import composition_planner as cp
+
+    role = SimpleNamespace(preferred_materials=("ambrettolide 10", "romandolide"))
+    ten = _planner_candidate("Ambrettolide", "Ambrettolide 10%", owned=False)
+    neat = _planner_candidate("Ambrettolide", "Ambrettolide (neat)", owned=True)
+    other = _planner_candidate("Romandolide", "Romandolide", owned=True)
+    ranks = cp._owned_grade_ranks([ten, neat, other], role)
+    assert ranks == {"Ambrettolide 10%": 0, "Ambrettolide (neat)": 0, "Romandolide": 1}
+    ranked = [(20.0, ten), (19.9, neat), (18.0, other)]
+    assert [c.stock.stock_id for _s, c in cp._without_unowned_grades(ranked)] == [
+        "Ambrettolide (neat)", "Romandolide",
+    ]
+
+
+def test_guard_a_grade_the_brief_names_is_kept_beside_an_owned_grade_it_does_not():
+    from engine.research import composition_planner as cp
+
+    role = SimpleNamespace(preferred_materials=("ambrettolide 10",))
+    ten = _planner_candidate("Ambrettolide", "Ambrettolide 10%", owned=False, explicit=True)
+    neat = _planner_candidate("Ambrettolide", "Ambrettolide (neat)", owned=True)
+    assert cp._owned_grade_ranks([ten, neat], role)["Ambrettolide (neat)"] is None
+    ranked = [(20.0, ten), (1.0, neat)]
+    assert cp._without_unowned_grades(ranked) == ranked
+
+
 def test_a_deep_white_musk_laundry_uses_the_owned_neat_ambrettolide():
     # The stock-alternative variant used to step to the unowned 10% stock.
     result = design_formula(idea="a white musk laundry", liquid_concentrate_ul_decimal="6000",
