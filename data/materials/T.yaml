@@ -3981,7 +3981,7 @@
     user_in_inventory: inventory.txt
 - canonical_name: tuberose absolute
   aliases: []
-  cas:
+  cas: 8024-05-3
   smiles:
   inchikey:
   mw_g_mol: 220.0
@@ -4022,6 +4022,7 @@
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.95; https://thegoodscentscompany.com/data/ab1101401.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: '23 Oct 2026 third data pass: PerfumersWorld 5ND09243 Tuberose Absolute 10% in DPG: "CAS No.8024-05-3*10", https://www.perfumersworld.com/view.php?pro_id=5ND09243; the botanical CAS for Polianthes tuberosa absolute, same as the Tuberose Absolute (India) row; the supplier of Kenny''s 10% bottle is not recorded'
 - canonical_name: Tuberose Absolute (India)
   aliases:
   - tuberose absolute (india)

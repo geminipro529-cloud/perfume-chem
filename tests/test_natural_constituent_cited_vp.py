@@ -65,6 +65,21 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     # 2026-10-13: Veloutone's registry VP is now the literature common-ground 2.17 Pa
     # (US EPA estimate quoted by RIFM 2017; TGSC 3.47 Pa), replacing the table's 0.1.
     ("cassis base 345b", "veloutone", 0.1, 2.17),
+    # 2026-10-23 third data pass: registry VPs now sourced, replacing table values.
+    # Rose oxide: RIFM measured 0.77 hPa at 25 C (RIFM 2013a).
+    ("cassis base 345b", "rose oxide", 15.0, 77.0),
+    # Citral: RIFM-quoted EPI Suite 0.0913 mm Hg at 25 C (FMA 0.07 mm Hg at 20 C).
+    ("cedrat fcf oil sicilian", "citral", 3.0, 12.172),
+    ("cedrat fcf sicilian", "citral", 3.0, 12.172),
+    ("michelia alba flower oil zhu 1993 literature profile", "citral", 3.0, 12.172),
+    # Evernyl: TGSC estimate 0.00001 mm Hg at 25 C for the solid (mp 143 C).
+    ("oakmoss absolute", "evernyl", 0.05, 0.0013),
+    ("oakmoss absolute (10% in dpg)", "evernyl", 0.05, 0.0013),
+    # p-Cresyl methyl ether: RIFM-quoted US EPA estimate 1.2 mm Hg at 25 C
+    # (FMA 1.3 mm Hg at 20 C).
+    ("ylang comoros complete eo f3255", "p-cresyl methyl ether", 30.0, 159.9864),
+    ("ylang comoros iii eo f3295", "p-cresyl methyl ether", 30.0, 159.9864),
+    ("ylang ylang eo (extra grade)", "p-cresyl methyl ether", 30.0, 159.9864),
 }
 
 

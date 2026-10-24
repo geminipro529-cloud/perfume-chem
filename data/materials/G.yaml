@@ -521,8 +521,8 @@
   logp: 3.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.005
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.6826
+  vp_source: 'EPI'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.001
@@ -554,7 +554,6 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -565,6 +564,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 706-14-9 (https://www.thegoodscentscompany.com/data/rw1012281.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.95000 to 0.95500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1012281.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, gamma-decalactone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/706-14-9.pdf: "0.00512 mm Hg @ 25 C (EPI Suite)" = 0.683 Pa (estimate; FMA 0.008 mm Hg at 20 C agrees); replaces the unsourced 0.005 Pa (136 times lower)'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Gamma Dodecalactone
   aliases: []
   cas: null
@@ -696,11 +697,11 @@
   inchikey: null
   mw_g_mol: 184.3
   density_25c_g_ml: 0.941
-  logp: 3.3
+  logp: 3.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.002
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.5453
+  vp_source: 'EPI'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -724,11 +725,13 @@
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     cas: 'TGSC: CAS Number: 104-67-6 (https://www.thegoodscentscompany.com/data/rw1000822.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.94100 to 0.94700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000822.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, gamma-undecalactone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-67-6.pdf: "Log KOW: 3.6 at 25C (RIFM, 1995), 3.06 (EPI Suite)"; measured 3.6 used; replaces the unsourced 3.3'
+    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, gamma-undecalactone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-67-6.pdf: "0.00409 mm Hg @ 25 C (EPI Suite)" = 0.545 Pa (estimate; FMA 0.002 mm Hg at 20 C agrees); replaces the unsourced 0.002 Pa, which was the mm Hg number read as Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Gardenia F-TEC
   aliases:
   - GARDENIA F-TEC
@@ -922,12 +925,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 182.3
-  density_25c_g_ml: null
-  logp: null
+  density_25c_g_ml: 1.0205
+  logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.1
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.121
+  vp_source: 'TGSC_est'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -963,6 +966,10 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 19700-21-1 (https://www.thegoodscentscompany.com/data/rw1454691.html)'
+    density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 1.018 to 1.023; https://www.thegoodscentscompany.com/data/rw1019861.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    vp_25c_pa: '23 Oct 2026 third data pass: TGSC EPI Suite page for geosmin 19700-21-1: "Subcooled liquid VP: 0.000907 mm Hg (25 deg C, Mod-Grain method)" = "0.121 Pa" (estimate; liquid-state value, EPI''s 0.076 Pa assumes its estimated melting point of 47 C; TGSC data page prints 0.001 mmHg = 0.133 Pa), http://www.thegoodscentscompany.com/episys/ep1454691.html; replaces the placeholder 0.1 Pa'
+    vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
+    logp: '23 Oct 2026 third data pass: TGSC same page: "logP (o/w): 3.497 (est)" (estimate; PubChem XLogP3 3.3 agrees); fills an empty field'
 - canonical_name: Geraniol
   aliases:
   - geraniol
@@ -1531,7 +1538,7 @@
   inchikey: null
   mw_g_mol: 236.35
   density_25c_g_ml: 1.0089
-  logp: 4.007
+  logp: 3.8
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.242
@@ -1564,9 +1571,9 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1492991.html; "CAS Number: 68901-32-6"; the isomer mixture also carries "94087-23-7 (isomeric mixture)" (https://www.scentspiracy.com/fragrance-ingredients/p/glycolierral) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1492991.html; "Molecular Weight: 236.35468000", calculated from C15H24O2 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    logp: 'ESTIMATE: TGSC 4.007 (est); scentspiracy "Log Pow: 3.8" (method not stated) agrees within 0.5 (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
     vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00181 mm Hg @ 25 C = 0.242 Pa (https://www.thegoodscentscompany.com/episys/ep1492991.html); scentspiracy 0.24 Pa @ 25 C agrees; TGSC datasheet 0.133 Pa (est) is low (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.00886; https://perfumersupplyhouse.com/wp-content/uploads/2020/10/MSDS-GLYCOLIERRAL-1.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
+    logp: '23 Oct 2026 source check: Givaudan product page ''Log Pow 3,8''; replaces the TGSC estimate 4.007; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/glycolierral'
 - canonical_name: Gourmande F-TEC
   aliases:
   - GOURMANDE F-TEC
@@ -1762,7 +1769,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 157.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.885
   logp: 3.0
   functional_groups: []
   chirality: null
@@ -1795,6 +1802,7 @@
     odt_eth_ppm: engine.odor_thresholds
     user_in_inventory: inventory.txt
     cas: '22 Oct 2026 missing-data pass: stated; raw 8000-46-2; https://www.thegoodscentscompany.com/data/es1005471.html'
+    density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 0.860 to 0.910; https://www.nhrorganicoils.com/uploads/20250814165547e_Geranium_Spec.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Grapefruit FCF
   aliases:
   - grapefruit fcf
