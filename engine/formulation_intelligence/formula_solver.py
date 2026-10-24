@@ -453,6 +453,53 @@ def _is_musk_accord_support(role: SemanticRole) -> bool:
     )
 
 
+def _fixative_musk_leads(
+    ranked: list[tuple[float, MaterialCapability]],
+    role: SemanticRole,
+    *,
+    single_musk: bool,
+) -> list[tuple[float, MaterialCapability]]:
+    """A musk note's lead is a fixative-role musk when one may go in.
+
+    The owner's formulas carry their largest musk in a fixative role
+    (Habanolide, Ethylene Brassylate) with the character musk (Ambrettolide)
+    below it as a support (_held_under_musk_lead).  A brief that asks for one
+    musk keeps its one best-matched musk, and a stock the user names is
+    their call.
+    """
+
+    if single_musk or role.exact_material is not None or role.provenance != "PROMPT_DERIVED_FACET":
+        return ranked
+    # Stand-in stocks in tests carry no group.
+    if not any(
+        getattr(cap, "group", None) == "musk" and _is_fixative_musk(cap) for _score, cap in ranked
+    ) or _DESCRIPTOR_REQUIREMENTS["base_musk"][0] not in _role_descriptor_groups(role):
+        return ranked
+    return [row for row in ranked if row[1].group != "musk" or _is_fixative_musk(row[1])]
+
+
+def _is_fixative_musk(capability: MaterialCapability) -> bool:
+    return (_musk_role(capability) or ("",))[0] == "fixative"
+
+
+def _held_under_musk_lead(
+    capability: MaterialCapability,
+    role: SemanticRole,
+    lead: MaterialCapability,
+) -> bool:
+    """A second musk under a fixative-role musk lead is held at its lead's
+    score instead of dropped, like a backing molecule: a character musk
+    (Ambrettolide) matches the musk note better than the fixative lead does,
+    yet sits below it."""
+
+    return (
+        capability.group == "musk"
+        and lead.group == "musk"
+        and _is_fixative_musk(lead)
+        and _is_musk_accord_support(role)
+    )
+
+
 def _second_musk_block(
     capability: MaterialCapability,
     role: SemanticRole,
@@ -1433,18 +1480,20 @@ def _rank_for_state(
         )
     ]
     ranked = _owned_grades(ranked, role, reserved_identities)
+    ranked = _fixative_musk_leads(ranked, role, single_musk=single_musk)
     if _is_note_lead(role):
         ranked = _without_trace_grades(ranked, reserved_identities)
     lead = _accord_lead(role, state)
     if lead is not None and role.exact_material is None:
         # A support never outscores its lead: otherwise the summed objective
         # prefers a weak lead with the strongest match demoted to support.  A
-        # backing molecule or a cited helper's stock is held at its lead's
-        # score instead of dropped.
+        # backing molecule, a cited helper's stock or a second musk under a
+        # fixative musk lead is held at its lead's score instead of dropped.
         ranked = [
             (min(row[0], lead[1]), row[1])
             for row in ranked
             if row[0] <= lead[1] or _backing(row[1], role, state) or _is_cited_helper(role)
+            or _held_under_musk_lead(row[1], role, lead[0])
         ]
     ranked.sort(key=lambda row: _rank_key(row, role, variant_index, liking))
     return ranked if role.exact_material is not None else ranked[:10]

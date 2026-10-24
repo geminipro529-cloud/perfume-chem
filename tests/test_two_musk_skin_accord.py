@@ -79,8 +79,17 @@ def test_formula_musk_limit_is_the_release_gates():
     assert fs._MAX_FORMULA_MUSKS == gates._MUSK_COUNT_LIMIT
 
 
+@lru_cache(maxsize=None)
+def _fast_iris_musk_rows() -> tuple[dict, ...]:
+    return tuple(_musk_rows(design_formula(idea=IRIS_MUSK, design_mode="FAST_SKETCH")))
+
+
+def _row_musk_role(row: dict):
+    return fs._musk_role(next(cap for cap in _capabilities() if cap.stock_id == row["stock_id"]))
+
+
 def test_fast_iris_musk_brief_builds_a_two_musk_skin_accord():
-    musk_rows = _musk_rows(design_formula(idea=IRIS_MUSK, design_mode="FAST_SKETCH"))
+    musk_rows = list(_fast_iris_musk_rows())
     assert sorted(row["slot"] for row in musk_rows) == [
         "facet_skin_musk", "facet_skin_musk__accord_1",
     ], musk_rows
@@ -155,3 +164,34 @@ def test_deep_compose_brief_asking_for_one_musk_keeps_one():
     ))
     assert len(two) == 2, two
     assert len(one) == 1, one
+
+
+def test_fast_iris_musk_brief_leads_with_a_fixative_musk_over_the_character_musk():
+    """The owner's pattern: the bulk musk is a fixative-role one (Habanolide,
+    Ethylene Brassylate) and the character musk (Ambrettolide) sits below it."""
+
+    by_slot = {row["slot"]: row for row in _fast_iris_musk_rows()}
+    lead, support = by_slot["facet_skin_musk"], by_slot["facet_skin_musk__accord_1"]
+    assert _row_musk_role(lead)[0] == "fixative", lead["identity_name"]
+    assert _row_musk_role(support)[0] == "character", support["identity_name"]
+
+    def active(row):
+        return float(row["amount_decimal"]) * float(row["stock_fraction_decimal"])
+
+    assert active(support) < active(lead)
+
+
+def test_character_musk_is_held_under_a_fixative_lead():
+    habanolide = _capability("Habanolide")
+    ambrettolide = _capability("Ambrettolide", .1)
+    lead_role, support_role = _roles()["facet_skin_musk"], _roles()["facet_skin_musk__accord_1"]
+    ranked = [(15.0, ambrettolide), (12.0, habanolide)]
+    # The lead of a musk note takes the fixative-role musk ...
+    assert fs._fixative_musk_leads(ranked, lead_role, single_musk=False) == [(12.0, habanolide)]
+    # ... unless the brief asks for one musk, which keeps the best-matched one.
+    assert fs._fixative_musk_leads(ranked, lead_role, single_musk=True) == ranked
+    # The better-matched character musk is then held at its lead's score, not dropped.
+    state = _placed(("facet_skin_musk", habanolide))
+    state = replace(state, assignments=((lead_role, habanolide, 12.0),))
+    out = fs._rank_for_state([(15.0, ambrettolide)], support_role, state, avoid=(), allow_multiple_musks=False)
+    assert out == [(12.0, ambrettolide)]
