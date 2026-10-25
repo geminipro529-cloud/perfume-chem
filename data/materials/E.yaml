@@ -419,7 +419,7 @@
   hedonic_valence:
   ifra_max_pct_edp:
   user_stock_dilution:
-  user_in_inventory: false
+  user_in_inventory: true  # Kenny 25 Oct 2026: in his inventory (overlay STK-164 to STK-168)
   supplier:
     perfumersworld_sku: 3FG00172
     perfumersworld_price_usd_per_g: 0.08
@@ -575,7 +575,7 @@
   hedonic_valence:
   ifra_max_pct_edp:
   user_stock_dilution:
-  user_in_inventory: false
+  user_in_inventory: true  # Kenny 25 Oct 2026: in his inventory (overlay STK-164 to STK-168)
   supplier:
     perfumersworld_sku: 3FD00174
     perfumersworld_price_usd_per_g: 0.08

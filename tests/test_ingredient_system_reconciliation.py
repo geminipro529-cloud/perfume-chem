@@ -49,7 +49,9 @@ def test_successor_preserves_unaffected_stock_bytes_and_all_requirement_rows():
     "name,fraction,basis,carrier,ready",
     [
         ("Coumarin", 0.1, "mass_fraction", "dpg", True),
-        ("Vetiveryl Acetate", 1, "neat", "", True),
+        # 2026-10-25: Kenny is out of Vetiveryl Acetate (overlay STK-169), so its neat row
+        # is replaced by Manzanate, neat since his "All neat" card answer (STK-154).
+        ("Manzanate", 1, "neat", "", True),
         ("Methyl Laitone", 0.2, "volume_fraction", "ethanol", True),
         # 2026-10-14: Kenny put the Guaiacwood EO stock in DPG.
         ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg", True),

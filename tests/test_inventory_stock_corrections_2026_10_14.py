@@ -181,6 +181,19 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Both",
         # 23 Oct 21:41 UTC, Good Girl Gone Bad thread: his PW Orange Flower Absolute 10% (STK-148).
         "What? I have orange flower absolute 10% in DPG from PW",
+        # 25 Oct 07:33 UTC, relayed: Vetiveryl Acetate used up (STK-169).
+        "i am out of vetiveryl acetate",
+        # 25 Oct 08:15 UTC, rum card thread: five PW order lines he owns (STK-164 to STK-168).
+        (
+            "3FD00174\tEthyl Butyrate\t5\tPW-260817-03422462b, 17 Aug\tpaid, packed, store pickup\n"
+            "3FG00172\tEthyl Acetoacetate\t5\tPW-260817-03422462b, 17 Aug\tsame order\n"
+            "6FQ21068\tPalm Dates Base\t1\tPW-260815-120153391, 15 Aug\tpaid, shipped EMS ET787872095TH\n"
+            "3LN00043\tAnisyl Acetate\t1\t260910-051700a45, 10 Sep\tpaid, shipped 11 Sep\n"
+            "3LR00160\tPhenyl Ethyl Dimethyl Carbinyl Acetate\t2\t260910-051700a45, 10 Sep\tpaid, shipped 11 Sep "
+            "(your stock has only the carbinol) THEE ARE IN MY INVENTORY"
+        ),
+        # 25 Oct 08:16 UTC: the card "Mark these 15 PerfumersWorld fruit bottles neat, as supplied?" (STK-149 to STK-163).
+        "All neat",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -209,6 +222,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260924-R5-007",
         # 2026-10-20: DMBCA re-issued as a powder (STK-138).
         "INV-USER-20261008-TOBDBCA-002",
+        # 2026-10-25: the 15 PW fruit bottles leave their intake hold ("All neat", STK-149 to STK-163).
+        *(f"INV-USER-20261007-PW-{n:03d}" for n in (40, 42, 28, 29, 43, 24, 46, 39, 45, 14, 13, 11, 32, 48, 35)),
+        # 2026-10-25: Vetiveryl Acetate used up (STK-169).
+        "INV-USER-20260924-R5-002",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -217,7 +234,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 149)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 170)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

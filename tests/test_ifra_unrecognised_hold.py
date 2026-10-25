@@ -203,6 +203,14 @@ STILL_HELD = {
     # Added 2026-10-23: Kenny's PW Orange Flower Absolute 10% in DPG; no IFRA table row and no
     # constituent row yet, so it holds by name.
     "Orange Flower Absolute",
+    # Added 2026-10-25: five PerfumersWorld stocks Kenny confirmed owned ("THEE ARE IN MY
+    # INVENTORY"); no IFRA table row yet, and Palm Dates Base is a compound base whose
+    # certificate is not read, so all five hold by name.
+    "Ethyl Butyrate",
+    "Ethyl Acetoacetate",
+    "Palm Dates Base",
+    "Anisyl Acetate",
+    "Phenyl Ethyl Dimethyl Carbinyl Acetate",
 }
 
 
