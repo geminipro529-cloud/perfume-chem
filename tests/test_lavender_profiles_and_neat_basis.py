@@ -50,11 +50,14 @@ def test_spike_lavender_is_modeled_but_still_warns_as_partial():
 
 
 @pytest.mark.parametrize("name", ["Lavender 40/42, Aroma&More", "Lavender 40/42"])
-def test_lavender_40_42_is_a_named_proxy_of_the_lavender_profile(name):
+def test_lavender_40_42_is_a_named_proxy_of_its_own_grade_profile(name):
+    # 25 Oct 2026 (Kenny: "You estimate"): its own 40/42-grade estimate, no longer
+    # the true-lavender profile the BONTAUX oil uses.
     metadata = get_composite_metadata(name)
     assert metadata is not None
     assert metadata.resolution == "literature_proxy"
-    assert metadata.profile_key == get_composite_metadata("Lavender EO").profile_key
+    assert metadata.profile_key == "lavender 40/42 grade two published gc midpoint profile"
+    assert metadata.profile_key != get_composite_metadata("Lavender EO").profile_key
     joined = " ".join(metadata.limitations)
     assert "40/42" in joined
     assert "lavandin" in joined.lower()

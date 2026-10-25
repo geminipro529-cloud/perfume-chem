@@ -131,7 +131,6 @@ FLAGGED_BASES = {
     "Lilyreal ND",
     "Sandalwood Base X3",
     "Suederal",  # stock name since the 2026-10-14 DPG record
-    "Tonkarome",
     "Tuberlia Base",
 }
 # Both Aurantiol stocks carry Kenny's word since 2026-10-15, so their display
@@ -181,7 +180,6 @@ STILL_HELD = {
     "Red Saffron Infusion",
     # Owned before, but undosable until 2026-10-14 gave it a strength (neat).
     "Suederal",  # stock name since the 2026-10-14 DPG record
-    "Tonkarome",
     "Tuberlia Base",
     "Vanilla Absolute",
     "Vertofix",
@@ -237,6 +235,18 @@ def test_freesia_hdi_fails_for_the_lilial_it_contains():
     gate = _gate({"Evernyl": 240.0, "Freesia HDI": 10.0})
     assert gate.status == "FAIL"
     assert "Freesia HDI" in gate.detail and "Lilial" in gate.detail
+
+
+def test_tonkarome_fails_for_the_6_methylcoumarin_it_contains():
+    # PerfumersWorld's IFRA certificate for Tonkarome (2QV23715) lists 6-methylcoumarin
+    # at 0.005 % and marks it prohibited; Kenny chose to block it on 25 Oct 2026.
+    material = TABLE.lookup("Tonkarome")
+    assert material is not None and material.status == "prohibited"
+    assert material.standard == "IFRA_STD_160"
+    gate = _gate({"Evernyl": 240.0, "Tonkarome": 10.0})
+    assert gate.status == "FAIL"
+    assert "Tonkarome" in gate.detail and "6-methylcoumarin" in gate.detail
+    assert gate.data["undisclosed_bases"] == []
 
 
 def test_canthoxal_and_rhodinol_carry_their_ifra_limits():

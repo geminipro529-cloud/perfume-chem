@@ -3926,6 +3926,15 @@
       "aliases": [],
       "note": "Rich in coumarin (STD_023, 1.5 %)."
     },
+    "Tonkarome": {
+      "status": "prohibited",
+      "standard": "IFRA_STD_160",
+      "aliases": [],
+      "note": "Kenny's Tonkarome is PerfumersWorld Tonkarome (SKU 2QV23715). Its IFRA certificate lists 6-methylcoumarin (CAS 92-48-8) at 0.005 % and marks it prohibited (IFRA_STD_160). This table treats the base as prohibited, so any dose fails. Its SDS also gives coumarin at 20-30 %, which the certificate's tables do not list. Kenny chose to block it on 2026-10-25.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=2QV23715",
+      "verified_on": "2026-10-15",
+      "authority": "IFRA prohibition of 6-methylcoumarin, through the 6-methylcoumarin its IFRA certificate lists"
+    },
     "Treemoss Absolute": {
       "status": "restricted",
       "standard": "IFRA_STD_080",

@@ -130,6 +130,9 @@ class AccordSpec:
     lead: NodeRef
     lead_stocks: tuple[StockRef, ...]
     helpers: tuple[Helper, ...]
+    # Brief words that put one of lead_stocks first, as (words, stock name);
+    # the first entry whose word the brief names wins. The stocks stay the same.
+    lead_first_when: tuple[tuple[tuple[str, ...], str], ...] = ()
 
 
 SPECS: tuple[AccordSpec, ...] = (
@@ -151,6 +154,10 @@ SPECS: tuple[AccordSpec, ...] = (
                     StockRef("Ambrox Super", .1, note="Kenny's 10% w/w solution in ethanol + DPG")),
                    FIRST_HELPER_SHARE),
         ),
+        # Kenny, 25 Oct 2026 ("Yes, fougère only"): fougère and barbershop briefs
+        # lead with the 40/42 grade (lavandin camphor and cineole, the classic
+        # fougère lavender); soft or floral lavender briefs keep the BONTAUX oil.
+        lead_first_when=((("fougere", "fougère", "barbershop"), "Lavender 40/42, Aroma&More"),),
     ),
     AccordSpec(
         note="iris",

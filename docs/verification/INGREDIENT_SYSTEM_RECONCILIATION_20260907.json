@@ -3,7 +3,7 @@
   "authority": "COMPUTATIONAL_DATA_RECONCILIATION_NOT_RELEASE",
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
-    "engine/ingredient_intelligence.py": "92e92715c0e9eb35a7784c526bec513dcfc19915daf3f27d2a461f4d3e4d6a0a",
+    "engine/ingredient_intelligence.py": "ae87ceca59a66710259eb8eae5c048492711d4501e0ecc9a2730c81113351b60",
     "engine/inventory_parser.py": "5b5ed2f01e9123589d1c5e944aa00ed22f8d8ae8f7d2b75d0ec28fa23f8f00b3",
     "engine/odor_thresholds.py": "3f5103d3f40f9e0f638b5893f34a629267770f77c932855807ef7ab644234704",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
@@ -6395,6 +6395,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "94056aea0bfeeba081ff9266e591b0ec78953abc3fbf1d9f0ea7b95135f27b1e",
-  "input_cache_sha256": "f94a7a1486a55268c91555528af44d5bce50a895c3acde755864bedba9a30b71"
+  "output_sha256": "60c8c82ed4da4429321276011ab03cbbbfebe8c11eab3fec54ffa13c528f2e16",
+  "input_cache_sha256": "94056aea0bfeeba081ff9266e591b0ec78953abc3fbf1d9f0ea7b95135f27b1e"
 }

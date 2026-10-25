@@ -2,8 +2,8 @@
 
 "Make it pass the gate, it is another lavender type". It was owned neat since 24 Sep, held only on a
 lot/receipt hold that AGENTS.md Rule 6 says a formula does not need (as with Cedrat, STK-021). It keeps
-its own lavender identity, with the Lavender EO threshold row, composition proxy and physics copied
-under its own name.
+its own lavender identity, with the Lavender EO threshold row and physics copied under its own name;
+since 25 Oct 2026 its composition is its own 40/42-grade estimate (test_lavender_40_42_grade_profile_2026_10_25).
 """
 from __future__ import annotations
 
@@ -33,13 +33,13 @@ def test_lavender_40_42_is_ready_neat_and_retires_the_held_record():
     assert stocks[0].dilution == pytest.approx(1.0)
 
 
-def test_lavender_40_42_has_its_own_identity_with_lavender_eo_data():
+def test_lavender_40_42_has_its_own_identity_with_lavender_eo_physics():
     resolved = resolve_material(NAME)
     assert resolved.is_known
     others = {resolve_material(n).canonical_name for n in ("Lavender EO", "Lavender EO (BONTAUX SAS)", "Spike Lavender EO")}
     assert resolved.canonical_name not in others
     assert lookup_odt_raw_name(NAME) == lookup_odt_raw_name("Lavender EO")
-    assert _resolve_profile_key(NAME)[0] == "lavender eo"
+    assert _resolve_profile_key(NAME)[0] == "lavender 40/42 grade two published gc midpoint profile"
     own, ref = get_profile(NAME), get_profile("Lavender EO")
     assert own is not None and ref is not None
     assert (own.mw, own.vp) == (ref.mw, ref.vp)

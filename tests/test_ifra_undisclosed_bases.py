@@ -25,20 +25,22 @@ def _gate(ingredients):
 # --------------------------------------------------------------------------- bases
 
 
-def test_tonkarome_warns_by_name_and_without_it_the_verdict_is_unchanged():
+def test_an_undisclosed_base_warns_by_name_and_without_it_the_verdict_is_unchanged():
+    # Tonkarome was the example here until 25 Oct 2026, when its IFRA certificate's
+    # 6-methylcoumarin made it a prohibited material (test_ifra_unrecognised_hold.py).
     without = _gate({"Evernyl": 240.0})
-    gate = _gate({"Evernyl": 240.0, "Tonkarome": 10.0})
+    gate = _gate({"Evernyl": 240.0, "Castoreum Synthetic": 10.0})
 
     assert without.status == "PASS"
     assert without.data["undisclosed_bases"] == []
     assert gate.status == "WARN"
-    assert "Tonkarome" in gate.detail
+    assert "Castoreum Synthetic" in gate.detail
     assert "composition not published" in gate.detail
     assert "not counted" in gate.detail
     assert gate.data["holds"] == []
     (flag,) = gate.data["undisclosed_bases"]
-    assert flag["material"] == "Tonkarome"
-    assert flag["base"] == "Tonkarome"
+    assert flag["material"] == "Castoreum Synthetic"
+    assert flag["base"] == "Castoreum Synthetic"
     assert "composition is not published" in flag["message"]
     assert "not counted" in flag["message"]
 
@@ -51,13 +53,13 @@ def test_a_diluted_stock_name_is_flagged_as_its_base():
 
 
 def test_a_base_never_lowers_a_hold_or_a_fail():
-    held = _gate({"Evernyl": 240.0, "Vertofix": 20.0, "Tonkarome": 10.0})
+    held = _gate({"Evernyl": 240.0, "Vertofix": 20.0, "Castoreum Synthetic": 10.0})
     assert held.status == "HOLD"
-    assert "Vertofix" in held.detail and "Tonkarome" in held.detail
+    assert "Vertofix" in held.detail and "Castoreum Synthetic" in held.detail
 
-    failed = _gate({"Hydroxycitronellal": 2000.0, "Tonkarome": 10.0})
+    failed = _gate({"Hydroxycitronellal": 2000.0, "Castoreum Synthetic": 10.0})
     assert failed.status == "FAIL"
-    assert "Tonkarome" in failed.detail
+    assert "Castoreum Synthetic" in failed.detail
 
 
 @pytest.mark.parametrize(

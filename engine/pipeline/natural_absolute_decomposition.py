@@ -778,6 +778,30 @@ _LAVENDER_EO_CONSTITUENTS = [
     ("beta-caryophyllene", 0.03, 204.35, 1.5, 10.0, 1.2),
 ]
 
+# Lavender 40/42 trade grade (Kenny's Aroma&More Lav420811P; his call "You
+# estimate", 25 Oct 2026). Fractions are the midpoints of two published 40/42
+# GC reports: Shay & Company lot 13282 (France, GC-MS, Nov 2024) and Amphora
+# Aromatics "Lavender Essential Oil 40-42 Blend" typical GC (2023). Both show
+# the lavandin signature Aroma&More describe for their grade (camphor and
+# 1,8-cineole near 3% each, borneol, little lavandulyl acetate or ocimene),
+# unlike true lavender (ISO 3515: camphor <0.5-1.2%, cineole <1-2.5%). Inputs
+# reuse this module's lavender rows (linalool, linalyl acetate, terpinen-4-ol,
+# camphor, lavandulyl acetate, beta-caryophyllene) and its generic 1,8-cineole,
+# limonene, borneol and ocimene rows. It is an estimate of the grade, not an
+# analysis of the owned bottle. Nothing is renormalized: 6.58% stays unresolved.
+_LAVENDER_40_42_GRADE_GC_MIDPOINT_CONSTITUENTS = [
+    ("linalyl acetate", 0.3953, 196.29, 17.5, 2.7, 2.0),
+    ("linalool", 0.3733, 154.25, 21.3, 1.5, 2.0),
+    ("terpinen-4-ol", 0.035, 154.25, 10.0, 5.0, 1.5),
+    ("camphor", 0.033, 152.23, 25.0, 20.0, 2.0),
+    ("1,8-cineole", 0.03065, 154.25, 200.0, 50.0, 2.0),
+    ("limonene", 0.01975, 136.24, 200.0, 20.0, 3.0),
+    ("beta-caryophyllene", 0.0161, 204.35, 1.5, 10.0, 1.2),
+    ("borneol", 0.0151, 154.25, 3.00, 10.0, 1.5),
+    ("lavandulyl acetate", 0.00885, 196.29, 3.0, 5.0, 1.5),
+    ("ocimene", 0.00715, 136.24, 250.0, 20.0, 3.0),
+]
+
 _BERGAMOT_EO_CONSTITUENTS = [
     # Dugo 2000 (J Agric Food Chem), Costa 2010 (J Essent Oil Res).
     # Extraction: cold expression (peel). Contains bergaptene 0.3-0.4% — PHOTOTOXIC.
@@ -1292,6 +1316,9 @@ _ABSOLUTE_CONSTITUENTS = {
     "lavandula latifolia spanish type iso 4719 midpoint profile": (
         _SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS
     ),
+    "lavender 40/42 grade two published gc midpoint profile": (
+        _LAVENDER_40_42_GRADE_GC_MIDPOINT_CONSTITUENTS
+    ),
     "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
         _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS
     ),
@@ -1430,10 +1457,11 @@ _PROFILE_ALIASES = {
     # resinoid identity as the existing Siam benzoin profile.
     "siam benzoin": "benzoin siam resinoid",
     "siam benzoin (50% w/w in dpg)": "benzoin siam resinoid",
-    # Aroma&More SKU Lav420811P: sold as French Lavandula angustifolia oil.
-    # It reuses the generic L. angustifolia profile as a labelled proxy.
-    "lavender 40/42, aroma&more": "lavender eo",
-    "lavender 40/42": "lavender eo",
+    # Aroma&More SKU Lav420811P: a 40/42 trade grade with lavandin added at
+    # production (supplier page). It uses the 40/42-grade GC estimate, not the
+    # true-lavender profile of the BONTAUX oil (Kenny, 25 Oct 2026: "You estimate").
+    "lavender 40/42, aroma&more": "lavender 40/42 grade two published gc midpoint profile",
+    "lavender 40/42": "lavender 40/42 grade two published gc midpoint profile",
     "olibanum": "olibanum resinoid",
     "turkish storax tincture": (
         "liquidambar orientalis resin ethanol tincture generic profile"
@@ -1515,10 +1543,12 @@ _LAVENDER_40_42_PROXY_LIMITATIONS = (
     "Aroma&More SKU Lav420811P (https://aromaandmore.com/en/essential-oil-100-pure-/67-11388-lavender-4042-essential-oil-france.html) "
     "is sold as French steam-distilled Lavandula angustifolia flower oil standardized toward a 40/42 "
     "linalool and linalyl acetate target.",
-    "The supplier states the current product does not fully meet that target and that lavandin or another "
-    "lavender can be added at production; any such admixture is not represented here.",
-    "The reused generic L. angustifolia literature profile is not an analysis of that product or lot; "
-    "no supplier GC, certificate of analysis, or density was located.",
+    "The supplier states the current product does not fully meet that target, that another lavender or "
+    "lavandin is added to raise the linalool/linalyl acetate content, and that high-altitude lavender is "
+    "also added.",
+    "The composition is a 40/42-grade estimate from two other suppliers' published GC reports (Shay & "
+    "Company lot 13282; Amphora Aromatics typical), not an analysis of the Aroma&More product or lot; "
+    "no Aroma&More GC, certificate of analysis or density was published.",
 )
 
 _POMELO_EO_PROXY_LIMITATIONS = (
@@ -1669,6 +1699,12 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     ),
     "lavandula latifolia spanish type iso 4719 midpoint profile": (
         "https://www.iso.org/standard/55964.html",
+    ),
+    "lavender 40/42 grade two published gc midpoint profile": (
+        "https://shayandcompany.com/wp-content/uploads/2018/08/Lavender-40-42-Essential-Oil-GCMS-Shay-and-Company-Lot13282.pdf",
+        "https://www.amphora-aromatics.com/images/product/Lavender%2040_42%20Typical%20GC%20-%2026BLEND40_42.pdf",
+        "https://aromaandmore.com/en/essential-oil-100-pure-/67-lavender-4042-essential-oil-france.html",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9182314",
     ),
     "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
         "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
@@ -2343,6 +2379,60 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (linalool 34-50%, 1,8-cineole 16-39%, camphor 8-16%).",
             "Only 85.15% of nominal composition is modeled; trans-alpha-bisabolene and unlisted constituents remain uncomputed, not odorless.",
             "Spike lavender oils of other origins, and lavandin, are not covered by this profile.",
+        ),
+    },
+    "lavender 40/42 grade two published gc midpoint profile": {
+        "analytical_method": "PUBLISHED_GC_PROFILES_CROSS_SOURCE_RANGE",
+        "composition_basis": "LITERATURE_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "literature:midpoints of two published Lavender 40/42 GC reports (sources A-B)",
+                "documents": (
+                    "A: Shay & Company, Lavender 40/42 Essential Oil, lot 13282, France, steam distilled, GC-MS (Shimadzu QP2010 Ultra, ZB-5), analysed 15 Nov 2024; total identified 99.69%",
+                    "B: Amphora Aromatics, Lavender Essential Oil 40-42 Blend, typical batch, GC-MS (Rxi-1ms), version 01, 1 May 2023; ten listed peaks",
+                ),
+                "published_type": "Lavender 40/42 trade grade, steam-distilled flower oil",
+                "reported_range_pct": {
+                    "linalyl acetate": (38.36, 40.7),
+                    "linalool": (36.56, 38.1),
+                    "terpinen-4-ol": (0.8, 6.2),
+                    "camphor": (3.2, 3.4),
+                    "1,8-cineole": (3.03, 3.1),
+                    "limonene": (0.45, 3.5),
+                    "beta-caryophyllene": (0.72, 2.5),
+                    "borneol": (1.3, 1.72),
+                    "lavandulyl acetate": (0.5, 1.27),
+                    "ocimene": (0.5, 0.93),
+                },
+                "ocimene_rule": "SOURCE_A_CIS_PLUS_TRANS_0_49_PLUS_0_44_SOURCE_B_CIS_ONLY",
+                "fraction_rule": "MIDPOINT_OF_CROSS_SOURCE_MIN_MAX",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_supplier_reference": "Aroma&More Lav420811P (supplier page read 25 Oct 2026; no GC, COA or density published)",
+                "supplier_grade_statement": (
+                    "Aroma&More: the 40/42 grade 'does not quite meet the 40/42 standard'; 'another species of "
+                    "Lavender or Lavandin has been added to raise the linalyl/linalool content'; 'We also add a "
+                    "premium quality high altitude Lavender'; no synthetics added or detected."
+                ),
+                "true_lavender_contrast": (
+                    "ISO 3515:2002 French lavender: camphor <0.5%, 1,8-cineole <1%, lavandulyl acetate >1% "
+                    "(Ph. Eur. camphor <1.2%, 1,8-cineole <2.5%); ISO 8902:2009 lavandin Grosso: camphor 6-8%, "
+                    "1,8-cineole 4-7% (as cited in PMC9182314). Evidence text only, not modeled."
+                ),
+                "owned_bottle_sku_verified": True,
+                "owned_lot_recorded": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("linalyl acetate", "linalool", "terpinen-4-ol", "camphor", "1,8-cineole",
+                            "limonene", "beta-caryophyllene", "borneol", "lavandulyl acetate", "ocimene")},
+        },
+        "limitations": (
+            "Estimate of the 40/42 trade grade from two other suppliers' published GC reports; it is not an analysis of the owned Aroma&More bottle, whose lot and lavandin share are unrecorded.",
+            "The two sources disagree most on terpinen-4-ol (0.8-6.2%), limonene (0.45-3.5%) and beta-caryophyllene (0.72-2.5%); midpoints are nominal model inputs.",
+            "Source B is a typical, not lot, analysis listing ten peaks; constituents it omits (3-octanone, myrcene, trans-beta-farnesene, geranyl acetate, lavandulol, alpha-terpineol, each under 1% in source A) are not modeled.",
+            "Only 93.42% of nominal composition is modeled; the remainder has no runtime headspace input and stays uncomputed, not odorless.",
+            "Ocimene isomers are not distinguished; the generic ocimene row is reused.",
         ),
     },
     "myristica fragrans indonesian type iso 3215 midpoint profile": {
