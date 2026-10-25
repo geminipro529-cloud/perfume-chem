@@ -943,7 +943,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.0065
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -968,7 +968,7 @@
   notes: null
   provenance:
     character: 'Geosmin, a Food- and Water-Deteriorating Sesquiterpenoid and Ambivalent Semiochemical, Activates Evolutionary Conserved Receptor OR11A1 (J Agric Food Chem 2024), https://pmc.ncbi.nlm.nih.gov/articles/PMC11261619/: is associated with an “earthy/musty” odor ... While geosmin’s “earthy” note may add a fresh scent to perfumes and fragrances, at least at low concentrations (grade A_measured; ). Second reader: Peer-reviewed paper (J Agric Food Chem 2024, PMC full text). Quote verbatim, citation numbers aside. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Nagata triangle-odour-bag detection threshold. Replaces 0.006, whose note said no peer-reviewed value existed. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
@@ -2419,7 +2419,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.004
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.01654
   odt_eth_ppm: null
   stevens_n: 0.21
   or_targets: []
@@ -2455,7 +2455,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 460 (https://pubchem.ncbi.nlm.nih.gov/compound/460#section=Vapor-Pressure): "0.103 mm Hg 25 °C", citing Verschueren K, Handbook of Environmental Data of Organic Chemicals, 2nd ed. (1983) p. 435; x 133.322 = 13.7 Pa.'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Schranz et al. 2017 GC-O air threshold as cited by the Buettner group (primary not opened). Yang et al. 2008 (abstract) gives 0.295 ppb. Replaces 0.5, a phenol class value. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Guaiacol (burnt) 32.27 .21 .85, .15"; text: "The lowest exponent is guaiacol (0.21)". Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     logp: engine.skin_interaction
@@ -2600,7 +2600,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 2.0
+  odt_air_ppb: 2.219
   odt_eth_ppm: 0.02
   stevens_n: 0.28
   or_targets: []
@@ -2610,6 +2610,7 @@
   character: 'A petal-like, sweet floral rose note with rounded sweetness, accented by hints of citrus and subtle green undertones.'
   odour_family: 'floral'
   provenance:
+    odt_air_ppb: 'The molecule''s threshold (the stock is a 10% DPG dilution), as already used for Geraniol neat. Replaces 2.0 on the data-spine record, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     stevens_n: 'Cain W.S., Odor intensity: Differences in the exponent of the psychophysical function, Perception & Psychophysics 6(6A) (1969) 349-354, https://link.springer.com/content/pdf/10.3758/BF03212789.pdf, Experiment 5 (air-dilution olfactometer): "The exponents of the functions obtained with the olfactometer were as follows: acetone, 0.71; geraniol, 0.28; ...". The same paper gives 0.20 by liquid dilution (not used). Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     odour_family: 'odour family "floral" from ''FLORAL (descriptor words: Floral, Rose, Sweet, Petal)'': Geraniol Extra | Takasago International Corporation, https://www.takasago.com/index.php/en/node/673: Geraniol Extra Floral CAS NO.106-24-1 ... FLORAL ROSE SWEET PETAL FLORAL (grade A_producer; ). Second reader: Takasago Geraniol Extra, CAS 106-24-1 (geraniol). Kenny''s stock is a 10% dilution; the family word is for geraniol itself. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'GERANIOL 60 RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/geraniol-60-rc-pe-945173: Olfactive description A petal-like, sweet floral rose note with rounded sweetness, accented by hints of citrus and subtle green undertones. (grade A_producer; ). Second reader: Page is dsm-firmenich''s commercial grade GERANIOL 60 RC (renewable, (E)+(Z) isomers), CAS 106-24-1; describes neat material, inventory item is 10% in DPG. Rank 1 (IFF Geraniol 600, CAS 106-24-1, ''Mild floral fresh rose note.'') also seen on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'

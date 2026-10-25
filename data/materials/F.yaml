@@ -570,7 +570,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb: 0.3
+  odt_air_ppb: 0.008995
   odt_eth_ppm: 0.2
   stevens_n:
   or_targets: []
@@ -599,7 +599,7 @@
     mw_g_mol: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
     logp: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
     vp_25c_pa: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan patent figure; a ratio in the Givaudan Nympheal article gives 0.0096 ppb. Replaces 0.3, a use-level inference. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt; direct user confirmation 2026-09-10

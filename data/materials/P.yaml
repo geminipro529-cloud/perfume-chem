@@ -466,7 +466,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 8.0
+  odt_air_ppb: 0.1371
   odt_eth_ppm: 0.1
   stevens_n: null
   or_targets: []
@@ -489,7 +489,7 @@
     character: 'Paradisamide™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/paradisamidetm: Paradisamide™ is a long lasting, fresh tropical fruit note of guava and passion fruit with nuances of grapefruit, rhubarb and cassis. Paradisamide™ can be overdosed in tropical fruit accords up to 20%... (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Producer SDS figure. Replaces 8.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     hedonic_valence: engine.hedonic_model
@@ -3507,7 +3507,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 3.0
+  odt_air_ppb: 1.996
   odt_eth_ppm: 0.03
   stevens_n: null
   or_targets: []
@@ -3531,7 +3531,7 @@
     character: 'Phenylethyl Acetate (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Phenylethyl_Acetate.pdf: › Fruity, Rose ... › Phenethyl acetate (grade A_producer; ). Second reader: Symrise prints the family word ''floral''; the odour words are ''Fruity, Rose''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: pubchem (estimated)
     vp_25c_pa: estimated
-    odt_air_ppb: estimated
+    odt_air_ppb: 'Air entries of the van Gemert compilation, 1.0-4.0 ppb; geometric midpoint 2.0. Primary papers not opened. Replaces 3.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 1.032; https://www.perflavory.com/docs/doc1010032.html; temperature as printed by source (often 20 C), not corrected to 25 C'

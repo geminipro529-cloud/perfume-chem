@@ -459,7 +459,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 4.183
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -479,6 +479,7 @@
   odour_family: 'citrus'
   notes:
   provenance:
+    odt_air_ppb: 'Producer SDS figure; first air threshold for this stock. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "citrus" from ''Citrus'': Decatone | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/decatone: Olfactive Family "Citrus" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Decatone | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/decatone: "Decatone has a woody, vetiver, citrus-grapefruit and green-rhubarb character." Olfactive Note "Citrus", "Grapefruit", "Woody", "Fruity", "Fresh" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1025111.html; PW 4CF19148 page'
@@ -1690,7 +1691,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.04308
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -1714,6 +1715,7 @@
   odour_family: 'floral'
   notes:
   provenance:
+    odt_air_ppb: 'Givaudan R&D article figure (method not stated); first air threshold for this stock. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Dupical | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/dupical: "Dupical is a powerful, fresh, transparent aldehydic muguet. It is a wonderful modifier and enhancer of the muguet character in a fragrance." Olfactive Note Floral Green Muguet Fresh (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "floral" from ''Floral'': Dupical | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/dupical: Olfactive Family Floral | Olfactive Note Floral Green Muguet Fresh (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC (checked by hand in the research thread)'

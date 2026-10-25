@@ -163,7 +163,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.002
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.1737
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -187,7 +187,7 @@
     mw_g_mol: 'C14H22O (methyl ionone, CAS 1335-46-2) from standard atomic weights = 206.33; TGSC rw1006171 gives 206.32854'
     vp_25c_pa: 'ESTIMATE, not measured: RIFM safety assessment, Api et al., Food Chem Toxicol 134 (2019) 110716, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf: "0.00613 mm Hg @ 25 °C (EPI Suite)" = 0.817 Pa; same line gives 0.005 mm Hg at 20 °C (FMA Database); replaces an unsourced 0.002 Pa (via material-data-firecrawl/followup-20261008/F5_vp_irotyl_vetival_ultralia.md)'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate for Isoraldeine 70, a methyl ionone grade with the same CAS (1335-46-2); isomer ratios may differ. 0.143-0.212 ppb, geometric midpoint 0.174. Replaces 0.3, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     hedonic_valence: engine.hedonic_model
@@ -215,7 +215,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb: 10.0
+  odt_air_ppb: 0.2934
   odt_eth_ppm: 2.0
   stevens_n:
   or_targets: []
@@ -236,7 +236,7 @@
   notes:
   provenance:
     character: 'Print Page | Givaudan: Undecavertol, https://www.givaudan.com/print/1314916: Undecavertol was developed in connection with structural elucidation work on unknown trace components of lily of the valley. It has a powerful green-floral character, somewhat related to lily-of-the-valley, with natural, fresh, fruity violet leaf and linden-blossom aspects. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Producer SDS figure for the commercial racemate; the single-enantiomer values (R 0.045, S 0.67 ppb) are not used. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt

@@ -276,7 +276,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.004
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.004254
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -311,7 +311,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: RIFM safety assessment Api et al. 2024, EPI Suite estimate at 25 C
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Review figure (primary reference not opened), for the neat molecule. Replaces 0.05, an audit correction with no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     trp.TRPM8: engine.trigeminal
@@ -1180,7 +1180,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.001
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.04128
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1213,7 +1213,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'IFF official compendium, 0.009316 mmHg at 23 C = 1.242 Pa, not temperature-corrected, method not stated; IFF SDS 7.13 (2017) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Cashmeran_IFF_SDS.pdf has no VP (bp 220 C, OECD 103); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate with an EPI vapour pressure. Replaces 2.0, cited only as ''van Gemert (2011); IFF sensory data'' with no page or value. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: 'IFF SDS 7.13 (2017): log Pow 4.2 (OECD 117); replaces engine.skin_interaction 3.3; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
@@ -2387,7 +2387,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 0.1
+  odt_air_ppb: 0.5149
   odt_eth_ppm: 0.01
   stevens_n: null
   or_targets: []
@@ -2413,6 +2413,7 @@
   character: 'Powerful, genuine mushroom odor with a slight fruity note. Less earthy than the racemic mixture'
   notes: 10% in DPG user stock. Product page identifies R-(-)-1-octen-3-ol (CAS 3687-48-7), while one supplier safety document calls it a proprietary perfume compound; retain this identity uncertainty.
   provenance:
+    odt_air_ppb: 'GC-O air threshold for 1-octen-3-ol, enantiomer not stated (Champignol is the (R)-enantiomer). Replaces 0.1, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Champignol | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=4YE09171: "Champignol is fungal fruity genuine mushroom earthy." "Powerful, genuine mushroom odor with a slight fruity note. Less earthy than the racemic mixture". Notes: top Yeast mossy, Edible, Fruity, Herb; heart Herb; base Yeast mossy (grade supplier; producer/primary text, quoted). Replaces unsourced text ''Fresh mushroom, fungal, earthy and fruity alcohol; powerful naturalistic damp-earth effect.''. Second reader: CAS 3687-48-7 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: supplier:4YE09171
@@ -3649,7 +3650,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 4.337
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -3673,7 +3674,7 @@
   character: null
   notes: 'Alias "Citral Natural" (inventory stock) resolves here as the same chemical entity (geranial/neral, CAS 5392-40-5). The natural grade''s minor constituents are not modelled; values describe citral only.'
   provenance:
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'AIHA compilation rows (no detection/recognition flag; primaries not opened) and a Givaudan PROC estimate agree at 3.2-5.4 ppb. Replaces 20, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
@@ -3942,7 +3943,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 14.49
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -3962,6 +3963,7 @@
   odour_family: 'floral'
   notes: null
   provenance:
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate with a BASF vapour pressure at 20 C (headspace is defined at 25 C, so probably biased low). First air threshold for this stock. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "floral" from ''Floral'': l-Citronellyl Acetate | Takasago, https://www.takasago.com/en/node/665: family "Floral"; odour words "FLORAL FRUITY ROSE SWEET"; "Gives a fresh-rosy, fruity odor to many floral compositions from geranium to muguet."; CAS "67601-05-2 / 150-84-5" (grade A_producer; producer/primary text, quoted). Second reader: Page product is Takasago''s l-(levo) citronellyl acetate (Chiraroma); its technical data also lists racemic CAS 150-84-5. Family word Floral shown with the name. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Citronellyl Acetate | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/citronellyl-acetate: Olfactive Description: "Slight rosy note with some fresh citrus, fruity facets." (grade A_producer; producer/primary text, quoted). Second reader: WebFetch returned client_error; read via Parallel web_fetch. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -6153,7 +6155,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.004
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.3237
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -6182,7 +6184,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan SDS and Givaudan R&D article agree (0.324 and 0.321 ppb). Replaces 0.76, cited to Nagata (2003) and Devos (1990), which were not checked to list it. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     trp.TRPM8: engine.trigeminal
@@ -6320,7 +6322,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.07514
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -6336,6 +6338,7 @@
   odour_family: 'green'
   notes: MySkinRecipes order 2199458 'Cyclogalbanate (Cyclogalbaniff)', neat as supplied; CAS and purity not asserted.
   provenance:
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate with an EPI vapour pressure; first air threshold for this stock. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "green" from ''Green'': Symrise product sheet: Cyclogalbanat, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Cyclogalbanat.pdf: family word printed with the name: "green Cyclogalbanat®" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Symrise product sheet: Cyclogalbanat, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Cyclogalbanat.pdf: Odor: "Green, Pineapple, Herbal"; "Cyclogalbanat® green" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1038701.html'

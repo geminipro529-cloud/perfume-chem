@@ -477,7 +477,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 140.5
   odt_eth_ppm: null
   stevens_n: 0.48
   or_targets: []
@@ -500,6 +500,7 @@
   character: 'Fruity, Almond, Cherry, Apricot, Peach (Symrise''s odour words)'
   notes: null
   provenance:
+    odt_air_ppb: 'Detection-flagged row of the AIHA compilation (primary not opened); converted from its mg/m3 column, whose ppm column fits neither 25 C nor STP. A second row (Yang 2008, no detection/recognition flag) gives 19.6 ppb. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Benzaldehyde (almond, cherry) 87.99 .48 .96, .75". Other values not used: 0.2 in air (Reese & Stevens, quoted by Berglund 1971); 0.30 in propylene glycol (Doty 1975); 0.19 in diethyl phthalate (Berglund 1971). Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     character: 'Symrise product sheet: Benzaldehyde DD, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Benzaldehyde_DD.pdf: "› Fruity, Almond, Cherry, Apricot, Peach › recommended use level: up to 2 %" (grade A_producer; producer/primary text, quoted). Second reader: Symrise grade ''Benzaldehyde DD'', CAS 100-52-7. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -1435,7 +1436,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 4.087
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1457,6 +1458,7 @@
   odour_family: 'fruity'
   notes: 'VP left null (2026-10-08): only a TGSC estimate exists, not RIFM-quoted: "Vapor Pressure: 0.020000 mmHg @ 25.00 C. (est)" = 2.67 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1061362.html). Identity: ethyl 6-acetoxyhexanoate; producer is Givaudan per TGSC and Fraterworks. TGSC: "Odor threshold: not reported". Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
   provenance:
+    odt_air_ppb: 'Producer SDS figure; first air threshold for this stock. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "fruity" from ''Fruity'': Berryflor™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/berryflortm: Olfactive Family "Fruity" | Olfactive Note "Fruity", "Raspberry", "Floral", "Fresh", "Balsamic" (grade A_producer; producer/primary text, quoted). Second reader: Givaudan Berryflor (trade name of the inventory material); CAS not shown in the part read. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "CAS Number: 104986-28-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
@@ -2627,7 +2629,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.003
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.05187
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2654,7 +2656,7 @@
     character: 'Bourgeonal | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/bourgeonal: "Bourgeonal is a powerful, diffusive and substantive fresh floral muguet, with a watery green character. Its unique muguet-aldehyde character is extensively used in toiletries and alcoholic fragrances." Olfactive Note Floral Green Muguet Fresh Powerful (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan SDS and Givaudan R&D article agree (0.052 and 0.051 ppb). Replaces 0.03, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     hedonic_valence: engine.hedonic_model

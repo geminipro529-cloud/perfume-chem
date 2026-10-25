@@ -349,7 +349,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.005
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 16.93
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -377,7 +377,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate. Replaces an estimated 35 with no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     trp.TRPM8: engine.trigeminal
@@ -2707,7 +2707,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.0006
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 13.6
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -2731,7 +2731,7 @@
     mw_g_mol: Vigon Timberol SDS rev. 2018-04-12
     vp_25c_pa: 'Firmenich Norlimbanol SDS v13 (2024) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/967412_NORLIMBANOL__SDS_NZ_EN.pdf: 0.194 Pa at 25 C, OECD 104; earlier value Vigon Timberol SDS rev. 2018-04-12, 0.0005 mmHg at 25 C = 0.067 Pa, method not stated; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Symrise datasheet for its own product, read directly; number bound to ''threshold in air'' by layout. Replaces 0.6, cited to the same datasheet via TGSC as ''<= 1 ppb''. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: 'Firmenich Norlimbanol SDS v13 (2024): log Kow 5.59-5.79 (OECD 123), midpoint 5.7; replaces engine.skin_interaction 3.8; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
@@ -3493,7 +3493,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb: 0.5
+  odt_air_ppb: 0.582
   odt_eth_ppm: 0.001
   stevens_n:
   or_targets: []
@@ -3520,7 +3520,7 @@
   provenance:
     odour_family: 'odour family "green" from ''Green (Olfactive Note: Green, Leafy, Floral, Powerful)'': Cyclal C | Givaudan (print page), https://www.givaudan.com/print/1314216: Cyclal C ... Olfactive Family Green | Olfactive Note Green Leafy Floral Powerful ... CAS no. 68039-49-6, 27939-60-2 (grade A_producer; ). Second reader: Page is Givaudan Cyclal C, not IFF Triplal, but same molecule: CAS 68039-49-6 equals the inventory CAS. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Triplal | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=4GH00450: Triplal has a harsh, herbal, leafy green, somewhat pine tree-like aroma. ... Odour=> dark green, leafy notes, rose lilac, industrial; in its undiluted form it can smell harsh, but at lower levels it can be used to produce a pleasant green, forest aroma (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan patent figure for Tricyclal, the same molecule (CAS 68039-49-6). Replaces an estimated 0.5. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt

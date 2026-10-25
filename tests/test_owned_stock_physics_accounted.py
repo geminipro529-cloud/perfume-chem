@@ -37,7 +37,6 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # Synthetics with MW, VP and log P but no air threshold (Rule 1: a water,
     # ethanol or usage-level number is not an air threshold).
     "Acetoin": (("odt",), _NO_AIR_ODT),
-    "Berry Hexanoate (BerryFlor)": (("odt",), _NO_AIR_ODT),
     "Buccoxime": (("odt",), _NO_AIR_ODT),
     "Caryophyllene Acetate": (("odt",), _NO_AIR_ODT),
     "Cedryl Acetate": (("odt",), _NO_AIR_ODT + "; IFF gives a qualitative impact only"),
@@ -49,8 +48,6 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Glycolierral": (("odt",), _NO_AIR_ODT),
     "Liffarome": (("odt",), _NO_AIR_ODT),
     "Linalool Oxide": (("odt",), _NO_AIR_ODT + " for any isomer"),
-    "Magnolan": (("odt",), _NO_AIR_ODT),
-    "Methyl Diantilis": (("odt",), _NO_AIR_ODT),
     "Methyl Laitone": (("odt",), _NO_AIR_ODT + "; Givaudan gives a qualitative impact only"),
     "Rhubofix": (("odt",), _NO_AIR_ODT),
     "Veloutone": (("odt",), _NO_AIR_ODT),
@@ -59,22 +56,15 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Aldehyde C16 EMPG": (("odt",), _NO_AIR_ODT_1023),
     "Canthoxal": (("odt",), _NO_AIR_ODT_1023),
     "Cedroxyde": (("odt",), _NO_AIR_ODT_1023),
-    "Citronellyl Acetate": (("odt",), _NO_AIR_ODT_1023),
-    "Cyclogalbanate": (("odt",), _NO_AIR_ODT_1023),
     "Dimethyl Benzyl Carbinol": (("odt",), _NO_AIR_ODT_1023),
-    "Dupical": (("odt",), _NO_AIR_ODT_1023),
-    "Neryl Acetate": (
-        ("odt",),
-        _NO_AIR_ODT_1023 + "; VP from ScenTree since the 2026-10-24 master merge (chemprops returned "
-        "geranyl acetate's VP record, which is not used)",
-    ),
     "Para-Acetanisole": (("odt",), _NO_AIR_ODT_1023),
     "Para-Cresyl Phenyl Acetate": (("odt",), _NO_AIR_ODT_1023),
     "Peach Ketone": (("odt",), _NO_AIR_ODT_1023),
-    "Velvione": (("odt",), _NO_AIR_ODT_1023),
     # CAS confirmed on PubChem 2026-10-23; labelled Crippen log P added, still no air threshold.
-    "Decatone": (("odt",), _NO_AIR_ODT_1023),
     "Pear Valerate": (("odt",), _NO_AIR_ODT_1023),
+    # (Berry Hexanoate, Citronellyl Acetate, Cyclogalbanate, Decatone, Dupical, Magnolan,
+    # Methyl Diantilis, Neryl Acetate and Velvione left this list on 2026-10-25, when the
+    # literature batch loaded producer or Givaudan PROC air thresholds.)
     # Added 2026-10-25 from Kenny's PerfumersWorld order lines; their data has not been searched yet.
     # (Cis-3 Hexenyl Acetate, Manzanate and Phenoxy Ethyl Isobutyrate left this list the same day,
     # when the fruit batch loaded Givaudan US 12,340,876 air thresholds.)

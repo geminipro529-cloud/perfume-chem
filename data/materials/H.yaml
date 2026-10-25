@@ -89,7 +89,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.0002
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 17.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -115,7 +115,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 34902-57-3, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/34902-57-3.pdf; "0.076" Pa at 25 C, measured (RIFM 2004), as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Takasago detection value (the author calls the values relative); van Gemert lists Traynor 2001 at 0.166 mg/m3, consistent. Replaces 2.8, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: 'Producer figure "5.45" (supplier value, method not stated), as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); previous repo value 4.5 (engine.skin_interaction)'
@@ -255,7 +255,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.003
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.03025
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -283,7 +283,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: EP 3141239 B1, 0.000710 Torr at 25 C
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Firmenich figure for standard Hedione (cis/trans about 10:90). Replaces an estimated 0.05. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     trp.TRPM8: engine.trigeminal
@@ -312,7 +312,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.003997
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -328,7 +328,7 @@
   notes: null
   provenance:
     character: 'HEDIONE® HC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/hedioner-hc-pe-947325: Olfactive description A unique powerful, floral note reminiscent of magnolia blossoms. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Firmenich figure for the high-cis grade. Replaces 0.05, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
@@ -396,7 +396,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.14
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -417,7 +417,7 @@
   notes: null
   provenance:
     character: 'Helional® | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/helional: Olfactive Description: Green, floral (cyclamen) with top notes of ozone and new mown hay. (grade A_producer; ). Second reader: CAS 1205-17-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Replaces 0.1, which cited this paper under another author''s name with 0.097 ppb; the second reader read 0.14 ppb. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction

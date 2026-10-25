@@ -577,7 +577,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.0008
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.0184
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -605,7 +605,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: IFF official compendium, 0.001735 mmHg at 23 C
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE (derived from the most potent isomer''s share): Estimate for the commercial mixture from its most potent isomer: isomer G threshold / its 2-4 % share = 0.0130-0.0261 ppb; geometric midpoint 0.0184 (second reader''s arithmetic). The single-isomer values (B about 52 ppb, G 0.0005 ppb) are not used alone. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: engine.skin_interaction

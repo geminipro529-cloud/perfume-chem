@@ -774,7 +774,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 38.88
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -794,6 +794,7 @@
   odour_family: 'floral'
   notes: null
   provenance:
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate 31.8-47.5 ppb; geometric midpoint 38.9. The van Gemert value (2,491-3,114 ppb) is a recognition threshold, an upper bound only, and is not used. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'NERYL ACETATE PURE RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/neryl-acetate-pure-rc-pe-901808: Olfactive description Elegant note of pear with fresh rose nuance and a slight watery facet. (grade A_producer; ). Second reader: CAS 141-12-8 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "floral" from ''Floral (dsm-firmenich: Olfactive family Floral, Technical Descriptors Rose, Pear; Takasago: FLORAL)'': NERYL ACETATE PURE RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/neryl-acetate-pure-rc-pe-901808: Olfactive family Floral ... Technical Descriptors Rose, Pear (grade A_producer; ). Second reader: Takasago part of the value was not checked (not the cited URL). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -1461,7 +1462,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.002
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.007184
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1484,7 +1485,7 @@
     character: 'Nympheal™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/nympheal: Nympheal™ is a diffusive floral cyclamen muguet note with green, watery and linden blossom facets. Nympheal™ imparts white floral watery density and brings a floral creaminess to the composition and high diffusivity. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan SDS for the commercial material; the Givaudan discovery article gives 0.0025 ppb (2.9x lower). Replaces 2.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     hedonic_valence: engine.hedonic_model

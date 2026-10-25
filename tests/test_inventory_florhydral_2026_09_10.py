@@ -80,7 +80,8 @@ def test_florhydral_scientific_paths_are_populated() -> None:
     assert material.mw_g_mol == pytest.approx(190.3)
     assert material.logp == pytest.approx(3.8)
     assert material.vp_25c_pa == pytest.approx(2.0)
-    assert material.odt_air_ppb == pytest.approx(0.3)
+    # 0.3 -> 0.008995 ppb on 2026-10-25 (Givaudan figures, literature ODT batch).
+    assert material.odt_air_ppb == pytest.approx(0.008995)
     assert material.odt_eth_ppm == pytest.approx(0.2)
 
     profile = get_profile("Florhydral")

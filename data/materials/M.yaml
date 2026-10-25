@@ -404,7 +404,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 1.508
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -426,6 +426,7 @@
   odour_family: 'floral'
   notes: 'logP, VP and density left null (2026-10-08). logP: RIFM fragrance ingredient safety assessment, Magnolan, CAS 27606-09-3, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568 quotes "2.67 (EPI Suite), 2.43 and 2.90 for isomer 1 and 2, respectively, at 22.8 C (RIFM, 2014d)"; Magnolan is an isomer mixture with two measured values and unknown isomer ratio, so no single value was chosen. VP: only TGSC rw1007991 0.003 mmHg at 25 C (est) = 0.40 Pa. Density 1.086-1.090 g/mL at 20 C (Ventos, https://www.ventos.com/index.php/en/producto/5104), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odt_air_ppb: 'Symrise datasheet for its own product; number bound to ''threshold in air'' by layout. First air threshold for this stock. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "floral" from ''Floral'': Magnolan (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Magnolan.pdf: Chemical Structure Floral Magnolan® (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); RIFM fragrance ingredient safety assessment, Magnolan, CAS 27606-09-3, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
@@ -1070,7 +1071,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.001
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 5.669
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -1097,7 +1098,7 @@
   notes: No current physical stock; user-confirmed 2026-09-15. Supplier and historical material data remain catalog knowledge only.
   provenance:
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Detection-flagged air entry of the van Gemert compilation; a GC-O entry in the same air section gives 2.2-4.4 ppb. Primary papers not opened. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: engine.skin_interaction
@@ -1301,7 +1302,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb: 0.5
+  odt_air_ppb: 0.1018
   odt_eth_ppm: 0.3
   stevens_n:
   or_targets: []
@@ -1329,7 +1330,7 @@
     logp: 'RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-72-9.pdf: "log Pow = 3.4 (RIFM, 2000a), 3.04 (EPI Suite 4.0)", measured. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     mw_g_mol: ECHA identity record for CAS 106-72-9
     vp_25c_pa: OECD 104 value reported in EU SDS, 239 Pa at 25 C
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate 0.043-0.240 ppb (wide headspace bin); geometric midpoint 0.102. Replaces an estimated 0.5 with no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
@@ -1682,7 +1683,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.2287
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -1704,6 +1705,7 @@
   odour_family: 'spice'
   notes: 'logP and VP left null (2026-10-08). CAS: TGSC gives "5595-79-9"; the 5595-79-6 in an earlier task brief fails the CAS check digit, so it is treated as a typo, not a second source. logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 1.571 (est)"; "Vapor Pressure: 0.003000 mmHg @ 25.00 C. (est)" = 0.400 Pa at 133.322 Pa/mmHg. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
   provenance:
+    odt_air_ppb: 'Producer SDS figure; first air threshold for this stock. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "spice" from ''Spicy (Olfactive Note: Spicy, Carnation, Vanilla, Sweet)'': Methyl Diantilis™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-diantilistm: Olfactive Family Spicy | Olfactive Note Spicy Carnation Vanilla Sweet (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1009761.html; "CAS Number: 5595-79-9", synonyms "dianthus ethone", "methyl diantilis (Givaudan)"; check digit valid (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
@@ -2033,7 +2035,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.01
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 6.575
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -2059,7 +2061,7 @@
   notes: Current user stock is 10% w/w in ethanol. Exact active mass from a volume dose requires stock-solution density.
   provenance:
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Symrise Amarocit datasheet, the same molecule and CAS; the Givaudan PROC estimate for its own material gives 2.35 ppb (2.8x lower). Replaces 3.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     trp.TRPM8: engine.trigeminal

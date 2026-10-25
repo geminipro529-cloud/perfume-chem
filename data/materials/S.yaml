@@ -239,7 +239,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 0.1
+  odt_air_ppb: 0.7915
   odt_eth_ppm: 0.02
   stevens_n: null
   or_targets: []
@@ -262,6 +262,7 @@
   character: 'Safraleine™ has a very unique warm and vibrant character ... Safraleine™ exhibits warm, powerful, leathery and tobacco facets but its complexity also reveals characteristics of spices reminiscent of natural saffron, enriched by rose ketone-like floral aspects.'
   notes: Neat user stock. Discrete CAS 54440-17-4; supplier's 10% TEC form is a separate carrier/form and is not substituted here.
   provenance:
+    odt_air_ppb: 'Producer SDS figure. Replaces 0.1, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Print Page | Givaudan: Safraleine, https://www.givaudan.com/print/1314811: Safraleine™ has a very unique warm and vibrant character offering a new alternative to existing spicy ingredients. Safraleine™ exhibits warm, powerful, leathery and tobacco facets but its complexity also reveals characteristics of spices reminiscent of natural saffron, enriched by rose ketone-like floral aspects. (grade A_producer; ). Replaces unsourced text ''Warm powerful saffron, leathery, tobacco and rose-ketone/woody indenone.''. Second reader: CAS 54440-17-4 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: JECFA:54440-17-4
@@ -1940,7 +1941,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.0056
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1966,7 +1967,7 @@
   provenance:
     character: 'Skatole | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/Skatole: White scales or powder; Mothball, putrid, decayed, faecal odour, jasmine-like or fruity upon dilution (grade A_regulatory; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 6736 (https://pubchem.ncbi.nlm.nih.gov/compound/6736#section=Vapor-Pressure): "0.0055 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 0.733 Pa. The record does not state the temperature.'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Nagata triangle-odour-bag detection threshold. Zhou et al. 2016 (abstract only) gives 0.061 ppb, 11x higher. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt

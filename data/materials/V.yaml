@@ -288,7 +288,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.052
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -308,6 +308,7 @@
   odour_family: 'musk'
   notes:
   provenance:
+    odt_air_ppb: 'Vapour-delivery psychophysics (detection). Givaudan''s SDS gives 0.475 ppb and van Gemert''s Takasago ambretone entry 12 ppb; measured air olfactometry ranks first. First air threshold for this stock. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "musk" from ''Musky (Olfactive Note: Musky, Powdery, Animalic)'': Print Page | Givaudan: Velvione, https://www.givaudan.com/print/1314921: Olfactive Family Musky | Olfactive Note Musky Powdery Animalic (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Print Page | Givaudan: Velvione, https://www.givaudan.com/print/1314921: Velvione™ is powerful powdery macrocyclic musk with some nitro-musk aspects. It is highly substantive and stable, as well as biodegradable (grade A_producer; ). Second reader: CAS 37609-25-9 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1016851.html; PW 4XU11429 page'
@@ -407,7 +408,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 10.88
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -430,7 +431,7 @@
     vp_25c_pa: 'ESTIMATE: EPI Suite value printed by RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/88-41-5.pdf: "0.0533 mm Hg at 25 °C (EPI Suite v4.11)" x 133.322 = 7.11 Pa; RIFM also prints "0.05 mm Hg at 20 °C (FMA)" = 6.67 Pa at 20 °C, and Eternis (cis-rich OTBCHA Super SDS) "9.72 Pa @ 23°C". Replaces an unsourced 0.3. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     logp: 'IFF VERDOX SDS (code 00222496; copy hosted at https://johndwalsh.com/wp-content/uploads/2016/09/VERDOX-GHS-SDS-1.pdf): "log Pow: 4.75 at 77 °F (25 °C)"; Eternis OTBCHA Super SDS prints 4.75; RIFM https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/88-41-5.pdf prints measured 4.8 and 4.7. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     mw_g_mol: 'Molecular formula C12H22O2 for 2-tert-butylcyclohexyl acetate, CAS 88-41-5 (the CAS already cited from TGSC rw1002461); MW from IUPAC standard atomic weights = 198.30. The old 170.25 matched no formula for this CAS.'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan patent figure for Agrumex, the same molecule (2-tert-butylcyclohexyl acetate); the cis/trans ratio may differ. Replaces 20, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
@@ -620,7 +621,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.0008
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 13.41
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -643,7 +644,7 @@
     mw_g_mol: 'C12H22O (4-cyclohexyl-4-methylpentan-2-one, CAS 4927-39-3) from standard atomic weights = 182.31; Symrise datasheet MW 182.3'
     vp_25c_pa: 'ESTIMATE, not measured: TGSC https://www.thegoodscentscompany.com/data/rw1019151.html (CAS 4927-39-3): "0.049000 mmHg @ 25.00 °C. (est)" = 6.53 Pa (value unchanged, now attributed); the EPI Suite page https://www.thegoodscentscompany.com/episys/ep1019151.html gives 0.107 mm Hg (14.3 Pa), also an estimate; no measured value found (via material-data-firecrawl/followup-20261008/F5_vp_irotyl_vetival_ultralia.md)'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Symrise datasheet for its own product; the number sits next to ''threshold in air'' by layout. Replaces an estimated 7.0. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: engine.skin_interaction
@@ -671,7 +672,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.0012
   hsp:
-  odt_air_ppb: 5.0
+  odt_air_ppb: 87.53
   odt_eth_ppm: 1.0
   stevens_n:
   or_targets: []
@@ -690,7 +691,7 @@
     mw_g_mol: engine.ingredient_intelligence
     vp_25c_pa: engine.ingredient_intelligence
     logp: engine.ingredient_intelligence
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Symrise datasheet for its own product; number bound to ''threshold in air'' by layout. Replaces 5.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.97050 to 0.97450 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1047261.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
