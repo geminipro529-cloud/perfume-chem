@@ -73,8 +73,11 @@ def test_natural_and_synthetic_eugenol_add_up():
     )
     assert total["total_pct"] > 2.5
     failed = [f["group"] for f in gate.data["headroom_violations"] if "group" in f]
-    # Rose de Mai Absolute's methyl eugenol (up to 0.5 %) also exceeds its own limit.
-    assert failed == ["IFRA_STD_035_constituents", "IFRA_STD_100_constituents"]
+    # Rose de Mai Absolute's methyl eugenol (0.709 % on PerfumersWorld's certificate) and its
+    # certificate's isoeugenol (1.9907 % as printed) also exceed their own limits.
+    assert failed == [
+        "IFRA_STD_035_constituents", "IFRA_STD_048_constituents", "IFRA_STD_100_constituents",
+    ]
     # Counted once: the synthetic-only eugenol total is not also built.
     assert "IFRA_STD_035_total" not in [g["group"] for g in gate.data["groups"]]
 
@@ -142,9 +145,10 @@ def test_every_mapped_stock_resolves_and_names_known_rows(stock):
 
 def test_diluted_tonka_stock_name_is_counted():
     evaluation = evaluate_ifra({"Tonka Bean Absolute 10% in DPG": 2.0})
-    [total] = evaluation.constituent_totals
-    assert total.standard == "IFRA_STD_023"
-    assert total.total == pytest.approx(2.0 * 0.79133)
+    totals = {t.standard: t.total for t in evaluation.constituent_totals}
+    # Coumarin, plus phenylacetaldehyde from PerfumersWorld's 8VQ00445 certificate.
+    assert set(totals) == {"IFRA_STD_023", "IFRA_STD_073"}
+    assert totals["IFRA_STD_023"] == pytest.approx(2.0 * 0.79133)
 
 
 def test_candidate_rows_take_the_highest_level_not_the_sum():

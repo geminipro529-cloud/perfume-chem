@@ -98,20 +98,23 @@ def test_previously_held_stock_is_recognised(stock):
     assert TABLE.lookup(stock) is not None, stock
 
 
-def test_ten_percent_certificates_are_scaled_to_the_neat_material():
+def test_diluted_product_certificates_are_scaled_to_the_neat_material():
     rows = [r for r in RAW["rows"] if "printed_for_dilution_pct" in r]
-    assert {r["ncs_name"].split(",")[0] for r in rows} == {
-        "Ambrette seed absolute", "Frangipani absolute", "Tobacco absolute", "Vanilla absolute",
+    dilution = {r["ncs_name"].split(",")[0]: r["printed_for_dilution_pct"] for r in rows}
+    assert dilution == {
+        "Ambrette seed absolute": 10.0, "Frangipani absolute": 10.0, "Tobacco absolute": 10.0,
+        "Vanilla absolute": 10.0, "Siam benzoin resinoid": 50.0,
     }
     for row in rows:
-        assert row["printed_for_dilution_pct"] == 10.0
-        assert row["max_pct"] == pytest.approx(float(row["max_pct_as_printed"]) * 10)
+        factor = 100.0 / row["printed_for_dilution_pct"]
+        assert row["max_pct"] == pytest.approx(float(row["max_pct_as_printed"]) * factor)
 
 
 def test_other_lot_and_sds_rows_say_where_they_come_from():
     kinds = {r.get("source_kind") for r in RAW["rows"]}
     assert {
         "supplier_ifra_certificate", "supplier_ifra_certificate_other_lot",
+        "supplier_ifra_certificate_reference_product",
         "supplier_sds_band_upper_bound", "supplier_product_page", "reseller_ifra_sheet",
     } <= kinds
     for row in RAW["rows"]:
@@ -120,6 +123,9 @@ def test_other_lot_and_sds_rows_say_where_they_come_from():
             assert row["source_url"].startswith("https://shop.perfumersapprentice.com/")
         if row.get("source_kind") == "supplier_sds_band_upper_bound":
             assert "Upper bound" in row["note"]
+        if row.get("source_kind") == "supplier_ifra_certificate_reference_product":
+            assert "the supplier of Kenny's bottle is not recorded" in row["note"]
+            assert row["source_url"].startswith("https://www.perfumersworld.com/")
 
 
 def test_bases_without_a_composition_stay_flagged_and_castoreum_is_unchanged():
@@ -159,3 +165,40 @@ def test_pomelo_joins_the_phototoxic_citrus_sum():
     evaluation = evaluate_ifra({"Pomelo EO": 2.0, "Lime Oil Expressed": 0.35})
     ratio = next(g for g in evaluation.group_checks if g.id == "phototoxic_citrus_ratio")
     assert ratio.total == pytest.approx(2.0 / 4.0 + 0.35 / 0.7)
+
+
+# Second pass: recognised stocks whose PerfumersWorld certificate prints a restricted
+# constituent above the counted rows. Each limit equals the Category 4 figure PerfumersWorld
+# prints on that certificate, where it prints one below its 25 % ceiling.
+SECOND_PASS_LIMITS = [
+    # 7SB00041: estragole 15.3291 % against 0.014 % (PerfumersWorld prints 0.09 %).
+    ("Anise EO", 0.014 / 0.153291),
+    # 7KQ07511: longifolene 8.8795 % against 1.5 % (PerfumersWorld prints 16.89 %).
+    ("Pine EO", 1.5 / 0.088795),
+    # 7IS00086: asarone 0.2818 % against the 0.01 % note box (PerfumersWorld prints 3.55 %).
+    ("Carrot Seed EO", 0.01 / 0.002818),
+    # Annex I elemi oil's methyl eugenol 0.4 % stays above 7QC00902's 0.3068 % (PW prints 3.59 %).
+    ("Elemi EO", 0.011 / 0.004),
+    # 8RM00395: methyl eugenol 0.709 % against 0.011 % (PerfumersWorld prints 1.55 %).
+    ("Rose de Mai Absolute", 0.011 / 0.00709),
+]
+
+
+@pytest.mark.parametrize(("stock", "limit"), SECOND_PASS_LIMITS)
+def test_certificate_constituents_now_bind_recognised_stocks(stock, limit):
+    status, value = single_material_limit_pct(stock)
+    assert status == "restricted"
+    assert value == pytest.approx(limit, rel=1e-6)
+
+
+def test_asarone_standard_is_the_note_box_limit():
+    standard = TABLE.standards["IFRA_STD_110"]
+    assert standard.name == "cis- and trans-Asarone"
+    assert standard.cat4_limit_pct == 0.01
+    assert "100ppm (0.01 %)" in standard.cat4_quote
+
+
+def test_own_standards_stay_stricter_than_their_certificates():
+    # Jasmine grandiflorum (0.6 %) and Peru balsam (0.41 %) keep their own standards' limits.
+    assert single_material_limit_pct("Jasmine Absolute") == ("restricted", pytest.approx(0.6))
+    assert single_material_limit_pct("Peru Balsam Resinoid") == ("restricted", pytest.approx(0.41))

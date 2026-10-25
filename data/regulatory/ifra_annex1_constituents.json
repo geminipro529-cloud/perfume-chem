@@ -3,9 +3,9 @@
   "amendment": 49,
   "amendment_year": 2020,
   "verification": "two_independent_reads",
-  "verification_note": "Each value was read twice from its PDF by two independent automated readers on 2026-10-09. The reads agreed on 272 of the 279 rows transcribed (all 279 rows here, including 17 estragole and methyl eugenol rows and 1 methyl N-methylanthranilate row). The 7 disagreements were settled from the PDF's own text lines, where each row reads '<value> <substance CAS> <NCS name>' (checked against Palmarosa oil, 82.4 % geraniol): 5 kept the first read, and Styrax extract (0.1) and Styrax oil, Honduras (0.05) took the second for benzaldehyde. No value has been checked by a person against the printed page. Correct a value by editing its row; every row carries its source PDF. The 7 Cassia oil rows (Cinnamomum aromaticum Nees, CAS 8007-80-5) were added on 2026-10-15 from the same PDFs, each read twice and agreeing. On 2026-10-25 the Annex I tables of six more standards (carvone, alpha-bisabolol, cuminaldehyde, perilla aldehyde, 2-methoxy-4-propylphenol, thujone) were read twice by two independent automated readers from the PerfumersWorld copies of the 2020 (Amendment 49) PDFs; all 126 rows agreed, and the rows for owned naturals were added. Supplier certificate rows (source_kind supplier_ifra_certificate) are not Annex I and were read from Kenny's own PerfumersWorld SKUs. On 2026-10-25 (evening) the stock thread added Annex I rows for clove bud, leaf and stem oil, Himalayan cedarwood oil, olibanum absolute and olibanum sacra oil, and supplier rows for 25 owned stocks, each re-opened by a second reader: PerfumersWorld certificates of Kenny's own SKUs (10% in DPG products scaled to the neat material), SDS section 3 band upper bounds where a certificate leaves a restricted substance out (source_kind supplier_sds_band_upper_bound), one product-page statement (olibanum resinoid's benzyl benzoate), and, for bottles with no certificate of their own, Perfumer's Apprentice certificates of another lot (source_kind supplier_ifra_certificate_other_lot).",
+  "verification_note": "Each value was read twice from its PDF by two independent automated readers on 2026-10-09. The reads agreed on 272 of the 279 rows transcribed (all 279 rows here, including 17 estragole and methyl eugenol rows and 1 methyl N-methylanthranilate row). The 7 disagreements were settled from the PDF's own text lines, where each row reads '<value> <substance CAS> <NCS name>' (checked against Palmarosa oil, 82.4 % geraniol): 5 kept the first read, and Styrax extract (0.1) and Styrax oil, Honduras (0.05) took the second for benzaldehyde. No value has been checked by a person against the printed page. Correct a value by editing its row; every row carries its source PDF. The 7 Cassia oil rows (Cinnamomum aromaticum Nees, CAS 8007-80-5) were added on 2026-10-15 from the same PDFs, each read twice and agreeing. On 2026-10-25 the Annex I tables of six more standards (carvone, alpha-bisabolol, cuminaldehyde, perilla aldehyde, 2-methoxy-4-propylphenol, thujone) were read twice by two independent automated readers from the PerfumersWorld copies of the 2020 (Amendment 49) PDFs; all 126 rows agreed, and the rows for owned naturals were added. Supplier certificate rows (source_kind supplier_ifra_certificate) are not Annex I and were read from Kenny's own PerfumersWorld SKUs. On 2026-10-25 (evening) the stock thread added Annex I rows for clove bud, leaf and stem oil, Himalayan cedarwood oil, olibanum absolute and olibanum sacra oil, and supplier rows for 25 owned stocks, each re-opened by a second reader: PerfumersWorld certificates of Kenny's own SKUs (10% in DPG products scaled to the neat material), SDS section 3 band upper bounds where a certificate leaves a restricted substance out (source_kind supplier_sds_band_upper_bound), one product-page statement (olibanum resinoid's benzyl benzoate), and, for bottles with no certificate of their own, Perfumer's Apprentice certificates of another lot (source_kind supplier_ifra_certificate_other_lot). In a second pass the same evening the stock thread added the PerfumersWorld certificates of 15 recognised stocks whose printed restricted constituents were higher than, or missing from, the counted rows (source_kind supplier_ifra_certificate for Kenny's own SKU, supplier_ifra_certificate_reference_product for a same-named PerfumersWorld product when the bottle's supplier is not recorded), and the asarone standard (IFRA_STD_110) for Carrot Seed.",
   "source": "IFRA Standards, Amendment 49 (2020), Annex I 'Contributions from other sources' tables, as copied by PerfumersWorld; one PDF per restricted substance (source_url on every row). Each value is the highest concentration of that substance reported in that natural.",
-  "scope": "Only the 45 restricted substances with a Category 4 limit in ifra_cat4_51.json, and only rows for naturals Kenny owns and their close variants. Safrole (IFRA_STD_179) has no per-natural table, only its 0.01 % notebox total, so the safrole in nutmeg is not counted. Annexes of other restricted substances were not read.",
+  "scope": "Only the 46 restricted substances with a Category 4 limit in ifra_cat4_51.json, and only rows for naturals Kenny owns and their close variants. Safrole (IFRA_STD_179) has no per-natural table, only its 0.01 % notebox total, so the safrole in nutmeg is not counted. Annexes of other restricted substances were not read.",
   "stock_rule": "A stock maps to the NCS rows that are that natural, not its part or species variants. Where the species, part or extraction is uncertain, every candidate is listed and the highest value per substance is used. Rows that print one substance under several CAS numbers (cedrene) also take the highest value, never the sum.",
   "unmapped_owned_naturals": {
     "Orange Flower Absolute": "Kept unrecognised by Kenny's decision (its hold stands); Annex rows: Orange blossoms absolute (farnesol 8 %, geraniol 1 %)."
@@ -3654,6 +3654,580 @@
       "source_url": "https://shop.perfumersapprentice.com/Documents/IFRA-51/7310.pdf",
       "source_kind": "supplier_ifra_certificate_other_lot",
       "note": "Not an Annex I row. Perfumer's Apprentice's IFRA certificate (51st Amendment) for Guaiacwood, another supplier's lot (no certificate for Kenny's bottle is on file); read 2026-10-25 and re-read by a second reader."
+    },
+    {
+      "substance": "Estragole",
+      "standard": "IFRA_STD_099",
+      "ncs_name": "Anise oil China, PerfumersWorld 7SB00041 certificate",
+      "max_pct": 15.3291,
+      "max_pct_as_printed": "15.3291",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7SB00041",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Anise EO 7SB00041; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 0.09 % for this oil because of its estragole."
+    },
+    {
+      "substance": "p-Methoxybenzaldehyde",
+      "standard": "IFRA_STD_054",
+      "ncs_name": "Anise oil China, PerfumersWorld 7SB00041 certificate",
+      "max_pct": 3.1053,
+      "max_pct_as_printed": "3.1053",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7SB00041",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Anise EO 7SB00041; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 0.09 % for this oil because of its estragole."
+    },
+    {
+      "substance": "Longifolene",
+      "standard": "IFRA_STD_199",
+      "ncs_name": "Pine oil, PerfumersWorld 7KQ07511 certificate",
+      "max_pct": 8.8795,
+      "max_pct_as_printed": "8.8795",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7KQ07511",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Pine EO 7KQ07511, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 16.89 % for this oil because of its longifolene."
+    },
+    {
+      "substance": "Thujone",
+      "standard": "IFRA_STD_102",
+      "ncs_name": "Blue chamomile oil, PerfumersWorld 7HF00102 certificate",
+      "max_pct": 0.924,
+      "max_pct_as_printed": "0.924",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7HF00102",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Blue Chamomile EO 7HF00102, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints alpha-thujone (546-80-5), counted under the thujone standard. PerfumersWorld names no species."
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Blue chamomile oil, PerfumersWorld 7HF00102 certificate",
+      "max_pct": 0.868,
+      "max_pct_as_printed": "0.868",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7HF00102",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Blue Chamomile EO 7HF00102, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints alpha-thujone (546-80-5), counted under the thujone standard. PerfumersWorld names no species."
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Blue chamomile oil, PerfumersWorld 7HF00102 certificate",
+      "max_pct": 0.5829,
+      "max_pct_as_printed": "0.5829",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7HF00102",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Blue Chamomile EO 7HF00102, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints alpha-thujone (546-80-5), counted under the thujone standard. PerfumersWorld names no species."
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Blue chamomile oil, PerfumersWorld 7HF00102 certificate",
+      "max_pct": 0.2121,
+      "max_pct_as_printed": "0.2121",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7HF00102",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Blue Chamomile EO 7HF00102, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints alpha-thujone (546-80-5), counted under the thujone standard. PerfumersWorld names no species."
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Blue chamomile oil, PerfumersWorld 7HF00102 certificate",
+      "max_pct": 0.1499,
+      "max_pct_as_printed": "0.1499",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7HF00102",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Blue Chamomile EO 7HF00102, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints alpha-thujone (546-80-5), counted under the thujone standard. PerfumersWorld names no species."
+    },
+    {
+      "substance": "alpha-Bisabolol",
+      "standard": "IFRA_STD_192",
+      "ncs_name": "Blue chamomile oil, PerfumersWorld 7HF00102 certificate",
+      "max_pct": 0.0901,
+      "max_pct_as_printed": "0.0901",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7HF00102",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Blue Chamomile EO 7HF00102, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints alpha-thujone (546-80-5), counted under the thujone standard. PerfumersWorld names no species."
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Rose de Mai absolute, PerfumersWorld 8RM00395 certificate",
+      "max_pct": 9.3262,
+      "max_pct_as_printed": "9.3262",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8RM00395",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Rose de Mai Absolute 8RM00395, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the neat absolute; Kenny's stock is PerfumersWorld's 10% in DPG grade 5RM07856, whose tables are one tenth. Isoeugenol is counted as printed although the 10% grade lists eugenol instead. PerfumersWorld prints Category 4 1.55 % (methyl eugenol)."
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Rose de Mai absolute, PerfumersWorld 8RM00395 certificate",
+      "max_pct": 4.0088,
+      "max_pct_as_printed": "4.0088",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8RM00395",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Rose de Mai Absolute 8RM00395, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the neat absolute; Kenny's stock is PerfumersWorld's 10% in DPG grade 5RM07856, whose tables are one tenth. Isoeugenol is counted as printed although the 10% grade lists eugenol instead. PerfumersWorld prints Category 4 1.55 % (methyl eugenol)."
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Rose de Mai absolute, PerfumersWorld 8RM00395 certificate",
+      "max_pct": 1.9907,
+      "max_pct_as_printed": "1.9907",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8RM00395",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Rose de Mai Absolute 8RM00395, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the neat absolute; Kenny's stock is PerfumersWorld's 10% in DPG grade 5RM07856, whose tables are one tenth. Isoeugenol is counted as printed although the 10% grade lists eugenol instead. PerfumersWorld prints Category 4 1.55 % (methyl eugenol)."
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Rose de Mai absolute, PerfumersWorld 8RM00395 certificate",
+      "max_pct": 0.709,
+      "max_pct_as_printed": "0.709",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8RM00395",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Rose de Mai Absolute 8RM00395, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the neat absolute; Kenny's stock is PerfumersWorld's 10% in DPG grade 5RM07856, whose tables are one tenth. Isoeugenol is counted as printed although the 10% grade lists eugenol instead. PerfumersWorld prints Category 4 1.55 % (methyl eugenol)."
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Rose de Mai absolute, PerfumersWorld 8RM00395 certificate",
+      "max_pct": 0.5084,
+      "max_pct_as_printed": "0.5084",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8RM00395",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Rose de Mai Absolute 8RM00395, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the neat absolute; Kenny's stock is PerfumersWorld's 10% in DPG grade 5RM07856, whose tables are one tenth. Isoeugenol is counted as printed although the 10% grade lists eugenol instead. PerfumersWorld prints Category 4 1.55 % (methyl eugenol)."
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Rose de Mai absolute, PerfumersWorld 8RM00395 certificate",
+      "max_pct": 0.1655,
+      "max_pct_as_printed": "0.1655",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8RM00395",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Rose de Mai Absolute 8RM00395, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the neat absolute; Kenny's stock is PerfumersWorld's 10% in DPG grade 5RM07856, whose tables are one tenth. Isoeugenol is counted as printed although the 10% grade lists eugenol instead. PerfumersWorld prints Category 4 1.55 % (methyl eugenol)."
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Peru balsam resinoid, PerfumersWorld 2QV00363 certificate",
+      "max_pct": 26.8389,
+      "max_pct_as_printed": "26.8389",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=2QV00363",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Peru Balsam Resinoid 2QV00363, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 11.97 % from these rows; the Peru balsam standard's own 0.41 % stays the stricter limit."
+    },
+    {
+      "substance": "Benzyl cinnamate",
+      "standard": "IFRA_STD_010",
+      "ncs_name": "Peru balsam resinoid, PerfumersWorld 2QV00363 certificate",
+      "max_pct": 16.7053,
+      "max_pct_as_printed": "16.7053",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=2QV00363",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Peru Balsam Resinoid 2QV00363, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 11.97 % from these rows; the Peru balsam standard's own 0.41 % stays the stricter limit."
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Peru balsam resinoid, PerfumersWorld 2QV00363 certificate",
+      "max_pct": 0.03,
+      "max_pct_as_printed": "0.03",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=2QV00363",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Peru Balsam Resinoid 2QV00363, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 11.97 % from these rows; the Peru balsam standard's own 0.41 % stays the stricter limit."
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Peru balsam resinoid, PerfumersWorld 2QV00363 certificate",
+      "max_pct": 0.0206,
+      "max_pct_as_printed": "0.0206",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=2QV00363",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Peru Balsam Resinoid 2QV00363, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 11.97 % from these rows; the Peru balsam standard's own 0.41 % stays the stricter limit."
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Peru balsam resinoid, PerfumersWorld 2QV00363 certificate",
+      "max_pct": 0.0162,
+      "max_pct_as_printed": "0.0162",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=2QV00363",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Peru Balsam Resinoid 2QV00363, the SKU of Kenny's stock; read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 11.97 % from these rows; the Peru balsam standard's own 0.41 % stays the stricter limit."
+    },
+    {
+      "substance": "Citronellol",
+      "standard": "IFRA_STD_022",
+      "ncs_name": "Geranium Bourbon oil, PerfumersWorld 7RB00930 certificate",
+      "max_pct": 21.3364,
+      "max_pct_as_printed": "21.3364",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7RB00930",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Geranium Bourbon Essential Oil 7RB00930; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Geranium Bourbon oil, PerfumersWorld 7RB00930 certificate",
+      "max_pct": 13.6149,
+      "max_pct_as_printed": "13.6149",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7RB00930",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Geranium Bourbon Essential Oil 7RB00930; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Geranium Bourbon oil, PerfumersWorld 7RB00930 certificate",
+      "max_pct": 0.487,
+      "max_pct_as_printed": "0.487",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7RB00930",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Geranium Bourbon Essential Oil 7RB00930; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "Citronellal",
+      "standard": "IFRA_STD_206",
+      "ncs_name": "Geranium Bourbon oil, PerfumersWorld 7RB00930 certificate",
+      "max_pct": 0.0618,
+      "max_pct_as_printed": "0.0618",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7RB00930",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Geranium Bourbon Essential Oil 7RB00930; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Jasmine absolute, PerfumersWorld 8JN00254 certificate",
+      "max_pct": 4.8416,
+      "max_pct_as_printed": "4.8416",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00254",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Absolute 8JN00254; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints trans-2-hexenal, counted under the 2-hexenal standard; PerfumersWorld prints Category 4 6.28 %, and the grandiflorum absolute standard's 0.6 % stays the stricter limit."
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Jasmine absolute, PerfumersWorld 8JN00254 certificate",
+      "max_pct": 1.0652,
+      "max_pct_as_printed": "1.0652",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00254",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Absolute 8JN00254; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints trans-2-hexenal, counted under the 2-hexenal standard; PerfumersWorld prints Category 4 6.28 %, and the grandiflorum absolute standard's 0.6 % stays the stricter limit."
+    },
+    {
+      "substance": "Methyl N-methylanthranilate",
+      "standard": "IFRA_STD_094",
+      "ncs_name": "Jasmine absolute, PerfumersWorld 8JN00254 certificate",
+      "max_pct": 0.2795,
+      "max_pct_as_printed": "0.2795",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00254",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Absolute 8JN00254; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints trans-2-hexenal, counted under the 2-hexenal standard; PerfumersWorld prints Category 4 6.28 %, and the grandiflorum absolute standard's 0.6 % stays the stricter limit."
+    },
+    {
+      "substance": "2-Hexenal",
+      "standard": "IFRA_STD_039",
+      "ncs_name": "Jasmine absolute, PerfumersWorld 8JN00254 certificate",
+      "max_pct": 0.1226,
+      "max_pct_as_printed": "0.1226",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00254",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Absolute 8JN00254; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints trans-2-hexenal, counted under the 2-hexenal standard; PerfumersWorld prints Category 4 6.28 %, and the grandiflorum absolute standard's 0.6 % stays the stricter limit."
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Jasmine absolute, PerfumersWorld 8JN00254 certificate",
+      "max_pct": 0.0846,
+      "max_pct_as_printed": "0.0846",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00254",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Absolute 8JN00254; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. The certificate prints trans-2-hexenal, counted under the 2-hexenal standard; PerfumersWorld prints Category 4 6.28 %, and the grandiflorum absolute standard's 0.6 % stays the stricter limit."
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Jasmine sambac absolute, PerfumersWorld 8JN00256 certificate",
+      "max_pct": 6.1505,
+      "max_pct_as_printed": "6.1505",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00256",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Sambac Absolute 8JN00256; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Benzyl cyanide (0.0012 %) is printed too but its standard is not in this table; its 0.01 % note-box limit would allow about 830 % of the absolute."
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Jasmine sambac absolute, PerfumersWorld 8JN00256 certificate",
+      "max_pct": 1.0958,
+      "max_pct_as_printed": "1.0958",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00256",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Sambac Absolute 8JN00256; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Benzyl cyanide (0.0012 %) is printed too but its standard is not in this table; its 0.01 % note-box limit would allow about 830 % of the absolute."
+    },
+    {
+      "substance": "Methyl N-methylanthranilate",
+      "standard": "IFRA_STD_094",
+      "ncs_name": "Jasmine sambac absolute, PerfumersWorld 8JN00256 certificate",
+      "max_pct": 0.15,
+      "max_pct_as_printed": "0.15",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00256",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Sambac Absolute 8JN00256; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Benzyl cyanide (0.0012 %) is printed too but its standard is not in this table; its 0.01 % note-box limit would allow about 830 % of the absolute."
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Jasmine sambac absolute, PerfumersWorld 8JN00256 certificate",
+      "max_pct": 0.101,
+      "max_pct_as_printed": "0.101",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00256",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Sambac Absolute 8JN00256; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Benzyl cyanide (0.0012 %) is printed too but its standard is not in this table; its 0.01 % note-box limit would allow about 830 % of the absolute."
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Jasmine sambac absolute, PerfumersWorld 8JN00256 certificate",
+      "max_pct": 0.0736,
+      "max_pct_as_printed": "0.0736",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00256",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Sambac Absolute 8JN00256; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Benzyl cyanide (0.0012 %) is printed too but its standard is not in this table; its 0.01 % note-box limit would allow about 830 % of the absolute."
+    },
+    {
+      "substance": "Benzyl salicylate",
+      "standard": "IFRA_STD_011",
+      "ncs_name": "Jasmine sambac absolute, PerfumersWorld 8JN00256 certificate",
+      "max_pct": 0.0635,
+      "max_pct_as_printed": "0.0635",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00256",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Sambac Absolute 8JN00256; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Benzyl cyanide (0.0012 %) is printed too but its standard is not in this table; its 0.01 % note-box limit would allow about 830 % of the absolute."
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Jasmine sambac absolute, PerfumersWorld 8JN00256 certificate",
+      "max_pct": 0.0047,
+      "max_pct_as_printed": "0.0047",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00256",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Sambac Absolute 8JN00256; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Benzyl cyanide (0.0012 %) is printed too but its standard is not in this table; its 0.01 % note-box limit would allow about 830 % of the absolute."
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Jasmine sambac absolute, PerfumersWorld 8JN00256 certificate",
+      "max_pct": 0.0028,
+      "max_pct_as_printed": "0.0028",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8JN00256",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Jasmine Sambac Absolute 8JN00256; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Benzyl cyanide (0.0012 %) is printed too but its standard is not in this table; its 0.01 % note-box limit would allow about 830 % of the absolute."
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Elemi oil, PerfumersWorld 7QC00902 certificate",
+      "max_pct": 0.3068,
+      "max_pct_as_printed": "0.3068",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Elemi EO 7QC00902; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 3.59 % for this oil because of its methyl eugenol."
+    },
+    {
+      "substance": "Carvone",
+      "standard": "IFRA_STD_016",
+      "ncs_name": "Elemi oil, PerfumersWorld 7QC00902 certificate",
+      "max_pct": 0.123,
+      "max_pct_as_printed": "0.123",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Elemi EO 7QC00902; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 3.59 % for this oil because of its methyl eugenol."
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Elemi oil, PerfumersWorld 7QC00902 certificate",
+      "max_pct": 0.0359,
+      "max_pct_as_printed": "0.0359",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Elemi EO 7QC00902; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 3.59 % for this oil because of its methyl eugenol."
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Cardamom oil, PerfumersWorld 7SC00084 certificate",
+      "max_pct": 0.6515,
+      "max_pct_as_printed": "0.6515",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7SC00084",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Cardamom EO 7SC00084; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Cardamom oil, PerfumersWorld 7SC00084 certificate",
+      "max_pct": 0.1436,
+      "max_pct_as_printed": "0.1436",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7SC00084",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Cardamom EO 7SC00084; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "Carvone",
+      "standard": "IFRA_STD_016",
+      "ncs_name": "Cardamom oil, PerfumersWorld 7SC00084 certificate",
+      "max_pct": 0.0113,
+      "max_pct_as_printed": "0.0113",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7SC00084",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Cardamom EO 7SC00084; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "Carvone",
+      "standard": "IFRA_STD_016",
+      "ncs_name": "Black pepper oil, PerfumersWorld 7SQ00359 certificate",
+      "max_pct": 0.1707,
+      "max_pct_as_printed": "0.1707",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7SQ00359",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Black Pepper EO 7SQ00359; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "cis- and trans-Asarone",
+      "standard": "IFRA_STD_110",
+      "ncs_name": "Carrot seed oil, PerfumersWorld 7IS00086 certificate",
+      "max_pct": 0.2818,
+      "max_pct_as_printed": "0.2818",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7IS00086",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Carrot Seed EO 7IS00086; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 3.55 % for this oil because of its asarone."
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Carrot seed oil, PerfumersWorld 7IS00086 certificate",
+      "max_pct": 0.3534,
+      "max_pct_as_printed": "0.3534",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7IS00086",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Carrot Seed EO 7IS00086; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 3.55 % for this oil because of its asarone."
+    },
+    {
+      "substance": "Citral",
+      "standard": "IFRA_STD_021",
+      "ncs_name": "Carrot seed oil, PerfumersWorld 7IS00086 certificate",
+      "max_pct": 0.0352,
+      "max_pct_as_printed": "0.0352",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7IS00086",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Carrot Seed EO 7IS00086; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 3.55 % for this oil because of its asarone."
+    },
+    {
+      "substance": "Carvone",
+      "standard": "IFRA_STD_016",
+      "ncs_name": "Carrot seed oil, PerfumersWorld 7IS00086 certificate",
+      "max_pct": 0.0209,
+      "max_pct_as_printed": "0.0209",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7IS00086",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Carrot Seed EO 7IS00086; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. PerfumersWorld prints Category 4 3.55 % for this oil because of its asarone."
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Mimosa absolute, PerfumersWorld 8NG00307 certificate",
+      "max_pct": 1.1171,
+      "max_pct_as_printed": "1.1171",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8NG00307",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Mimosa Absolute 8NG00307; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Mimosa absolute, PerfumersWorld 8NG00307 certificate",
+      "max_pct": 0.2279,
+      "max_pct_as_printed": "0.2279",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8NG00307",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Mimosa Absolute 8NG00307; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "p-Methoxybenzaldehyde",
+      "standard": "IFRA_STD_054",
+      "ncs_name": "Mimosa absolute, PerfumersWorld 8NG00307 certificate",
+      "max_pct": 0.076,
+      "max_pct_as_printed": "0.076",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8NG00307",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Mimosa Absolute 8NG00307; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader."
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Tonka bean absolute, PerfumersWorld 8VQ00445 certificate",
+      "max_pct": 79.133,
+      "max_pct_as_printed": "79.133",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8VQ00445",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Tonka Bean Absolute 8VQ00445; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Dihydrocoumarin (2.2301 %) is printed too but its standard is not in this table. Kenny's tonka may be another supplier's blend."
+    },
+    {
+      "substance": "Phenylacetaldehyde",
+      "standard": "IFRA_STD_073",
+      "ncs_name": "Tonka bean absolute, PerfumersWorld 8VQ00445 certificate",
+      "max_pct": 0.0388,
+      "max_pct_as_printed": "0.0388",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8VQ00445",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Tonka Bean Absolute 8VQ00445; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Dihydrocoumarin (2.2301 %) is printed too but its standard is not in this table. Kenny's tonka may be another supplier's blend."
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Siam benzoin resinoid, PerfumersWorld 5QV13027 certificate",
+      "max_pct": 2.1822,
+      "max_pct_as_printed": "1.0911",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5QV13027",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Siam Benzoin 5QV13027; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the 50% product; 2 times the printed value is the neat material. Printed for PerfumersWorld's 50% in DPG product; twice the printed value is the neat resinoid.",
+      "printed_for_dilution_pct": 50.0
+    },
+    {
+      "substance": "Isoeugenol",
+      "standard": "IFRA_STD_048",
+      "ncs_name": "Siam benzoin resinoid, PerfumersWorld 5QV13027 certificate",
+      "max_pct": 0.183,
+      "max_pct_as_printed": "0.0915",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5QV13027",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Siam Benzoin 5QV13027; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the 50% product; 2 times the printed value is the neat material. Printed for PerfumersWorld's 50% in DPG product; twice the printed value is the neat resinoid.",
+      "printed_for_dilution_pct": 50.0
+    },
+    {
+      "substance": "Eugenol",
+      "standard": "IFRA_STD_035",
+      "ncs_name": "Siam benzoin resinoid, PerfumersWorld 5QV13027 certificate",
+      "max_pct": 0.0842,
+      "max_pct_as_printed": "0.0421",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5QV13027",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Siam Benzoin 5QV13027; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the 50% product; 2 times the printed value is the neat material. Printed for PerfumersWorld's 50% in DPG product; twice the printed value is the neat resinoid.",
+      "printed_for_dilution_pct": 50.0
+    },
+    {
+      "substance": "Benzyl alcohol",
+      "standard": "IFRA_STD_008",
+      "ncs_name": "Siam benzoin resinoid, PerfumersWorld 5QV13027 certificate",
+      "max_pct": 0.0292,
+      "max_pct_as_printed": "0.0146",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5QV13027",
+      "source_kind": "supplier_ifra_certificate_reference_product",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for its same-named product Siam Benzoin 5QV13027; the supplier of Kenny's bottle is not recorded, so this reference product's levels are counted where they are the highest (safety first). Read 2026-10-25 by the natural-composition reader and re-read by a second reader. Printed for the 50% product; 2 times the printed value is the neat material. Printed for PerfumersWorld's 50% in DPG product; twice the printed value is the neat resinoid.",
+      "printed_for_dilution_pct": 50.0
     }
   ],
   "stocks": {
@@ -3665,7 +4239,8 @@
     },
     "Geranium Bourbon Essential Oil": {
       "ncs_names": [
-        "Geranium oil"
+        "Geranium oil",
+        "Geranium Bourbon oil, PerfumersWorld 7RB00930 certificate"
       ],
       "note": "Bourbon (Reunion) geranium oil; the geranium oil row is used, not the African, absolute or terpene-free rows. Kenny chose \"Link them\" on 16 Oct 2026 (08:17 UTC)."
     },
@@ -3698,13 +4273,15 @@
     },
     "Cardamom EO": {
       "ncs_names": [
-        "Cardamom seed oil"
+        "Cardamom seed oil",
+        "Cardamom oil, PerfumersWorld 7SC00084 certificate"
       ],
       "note": "Seed oil row; the seed extract row is a different extraction."
     },
     "Carrot Seed EO": {
       "ncs_names": [
-        "Carrot seed oil"
+        "Carrot seed oil",
+        "Carrot seed oil, PerfumersWorld 7IS00086 certificate"
       ]
     },
     "Cedarwood EO (China; species unspecified)": {
@@ -3824,7 +4401,8 @@
     },
     "Mimosa Absolute": {
       "ncs_names": [
-        "Mimosa absolute"
+        "Mimosa absolute",
+        "Mimosa absolute, PerfumersWorld 8NG00307 certificate"
       ]
     },
     "Neroli EO": {
@@ -3857,7 +4435,8 @@
     },
     "Rose de Mai Absolute": {
       "ncs_names": [
-        "Rose absolute"
+        "Rose absolute",
+        "Rose de Mai absolute, PerfumersWorld 8RM00395 certificate"
       ]
     },
     "Rose Essential Oil (Rosa Damascena, India)": {
@@ -3880,7 +4459,8 @@
     },
     "Siam Benzoin": {
       "ncs_names": [
-        "Benzoin extract, Siam"
+        "Benzoin extract, Siam",
+        "Siam benzoin resinoid, PerfumersWorld 5QV13027 certificate"
       ]
     },
     "Vietnamese Benzoin Tincture": {
@@ -3899,7 +4479,8 @@
     "Tonka Bean Absolute": {
       "ncs_names": [
         "Tonka Bean absolute",
-        "Tonka Bean absolute, PerfumersWorld 8VQ00445 certificate"
+        "Tonka Bean absolute, PerfumersWorld 8VQ00445 certificate",
+        "Tonka bean absolute, PerfumersWorld 8VQ00445 certificate"
       ],
       "note": "Kenny's stock is PerfumersWorld's own 10 % in DPG (5VN07564). Its supplier certificate gives more coumarin than Annex I (79.133 % against 46.7 %), and the higher level is used."
     },
@@ -3930,13 +4511,15 @@
     },
     "Jasmine Absolute": {
       "ncs_names": [
-        "Jasmine officinale absolute"
+        "Jasmine officinale absolute",
+        "Jasmine absolute, PerfumersWorld 8JN00254 certificate"
       ],
       "note": "Grandiflorum is officinale var. grandiflorum."
     },
     "Jasmine Sambac Absolute": {
       "ncs_names": [
-        "Jasmine sambac absolute"
+        "Jasmine sambac absolute",
+        "Jasmine sambac absolute, PerfumersWorld 8JN00256 certificate"
       ]
     },
     "Orange Peel EO": {
@@ -3947,7 +4530,8 @@
     },
     "Peru Balsam Resinoid": {
       "ncs_names": [
-        "Balsam oil, Peru"
+        "Balsam oil, Peru",
+        "Peru balsam resinoid, PerfumersWorld 2QV00363 certificate"
       ],
       "note": "Annex row is the oil; the resinoid may differ."
     },
@@ -3991,20 +4575,23 @@
     },
     "Pine EO": {
       "ncs_names": [
-        "Pine needle, dwarf, oil"
+        "Pine needle, dwarf, oil",
+        "Pine oil, PerfumersWorld 7KQ07511 certificate"
       ],
       "note": "Species not stated; the dwarf pine needle oil row is the only pine row."
     },
     "Anise EO": {
       "ncs_names": [
         "Anise seed oil",
-        "Star anise oil"
+        "Star anise oil",
+        "Anise oil China, PerfumersWorld 7SB00041 certificate"
       ],
       "note": "Stock is Chinese anise: anise seed (Pimpinella anisum) or star anise (Illicium verum) is not recorded; species, part or extraction uncertain: the highest value across these candidates is used."
     },
     "Elemi EO": {
       "ncs_names": [
-        "Elemi oil"
+        "Elemi oil",
+        "Elemi oil, PerfumersWorld 7QC00902 certificate"
       ],
       "note": "Canarium luzonicum essential oil: the oil row, not the gum or resinoid rows."
     },
@@ -4023,7 +4610,8 @@
     },
     "Blue Chamomile EO": {
       "ncs_names": [
-        "Chamomile flower oil, blue"
+        "Chamomile flower oil, blue",
+        "Blue chamomile oil, PerfumersWorld 7HF00102 certificate"
       ],
       "note": "Matricaria chamomilla, as Annex I's row. Not a PerfumersWorld bottle, so there is no certificate. The engine's odour composite carries alpha-bisabolol at 25 % from literature GC, above Annex I's highest reported 4 %; Annex I is used here, and a supplier GC of this bottle would settle it."
     },
@@ -4202,7 +4790,8 @@
     },
     "Black Pepper EO": {
       "ncs_names": [
-        "Black pepper oil, Perfumer's Apprentice certificate (another lot)"
+        "Black pepper oil, Perfumer's Apprentice certificate (another lot)",
+        "Black pepper oil, PerfumersWorld 7SQ00359 certificate"
       ],
       "note": "Another supplier's lot."
     },

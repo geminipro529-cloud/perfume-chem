@@ -54,8 +54,9 @@ def test_caraway_fails_on_its_carvone_and_passes_below_the_limit():
 
 
 def test_blue_chamomile_counts_its_annex_alpha_bisabolol():
-    [total] = evaluate_ifra({"Blue Chamomile EO": 10.0}).constituent_totals
-    assert total.standard == "IFRA_STD_192"
+    totals = evaluate_ifra({"Blue Chamomile EO": 10.0}).constituent_totals
+    # PerfumersWorld's 7HF00102 certificate adds other rows; its 0.0901 % bisabolol stays below Annex I.
+    total = next(t for t in totals if t.standard == "IFRA_STD_192")
     assert total.total == pytest.approx(0.4)  # 10 % x 4 % (Annex I, Matricaria chamomilla)
 
 
