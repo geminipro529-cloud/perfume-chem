@@ -1603,16 +1603,16 @@
     user_in_inventory: inventory.txt
 - canonical_name: Rhodinol
   aliases: []
-  cas:
+  cas: '6812-78-8'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 156.27
   density_25c_g_ml: 0.853
-  logp:
+  logp: 3.63
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.25
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1632,7 +1632,11 @@
   notes: 'MySkinRecipes 2199302 Rhodinol (code 2760, lot 4XG0CM), neat; separate from Rhodinol ex Citronella.'
   provenance:
     density_25c_g_ml: 'MySkinRecipes 2760 page and COA lot 4XG0CM: relative density 0.8500-0.8600 (25/25 C), midpoint x 0.99705; RI 1.4520-1.4620, content 96% min'
-    notes: 'MSR lists CAS 141-25-3 (page) and 6812-78-8 (COA, the (3S) form). Its density and RI match citronellol (Parchem 0.850-0.860 / 1.450-1.460) rather than a typical rhodinol blend (Foreverest citronellol 55-75%, geraniol 20-40%), so probably mostly citronellol; only a GC settles it. No single MW or VP asserted'
+    notes: 'MSR lists CAS 141-25-3 (page) and 6812-78-8 (COA, the (3S) form). Its density and RI match citronellol (Parchem 0.850-0.860 / 1.450-1.460) rather than a typical rhodinol blend (Foreverest citronellol 55-75%, geraniol 20-40%), so probably mostly citronellol; only a GC settles it'
+    cas: 'MySkinRecipes COA lot 4XG0CM: CAS 6812-78-8, (3S)-3,7-dimethyloct-7-en-1-ol (the page lists the racemate, 141-25-3)'
+    mw_g_mol: 'C10H20O, 156.27 g/mol (Lapczynski et al. 2008, Fragrance material review on rhodinol, Food Chem Toxicol 46 S259-S262). Citronellol is the same formula and geraniol (C10H18O) is 154.25, so the weight holds whatever the citronellol/geraniol split'
+    logp: 'Lapczynski et al. 2008, Food Chem Toxicol 46 S259-S262: log Kow 3.63 (calculated)'
+    vp_25c_pa: 'RIFM safety assessment for dl-citronellol, Food Chem Toxicol 182 (2023) 114150, which covers rhodinol 6812-78-8 and 141-25-3 as its isomers: 0.0169 mm Hg at 25 C (EPI Suite estimate); x 133.322 Pa/mm Hg = 2.25 Pa. Geraniol, if present, is 4.00 Pa (same document, EPI Suite)'
 - canonical_name: Rum Ether
   aliases: []
   cas: '8030-89-5'

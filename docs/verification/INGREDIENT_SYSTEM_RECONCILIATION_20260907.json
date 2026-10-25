@@ -13,7 +13,7 @@
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
     "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
     "data/materials/A.yaml": "09eb1f196cdbb32822ad3b1a3b69db04b8ae2c02f59cb98a46394fb7d1c6a33b",
-    "data/materials/B.yaml": "f0473ead5b7b7c23d383c81787c3caaec6c06b187e0494ea8f94de8150cdbae9",
+    "data/materials/B.yaml": "16f7a08c5222fbc67cf3a8c1c855e61269fe0d547bbbe7468a6b5e3c573223d8",
     "data/materials/C.yaml": "05415c915ff4a9d01475f5124ed5a8fcf555267a0e038eaf86233578ece703c6",
     "data/materials/D.yaml": "1b2635deff66c135c4ad4fe2f2ebe96ef1f9de722030037738346073a7ae2eb1",
     "data/materials/E.yaml": "b868c3cc300f4cf9addd2fd1bd02726e967788ae8874fbcae4a610aa5c2479a7",
@@ -26,10 +26,10 @@
     "data/materials/L.yaml": "2388d47d91560056e3ad52857a830090bcf04fa72ca3c173eca49a990bb2fd4b",
     "data/materials/M.yaml": "dc22d61d1913d729a4a1f1beae9a07a525ede1f6d8da7f6d53501398b724fe07",
     "data/materials/N.yaml": "78532b705de3bdadd649d0be4f7b52aa894916727753105b1d558c91aebdc1c4",
-    "data/materials/O.yaml": "fad4ce353e9ad8fbfc308d523a251205069a53d022066db1425f97861dc78656",
+    "data/materials/O.yaml": "f878e99b200aca1fd80d33b7fa2b56c588a808cf6809683a56fd39fb2b001463",
     "data/materials/P.yaml": "48b3c52a641608bfb602c2cd20ceba32530b52848872afd9e4f32f9eb1fd0761",
     "data/materials/Q.yaml": "9256e634f899593f1e3848cb0d5683c4ed1259c00fdd5df56888f89fa84aa6c6",
-    "data/materials/R.yaml": "ddcca15b7e646fbc740cfcabe01152f492440a21d9805884d7b3360a4a0e71df",
+    "data/materials/R.yaml": "a113a0ed9250c874f8ac03b37789a87557f2782194a84a15cce10db1ecfd9e36",
     "data/materials/S.yaml": "fab96909c601dc8c35d0601aa3b609dcb482dfeac9a398f590d2b4eef84bad13",
     "data/materials/T.yaml": "a99ff53a36223d147908ef820199602f8359fc3e7168ebe256d889ccec2d0616",
     "data/materials/U.yaml": "10b02b70dfdba777985ec53dc09f2e627b29ef1d16c9495817b9bd8dcb2b0c18",
@@ -3635,9 +3635,13 @@
       "odt_present": true,
       "missing_numeric_fields": [],
       "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.001,
+          "registry": 0.00957
+        },
         "clogp": {
           "profile": 3.8,
-          "registry": 3.6
+          "registry": 4.54
         }
       }
     },
@@ -6395,6 +6399,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "60c8c82ed4da4429321276011ab03cbbbfebe8c11eab3fec54ffa13c528f2e16",
-  "input_cache_sha256": "94056aea0bfeeba081ff9266e591b0ec78953abc3fbf1d9f0ea7b95135f27b1e"
+  "output_sha256": "313f6ced8f9747c13723d5e86f55a61f34f048428cf3adf27e255578d382e76b",
+  "input_cache_sha256": "60c8c82ed4da4429321276011ab03cbbbfebe8c11eab3fec54ffa13c528f2e16"
 }

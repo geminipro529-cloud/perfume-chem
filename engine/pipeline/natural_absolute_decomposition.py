@@ -1209,6 +1209,56 @@ _HAY_ABSOLUTE_PW_8NY00523_ALLERGEN_DECLARATION_CONSTITUENTS = [
     ("coumarin", 0.000578, 146.14, 0.05, 2.0, 0.5),
 ]
 
+# Orange flower absolute. PerfumersWorld IFRA and allergen tables for SKU
+# 8NC00338 (neat); the owned 5NC07544 (10% in DPG) declares exactly one tenth
+# of each. Only PW's declared levels are modeled: they differ row by row from
+# the published absolutes (CIR 2021 linalool 34-48%) and declare no farnesol,
+# so mixing in literature rows would contradict PW's own declaration. Benzyl
+# cyanide, 7-methoxycoumarin, the two anthranilates and benzaldehyde have no
+# row in this module and stay unresolved. Rows reuse this module's linalool,
+# geraniol and limonene inputs.
+_ORANGE_FLOWER_ABSOLUTE_PW_8NC00338_DECLARATION_CONSTITUENTS = [
+    ("linalool", 0.142295, 154.25, 21.30, 1.50, 2.0),
+    ("geraniol", 0.007383, 154.25, 4.00, 2.00, 1.5),
+    ("limonene", 0.001722, 136.24, 200.0, 20.0, 3.0),
+]
+
+# Frangipani absolute. PerfumersWorld IFRA and allergen tables for SKU
+# 8ON00534 (neat, Plumeria alba extract, CAS 94350-02-4); the owned 5ON09236
+# (10% in DPG) declares exactly one tenth of each. Declared levels only, for
+# the same reason as orange flower (published benzyl salicylate 27-45%, and
+# farnesol PW does not declare). Benzaldehyde has no row here and stays
+# unresolved. Rows reuse this module's inputs.
+_FRANGIPANI_ABSOLUTE_PW_8ON00534_DECLARATION_CONSTITUENTS = [
+    ("benzyl salicylate", 0.090958, 228.24, 0.01, 50.0, 0.5),
+    ("benzyl benzoate", 0.016552, 212.24, 0.02, 810.0, 0.5),
+    ("linalool", 0.007789, 154.25, 21.30, 1.50, 2.0),
+    ("citronellol", 0.003794, 156.27, 7.00, 10.0, 1.5),
+    ("benzyl alcohol", 0.002475, 108.14, 8.00, 5.00, 1.5),
+    ("citral", 0.000785, 152.23, 3.00, 0.50, 1.5),
+]
+
+# Fir needle oil, PerfumersWorld 7KG07758 (CAS 8021-28-1, species not named by
+# PW). CAS 8021-28-1 is Abies balsamea needle oil (Biolandes "Fir balsam",
+# Canada), and PW's limonene sits inside Biolandes' 5-15%, so balsam fir is
+# inferred. PW's declared rows (limonene, alpha-bisabolol, benzyl alcohol) are
+# kept as declared; the main terpenes PW does not declare take the midpoints of
+# Biolandes' ranges (beta-pinene 28-38, alpha-pinene 9-24, delta-3-carene
+# <=18, bornyl acetate 2-12%), and camphene the midpoint of Canadian Flora's
+# balsam fir specification (4-7%, CAS 8021-28-1). Cuminaldehyde and L-carvone
+# (traces) have no row here and stay unresolved. Rows reuse this module's
+# terpene inputs.
+_FIR_NEEDLE_BALSAM_PW_7KG07758_BIOLANDES_MIDPOINT_CONSTITUENTS = [
+    ("beta pinene", 0.33, 136.24, 250.0, 30.0, 3.0),
+    ("alpha pinene", 0.165, 136.24, 400.0, 20.0, 3.0),
+    ("delta-3-carene", 0.09, 136.23, 200.0, 50.0, 3.0),
+    ("bornyl acetate", 0.07, 196.29, 3.0, 10.0, 1.5),
+    ("limonene", 0.063682, 136.24, 200.0, 20.0, 3.0),
+    ("camphene", 0.055, 136.24, 400.0, 50.0, 3.0),
+    ("alpha-bisabolol", 0.00514, 222.37, 0.01, 5.0, 0.7),
+    ("benzyl alcohol", 0.000201, 108.14, 8.00, 5.00, 1.5),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -1371,6 +1421,15 @@ _ABSOLUTE_CONSTITUENTS = {
     ),
     "hay absolute perfumersworld 8ny00523 allergen declaration profile": (
         _HAY_ABSOLUTE_PW_8NY00523_ALLERGEN_DECLARATION_CONSTITUENTS
+    ),
+    "orange flower absolute perfumersworld 8nc00338 declaration profile": (
+        _ORANGE_FLOWER_ABSOLUTE_PW_8NC00338_DECLARATION_CONSTITUENTS
+    ),
+    "frangipani absolute perfumersworld 8on00534 declaration profile": (
+        _FRANGIPANI_ABSOLUTE_PW_8ON00534_DECLARATION_CONSTITUENTS
+    ),
+    "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile": (
+        _FIR_NEEDLE_BALSAM_PW_7KG07758_BIOLANDES_MIDPOINT_CONSTITUENTS
     ),
 }
 
@@ -1537,6 +1596,20 @@ _PROFILE_ALIASES = {
     "hay absolute": "hay absolute perfumersworld 8ny00523 allergen declaration profile",
     "hay absolute (10% w/w in dpg; homogeneous)": "hay absolute perfumersworld 8ny00523 allergen declaration profile",
     "hay absolute 10%": "hay absolute perfumersworld 8ny00523 allergen declaration profile",
+    # Owner stock STK-148, PerfumersWorld 5NC07544 "Orange Flower Absolute 10%
+    # in DPG"; the profile is the neat absolute (PW 8NC00338).
+    "orange flower absolute": "orange flower absolute perfumersworld 8nc00338 declaration profile",
+    "orange flower absolute 10% in dpg": "orange flower absolute perfumersworld 8nc00338 declaration profile",
+    # Owner stock inventory.txt "Frangipani Absolute (10% in DPG)", PerfumersWorld
+    # 5ON09236; the profile is the neat absolute (PW 8ON00534).
+    "frangipani absolute": "frangipani absolute perfumersworld 8on00534 declaration profile",
+    "frangipani absolute (10% in dpg)": "frangipani absolute perfumersworld 8on00534 declaration profile",
+    "frangipani absolute 10% in dpg": "frangipani absolute perfumersworld 8on00534 declaration profile",
+    # Owner stock STK-122 "Fir EO 10%" (10% w/w in DPG), bought as PerfumersWorld
+    # 7KG07758 (order PW-260817-03422462b); the profile is the neat oil.
+    "fir essential oil": "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile",
+    "fir eo": "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile",
+    "fir eo 10%": "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile",
 }
 
 _LAVENDER_40_42_PROXY_LIMITATIONS = (
@@ -1617,6 +1690,15 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
     ),
     "hay absolute": (
         "The owned Hay Absolute is modeled from PerfumersWorld 8NY00523 declared allergen levels (about 1.8% of the absolute); the bought SKU is unverified.",
+    ),
+    "orange flower absolute": (
+        "The owned Orange Flower Absolute (PerfumersWorld 5NC07544, 10% in DPG) is modeled from PerfumersWorld's declared levels for the neat absolute 8NC00338 (about 15.1% of it), not from an analysis of the owned lot.",
+    ),
+    "frangipani absolute": (
+        "The owned Frangipani Absolute (PerfumersWorld 5ON09236, 10% in DPG) is modeled from PerfumersWorld's declared levels for the neat absolute 8ON00534 (about 12.2% of it), not from an analysis of the owned lot.",
+    ),
+    "fir essential oil": (
+        "The owned Fir EO (PerfumersWorld 7KG07758, held as 10% w/w in DPG) is modeled as balsam fir needle oil: PW does not name the species, which is inferred from its CAS 8021-28-1 and limonene level.",
     ),
 }
 
@@ -1789,6 +1871,19 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     ),
     "hay absolute perfumersworld 8ny00523 allergen declaration profile": (
         "https://www.perfumersworld.com/document-list.php?pro_id=8NY00523&tab=allergen",
+    ),
+    "orange flower absolute perfumersworld 8nc00338 declaration profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=8NC00338",
+        "https://www.perfumersworld.com/document-list.php?pro_id=5NC07544",
+    ),
+    "frangipani absolute perfumersworld 8on00534 declaration profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=8ON00534",
+        "https://www.perfumersworld.com/document-list.php?pro_id=5ON09236",
+    ),
+    "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=7KG07758",
+        "https://www.biolandes.com/en/?p=43796",
+        "https://www.canadianfloraessentialoils.com/_files/ugd/b15383_6c6f440923c8412aa4f8e32603cb7210.pdf",
     ),
 }
 
@@ -3335,6 +3430,133 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Only 1.78% of the absolute is modeled; the undeclared 98.2% remainder is uncomputed, not odorless, so the modeled headspace does not represent hay character. Nothing is renormalized.",
             "Terpineol is declared as the isomer mixture (CAS 8000-41-7) and is modeled with the alpha-terpineol row.",
             "The bought SKU is ambiguous: 8NY00523 (neat absolute) or 5NY12745 (sold as 10% in DPG); the owned stock is 10% w/w in DPG.",
+        ),
+    },
+    "orange flower absolute perfumersworld 8nc00338 declaration profile": {
+        "analytical_method": "SUPPLIER_IFRA_AND_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=8NC00338",
+                "document": "PerfumersWorld IFRA certificate and allergen declaration, Orange Flower Absolute, SKU 8NC00338 (neat), read 25 Oct 2026",
+                "declared_pct": {
+                    "linalool": 14.2295,
+                    "geraniol": 0.7383,
+                    "benzyl cyanide": 0.4962,
+                    "d-limonene": 0.1722,
+                    "methyl n-formylanthranilate": 0.0385,
+                    "benzaldehyde": 0.0061,
+                    "methyl n-methylanthranilate": 0.0026,
+                    "7-methoxycoumarin": 0.0017,
+                },
+                "declared_sum_pct": 15.6851,
+                "declaration_basis_stated": False,
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Orange Flower Absolute 10% in DPG (STK-148)",
+                "owned_bottle_sku_verified": True,
+                "owned_sku": "5NC07544 (Orange Flower Absolute 10% in DPG, batch ref ORA07544/26298), whose tables are one tenth of 8NC00338's",
+                "literature_not_mixed_in": "CIR 2021 (Burnett et al., Int J Toxicol, doi 10.1177/10915818211040477) Table 5 gives linalool 34-48%, linalyl acetate 14-21%, farnesol 3.6-15.4%, nerolidol 4.9-8.9%, indole 2.6-9.9%; PW declares linalool 14.23% and no farnesol, so the published rows are not added",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("linalool", "geraniol", "limonene")},
+        },
+        "unresolved_constituents": (
+            {"name": "benzyl cyanide", "reported_fraction": 0.004962, "reason": "no constituent row in this module; marked IFRA-prohibited on PW's certificate"},
+            {"name": "methyl n-formylanthranilate", "reported_fraction": 0.000385, "reason": "no constituent row in this module"},
+            {"name": "benzaldehyde", "reported_fraction": 0.000061, "reason": "no constituent row in this module"},
+            {"name": "methyl n-methylanthranilate", "reported_fraction": 0.000026, "reason": "no constituent row in this module"},
+            {"name": "7-methoxycoumarin", "reported_fraction": 0.000017, "reason": "no constituent row in this module; marked IFRA-prohibited on PW's certificate"},
+        ),
+        "limitations": (
+            "Values are supplier-declared levels of IFRA-restricted materials and allergens with no stated basis; they are not a full composition or a lot analysis.",
+            "Only 15.14% of the absolute is modeled (linalool, geraniol, limonene); 0.545% declared without a constituent row and the undeclared remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "Indole, methyl anthranilate, nerolidol, farnesol and phenylethyl alcohol, which carry orange flower character in published absolutes, are not declared by PW and are not modeled.",
+        ),
+    },
+    "frangipani absolute perfumersworld 8on00534 declaration profile": {
+        "analytical_method": "SUPPLIER_IFRA_AND_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=8ON00534",
+                "document": "PerfumersWorld IFRA certificate and allergen declaration, Frangipani Absolute, SKU 8ON00534 (neat, CAS 94350-02-4), read 25 Oct 2026",
+                "declared_pct": {
+                    "benzyl salicylate": 9.0958,
+                    "benzyl benzoate": 1.6552,
+                    "linalool": 0.7789,
+                    "citronellol": 0.3794,
+                    "benzyl alcohol": 0.2475,
+                    "citral": 0.0785,
+                    "benzaldehyde": 0.0501,
+                },
+                "declared_sum_pct": 12.2854,
+                "declaration_basis_stated": False,
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Frangipani Absolute (10% in DPG)",
+                "owned_bottle_sku_verified": True,
+                "owned_sku": "5ON09236 (Frangipani Absolute 10% in DPG, batch ref FRA09236/26298), whose tables are one tenth of 8ON00534's",
+                "literature_not_mixed_in": "Published Plumeria absolutes and oils give benzyl salicylate about 27-45% and farnesol about 8%; PW declares 9.10% and no farnesol, so the published rows are not added",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("benzyl salicylate", "benzyl benzoate", "linalool", "citronellol", "benzyl alcohol", "citral")},
+        },
+        "unresolved_constituents": (
+            {"name": "benzaldehyde", "reported_fraction": 0.000501, "reason": "no constituent row in this module"},
+        ),
+        "limitations": (
+            "Values are supplier-declared levels of IFRA-restricted materials and allergens with no stated basis; they are not a full composition or a lot analysis.",
+            "Only 12.24% of the absolute is modeled; 0.05% benzaldehyde and the undeclared remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "Citral is declared as the isomer mixture (CAS 5392-40-5) and is modeled with the citral row.",
+        ),
+    },
+    "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile": {
+        "analytical_method": "SUPPLIER_DECLARATION_PLUS_PRODUCER_SPECIFICATION_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "declared_source": "https://www.perfumersworld.com/document-list.php?pro_id=7KG07758",
+                "declared_pct": {
+                    "limonene": 6.3682,
+                    "alpha-bisabolol": 0.5140,
+                    "cuminaldehyde": 0.0314,
+                    "l-carvone": 0.0274,
+                    "benzyl alcohol": 0.0201,
+                },
+                "range_sources": {
+                    "beta pinene": ("Biolandes Fir balsam EO, 28-38%", 0.33),
+                    "alpha pinene": ("Biolandes Fir balsam EO, 9-24%", 0.165),
+                    "delta-3-carene": ("Biolandes Fir balsam EO, up to 18%", 0.09),
+                    "bornyl acetate": ("Biolandes Fir balsam EO, 2-12%", 0.07),
+                    "camphene": ("Canadian Flora Essential Oils balsam fir TDS (20 Jun 2020), 4-7%", 0.055),
+                },
+                "species": "Abies balsamea, inferred: PW names no species; CAS 8021-28-1 is the balsam fir needle oil CAS (Biolandes, Canadian Flora, Ellemental) and PW's limonene 6.37% is inside Biolandes' 5-15%",
+                "species_asserted_by_supplier": False,
+                "fraction_rule": "DECLARED_PERCENT_OR_RANGE_MIDPOINT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Fir EO 10% (STK-122, 10% w/w in DPG)",
+                "owned_bottle_sku_verified": True,
+                "owned_sku": "7KG07758 (PW order PW-260817-03422462b, 17 Aug 2026, 1 g)",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("beta pinene", "alpha pinene", "delta-3-carene", "bornyl acetate",
+                            "limonene", "camphene", "alpha-bisabolol", "benzyl alcohol")},
+        },
+        "unresolved_constituents": (
+            {"name": "cuminaldehyde", "reported_fraction": 0.000314, "reason": "no constituent row in this module"},
+            {"name": "l-carvone", "reported_fraction": 0.000274, "reason": "no constituent row in this module"},
+        ),
+        "limitations": (
+            "The species is inferred from the CAS and the limonene level; PerfumersWorld does not name it.",
+            "PW's declared rows are kept as declared; the main terpenes are midpoints of producer specification ranges, not an analysis of the owned lot.",
+            "Only 77.90% of the oil is modeled; myrcene, santene, tricyclene and the other minor terpenes, two declared traces and the remainder are uncomputed, not odorless. Nothing is renormalized.",
         ),
     },
 }
