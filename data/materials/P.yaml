@@ -988,9 +988,10 @@
   # Stock declared 2026-10-20 (overlay record INV-USER-20261014-STK-134); neat as supplied.
   supplier:
   families: []
-  character:
+  character: 'smell of a natural nectarine; fruity, peach, apricot, lactonic'
   notes: MySkinRecipes order 2199458 'Peach Cyclopentanone, Peach Ketone', neat as supplied; CAS and purity not asserted.
   provenance:
+    character: 'Givaudan Nectaryl page (CAS 95962-14-4), https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/nectaryl: "Nectaryl has the smell of a natural nectarine." "Olfactive notes: Fruity, Peach, Apricot, Lactonic". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     cas: 'MySkinRecipes 2571 ''Peach Cyclopentanone'' = Nectaryl (Givaudan), 2-[2-(4-methyl-3-cyclohexen-1-yl)propyl]cyclopentanone (https://www.thegoodscentscompany.com/data/rw1052381.html); not 2-heptylcyclopentanone (137-03-1)'
     density_25c_g_ml: 'ECHA 0.963 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study (Nectaryl, 95962-14-4) 0.009 Pa at 20 C; EPI estimate was 0.049 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
@@ -1027,9 +1028,10 @@
   # Stock declared 2026-10-20 (overlay record INV-USER-20261014-STK-132); neat as supplied.
   supplier:
   families: []
-  character:
+  character: 'Fruity, pear-like, natural'
   notes: 'MySkinRecipes order 2199458 ''Pear Valerate, Peranat'', neat as supplied; CAS and purity not asserted. Identity 2026-10-23: CAS 90397-38-9 (2-methylpentyl 2-methylpentanoate, PubChem CID 163588) confirmed on PubChem; the link from the MySkinRecipes "Peranat" product to this CAS is unverified.'
   provenance:
+    character: 'Kao PERANAT data sheet (2-methylpentyl 2-methylvalerate, CAS 90397-38-9), https://chemical.kao.com/content/dam/sites/kao/chemical-kao-com/en/products/catalog_usen_B0010631.pdf: "Odor ... Fruity, pear-like, natural". Usage sentences left out. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     cas: 'Kao PERANAT https://chemical.kao.com/en/products/B0010631_en/; 2-methylpentyl 2-methylpentanoate'
     density_25c_g_ml: 'ECHA 0.8564 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'ESTIMATE kept: EPI Suite 13.9 Pa via TGSC. ECHA value DISPUTED: "ca. 8.7 kPa at 20 C" (reliability 2) is not credible for a C12 ester; not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
@@ -1463,7 +1465,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 2.88
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1479,9 +1481,11 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'soft honey-rose character'
   notes: null
   provenance:
+    character: 'RIFM, Food Chem. Toxicol. 197 (2025), https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-60-6.pdf: "Colorless liquid (color 4 maximum) with a soft honey-rose character (Givaudan)". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
+    odt_air_ppb: 'Givaudan SA, US 12,340,876 B2 (2025), Table 1 (HS ug/l, odor value = HS / odour threshold), https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876: "2-(phenoxy)ethyl 2-methylpropionate 20 V 816"; 20 / 816 = 24.51 ng/L x 24.45 / 208.25 = 2.88 ppb (producer measurement). Loaded 2026-10-25 (fruit batch)'
     cas: 'Perflavory https://www.perflavory.com/docs/doc1031511.html'
     density_25c_g_ml: 'ECHA 1.05 g/cm3 at 20 C (20 C value); TGSC/Perflavory SG 1.042-1.048. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.77 Pa at 25 C (EPI estimate 0.701 Pa agrees). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'

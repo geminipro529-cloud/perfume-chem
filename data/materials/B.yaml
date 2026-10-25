@@ -1533,9 +1533,10 @@
         sku: 5IR07532
         price_usd_per_g: 0.35
   families: []
-  character: null
+  character: 'Fruity, floral, fresh, green, woody, rose-like; plum, honey, tobacco and blackcurrant undertones'
   notes: 'VP 2.6 Pa at 25 C measured (OECD 104), bp 254 C, mp 9 C, log Kow 3.68 (OECD 117), water 194 mg/L, from the Firmenich Damascone Beta SDS v13 (2024); ChemicalBook 3.2 Pa agrees. Replaces the unsourced 0.08 Pa: a heart material, not a base.'
   provenance:
+    character: 'IFF Damascone Beta page (CAS 23726-91-2), https://www.iff.com/scent/ingredients-compendium/damascone-beta/: "Fruity, floral, fresh, green, woody, rose like odor. With plum, honey, tobacco and blackcurrant undertones."; dsm-firmenich 939697 page: "Apple, Rose, Plum, Tobacco". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

@@ -836,13 +836,13 @@
   logp: 3.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: 194.0
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 176.0
+  vp_source: PubChem_exp  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 2.9
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -862,7 +862,8 @@
   character: null
   notes: null
   provenance:
-    odt_air_ppb: engine.odor_thresholds
+    vp_25c_pa: 'PubChem CID 8908 (HSDB), citing Yaws, Handbook of Vapor Pressure vol. 3 (Gulf, 1994): "1.32 mm Hg at 25 °C" x 133.322 = 176 Pa, https://pubchem.ncbi.nlm.nih.gov/compound/8908; RIFM https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/142-92-7.pdf prints "1.0 mm Hg 20 °C (FMA)" = 133 Pa at 20 °C. Replaces an unsourced 194. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
+    odt_air_ppb: 'Concentration-detection functions for the odor of homologous n-acetate esters, Physiol. Behav. 2008, doi 10.1016/j.physbeh.2008.09.021 (PMID 18950650): "hexyl acetate (2.9 ppb)" (air-dilution olfactometry, 3-AFC, vapour checked by GC); cross-check Nagata (2003) triangle odor bag, Table 2: "n-Hexyl acetate 0.0018" ppm v/v = 1.8 ppb, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf. Replaces an unsourced 2.0. Loaded 2026-10-25 (fruit batch)'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt

@@ -4259,6 +4259,110 @@ ODT_VERIFICATION.update(
      for name, entry in _INVENTORY_ODT_UNAVAILABLE_20261007.items()}
 )
 
+# ─────────────────────────────────────────────────────────────────────
+# FRUIT_ODT_BATCH_2026_10_25 — air thresholds for owned fruity materials.
+# Kenny, 25 Oct 2026: "There are many missing information regarding the fruit
+# molecule". Each source was re-opened before loading. Placed after every
+# earlier patch (including _VERIFIED_ODT and the 7 Oct intake list) so these
+# values are the ones the gate uses. ppb = ng/L x 24.45 / MW (25 C). odt_eth is
+# left as it was: no ethanol-solution threshold was found for any of these.
+# Givaudan values: odour value (OV) = equilibrium headspace (HS) / odour
+# threshold, so threshold = HS / OV.
+_GIVAUDAN_US12340876 = (
+    "Givaudan SA, US 12,340,876 B2 (2025), Table 1, columns HS (ug/l), group, odor value; "
+    "'The odor value is determined by dividing the equilibrium headspace concentration of "
+    "the fragrance ingredient by its odor threshold' "
+    "(https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876)"
+)
+_FIRMENICH_ROSE_KETONES = (
+    "Williams A. (Firmenich), Rose Ketones: Celebrating 30 Years of Success, Perfumer & "
+    "Flavorist 27(2) (2002), Table 4 'Gaseous detection thresholds of some commercially "
+    "available rose ketones', ug/dm3 of air at 25 C; note 15: 'The values given are averages.' "
+    "(https://img.perfumerflavorist.com/files/base/allured/all/document/2016/02/pf.PF_27_02_018_11.pdf)"
+)
+_GIVAUDAN_PROC = (
+    "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', "
+    "with PROC and calculated log Kcaps tables "
+    "(https://www.freepatentsonline.com/y2018/0185808.html)"
+)
+_FRUIT_ODT_2026_10_25 = {
+    "cis-3 hexenyl acetate": (2.67, "PEER_SINGLE", [
+        _GIVAUDAN_US12340876 + ": '(Z)-hex-3-en-1-yl acetate 8931 III 575466'; "
+        "8931 / 575466 = 15.52 ng/L; x 24.45 / 142.20 = 2.67 ppb (producer measurement, "
+        "printed as an odour value, not peer-reviewed)",
+    ]),
+    "manzanate": (0.0515, "PEER_SINGLE", [
+        _GIVAUDAN_US12340876 + ": 'ethyl 2-methylpentanoate (MANZANATE) 18995 II 62586532'; "
+        "18995 / 62586532 = 0.3035 ng/L; x 24.45 / 144.21 = 0.0515 ppb (producer measurement)",
+    ]),
+    "ethyl 2-methylbutyrate": (0.676, "PEER_SINGLE", [
+        _GIVAUDAN_US12340876 + ": 'ethyl 2-methylbutanoate 59643 II 16577930'; "
+        "59643 / 16577930 = 3.598 ng/L; x 24.45 / 130.18 = 0.676 ppb (producer measurement). "
+        "Replaces an unsourced 0.06.",
+    ]),
+    "phenoxy ethyl isobutyrate": (2.88, "PEER_SINGLE", [
+        _GIVAUDAN_US12340876 + ": '2-(phenoxy)ethyl 2-methylpropionate 20 V 816'; "
+        "20 / 816 = 24.51 ng/L; x 24.45 / 208.25 = 2.88 ppb (producer measurement)",
+    ]),
+    "hexyl acetate": (2.9, "PEER_CROSS", [
+        "Concentration-detection functions for the odor of homologous n-acetate esters, "
+        "Physiol. Behav. 2008 (doi 10.1016/j.physbeh.2008.09.021, PMID 18950650, PMC2639399): "
+        "'hexyl acetate (2.9 ppb)', air-dilution "
+        "olfactometry, 3-AFC, vapour confirmed by GC, 16-17 subjects",
+        "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Table 2 (ppm "
+        "v/v): 'n-Hexyl acetate 0.0018' = 1.8 ppb "
+        "(https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf); agrees within a factor 1.6. "
+        "Replaces an unsourced 2.0.",
+    ]),
+    "allyl amyl glycolate": (0.172, "PEER_EST", [
+        _GIVAUDAN_PROC + ": 'ALLYL AMYL GLYCOLATE ... 448677' (PROC) and log Kcaps -2.2, so "
+        "OV = 448677 / 0.8 = 560,846",
+        "Givaudan SA, US 10,982,173: 'ingredients having equilibrium headspace concentration "
+        "from 601 ug/l to 900 ug/l, such as allyl 2-(isopentyloxy)acetate (for example ALLYL "
+        "AMYL GLYCOLATE)' (https://patents.justia.com/patent/10982173)",
+        "Estimate: threshold = HS / OV = 1.07-1.60 ng/L = 0.141-0.211 ppb (MW 186.25); "
+        "geometric midpoint 0.172 ppb. Two Givaudan documents combined, so labelled an "
+        "estimate. Replaces an unsourced 2.0.",
+    ]),
+    "verdyl acetate": (0.134, "PEER_EST", [
+        "Givaudan SA, US 9,868,923: 'JASMACYCLENE (HS i 0 =211 ug/L)' "
+        "(https://patents.justia.com/patent/9868923); Jasmacyclene is Givaudan's verdyl "
+        "(tricyclodecenyl) acetate",
+        _GIVAUDAN_PROC + ": 'JASMACYCLENE ... 259747' (PROC) and log Kcaps -1.7, so "
+        "OV = 259747 / 1.3 = 199,805",
+        "Estimate: threshold = 211 / 199,805 = 1.056 ng/L; x 24.45 / 192.25 = 0.134 ppb "
+        "(0.129-0.139 for log Kcaps +/- 0.05). Replaces 10 ppb, whose cited compilation was "
+        "never read.",
+    ]),
+    "delta damascone": (0.00267, "PEER_SINGLE", [
+        _FIRMENICH_ROSE_KETONES + ": 'delta-damascone 2.1 x 10-5' ug/dm3 = 0.021 ng/L; "
+        "x 24.45 / 192.30 = 0.00267 ppb (producer measurement of the commercial material). "
+        "Replaces an unsourced 0.02.",
+    ]),
+    "alpha damascone": (0.0178, "PEER_SINGLE", [
+        _FIRMENICH_ROSE_KETONES + ": 'alpha-damascone 1.4 x 10-4' ug/dm3 = 0.14 ng/L; "
+        "x 24.45 / 192.30 = 0.0178 ppb (producer measurement of the commercial material). "
+        "Replaces 0.04, an audit correction with no source.",
+    ]),
+}
+for _name, (_odt_air, _vfy, _sources) in _FRUIT_ODT_2026_10_25.items():
+    # A copy: cis-3 hexenyl acetate and manzanate share their dict with the 7 Oct
+    # intake receipt (_INVENTORY_ODT_UNAVAILABLE_20261007), which stays as recorded.
+    _entry = dict(ODT_DATA.get(_name) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _key in ("vfy", "sources"):
+        _entry.pop(_key, None)
+    if str(_entry.get("note", "")).startswith("Inventory receipt"):
+        _entry.pop("note")
+    ODT_DATA[_name] = _entry
+    ODT_VERIFICATION[_name] = {
+        "vfy": _vfy,
+        "sources": list(_sources),
+        "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+    }
+FRUIT_ODT_BATCH_2026_10_25 = True
+
+
 # (auditor CRITICAL C1: without this, batch ODT_DATA entries are unreachable via runtime lookup)
 MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True
 _refresh_normalized_odt_index()

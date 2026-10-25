@@ -389,12 +389,12 @@
   # 2026-10-08: was 170.25; corrected from the molecular formula
   mw_g_mol: 198.30
   density_25c_g_ml: 0.938
-  logp:
+  logp: 4.75
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.3)
-  vp_25c_pa: 0.3
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 7.11
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -419,6 +419,8 @@
   character:
   notes:
   provenance:
+    vp_25c_pa: 'ESTIMATE: EPI Suite value printed by RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/88-41-5.pdf: "0.0533 mm Hg at 25 °C (EPI Suite v4.11)" x 133.322 = 7.11 Pa; RIFM also prints "0.05 mm Hg at 20 °C (FMA)" = 6.67 Pa at 20 °C, and Eternis (cis-rich OTBCHA Super SDS) "9.72 Pa @ 23°C". Replaces an unsourced 0.3. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
+    logp: 'IFF VERDOX SDS (code 00222496; copy hosted at https://johndwalsh.com/wp-content/uploads/2016/09/VERDOX-GHS-SDS-1.pdf): "log Pow: 4.75 at 77 °F (25 °C)"; Eternis OTBCHA Super SDS prints 4.75; RIFM https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/88-41-5.pdf prints measured 4.8 and 4.7. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     mw_g_mol: 'Molecular formula C12H22O2 for 2-tert-butylcyclohexyl acetate, CAS 88-41-5 (the CAS already cited from TGSC rw1002461); MW from IUPAC standard atomic weights = 198.30. The old 170.25 matched no formula for this CAS.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -432,18 +434,18 @@
   cas: 5413-60-5
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 192.26
   density_25c_g_ml: 1.075
-  logp:
+  logp: 3.8
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.84
+  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.134
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -462,6 +464,10 @@
   character:
   notes:
   provenance:
+    vp_25c_pa: 'ESTIMATE: EPI Suite value printed by RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5413-60-5.pdf: "Vapor Pressure (Pa @ 25 °C, EPI Suite) 2.84"; no measured value found. Givaudan Jasmacyclene page prints 0.0267 hPa = 2.67 Pa (temperature not printed), which agrees. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
+    logp: 'RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5413-60-5.pdf: "Log Kow: 3.8 at 25 °C (RIFM, 1996c)", measured; the same document also prints Log Pow 3.4 and 3.5 (RIFM, 2010e) and 3.90 (54830-99-8 column), so the measured spread is 3.4-3.9; RIFMs environmental section uses 3.8. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
+    mw_g_mol: 'RIFM safety assessment, tricyclodecenyl acetate (covers 5413-60-5, 54830-99-8, 2500-83-6), https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5413-60-5.pdf: "Molecular Weight: 192.26"; Givaudan Jasmacyclene page prints 192,2. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
+    odt_air_ppb: 'ESTIMATE: Givaudan US 9,868,923 "JASMACYCLENE (HS i 0 =211 ug/L)" (https://patents.justia.com/patent/9868923; Jasmacyclene = verdyl acetate); Givaudan SA, US 2018/0185808, PROC_i = OV_i [log10 Kcaps_i + 3], https://www.freepatentsonline.com/y2018/0185808.html: PROC 259747, log Kcaps -1.7, so OV = 199,805. Threshold = 211 / 199,805 = 1.056 ng/L x 24.45 / 192.25 = 0.134 ppb (0.129-0.139 for log Kcaps +/- 0.05). Loaded 2026-10-25 (fruit batch)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 1.070 to 1.080; https://www.thegoodscentscompany.com/data/rw1002152.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '23 Oct 2026 deep-research pass (3-0 verified): RIFM assessment uses 5413-60-5 (tricyclodecenyl acetate; synonyms Verdyl acetate, Jasmacyclene, Herbaflorat) as the primary CAS and covers 2500-83-6 and 54830-99-8 as isomers of the same material, all C12H16O2; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5413-60-5.pdf'

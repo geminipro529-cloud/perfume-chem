@@ -1033,9 +1033,10 @@
         sku: 5FC07539
         price_usd_per_g: 0.06
   families: []
-  character: null
+  character: 'fruity, strawberry, powerful'
   notes: 'logP and VP left null (2026-10-08). logP conflict, no measured value: 1.655 (TGSC est, https://www.perflavory.com/docs/doc1001602.html) vs 2.43 (ChemicalBook, method not stated, https://www.chemicalbook.com/CASEN_77-83-8.htm). VP: only an estimate exists, not RIFM-quoted: 0.006 mmHg at 25 C (TGSC est) = 0.800 Pa at 133.322 Pa/mmHg. ChemicalBook density 1.087 g/mL at 25 C (lit.) agrees with the TGSC midpoint. ChemicalBook "Aroma threshold values: Detection: 2 ppm" has no stated medium and is not an air ODT. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-23: merged the duplicate entry Aldehyde C16 EMPG (added by commit 94a2cc90, which wrongly said no earlier entry existed); logP now set to a labelled RDKit Crippen estimate (see provenance), still not measured; chemprops RDKit MW 206.241 agrees with 206.24.'
   provenance:
+    character: 'Givaudan Strawberry Pure page (CAS 77-83-8), https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/strawberry-pure: "Olfactive notes: Fruity, Strawberry, Powerful". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://www.thegoodscentscompany.com/data/rw1001602.html; "ethyl methylphenylglycidate" "CAS 77-83-8"; "aldehyde C-16 (so-called)" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.perflavory.com/docs/doc1001602.html (TGSC mirror); "Molecular Weight: 206.24118000", calculated from C12H14O3 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
@@ -1084,9 +1085,10 @@
         sku: 5DD12925
         price_usd_per_g: 0.07
   families: []
-  character: null
+  character: 'coconut odor'
   notes: 'VP is an estimate; other values: TGSC/perflavory 0.009 mm Hg at 25 C (est) = 1.20 Pa; at 20 C (not used) EPI v4.0 0.0073 mm Hg = 0.97 Pa and FMA 0.02 mm Hg = 2.67 Pa. Other log Kow estimates: EPI 2.08, perflavory 1.942, XLogP3-AA 2.2. FMA density 0.958-0.966 (temperature not stated). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
+    character: 'RIFM, Food Chem. Toxicol. 134 (2019) 110905, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "Colorless to yellow liquid with coconut odor". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'perflavory (TGSC mirror) https://www.perflavory.com/docs/doc1000532.html: "104-61-0" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "5. Molecular Weight: 156.22" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
@@ -1646,7 +1648,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.006
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.172
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1680,7 +1682,7 @@
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE: Givaudan SA, US 2018/0185808, PROC_i = OV_i [log10 Kcaps_i + 3], https://www.freepatentsonline.com/y2018/0185808.html: PROC 448677, log Kcaps -2.2, so OV = 560,846; Givaudan US 10,982,173 puts ALLYL AMYL GLYCOLATE in the 601-900 ug/l headspace band (https://patents.justia.com/patent/10982173). Threshold = HS / OV = 1.07-1.60 ng/L = 0.141-0.211 ppb (MW 186.25); geometric midpoint 0.172 ppb. Replaces an unsourced 2.0. Loaded 2026-10-25 (fruit batch)'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: engine.skin_interaction
@@ -1849,7 +1851,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.003
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.0178
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1878,7 +1880,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: EP 3141239 B1, 0.00830 Torr at 25 C
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Williams A. (Firmenich), Rose Ketones: Celebrating 30 Years of Success, Perfumer & Flavorist 27(2) 2002, Table 4 (gaseous detection thresholds, ug/dm3 air, averages), https://img.perfumerflavorist.com/files/base/allured/all/document/2016/02/pf.PF_27_02_018_11.pdf: "alpha-damascone 1.4 x 10-4" ug/dm3 = 0.14 ng/L x 24.45 / 192.30 = 0.0178 ppb (producer measurement of the commercial material). Replaces 0.04 (no source). Loaded 2026-10-25 (fruit batch)'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt

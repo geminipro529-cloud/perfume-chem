@@ -1017,7 +1017,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.0515
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -1038,6 +1038,7 @@
   character:
   notes: 'logP, VP and density left null (2026-10-08). logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 2.667 (est)"; "Vapor Pressure: 2.906000 mmHg @ 25.00 C. (est)" = 387 Pa at 133.322 Pa/mmHg (https://www.perflavory.com/docs/doc1006801.html). Parchem "Specific gravity 0.861-0.865" has no stated temperature. Identity: ethyl 2-methylpentanoate (Givaudan). Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odt_air_ppb: 'Givaudan SA, US 12,340,876 B2 (2025), Table 1 (HS ug/l, odor value = HS / odour threshold), https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876: "ethyl 2-methylpentanoate (MANZANATE) 18995 II 62586532"; 18995 / 62586532 = 0.3035 ng/L x 24.45 / 144.21 = 0.0515 ppb (producer measurement). Loaded 2026-10-25 (fruit batch)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://scentspiracy.com/fragrance-ingredients/p/manzanate and https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "CAS No.: 39255-32-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "Molecular weight 144.21" (C8H16O2) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
@@ -1282,7 +1283,7 @@
   inchikey:
   mw_g_mol: 140.22
   density_25c_g_ml: 0.842
-  logp:
+  logp: 3.4
   functional_groups: []
   chirality:
   vp_25c_pa: 239.0
@@ -1315,6 +1316,7 @@
   character:
   notes:
   provenance:
+    logp: 'RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-72-9.pdf: "log Pow = 3.4 (RIFM, 2000a), 3.04 (EPI Suite 4.0)", measured. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     mw_g_mol: ECHA identity record for CAS 106-72-9
     vp_25c_pa: OECD 104 value reported in EU SDS, 239 Pa at 25 C
     odt_air_ppb: engine.odor_thresholds

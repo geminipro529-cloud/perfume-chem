@@ -1394,7 +1394,7 @@
     "bp": null,
     "vp": 0.2,
     "clp": 1.0,
-    "odt": 2.0,
+    "odt": 0.172,
     "odt_ethanol_ppm": 0.3,
     "oav_typical": null,
     "oav_dose_pct": 3.0,
@@ -1544,12 +1544,14 @@
       }
     },
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_EST",
       "sources": [
-        "Solvent/carrier — estimated high threshold"
+        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'ALLYL AMYL GLYCOLATE ... 448677' (PROC) and log Kcaps -2.2, so OV = 448677 / 0.8 = 560,846",
+        "Givaudan SA, US 10,982,173: 'ingredients having equilibrium headspace concentration from 601 ug/l to 900 ug/l, such as allyl 2-(isopentyloxy)acetate (for example ALLYL AMYL GLYCOLATE)' (https://patents.justia.com/patent/10982173)",
+        "Estimate: threshold = HS / OV = 1.07-1.60 ng/L = 0.141-0.211 ppb (MW 186.25); geometric midpoint 0.172 ppb. Two Givaudan documents combined, so labelled an estimate. Replaces an unsourced 2.0."
       ],
-      "note": "Auto-tagged by audit 2026-05-11",
-      "declared_vfy": "UNVERIFIED"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_EST"
     },
     "current_stocks": [
       {
@@ -2109,7 +2111,7 @@
     "bp": null,
     "vp": 1.10657,
     "clp": 3.66,
-    "odt": 0.04,
+    "odt": 0.0178,
     "odt_ethanol_ppm": 0.01,
     "oav_typical": null,
     "oav_dose_pct": 2.0,
@@ -2212,12 +2214,12 @@
       }
     },
     "odt_evidence": {
-      "vfy": "DERIVED",
+      "vfy": "PEER_SINGLE",
       "sources": [
-        "Audit-corrected value — source in inline comment"
+        "Williams A. (Firmenich), Rose Ketones: Celebrating 30 Years of Success, Perfumer & Flavorist 27(2) (2002), Table 4 'Gaseous detection thresholds of some commercially available rose ketones', ug/dm3 of air at 25 C; note 15: 'The values given are averages.' (https://img.perfumerflavorist.com/files/base/allured/all/document/2016/02/pf.PF_27_02_018_11.pdf): 'alpha-damascone 1.4 x 10-4' ug/dm3 = 0.14 ng/L; x 24.45 / 192.30 = 0.0178 ppb (producer measurement of the commercial material). Replaces 0.04, an audit correction with no source."
       ],
-      "note": "Auto-tagged by audit 2026-05-11",
-      "declared_vfy": "DERIVED"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_SINGLE"
     },
     "current_stocks": [
       {
@@ -17104,7 +17106,7 @@
     "mw": 190.28,
     "bp": null,
     "vp": 0.6,
-    "clp": 3.5,
+    "clp": 3.215,
     "odt": 0.5,
     "odt_ethanol_ppm": 0.005,
     "oav_typical": null,
@@ -17184,6 +17186,12 @@
         "fields": {
           "mw": 194.3
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 3.5
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -17228,7 +17236,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -18513,8 +18521,8 @@
     "formula_str": "C12H16O2",
     "mw": 192.25,
     "bp": null,
-    "vp": 6.67,
-    "clp": 2.7,
+    "vp": 2.97,
+    "clp": 3.4,
     "odt": 3.0,
     "odt_ethanol_ppm": 0.1,
     "oav_typical": null,
@@ -18591,6 +18599,13 @@
           "smell_strength": "moderate-strong",
           "anosmic_risk": "standard"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 6.67,
+          "clp": 2.7
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -18633,9 +18648,9 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
-        "mw": "profile:ingredient_intelligence.mw",
-        "vp": "profile:ingredient_intelligence.vp",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -19741,7 +19756,7 @@
     "bp": null,
     "vp": 1070.0,
     "clp": 1.9,
-    "odt": 0.06,
+    "odt": 0.676,
     "odt_ethanol_ppm": 0.012,
     "oav_typical": null,
     "oav_dose_pct": 2.0,
@@ -19840,12 +19855,12 @@
       }
     },
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_SINGLE",
       "sources": [
-        "No peer-reviewed air-phase ODT found in indexed literature"
+        "Givaudan SA, US 12,340,876 B2 (2025), Table 1, columns HS (ug/l), group, odor value; 'The odor value is determined by dividing the equilibrium headspace concentration of the fragrance ingredient by its odor threshold' (https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876): 'ethyl 2-methylbutanoate 59643 II 16577930'; 59643 / 16577930 = 3.598 ng/L; x 24.45 / 130.18 = 0.676 ppb (producer measurement). Replaces an unsourced 0.06."
       ],
-      "note": "Auto-tagged by audit 2026-05-11",
-      "declared_vfy": "UNVERIFIED"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_SINGLE"
     },
     "current_stocks": [
       {
@@ -26561,9 +26576,9 @@
     "formula_str": "C₈H₁₆O₂",
     "mw": 144.21,
     "bp": 171.0,
-    "vp": 194.0,
+    "vp": 176.0,
     "clp": 3.3,
-    "odt": 2.0,
+    "odt": 2.9,
     "sar_class": "Aliphatic esters — fruity series",
     "olfactophore": "The hexyl ester of acetic acid. In Kraft's ester SAR series:",
     "arctander_character": "Green apple, pear, fresh fruity, slightly herbal, sweet,",
@@ -26649,6 +26664,12 @@
         "fields": {
           "clp": 2.83
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 194.0
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -26697,12 +26718,13 @@
       }
     },
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_CROSS",
       "sources": [
-        "No peer-reviewed air-phase ODT found in indexed literature"
+        "Concentration-detection functions for the odor of homologous n-acetate esters, Physiol. Behav. 2008 (doi 10.1016/j.physbeh.2008.09.021, PMID 18950650, PMC2639399): 'hexyl acetate (2.9 ppb)', air-dilution olfactometry, 3-AFC, vapour confirmed by GC, 16-17 subjects",
+        "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Table 2 (ppm v/v): 'n-Hexyl acetate 0.0018' = 1.8 ppb (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf); agrees within a factor 1.6. Replaces an unsourced 2.0."
       ],
-      "note": "Auto-tagged by audit 2026-05-11",
-      "declared_vfy": "UNVERIFIED"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_CROSS"
     },
     "current_stocks": [
       {
@@ -26955,15 +26977,16 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": 2.0,
+    "odt": 2.9,
     "odt_ethanol_ppm": 0.4,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_CROSS",
       "sources": [
-        "No peer-reviewed air-phase ODT found in indexed literature"
+        "Concentration-detection functions for the odor of homologous n-acetate esters, Physiol. Behav. 2008 (doi 10.1016/j.physbeh.2008.09.021, PMID 18950650, PMC2639399): 'hexyl acetate (2.9 ppb)', air-dilution olfactometry, 3-AFC, vapour confirmed by GC, 16-17 subjects",
+        "Nagata (2003) Measurement of odor threshold by triangle odor bag method, Table 2 (ppm v/v): 'n-Hexyl acetate 0.0018' = 1.8 ppb (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf); agrees within a factor 1.6. Replaces an unsourced 2.0."
       ],
-      "note": "Auto-tagged by audit 2026-05-11",
-      "declared_vfy": "UNVERIFIED"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_CROSS"
     },
     "current_stocks": [],
     "inventory_text_records": [],
@@ -27017,11 +27040,17 @@
         "fields": {
           "clp": 2.83
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 194.0
+        }
       }
     ],
     "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
     "mw": 144.21,
-    "vp": 194.0,
+    "vp": 176.0,
     "clp": 3.3,
     "note": "top",
     "role": "modifier",
@@ -34465,7 +34494,7 @@
     "mw": 140.22,
     "bp": null,
     "vp": 239.0,
-    "clp": 2.5,
+    "clp": 3.4,
     "odt": 0.5,
     "odt_ethanol_ppm": 0.3,
     "oav_typical": null,
@@ -34538,6 +34567,12 @@
           "smell_strength": "moderate-strong",
           "anosmic_risk": "standard"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.5
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -34582,7 +34617,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -45265,7 +45300,7 @@
     "alt_name": null,
     "mw": 164.2,
     "vp": 7.0,
-    "clp": 2.0,
+    "clp": 2.5,
     "note": "heart",
     "role": "modifier",
     "texture": "sweet, green",
@@ -45337,6 +45372,12 @@
         "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
         "fields": {
           "odor_family": "green"
+        }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "clp": 2.0
         }
       }
     ],
@@ -49110,8 +49151,8 @@
     "formula_str": "C₁₂H₂₂O₂",
     "mw": 198.3,
     "bp": 230.0,
-    "vp": 0.3,
-    "clp": 3.2,
+    "vp": 7.11,
+    "clp": 4.75,
     "odt": 20.0,
     "sar_class": "Cyclohexyl esters — tert-alkyl substituted cyclohexanyl acetate",
     "olfactophore": "The tert-butyl group on the cyclohexane ring provides steric",
@@ -49207,6 +49248,13 @@
         "fields": {
           "mw": 170.25
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.3,
+          "clp": 3.2
+        }
       }
     ],
     "material_kind": "UNRESOLVED",
@@ -49251,7 +49299,7 @@
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
         "vp": "registry:data_spine.vp_25c",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "clp": "registry:data_spine.logp"
       }
     },
     "odt_evidence": {
@@ -49343,15 +49391,15 @@
   {
     "name": "Verdyl Acetate",
     "alt_name": null,
-    "mw": 192.25,
-    "vp": 2.0,
-    "clp": 2.2,
+    "mw": 192.26,
+    "vp": 2.84,
+    "clp": 3.8,
     "note": "heart",
     "role": "modifier",
     "texture": "green, woody",
     "activity_coef": 2.0,
     "hedonic": 0.5,
-    "odt": 10.0,
+    "odt": 0.134,
     "odt_ethanol_ppm": 0.02,
     "oav_typical": null,
     "oav_dose_pct": 2.0,
@@ -49418,6 +49466,14 @@
         "fields": {
           "odor_family": "green"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 192.25,
+          "vp": 2.0,
+          "clp": 2.2
+        }
       }
     ],
     "or_family": "green_floral",
@@ -49461,22 +49517,21 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
-        "mw": "profile:ingredient_intelligence.mw",
-        "vp": "profile:ingredient_intelligence.vp",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "synergies": [],
     "odt_evidence": {
-      "vfy": "MULTI_SOURCE_LITERATURE",
+      "vfy": "PEER_EST",
       "sources": [
-        "van Gemert (2011) — verdyl acetate air ODT",
-        "PubChem CID 110655 (verdyl acetate, MW 192.25)",
-        "TGSC — verdyl acetate",
-        "Supplier TDS"
+        "Givaudan SA, US 9,868,923: 'JASMACYCLENE (HS i 0 =211 ug/L)' (https://patents.justia.com/patent/9868923); Jasmacyclene is Givaudan's verdyl (tricyclodecenyl) acetate",
+        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'JASMACYCLENE ... 259747' (PROC) and log Kcaps -1.7, so OV = 259747 / 1.3 = 199,805",
+        "Estimate: threshold = 211 / 199,805 = 1.056 ng/L; x 24.45 / 192.25 = 0.134 ppb (0.129-0.139 for log Kcaps +/- 0.05). Replaces 10 ppb, whose cited compilation was never read."
       ],
-      "note": "material intake batch 2026-08-07",
-      "declared_vfy": "MULTI_SOURCE_LITERATURE"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_EST"
     },
     "current_stocks": [
       {
@@ -61241,15 +61296,17 @@
       "Methyl Pamplemousse"
     ],
     "odor_profile": "",
-    "odt": 2.0,
+    "odt": 0.172,
     "odt_ethanol_ppm": 0.3,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_EST",
       "sources": [
-        "Solvent/carrier — estimated high threshold"
+        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'ALLYL AMYL GLYCOLATE ... 448677' (PROC) and log Kcaps -2.2, so OV = 448677 / 0.8 = 560,846",
+        "Givaudan SA, US 10,982,173: 'ingredients having equilibrium headspace concentration from 601 ug/l to 900 ug/l, such as allyl 2-(isopentyloxy)acetate (for example ALLYL AMYL GLYCOLATE)' (https://patents.justia.com/patent/10982173)",
+        "Estimate: threshold = HS / OV = 1.07-1.60 ng/L = 0.141-0.211 ppb (MW 186.25); geometric midpoint 0.172 ppb. Two Givaudan documents combined, so labelled an estimate. Replaces an unsourced 2.0."
       ],
-      "note": "Auto-tagged by audit 2026-05-11",
-      "declared_vfy": "UNVERIFIED"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_EST"
     },
     "current_stocks": [
       {
@@ -66272,11 +66329,17 @@
         "fields": {
           "odor_family": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 2.0
+        }
       }
     ],
     "mw": 164.2,
     "vp": 7.0,
-    "clp": 2.0,
+    "clp": 2.5,
     "note": "heart",
     "role": "modifier",
     "texture": "sweet, green",
@@ -68857,11 +68920,18 @@
         "fields": {
           "odor_family": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 6.67,
+          "clp": 2.7
+        }
       }
     ],
     "mw": 192.25,
-    "vp": 6.67,
-    "clp": 2.7,
+    "vp": 2.97,
+    "clp": 3.4,
     "note": "heart",
     "role": "character",
     "texture": "diffusion",
@@ -68908,9 +68978,9 @@
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
-        "mw": "profile:ingredient_intelligence.mw",
-        "vp": "profile:ingredient_intelligence.vp",
-        "clp": "profile:ingredient_intelligence.clogp"
+        "mw": "registry:data_spine.mw",
+        "vp": "registry:data_spine.vp_25c",
+        "clp": "registry:data_spine.logp"
       }
     },
     "synergies": [
@@ -75265,15 +75335,15 @@
     },
     "synergies": [],
     "odor_profile": "cis-3 Hexenyl Acetate has a fresh and sharp green sweet fruity aroma",
-    "odt": null,
+    "odt": 2.67,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_SINGLE",
       "sources": [
-        "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "Givaudan SA, US 12,340,876 B2 (2025), Table 1, columns HS (ug/l), group, odor value; 'The odor value is determined by dividing the equilibrium headspace concentration of the fragrance ingredient by its odor threshold' (https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876): '(Z)-hex-3-en-1-yl acetate 8931 III 575466'; 8931 / 575466 = 15.52 ng/L; x 24.45 / 142.20 = 2.67 ppb (producer measurement, printed as an odour value, not peer-reviewed)"
       ],
-      "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied.",
-      "declared_vfy": "UNAVAILABLE"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_SINGLE"
     },
     "current_stocks": [
       {
@@ -78229,15 +78299,15 @@
     },
     "synergies": [],
     "odor_profile": "Manzanate has a fruity green apple pineapple melon odour Its fruity ripe apple character has aspects of cider and sweet pineapple. When used in",
-    "odt": null,
+    "odt": 0.0515,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_SINGLE",
       "sources": [
-        "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "Givaudan SA, US 12,340,876 B2 (2025), Table 1, columns HS (ug/l), group, odor value; 'The odor value is determined by dividing the equilibrium headspace concentration of the fragrance ingredient by its odor threshold' (https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876): 'ethyl 2-methylpentanoate (MANZANATE) 18995 II 62586532'; 18995 / 62586532 = 0.3035 ng/L; x 24.45 / 144.21 = 0.0515 ppb (producer measurement)"
       ],
-      "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied.",
-      "declared_vfy": "UNAVAILABLE"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_SINGLE"
     },
     "current_stocks": [
       {
@@ -81523,15 +81593,15 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": 0.02,
+    "odt": 0.00267,
     "odt_ethanol_ppm": 0.004,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_SINGLE",
       "sources": [
-        "No peer-reviewed air-phase ODT found in indexed literature"
+        "Williams A. (Firmenich), Rose Ketones: Celebrating 30 Years of Success, Perfumer & Flavorist 27(2) (2002), Table 4 'Gaseous detection thresholds of some commercially available rose ketones', ug/dm3 of air at 25 C; note 15: 'The values given are averages.' (https://img.perfumerflavorist.com/files/base/allured/all/document/2016/02/pf.PF_27_02_018_11.pdf): 'delta-damascone 2.1 x 10-5' ug/dm3 = 0.021 ng/L; x 24.45 / 192.30 = 0.00267 ppb (producer measurement of the commercial material). Replaces an unsourced 0.02."
       ],
-      "note": "Auto-tagged by audit 2026-05-11",
-      "declared_vfy": "UNVERIFIED"
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_SINGLE"
     },
     "current_stocks": [
       {
@@ -83791,11 +83861,15 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": null,
+    "odt": 2.88,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "vfy": "PEER_SINGLE",
+      "sources": [
+        "Givaudan SA, US 12,340,876 B2 (2025), Table 1, columns HS (ug/l), group, odor value; 'The odor value is determined by dividing the equilibrium headspace concentration of the fragrance ingredient by its odor threshold' (https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876): '2-(phenoxy)ethyl 2-methylpropionate 20 V 816'; 20 / 816 = 24.51 ng/L; x 24.45 / 208.25 = 2.88 ppb (producer measurement)"
+      ],
+      "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+      "declared_vfy": "PEER_SINGLE"
     },
     "current_stocks": [
       {

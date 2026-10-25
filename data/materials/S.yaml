@@ -2493,8 +2493,8 @@
   smiles: null
   inchikey: null
   mw_g_mol: 164.2
-  density_25c_g_ml: 1.024
-  logp: 2.0
+  density_25c_g_ml: 1.0215
+  logp: 2.5
   functional_groups: []
   chirality: null
   vp_25c_pa: 7.0
@@ -2526,8 +2526,9 @@
   character: 'green-sweet gardenia-floral ester'
   notes: "material intake batch 2026-08-07; merged 2026-10-09 with the misspelt 'Stralyl Acetate' record (same CAS 93-92-5) so the owned V5 label reaches its data"
   provenance:
+    logp: 'RIFM, Food Chem. Toxicol. 97 (2016) S57-S68, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/93-92-5.pdf: "2.5 at 30 °C [RIFM, 1996b], 2.5 [EPI Suite]", measured. Replaces an unsourced 2.0. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: 'TGSC: Specific Gravity: 1.02000 to 1.03500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1011092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/93-92-5.pdf: "1.023-1.026 @ 25/25 °C [Gaunt et al., 1974]"; midpoint 1.0245 x 0.99705 (water at 25 °C) = 1.0215 g/mL. Replaces a TGSC range midpoint (1.024). Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
 - canonical_name: Styralyl Alcohol
   aliases: []
   cas: null

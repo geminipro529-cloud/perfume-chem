@@ -320,7 +320,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb: 0.06
+  odt_air_ppb: 0.676
   odt_eth_ppm: 0.012
   stevens_n:
   or_targets: []
@@ -343,11 +343,12 @@
         price_usd_per_g: 0.07
   families:
   - citrus / top
-  character:
+  character: 'very diffusive fruity; green, apple, pineapple skin'
   notes:
   provenance:
+    character: 'Givaudan Ethyl Methyl-2-Butyrate page (CAS 7452-79-1), https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-methyl-2-butyrate: "a very diffusive fruity effect"; "Fruity, Green, Apple, Pineapple skin, Diffusive". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl 2-methylbutyrate, CAS 7452-79-1 (Api et al., Food Chem. Toxicol. 2018, doi:10.1016/j.fct.2018.11.033): "8.03 mm Hg @ 25 C (US EPA, 2012a)"; appendix "Vapor Pressure (Pa @ 25 C, EPI Suite) 1.07E+003". Estimate, not measured. ChemicalBook lists 11.73 hPa at 20 C (method not stated); Verevkin et al. 1992 (Thermochim. Acta 197:27) measured vapour pressures at 288-308 K but were not read.'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan SA, US 12,340,876 B2 (2025), Table 1 (HS ug/l, odor value = HS / odour threshold), https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876: "ethyl 2-methylbutanoate 59643 II 16577930"; 59643 / 16577930 = 3.598 ng/L x 24.45 / 130.18 = 0.676 ppb (producer measurement). Replaces an unsourced 0.06. Loaded 2026-10-25 (fruit batch)'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt

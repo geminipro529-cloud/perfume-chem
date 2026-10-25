@@ -631,9 +631,10 @@
   user_in_inventory: true
   supplier: null
   families: []
-  character: null
+  character: 'coconut odor'
   notes: 'Current 10% stock carrier is ethanol. Fraction basis remains unspecified, so quantitative execution is held. A separate neat text entry is not bound as current physical authority. VP is an estimate; other values: TGSC/perflavory 0.009 mm Hg at 25 C (est) = 1.20 Pa; at 20 C (not used) EPI v4.0 0.0073 mm Hg = 0.97 Pa and FMA 0.02 mm Hg = 2.67 Pa. Other log Kow estimates: EPI 2.08, perflavory 1.942, XLogP3-AA 2.2. FMA density 0.958-0.966 (temperature not stated). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
+    character: 'RIFM, Food Chem. Toxicol. 134 (2019) 110905, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "Colorless to yellow liquid with coconut odor". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
