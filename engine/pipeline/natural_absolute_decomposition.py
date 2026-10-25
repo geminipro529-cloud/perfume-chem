@@ -464,15 +464,6 @@ _OAKMOSS_ABSOLUTE_CONSTITUENTS = [
     ("methyl orsellinate", 0.01, 182.18, 0.20, 3.00, 0.6),
 ]
 
-_PATCHOULI_EO_CONSTITUENTS = [
-    ("patchoulol", 0.30, 222.37, 0.005, 1.00, 0.5),
-    ("alpha bulnesene", 0.12, 204.35, 0.50, 5.00, 1.2),
-    ("alpha guaiene", 0.10, 204.35, 1.00, 3.00, 1.2),
-    ("seychellene", 0.05, 204.35, 0.80, 5.00, 1.2),
-    ("nor patchoulenol", 0.04, 206.32, 0.01, 0.50, 0.5),
-    ("caryophyllene", 0.03, 204.35, 1.00, 10.0, 1.2),
-]
-
 _LABDANUM_RESINOID_CONSTITUENTS = [
     ("alpha pinene", 0.15, 136.24, 400.0, 20.0, 3.0),
     ("camphene", 0.05, 136.24, 400.0, 50.0, 3.0),
@@ -841,16 +832,23 @@ _BERGAMOT_EO_CONSTITUENTS = [
     ("bergaptene", 0.0035, 216.19, 0.001, 0.01, 0.5),  # PHOTOTOXIC furanocoumarin
 ]
 
+# Pogostemon cablin leaf oil: van Beek & Joulain (2018) Flavour Fragr. J., review,
+# Table 4, averages over more than 100 published oil analyses (GC area %).
+# Pogostone, a Chinese-chemotype marker, is left out as the review does for
+# patchoulol-type oils. 77.27% is modeled, not renormalized; the
+# sesquiterpenes without a runtime input stay unresolved.
 _PATCHOULI_EO_CONSTITUENTS = [
-    # van Beek 1992 (Flav Fragr J), Donelian 2009 (Perfum Flavor).
-    # Extraction: steam distillation. Character: patchoulol (woody-earthy-camphoraceous).
-    # Note: patchouli alcohol has anti-inflammatory COX-2 activity (pharmacological).
-    ("patchoulol", 0.30, 222.37, 0.005, 0.5, 0.5),
-    ("alpha-bulnesene", 0.15, 204.35, 1.0, 5.0, 1.2),
-    ("alpha-guaiene", 0.12, 204.35, 1.0, 5.0, 1.2),
-    ("seychellene", 0.06, 204.35, 1.0, 5.0, 1.2),
-    ("pogostol", 0.03, 222.37, 0.005, 1.0, 0.5),
-    ("beta-caryophyllene", 0.03, 204.35, 1.5, 10.0, 1.2),
+    ("patchoulol", 0.39, 222.37, 0.005, 0.5, 0.5),
+    ("alpha-bulnesene", 0.14, 204.35, 1.0, 5.0, 1.2),
+    ("alpha-guaiene", 0.11, 204.35, 1.0, 5.0, 1.2),
+    ("seychellene", 0.066, 204.35, 1.0, 5.0, 1.2),
+    ("beta-caryophyllene", 0.031, 204.35, 1.5, 10.0, 1.2),
+    ("pogostol", 0.024, 222.37, 0.005, 1.0, 0.5),
+    ("caryophyllene oxide", 0.0073, 220.35, 0.1, 2.0, 0.6),
+    ("beta pinene", 0.002, 136.24, 250.0, 30.0, 3.0),
+    ("germacrene d", 0.0012, 204.35, 1.0, 5.0, 1.2),
+    ("alpha pinene", 0.0009, 136.24, 400.0, 20.0, 3.0),
+    ("limonene", 0.0003, 136.24, 200.0, 20.0, 3.0),
 ]
 
 _GERANIUM_EO_CONSTITUENTS = [
@@ -1368,6 +1366,18 @@ _TUBERALIA_BASE_PW_6ND09663_DECLARATION_CONSTITUENTS = [
 ]
 
 
+# Siam benzoin (Styrax tonkinensis resin): FAO/JECFA 74th meeting (2011) Chemical
+# and Technical Assessment, Table 2 means over 18 Laotian resin samples, % w/w of
+# the resin. 30.6% is modeled, not renormalized; coniferyl benzoate
+# (15-57%, HPLC) has no runtime input and stays unresolved. The owned stock is a
+# 50% w/w DPG preparation; the stock fraction does the dilution.
+_SIAM_BENZOIN_JECFA_2011_CONSTITUENTS = [
+    ("benzoic acid", 0.273, 122.12, 0.0, 1000.0, 0.4),
+    ("vanillin", 0.018, 152.15, 0.005, 0.6, 0.5),
+    ("benzyl benzoate", 0.015, 212.24, 0.02, 810.0, 0.5),
+]
+
+
 _ABSOLUTE_CONSTITUENTS = {
     # Flower absolutes
     "osmanthus absolute": _OSMANTHUS_CONSTITUENTS,
@@ -1553,6 +1563,7 @@ _ABSOLUTE_CONSTITUENTS = {
     "tuberalia base perfumersworld 6nd09663 declaration profile": (
         _TUBERALIA_BASE_PW_6ND09663_DECLARATION_CONSTITUENTS
     ),
+    "styrax tonkinensis resin jecfa 2011 mean profile": _SIAM_BENZOIN_JECFA_2011_CONSTITUENTS,
 }
 
 
@@ -1636,8 +1647,8 @@ _PROFILE_ALIASES = {
     ),
     # Owner stock "Siam Benzoin (50% w/w in DPG)": same Styrax tonkinensis
     # resinoid identity as the existing Siam benzoin profile.
-    "siam benzoin": "benzoin siam resinoid",
-    "siam benzoin (50% w/w in dpg)": "benzoin siam resinoid",
+    "siam benzoin": "styrax tonkinensis resin jecfa 2011 mean profile",
+    "siam benzoin (50% w/w in dpg)": "styrax tonkinensis resin jecfa 2011 mean profile",
     # Aroma&More SKU Lav420811P: a 40/42 trade grade with lavandin added at
     # production (supplier page). It uses the 40/42-grade GC estimate, not the
     # true-lavender profile of the BONTAUX oil (Kenny, 25 Oct 2026: "You estimate").
@@ -2057,6 +2068,12 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     ),
     "tuberalia base perfumersworld 6nd09663 declaration profile": (
         "https://www.perfumersworld.com/document-list.php?pro_id=6ND09663",
+    ),
+    "patchouli eo": (
+        "https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",
+    ),
+    "styrax tonkinensis resin jecfa 2011 mean profile": (
+        "https://www.fao.org/fileadmin/user_upload/agns/pdf/jecfa/cta/74/benzoe_tonkinensis.pdf",
     ),
 }
 
@@ -4442,6 +4459,170 @@ _PARTIAL_PROFILE_EVIDENCE = {
         "limitations": (
             "A proprietary compound base: only declared allergen and IFRA-restricted levels are published, for an SKU matched by name, not an analysis of the owned bottle.",
             "Only 23.6503% of the base is modeled. Benzyl acetate, methyl benzoate and phenylethyl alcohol (1-10% bands), the 0.1-1% band constituents, hexyl salicylate, hexyl cinnamal and the undisclosed remainder are uncomputed, not odorless; tuberose character odorants (methyl anthranilate, indole and others) are not disclosed. Nothing is renormalized.",
+        ),
+    },
+    "patchouli eo": {
+        "analytical_method": "PUBLISHED_GC_LITERATURE_AVERAGE",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",
+                "document": "van Beek TA, Joulain D (2018) The essential oil of patchouli, Pogostemon cablin: A review. Flavour Fragr J, doi:10.1002/ffj.3418, Table 4 (literature averages)",
+                "reported_pct_average": {
+                    "patchoulol": 39,
+                    "alpha-bulnesene": 14,
+                    "alpha-guaiene": 11,
+                    "seychellene": 6.6,
+                    "alpha-patchoulene": 4.5,
+                    "(E)-beta-caryophyllene": 3.1,
+                    "beta-patchoulene": 3.0,
+                    "aciphyllene": 2.4,
+                    "pogostol": 2.4,
+                    "beta-elemene": 0.89,
+                    "norpatchoulenol": 0.86,
+                    "caryophyllene oxide": 0.73,
+                    "alpha-humulene": 0.69,
+                    "delta-elemene": 0.52,
+                    "cycloseychellene": 0.46,
+                    "beta-pinene": 0.2,
+                    "germacrene D": 0.12,
+                    "alpha-pinene": 0.09,
+                    "limonene": 0.03,
+                },
+                "pogostone_excluded": "average 8.9%, range 0.1-27.7%, n = 24; Chinese-chemotype marker",
+                "fraction_rule": "REPORTED_AVERAGE_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Patchouli EO (Aroma&More, Indonesia, neat)",
+                "owned_supplier_documents_found": False,
+                "iso_3757_cross_check": {
+                    "source": "https://cdn.standards.iteh.ai/samples/32035/01ce2b0f2fb947a5b31c02c63b4f3da3/ISO-3757-2002.pdf",
+                    "patchoulol_pct": "27-35",
+                    "alpha_bulnesene_pct": "13-21",
+                    "alpha_guaiene_pct": "11-16",
+                },
+                "replaces": "uncited six-row profile (patchoulol 0.30, alpha-bulnesene 0.15, alpha-guaiene 0.12, seychellene 0.06, pogostol 0.03, beta-caryophyllene 0.03)",
+            },
+            "patchoulol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "alpha-bulnesene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "alpha-guaiene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "seychellene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "beta-caryophyllene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "pogostol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "caryophyllene oxide": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "beta pinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "germacrene d": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "alpha pinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "limonene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+        "unresolved_constituents": (
+            {
+                "name": "alpha-patchoulene",
+                "reported_fraction": 0.045,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-patchoulene",
+                "reported_fraction": 0.03,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "aciphyllene",
+                "reported_fraction": 0.024,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-elemene",
+                "reported_fraction": 0.0089,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "norpatchoulenol",
+                "reported_fraction": 0.0086,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+                "note": "a key patchouli odorant at low level; no runtime headspace input in this module",
+            },
+            {
+                "name": "alpha-humulene",
+                "reported_fraction": 0.0069,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "delta-elemene",
+                "reported_fraction": 0.0052,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "cycloseychellene",
+                "reported_fraction": 0.0046,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "Literature average over oils of every origin; it is not an analysis of the owned Aroma&More Indonesian bottle, for which no supplier document was found.",
+            "Only 77.27% of the oil is modeled. alpha-Patchoulene, beta-patchoulene, aciphyllene, norpatchoulenol and the other unresolved sesquiterpenes are uncomputed, not odorless. Nothing is renormalized.",
+            "GC area percentages are used as nominal mass fractions.",
+            "Patchouli Light Essential Oil, a lighter grade, reaches this whole-oil profile as a proxy.",
+        ),
+    },
+    "styrax tonkinensis resin jecfa 2011 mean profile": {
+        "analytical_method": "REGULATORY_ASSESSMENT_GC_FID_RESIN_SURVEY",
+        "composition_basis": "REGULATORY_PERCENT_W_W_OF_RESIN_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.fao.org/fileadmin/user_upload/agns/pdf/jecfa/cta/74/benzoe_tonkinensis.pdf",
+                "document": "FAO/JECFA 74th meeting (2011), Benzoe tonkinensis, Chemical and Technical Assessment (S. Rath), Tables 2 and 3",
+                "reported_pct_w_w_of_resin": {
+                    "benzoic acid": "17.5-46.3, mean 27.3",
+                    "vanillin": "0.7-3.5, mean 1.8",
+                    "benzyl benzoate": "0.8-2.4, mean 1.5",
+                    "coniferyl benzoate": "15-57 (HPLC, 5 samples)",
+                },
+                "fraction_rule": "REPORTED_MEAN_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "REPORTED_AS_MASS_FRACTION_OF_RESIN",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Siam Benzoin (50% w/w in DPG)",
+                "owned_supplier_recorded": False,
+                "material_form_note": "JECFA analyses the raw resin; the owned stock is a resinoid preparation in DPG",
+                "supplier_declaration_not_modeled": {
+                    "source": "https://www.perfumersworld.com/document-list.php?pro_id=5QV13027",
+                    "document": "PerfumersWorld 5QV13027 Benzoin Siam Resinoid 50% in DPG, allergen declaration (a matching product; the owned bottle's supplier is not recorded)",
+                    "declared_pct_of_50pct_product": {
+                        "benzyl benzoate": 1.0911,
+                        "isoeugenol": 0.0915,
+                        "eugenol": 0.0421,
+                        "benzyl alcohol": 0.0146,
+                    },
+                },
+                "replaces": "uncited six-row 'benzoin siam resinoid' profile for these stock names; that profile is unchanged for other names",
+            },
+            "benzoic acid": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "vanillin": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "benzyl benzoate": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+        "unresolved_constituents": (
+            {
+                "name": "coniferyl benzoate",
+                "reported_fraction_range": (0.15, 0.57),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+                "note": "15-57% of the resin by HPLC (JECFA Table 3, 5 samples); essentially non-volatile",
+            },
+        ),
+        "limitations": (
+            "Regulatory survey of Laotian Siam benzoin resin; it is not an analysis of the owned stock, whose supplier is not recorded, and a resinoid can differ from the raw resin.",
+            "Only 30.6% of the resin is modeled (benzoic acid, vanillin, benzyl benzoate). Coniferyl benzoate and the remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "PerfumersWorld 5QV13027 declares isoeugenol, eugenol and benzyl alcohol for a matching 50% DPG product; they are recorded, not modeled.",
         ),
     },
 }

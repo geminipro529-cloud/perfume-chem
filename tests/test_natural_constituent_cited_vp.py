@@ -94,6 +94,7 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     ("benzoin sumatra resinoid", "vanillin", 0.005, 0.01573),
     ("hay absolute perfumersworld 8ny00523 allergen declaration profile", "vanillin", 0.005, 0.01573),
     ("styrax tonkinensis resin ethanol tincture generic profile", "vanillin", 0.005, 0.01573),
+    ("styrax tonkinensis resin jecfa 2011 mean profile", "vanillin", 0.005, 0.01573),
     ("tonka bean absolute", "vanillin", 0.005, 0.01573),
     ("vanilla absolute", "vanillin", 0.005, 0.01573),
     # Triplal: RIFM's 20 C figure converted; cinnamyl alcohol: Carl Roth SDS 3 Pa at 25 C.

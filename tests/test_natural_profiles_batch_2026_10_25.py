@@ -1,9 +1,10 @@
 """Natural profiles batch (Kenny, 25 Oct 2026, stock thread: "parse all the information
 that is missing into the engine").
 
-Four unsourced natural profiles (Black Pepper EO, Lime Distilled EO, Rose Essential Oil,
-Rose de Mai Absolute) are replaced by published or certificate compositions, and four owned
-stocks with no profile (Cabreuva, Pine, Sandalwood, Tuberlia) get labelled partial ones.
+Five unsourced natural profiles (Black Pepper EO, Lime Distilled EO, Rose Essential Oil,
+Rose de Mai Absolute, Patchouli EO) are replaced by published or certificate compositions,
+Siam Benzoin moves to the JECFA resin means, and four owned stocks with no profile
+(Cabreuva, Pine, Sandalwood, Tuberlia) get labelled partial ones.
 Every composition was re-opened by a second reader. These pin the data and its sources;
 they make no sensory claim.
 """
@@ -21,6 +22,7 @@ _CABREUVA = "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration pr
 _PINE = "pine oil perfumersworld 7kq07511 ifra declaration profile"
 _SANDALWOOD = "santalum album oil iso 3518 midpoint profile"
 _TUBERLIA = "tuberalia base perfumersworld 6nd09663 declaration profile"
+_SIAM = "styrax tonkinensis resin jecfa 2011 mean profile"
 
 _LABELS = {
     "Black Pepper EO": ("black pepper eo", 0.7301, "direct_identity"),
@@ -33,6 +35,10 @@ _LABELS = {
     "Sandalwood EO": (_SANDALWOOD, 0.68, "literature_proxy"),
     "Sandalwood EO (10% in DPG)": (_SANDALWOOD, 0.68, "literature_proxy"),
     "Tuberlia Base": (_TUBERLIA, 0.236503, "literature_proxy"),
+    "Patchouli EO": ("patchouli eo", 0.7727, "direct_identity"),
+    "Patchouli Light Essential Oil": ("patchouli eo", 0.7727, "literature_proxy"),
+    "Siam Benzoin": (_SIAM, 0.306, "literature_proxy"),
+    "Siam Benzoin (50% w/w in DPG)": (_SIAM, 0.306, "literature_proxy"),
 }
 
 _SOURCES = {
@@ -49,6 +55,8 @@ _SOURCES = {
         "ISO-3518-2025.pdf"
     ),
     "Tuberlia Base": "https://www.perfumersworld.com/document-list.php?pro_id=6ND09663",
+    "Patchouli EO": "https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",
+    "Siam Benzoin": "https://www.fao.org/fileadmin/user_upload/agns/pdf/jecfa/cta/74/benzoe_tonkinensis.pdf",
 }
 
 
@@ -188,6 +196,37 @@ def test_tuberlia_models_declared_levels_and_leaves_sds_bands_unresolved():
     unresolved = {u["name"]: u for u in meta.unresolved_constituents}
     assert unresolved["benzyl acetate"]["missing_input"] == "SDS_BAND_ONLY_NO_NOMINAL_FRACTION"
     assert unresolved["hexyl salicylate"]["reported_fraction"] == pytest.approx(0.006406)
+
+
+def test_patchouli_uses_the_van_beek_joulain_literature_averages():
+    rows = {name: row[1] for name, row in _rows("Patchouli EO").items()}
+    assert rows["patchoulol"] == pytest.approx(0.39)
+    assert rows["alpha-bulnesene"] == pytest.approx(0.14)
+    assert rows["alpha-guaiene"] == pytest.approx(0.11)
+    assert rows["seychellene"] == pytest.approx(0.066)
+    assert sum(rows.values()) == pytest.approx(0.7727)
+    meta = get_composite_metadata("Patchouli EO")
+    assert meta.sources == ("https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",)
+    assert meta.quantitative_evaluability == "PARTIAL_INPUT_COVERAGE"
+    unresolved = {u["name"]: u["reported_fraction"] for u in meta.unresolved_constituents}
+    assert unresolved["alpha-patchoulene"] == pytest.approx(0.045)
+    assert unresolved["norpatchoulenol"] == pytest.approx(0.0086)
+    # Patchouli Light still reaches the same whole-oil profile as a proxy.
+    light = get_composite_metadata("Patchouli Light Essential Oil")
+    assert light.profile_key == "patchouli eo" and light.resolution == "literature_proxy"
+
+
+def test_siam_benzoin_uses_jecfa_resin_means_and_leaves_coniferyl_benzoate_unresolved():
+    rows = {name: row[1] for name, row in _rows("Siam Benzoin").items()}
+    assert rows == pytest.approx({"benzoic acid": 0.273, "vanillin": 0.018, "benzyl benzoate": 0.015})
+    meta = get_composite_metadata("Siam Benzoin (50% w/w in DPG)")
+    assert meta.profile_key == "styrax tonkinensis resin jecfa 2011 mean profile"
+    assert meta.resolution == "literature_proxy"
+    coniferyl = meta.unresolved_constituents[0]
+    assert coniferyl["name"] == "coniferyl benzoate"
+    assert coniferyl["reported_fraction_range"] == (0.15, 0.57)
+    declared = meta.input_authority["composition"]["supplier_declaration_not_modeled"]
+    assert declared["declared_pct_of_50pct_product"]["isoeugenol"] == pytest.approx(0.0915)
 
 
 def test_nothing_is_renormalized():
