@@ -1017,7 +1017,7 @@
   functional_groups: []
   chirality:
   vp_25c_pa: 279.0
-  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1050,7 +1050,7 @@
     cas: 'https://scentspiracy.com/fragrance-ingredients/p/manzanate and https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "CAS No.: 39255-32-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "Molecular weight 144.21" (C8H16O2) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: '23 Oct 2026 source check: Givaudan product page ''Log Pow 2,7''; replaces the TGSC estimate 2.667; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate'
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl 2-methylpentanoate, CAS Registry Number 39255-32-8, Food Chem Toxicol 189 (2024) 114651 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2024.114651): ''Vapor Pressure: 2.06 mm Hg at 20 C (EPI Suite v4.0), 1.5 mm Hg at 20 C (Fragrance Materials Association), 2.88 mm Hg at 25 C (EPI Suite v4.11)''; printed 1.5 mm Hg at 20 C; Fragrance Materials Association (FMA) database; grade A_measured. Converted from 200 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 48.5 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: ScienceDirect, RIFM ethyl 2-methylpentanoate, CAS 39255-32-8; Synonyms include Manzanate. Quote verbatim. 1.5 x 133.322 = 199.98 Pa at 20 C. FMA value, counted as measured per brief; method not... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl 2-methylpentanoate, CAS Registry Number 39255-32-8, Food Chem Toxicol 189 (2024) 114651 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2024.114651): ''Vapor Pressure: 2.06 mm Hg at 20 C (EPI Suite v4.0), 1.5 mm Hg at 20 C (Fragrance Materials Association), 2.88 mm Hg at 25 C (EPI Suite v4.11)''; printed 1.5 mm Hg at 20 C; Fragrance Materials Association (FMA) database; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 200 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 48.5 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: ScienceDirect, RIFM ethyl 2-methylpentanoate, CAS 39255-32-8; Synonyms include Manzanate. Quote verbatim. 1.5 x 133.322 = 199.98 Pa at 20 C. FMA value, counted as measured per brief; method not... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '23 Oct 2026 third data pass: Sigma-Aldrich W348805 ethyl 2-methylpentanoate (Manzanate): "density 0.864 g/mL at 25 C (lit.)", https://www.sigmaaldrich.com/US/en/product/aldrich/w348805'
     smiles: 'PubChem CID 62902 structure for CAS 39255-32-8 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: Maple Lactone

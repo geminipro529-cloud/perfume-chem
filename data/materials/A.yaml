@@ -1971,7 +1971,7 @@
   inchikey: JZQOJFLIJNRDHK-CMDGGOBGSA-N
   mw_g_mol: 206.32
   density_25c_g_ml: 0.932
-  logp: 4.4
+  logp: 3.9
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.559
@@ -2019,7 +2019,7 @@
     user_in_inventory: inventory.txt (confirmed 2026-07-16)
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'Givaudan, Irone Alpha product page (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/irone-alpha): ''Log Pow ... 4,4''; printed 4,4; producer figure; method not stated; grade A_producer. Second reader: Same page (Irone Alpha, CAS 79-69-6). Log Pow printed as ''4,4'' (comma decimal). No temperature or method stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, alpha-irone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/79-69-6.pdf: "log Pow = 3.8 and 4.0 (RIFM, 2010)", mean of the two measurements; EPI 4.71; replaces the unsourced 3.2 Kept on 2026-10-25 over Givaudan''s product-page 4.4 (no method or temperature printed): RIFM''s two measurements outrank it.'
 - canonical_name: Alpha Irone 10% In Myristic Acid(solid)
   aliases:
   - Alpha Irone 10% in Myristic Acid(solid)

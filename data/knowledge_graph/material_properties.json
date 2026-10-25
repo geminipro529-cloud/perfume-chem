@@ -2701,7 +2701,7 @@
     "mw": 206.32,
     "bp": 268.0,
     "vp": 0.559,
-    "clp": 4.4,
+    "clp": 3.9,
     "odt": 0.81,
     "sar_class": "Irones — methylated ionone homologues (the \"orris\" family)",
     "olfactophore": "Cyclohexenone ring with gem-dimethyl AND an additional methyl",
@@ -2813,6 +2813,12 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "clp": 3.9
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 4.4
         }
       }
     ],
@@ -27553,7 +27559,7 @@
     "mw": 222.3,
     "bp": null,
     "vp": 0.0955,
-    "clp": 4.9,
+    "clp": 5.5,
     "odt": 35.0,
     "odt_ethanol_ppm": 30.0,
     "oav_typical": null,
@@ -27665,6 +27671,12 @@
         "fields": {
           "vp": 0.0033,
           "clp": 5.5
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "clp": 4.9
         }
       }
     ],
@@ -84151,10 +84163,16 @@
         "fields": {
           "vp": 0.3
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 1.29
+        }
       }
     ],
     "mw": 178.23,
-    "vp": 1.29,
+    "vp": 0.3,
     "clp": 2.5
   },
   {
@@ -85302,10 +85320,16 @@
         "fields": {
           "vp": 0.77
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 0.867
+        }
       }
     ],
     "mw": 208.26,
-    "vp": 0.867,
+    "vp": 0.77,
     "clp": 3.2
   },
   {

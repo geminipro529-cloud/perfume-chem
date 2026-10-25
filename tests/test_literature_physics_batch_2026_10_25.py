@@ -51,7 +51,6 @@ LOADED = [
     ('Cedroxyde', 'vp_25c_pa', 0.317, False),
     ('Cedroxyde', 'logp', 4.88, False),
     ('Ethyl Linalyl Acetate', 'logp', 4.7, False),
-    ('Hexyl Salicylate', 'logp', 4.9, False),
     ('Isobutyl Quinoline', 'logp', 4.4, False),
     ('Ambrettolide', 'logp', 6.7, False),
     ('Vetikon', 'density_25c_g_ml', 0.9722, False),
@@ -184,13 +183,11 @@ LOADED = [
     ('Ethyl Maltol', 'logp', 0.3, True),
     ('Citral', 'vp_25c_pa', 14.1, False),
     ('Citral', 'density_25c_g_ml', 0.89, False),
-    ('Canthoxal', 'vp_25c_pa', 1.29, False),
     ('Methyl Diantilis', 'vp_25c_pa', 0.07946, True),
     ('Beta Ionone', 'vp_25c_pa', 0.972, False),
     ('Beta Ionone', 'logp', 4.1, False),
     ('Beta Ionone', 'density_25c_g_ml', 0.943, False),
     ('Aldehyde C-12 Lauric Dodecanal', 'dhvap_kj_mol', 68.3, False),
-    ('Alpha Irone', 'logp', 4.4, False),
     ('Safraleine', 'vp_25c_pa', 1.2, False),
     ('Safraleine', 'logp', 2.9, False),
     ('Aldehyde C12 MNA', 'vp_25c_pa', 6.0, False),
@@ -204,7 +201,6 @@ LOADED = [
     ('Hexyl Salicylate', 'vp_25c_pa', 0.0955, False),
     ('Hedione', 'logp', 2.8, False),
     ('Hedione HC', 'logp', 2.93, False),
-    ('Phenoxy Ethyl Isobutyrate', 'vp_25c_pa', 0.867, False),
     ('Cinnamaldehyde', 'density_25c_g_ml', 1.05, False),
     ('Para-Cresyl Methyl Ether', 'vp_25c_pa', 243.0, False),
     ('Citronellal', 'vp_25c_pa', 26.0, False),
@@ -261,6 +257,31 @@ HELD = [
 @pytest.mark.parametrize(("record", "field", "value"), HELD)
 def test_flagged_values_were_not_loaded(record, field, value):
     assert getattr(load_registry().get(record), field) == pytest.approx(value)
+
+
+# Measured values the batch must not replace with a weaker figure (an FMA number with one
+# significant figure, or a product page with no method).
+KEPT_MEASURED = [
+    ("Canthoxal", "vp_25c_pa", 0.3),  # ECHA key study at 24 C, not RIFM's FMA 0.006 mm Hg
+    ("Phenoxy Ethyl Isobutyrate", "vp_25c_pa", 0.77),  # ECHA key study at 25 C
+    ("Hexyl Salicylate", "logp", 5.5),  # RIFM 1996 measurement, not Givaudan's 4.9
+    ("Alpha Irone", "logp", 3.9),  # mean of RIFM's two measurements, not Givaudan's 4.4
+]
+
+
+@pytest.mark.parametrize(("record", "field", "value"), KEPT_MEASURED)
+def test_measured_values_are_kept_over_weaker_figures(record, field, value):
+    spine = load_registry().get(record)
+    assert getattr(spine, field) == pytest.approx(value)
+    assert "Kept on 2026-10-25" in spine.provenance[field]
+
+
+def test_fma_figures_are_not_labelled_measured():
+    # The FMA database is member-supplied with no method, so its figures are producer data.
+    for spine in load_registry().all():
+        provenance = (spine.provenance or {}).get("vp_25c_pa") or ""
+        if "2026-10-25" in provenance and "FMA database figure" in provenance:
+            assert spine.vp_source.startswith("producer_"), spine.canonical_name
 
 
 def test_acetylpyrazine_uses_the_epi_figure_not_the_fma_one():

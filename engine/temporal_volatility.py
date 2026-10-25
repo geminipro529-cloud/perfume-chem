@@ -29,7 +29,7 @@ MATERIAL_VOLATILITY: dict[str, dict] = {
     "citronellol":            {"vp_25c": 0.04,   "onset_min": 5,   "fade_min": 90,   "position": "early_heart"},
     "geraniol":               {"vp_25c": 0.03,   "onset_min": 5,   "fade_min": 90,   "position": "early_heart"},
     "eugenol":                {"vp_25c": 0.02,   "onset_min": 10,  "fade_min": 120,  "position": "early_heart"},
-    "hydroxycitronellal":     {"vp_25c": 0.773,  "onset_min": 10,  "fade_min": 180,  "position": "early_heart"},
+    "hydroxycitronellal":     {"vp_25c": 0.889,  "onset_min": 10,  "fade_min": 180,  "position": "early_heart"},
     "rose oxide":             {"vp_25c": 0.20,   "onset_min": 0,   "fade_min": 60,   "position": "immediate_opening"},
     "hedione":                {"vp_25c": 0.008,  "onset_min": 15,  "fade_min": 240,  "position": "late_heart"},
     "cis-jasmone":            {"vp_25c": 0.05,   "onset_min": 5,   "fade_min": 120,  "position": "early_heart"},

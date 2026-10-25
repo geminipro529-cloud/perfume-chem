@@ -23,7 +23,8 @@ def test_styralyl_acetate_labels_reach_one_record(label):
     assert resolved.registry_name == "Styralyl Acetate"
     record = resolved.registry_material
     assert record.cas == "93-92-5"
-    assert record.vp_25c_pa == pytest.approx(7.0)
+    # RIFM's 2011 vapour-pressure study, converted from 20 C (2026-10-25 literature batch).
+    assert record.vp_25c_pa == pytest.approx(8.42)
     assert record.odt_air_ppb == pytest.approx(40.0)
     assert record.supplier.perfumersworld_sku == "4GN00417"
 

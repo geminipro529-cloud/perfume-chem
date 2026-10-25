@@ -284,7 +284,7 @@
   functional_groups: []
   chirality: null
   vp_25c_pa: 14.1
-  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -327,7 +327,7 @@
     mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html: "Molecular Weight: | 150.22078000" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Specific Gravity: 0.96800 to 0.98000 @ 20.00 C''; printed 0.968-0.980 at 20 C; range midpoint; JECFA (PubChem CID 61041) "0.968-0.980 (20 C)"; grade A_regulatory. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: CAS 116-26-7. Range midpoint 0.974 at 20 C is correct. The page prints no source tag for this range; the JECFA/PubChem attribution in the method is not on this page. Specific gravity, not absolute density (difference... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Log K OW : Log Pow = 2.7 (RIFM, 2014a), 3.22 (EPI Suite)''; printed ; RIFM 2014a study; grade A_measured. Second reader: CAS 116-26-7. RIFM 2014a study value; no temperature or method printed on this page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Vapor Pressure: 0.105 mm Hg @ 20 C (EPI Suite v4.0), 0.07 mm Hg 20 C (FMA Database), 0.159 mm Hg @ 25 C (EPI Suite)''; printed 0.07 mm Hg at 20 C; FMA database; grade A_measured. Converted from 9.333 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 59.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: RIFM assessment, CAS 116-26-7, synonym Safranal. 0.07 x 133.322 = 9.33 Pa at 20 C. FMA value (measured per brief); one significant figure. EPI estimate at 20 C is 50% higher (0.105 mm Hg). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Vapor Pressure: 0.105 mm Hg @ 20 C (EPI Suite v4.0), 0.07 mm Hg 20 C (FMA Database), 0.159 mm Hg @ 25 C (EPI Suite)''; printed 0.07 mm Hg at 20 C; FMA database; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 9.333 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 59.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: RIFM assessment, CAS 116-26-7, synonym Safranal. 0.07 x 133.322 = 9.33 Pa at 20 C. FMA value (measured per brief); one significant figure. EPI estimate at 20 C is 50% higher (0.105 mm Hg). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Sage Dalmation Essential Oil
   aliases: []
   cas: null
@@ -1764,7 +1764,7 @@
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.655
-  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.007
@@ -1798,7 +1798,7 @@
   character: null
   notes: null
   provenance:
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, methoxy dicyclopentadiene carboxaldehyde, CAS Registry Number 86803-90-9, Food Chem Toxicol 134 (2019) 110826 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2019.110826): ''Vapor Pressure: 0.003 mm Hg 20 C (FMA Database), 0.00446 mm Hg @ 25 C (EPI Suite), 0.00248 mm Hg @ 20 C (EPI Suite v4.0)''; printed 0.003 mm Hg at 20 C; FMA database; grade A_measured. Converted from 0.4 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 71.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Opened via the ScienceDirect article page (doi.org redirect; Parallel could not connect to doi.org directly). Page is the RIFM assessment of methoxy dicyclopentadiene carboxaldehyde, CAS 86803-90-9, synonym... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, methoxy dicyclopentadiene carboxaldehyde, CAS Registry Number 86803-90-9, Food Chem Toxicol 134 (2019) 110826 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2019.110826): ''Vapor Pressure: 0.003 mm Hg 20 C (FMA Database), 0.00446 mm Hg @ 25 C (EPI Suite), 0.00248 mm Hg @ 20 C (EPI Suite v4.0)''; printed 0.003 mm Hg at 20 C; FMA database; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 0.4 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 71.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Opened via the ScienceDirect article page (doi.org redirect; Parallel could not connect to doi.org directly). Page is the RIFM assessment of methoxy dicyclopentadiene carboxaldehyde, CAS 86803-90-9, synonym... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

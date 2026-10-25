@@ -154,7 +154,8 @@ def test_the_floor_constants_are_the_gate_s_and_the_yardstick_s() -> None:
         ("Iso E Super", 1.0, False),
         ("Galaxolide", 0.5, True),
         ("Benzyl Salicylate", 1.0, True),
-        ("Vanillin", 0.1, False),
+        # Vanillin: Yaws' 0.0157 Pa at 25 C (via HSDB) since the 2026-10-25 literature batch.
+        ("Vanillin", 0.1, True),
         ("Linalool", 1.0, False),
     ],
 )

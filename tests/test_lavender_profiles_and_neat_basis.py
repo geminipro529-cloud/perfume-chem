@@ -100,7 +100,9 @@ def test_neat_with_extra_text_stays_undeclared(raw):
 
 @pytest.mark.parametrize(
     "name,mw,vp_25c_pa",
-    [("Geranyl Acetate", 196.29, 6.17), ("Linalool Oxide", 170.25, 1.29)],
+    # Geranyl acetate: ECHA's experimental key value (0.013 hPa at 20 C) converted to 25 C,
+    # which replaced the EPI estimate (6.17 Pa) in the 2026-10-25 literature batch.
+    [("Geranyl Acetate", 196.29, 2.06), ("Linalool Oxide", 170.25, 1.29)],
 )
 def test_registry_physics_for_geranyl_acetate_and_linalool_oxide(name, mw, vp_25c_pa):
     state = build_formula_state({name: 100.0, "Hedione": 900.0})

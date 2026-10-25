@@ -31,7 +31,7 @@ VAPOR_PRESSURE_DATA: dict[str, dict] = {
     "cis-jasmone": {"vp_25c": 0.05, "bp_c": 262, "class": "heart", "mw": 164.2},
     "rose oxide": {"vp_25c": 0.20, "bp_c": 202, "class": "heart", "mw": 154.2},
     "phenethyl alcohol": {"vp_25c": 0.10, "bp_c": 220, "class": "heart", "mw": 122.2},
-    "hydroxycitronellal": {"vp_25c": 0.773, "bp_c": 241, "class": "heart", "mw": 172.27},
+    "hydroxycitronellal": {"vp_25c": 0.889, "bp_c": 241, "class": "heart", "mw": 172.27},
     "alpha irone": {"vp_25c": 0.01, "bp_c": 265, "class": "heart", "mw": 192.3},
     "alpha-isomethyl ionone": {"vp_25c": 0.005, "bp_c": 270, "class": "heart", "mw": 206.3},
     "iso e super": {"vp_25c": 0.003, "bp_c": 278, "class": "heart", "mw": 204.3},

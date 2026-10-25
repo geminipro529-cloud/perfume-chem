@@ -931,7 +931,7 @@
   inchikey: null
   mw_g_mol: 222.3
   density_25c_g_ml: 1.037
-  logp: 4.9
+  logp: 5.5
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.0955
@@ -971,7 +971,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 6259-76-3 (https://www.thegoodscentscompany.com/data/rw1002751.html)'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 1.037; https://www.thegoodscentscompany.com/data/rw1002751.html; temperature as printed by source (often 20 C), not corrected to 25 C'
-    logp: 'Hexyl Salicylate | Givaudan (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/hexyl-salicylate): ''C13H18O3 222,2 4,9 0.0013 hPa 290''; printed Log Pow 4,9; producer figure (Givaudan); grade A_producer. Second reader: CAS 6259-76-3 = hexyl salicylate. No temperature or method printed for Log Pow. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, hexyl salicylate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6259-76-3.pdf: "Log KOW: 5.5 at 30 C (RIFM, 1996), 5.06 (EPI Suite v4.11)"; measured 5.5 used; replaces the unsourced 5.7 Kept on 2026-10-25 over Givaudan''s product-page 4.9 (no method or temperature printed): RIFM''s measured study outranks it.'
     vp_25c_pa: 'ECHA registration dossier, Hexyl salicylate (EC 228-408-6, CAS 6259-76-3), Vapour pressure (https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.025.826/4/7): ''The vapour pressure of hexyl salicylate was determined to be 7.7 x 10^-5 kPa at 23 C.''; printed 7.7 x 10^-5 kPa at 23 C; x 1000 = 0.077 Pa; experimental, purge & trap (method AI08.00 QC), few details; Klimisch 2; grade A_measured. Converted from 0.077 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 79.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 7.7e-5 kPa x 1000 = 0.077 Pa at 23 C (the structured field rounds it to ''0 kPa''). Experimental, Klimisch 2, guideline ''not stated''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Himalayan Cedarwood EO

@@ -53,9 +53,7 @@ def test_only_the_vp_column_is_substituted():
 # as (natural profile, constituent, table VP, registry VP).
 _EXPECTED_LARGE_SUBSTITUTIONS = {
     ("cassis base 345b", "citronellol", 7.0, 2.26),
-    ("cassis base 345b", "dynascone", 0.001, 1.33322),
-    ("ginger eo", "geranyl acetate", 2.0, 6.17),
-    ("clary sage eo", "geranyl acetate", 2.0, 6.17),
+    ("cassis base 345b", "dynascone", 0.001, 2.28),
     ("jasmine sambac", "methyl anthranilate", 0.1, 3.61),
     ("jasmine sambac (10% in dpg)", "methyl anthranilate", 0.1, 3.61),
     ("jasmine sambac", "phenethyl alcohol", 0.12, 11.57),
@@ -69,25 +67,48 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     # Rose oxide: RIFM measured 0.77 hPa at 25 C (RIFM 2013a).
     ("cassis base 345b", "rose oxide", 15.0, 77.0),
     # Citral: RIFM-quoted EPI Suite 0.0913 mm Hg at 25 C (FMA 0.07 mm Hg at 20 C).
-    ("cedrat fcf oil sicilian", "citral", 3.0, 12.172),
-    ("cedrat fcf sicilian", "citral", 3.0, 12.172),
-    ("michelia alba flower oil zhu 1993 literature profile", "citral", 3.0, 12.172),
+    ("cedrat fcf oil sicilian", "citral", 3.0, 14.1),
+    ("cedrat fcf sicilian", "citral", 3.0, 14.1),
+    ("michelia alba flower oil zhu 1993 literature profile", "citral", 3.0, 14.1),
     # Evernyl: TGSC estimate 0.00001 mm Hg at 25 C for the solid (mp 143 C).
-    ("oakmoss absolute", "evernyl", 0.05, 0.0013),
-    ("oakmoss absolute (10% in dpg)", "evernyl", 0.05, 0.0013),
+    ("oakmoss absolute", "evernyl", 0.05, 0.00227),
+    ("oakmoss absolute (10% in dpg)", "evernyl", 0.05, 0.00227),
     # p-Cresyl methyl ether: RIFM-quoted US EPA estimate 1.2 mm Hg at 25 C
     # (FMA 1.3 mm Hg at 20 C).
-    ("ylang comoros complete eo f3255", "p-cresyl methyl ether", 30.0, 159.9864),
-    ("ylang comoros iii eo f3295", "p-cresyl methyl ether", 30.0, 159.9864),
-    ("ylang ylang eo (extra grade)", "p-cresyl methyl ether", 30.0, 159.9864),
+    ("ylang comoros complete eo f3255", "p-cresyl methyl ether", 30.0, 243.0),
+    ("ylang comoros iii eo f3295", "p-cresyl methyl ether", 30.0, 243.0),
+    ("ylang ylang eo (extra grade)", "p-cresyl methyl ether", 30.0, 243.0),
     # 2026-10-25 physics batch 1: the frangipani profile reuses the module's citral
     # and citronellol rows, so the cited citral (above) and citronellol (ECHA
     # 2.26 Pa) registry VPs replace their table values.
-    ("frangipani absolute perfumersworld 8on00534 declaration profile", "citral", 3.0, 12.172),
+    ("frangipani absolute perfumersworld 8on00534 declaration profile", "citral", 3.0, 14.1),
     ("frangipani absolute perfumersworld 8on00534 declaration profile", "citronellol", 7.0, 2.26),
     # 2026-10-25 physics batch 2: the terpeneless lemon profile reuses the citral row,
     # so the cited citral registry VP replaces its table value.
-    ("lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile", "citral", 3.0, 12.172),
+    ("lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile", "citral", 3.0, 14.1),
+    # 2026-10-25 literature batch: registry VPs re-sourced from primary documents.
+    # Citral: RIFM's FMA figure (0.07 mm Hg at 20 C) converted to 25 C; p-cresyl methyl
+    # ether: FMA 1.3 mm Hg at 20 C converted; Evernyl: ECHA gas-saturation 0.002 Pa at
+    # 24 C; Dynascone: Firmenich's 1.44 Pa at 20 C. Geranyl acetate's ECHA key value
+    # (2.06 Pa) is now within 3x of the table's 2.0.
+    # Vanillin: Yaws' 0.0157 Pa at 25 C (via HSDB).
+    ("benzoin siam resinoid", "vanillin", 0.005, 0.01573),
+    ("benzoin sumatra resinoid", "vanillin", 0.005, 0.01573),
+    ("hay absolute perfumersworld 8ny00523 allergen declaration profile", "vanillin", 0.005, 0.01573),
+    ("styrax tonkinensis resin ethanol tincture generic profile", "vanillin", 0.005, 0.01573),
+    ("tonka bean absolute", "vanillin", 0.005, 0.01573),
+    ("vanilla absolute", "vanillin", 0.005, 0.01573),
+    # Triplal: RIFM's 20 C figure converted; cinnamyl alcohol: Carl Roth SDS 3 Pa at 25 C.
+    ("cassis base 345b", "triplal", 0.5, 52.5),
+    ("liquidambar orientalis resin ethanol tincture generic profile", "cinnamyl alcohol", 0.03, 3.0),
+    # Osmanthus ketones and lactone: alpha-ionone (Takasago, equal to EPI), dihydro-beta-
+    # ionone (RIFM measured 3.8 Pa at 25 C), gamma-decalactone (FMA via RIFM, converted).
+    ("osmanthus absolute", "alpha ionone", 1.0, 3.62),
+    ("osmanthus absolute", "dihydro beta ionone", 0.5, 3.8),
+    ("osmanthus absolute", "gamma decalactone", 0.5, 1.7),
+    ("osmanthus absolute (volume grade)", "alpha ionone", 1.0, 3.62),
+    ("osmanthus absolute (volume grade)", "dihydro beta ionone", 0.5, 3.8),
+    ("osmanthus absolute (volume grade)", "gamma decalactone", 0.5, 1.7),
 }
 
 

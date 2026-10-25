@@ -34,8 +34,9 @@ def test_stock_label_with_dilution_suffix_uses_its_identity_odt() -> None:
 
 
 def test_aldehyde_c12_mna_vapour_pressure_is_the_cited_value():
-    # Merck states 1.0 Pa at 20 C for 2-methylundecanal; the registry keeps it adjusted
-    # to 25 C. The old 0.01 Pa placeholder made this diffusive aldehyde a base note.
+    # Kao's SDS for its Aldehyde C-12 MNA states 6 Pa at 25 C (2026-10-25 literature batch;
+    # it replaced Merck's 1.0 Pa at 20 C). The old 0.01 Pa placeholder made this diffusive
+    # aldehyde a base note.
     import yaml
 
     from engine.ingredient_intelligence import _PROFILES
@@ -44,11 +45,11 @@ def test_aldehyde_c12_mna_vapour_pressure_is_the_cited_value():
     registry = Path(__file__).resolve().parents[1] / "data" / "materials" / "A.yaml"
     rows = yaml.safe_load(registry.read_text(encoding="utf-8"))
     [row] = [r for r in rows if r.get("canonical_name") == "Aldehyde C12 MNA"]
-    assert row["vp_25c_pa"] == 1.5
-    assert row["vp_source"] == "supplier_physical_data_20c_adjusted"
+    assert row["vp_25c_pa"] == 6.0
+    assert row["vp_source"] == "producer_25C"
     assert _PROFILES["Aldehyde C12 MNA"]["vp"] == row["vp_25c_pa"]
 
     ingredients = {"Aldehyde C12 MNA": 10.0, "Hedione": 500.0}
     state = build_formula_state(ingredients, {n: 1.0 for n in ingredients}, batch_volume_ml=30.0)
     [mna] = [m for m in state.materials if m.name == "Aldehyde C12 MNA"]
-    assert mna.vp_pure_pa / mna.vp_temperature_factor == pytest.approx(1.5)
+    assert mna.vp_pure_pa / mna.vp_temperature_factor == pytest.approx(6.0)

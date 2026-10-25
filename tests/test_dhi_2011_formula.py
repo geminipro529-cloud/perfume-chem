@@ -171,18 +171,21 @@ def test_required_recognizers_clear_oav_one_while_support_hypotheses_are_flagged
         "Benzyl Benzoate",
         "Benzyl Salicylate",
         "Carrot Seed EO",
-        "Dihydro Beta Ionone",
         "Sandalore",
     }
     # 2026-10-08 identity fix: Irotyl is ethyl 2-ethylhexanoate (VP 130 Pa, was 0.005 Pa) and
     # Ultralia is methyl ionone (VP 0.817 Pa, was 0.002 Pa), so both now model above OAV 1
     # although the card still labels them sub-threshold structural hypotheses.
-    now_above_threshold = {"Irotyl", "Ultralia"}
+    # 2026-10-25: Dihydro Beta Ionone's RIFM measured vapour pressure (3.8 Pa at 25 C, was an
+    # unsourced 0.02 Pa) puts it above OAV 1 too.
+    now_above_threshold = {"Irotyl", "Ultralia", "Dihydro Beta Ionone"}
     # Ambrettolide's sourced density (0.956 g/mL, was the 1.0 default) puts it just under OAV 1.
     near_threshold = {"Ambrettolide"}
     # 2026-10-12: Romandolide's sourced vapour pressure (0.08 Pa, the RIFM measured value at
-    # 25 C; was 0.1 Pa) puts the 210 uL dose at about OAV 0.84. The recipe is unchanged; about
-    # 251 uL would restore OAV 1, which is Kenny's call.
+    # 25 C; was 0.1 Pa) put the 210 uL dose at about OAV 0.84. 2026-10-25: the same RIFM
+    # measurement (0.053 Pa at 20 C) carried to 25 C with the batch's dHvap gives 0.0914 Pa,
+    # so the dose models at about OAV 0.95. The recipe is unchanged; about 221 uL would
+    # restore OAV 1, which is Kenny's call.
     below_threshold_after_vp = {"Romandolide"}
     required_recognizers = (
         set(EXPECTED_INGREDIENTS)
@@ -195,7 +198,7 @@ def test_required_recognizers_clear_oav_one_while_support_hypotheses_are_flagged
     assert all((rows[name].oav or 0.0) < 1.0 for name in structural_only)
     assert all((rows[name].oav or 0.0) > 1.0 for name in now_above_threshold)
     assert all(0.95 <= (rows[name].oav or 0.0) < 1.0 for name in near_threshold)
-    assert all(0.8 <= (rows[name].oav or 0.0) < 0.9 for name in below_threshold_after_vp)
+    assert all(0.9 <= (rows[name].oav or 0.0) < 1.0 for name in below_threshold_after_vp)
     assert (rows["Ethyl 2-Methylbutyrate"].oav or 0.0) >= 1.0
     assert (rows["Verdox"].oav or 0.0) >= 1.0
 
