@@ -194,6 +194,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         ),
         # 25 Oct 08:16 UTC: the card "Mark these 15 PerfumersWorld fruit bottles neat, as supplied?" (STK-149 to STK-163).
         "All neat",
+        # 25 Oct 08:39 UTC, lavender card thread: Rosemary EO and Cardamom EO dumped (STK-170, STK-171).
+        "THEY MELL LIKE HIT. THEY ARE DUMPED",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -234,7 +236,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 170)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 172)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

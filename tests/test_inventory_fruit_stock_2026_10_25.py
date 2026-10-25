@@ -1,6 +1,7 @@
 """Stock record, 25 Oct 2026: the 15 PerfumersWorld fruit bottles leave their intake hold
 (Kenny's "All neat"), five PerfumersWorld stocks he confirmed owned are added neat, and
-Vetiveryl Acetate is used up ("i am out of vetiveryl acetate")."""
+Vetiveryl Acetate is used up ("i am out of vetiveryl acetate"). Rosemary EO and Cardamom EO
+are thrown out ("THEY MELL LIKE HIT. THEY ARE DUMPED")."""
 
 from __future__ import annotations
 
@@ -91,3 +92,16 @@ def test_his_dilutions_of_the_fruit_bottles_are_unchanged(stocks):
     assert stocks["Ethyl 2-Methylbutyrate 1%"].dilution == pytest.approx(0.01)
     assert stocks["Ethyl 2-Methylbutyrate 0.01%"].dilution == pytest.approx(0.0001)
     assert stocks["Allyl Amyl Glycolate 10%"].dilution == pytest.approx(0.1)
+
+
+@pytest.mark.parametrize(("name", "row"), [("Cardamom EO", 56), ("Rosemary EO", 216)])
+def test_dumped_oils_are_gone(stocks, overlay, name, row):
+    # The stock list keeps the name only as a gap (inventory.txt is not edited).
+    assert stocks[name].status == "gap" and stocks[name].execution_ready is False
+    assert name not in {s.name for s in inventory.materialize_current_inventory().stocks}
+    (record,) = [r for r in overlay["delta_records"] if r["canonical_name"] == name]
+    assert record["state"] == "NOT_OWNED" and record["stock"] is None
+    assert record["source_quote"] == "THEY MELL LIKE HIT. THEY ARE DUMPED"
+    assert record["supersedes_parent_stocks"] == [{"source_row": row}]
+    requirement = [r for r in inventory.materialize_current_inventory().requirements if r.source_row == row]
+    assert [r.disposition for r in requirement] == ["GAP"]
