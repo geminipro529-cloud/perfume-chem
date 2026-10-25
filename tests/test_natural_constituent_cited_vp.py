@@ -85,6 +85,9 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     # 2.26 Pa) registry VPs replace their table values.
     ("frangipani absolute perfumersworld 8on00534 declaration profile", "citral", 3.0, 12.172),
     ("frangipani absolute perfumersworld 8on00534 declaration profile", "citronellol", 7.0, 2.26),
+    # 2026-10-25 physics batch 2: the terpeneless lemon profile reuses the citral row,
+    # so the cited citral registry VP replaces its table value.
+    ("lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile", "citral", 3.0, 12.172),
 }
 
 

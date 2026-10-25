@@ -1259,6 +1259,21 @@ _FIR_NEEDLE_BALSAM_PW_7KG07758_BIOLANDES_MIDPOINT_CONSTITUENTS = [
     ("benzyl alcohol", 0.000201, 108.14, 8.00, 5.00, 1.5),
 ]
 
+# Lemon oil, terpeneless, PerfumersWorld 7CC24027 ("Lemon Terpeneless oil
+# Sicilian", CAS 68648-39-5, FEMA 2626). PW publishes no composition (SDS: "No
+# composition data available for this product") and no allergen rows. The
+# British Pharmacopoeia grade is made by concentrating lemon oil in vacuo or by
+# solvent partition and "has a citral content of 40-50%" (Trease and Evans'
+# Pharmacognosy, as excerpted on ScienceDirect Topics "Lemon Oil", read 25 Oct
+# 2026). Citral is modeled at the 45% midpoint with this module's citral row.
+# PW's SG 0.885-0.897 fits an oil that is mostly oxygenated compounds (cold-
+# pressed lemon is 0.849-0.855). It is an estimate of the grade, not an
+# analysis of the owned bottle: the esters, alcohols and sesquiterpenes that
+# make up most of the rest stay unresolved, and nothing is renormalized.
+_LEMON_TERPENELESS_PW_7CC24027_BP_CITRAL_MIDPOINT_CONSTITUENTS = [
+    ("citral", 0.45, 152.23, 3.00, 0.50, 1.5),
+]
+
 # ── Master Registry ───────────────────────────────────────────────────
 
 _ABSOLUTE_CONSTITUENTS = {
@@ -1430,6 +1445,9 @@ _ABSOLUTE_CONSTITUENTS = {
     ),
     "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile": (
         _FIR_NEEDLE_BALSAM_PW_7KG07758_BIOLANDES_MIDPOINT_CONSTITUENTS
+    ),
+    "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile": (
+        _LEMON_TERPENELESS_PW_7CC24027_BP_CITRAL_MIDPOINT_CONSTITUENTS
     ),
 }
 
@@ -1610,6 +1628,10 @@ _PROFILE_ALIASES = {
     "fir essential oil": "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile",
     "fir eo": "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile",
     "fir eo 10%": "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile",
+    # Owner stock inventory.txt "Lemon Terpeneless Oil Sicilian (neat / as
+    # supplied)", PerfumersWorld 7CC24027 (order 261004-055451ce1).
+    "lemon terpeneless oil sicilian": "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile",
+    "lemon terpeneless oil sicilian (neat / as supplied)": "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile",
 }
 
 _LAVENDER_40_42_PROXY_LIMITATIONS = (
@@ -1699,6 +1721,9 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
     ),
     "fir essential oil": (
         "The owned Fir EO (PerfumersWorld 7KG07758, held as 10% w/w in DPG) is modeled as balsam fir needle oil: PW does not name the species, which is inferred from its CAS 8021-28-1 and limonene level.",
+    ),
+    "lemon terpeneless oil sicilian": (
+        "The owned Lemon Terpeneless Oil Sicilian (PerfumersWorld 7CC24027, neat) is modeled as citral at 45%, the midpoint of the British Pharmacopoeia grade's 40-50%; PW publishes no composition, so this is an estimate of the grade, not of the owned lot.",
     ),
 }
 
@@ -1884,6 +1909,11 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.perfumersworld.com/document-list.php?pro_id=7KG07758",
         "https://www.biolandes.com/en/?p=43796",
         "https://www.canadianfloraessentialoils.com/_files/ugd/b15383_6c6f440923c8412aa4f8e32603cb7210.pdf",
+    ),
+    "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=7CC24027",
+        "https://www.perfumersworld.com/view.php?pro_id=7CC24027",
+        "https://www.sciencedirect.com/topics/medicine-and-dentistry/lemon-oil",
     ),
 }
 
@@ -3557,6 +3587,34 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "The species is inferred from the CAS and the limonene level; PerfumersWorld does not name it.",
             "PW's declared rows are kept as declared; the main terpenes are midpoints of producer specification ranges, not an analysis of the owned lot.",
             "Only 77.90% of the oil is modeled; myrcene, santene, tricyclene and the other minor terpenes, two declared traces and the remainder are uncomputed, not odorless. Nothing is renormalized.",
+        ),
+    },
+    "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile": {
+        "analytical_method": "PHARMACOPOEIA_GRADE_CONTENT_RANGE",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.sciencedirect.com/topics/medicine-and-dentistry/lemon-oil",
+                "document": "Trease and Evans' Pharmacognosy, terpeneless lemon oil, as excerpted on ScienceDirect Topics 'Lemon Oil' (read 25 Oct 2026): 'Terpeneless Lemon Oil of the BP is prepared by concentrating lemon oil in vacuo until most of the terpenes have been removed, or by solvent partition. The concentrate is the terpeneless oil, which has a citral content of 40-50%.'",
+                "reported_range_pct": {"citral": (40.0, 50.0)},
+                "pharmacopoeia_read_directly": False,
+                "fraction_rule": "MIDPOINT_OF_GRADE_RANGE_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Lemon Terpeneless Oil Sicilian (neat / as supplied)",
+                "owned_bottle_sku_verified": True,
+                "owned_sku": "7CC24027 (PW order 261004-055451ce1, 2 g, received 7 Oct 2026)",
+                "supplier_documents": "https://www.perfumersworld.com/document-list.php?pro_id=7CC24027: SDS 'No composition data available for this product'; allergen declaration 'No restricted materials found'; MSDS SG 0.885-0.897 at 25 C; product page SG 0.8850, RI 1.4780, CAS 68648-39-5, FEMA 2626",
+                "supplier_ifra_certificate_conflict": "PW's IFRA certificate gives 25% for Category 4 fine fragrance, but a 40-50% citral oil would be limited to about 1.2-1.5% by the citral standard (0.6% in Category 4). The certificate appears to be generated from PW's empty composition table, so it is not relied on; the release gate keeps its IFRA hold on this stock.",
+                "sicilian_origin_asserted_by_supplier": True,
+            },
+            "citral": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+        "limitations": (
+            "Estimate of the British Pharmacopoeia terpeneless grade from its stated citral content, read through a pharmacognosy textbook, not the pharmacopoeia itself or an analysis of the owned bottle.",
+            "Only citral (45%) is modeled. The esters (neryl and geranyl acetate), alcohols (alpha-terpineol, linalool, nerol, geraniol), aliphatic aldehydes and any sesquiterpenes that make up most of the rest are uncomputed, not odorless. Nothing is renormalized.",
+            "Neral and geranial are not split; the module's lumped citral row is used.",
         ),
     },
 }

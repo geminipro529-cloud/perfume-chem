@@ -130,15 +130,18 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # with no CAS) and became OAV-unknown (250 -> 251).
     # 2026-10-25 physics batch 1: a labelled partial profile from PerfumersWorld's
     # declared levels made Frangipani Absolute OAV-available (251 -> 252).
-    assert audit["oav_available_count"] == 252
-    assert audit["oav_unknown_count"] == 38
-    assert audit["oav_coverage_pct"] == 86.897
+    # 2026-10-25 physics batch 2: a labelled citral estimate (BP terpeneless grade)
+    # made Lemon Terpeneless Oil Sicilian OAV-available (252 -> 253).
+    assert audit["oav_available_count"] == 253
+    assert audit["oav_unknown_count"] == 37
+    assert audit["oav_coverage_pct"] == 87.241
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Manzanate"} <= set(categories["other_oav_unknowns"])
     assert not {"Helvetolide", "Ambrocenide"} & set(categories["other_oav_unknowns"])
     assert "Frangipani Absolute" not in categories["naturals_missing_composite_evidence"]
+    assert "Lemon Terpeneless Oil Sicilian" not in categories["naturals_missing_composite_evidence"]
     assert "Leather FO" in categories[
         "opaque_preblends_without_disclosed_composition"
     ]
