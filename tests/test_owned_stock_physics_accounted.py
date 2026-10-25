@@ -83,11 +83,23 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
         "CAS 28219-60-5 confirmed on PubChem 2026-10-23 (RDKit MW, Crippen log P); VP from the Takasago Hindinol sheet (master's 2026-10-23 data pass); "
         + _NO_AIR_ODT_1023,
     ),
-    "Rum Ether": (_ALL, "CAS 8030-89-5 is a reaction-product mixture with no single MW or VP"),
+    "Rum Ether": (
+        _ALL,
+        "CAS 8030-89-5 is a reaction-product mixture with no single MW or VP; the MSR COA's "
+        "'main content 80% min' is unnamed and the MSR SDS has not been read (2026-10-25)",
+    ),
     # Naturals with no peer-reviewed GC-MS of the same product type (Rule 4).
-    "Lemon Terpeneless Oil Sicilian": (_ALL, "no GC table for a terpeneless or folded lemon oil found"),
-    "Mate Absolute": (_ALL, "the one absolute-type table (US 9434908, Table 5) could not be read"),
-    "Ginger Lily Oil": (_ALL, "PerfumersWorld record is empty (SG 0.0000, CAS TBA)"),
+    # Lemon Terpeneless Oil Sicilian left this list on 2026-10-25 (citral 45%, BP grade estimate).
+    "Mate Absolute": (
+        _ALL,
+        "PW declares only methyl heptadienone 0.23%; US 9434908 Table 5 (read 2026-10-25) is a "
+        "dimethyl-carbonate leaf extract, 58.9% caffeine by GC area, not an absolute",
+    ),
+    "Ginger Lily Oil": (
+        _ALL,
+        "PerfumersWorld 7NS25173 record is empty (SG 0.0000, CAS TBA, MSDS 'Proprietary Perfume "
+        "Compound'); identity record only since 2026-10-25",
+    ),
     "Red Saffron Infusion": (
         _ALL,
         "PerfumersWorld: saffron stigmas extracted in DPG; strength unpublished",
