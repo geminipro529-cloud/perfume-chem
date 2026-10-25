@@ -9,9 +9,11 @@ from engine.pipeline.formula_state import _lookup_odt, build_formula_state
 # Helional and Benzyl Salicylate were the examples here until 23 Oct 2026, when
 # their VPs got sources (RIFM/EPI and ECHA via PubChem), and Bacdanol until
 # 25 Oct 2026 (RIFM 2023 EPI estimate); the rows below are still placeholders.
+# Ambermax's placeholder became a labelled 0.01 Pa estimate on 25 Oct 2026 and still
+# reads as estimated.
 @pytest.mark.parametrize(
     ("label", "value"),
-    [("Amber Core", 0.001), ("Ambermax", 0.001), ("Dipropylene Glycol", 0.01)],
+    [("Amber Core", 0.001), ("Ambermax", 0.01), ("Dipropylene Glycol", 0.01)],
 )
 def test_placeholder_vp_keeps_its_value_but_reads_as_estimated(label, value):
     vp, source = resolved_vp_25c_pa(resolve_material(label))
@@ -38,7 +40,7 @@ def test_formula_state_labels_placeholder_and_sourced_vps_apart():
     )
     by_name = {material.name: material for material in state.materials}
     ambermax = by_name["Ambermax"]
-    assert ambermax.vp_pure_pa == pytest.approx(0.001)
+    assert ambermax.vp_pure_pa == pytest.approx(0.01)
     assert ambermax.sources["vp"].startswith("estimated:")
     # Labelled, not withheld: the OAV is still computed.
     assert ambermax.oav is not None

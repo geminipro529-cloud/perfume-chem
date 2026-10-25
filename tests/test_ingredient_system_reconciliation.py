@@ -151,7 +151,10 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # only those three gives aa5581d0….
     # 2026-10-23: ethyl butyrate air ODT 0.04 ppb added (Nagata 2003); without that one
     # entry the digest is 1b161002….
-    assert digest == "31c5f96ca25e311dc9291bde787f112e999c4f616c4cbc9db28f608da9567288"
+    # 2026-10-25: Ambrocenide odt_air 0.02 -> 0.00176 ppb (Elterlein et al., Chem. Eur. J.
+    # 2024, 0.02 ng/L air; the old 0.02 was ng/L stored as ppb); reverting only that value
+    # gives 31c5f96c….
+    assert digest == "b43b04fc463b761500b92b2c3366bee814f261a60d35c7f519a1e503137f20bc"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())
