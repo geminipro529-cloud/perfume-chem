@@ -80,6 +80,11 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     ("ylang comoros complete eo f3255", "p-cresyl methyl ether", 30.0, 159.9864),
     ("ylang comoros iii eo f3295", "p-cresyl methyl ether", 30.0, 159.9864),
     ("ylang ylang eo (extra grade)", "p-cresyl methyl ether", 30.0, 159.9864),
+    # 2026-10-25 physics batch 1: the frangipani profile reuses the module's citral
+    # and citronellol rows, so the cited citral (above) and citronellol (ECHA
+    # 2.26 Pa) registry VPs replace their table values.
+    ("frangipani absolute perfumersworld 8on00534 declaration profile", "citral", 3.0, 12.172),
+    ("frangipani absolute perfumersworld 8on00534 declaration profile", "citronellol", 7.0, 2.26),
 }
 
 

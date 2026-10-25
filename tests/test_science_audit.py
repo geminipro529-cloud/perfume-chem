@@ -128,15 +128,17 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # Safranal. Both air thresholds are still tagged UNVERIFIED in
     # ODT_VERIFICATION. Costus Olifac lost its placeholder MW and VP (an IFF base
     # with no CAS) and became OAV-unknown (250 -> 251).
-    assert audit["oav_available_count"] == 251
-    assert audit["oav_unknown_count"] == 39
-    assert audit["oav_coverage_pct"] == 86.552
+    # 2026-10-25 physics batch 1: a labelled partial profile from PerfumersWorld's
+    # declared levels made Frangipani Absolute OAV-available (251 -> 252).
+    assert audit["oav_available_count"] == 252
+    assert audit["oav_unknown_count"] == 38
+    assert audit["oav_coverage_pct"] == 86.897
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"
     assert {"Fructone B", "Manzanate"} <= set(categories["other_oav_unknowns"])
     assert not {"Helvetolide", "Ambrocenide"} & set(categories["other_oav_unknowns"])
-    assert "Frangipani Absolute" in categories["naturals_missing_composite_evidence"]
+    assert "Frangipani Absolute" not in categories["naturals_missing_composite_evidence"]
     assert "Leather FO" in categories[
         "opaque_preblends_without_disclosed_composition"
     ]
