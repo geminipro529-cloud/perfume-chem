@@ -337,11 +337,6 @@
         "message_timestamp_utc": "2026-10-25T08:16:22Z",
         "text": "All neat",
         "context": "Stock data thread decision card 'Mark these 15 PerfumersWorld fruit bottles neat, as supplied?' (the 4 Oct order received 7 Oct, receipt lines 11-48); Kenny tapped 'All neat'"
-      },
-      {
-        "message_timestamp_utc": "2026-10-25T08:39:20Z",
-        "text": "THEY MELL LIKE HIT. THEY ARE DUMPED",
-        "context": "Lavender card thread, relayed to the Stock data thread by the project coordinator; his Rosemary EO and Cardamom EO smelled medicinal and he threw both out"
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -410,8 +405,7 @@
     "orange_flower_absolute_10pct_dpg_pw_20261023": true,
     "vetiveryl_acetate_used_up_20261025": true,
     "pw_fruit_order_lines_five_stocks_added_20261025": true,
-    "pw_fruit_bottles_fifteen_neat_20261025": true,
-    "rosemary_cardamom_eo_dumped_20261025": true
+    "pw_fruit_bottles_fifteen_neat_20261025": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -8219,74 +8213,6 @@
         "release_authorized": false
       },
       "note": "Kenny: 'i am out of vetiveryl acetate' (25 Oct 2026 07:33:48 UTC, another project thread, relayed to the Stock data thread). The 2026-09-24 neat stock INV-USER-20260924-R5-002 is retired; no Vetiveryl Acetate stock remains. Historical formulas are unchanged. inventory.txt is not edited."
-    },
-    {
-      "record_id": "INV-USER-20261014-STK-170",
-      "canonical_name": "Cardamom EO",
-      "aliases": [],
-      "state": "NOT_OWNED",
-      "category": "spice",
-      "stock": null,
-      "supersedes_parent_stocks": [
-        {
-          "source_row": 56
-        }
-      ],
-      "requirement_overrides": [
-        {
-          "source_row": 56,
-          "disposition": "GAP",
-          "status": "NOT OWNED - DUMPED (USER 2026-10-25)",
-          "actual_stock_text": "None; he threw the oil out",
-          "can_prepare": ""
-        }
-      ],
-      "effective_date": "2026-10-25",
-      "source_kind": "DIRECT_USER_CURRENT_STOCK_REMOVAL",
-      "source_quote": "THEY MELL LIKE HIT. THEY ARE DUMPED",
-      "source_message_timestamp_utc": "2026-10-25T08:39:20Z",
-      "authority_limits": {
-        "availability_confirmed": false,
-        "formula_rebase_authorized": false,
-        "compounding_authorized": false,
-        "safety_asserted": false,
-        "release_authorized": false
-      },
-      "note": "Kenny: 'THEY MELL LIKE HIT. THEY ARE DUMPED' (25 Oct 2026 08:39:20 UTC, lavender card thread), right after that thread named rosemary (camphor) and cardamom (cineole) as the source of a medicinal smell. That thread and the project coordinator read it as both oils thrown out. The V5 row 56 neat stock is retired; inventory.txt L335 is not edited. Both bottles go: the 8 May 2026 purchase and the MySkinRecipes order 2199302 bottle (16 Oct), which had been counted as the same stock. Historical formulas are unchanged."
-    },
-    {
-      "record_id": "INV-USER-20261014-STK-171",
-      "canonical_name": "Rosemary EO",
-      "aliases": [],
-      "state": "NOT_OWNED",
-      "category": "aromatic top",
-      "stock": null,
-      "supersedes_parent_stocks": [
-        {
-          "source_row": 216
-        }
-      ],
-      "requirement_overrides": [
-        {
-          "source_row": 216,
-          "disposition": "GAP",
-          "status": "NOT OWNED - DUMPED (USER 2026-10-25)",
-          "actual_stock_text": "None; he threw the oil out",
-          "can_prepare": ""
-        }
-      ],
-      "effective_date": "2026-10-25",
-      "source_kind": "DIRECT_USER_CURRENT_STOCK_REMOVAL",
-      "source_quote": "THEY MELL LIKE HIT. THEY ARE DUMPED",
-      "source_message_timestamp_utc": "2026-10-25T08:39:20Z",
-      "authority_limits": {
-        "availability_confirmed": false,
-        "formula_rebase_authorized": false,
-        "compounding_authorized": false,
-        "safety_asserted": false,
-        "release_authorized": false
-      },
-      "note": "Kenny: 'THEY MELL LIKE HIT. THEY ARE DUMPED' (25 Oct 2026 08:39:20 UTC, lavender card thread), right after that thread named rosemary (camphor) and cardamom (cineole) as the source of a medicinal smell. That thread and the project coordinator read it as both oils thrown out. The V5 row 216 neat stock is retired; inventory.txt L353 is not edited. Historical formulas are unchanged."
     }
   ]
 }

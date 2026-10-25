@@ -1297,7 +1297,7 @@
   hedonic_valence: 0.55
   ifra_max_pct_edp: null
   user_stock_dilution: neat
-  user_in_inventory: false  # Kenny 25 Oct 2026: dumped (overlay STK-170, STK-171)
+  user_in_inventory: true
   supplier: null
   families:
   - spice / aromatic

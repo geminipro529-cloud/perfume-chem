@@ -26,9 +26,7 @@ NEW = [
     "Rhodinol",
     "Methyl Ionone",
 ]
-# Cardamom EO was the fifth restock; Kenny threw both cardamom bottles out on 25 Oct 2026
-# (overlay STK-170), so tests/test_inventory_fruit_stock_2026_10_25.py checks it is gone.
-ALREADY_OWNED = ["Hedione", "Black Pepper EO", "Clary Sage EO", "Dimethyl Benzyl Carbinyl Acetate"]
+ALREADY_OWNED = ["Hedione", "Black Pepper EO", "Clary Sage EO", "Cardamom EO", "Dimethyl Benzyl Carbinyl Acetate"]
 
 
 def _owned():

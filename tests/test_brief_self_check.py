@@ -117,10 +117,9 @@ def _solved(role: SemanticRole, capability, status: str = "SOLVED") -> FormulaSo
     )
 
 
-# The spice lead is Nutmeg EO (it was Cardamom EO until Kenny threw his cardamom out, 25 Oct 2026).
 def test_a_lead_missing_its_note_is_a_repair_target_when_a_named_stock_is_free() -> None:
     brief, role, by_name, index = _spice_case()
-    primary = _solved(role, by_name["Nutmeg EO"])
+    primary = _solved(role, by_name["Cardamom EO"])
 
     check = check_solve(brief, primary)
     assert [d.role_id for d in check.lead_defects] == ["facet_spice"]
@@ -131,7 +130,7 @@ def test_a_lead_missing_its_note_is_a_repair_target_when_a_named_stock_is_free()
 
 def test_a_withheld_repair_is_never_picked() -> None:
     brief, role, by_name, index = _spice_case()
-    primary = _solved(role, by_name["Nutmeg EO"])
+    primary = _solved(role, by_name["Cardamom EO"])
     withheld = _solved(role, by_name["Black Pepper EO"], status="WITHHELD_CONCEPT_COVERAGE_INCOMPLETE")
 
     chosen = best_of_solves(brief=brief, index=index, avoid=(),
@@ -145,7 +144,7 @@ def test_a_withheld_repair_is_never_picked() -> None:
 
 def test_the_higher_scoring_candidate_wins_and_a_tie_keeps_the_first_solve() -> None:
     brief, role, by_name, index = _spice_case()
-    primary = _solved(role, by_name["Nutmeg EO"])
+    primary = _solved(role, by_name["Cardamom EO"])
     repaired = _solved(role, by_name["Black Pepper EO"])
 
     assert best_of_solves(
