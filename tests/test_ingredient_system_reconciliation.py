@@ -49,7 +49,9 @@ def test_successor_preserves_unaffected_stock_bytes_and_all_requirement_rows():
     "name,fraction,basis,carrier,ready",
     [
         ("Coumarin", 0.1, "mass_fraction", "dpg", True),
-        ("Vetiveryl Acetate", 1, "neat", "", True),
+        # 2026-10-25: Kenny is out of Vetiveryl Acetate (overlay STK-169), so its neat row
+        # is replaced by Manzanate, neat since his "All neat" card answer (STK-154).
+        ("Manzanate", 1, "neat", "", True),
         ("Methyl Laitone", 0.2, "volume_fraction", "ethanol", True),
         # 2026-10-14: Kenny put the Guaiacwood EO stock in DPG.
         ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg", True),
@@ -154,7 +156,14 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # 2026-10-25: Ambrocenide odt_air 0.02 -> 0.00176 ppb (Elterlein et al., Chem. Eur. J.
     # 2024, 0.02 ng/L air; the old 0.02 was ng/L stored as ppb); reverting only that value
     # gives 31c5f96c….
-    assert digest == "b43b04fc463b761500b92b2c3366bee814f261a60d35c7f519a1e503137f20bc"
+    # 2026-10-25 fruit batch (engine/odor_thresholds.py FRUIT_ODT_BATCH_2026_10_25):
+    # air ODTs for cis-3 hexenyl acetate 2.67, manzanate 0.0515, ethyl 2-methylbutyrate
+    # 0.06 -> 0.676, phenoxy ethyl isobutyrate 2.88 (Givaudan US 12,340,876 Table 1),
+    # hexyl acetate 2.0 -> 2.9 (Physiol. Behav. 2008; Nagata 1.8), allyl amyl glycolate
+    # 2.0 -> 0.172 and verdyl acetate 10 -> 0.134 (Givaudan patent estimates), delta
+    # damascone 0.02 -> 0.00267 and alpha damascone 0.04 -> 0.0178 (Firmenich, P&F 2002);
+    # odt_eth unchanged. Without those nine the digest is master's b43b04fc….
+    assert digest == "5c7d84b522eb7f20fc37c59489ca1231d5e3fc2f97a6d3c56574f90a96e28e97"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

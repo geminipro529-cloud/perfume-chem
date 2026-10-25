@@ -218,10 +218,11 @@ def test_completed_but_gate_held_parent_cannot_be_diluted(dilution_log) -> None:
 
 
 def test_execution_held_parent_without_a_completion_cannot_be_diluted(dilution_log) -> None:
-    manzanate = _stock("Manzanate", 1.0)
-    assert manzanate.execution_ready is False
+    # Glycolierral is still held at intake; Manzanate, the earlier example, left its hold on 25 Oct 2026.
+    glycolierral = _stock("Glycolierral", 1.0)
+    assert glycolierral.execution_ready is False
     with pytest.raises(PreparedDilutionError, match="held at the release gate"):
-        _prepare("manzanate-1", parent_stock_id=manzanate.stock_id)
+        _prepare("glycolierral-1", parent_stock_id=glycolierral.stock_id)
     assert not dilution_log.exists()
 
 

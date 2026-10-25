@@ -132,13 +132,17 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # declared levels made Frangipani Absolute OAV-available (251 -> 252).
     # 2026-10-25 physics batch 2: a labelled citral estimate (BP terpeneless grade)
     # made Lemon Terpeneless Oil Sicilian OAV-available (252 -> 253).
-    assert audit["oav_available_count"] == 253
-    assert audit["oav_unknown_count"] == 37
-    assert audit["oav_coverage_pct"] == 87.241
+    # 2026-10-25 fruit batch: Givaudan US 12,340,876 air thresholds made Cis-3 Hexenyl
+    # Acetate and Manzanate OAV-available (253 -> 255).
+    assert audit["oav_available_count"] == 255
+    assert audit["oav_unknown_count"] == 35
+    assert audit["oav_coverage_pct"] == 87.931
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"
-    assert {"Fructone B", "Manzanate"} <= set(categories["other_oav_unknowns"])
+    # Manzanate left this set on 2026-10-25 (Givaudan air threshold); Fructone B is still unknown.
+    assert {"Fructone B"} <= set(categories["other_oav_unknowns"])
+    assert "Manzanate" not in categories["other_oav_unknowns"]
     assert not {"Helvetolide", "Ambrocenide"} & set(categories["other_oav_unknowns"])
     assert "Frangipani Absolute" not in categories["naturals_missing_composite_evidence"]
     assert "Lemon Terpeneless Oil Sicilian" not in categories["naturals_missing_composite_evidence"]
