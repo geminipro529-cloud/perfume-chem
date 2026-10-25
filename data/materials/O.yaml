@@ -748,7 +748,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.927
   logp:
   functional_groups: []
   chirality:
@@ -782,6 +782,7 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'PerfumersWorld 8NC00338 documents (read 25 Oct 2026): specific gravity 0.93; x 0.99705 g/mL (water at 25 C) = 0.927'
 - canonical_name: Orange Flower F-TEC
   aliases:
   - ORANGE FLOWER F-TEC

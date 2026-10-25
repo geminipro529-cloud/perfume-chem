@@ -83,25 +83,10 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
         "CAS 28219-60-5 confirmed on PubChem 2026-10-23 (RDKit MW, Crippen log P); VP from the Takasago Hindinol sheet (master's 2026-10-23 data pass); "
         + _NO_AIR_ODT_1023,
     ),
-    "Rhodinol": (
-        ("logp", "mw", "vp"),
-        "MySkinRecipes 2760 citronellol + geraniol blend; COA CAS 6812-78-8 and page CAS "
-        "141-25-3 disagree (MSR reply 2026-10-21 did not resolve it)",
-    ),
     "Rum Ether": (_ALL, "CAS 8030-89-5 is a reaction-product mixture with no single MW or VP"),
     # Naturals with no peer-reviewed GC-MS of the same product type (Rule 4).
-    "Frangipani Absolute": (
-        _ALL,
-        "only a Plumeria alba concrete re-extracted in ethanol was found, a different product",
-    ),
     "Lemon Terpeneless Oil Sicilian": (_ALL, "no GC table for a terpeneless or folded lemon oil found"),
-    "Orange Flower Absolute": (
-        _ALL,
-        "PerfumersWorld 10% in DPG (STK-148, added on master 2026-10-23); no constituent "
-        "data searched yet",
-    ),
     "Mate Absolute": (_ALL, "the one absolute-type table (US 9434908, Table 5) could not be read"),
-    "Fir Essential Oil": (_ALL, "PerfumersWorld 7KG07758 does not state the Abies species; no GC-MS"),
     "Ginger Lily Oil": (_ALL, "PerfumersWorld record is empty (SG 0.0000, CAS TBA)"),
     "Red Saffron Infusion": (
         _ALL,

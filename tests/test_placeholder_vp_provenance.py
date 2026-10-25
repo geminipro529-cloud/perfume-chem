@@ -7,11 +7,11 @@ from engine.pipeline.formula_state import _lookup_odt, build_formula_state
 
 
 # Helional and Benzyl Salicylate were the examples here until 23 Oct 2026, when
-# their VPs got sources (RIFM/EPI and ECHA via PubChem); the rows below are still
-# placeholders.
+# their VPs got sources (RIFM/EPI and ECHA via PubChem), and Bacdanol until
+# 25 Oct 2026 (RIFM 2023 EPI estimate); the rows below are still placeholders.
 @pytest.mark.parametrize(
     ("label", "value"),
-    [("Bacdanol", 0.001), ("Ambermax", 0.001), ("Dipropylene Glycol", 0.01)],
+    [("Amber Core", 0.001), ("Ambermax", 0.001), ("Dipropylene Glycol", 0.01)],
 )
 def test_placeholder_vp_keeps_its_value_but_reads_as_estimated(label, value):
     vp, source = resolved_vp_25c_pa(resolve_material(label))
@@ -34,14 +34,14 @@ def test_formula_state_labels_placeholder_and_sourced_vps_apart():
     build_formula_state.cache_clear()
     # At the 25 C reference temperature the VP is the registry value itself.
     state = build_formula_state(
-        {"Bacdanol": 100.0, "Cinnamaldehyde": 100.0}, temperature_K=298.15
+        {"Ambermax": 100.0, "Cinnamaldehyde": 100.0}, temperature_K=298.15
     )
     by_name = {material.name: material for material in state.materials}
-    bacdanol = by_name["Bacdanol"]
-    assert bacdanol.vp_pure_pa == pytest.approx(0.001)
-    assert bacdanol.sources["vp"].startswith("estimated:")
+    ambermax = by_name["Ambermax"]
+    assert ambermax.vp_pure_pa == pytest.approx(0.001)
+    assert ambermax.sources["vp"].startswith("estimated:")
     # Labelled, not withheld: the OAV is still computed.
-    assert bacdanol.oav is not None
+    assert ambermax.oav is not None
     assert by_name["Cinnamaldehyde"].sources["vp"] == "registry:data_spine.vp_25c"
 
 

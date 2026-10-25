@@ -76,16 +76,16 @@
 - canonical_name: Bacdanol
   aliases:
   - bacdanol
-  cas: 68648-33-9
+  cas: '28219-61-6'
   smiles: null
   inchikey: null
-  mw_g_mol: 210.36
-  density_25c_g_ml: 0.866
-  logp: 3.6
+  mw_g_mol: 208.34
+  density_25c_g_ml: 0.911
+  logp: 4.54
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.001
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.00957
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -113,8 +113,11 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
+    cas: 'PerfumersWorld 4WR00045 product page (the owned SKU): CAS No. 28219-61-6; RIFM safety assessment, Food Chem Toxicol 182 (2023) 114153 (doi 10.1016/j.fct.2023.114153). The earlier 68648-33-9 belongs to another molecule'
+    mw_g_mol: 'C14H24O, 208.34 g/mol (NIST WebBook 208.3398; IFF Bacdanol SDS 208.30). The earlier 210.36 was wrong'
+    density_25c_g_ml: 'PerfumersWorld 4WR00045 product page: specific gravity 0.9140; x 0.99705 g/mL (water at 25 C) = 0.911. RIFM 2023 gives 0.913 (Dragoco)'
+    logp: 'IFF Bacdanol SDS (IFF code 00020104, rev. 17 Apr 2015), section 9: log Pow 4.540'
+    vp_25c_pa: 'RIFM safety assessment, Food Chem Toxicol 182 (2023) 114153: 7.18e-5 mm Hg at 25 C (EPI Suite estimate); x 133.322 Pa/mm Hg = 0.00957 Pa. Consistent with the IFF SDS "< 0.01 hPa, calculated". Replaces an unsourced placeholder'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
