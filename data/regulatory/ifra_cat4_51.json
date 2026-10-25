@@ -1534,6 +1534,123 @@
         "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
         "The natural contribution of Thujone is determined by the sum of the natural contributions of each of its isomers."
       ]
+    },
+    "IFRA_STD_202": {
+      "name": "Farnesal",
+      "cas": [
+        "19317-11-4"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.6,
+      "cat4_quote": "Category 4 0.60 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_202.pdf",
+      "notes": [
+        "Contributions from other sources: see the Annex on contributions from other sources."
+      ]
+    },
+    "IFRA_STD_194": {
+      "name": "p-Isopropylbenzyl alcohol",
+      "cas": [
+        "536-60-7"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 2.5,
+      "cat4_quote": "Category 4 2.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_194.pdf",
+      "notes": [
+        "Synonyms include cumin alcohol, cuminic alcohol, cuminol and cuminyl alcohol."
+      ]
+    },
+    "IFRA_STD_079": {
+      "name": "Tea leaf absolute",
+      "cas": [
+        "84650-60-2"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.21,
+      "cat4_quote": "Category 4 0.21 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_079.pdf",
+      "notes": [
+        "Synonym: Camellia sinensis leaf extract.",
+        "Contributions from other sources: none to consider beyond traces."
+      ]
+    },
+    "IFRA_STD_027": {
+      "name": "Dibenzyl ether",
+      "cas": [
+        "103-50-4"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.012,
+      "cat4_quote": "Category 4 0.012 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_027.pdf",
+      "notes": [
+        "Contributions from other sources: none to consider beyond traces."
+      ]
+    },
+    "IFRA_STD_260": {
+      "name": "p-Cresol",
+      "cas": [
+        "106-44-5",
+        "1319-77-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.005,
+      "cat4_quote": "Category 4 0.0050 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_260.pdf",
+      "notes": [
+        "Contributions from other sources: see the Annex on contributions from other sources."
+      ]
+    },
+    "IFRA_STD_098": {
+      "name": "Furfural",
+      "cas": [
+        "98-01-1"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.001,
+      "cat4_quote": "Category 4 0.0010 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_098.pdf",
+      "notes": [
+        "Contributions from other sources: none to consider beyond traces.",
+        "Furfural has been found in natural extracts but only at trace levels."
+      ]
+    },
+    "IFRA_STD_199": {
+      "name": "Longifolene",
+      "cas": [
+        "475-20-7",
+        "16846-09-6",
+        "19067-29-9"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.5,
+      "cat4_quote": "Category 4 1.5 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_199.pdf",
+      "notes": [
+        "Contributions from other sources: see the Annex on contributions from other sources."
+      ]
+    },
+    "IFRA_STD_061": {
+      "name": "6-Methyl-3,5-heptadien-2-one",
+      "cas": [
+        "1604-28-0"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.047,
+      "cat4_quote": "Category 4 0.047 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_061.pdf",
+      "notes": [
+        "Contributions from other sources: none to consider beyond traces."
+      ]
     }
   },
   "materials": {
@@ -2076,19 +2193,24 @@
         "Birch Tar",
         "Birch Tar Oil Rectified"
       ],
-      "note": "Only rectified (PAH-limited) birch tar oil may be used; inventory.txt records PerfumersWorld's rectified grade."
+      "note": "Only rectified (PAH-limited) birch tar oil may be used; inventory.txt records PerfumersWorld's rectified grade.",
+      "identity_note": "PerfumersWorld's IFRA certificate for Kenny's SKU 5TP11094 (Birch Tar Oil Rectified 10% in DPG, 51st Amendment) allows only 0.1 % of that stock (0.01 % birch tar) in Category 4, citing STD_114's PAH specification; IFRA itself sets no % limit.",
+      "verified_on": "2026-10-25"
     },
     "Black Pepper EO": {
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
-      "note": null
+      "note": "Piper nigrum fruit oil, CAS 8006-82-4. No IFRA standard of its own (library read 2026-10-25). Perfumer's Apprentice's IFRA certificate (another lot) lists eugenol 1.6 % and p-isopropylbenzyl alcohol 0.12 %, counted through ifra_annex1_constituents.json.",
+      "identity_note": "Its constituents are counted from another supplier's lot; no certificate for Kenny's bottle is on file.",
+      "verified_on": "2026-10-25"
     },
     "Blackcurrant Absolute": {
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
-      "note": null
+      "note": "Ribes nigrum bud absolute, CAS 97676-19-2. No IFRA standard of its own (library read 2026-10-25). PerfumersWorld's certificate for the neat absolute (8FB00063) prints Fine Fragrance 6.61 % from dibenzyl ether 0.1815 % (IFRA_STD_027, 0.012 %) and lists p-cresol 0.0295 %, phenylacetaldehyde 0.1082 %, citral 0.3503 % and limonene; the 10% product (5FB20096) gives one tenth of each. Counted through ifra_annex1_constituents.json.",
+      "verified_on": "2026-10-25"
     },
     "Blood Orange Oil Sicilian": {
       "status": "natural_no_own_standard",
@@ -2213,10 +2335,11 @@
       "note": "Contains cedrene, which STD_197 limits to 1.5 % counting natural sources."
     },
     "Cedarwood Himalayan EO": {
-      "status": "natural_no_own_standard",
-      "standard": null,
+      "status": "specification",
+      "standard": "IFRA_STD_184",
       "aliases": [],
-      "note": "Cedrus is a Pinaceae genus: STD_184 asks for a peroxide value below 10 mmol/L."
+      "note": "Cedrus deodara wood oil, CAS 68991-36-6. Cedrus is a Pinaceae genus, so IFRA_STD_184 (Pinacea derivatives) asks for a peroxide value below 10 mmol/L; no Category 4 % limit. Longifolene is counted from IFRA Annex I 'Cedarwood oil, Himalaya' (0.7 %). Re-checked on 2026-10-25.",
+      "verified_on": "2026-10-25"
     },
     "Cedarwood Virginia": {
       "status": "natural_no_own_standard",
@@ -2922,7 +3045,9 @@
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
-      "note": null
+      "note": "Bulnesia sarmientoi wood oil, CAS 8016-23-7. No IFRA standard of its own (library read 2026-10-25). Perfumer's Apprentice's IFRA certificate (another lot) prints 'Not limited' and lists eugenol 0.003 %, counted through ifra_annex1_constituents.json.",
+      "identity_note": "Its eugenol is counted from another supplier's lot.",
+      "verified_on": "2026-10-25"
     },
     "Habanolide": {
       "status": "no_standard",
@@ -3167,7 +3292,9 @@
       "aliases": [
         "Kenyan Myrrh resin ethanol tincture"
       ],
-      "note": null
+      "note": "Kenny's own ethanol tincture of Kenyan resin, labelled 'COMMIPHORA MYRRH'. Commiphora myrrha has no IFRA standard (library read 2026-10-25).",
+      "identity_note": "If this resin is opoponax (Commiphora guidotti, 'sweet myrrh', which also comes from Kenya), IFRA_STD_070 limits it to 0.43 % in Category 4; the label says Commiphora myrrha, which has no standard.",
+      "verified_on": "2026-10-25"
     },
     "Kephalis": {
       "status": "no_standard",
@@ -3285,7 +3412,8 @@
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
-      "note": "Distilled, so STD_093 (expressed lime) does not apply."
+      "note": "Distilled, so STD_093 (expressed lime) does not apply. Citral is counted from PerfumersWorld 7CK00274's IFRA certificate (0.7556 %), above Annex I's indicative 0.2 % for distilled lime oil (2026-10-25).",
+      "verified_on": "2026-10-25"
     },
     "Lime Oil Expressed": {
       "status": "restricted",
@@ -3581,7 +3709,8 @@
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
-      "note": null
+      "note": "Citrus aurantium flower oil (PerfumersWorld 7CN00318, SDS CAS 8016-38-4). Farnesol is counted at 10 %, the upper bound of its SDS section 3 band (1.0-10.0 %), which its IFRA certificate leaves out; Annex I's bitter orange flower oil row gives 1.8 % (2026-10-25).",
+      "verified_on": "2026-10-25"
     },
     "Nerolidol": {
       "status": "no_standard",
@@ -3652,7 +3781,8 @@
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
-      "note": null
+      "note": "Boswellia resinoid (PerfumersWorld 2QK21856, SDS CAS 8016-36-2); Kenny's stock is 50% w/w in DPG. No IFRA standard of its own (library read 2026-10-25). PerfumersWorld's product page says it 'Contains about 30% Benzyl Benzoate added during processing', counted (IFRA_STD_009, 4.8 %) through ifra_annex1_constituents.json, which holds the resinoid to 16 % of the product; its certificate lists no restricted materials and prints PerfumersWorld's 25 % ceiling. Thujone is counted from Annex I's 'Olibanum absolute' row (0.2 %), the nearest grade.",
+      "verified_on": "2026-10-25"
     },
     "Oman Frankincense Ethanol Tincture": {
       "status": "natural_no_own_standard",
@@ -3660,7 +3790,8 @@
       "aliases": [
         "Oman Frankincense resin ethanol tincture"
       ],
-      "note": null
+      "note": "Kenny's own ethanol tincture of Omani resin (Boswellia species unstated, usually B. sacra). No IFRA standard of its own (library read 2026-10-25). Thujone (alpha + beta, 0.3 %) and carvone (0.3 %) are counted from Annex I's 'Olibanum sacra oil' rows, an oil figure applied to the whole tincture, which is conservative.",
+      "verified_on": "2026-10-25"
     },
     "Opoponax Resinoid": {
       "status": "restricted",
@@ -3740,7 +3871,9 @@
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
-      "note": null
+      "note": "Pogostemon cablin leaf oil, CAS 8014-09-3 (Aroma&More). No IFRA standard of its own (library read 2026-10-25). Perfumer's Apprentice's IFRA certificate (another lot, dark Indonesian) lists cinnamic aldehyde 0.05 %, citral 0.02 %, dimethylcyclohex-3-ene-1-carbaldehyde 0.37 %, eugenol 0.44 % and longifolene 0.5 %, counted through ifra_annex1_constituents.json.",
+      "identity_note": "Its constituents are counted from another supplier's lot; no certificate for Kenny's bottle is on file.",
+      "verified_on": "2026-10-25"
     },
     "Peonile": {
       "status": "restricted",
@@ -3847,7 +3980,9 @@
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
-      "note": null
+      "note": "Schinus molle fruit oil, CAS 68917-52-2 (Aroma&More, Peru). No IFRA standard of its own (library read 2026-10-25). Perfumer's Apprentice's IFRA certificate (another lot) prints Category 4 10 % and lists geraniol 0.5 %, estragole 0.05 %, citronellyl acetate 0.1 % and toluene 0.02 %; the first three are counted through ifra_annex1_constituents.json (toluene's IFRA_STD_182 is a 100 ppm cap in the compound, not a Category 4 %).",
+      "identity_note": "Its constituents are counted from another supplier's lot, whose certificate allows only 10 % in Category 4 without naming why.",
+      "verified_on": "2026-10-25"
     },
     "Raspberry Ketone": {
       "status": "restricted",
@@ -3919,7 +4054,9 @@
       "aliases": [
         "Rosemary EO (French Rosmarinus Officinalis leaf oil)"
       ],
-      "note": null
+      "note": "Rosmarinus officinalis leaf oil, CAS 8000-25-7 (French). No IFRA standard of its own (library read 2026-10-25). Perfumer's Apprentice's IFRA certificate for a Tunisian oil prints Category 4 20.37 % from methyl eugenol 0.054 % and lists eight more restricted constituents, all counted through ifra_annex1_constituents.json.",
+      "identity_note": "Its constituents are counted from a Tunisian lot; methyl eugenol and estragole vary by chemotype, and no certificate for Kenny's French oil is on file.",
+      "verified_on": "2026-10-25"
     },
     "Safraleine": {
       "status": "no_standard",
@@ -4047,7 +4184,8 @@
       "status": "natural_no_own_standard",
       "standard": null,
       "aliases": [],
-      "note": null
+      "note": "Nicotiana tabacum leaf absolute, CAS 8037-19-2 (PerfumersWorld 5TH13846, 10% in DPG). No IFRA standard of its own (library read 2026-10-25). Its certificate lists coumarin 0.0156 % of the 10% product; 0.156 % of the absolute is counted through ifra_annex1_constituents.json.",
+      "verified_on": "2026-10-25"
     },
     "Tonka Bean Absolute": {
       "status": "natural_no_own_standard",
@@ -4477,6 +4615,334 @@
       ],
       "source_url": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-93-8.pdf",
       "verified_on": "2026-10-23"
+    },
+    "Anisyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "p-Methoxybenzyl acetate, CAS 104-21-2. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 3LN00043's IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. IFRA's 52nd Amendment consultation proposes a standard for it; not in force.",
+      "cas": [
+        "104-21-2"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Cedroxyde": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Firmenich Cedroxyde, CAS 71735-79-0. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 3WI00098's IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. Made from cedarwood fractions; the certificate declares no cedrene (IFRA_STD_197), so any residual cedrene is not counted.",
+      "cas": [
+        "71735-79-0"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Cedryl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Cedryl acetate, CAS 77-54-3. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 2WW00099's IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. Made from cedarwood fractions; the certificate declares no cedrene (IFRA_STD_197), so any residual cedrene is not counted.",
+      "cas": [
+        "77-54-3"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Dihydrojasmone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "3-Methyl-2-pentylcyclopent-2-en-1-one, CAS 1128-08-1. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 4JN00149 (neat) and 5JN10948 (10% in DPG)'s IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. IFRA's 52nd Amendment consultation proposes a standard for it; not in force.",
+      "cas": [
+        "1128-08-1"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Ethyl Acetoacetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Ethyl 3-oxobutanoate, CAS 141-97-9. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 3FG00172's IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit.",
+      "cas": [
+        "141-97-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Ethyl Butyrate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Ethyl butanoate, CAS 105-54-4. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 3FD00174's IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit.",
+      "cas": [
+        "105-54-4"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Fructone B": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Ethyl 2,4-dimethyl-1,3-dioxolane-2-acetate (Fraistone, not IFF Fructone), CAS 6290-17-1. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 3FG00196's IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit.",
+      "cas": [
+        "6290-17-1"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Neryl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Neryl acetate, CAS 141-12-8. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 3RF05061's IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. IFRA's 52nd Amendment consultation proposes a standard for it; not in force.",
+      "cas": [
+        "141-12-8"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Phenyl Ethyl Dimethyl Carbinyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Dimethyl phenylethyl carbinyl acetate, CAS 103-07-1. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 3LR00160's IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. Not the carbinol (CAS 103-05-9, PerfumersWorld 3MR02826), which has no standard either.",
+      "cas": [
+        "103-07-1"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Vertofix Coeur": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Vertofix",
+        "Vertofix Couer"
+      ],
+      "note": "IFF Vertofix Coeur (acetyl cedrene), CAS 32388-55-9. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 3WY00465's IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. Perfumer's Apprentice's IFRA certificate for Vertofix also prints Category 4 'Not limited'. Made from cedarwood fractions; the certificate declares no cedrene (IFRA_STD_197), so any residual cedrene is not counted. IFRA's 52nd Amendment consultation proposes a standard for it; not in force.",
+      "cas": [
+        "32388-55-9"
+      ],
+      "source_url": "https://ifrafragrance.org/standards-library",
+      "verified_on": "2026-10-25"
+    },
+    "Jessemal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "IFF Jessemal. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Perfumer's Apprentice's IFRA certificate (51st Amendment, IFF code 00102563) prints Category 4 'Not limited'. The certificate gives no CAS, so the inventory's '(jasmonyl)' alias and CAS 38285-49-3 are not confirmed by it.",
+      "source_url": "https://shop.perfumersapprentice.com/Documents/IFRA-51/9418.pdf",
+      "verified_on": "2026-10-25"
+    },
+    "Clearwood": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Firmenich Clearwood (PerfumersWorld 3WB13402, SDS CAS 84238-39-1 : 1450625-49-6). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld's certificate lists no restricted materials; Perfumer's Apprentice's IFRA certificate for Clearwood (another lot) lists farnesol 0.2 %, which is counted through ifra_annex1_constituents.json. Left the undisclosed-base list on 2026-10-25.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=3WB13402",
+      "verified_on": "2026-10-25"
+    },
+    "Black Agarwood Artificial": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "PerfumersWorld 6WU07708, an artificial oud compound; Kenny dilutes it to 10% in DPG. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) lists benzyl cinnamate 0.4365 %, cedrene 0.8255 %, benzyl benzoate 1.5601 % and d-limonene 0.9515 % of the neat compound; the restricted ones are counted through ifra_annex1_constituents.json. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. Left the undisclosed-base list on 2026-10-25.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=6WU07708",
+      "verified_on": "2026-10-25"
+    },
+    "Black Tea Base": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "PerfumersWorld 6HE09224, a compounded tea accord, not tea leaf absolute. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) lists benzyl benzoate 0.076 %, anisaldehyde 0.0361 %, rose ketones 0.0335 % and linalool 0.2189 %; the restricted ones are counted through ifra_annex1_constituents.json. It does not list tea leaf absolute (IFRA_STD_079). PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. Left the undisclosed-base list on 2026-10-25.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=6HE09224",
+      "verified_on": "2026-10-25"
+    },
+    "Tuberlia Base": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Tuberalia Base"
+      ],
+      "note": "PerfumersWorld 6ND09663 'Tuberalia Base', a tuberose compound. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) lists 8 constituents (hydroxycitronellal 6.7878 %, benzyl salicylate 4.9065 %, eugenol 1.6008 % and others), and its SDS section 3 also gives isoeugenol and cinnamyl alcohol at 0.1-1.0 %, which the certificate leaves out; the 7 certificate rows with a Category 4 limit (not linalool) and the two SDS substances are counted through ifra_annex1_constituents.json, the two SDS bands at their upper bound. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. Left the undisclosed-base list on 2026-10-25.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=6ND09663",
+      "verified_on": "2026-10-25"
+    },
+    "Sandalwood Base X3": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Sandalwood Base 3X"
+      ],
+      "note": "PerfumersWorld 6WX24054 'Sandalwood Base X3' (inventory.txt: Sandalwood Base 3X). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) lists rose ketones 0.0037 % and traces of citral, limonene, linalool and carvone; its SDS section 3 gives Sandalore (CAS 65113-99-7, IFRA_STD_212) and sandal cyclopropane at 1.0-10.0 % each, which the certificate leaves out. Rose ketones and Sandalore at its 10 % upper bound are counted through ifra_annex1_constituents.json. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. Left the undisclosed-base list on 2026-10-25.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=6WX24054",
+      "verified_on": "2026-10-25"
+    },
+    "Cassis Base 345B": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Firmenich CASSIS BASE 000345 B. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Firmenich's IFRA certificate (issued 06-Dec-2023) prints Category 4 'No Restriction'; De Hekserij's IFRA sheet for the same product code (1Doc 23187) lists citral 0.0006 %, citronellol 3.0 %, dimethyl-cyclohexene-pentenone 0.1249 %, dimethylcyclohex-3-ene-1-carbaldehyde 1.25 %, estragole 0.0005 % and geraniol 0.021 %, all counted through ifra_annex1_constituents.json. Kenny's supplier is not recorded. Left the undisclosed-base list on 2026-10-25.",
+      "source_url": "https://www.hekserij.nl/wp-content/uploads/2025/07/1Doc-23187-Cassis-base-345B-Fir.pdf",
+      "verified_on": "2026-10-25"
+    },
+    "Palm Dates Base": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "PerfumersWorld 6FQ21068 'Palm Dates Base' (SDS CAS 'Mixture'). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=6FQ21068",
+      "verified_on": "2026-10-25",
+      "identity_note": "Its certificate declares no restricted constituents, but its composition is not published, so none are counted."
+    },
+    "Pamzest": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "PerfumersWorld 6CN23709 'Pamzest', a grapefruit-zest specialty base. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) prints Fine Fragrance 13.85 % (2-hexenal 0.0556 % at IFRA_STD_039's 0.0077 %) and lists 11 constituents; the 9 with a Category 4 limit (not limonene or linalool) are counted through ifra_annex1_constituents.json.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=6CN23709",
+      "verified_on": "2026-10-25"
+    },
+    "Ambrette Seed Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Abelmoschus moschatus seed absolute (PerfumersWorld 5XU12235, 10% in DPG; SDS CAS 84455-19-6). Not musk ambrette (IFRA_STD_168). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its farnesol is counted from IFRA Annex I ('Ambrette seed absolute', 5 %) and its farnesal from the certificate (0.0054 % of the 10% product, 0.054 % of the absolute).",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5XU12235",
+      "verified_on": "2026-10-25"
+    },
+    "Benzoin Sumatra Resinoid": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Styrax benzoin resinoid, CAS 9000-05-9. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Counted from IFRA Annex I ('Benzoin extract, Sumatra') and from PerfumersWorld 2QV08253's IFRA certificate, which gives benzyl benzoate 89.2386 % (the product is a resinoid solution in benzyl benzoate) and a Fine Fragrance limit of 5.38 %.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=2QV08253",
+      "verified_on": "2026-10-25",
+      "identity_note": "Whether Kenny's 10% stock was made from PerfumersWorld 2QV08253 is not recorded; its certificate is counted as the conservative case."
+    },
+    "Clove EO (India)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Clove EO",
+        "Clove Bud Oil"
+      ],
+      "note": "Syzygium aromaticum oil, CAS 8000-34-8 (bud, leaf and stem oils share it). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Eugenol is counted from IFRA Annex I: clove bud oil 82 %, leaf oil 85.3 %, stem oil 88 %; the plant part is not confirmed by a document, so the highest is used.",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Eugenol.pdf",
+      "verified_on": "2026-10-25",
+      "identity_note": "Perfumer's Apprentice's IFRA certificate for an Indonesian clove bud oil allows only 1.25 % in Category 4 without naming the constituent; keep this oil at or below 1.25 % until a certificate for Kenny's own lot is on file."
+    },
+    "Cocoa Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Theobroma cacao absolute (PerfumersWorld 8VT00635, neat; SDS CAS 8002-31-1). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit. IFF's certificate for 'COCOA ABS MD 5 PCT IPM' is another grade and is not used.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8VT00635",
+      "verified_on": "2026-10-25"
+    },
+    "Frangipani Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Plumeria absolute (PerfumersWorld 5ON09236, 10% in DPG; SDS CAS 223748-06-9). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) lists benzyl salicylate 0.9096 %, benzyl benzoate 0.1655 %, citronellol 0.0379 %, benzyl alcohol 0.0248 %, citral 0.0079 % and benzaldehyde 0.005 % of the 10% product; ten times those (the absolute) are counted through ifra_annex1_constituents.json.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5ON09236",
+      "verified_on": "2026-10-25"
+    },
+    "Ginger Lily Oil": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "PerfumersWorld 7NS25173 'Ginger Lily Oil'. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld publishes no IFRA certificate for this SKU.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7NS25173",
+      "verified_on": "2026-10-25",
+      "identity_note": "PerfumersWorld gives no species, CAS, composition or IFRA certificate, so it may be a reconstitution; nothing in it is counted."
+    },
+    "Lavandin Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Lavandula x intermedia absolute (PerfumersWorld 8HY00554, neat; CAS 8022-15-9). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) prints Fine Fragrance 21.43 % (coumarin 7.0 % at IFRA_STD_023's 1.5 %) and lists 11 restricted constituents, counted through ifra_annex1_constituents.json with Annex I's 'Lavandin absolute' row. 1-Octen-3-yl acetate (0.2 %) has no standard in this table and is not counted. Payan Bertrand's certificate for another lot prints Category 4 10 % and citral 3.208 %.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8HY00554",
+      "verified_on": "2026-10-25"
+    },
+    "Lemon Terpeneless Oil Sicilian": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Citrus limon terpeneless oil (PerfumersWorld 7CC24027, neat; SDS CAS 68648-39-5). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Counted from IFRA Annex I 'Lemon oil terpeneless': citral 40 %, citronellal 3 %, geraniol 2 %. PerfumersWorld's certificate lists no restricted materials and its SDS gives no composition, so that empty table is not taken as citral-free.",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Citral.pdf",
+      "verified_on": "2026-10-25",
+      "identity_note": "Its furocoumarin content is not stated; IFRA_STD_089's bergapten total cannot be checked for it."
+    },
+    "Mate Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Ilex paraguariensis absolute, CAS 68916-96-1 (PerfumersWorld 5HE13845, 10% in DPG; neat 8HE00557). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld's certificate for the neat absolute prints Fine Fragrance 20.83 % from methyl heptadienone 0.2256 % (IFRA_STD_061), counted through ifra_annex1_constituents.json; the 10% product's certificate gives one tenth of it.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8HE00557",
+      "verified_on": "2026-10-25"
+    },
+    "Orris Butter": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Orris Butter 50% in EtOH"
+      ],
+      "note": "Orris butter (Iris rhizome concrete), CAS 8002-73-1; Kenny's own 50 % w/w dilution in ethanol. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld 8IA00344's IFRA certificate for the neat butter lists no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=8IA00344",
+      "verified_on": "2026-10-25",
+      "identity_note": "The source of the butter Kenny diluted is not confirmed."
+    },
+    "Orris Concrete Orris Butter": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "PerfumersWorld 5IA07847 'Orris Concrete Orris Butter 10% DPG' (CAS 8002-73-1). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate and the neat butter's (8IA00344) list no restricted materials. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5IA07847",
+      "verified_on": "2026-10-25"
+    },
+    "Red Saffron Infusion": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "PerfumersWorld 5ES18560 'Red Saffron Infusion' (SDS CAS 8022-19-3). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Its IFRA certificate (51st Amendment) prints Fine Fragrance 23.12 % from safranal 0.0519 % (IFRA_STD_082), counted through ifra_annex1_constituents.json.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5ES18560",
+      "verified_on": "2026-10-25"
+    },
+    "Vanilla Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Vanilla planifolia absolute, CAS 8024-06-4 (PerfumersWorld 5VW09926, 10% in DPG). No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. Anisyl alcohol is counted from IFRA Annex I 'Vanilla absolute' (6.6 %), above its certificate's 0.0046 % of the 10% product.",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Anisyl%20alcohol.pdf",
+      "verified_on": "2026-10-25"
+    },
+    "Pomelo EO": {
+      "status": "restricted",
+      "standard": "IFRA_STD_091",
+      "aliases": [
+        "Pomelo Essential Oil"
+      ],
+      "note": "PerfumersWorld 7CN23708 'Pomelo EO'. Its SDS prints CAS 8016-20-4, which IFRA_STD_091 'Grapefruit oil expressed' lists (Category 4 4.0 %, phototoxicity); species and extraction are not stated, and STD_091 applies its limit when the furocoumarin level is unknown, so the whole stock is checked against it and its phototoxic share. Citral and citronellal are counted from Annex I's 'Grapefruit oil' row. Fraterworks' certificate for its own pomelo (another lot) prints 'No restriction'.",
+      "cas": [
+        "8016-20-4"
+      ],
+      "source_url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_091.pdf",
+      "verified_on": "2026-10-25"
+    },
+    "Rhodinol ex Citronella": {
+      "status": "restricted",
+      "standard": "IFRA_STD_022",
+      "aliases": [],
+      "note": "PerfumersWorld 3RB07724 (SDS CAS 68916-43-8). IFRA_STD_022 Citronellol names 'Rhodinol' as a commercial synonym, so the whole stock is checked against its 12 % (conservative: the certificate gives citronellol 47.0646 %). The certificate's geraniol 47.1666 %, hydroxycitronellal 0.2673 %, citronellal 0.0303 % and citral 0.0101 % are counted through ifra_annex1_constituents.json, so geraniol (IFRA_STD_037, 4.7 %) binds at 9.96 %, the certificate's own Fine Fragrance figure. A separate stock from Rhodinol.",
+      "cas": [
+        "68916-43-8"
+      ],
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=3RB07724",
+      "verified_on": "2026-10-25"
     }
   },
   "group_rules": [
@@ -4541,7 +5007,8 @@
         "Orange Peel EO",
         "Grapefruit Oil",
         "Lemon Oil",
-        "Lime Oil Expressed"
+        "Lime Oil Expressed",
+        "Pomelo EO"
       ],
       "quote": "The sum of the concentrations of all furocoumarin-containing phototoxic fragrance ingredients (extracts), expressed in % of their recommended upper concentration level in the finished consumer product, shall not exceed 100."
     },

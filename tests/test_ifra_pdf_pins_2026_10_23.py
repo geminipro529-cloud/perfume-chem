@@ -49,6 +49,11 @@ def test_owned_suffixed_names_resolve():
         assert hit is not None and hit.name == name, stock
 
 
-def test_new_undisclosed_bases_are_flagged():
+def test_bases_with_a_recorded_composition_left_the_undisclosed_list():
+    # Added 2026-10-23; on 2026-10-25 their IFRA certificates (Cassis: De Hekserij's IFRA
+    # sheet for Firmenich 000345 B) were recorded, so their constituents are counted.
     names = {b.name for b in load_undisclosed_bases()}
-    assert {"Cassis Base 345B", "Sandalwood Base X3", "Tuberlia Base"} <= names
+    table = load_ifra_table()
+    for base in ("Cassis Base 345B", "Sandalwood Base X3", "Tuberlia Base"):
+        assert base not in names
+        assert table.lookup(base).name == base

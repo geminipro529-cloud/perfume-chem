@@ -101,10 +101,13 @@ def test_every_certificate_row_names_its_perfumersworld_document():
         assert "certificate" in row["ncs_name"]
         assert row["source_url"].startswith("https://www.perfumersworld.com/document-list.php")
         assert row["note"].startswith("Not an Annex I row.")
-        assert float(row["max_pct_as_printed"]) == row["max_pct"]
+        # A 10% product's certificate is printed for the dilution; the row holds the neat level.
+        scale = 100.0 / row.get("printed_for_dilution_pct", 100.0)
+        assert float(row["max_pct_as_printed"]) * scale == pytest.approx(row["max_pct"])
 
 
 def test_two_hexenal_has_no_annex_rows_and_thujone_rows_are_not_double_counted():
-    assert not [r for r in RAW["rows"] if r["standard"] == "IFRA_STD_039"]
+    # Only supplier certificates (Lavandin, Pamzest) give 2-hexenal levels.
+    assert not [r for r in RAW["rows"] if r["standard"] == "IFRA_STD_039" and "source_kind" not in r]
     thujone = [r for r in RAW["rows"] if r["standard"] == "IFRA_STD_102"]
     assert len({r["ncs_name"] for r in thujone}) == len(thujone)

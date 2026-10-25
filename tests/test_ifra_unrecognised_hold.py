@@ -4,7 +4,9 @@ An unrecognised row is never compared with a limit and drops out of the group su
 restricted material under an unfamiliar stock name could otherwise pass with a warning.
 """
 
-from engine.ifra_standards import evaluate_ifra, load_ifra_table
+import pytest
+
+from engine.ifra_standards import evaluate_ifra, load_ifra_table, single_material_limit_pct
 from engine.inventory_parser import materialize_current_inventory
 from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.gates import ReleaseGateConfig, _gate_safety
@@ -66,17 +68,17 @@ def test_word_order_variant_is_checked_against_its_limit_and_group():
 
 
 def test_unrecognised_row_holds_the_gate():
-    # A trade name whose identity was not confirmed: it stays unrecognised. (Supplier
-    # bases with no published composition are flagged instead; see
-    # test_ifra_undisclosed_bases.py.)
-    assert TABLE.lookup("Vertofix") is None
-    gate = _gate({"Evernyl": 240.0, "Vertofix": 20.0})
+    # Kenny chose to keep Orange Flower Absolute held ("Keep the hold"), so it stays
+    # unrecognised. (Supplier bases with no published composition are flagged instead;
+    # see test_ifra_undisclosed_bases.py.)
+    assert TABLE.lookup("Orange Flower Absolute") is None
+    gate = _gate({"Evernyl": 240.0, "Orange Flower Absolute": 20.0})
 
     assert gate.status == "HOLD"
-    assert "Vertofix" in gate.detail
+    assert "Orange Flower Absolute" in gate.detail
     assert "To clear" in gate.detail
-    assert gate.data["unchecked"] == ["Vertofix"]
-    hold = next(h for h in gate.data["holds"] if h["material"] == "Vertofix")
+    assert gate.data["unchecked"] == ["Orange Flower Absolute"]
+    hold = next(h for h in gate.data["holds"] if h["material"] == "Orange Flower Absolute")
     assert "not recognised by the IFRA Category 4 table" in hold["message"]
     assert "supplier's IFRA certificate" in hold["message"]
 
@@ -115,23 +117,20 @@ def test_formula_with_every_row_recognised_keeps_its_verdict():
 
 
 # Owned stocks reviewed against the IFRA Standards Library on 2026-10-09 and left
-# unrecognised on purpose: compounded bases, naturals and absolutes, a Schiff base,
-# cedarwood-derived grades that may carry cedrene (IFRA_STD_197, Category 4 1.5 %), and
-# trade names whose identity was not confirmed from a source. Each must keep holding,
-# except the supplier bases with no published composition, which are flagged by name
-# with a warning (Kenny, 2026-10-09), and Aurantiol, whose hydroxycitronellal share is
-# counted as a Schiff base.
+# unrecognised on purpose. Each must keep holding, except the supplier bases and extracts
+# with no published composition, which are flagged by name with a warning (Kenny,
+# 2026-10-09), and Aurantiol, whose hydroxycitronellal share is counted as a Schiff base.
+# On 2026-10-25 the stock thread's IFRA batch gave every other owned stock a table row
+# (most from the supplier's IFRA certificate, the rest "no standard" after a full read of
+# the Standards Library); Orange Flower Absolute keeps holding by Kenny's decision.
 FLAGGED_BASES = {
-    "Black Agarwood Artificial",
-    "Black Tea Base",
-    "Cassis Base 345B",
+    "Cabbage Rose Extract",  # MySkinRecipes PG extracts: no composition or IFRA document
     "Castoreum Synthetic",
-    "Clearwood",
     "Costus Olifac",  # stock name since the 2026-10-15 10% in DPG record
+    "Iris Florentina Root Extract",
     "Lilyreal ND",
-    "Sandalwood Base X3",
+    "Magnolia Flower Extract",
     "Suederal",  # stock name since the 2026-10-14 DPG record
-    "Tuberlia Base",
 }
 # Both Aurantiol stocks carry Kenny's word since 2026-10-15, so their display
 # names say which bottle each is.
@@ -139,78 +138,9 @@ SCHIFF_BASES = {
     "Aurantiol (neat)",
     "Aurantiol 10%",
 }
-STILL_HELD = {
-    "Ambrette Seed Absolute",
-    "Aurantiol (neat)",
-    "Aurantiol 10%",
-    "Black Agarwood Artificial",
-    "Black Tea Base",
-    "Cassis Base 345B",
-    "Castoreum Synthetic",
-    "Cedryl Acetate",
-    # Added to the stock list on 2026-10-14; no IFRA standard names these woods.
-    "Cedroxyde",
-    "Clearwood",
-    # Added 2026-10-15: plant part unknown, so its eugenol content is unknown.
-    "Clove EO (India)",
-    "Costus Olifac",  # stock name since the 2026-10-15 10% in DPG record
-    "Frangipani Absolute",
-    "Fructone B",
-    # New bottles of 2026-10-13: no IFRA standard names pomelo or ginger lily oil, and
-    # neither bottle's species, plant part or furocoumarin content is recorded.
-    "Ginger Lily Oil",
-    "Lavandin Absolute",
-    "Lemon Terpeneless Oil Sicilian",
-    "Lilyreal ND",
-    "Sandalwood Base X3",
-    "Mate Absolute",
-    # Added 2026-10-15 (neat); no IFRA table entry matches it.
-    "Neryl Acetate",
-    "Orris Concrete Orris Butter",
-    # Kenny's 50% w/w ethanol dilution of orris butter (2026-10-20); orris has no IFRA standard.
-    "Orris Butter 50% in EtOH",
-    # 20 Oct 2026 email-sweep arrivals (Kenny's answers in "Check new ingredients in code"); no IFRA row yet.
-    "Cabbage Rose Extract",
-    # The other arrivals got IFRA rows on 2026-10-21 (Kenny chose "Load all"); these three extracts
-    # and Dupical 10% still hold by name.
-    "Iris Florentina Root Extract",
-    "Magnolia Flower Extract",
-    "Pomelo EO",
-    # Added 2026-10-15: a saturated saffron infusion in DPG of unknown strength.
-    "Red Saffron Infusion",
-    # Owned before, but undosable until 2026-10-14 gave it a strength (neat).
-    "Suederal",  # stock name since the 2026-10-14 DPG record
-    "Tuberlia Base",
-    "Vanilla Absolute",
-    "Vertofix",
-    "Vertofix Coeur",
-    # Recorded 2026-10-15 from Kenny's bottle answers and his w/w-in-DPG rule; no IFRA
-    # table entry matches them yet, so they hold by name.
-    "Benzoin Sumatra Resinoid 10%",
-    "Cocoa Absolute",
-    "Dihydrojasmone",
-    "Dihydrojasmone 10% in DPG",
-    "Jessemal",
-    "Pamzest",
-    "Rhodinol ex Citronella",
-    # MySkinRecipes order #2199302, arrived 2026-10-16; no IFRA table entry matches
-    # these names yet, so they hold by name. (Cedarwood Texas, Geranium Bourbon,
-    # Sweet Orange and both Isoraldeines were linked on 2026-10-16.)
-    # 2026-10-21 ("Load all"): Rhodinol is checked against the geraniol standard; Para-Acetanisole,
-    # Rum Ether and most sweep arrivals are recorded as having no IFRA standard.
-    # 2026-10-23 ("Load it"): p-Cresyl Methyl Ether 10% is recorded as having no IFRA standard
-    # (RIFM's assessment for CAS 104-93-8: "IFRA standard: None").
-    # Added 2026-10-23: Kenny's PW Orange Flower Absolute 10% in DPG; no IFRA table row and no
-    # constituent row yet, so it holds by name.
+STILL_HELD = FLAGGED_BASES | SCHIFF_BASES | {
+    # Kenny's PW Orange Flower Absolute 10% in DPG (2026-10-23): "Keep the hold".
     "Orange Flower Absolute",
-    # Added 2026-10-25: five PerfumersWorld stocks Kenny confirmed owned ("THEE ARE IN MY
-    # INVENTORY"); no IFRA table row yet, and Palm Dates Base is a compound base whose
-    # certificate is not read, so all five hold by name.
-    "Ethyl Butyrate",
-    "Ethyl Acetoacetate",
-    "Palm Dates Base",
-    "Anisyl Acetate",
-    "Phenyl Ethyl Dimethyl Carbinyl Acetate",
 }
 
 
@@ -265,4 +195,11 @@ def test_canthoxal_and_rhodinol_carry_their_ifra_limits():
     # A citronellol/geraniol blend with up to 40 % geraniol: the stricter geraniol limit applies to the whole stock.
     rhodinol = TABLE.lookup("Rhodinol")
     assert (rhodinol.standard, rhodinol.cat4_limit_pct) == ("IFRA_STD_037", 4.7)
-    assert TABLE.lookup("Rhodinol ex Citronella") is None
+    # PerfumersWorld's Rhodinol ex Citronella (3RB07724) is its own entry since 2026-10-25:
+    # checked whole as citronellol, with its certificate's geraniol counted (9.96 %).
+    ex_citronella = TABLE.lookup("Rhodinol ex Citronella")
+    assert ex_citronella is not rhodinol
+    assert (ex_citronella.standard, ex_citronella.cat4_limit_pct) == ("IFRA_STD_022", 12.0)
+    status, limit = single_material_limit_pct("Rhodinol ex Citronella")
+    assert status == "restricted"
+    assert limit == pytest.approx(4.7 / 0.471666)
