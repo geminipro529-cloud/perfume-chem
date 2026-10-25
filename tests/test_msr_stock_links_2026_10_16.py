@@ -66,7 +66,9 @@ def test_isoraldeines_count_toward_the_methyl_ionone_group_total():
     [
         ("Cedarwood Texas EO", "Cedarwood oil, Texas", "Cedrene"),
         ("Geranium Bourbon Essential Oil", "Geranium oil", "Geraniol"),
-        ("Geranium Bourbon Essential Oil", "Geranium oil", "Citronellol"),
+        # PerfumersWorld 7RB00930's certificate prints 21.3364 %, above Annex I geranium oil's 21.1 %.
+        ("Geranium Bourbon Essential Oil", "Geranium Bourbon oil, PerfumersWorld 7RB00930 certificate",
+         "Citronellol"),
         ("Sweet Orange Essential Oil", "Orange peel, sweet oil", "Citral"),
     ],
 )
