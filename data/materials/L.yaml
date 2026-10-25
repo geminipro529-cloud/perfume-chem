@@ -1324,7 +1324,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: 0.891
+  density_25c_g_ml: 0.888
   logp: null
   functional_groups: []
   chirality: null
@@ -1353,11 +1353,17 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'A mixture, so no single MW, VP or log P. Modeled as a natural composite:
+    citral 45%, the midpoint of the British Pharmacopoeia terpeneless grade (40-50%),
+    labelled an estimate (engine/pipeline/natural_absolute_decomposition.py). PW publishes
+    no composition and no allergen rows. PW''s IFRA certificate (25% in Category 4 fine
+    fragrance) does not fit a 40-50% citral oil, which the citral standard would hold
+    to about 1.2-1.5%, so it is not relied on and the IFRA hold stays (25 Oct 2026).'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.891; https://thegoodscentscompany.com/data/tl1032421.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_25c_g_ml: 'PerfumersWorld 7CC24027 MSDS, specific gravity 0.885-0.897 at 25 C, midpoint 0.891 x 0.99705 (25 Oct 2026); was the same range read from TGSC (https://thegoodscentscompany.com/data/tl1032421.html) without the water conversion'
     cas: '22 Oct 2026 missing-data pass: stated; raw 68648-39-5; '
+    notes: 'https://www.perfumersworld.com/document-list.php?pro_id=7CC24027 (SDS, allergen declaration, IFRA certificate, MSDS) and https://www.sciencedirect.com/topics/medicine-and-dentistry/lemon-oil (Trease and Evans: BP terpeneless lemon oil "has a citral content of 40-50%"), read 25 Oct 2026'
 - canonical_name: Lemon Verdello Oil Sicilian
   aliases:
   - Lemon Verdello oil Sicilian

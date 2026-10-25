@@ -1643,7 +1643,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml: 0.819
+  density_25c_g_ml: 0.872
   logp:
   functional_groups: []
   chirality:
@@ -1665,8 +1665,11 @@
   supplier:
   families: []
   character:
-  notes: 'MySkinRecipes 2199302 Rum Ether, neat.'
+  notes: 'MySkinRecipes 2199302 Rum Ether, neat. The COA (lot QI71T6) states "main content
+    80% min" without naming it, and its density and RI (0.8644-0.8804, 1.3618-1.3698)
+    sit above the published grades (0.807-0.836, 1.334-1.358). The MSR SDS that came
+    with order 2199302 has not been read here, so no composition is modeled (25 Oct 2026).'
   provenance:
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1034451.html (EC 232-449-5, FEMA 2996)'
-    density_25c_g_ml: 'TGSC specific gravity 0.807-0.836 @ 25 C (all grades), midpoint x 0.99705'
-    notes: 'mostly ethanol, acetic acid and ethyl acetate/formate/propionate; no producer composition; a mixture, so no single MW or VP'
+    density_25c_g_ml: 'MySkinRecipes COA, order 2199302, lot QI71T6, density specification 0.8644-0.8804, midpoint; temperature not printed (25 Oct 2026). Was the TGSC 0.807-0.836 range for other grades (0.819)'
+    notes: 'mostly ethanol, acetic acid and ethyl acetate/formate/propionate; no producer composition; a mixture, so no single MW or VP. COA: /mnt/project-files/coa-msr-2199302-20261016/COA_SUMMARY.md'

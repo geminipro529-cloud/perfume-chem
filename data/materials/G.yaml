@@ -1497,6 +1497,54 @@
   notes: null
   provenance:
     user_in_inventory: inventory.txt
+- canonical_name: Ginger Lily Oil
+  aliases:
+  - Ginger Lily
+  - Ginger Lily EO
+  - Ginger Lily Essential Oil
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  vp_source: null
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: 1
+  user_in_inventory: true
+  supplier:
+    perfumersworld_sku: 7NS25173
+    perfumersworld_price_usd_per_g: null
+    perfumersworld_form: neat
+    perfumersworld_snapshot_date: '2026-10-25'
+    other:
+      order: PW-261009-075613a0b (9 Oct 2026, 1 g, THB 40.80/g)
+  families: []
+  character: null
+  notes: 'Identity record only (25 Oct 2026). PerfumersWorld 7NS25173 lists it under
+    essential oils as an "Authentic Perfumery Material", but every field is blank or a
+    placeholder: CAS and FEMA "TBA", SG and RI 0.0000, no species, odour or usage, no
+    IFRA certificate or CoA, an allergen declaration with no rows, and an MSDS that
+    reads "Proprietary Perfume Compound. Complex mixture of essential oils, aroma chemical,
+    natural extracts and isolates". Whether it is Hedychium flower oil or a reconstitution
+    is unknown, so no composition, MW, VP or threshold is modeled and the physics and IFRA
+    holds stay. Kenny (13 Oct 2026): "it is an oil".'
+  provenance:
+    supplier.perfumersworld: 'https://www.perfumersworld.com/view.php?pro_id=7NS25173 and https://www.perfumersworld.com/document-list.php?pro_id=7NS25173,
+      read 25 Oct 2026; SKU and price from the PW order confirmation for PW-261009-075613a0b'
 - canonical_name: Givescone
   aliases: []
   cas: null
