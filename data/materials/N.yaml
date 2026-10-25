@@ -429,7 +429,7 @@
   smiles: C\C(C)=C\CCC(C)=CCO
   inchikey: GLZPCOQZEFWAFX-YFHOEESVSA-N
   mw_g_mol: 154.25
-  density_25c_g_ml: 0.876
+  density_25c_g_ml: 0.88
   logp: 2.7
   functional_groups:
   - alcohol
@@ -469,7 +469,7 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.87500 to 0.88300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008952.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM safety assessment, nerol (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-25-2.pdf): ''6. Specific Gravity: 0.88 g/mL (RIFM, 1994), 0.877 (FMA)''; printed ; temperature not printed; JECFA 0.875-0.880; grade A_measured. No temperature printed. Second reader: 0.88 is on the page for nerol, but the page prints no temperature, and the item''s source_field is density_25c_g_ml. File it as density_unspecified_t. The FMA 0.877 is also on the page. The JECFA range in the method... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, nerol, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-25-2.pdf: "Log KOW: 2.7 (RIFM, 1999b), 3.47 (EPI Suite)"; measured 2.7 used; replaces the unsourced 2.9'
 - canonical_name: Neroli EO
   aliases:
@@ -634,9 +634,9 @@
   cas: 7212-44-4
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 222.37
   density_25c_g_ml: 0.873
-  logp: null
+  logp: 4.8
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -664,6 +664,8 @@
   character: null
   notes: null
   provenance:
+    mw_g_mol: 'Addendum to Fragrance material review on Nerolidol (isomer unspecified), Food Chem Toxicol (2010) (RIFM) (https://www.sciencedirect.com/science/article/abs/pii/S0278691509005249): ''1.5. Molecular weight: 222.37''; printed ; NIST WebBook formula weight 222.3663; grade A_regulatory. Second reader: RIFM FMR addendum, nerolidol (isomer unspecified). 222.37 confirmed; the NIST 222.3663 in the method is not on this page but agrees (C15H26O = 222.37). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'RIFM fragrance ingredient safety assessment, nerolidol (isomer unspecified), FCT 183 (2024) 114290, Physical data (https://doi.org/10.1016/j.fct.2023.114290): ''Log K OW : 4.8 at 35 C (RIFM, 1997), 5.0 at 35 C (RIFM, 1997), 5.68 (EPI Suite v4.11)''; printed ; RIFM 1997 study (two values 4.8 and 5.0 at 35 C); EPI Suite 5.68; grade A_measured. Second reader: Page identity: ScienceDirect, RIFM nerolidol (isomer unspecified), CAS 7212-44-4 (also tabulates trans 40716-66-3 and cis 142-50-7, which carry only EPI 5.68). Quote verbatim. Measured at 35 C, not 25 C; the same... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.870 to 0.876; https://www.thegoodscentscompany.com/data/rw1009032.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 7212-44-4; https://www.perfumersworld.com/view.php?pro_id=3LM00319'
@@ -765,11 +767,11 @@
   inchikey: null
   mw_g_mol: 196.29
   density_25c_g_ml: 0.9095
-  logp: 3.98
+  logp: 4.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 3.33
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 6.17
+  vp_source: producer_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -798,12 +800,12 @@
     character: 'NERYL ACETATE PURE RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/neryl-acetate-pure-rc-pe-901808: Olfactive description Elegant note of pear with fresh rose nuance and a slight watery facet. (grade A_producer; ). Second reader: CAS 141-12-8 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "floral" from ''Floral (dsm-firmenich: Olfactive family Floral, Technical Descriptors Rose, Pear; Takasago: FLORAL)'': NERYL ACETATE PURE RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/neryl-acetate-pure-rc-pe-901808: Olfactive family Floral ... Technical Descriptors Rose, Pear (grade A_producer; ). Second reader: Takasago part of the value was not checked (not the cited URL). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: '22 Oct 2026 missing-data pass: stated; raw 3.98; https://www.perflavory.com/docs/doc1033552.html'
+    logp: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS registry number 105-87-3, Food Chem Toxicol (2024) 114971 (neryl acetate 141-12-8 assessed alongside; ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2024.114971): ''Log K OW : 4.8 at 35 C (EPI Suite v4.11), cis isomer log Pow = 4.2; trans isomer log P''; printed ; RIFM 2024 cites "cis isomer log Pow = 4.2" (source reference cut off in the extract); "4.8 at 35 C (EPI Suite v4.11)" printed as-is; grade A_regulatory. Second reader: Page is the RIFM geranyl acetate assessment (FCT 2024, 114971) with a neryl acetate column; neryl acetate is the cis isomer. The page snippet stops at ''trans isomer log P'', so no source, method or temperature is... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     smiles: 'PubChem structure resolved from CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; also: 22 Oct 2026 missing-data pass: stated; raw 196.29; https://www.perflavory.com/docs/doc1033552.html'
     cas: 'PubChem record for CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23; also: 22 Oct 2026 missing-data pass: stated; raw 141-12-8; https://www.perflavory.com/docs/doc1033552.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.905 to 0.914; https://thegoodscentscompany.com/data/rw1033552.html; temperature as printed by source (often 20 C), not corrected to 25 C'
-    vp_25c_pa: '23 Oct 2026 second missing-data pass: stated; raw 3.33; https://www.scentree.co/en/Neryl_acetate.html'
+    vp_25c_pa: 'Takasago International, Neryl Acetate technical data sheet (40_Neryl Acetate.pdf, 2022-02) (https://assets.takasago.com/prod/default/s3fs-public/2022-02/40_Neryl%20Acetate.pdf): ''Vapor Pressure ... 6.170 Pa at 25ºC''; printed 6.170 Pa at 25 C; producer TDS; method not stated; grade A_producer. Second reader: Read via Parallel web_fetch. CAS 141-12-8 matches neryl acetate. The label/value columns are split in the PDF text, but the value carries its own unit and temperature, so the assignment is safe. Method not stated... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: NEW MOWN HAY F-TEC
   aliases: []
   cas: null

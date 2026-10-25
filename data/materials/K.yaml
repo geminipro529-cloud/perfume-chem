@@ -201,11 +201,11 @@
   inchikey: null
   mw_g_mol: 182.3
   density_25c_g_ml: 0.8665
-  logp: 3.5
+  logp: 4.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.3
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 17.5
+  vp_source: producer_23C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.001
@@ -231,12 +231,12 @@
   notes: null
   provenance:
     character: 'Koavone® | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/koavone: Olfactive Description: Woody, floral complex with amber and violet nuances. A highly diffusive product that can be used to enhance amber notes. At high levels an aldehydic, pine needle oil effect is realized. (grade A_producer; ). Second reader: Page CAS list includes 81786-73-4. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'Koavone® | Fragrance Ingredients | IFF (ingredients compendium page) (https://www.iff.com/scent/ingredients-compendium/koavone): ''3,5,6,6-Tetramethyl-4-methyleneheptan-2-one (main isomer) ... Molecular Weight: 182.3 Vapor Pressure: 0.111524 mm Hg @ 23 C Log P: 4.4 ... CAS Number: 81786-75-6 / 2020341-69-7 / 81786-73-4 / 81786-74-5 / 86115-11-9''; printed 0.111524 mm Hg @ 23 C; producer figure, method not stated; grade A_producer. Converted from 14.87 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 59.1 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: IFF Koavone compendium page; CAS list includes stock CAS 81786-73-4. 0.111524 mm Hg x 133.322 = 14.87 Pa at 23 C. Method not stated; the six significant figures look like a unit conversion, not measurement precision. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'Koavone® | Fragrance Ingredients | IFF (ingredients compendium page) (https://www.iff.com/scent/ingredients-compendium/koavone): ''Log P: 4.4''; printed Log P: 4.4; producer figure, method not stated; grade A_producer. Second reader: Same IFF Koavone page. Method not stated, no temperature. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md

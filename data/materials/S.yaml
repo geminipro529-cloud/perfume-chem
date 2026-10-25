@@ -227,14 +227,14 @@
   inchikey: null
   mw_g_mol: 174.24
   density_25c_g_ml: 1.02
-  logp: 2.3
+  logp: 2.9
   functional_groups:
   - indenone
   - ketone
   - aromatic
   chirality: null
-  vp_25c_pa: 0.02
-  vp_source: boiling_point_proxy
+  vp_25c_pa: 1.2
+  vp_source: producer_T_unstated
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -262,6 +262,8 @@
   character: 'Safraleine™ has a very unique warm and vibrant character ... Safraleine™ exhibits warm, powerful, leathery and tobacco facets but its complexity also reveals characteristics of spices reminiscent of natural saffron, enriched by rose ketone-like floral aspects.'
   notes: Neat user stock. Discrete CAS 54440-17-4; supplier's 10% TEC form is a separate carrier/form and is not substituted here.
   provenance:
+    logp: 'Givaudan, Safraleine product page (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/safraleinetm): ''Log Pow 2,9''; printed ; engine 2.3 unsourced; grade A_producer. Second reader: Same page (Safraleine, CAS 54440-17-4). Log Pow printed as ''2,9'' (comma decimal). No temperature or method stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'Givaudan, Safraleine product page (Giv Code 0015893) (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/safraleinetm): ''C12H14O 174,2 2,9 0.0120 hPa 251 Colourless Liquid 54440-17-4 4556 (columns: Formula MW Log Pow Vapour pressure Boiling point ( C) Appearance CAS no. FEMA)''; printed 0.0120 hPa; producer figure, temperature not printed; 0.0120 hPa x 100 = 1.20 Pa. Engine 0.02 Pa (''boiling point proxy'') is 60x lower. Filed under vp_20c_pa...; grade A_producer. The page prints no temperature, so the figure (1.2 Pa) is used as printed, not converted. Second reader: Quote matches (opened the page directly; worker had only a search excerpt). CAS 54440-17-4. 0.0120 hPa x 100 = 1.20 Pa. TEMPERATURE: page prints no temperature for the vapour pressure; item temperature_c is null, but... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'Producer SDS figure. Replaces 0.1, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Print Page | Givaudan: Safraleine, https://www.givaudan.com/print/1314811: Safraleine™ has a very unique warm and vibrant character offering a new alternative to existing spicy ingredients. Safraleine™ exhibits warm, powerful, leathery and tobacco facets but its complexity also reveals characteristics of spices reminiscent of natural saffron, enriched by rose ketone-like floral aspects. (grade A_producer; ). Replaces unsourced text ''Warm powerful saffron, leathery, tobacco and rose-ketone/woody indenone.''. Second reader: CAS 54440-17-4 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -277,12 +279,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 150.22
-  density_25c_g_ml: 0.971
-  logp: 3.22
+  density_25c_g_ml: 0.974
+  logp: 2.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: 21.2
-  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 14.1
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -323,9 +325,9 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html: "Molecular Weight: | 150.22078000" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
-    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html: specific gravity "0.96800 to 0.98000 @ 25.00 °C."; midpoint 0.974 x 0.99705 g/mL (water at 25 C) = 0.971 (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
-    logp: 'ESTIMATE: EPI KOWWIN v1.67 3.22 (TGSC EPI page ep1016371); TGSC 2.825 (est) is within 0.5 (via material-data-firecrawl/allgaps/S1_aldehydes.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
-    vp_25c_pa: 'ESTIMATE: EPI 21.2 Pa (mean of Antoine and Grain); TGSC 0.134 mmHg @ 25 C (est) = 17.9 Pa agrees (via material-data-firecrawl/allgaps/S1_aldehydes.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Specific Gravity: 0.96800 to 0.98000 @ 20.00 C''; printed 0.968-0.980 at 20 C; range midpoint; JECFA (PubChem CID 61041) "0.968-0.980 (20 C)"; grade A_regulatory. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: CAS 116-26-7. Range midpoint 0.974 at 20 C is correct. The page prints no source tag for this range; the JECFA/PubChem attribution in the method is not on this page. Specific gravity, not absolute density (difference... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Log K OW : Log Pow = 2.7 (RIFM, 2014a), 3.22 (EPI Suite)''; printed ; RIFM 2014a study; grade A_measured. Second reader: CAS 116-26-7. RIFM 2014a study value; no temperature or method printed on this page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Vapor Pressure: 0.105 mm Hg @ 20 C (EPI Suite v4.0), 0.07 mm Hg 20 C (FMA Database), 0.159 mm Hg @ 25 C (EPI Suite)''; printed 0.07 mm Hg at 20 C; FMA database; grade A_measured. Converted from 9.333 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 59.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: RIFM assessment, CAS 116-26-7, synonym Safranal. 0.07 x 133.322 = 9.33 Pa at 20 C. FMA value (measured per brief); one significant figure. EPI estimate at 20 C is 50% higher (0.105 mm Hg). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Sage Dalmation Essential Oil
   aliases: []
   cas: null
@@ -1202,8 +1204,8 @@
   logp: 4.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.08
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0591
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1228,6 +1230,7 @@
   character: 'Sandalore™, a powerful, diffusive and extremely tenacious product, imparts a rich, warm, natural sandalwood character to perfumes'
   notes: null
   provenance:
+    vp_25c_pa: 'ESTIMATE (): RIFM safety assessment, Sandalore (FCT 163 (2022) 113030), read-across table (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/65113-99-7.pdf): ''Vapor Pressure (Pa @ 25 C, EPI SUITE) 0.0591''; printed ; ; grade EST. Second reader: RIFM assessment FCT 163 (2022) 113030, CAS 65113-99-7. EPI Suite estimate, graded EST: correct. Physical data section agrees: 0.000443 mm Hg at 25 C (EPI Suite) = 0.0591 Pa. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Sandalore™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/sandaloretm: Sandalore™, a powerful, diffusive and extremely tenacious product, imparts a rich, warm, natural sandalwood character to perfumes, as well as volume and substantivity. It is an interesting sandalwood replacement in combination with Ebanol™. (grade A_producer; ). Second reader: CAS 65113-99-7 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1760,8 +1763,8 @@
   logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 6.0
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.655
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.007
@@ -1795,7 +1798,7 @@
   character: null
   notes: null
   provenance:
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, methoxy dicyclopentadiene carboxaldehyde, CAS Registry Number 86803-90-9, Food Chem Toxicol 134 (2019) 110826 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2019.110826): ''Vapor Pressure: 0.003 mm Hg 20 C (FMA Database), 0.00446 mm Hg @ 25 C (EPI Suite), 0.00248 mm Hg @ 20 C (EPI Suite v4.0)''; printed 0.003 mm Hg at 20 C; FMA database; grade A_measured. Converted from 0.4 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 71.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Opened via the ScienceDirect article page (doi.org redirect; Parallel could not connect to doi.org directly). Page is the RIFM assessment of methoxy dicyclopentadiene carboxaldehyde, CAS 86803-90-9, synonym... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -2506,8 +2509,8 @@
   logp: 2.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 7.0
-  vp_source: "est/literature"
+  vp_25c_pa: 8.42
+  vp_source: measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2535,6 +2538,7 @@
   character: 'green-sweet gardenia-floral ester'
   notes: "material intake batch 2026-08-07; merged 2026-10-09 with the misspelt 'Stralyl Acetate' record (same CAS 93-92-5) so the owned V5 label reaches its data"
   provenance:
+    vp_25c_pa: 'RIFM safety assessment, alpha-methylbenzyl acetate (FCT 97 (2016) S57-S68) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/93-92-5.pdf): ''7 Vapor Pressure: 5.5 Pa at 20 C [RIFM, 2011], 0.0733 mm Hg @ 20 C [EPI Suite 4.0], 0.1 mm Hg 20 C [FMA database], 0.112 mm Hg @ 25 C [EPI Suite]''; printed ; RIFM 2011 vapour-pressure study; grade A_measured. Converted from 5.5 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 61.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Parallel fetch returned 403; read with WebFetch, which rendered the degree sign as a replacement character. The RIFM 2011 reference entry was not in the fetched text, so the study type is not visible. On the same... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: 'RIFM, Food Chem. Toxicol. 97 (2016) S57-S68, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/93-92-5.pdf: "2.5 at 30 °C [RIFM, 1996b], 2.5 [EPI Suite]", measured. Replaces an unsourced 2.0. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/93-92-5.pdf: "1.023-1.026 @ 25/25 °C [Gaunt et al., 1974]"; midpoint 1.0245 x 0.99705 (water at 25 °C) = 1.0215 g/mL. Replaces a TGSC range midpoint (1.024). Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'

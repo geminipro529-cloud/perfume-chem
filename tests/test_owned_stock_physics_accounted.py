@@ -24,9 +24,9 @@ _NO_AIR_ODT_1023 = (
     "no published human detection threshold in air found; searched RIFM and TGSC "
     "(2026-10-23); the Nagata 2003 table could not be read"
 )
-_NOT_SEARCHED_1025 = (
-    "new stock 2026-10-25 (PerfumersWorld order line Kenny confirmed owned); no source "
-    "searched yet for the missing fields"
+_NO_AIR_ODT_1025 = (
+    "no published human detection threshold in air found; searched Nagata 2003, van Gemert "
+    "2011 and Givaudan's PROC patent tables (2026-10-25)"
 )
 _ALL = ("logp", "mw", "odt", "vp")
 _MSR_COSMETIC_EXTRACT = (
@@ -68,9 +68,13 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # Added 2026-10-25 from Kenny's PerfumersWorld order lines; their data has not been searched yet.
     # (Cis-3 Hexenyl Acetate, Manzanate and Phenoxy Ethyl Isobutyrate left this list the same day,
     # when the fruit batch loaded Givaudan US 12,340,876 air thresholds.)
-    "Anisyl Acetate": (("odt", "vp"), _NOT_SEARCHED_1025),
-    "Ethyl Acetoacetate": (("odt",), _NOT_SEARCHED_1025),
-    "Phenyl Ethyl Dimethyl Carbinyl Acetate": (("odt", "vp"), _NOT_SEARCHED_1025),
+    # Searched in the 2026-10-25 literature fill.
+    "Anisyl Acetate": (
+        ("odt", "vp"),
+        _NO_AIR_ODT_1025 + "; ECHA's 12 Pa at 20 C looks too high for this molecule and is not loaded",
+    ),
+    "Ethyl Acetoacetate": (("odt",), _NO_AIR_ODT_1025),
+    "Phenyl Ethyl Dimethyl Carbinyl Acetate": (("odt",), _NO_AIR_ODT_1025 + "; VP from RIFM (FMA) since then"),
     "Palm Dates Base": (_ALL, "PerfumersWorld compound base, not a pure chemical; no composition published"),
     # Proprietary bases: a mixture with no CAS has no single MW, VP or log P.
     "Black Tea Base": (_ALL, "PerfumersWorld blend, not a pure chemical; no composition published"),

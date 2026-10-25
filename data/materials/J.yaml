@@ -734,11 +734,11 @@
   inchikey: null
   mw_g_mol: 214.3
   density_25c_g_ml: 0.966
-  logp: 2.8
+  logp: 2.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.5
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.466
+  vp_source: producer_23C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -752,6 +752,8 @@
   user_in_inventory: true
   character: 'A good jasmin note, extremely rich and stable.'
   provenance:
+    logp: 'Jessemal® | Fragrance Ingredients | IFF (ingredients compendium page) (https://www.iff.com/scent/ingredients-compendium/jessemal): ''Log P: 2.6''; printed Log P: 2.6; producer figure, method not stated; grade A_producer. Second reader: Producer figure; method and temperature not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'Jessemal® | Fragrance Ingredients | IFF (ingredients compendium page) (https://www.iff.com/scent/ingredients-compendium/jessemal): ''Vapor Pressure: 0.002867 mm Hg @ 23 C Log P: 2.6 IPC Number: 102563 CAS Number: 38285-49-3 Chemical Formula: C12H22O3''; printed 0.002867 mm Hg @ 23 C; producer figure, method not stated; grade A_producer. Converted from 0.3822 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 72.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.002867 x 133.322 = 0.3822 Pa at 23 C. Producer figure; method not stated (four significant figures suggest a converted or computed number). WebFetch failed on this site; read with Parallel. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Jessemal® | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/jessemal: tetrahydro-3-pentyl-2H-pyran-4-yl acetate Olfactive Description: A good jasmin note, extremely rich and stable. (grade A_producer; ). Second reader: Page is IFF Jessemal; the ''(jasmonyl)'' alias in the identity is not on the page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC: CAS Number: 38285-49-3 (https://www.thegoodscentscompany.com/data/rw1028961.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.96500 to 0.97300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1028961.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'

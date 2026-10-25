@@ -270,8 +270,8 @@
   logp: 1.95
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.0965
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.87
+  vp_source: measured_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.004
@@ -309,7 +309,7 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: RIFM safety assessment Api et al. 2024, EPI Suite estimate at 25 C
+    vp_25c_pa: 'ECHA Brief Profile, 7-methyl-2H-benzo-1,5-dioxepin-3(4H)-one (EC 249-320-4, CAS 28940-11-6), last updated 01/04/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.044.823): ''R Vapour pressure 0.87 Pa @ 25 C [1] ... Summary: Vapour pressure 0.87 Pa @ 25 C''; printed 0.87 Pa @ 25 C; REACH registration key study; grade A_regulatory. Measured (ECHA) on the solid; the EPI estimate is 0.0965 Pa. Second reader: Page identity: 7-methyl-3,4-dihydro-2H-1,5-benzodioxepin-3-one, EC 249-320-4, CAS 28940-11-6. CAS 28940-11-6 matches (Calone). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: 'Review figure (primary reference not opened), for the neat molecule. Replaces 0.05, an audit correction with no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
@@ -559,8 +559,8 @@
   logp: 2.5
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.3
-  vp_source: ECHA_measured_24C_not_corrected  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.29
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -585,7 +585,7 @@
     character: 'Canthoxal | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/canthoxal/: Olfactive Description: "Licorice, basil, fennel, anise notes with a slight fruity, watery modification." (grade A_producer; producer/primary text, quoted). Second reader: WebFetch got client_error twice; read with Parallel web_fetch. CAS field was empty in the fetched excerpt. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1023691.html; ECHA EC 226-749-5'
     density_25c_g_ml: 'ECHA 1.065 g/cm3 at 20 C (20 C value); TGSC range was 1.038-1.046. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
-    vp_25c_pa: 'MEASURED: ECHA key study 0.3 Pa at 24 C; EPI estimate was 1.33 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 4-methoxy-α-methylbenzenepropanal, CAS 5462-06-6 (Api et al., Food Chem Toxicol 163 (2022) 112985) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5462-06-6.pdf): ''Vapor Pressure: 0.00587 mm Hg at 20 ◦ C (EPI Suite v4.0), 0.006 mm Hg at 20 ◦ C (FMA), 0.0104 mm Hg at 25 ◦ C (EPI Suite)''; printed 0.006 mm Hg at 20 C (FMA); FMA value quoted by RIFM; grade A_producer. Converted from 0.8 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 69.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: RIFM assessment CAS 5462-06-6, FCT 163 (2022) 112985; synonyms include Canthoxal. Quote verbatim. 0.006 x 133.322 = 0.800 Pa at 20 C. FMA value graded A_producer; one significant figure. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
     logp: '22 Oct 2026 missing-data pass: stated; raw 2.5; https://www.perflavory.com/docs/doc1023691.html'
     smiles: 'PubChem structure resolved from CAS 5462-06-6 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
@@ -1170,7 +1170,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 206.3
-  density_25c_g_ml: 0.955
+  density_25c_g_ml: 0.969
   logp: 4.2
   functional_groups: []
   chirality: null
@@ -1225,7 +1225,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 33704-61-9 (https://www.thegoodscentscompany.com/data/rw1024092.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95400 to 0.96200 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1024092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'ECHA Brief Profile, 1,2,3,5,6,7-hexahydro-1,1,2,3,3-pentamethyl-4H-inden-4-one (EC 251-649-3, CAS 33704-61-9), last updated 07/05/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.046.940): ''R Relative density 0.969 @ 20 C [1] ... Summary: Relative density at 20 C 0.969''; printed 0.969 @ 20 C; REACH registration key study; grade A_regulatory. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: ECHA brief profile EC 251-649-3, CAS 33704-61-9 (1,1,2,3,3-pentamethyl-...-hexahydro-4H-inden-4-one; other names ''Riechstoff E 419 (Cashmeran)''). This is a relative density (dimensionless), not g/mL; reference... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Cashmere MUSK F-TEC
   aliases:
   - CASHMERE MUSK F-TEC
@@ -1829,11 +1829,11 @@
   # 2026-10-08: was 234.38; corrected from the molecular formula
   mw_g_mol: 236.40
   density_25c_g_ml: 0.971
-  logp: 6.1
+  logp: 6.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.35
-  vp_source: supplier_SDS_bound_estimate
+  vp_25c_pa: 0.616
+  vp_source: producer_23C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1865,8 +1865,8 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    vp_25c_pa: 'estimate kept at 0.35 Pa; bound only: IFF SDS 2020 https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Cedramber_IFF_SDS.pdf "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
-    logp: 'ChemicalBook, unmarked (estimate): 6.1; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    vp_25c_pa: 'IFF Ingredients Compendium, Cedramber® (https://www.iff.com/scent/ingredients-compendium/cedramber): ''Vapor Pressure: 0.003798 mm Hg @ 23 C''; printed 0.003798 mm Hg @ 23 C; producer compendium figure; grade A_producer. Converted from 0.5064 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 71.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Number and 23 C confirmed (IFF compendium, cedryl methyl ether structure; CAS value not rendered in the extract). 0.003798 x 133.322 = 0.506 Pa at 23 C. But source_field says vp_25c_pa and value 0.5064 is the... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'IFF Ingredients Compendium, Cedramber® (https://www.iff.com/scent/ingredients-compendium/cedramber): ''Log P: 6.0''; printed 6.0; producer compendium; method not stated; grade A_producer. Second reader: IFF compendium, Cedramber (cedryl methyl ether). Log P 6.0; no method or temperature stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: '23 Oct 2026 third data pass: PerfumersWorld 3WW00097 Cedramber (Kenny''s supplier for this bottle): "CAS No. 19870-74-7", https://www.perfumersworld.com/view.php?pro_id=3WW00097 (cedryl methyl ether)'
     density_25c_g_ml: '23 Oct 2026 third data pass: PerfumersWorld 3WW00097 Cedramber "Specific gravity 0.9710", https://www.perfumersworld.com/view.php?pro_id=3WW00097; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle); replaces the scent.vn spec midpoint 0.9765 (supplier value preferred)'
 - canonical_name: Cedrat FCF Sicilian
@@ -2008,11 +2008,11 @@
   inchikey: null
   mw_g_mol: 220.35
   density_25c_g_ml: 0.974
-  logp: 3.5
+  logp: 4.88
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.08
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.317
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0004
@@ -2039,9 +2039,9 @@
   provenance:
     character: 'CEDROXYDE® (922470) | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/cedroxyder-pe-922470: Olfactive family Woody. Technical Descriptors Cedarwood, Ambery, Dry Woods. Olfactive description "A powerful and complex dry woody note, featuring vertical woody notes like cedarwood or patchouli, complemented by subtle ambery undertones." (grade A_producer; producer/primary text, quoted). Second reader: CAS 71735-79-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "woody" from ''Woody'': CEDROXYDE® (922470) | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/cedroxyder-pe-922470: Olfactive family Woody | Technical Descriptors Cedarwood, Ambery, Dry Woods (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'Firmenich, CEDROXYDE® 922470 marketing sheet (2020) (https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CEDROXYDE_922470.pdf): ''VAPOUR PRESSURE 0.19 Pa at 20 C''; printed 0.19 Pa at 20 C; producer sheet; method not stated; grade A_producer. Converted from 0.19 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 74.4 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: CAS 0071735-79-0 = 71735-79-0, which matches the stock record. Method not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
-    logp: engine.skin_interaction
+    logp: 'Firmenich, CEDROXYDE® 922470 marketing sheet (2020) (https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CEDROXYDE_922470.pdf): ''LOG P (MEASURED) 4.88''; printed 4.88; producer sheet, labelled measured; method not stated; grade A_producer. Second reader: The page labels it measured; no method or temperature printed. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.974; https://thegoodscentscompany.com/data/rw1021871.html; temperature as printed by source (often 20 C), not corrected to 25 C'
@@ -2057,8 +2057,8 @@
   logp: 6.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.08
-  vp_source: supplier_sheet_23C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.081
+  vp_source: producer_23C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2090,7 +2090,7 @@
     cas: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); "77-54-3" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     logp: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); log P "6.2", method not stated (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     mw_g_mol: 'formula weight of C17H28O2 per IFF (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
-    vp_25c_pa: 'SUPPLIER, temperature-adjusted (2026-10-14): IFF compendium "0.000489 mm Hg @ 23 C" = 0.0652 Pa, x1.23 to 25 C at dHvap 75 kJ/mol = 0.080 Pa. TGSC 0.002 mmHg (est) = 0.27 Pa is 3.3x higher. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
+    vp_25c_pa: 'IFF Ingredients Compendium, Cedryl Acetate (IPC 00C00180) (https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/): ''Vapor Pressure: 0.000489 mm Hg @ 23 C''; printed 0.000489 mm Hg @ 23 C; producer compendium figure; method not stated; grade A_producer. Converted from 0.0652 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 79.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: IFF Ingredients Compendium, Cedryl Acetate. CAS 77-54-3 matches. 0.000489 x 133.322 = 0.0652 Pa at 23 C. CONVERSION GAP: the item stores this 23 C figure unchanged as vp_25c_pa = 0.0652 with... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'SG 0.9770, supplier-reported (PerfumersWorld 2WW00099 "Cedryl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 23 Oct 2026 third data pass: PerfumersWorld 2WW00099 "Specific Gravity 0.9770", https://www.perfumersworld.com/view.php?pro_id=2WW00099; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle)'
     density_basis: supplier_sg_temperature_unstated
 - canonical_name: Celery Seed Essential Oil
@@ -2727,15 +2727,15 @@
   smiles: null
   inchikey: null
   mw_g_mol: 132.16
-  density_25c_g_ml: 1.045
-  logp: null
+  density_25c_g_ml: 1.05
+  logp: 1.9
   functional_groups: []
   chirality: null
   # 2026-10-08: was 0.05 (unsourced; about 100x low per the science review); replaced with the cited value
   vp_25c_pa: 3.85
   vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
-  dhvap_kj_mol: null
+  dhvap_kj_mol: 62.4
   kaw_eff: null
   hsp: null
   odt_air_ppb: null
@@ -2758,6 +2758,8 @@
   character: 'Spicy, Cinnamon Bark, Styrax, Balsamic (Symrise''s odour words)'
   notes: null
   provenance:
+    logp: 'NICNAS (now AICIS) IMAP, Cinnamic aldehydes: Environment tier II assessment (01 July 2016), Physical and Chemical Properties table (https://cdnservices.industrialchemicals.gov.au/statements/IMAP_48414%20-%20IMAP%20Assessment%20-%2001%20July%202016.pdf): ''log K 1.9 (exp.) 5.3 (exp.)''; printed 1.9 (exp.); experimental value tabulated by NICNAS; grade A_regulatory. Second reader: Page identity: NICNAS IMAP ''Cinnamic aldehydes: Environment tier II assessment'' (group of 5); Chemical Identity lists cinnamaldehyde CAS RN 104-55-2. Table columns are cinnamaldehyde | hexyl cinnamaldehyde, so 1.9... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    dhvap_kj_mol: 'NIST Chemistry WebBook, 2-Propenal, 3-phenyl-, phase change data (https://webbook.nist.gov/cgi/cbook.cgi?ID=C104552&Mask=4): ''Δ vap H 62.4 kJ/mol GC van Roon, Parsons, et al., 2002''; printed 62.4 kJ/mol; GC, standard-state ΔvapH (van Roon, Parsons et al., 2002); grade A_measured. Second reader: ΔvapH = standard conditions (298 K); NIST prints no temperature range for this GC entry. The two Stephenson-Malanowski values at about 363 K disagree (58.2 vs 72.7), so the 62.4 GC value is the most usable. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Symrise product sheet: Cinnamic Aldehyde, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Cinnamic_Aldehyde.pdf: "› Spicy, Cinnamon Bark, Styrax, Balsamic › recommended use level: up to 2 %" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 637511 (https://pubchem.ncbi.nlm.nih.gov/compound/637511#section=Vapor-Pressure): "2.89X10-2 mm Hg at 25 °C", citing Perry & Green, Perry''s Chemical Engineers'' Handbook, 6th ed. (1984); x 133.322 = 3.85 Pa.'
     trp.TRPM8: engine.trigeminal
@@ -2765,7 +2767,7 @@
     trp.TRPV1: engine.trigeminal
     user_in_inventory: inventory.txt
     cas: 'TGSC: CAS Number: 104-55-2 (https://www.thegoodscentscompany.com/data/rw1002631.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 1.04600 to 1.05000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1002631.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, cinnamaldehyde, CAS 104-55-2 (Api et al., Food Chem Toxicol 134 (2019) 110710) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-55-2.pdf): ''Specific Gravity: 1.048–1.052 (FMA Database), 1.046–1.050 (FMA Database)''; printed 1.048–1.052 (FMA Database), 1.046–1.050 (FMA Database); FMA values quoted by RIFM; grade A_producer. No temperature printed. Second reader: Values are on the page (cinnamaldehyde, file 104-55-2). The page prints no temperature, but source_field is density_20c_g_ml; relabel as density_unspecified_t (as done for delta-decalactone). Midpoint of the full... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Cinnamon Bark EO
   aliases:
   - cinnamon bark eo
@@ -3002,11 +3004,11 @@
   inchikey: null
   mw_g_mol: 134.18
   density_25c_g_ml: 1.044
-  logp: null
+  logp: 1.95
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.03
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 3.0
+  vp_source: producer_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3034,11 +3036,12 @@
   character: 'Spicy, Cinnamon, Hyacinthe, Balsamic, Styrax (Symrise''s odour words)'
   notes: User-confirmed 50% w/w working stock in DPG; raw-volume transfer is allowed, while exact active mass from volume still requires stock density.
   provenance:
+    logp: 'Carl Roth, Safety Data Sheet: Cinnamyl alcohol ≥98 %, for synthesis (article 4905), Version 3.1 en, revision 2024-09-17 (https://www.carlroth.com/medias/SDB-4905-GB-EN.pdf?context=bWFzdGVyfHNlY3VyaXR5RGF0YXNoZWV0c3wyODI4MTN8YXBwbGljYXRpb24vcGRmfGFHRTRMMmd6TVM4NU1UYzFNalkwTVRZMU9URTRMMU5FUWw4ME9UQTFYMGRDWDBWT0xuQmtaZ3w2MGIwOWUzZTFhZGM3N2IyOGMzNDM5MDA4MmY2OTdiYTVmYjY3ODhlYzhjYzhmOWQ0Mjc4MmYwZDFiODc1YTEw): ''Partition coefficient n-octanol/water (log value): 1,95 (TOXNET)''; printed 1,95 (TOXNET); reagent supplier SDS, citing TOXNET; grade A_producer. Second reader: A secondary citation (TOXNET/HSDB), not a Carl Roth measurement, so A_producer overstates where it comes from. Method not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Symrise product sheet: Cinnamic Alcohol, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Cinnamic_Alcohol.pdf: "› Spicy, Cinnamon, Hyacinthe, Balsamic, Styrax › recommended use level: up to 2 %" (grade A_producer; producer/primary text, quoted). Second reader: Page product name is Cinnamic Alcohol (= cinnamyl alcohol, CAS 104-54-1). Symrise prints family word ''aromatic'' with the name. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     user_stock_dilution: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     user_in_inventory: inventory.txt
-    vp_25c_pa: 'UNSOURCED (kept): no measured, HSDB, ECHA or RIFM value found on 2026-10-08. Supplier figures conflict: Parchem "0.012000 mm/Hg @ 25.00 C" (1.6 Pa) vs Loba Chemie SDS "< 0.01 hPa at 25C" (< 1 Pa) and ChemicalBook "<0.01 mm Hg (25 C)" (via material-data-firecrawl/followup-20261008/F2_vapour_pressures.md)'
+    vp_25c_pa: 'Carl Roth, Safety Data Sheet: Cinnamyl alcohol ≥98 %, for synthesis (article 4905), Version 3.1 en, revision 2024-09-17 (https://www.carlroth.com/medias/SDB-4905-GB-EN.pdf?context=bWFzdGVyfHNlY3VyaXR5RGF0YXNoZWV0c3wyODI4MTN8YXBwbGljYXRpb24vcGRmfGFHRTRMMmd6TVM4NU1UYzFNalkwTVRZMU9URTRMMU5FUWw4ME9UQTFYMGRDWDBWT0xuQmtaZ3w2MGIwOWUzZTFhZGM3N2IyOGMzNDM5MDA4MmY2OTdiYTVmYjY3ODhlYzhjYzhmOWQ0Mjc4MmYwZDFiODc1YTEw): ''Vapour pressure 0,03 hPa at 25 C''; printed 0,03 hPa at 25 C; reagent supplier SDS; method not stated; grade A_producer. Second reader: 0.03 hPa x 100 = 3.0 Pa. Reagent-supplier SDS (Carl Roth); source and method not stated; one significant figure. The material is solid at 25 C (mp 30-34 C on the page). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: '22 Oct 2026 missing-data pass: stated; raw 104-54-1; https://www.perfumersworld.com/view.php?pro_id=2SV00105'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.044; https://www.chemicalbook.com/ChemicalProductProperty_EN_CB5771763.htm; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Cinnamyl Aldehyde
@@ -3124,8 +3127,8 @@
   smiles: CC/C=C\CC1=C(CCC1=O)C
   inchikey: XMLSXPIVAXONDL-PLNGDYQASA-N
   mw_g_mol: 164.24
-  density_25c_g_ml: 0.945
-  logp: 2.2
+  density_25c_g_ml: 0.94
+  logp: 2.8
   functional_groups: []
   chirality: null
   vp_25c_pa: 1.333
@@ -3156,8 +3159,8 @@
     smiles: pubchem:Jasmone
     inchikey: pubchem:Jasmone
     mw_g_mol: tgsc:(Z)-jasmone
-    density_25c_g_ml: tgsc:(Z)-jasmone
-    logp: tgsc:(Z)-jasmone
+    density_25c_g_ml: 'Vigon SDS 500192 JASMONE-CIS, Version 01, Revision Date 11-08-2014 (hosted by Perfumer''s Apprentice) (https://shop.perfumersapprentice.com/Images/JasmoneCisSDS.pdf): ''Specific gravity 0.94 at 25 C''; printed 0.94 at 25 C; producer SDS; grade A_producer. Second reader: Same Vigon SDS, CAS 488-10-8. 0.94 at 25 C confirmed. The same SDS gives the more precise 941.30 kg/m3 (0.9413 g/mL) at 20 C. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'Vigon SDS 500192 JASMONE-CIS, Version 01, Revision Date 11-08-2014 (hosted by Perfumer''s Apprentice) (https://shop.perfumersapprentice.com/Images/JasmoneCisSDS.pdf): ''Partition coefficient (n-octanol/water) 2.8 Method: OECD Test Guideline 117''; printed 2.8; producer SDS, OECD Test Guideline 117 (HPLC); grade A_producer. Second reader: Vigon International SDS 500192 JASMONE-CIS, CAS 488-10-8 (= stock CAS), rev. 11-08-2014, hosted by Perfumer''s Apprentice. OECD 117 is the HPLC method (experimental, by retention time). The SDS is a distributor''s... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: tgsc:(Z)-jasmone
     ifra_max_pct_edp: tgsc:(Z)-jasmone
     hedonic_valence: engine.hedonic_model
@@ -3213,11 +3216,11 @@
   inchikey: null
   mw_g_mol: 142.2
   density_25c_g_ml: 0.897
-  logp: 1.9
+  logp: 2.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: 183.0
-  vp_source: derived_bp_and_EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 214.0
+  vp_source: producer_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3254,8 +3257,8 @@
     cas: 'perflavory (TGSC mirror) https://www.perflavory.com/docs/doc1001471.html: "3681-71-8" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     mw_g_mol: 'perflavory https://www.perflavory.com/docs/doc1001471.html: "142.19798000" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     density_25c_g_ml: 'perflavory https://www.perflavory.com/docs/doc1001471.html: specific gravity "0.89600 to 0.90400 @ 25.00 °C."; midpoint 0.900 x 0.99705 g/mL (water at 25 C) = 0.897 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
-    logp: 'ESTIMATE: PubChem XLogP3-AA 1.90, the only value found (via material-data-firecrawl/allgaps/S2_lactones_esters.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
-    vp_25c_pa: 'DERIVED ESTIMATE (2026-10-14): 183 Pa = geometric mean of EPI MPBPVP 152 Pa (TGSC EPI page ep1001471) and 221 Pa from the measured reduced-pressure boiling point "bp 75-76 °C/23 mmHg (lit.)" (Sigma-Aldrich W317101) carried to 25 C by Clausius-Clapeyron at dHvap 45 kJ/mol (40-50 kJ/mol gives 165-296 Pa). No measured 20-25 C value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
+    logp: 'ESTIMATE (Axxence SDS states the product has not been tested): Axxence SDS, NATURAL CIS-3-HEXENYL ACETATE (product code 317100), revision 11.12.2025, revision no. 102 (https://www.axxence.de/fileadmin/DocumentPublisher/sds/natural_cis-3-hexenyl_acetate_317100_EU-EN_SDS.pdf): ''Partition coefficient n-octanol/water Log Pow Chemical name CAS No 3681-71-8 2,7 NATURAL CIS-3-HEXENYL ACETATE''; printed 2,7; producer SDS; method not stated; grade A_producer. Second reader: CAS 3681-71-8. No temperature or method printed; sheet says ''The product has not been tested'', so the 2,7 is a substance value from elsewhere (likely REACH), not a test on this lot. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'Axxence SDS, NATURAL CIS-3-HEXENYL ACETATE (product code 317100), revision 11.12.2025, revision no. 102 (https://www.axxence.de/fileadmin/DocumentPublisher/sds/natural_cis-3-hexenyl_acetate_317100_EU-EN_SDS.pdf): ''Partition coefficient n-octanol/water: 2,7 2,14 hPa Vapour pressure: (at 25 C) 0,90 g/cm³ Density (at 20 C):''; printed 2,14 hPa (at 25 C); producer SDS; method not stated; grade A_producer. Second reader: Page identity: Axxence SDS, NATURAL CIS-3-HEXENYL ACETATE, product code 317100, revision 11.12.2025, rev. 102; CAS 3681-71-8, EC 222-960-1. Section 9 text is out of order; units make the match unambiguous: 2,14 hPa... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Cis-3 Hexenyl Benzoate
   aliases:
   - cis-3 Hexenyl Benzoate
@@ -3341,8 +3344,8 @@
   smiles: null
   inchikey: null
   mw_g_mol: 198.31
-  density_25c_g_ml: 0.876
-  logp: 4.1
+  density_25c_g_ml: 0.88
+  logp: 4.44
   functional_groups: []
   chirality: null
   vp_25c_pa: 2.13
@@ -3377,9 +3380,9 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1007981.html: "CAS Number: 31501-11-8" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1007981.html: "Molecular Weight:198.30574000" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
-    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1007981.html: "Specific Gravity:0.87500 to 0.88300 @ 25.00 °C."; midpoint 0.879 x 0.99705 g/mL (water at 25 C) = 0.876 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'FAO/WHO JECFA flavour specification, cis-3-Hexenyl hexanoate (JECFA 165) (https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/19): ''|Specific gravity |0.870-0.890 |''; printed 0.870-0.890; JECFA specification range; temperature not printed; grade A_regulatory. No temperature printed. Second reader: JECFA specification for cis-3-hexenyl hexanoate, CAS 31501-11-8 (= stock CAS). Range is verbatim, but the page prints no temperature, while the item files it as density_25c_g_ml. 0.88 is the midpoint of a purity... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'ESTIMATE: TGSC 0.016 mmHg @ 25 C (est) x 133.322 Pa/mmHg = 2.13 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
-    logp: 'ESTIMATE (2026-10-14): midpoint of TGSC 4.438 (est) and XLogP3-AA 3.80 (est); no measured log Kow found. Source: material-data-gaps-2026-10-14/W1_odt_fruity_green.md'
+    logp: 'ESTIMATE (Axxence SDS states the product has not been tested): Axxence SDS, NATURAL CIS-3-HEXENYL HEXANOATE (CAPROATE) (product code 340300), revision date 26.05.2025 (https://www.axxence.de/fileadmin/DocumentPublisher/sds/natural_cis-3-hexenyl_hexanoate__caproate__rspo_mb_340300_EU-EN_SDS.pdf): ''Partition coefficient n-octanol/water Log Pow Chemical name CAS No 31501-11-8 4,44 NATURAL CIS-3-HEXENYL HEXANOATE (CAPROATE)''; printed 4,44; producer SDS; method not stated; grade A_producer. Second reader: Section 9 rounds it to 4,4. The SDS says ''The product has not been tested'' next to the log Pow, so 4.44 is not a producer measurement. Source and method are not stated, so the A_producer grade overstates it. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Cis-3 Hexenyl Salicylate
   aliases:
   - cis-3 Hexenyl Salicylate
@@ -3640,12 +3643,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 152.23
-  density_25c_g_ml: 0.885
+  density_25c_g_ml: 0.89
   logp: 3.05
   functional_groups: []
   chirality: null
-  vp_25c_pa: 12.172
-  vp_source: 'EPI'
+  vp_25c_pa: 14.1
+  vp_source: producer_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3680,9 +3683,9 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 5392-40-5 (https://www.thegoodscentscompany.com/data/rw1003432.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.88500 to 0.89100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003432.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, citral, CAS Registry Number 5392-40-5 (2020) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5392-40-5.pdf): ''Specific Gravity: 0.887–0.893 (FMA), 0.885–0.891 (FMA)''; printed 0.887–0.893 (FMA), 0.885–0.891 (FMA); FMA values quoted by RIFM; grade A_producer. No temperature printed. Second reader: Same document (citral, CAS 5392-40-5). Quote verbatim. TEMPERATURE: page prints no temperature; item temperature_c is null but the value is filed under density_20c_g_ml, which the page does not support. Specific... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, citral, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5392-40-5.pdf: "Log KOW: 3.0 and 3.1 at 35 C (2 isomers) (RIFM, 2006), 3.45 (EPI Suite)"; mean of the two measured isomers; replaces the unsourced 2.76'
-    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, citral, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5392-40-5.pdf: "0.0913 mm Hg @ 25 C (EPI Suite)" = 12.17 Pa (estimate; FMA 0.07 mm Hg at 20 C agrees); replaces the unsourced 3.5 Pa'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, citral, CAS Registry Number 5392-40-5 (2020) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5392-40-5.pdf): ''Vapor Pressure: 0.0596 mm Hg @ 20 C (EPI Suite v4.0), 0.07 mm Hg 20 C (FMA), 0.0913 mm Hg @ 25 C (EPI Suite)''; printed 0.07 mm Hg 20 C (FMA); FMA value quoted by RIFM; grade A_producer. Converted from 9.333 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 59.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Quote verbatim; CAS 5392-40-5 matches. 0.07 x 133.322 = 9.333 Pa at 20 C. FMA value graded A_producer; method not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Citralva
   aliases: []
@@ -3836,12 +3839,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 154.25
-  density_25c_g_ml: 0.851
+  density_25c_g_ml: 0.857
   logp: 3.53
   functional_groups: []
   chirality: null
-  vp_25c_pa: 40.0
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 26.0
+  vp_source: measured_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3870,13 +3873,14 @@
   character: null
   notes: null
   provenance:
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, citronellal, CAS 106-23-0 (Api et al., Food Chem Toxicol 149 (2021) 111991) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-23-0.pdf): ''Vapor Pressure: 0.17 mm Hg at 20 ◦ C (EPI Suite v4.0), 0.16 hPa at 20 ◦ C; 0.26 hPa at 25 ◦ C; 1.73 hPa at 50 ◦ C, 0.1 mm Hg 20 ◦ C (FMA), 0.254 mm Hg at 25 ◦ C (EPI Suite)''; printed 0.26 hPa at 25 C; value printed by RIFM without a source tag (series 20/25/50 C, consistent with a REACH dossier entry); grade A_measured. Second reader: Assessment covers citronellal CAS 106-23-0 and (3S)-citronellal CAS 5949-05-3; footnote: ''*Physical data is identical for both materials in this assessment.'' 0.26 hPa x 100 = 26 Pa at 25 C. The hPa series carries no... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 106-23-0 (https://www.thegoodscentscompany.com/data/rw1032651.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.85000 to 0.85800 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1032651.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, citronellal, CAS 106-23-0 (Api et al., Food Chem Toxicol 149 (2021) 111991) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-23-0.pdf): ''Specific Gravity: 0.852 – 0.862 (FMA), 0.850 – 0.860 (FMA)''; printed 0.852 – 0.862 (FMA), 0.850 – 0.860 (FMA); FMA values quoted by RIFM; grade A_producer. No temperature printed. Second reader: Values on the page (citronellal CAS 106-23-0; physical data identical for both materials in the assessment). No temperature printed, but source_field is density_20c_g_ml; relabel as density_unspecified_t. 0.857 is... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, citronellal, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-23-0.pdf: "Log KOW: 3.53 (EPI Suite)" (estimate, the only value printed); fills an empty field'
 - canonical_name: Citronellol
   aliases:
@@ -3886,8 +3890,8 @@
   smiles: null
   inchikey: null
   mw_g_mol: 156.3
-  density_25c_g_ml: 0.852
-  logp: null
+  density_25c_g_ml: 0.86
+  logp: 3.1
   functional_groups: []
   chirality: null
   vp_25c_pa: 2.26
@@ -3916,6 +3920,7 @@
   character: 'Floral rose, waxy, geranium, slight citrus notes, soft powdery notes.'
   notes: null
   provenance:
+    logp: 'RIFM fragrance ingredient safety assessment, dl-citronellol, CAS 106-22-9 (Api et al., Food Chem Toxicol 182 (2023) 114150) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-22-9.pdf): ''Log K ow : Log Pow = 2.7 and 3.1 ( RIFM, 2004 ), 3.1 ( RIFM, 1991 ), 3.1 at 35 ◦ C ( RIFM, 2006 ), 3.56 (EPI Suite)''; printed 3.1 at 35 C (RIFM, 2006); RIFM study (RIFM, 2006); grade A_measured. Second reader: RIFM dl-citronellol, CAS 106-22-9. Measured 3.1 at 35 C (RIFM 2006); other RIFM measurements 2.7 and 3.1 at unstated temperature. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Citronellol 700 | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/citronellol: Olfactive Description: "Floral rose, waxy, geranium, slight citrus notes, soft powdery notes." (grade A_producer; producer/primary text, quoted). Second reader: URL resolves to IFF ''Citronellol 700'' (an IFF citronellol grade; IFF also sells Citronellol 950). Same molecule, CAS 106-22-9; inventory gives no grade. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: ECHA registration dossier, 2.26 Pa at 25 C
@@ -3926,7 +3931,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 106-22-9 (https://www.thegoodscentscompany.com/data/rw1007032.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.85000 to 0.86000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007032.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, dl-citronellol, CAS 106-22-9 (Api et al., Food Chem Toxicol 182 (2023) 114150) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-22-9.pdf): ''Specific Gravity: 0.854 (FMA Database), 0.86 g/mL ( RIFM, 1994 )''; printed 0.86 g/mL (RIFM, 1994); RIFM study (RIFM, 1994); temperature not printed; grade A_measured. No temperature printed. Second reader: RIFM dl-citronellol, CAS 106-22-9. 0.86 g/mL is on the page verbatim but no temperature is printed; the item''s source_field is density_20c_g_ml. Effect of temperature on density is small (~0.0007 g/mL per C), so the... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Citronellyl Acetate
   aliases: []
   cas: '150-84-5'
@@ -4614,12 +4619,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 222.4
-  density_25c_g_ml: null
-  logp: 4.0
+  density_25c_g_ml: 0.9563
+  logp: 5.31
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.002
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.51
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -4644,12 +4649,14 @@
   character: 'A soft and clean version of a patchouli profile. ... it offers the creamy warmth of amber and a dark woody character reminiscent of patchouli.'
   notes: null
   provenance:
+    density_25c_g_ml: 'dsm-firmenich SDS 970953 CLEARWOOD®, version 14.0, revised 24 March 2025 (UN GHS; hosted by a reseller, cdn.hstatic.net) (https://cdn.hstatic.net/files/200000928041/file/clearwood__sds.pdf): ''= 0.958 at 20 C (OECD 109) ... Relative density (d 20/20) :''; printed = 0.958 at 20 C (OECD 109); producer SDS, OECD 109; grade A_producer. The printed 0.958 is a relative density (d20/20); x 0.9982 g/mL water = 0.9563 g/mL. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: Printed value is a relative density d20/20 (dimensionless), not g/mL. 0.958 x 0.99820 g/mL (water at 20 C) = 0.956 g/mL at 20 C. A 0.002 difference, but the field is g/mL. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'dsm-firmenich SDS 970953 CLEARWOOD®, version 14.0, revised 24 March 2025 (UN GHS; hosted by a reseller, cdn.hstatic.net) (https://cdn.hstatic.net/files/200000928041/file/clearwood__sds.pdf): ''Not determined = 20.9 mg/l at 20 C (Method A6) Log Kow > 3.2 - 5.7 (OECD 117) VP = 0,94 Pa at 20 C (OECD 104) = 0.958 at 20 C (OECD 109) ... pH : Water solubility (20 C) : Partition coef. (n-octanol/water) : Vapour...''; printed VP = 0,94 Pa at 20 C (OECD 104); producer SDS, OECD 104; grade A_producer. Converted from 0.94 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 68.4 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Measured, OECD 104. Clearwood is a UVCB (fermentation-derived patchouli-type oil, CAS 1450625-49-6), so the VP is for the whole mixture. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'CLEARWOOD® 970953 marketing sheet | Firmenich, https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CLEARWOOD_970953.pdf: OLFACTIVE DESCRIPTION "A soft and clean version of a patchouli profile. Created from white biotechnology, CLEARWOOD® delivers all the rewards of modern ingredient design. Beaming with light, it offers the creamy warmth of amber and a dark woody character reminiscent of patchouli." (grade A_producer; producer/primary text, quoted). Second reader: CAS 1450625-49-6 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
+    logp: 'Firmenich marketing sheet, CLEARWOOD® 970953 (2020) (https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CLEARWOOD_970953.pdf): ''EASURED) 5.31 APPEARANCE LIQUID FLASHPOINT >100 C''; printed 5.31; producer marketing sheet, labelled measured; grade A_producer. Second reader: Quote is a truncated fragment of ''LOG P (MEASURED) 5.31''. Producer labels it measured; no method or temperature. Clearwood is a multi-component material; one CAS pair given. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -5893,8 +5900,8 @@
   logp: 1.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.19
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.08759
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0005
@@ -5932,7 +5939,7 @@
   provenance:
     character: 'Coumarin From China, USITC Publication 3305 (May 2000), https://www.usitc.gov/publications/701_731/pub3305.pdf: "Coumarin (CAS Registry Number 91-64-5) is a white, almost colorless crystalline solid, manufactured from petroleum-based organic chemicals. It has a sweet, fresh, hay-like, slightly spicy odor, similar to that of vanilla, and a bitter aromatic burning taste." (grade A_regulatory; producer/primary text, quoted). Second reader: USITC trade report (Coumarin from China), not a producer or regulatory odour text, but the quote and CAS 91-64-5 are on it. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'ESTIMATE (EPI Suite estimate): RIFM fragrance ingredient safety assessment, coumarin, CAS 91-64-5 (Api et al., Food Chem Toxicol 130 (2019) 110522) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/91-64-5_0.pdf): ''0.000657 mm Hg @ 25 C (calculated) (EPI Suite)''; printed 0.000657 mm Hg @ 25 C (calculated) (EPI Suite); EPI Suite estimate; grade EST. Second reader: 0.000657 x 133.322 = 0.08759 Pa at 25 C. The page labels it calculated; graded EST correctly. The only measured figure is an upper bound (FMA < 0.001 mm Hg = < 0.133 Pa at 20 C). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -6146,13 +6153,13 @@
   inchikey: null
   mw_g_mol: 190.3
   density_25c_g_ml: 0.95
-  logp: 4.0
+  logp: 3.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.52
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.494
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
-  dhvap_kj_mol: null
+  dhvap_kj_mol: 72.6
   kaw_eff: 0.004
   hsp: null
   odt_air_ppb: 0.3237
@@ -6180,9 +6187,10 @@
   character: 'Strong floral aroma'
   notes: null
   provenance:
+    dhvap_kj_mol: 'NIST Chemistry WebBook, 3-(4-Isopropylphenyl)-2-methylpropionaldehyde, phase change data (https://webbook.nist.gov/cgi/cbook.cgi?ID=C103957&Mask=4): ''Δ vap H 72.6 kJ/mol A Stephenson and Malanowski, 1987 Based on data from 283. to 499. K.''; printed 72.6 kJ/mol; method A (Antoine-derived), standard-state ΔvapH, Stephenson and Malanowski 1987, data 283-499 K; grade A_measured. Second reader: ΔvapH is printed as standard conditions (298 K), derived from vapour-pressure data spanning 283-499 K. It is the only entry. A wide-range fit, so less precise than a direct 298 K measurement. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: '2-Methyl-3-(p-isopropylphenyl)propionaldehyde (cyclamen aldehyde) (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/1453/: Physical form/odour: "Colourless to pale yellow liquid; Strong floral aroma" (grade A_regulatory; producer/primary text, quoted). Second reader: CAS 103-95-7 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'ECHA Brief Profile, 3-p-cumenyl-2-methylpropionaldehyde (EC 203-161-7, CAS 103-95-7), last updated 12/04/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.002.874): ''R Vapour pressure 0.3 Pa @ 20 C [1] ... Summary: Vapour pressure 0.3 Pa @ 20 C''; printed 0.3 Pa @ 20 C; REACH registration key study; grade A_regulatory. Converted from 0.3 Pa at 20 C to 25 C by Clausius-Clapeyron with the NIST dHvap loaded with this batch (72.6 kJ/mol). Second reader: Page identity: CAS 103-95-7, C13H18O, multi constituent substance. CAS 103-95-7 shown. Brief Profile gives no test method; key study. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: 'Givaudan SDS and Givaudan R&D article agree (0.324 and 0.321 ppb). Replaces 0.76, cited to Nagata (2003) and Devos (1990), which were not checked to list it. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
@@ -6195,7 +6203,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 0.95; https://www.thegoodscentscompany.com/data/rw1004112.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: reference value; raw 103-95-7; https://www.thegoodscentscompany.com/data/rw1004112.html'
-    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 2-methyl-3-(p-isopropylphenyl)propionaldehyde, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-95-7.pdf: "Log KOW: 4.0 at 35 C (RIFM, 2006), 3.91 (EPI Suite)"; measured 4.0 used; replaces the unsourced 3.2'
+    logp: 'ECHA Brief Profile, 3-p-cumenyl-2-methylpropionaldehyde (EC 203-161-7, CAS 103-95-7), last updated 12/04/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.002.874): ''R Log Pow 3.4 @ 35 C and pH 7 [1] ... Summary: Log Kow (Log Pow) 3.4 @ 35 C''; printed 3.4 @ 35 C and pH 7; REACH registration key study (pH 7); grade A_regulatory. Second reader: CAS 103-95-7. Measured at 35 C, not 25 C. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Cyclamen F-TEC
   aliases:
   - CYCLAMEN F-TEC
@@ -6313,7 +6321,7 @@
   inchikey:
   mw_g_mol: 198.26
   density_25c_g_ml: 1.02
-  logp: 2.643
+  logp: 2.72
   functional_groups: []
   chirality:
   vp_25c_pa: 0.4
@@ -6345,7 +6353,7 @@
     density_25c_g_ml: 'ECHA 1.02 g/cm3 at 20 C (20 C value); decomposes at 170 C or above. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'ESTIMATE kept: EPI Suite 0.40 Pa via TGSC. ECHA value DISPUTED: 52 Pa at 20 C / 67 Pa at 25 C, over 100x the estimate, not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
-    logp: '22 Oct 2026 missing-data pass: labelled estimate (Kenny chose Fill estimates, 13 Oct); raw 2.643; https://www.perflavory.com/docs/doc1038701.html'
+    logp: 'ESTIMATE (EPI Suite estimate (RIFM)): RIFM fragrance ingredient safety assessment, allyl (cyclohexyloxy)acetate, CAS registry number 68901-15-5 (Food Chem Toxicol, 2015; ScienceDirect article page) (https://www.sciencedirect.com/science/article/abs/pii/S0278691515000952): ''Log K OW : 2.72 [EPI Suite]''; printed 2.72 [EPI Suite]; EPI Suite estimate (RIFM); grade EST. Second reader: EPI Suite estimate, correctly graded EST. Note for anyone loading MW from this page: it prints 198.62, but C11H18O3 is 198.26 (a typo on the page). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     smiles: 'Structure stated in the 2026-10-23 wiring spec (output/_wire_spec_20261023.md section A), RDKit-canonicalised by D:\agent-cache\tools\chemprops.py, run 2026-10-23; RDKit MW 198.262 matches the YAML MW within 0.1'
 - canonical_name: Cymene Para
   aliases: []
@@ -6474,8 +6482,8 @@
   logp: 1.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.19
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.08759
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -6490,6 +6498,7 @@
   character: 'sweet, fresh, hay-like, slightly spicy odor, similar to that of vanilla'
   odour_family: 'gourmand'
   provenance:
+    vp_25c_pa: 'ESTIMATE (EPI Suite estimate): RIFM fragrance ingredient safety assessment, coumarin, CAS 91-64-5 (Api et al., Food Chem Toxicol 130 (2019) 110522) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/91-64-5_0.pdf): ''0.000657 mm Hg @ 25 C (calculated) (EPI Suite)''; printed 0.000657 mm Hg @ 25 C (calculated) (EPI Suite); EPI Suite estimate; grade EST. Second reader: Same as the ''Coumarin'' item: 0.08759 Pa at 25 C, a calculated value, graded EST correctly. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "gourmand" from ''Sweet / hay (tonka, coumarinic)'': Coumarin From China, USITC Publication 3305 (May 2000), https://www.usitc.gov/publications/701_731/pub3305.pdf: derived from "sweet, fresh, hay-like, slightly spicy odor" (grade A_regulatory; derived from the quoted description (the source gives no family)). Second reader: Family ''Sweet / hay'' supported; ''tonka, coumarinic'' is the worker''s gloss. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Coumarin From China, USITC Publication 3305 (May 2000), https://www.usitc.gov/publications/701_731/pub3305.pdf: "It has a sweet, fresh, hay-like, slightly spicy odor, similar to that of vanilla, and a bitter aromatic burning taste." (grade A_regulatory; producer/primary text, quoted). Second reader: USITC Publication 3305 (Coumarin From China). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: '22 Oct 2026 missing-data pass: stated; raw 91-64-5; https://www.tcichemicals.com/AT/en/p/C0395'

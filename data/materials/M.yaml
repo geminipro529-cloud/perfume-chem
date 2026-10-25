@@ -398,8 +398,8 @@
   logp: 2.67
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.4
-  vp_source: TGSC_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.208
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -432,7 +432,7 @@
     cas: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); RIFM fragrance ingredient safety assessment, Magnolan, CAS 27606-09-3, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     mw_g_mol: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); MW 204.27, C13H16O2 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     logp: 'ESTIMATE: EPI Suite 2.67 as quoted by RIFM, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568; measured isomers 2.43 and 2.90 (RIFM 2014d) bracket it (via material-data-firecrawl/BATCH1_FEMME_20261008.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
-    vp_25c_pa: 'ESTIMATE: TGSC rw1007991 0.003 mmHg @ 25 C (est) x 133.322 Pa/mmHg = 0.40 Pa (via material-data-firecrawl/BATCH1_FEMME_20261008.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    vp_25c_pa: 'ESTIMATE (EPI Suite estimate; 0.00156 x 133.322 = 0.208 Pa): RIFM fragrance ingredient safety assessment, 2,4-dimethyl-4,4a,5,9b-tetrahydroindeno[1,2-d]-1,3-dioxin (Api et al., Food Chem Toxicol 130 (2019) 110568) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/27606-09-3.pdf): ''7. Vapor Pressure: 0.000845 mm Hg @ 20 C (EPI Suite v4.0), 0.00156 mm Hg @ 25 C (EPI Suite)''; printed 0.00156 mm Hg @ 25 C; EPI Suite estimate; 0.00156 x 133.322 = 0.208 Pa; grade EST. Second reader: RIFM assessment CAS 27606-09-3 (synonym Magnolan). EPI Suite estimate, graded EST: correct. 0.00156 x 133.322 = 0.208 Pa. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'SG 1.0850, supplier-reported (PerfumersWorld 3MN13569 "Magnolan"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 23 Oct 2026 third data pass: PerfumersWorld 3MN13569 "Specific Gravity 1.0850", https://www.perfumersworld.com/view.php?pro_id=3MN13569; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle); Ventos 1.086-1.090 at 20 C agrees'
     density_basis: supplier_sg_temperature_unstated
     smiles: 'PubChem CID 119674 structure for CAS 27606-09-3 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
@@ -1016,8 +1016,8 @@
   logp: 2.7
   functional_groups: []
   chirality:
-  vp_25c_pa: 200.0
-  vp_source: TGSC_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 279.0
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1050,7 +1050,7 @@
     cas: 'https://scentspiracy.com/fragrance-ingredients/p/manzanate and https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "CAS No.: 39255-32-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "Molecular weight 144.21" (C8H16O2) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: '23 Oct 2026 source check: Givaudan product page ''Log Pow 2,7''; replaces the TGSC estimate 2.667; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate'
-    vp_25c_pa: '23 Oct 2026 source check: Givaudan product page ''Vapour pressure 1.9997 hPa'' = 200 Pa, temperature not printed (Givaudan''s other pages state 25 C); replaces the TGSC estimate 387 Pa; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl 2-methylpentanoate, CAS Registry Number 39255-32-8, Food Chem Toxicol 189 (2024) 114651 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2024.114651): ''Vapor Pressure: 2.06 mm Hg at 20 C (EPI Suite v4.0), 1.5 mm Hg at 20 C (Fragrance Materials Association), 2.88 mm Hg at 25 C (EPI Suite v4.11)''; printed 1.5 mm Hg at 20 C; Fragrance Materials Association (FMA) database; grade A_measured. Converted from 200 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 48.5 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: ScienceDirect, RIFM ethyl 2-methylpentanoate, CAS 39255-32-8; Synonyms include Manzanate. Quote verbatim. 1.5 x 133.322 = 199.98 Pa at 20 C. FMA value, counted as measured per brief; method not... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '23 Oct 2026 third data pass: Sigma-Aldrich W348805 ethyl 2-methylpentanoate (Manzanate): "density 0.864 g/mL at 25 C (lit.)", https://www.sigmaaldrich.com/US/en/product/aldrich/w348805'
     smiles: 'PubChem CID 62902 structure for CAS 39255-32-8 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: Maple Lactone
@@ -1061,7 +1061,7 @@
   inchikey:
   mw_g_mol: 112.13
   density_25c_g_ml: 1.136
-  logp: 0.5
+  logp: 0.4
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 1.5, corrected to 0.01)
@@ -1101,7 +1101,7 @@
     odt_air_ppb: 'Detection-flagged air entry of the van Gemert compilation; a GC-O entry in the same air section gives 2.2-4.4 ppb. Primary papers not opened. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'Axxence Aromatic GmbH, Safety Data Sheet, Natural Methyl Cyclopentenolone Maple Lactone (anhydrous), product 270000US, rev. 02/25/2025 (https://www.axxence.de/fileadmin/DocumentPublisher/sds/natural_methyl_cyclopentenolone_maple_lactone__anhydrous__270000_US-EN_SDS.pdf): ''Partition coefficient n-octanol/water: 0,4''; printed 0,4; producer SDS; the extracted section 9 layout puts values and labels out of line, so the assignment of "0,4" to the partition coefficient is probable but not...; grade A_producer. Second reader: ''Partition coefficient n-octanol/water: 0,4'' appears in sequence. Section 9 has labels and values partly out of line (some values precede their labels), so the pairing is probable, not certain. In the same Axxence... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
@@ -1171,7 +1171,7 @@
   inchikey:
   mw_g_mol: 156.26
   density_25c_g_ml: 0.916
-  logp:
+  logp: 3.45
   functional_groups: []
   chirality:
   vp_25c_pa: 1.5
@@ -1200,6 +1200,7 @@
   character: 'A fresh, soft, and clean floral aroma reminiscent of delicate white petals and the blossoms of various flowers such as muguet, cyclamen, magnolia and tuberose, with slightly spicy aldehydic undertones.'
   notes:
   provenance:
+    logp: 'Firmenich MAYOL® 957230 marketing sheet (https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/MAYOL_957230.pdf?98bc549=): ''LOG P (MEASURED) 3.45''; printed ; stated ''measured''; grade A_producer. Second reader: The producer states ''measured''; no temperature. The same sheet gives VP 0.90 Pa at 20 C, which is not part of this item. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'MAYOL® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/mayolr-pe-957230: Olfactive description A fresh, soft, and clean floral aroma reminiscent of delicate white petals and the blossoms of various flowers such as muguet, cyclamen, magnolia and tuberose, with slightly spicy aldehydic undertones. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
@@ -1496,7 +1497,7 @@
   smiles:
   inchikey:
   mw_g_mol: 151.16
-  density_25c_g_ml: 1.162
+  density_25c_g_ml: 1.168
   logp: 1.9
   functional_groups: []
   chirality:
@@ -1539,7 +1540,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 134-20-3 (https://www.thegoodscentscompany.com/data/rw1008211.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 1.16100 to 1.16900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008211.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'PubChem CID 8635, Density (HSDB citing Merck Index 2013 p. 1117) (https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/8635/JSON?heading=Chemical+and+Physical+Properties): ''1.168 at 20 C''; printed ; JECFA range 1.161-1.169; grade A_measured. Measured at 20 C (about 0.004 g/mL above the 25 C value). HSDB / Merck Index figure (not the JECFA range). Second reader: Page identity: PubChem CID 8635, Methyl Anthranilate. Opened via WebFetch (PUG-View JSON); density strings quoted as returned. Sources per the JSON: 1.168 at 20 C is HSDB citing Merck Index (O''Neil 2013, p. 1117)... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Methyl Benzoate
   aliases: []
   cas: '93-58-3'
@@ -1674,11 +1675,11 @@
   inchikey:
   mw_g_mol: 182.22
   density_25c_g_ml: 1.1105
-  logp: 1.571
+  logp: 1.1
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.4
-  vp_source: TGSC_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.07946
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1710,8 +1711,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1009761.html; "CAS Number: 5595-79-9", synonyms "dianthus ethone", "methyl diantilis (Givaudan)"; check digit valid (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1009761.html; "Molecular Weight: 182.21918000", calculated from C10H14O3 (2-ethoxy-4-(methoxymethyl)phenol) (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
-    logp: 'ESTIMATE: TGSC "logP (o/w): 1.571 (est)" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
-    vp_25c_pa: 'ESTIMATE: TGSC "0.003000 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 0.400 Pa (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    logp: 'Givaudan, Methyl Diantilis product page (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-diantilistm): ''Log Pow 1,1''; printed ; RIFM lists only EPI 1.61; engine 1.571 unsourced; grade A_producer. Second reader: Opened the page directly (the worker had only a search excerpt). CAS 5595-79-9. Log Pow 1,1; no method or temperature stated, so A_producer only. Same page prints VP ''<0.0001 hPa'' (<0.01 Pa) with bp 258 C, which... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'ESTIMATE (EPI Suite v4.11 (0.000596 x 133.322 = 0.0795 Pa)): RIFM fragrance ingredient safety assessment, 2-ethoxy-4-(methoxymethyl)phenol (Food Chem Toxicol 197 (2025) 115260) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5595-79-9.pdf): ''7. Vapor Pressure: 0.000596 mm Hg (EPI Suite v4.11); read-across table: Vapor Pressure (Pa @ 25 C, EPI Suite) 7.95E-02''; printed 0.000596 mm Hg; EPI Suite v4.11 (0.000596 x 133.322 = 0.0795 Pa); grade EST. Second reader: Quote verbatim. The physical-data line prints no temperature, but the read-across table prints the same figure as 7.95E-02 Pa @ 25 C, so 25 C is supported. 0.000596 x 133.322 = 0.0795 Pa. EPI estimate, graded EST:... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 1.108 to 1.113; https://directpcw.com/en/products/metd-1; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Methyl Eugenol
   aliases: []
@@ -1909,7 +1910,7 @@
   vp_25c_pa: 5.47
   vp_source: HSDB  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
-  dhvap_kj_mol:
+  dhvap_kj_mol: 67.0
   kaw_eff:
   hsp:
   odt_air_ppb:
@@ -1932,6 +1933,7 @@
   character: 'citrus, fatty, rue-like'
   notes:
   provenance:
+    dhvap_kj_mol: 'NIST Chemistry WebBook, 2-Undecanone, Phase change data (https://webbook.nist.gov/cgi/cbook.cgi?ID=C112129&Mask=4): ''Δ vap H | 67.0 ± 0.4 | kJ/mol | C | Sunner, Svensson, et al., 1979''; printed 67.0 ± 0.4 kJ/mol; calorimetry at 298.15 K (Sunner, Svensson & Zelepuga, J. Chem. Thermodyn. 1979, 11, 491); also 67. (Majer & Svoboda 1985) and 69.7 ± 0.5 (GCC, Saluja 1979); grade A_measured. Second reader: Calorimetric ΔvapH at 298.15 K (from the reference title). The page also gives 67.0 ± 0.41 (ALS), 67. (Majer & Svoboda 1985) and 69.7 ± 0.5 (GCC, Saluja 1979). Identity is from the NIST ID C112129 (2-undecanone =... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: '2-Undecanone | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/2-Undecanone: colourless to pale yellow liquid with a citrus, fatty, rue-like odour (grade A_regulatory; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8163, 2-undecanone (https://pubchem.ncbi.nlm.nih.gov/compound/8163#section=Vapor-Pressure): "4.1X10-2 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 5.47 Pa. The record does not state the temperature.'
     mw_g_mol: engine.skin_interaction
@@ -2086,8 +2088,8 @@
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 152.15)
   mw_g_mol: 152.15
-  density_25c_g_ml: 1.179
-  logp:
+  density_25c_g_ml: 1.1805
+  logp: 2.55
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 5.3)
@@ -2121,13 +2123,14 @@
   character:
   notes:
   provenance:
+    logp: 'PubChem CID 4133, LogP (HSDB citing Hansch & Leo, The Log P Database, 1987) (https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/4133/JSON?heading=Experimental+Properties): ''Log Kow = 2.55''; printed ; Hansch-Leo measured compilation; ICSC/HMDB 2.55; RIFM only EPI 2.6; grade A_measured. Second reader: Parallel fetch returned a network error; read with WebFetch (PubChem JSON). This is a measured compilation value. No temperature printed. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Methyl salicylate (oil of wintergreen) 24.18 .46 .92, .22". Liquid values 0.21 (Doty 1975) and 0.20 (Berglund 1971) not used. Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 119-36-8 (https://www.thegoodscentscompany.com/data/rw1008471.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 1.18000 to 1.18500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008471.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'PubChem CID 4133, Density (HSDB citing Merck Index 1989 p. 961) (https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/4133/JSON?heading=Experimental+Properties): ''1.184 @ 25 C/25 C''; printed ; relative density 25/25 C; RIFM: 1.180-1.185 (FMA), 1.18 (RIFM, 1995); grade A_measured. The printed 1.184 is a relative density (d25/25); x 0.99705 g/mL water = 1.1805 g/mL. Second reader: 25 C/25 C is a relative density. 1.184 x 0.99705 g/mL (water at 25 C) = 1.180 g/mL at 25 C. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: MILK F-TEC
   aliases: []
   cas:
@@ -2997,7 +3000,7 @@
   smiles: 'CC1CCC2(CC1)CCC(=O)O2'
   vp_25c_pa: 2.4
   vp_source: supplier
-  logp: 1.882
+  logp: 2.0
   odt_air_ppb: null
   odt_eth_ppm: null
   user_stock_dilution: "20% v/v in ethanol"
@@ -3010,6 +3013,6 @@
     supplier_product_comparison: https://www.perfumersworld.com/view.php?pro_id=5VD10871
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
     cas: 'https://www.givaudan.com/print/1314651 (Givaudan, producer); "94201-19-1, 91069-37-3/25265-71-8" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
-    logp: 'ESTIMATE: TGSC "1.882 (est)", the only value found (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    logp: 'Update to RIFM fragrance ingredient safety assessment, 1-oxaspiro[4.5]decan-2-one, 8-methyl-, CAS Registry number 94201-19-1, Food Chem Toxicol (2024) 114990 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2024.114990): ''Log K ow : 2.0 (RIFM, 2013b), 2.34 (EPI Suite v4.11)''; printed ; RIFM 2013b study; grade A_measured. Second reader: The page calls 2.0 a measured value. No temperature printed. CAS matches the stock record. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'SUPPLIER, temperature unstated (2026-10-14): Givaudan 10% in DPG sheet "0.0240 hPa" = 2.4 Pa (the sheet also prints 0.0060 hPa, unexplained); TGSC 0.024 mmHg @20C = 3.2 Pa. Range 0.6-3.2 Pa. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
     smiles: 'PubChem CID 175596 structure for CAS 94201-19-1 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'

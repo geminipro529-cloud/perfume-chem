@@ -466,15 +466,15 @@
   cas: 100-52-7
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 106.1219
   density_25c_g_ml: 1.05
-  logp: null
+  logp: 1.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 169.0
+  vp_source: measured_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
-  dhvap_kj_mol: null
+  dhvap_kj_mol: 48.6
   kaw_eff: null
   hsp: null
   odt_air_ppb: 140.5
@@ -500,6 +500,10 @@
   character: 'Fruity, Almond, Cherry, Apricot, Peach (Symrise''s odour words)'
   notes: null
   provenance:
+    logp: 'ECHA Brief Profile, benzaldehyde (EC 202-860-4, CAS 100-52-7), last updated 21/05/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.002.601): ''R Log Pow 1.4 @ 25 C [1] ... Summary: Log Kow (Log Pow) 1.4 @ 25 C''; printed 1.4 @ 25 C; REACH registration key study; grade A_regulatory. Second reader: CAS 100-52-7. Page says 7 studies submitted, 1 processed (quote omits the count). Value matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'ECHA Brief Profile, benzaldehyde (EC 202-860-4, CAS 100-52-7), last updated 21/05/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.002.601): ''4 studies submitted * 1 study processed * R Vapour pressure * 1.69 hPa @ 25 C [1] ... Summary: Vapour pressure 1.69 hPa @ 25 C''; printed 1.69 hPa @ 25 C; REACH registration key study (1 of 4 studies processed); grade A_regulatory. Second reader: 1.69 hPa x 100 = 169 Pa at 25 C. Brief Profile does not state the experimental method. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    dhvap_kj_mol: 'NIST Chemistry WebBook, Benzaldehyde (phase change data) (https://webbook.nist.gov/cgi/cbook.cgi?ID=C100527&Mask=4): ''ΔvapH 48.6 kJ/mol, 326 K, A, Stephenson and Malanowski, 1987; also 47.0 at 288 K (A,BG), 50.3 at 311 K (V, Ambrose, Connett et al. 1975)''; printed 48.6 kJ/mol at 326 K; Stephenson and Malanowski 1987 (method A), at 326 K; grade A_measured. Second reader: 326 K = 52.85 C, applying to data from 311 to 376 K. This is not a 298 K value. NIST''s own standard-state average is 48 ± 6 kJ/mol. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    mw_g_mol: 'NIST Chemistry WebBook, Benzaldehyde (phase change data) (https://webbook.nist.gov/cgi/cbook.cgi?ID=C100527&Mask=4): ''Molecular weight: 106.1219''; printed 106.1219; formula weight; grade A_regulatory. Second reader: Formula weight. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'Detection-flagged row of the AIHA compilation (primary not opened); converted from its mg/m3 column, whose ppm column fits neither 25 C nor STP. A second row (Yang 2008, no detection/recognition flag) gives 19.6 ppb. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Benzaldehyde (almond, cherry) 87.99 .48 .96, .75". Other values not used: 0.2 in air (Reese & Stevens, quoted by Berglund 1971); 0.30 in propylene glycol (Doty 1975); 0.19 in diethyl phthalate (Berglund 1971). Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     character: 'Symrise product sheet: Benzaldehyde DD, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Benzaldehyde_DD.pdf: "› Fruity, Almond, Cherry, Apricot, Peach › recommended use level: up to 2 %" (grade A_producer; producer/primary text, quoted). Second reader: Symrise grade ''Benzaldehyde DD'', CAS 100-52-7. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
@@ -802,15 +806,15 @@
   cas: '100-51-6'
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: 1.04
-  logp: null
+  mw_g_mol: 108.1378
+  density_25c_g_ml: 1.045
+  logp: 1.05
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 12.0
+  vp_source: measured_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
-  dhvap_kj_mol: null
+  dhvap_kj_mol: 66.2
   kaw_eff: null
   hsp: null
   odt_air_ppb: null
@@ -827,11 +831,15 @@
   character: null
   notes: null
   provenance:
+    logp: 'ECHA Committee for Risk Assessment (RAC), Annex 1 Background document to the Opinion on harmonised classification of benzyl alcohol (EC 202-859-9, CAS 100-51-6), CLH-O-0000007024-83-01/F, Table 8 (https://echa.europa.eu/documents/10162/9ce187e6-c367-aae7-c08e-7ebb78c3cdf1): ''Partition coefficient n- octanol/water 1.05 at 20 C (Sangster, 1989) Shake-flask method, two values are determined with the HPLC method.''; printed 1.05 at 20 C; shake-flask (Sangster, 1989), as tabulated by ECHA RAC; grade A_regulatory. Second reader: Benzyl alcohol, CAS 100-51-6. Measured (shake-flask). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'ECHA Committee for Risk Assessment (RAC), Annex 1 Background document to the Opinion on harmonised classification of benzyl alcohol (EC 202-859-9, CAS 100-51-6), CLH-O-0000007024-83-01/F, Table 8 (https://echa.europa.eu/documents/10162/9ce187e6-c367-aae7-c08e-7ebb78c3cdf1): ''Vapour pressure 7 Pa at 20 C 12 Pa at 25 C (Apelblat et al., 1984) experimentally measured based on an (isoteniscope) established''; printed 12 Pa at 25 C; experimental, isoteniscope (Apelblat et al., 1984), as tabulated by ECHA RAC; grade A_regulatory. Second reader: Page identity: Table 8; benzyl alcohol EC 202-859-9, CAS 100-51-6. Table cell shows ''(Apelblat et al.,'' with year cut by the table break; reference list gives Apelblat A., Tamir A., Wagner M. (1984). Text elsewhere... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    dhvap_kj_mol: 'NIST Chemistry WebBook, Benzyl alcohol, phase change data (https://webbook.nist.gov/cgi/cbook.cgi?ID=C100516&Mask=4): ''ΔvapH 66.2 kJ/mol, 318. K, GS, Grayson and Fosbraey, 2006, Based on data from 303. to 333. K.''; printed 66.2 kJ/mol at 318 K; gas saturation (GS), Grayson and Fosbraey 2006, data 303-333 K; grade A_measured. Second reader: Applies at 318 K (44.85 C); data range 303-333 K. The same page gives standard ΔvapH 63 ± 6 kJ/mol (AVG of 9 values), 61.5 at 303 K (A.ME, 293-313 K) and 54.6 at 400 K. 66.2 is at the high end. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    mw_g_mol: 'NIST Chemistry WebBook, Benzyl alcohol, phase change data (https://webbook.nist.gov/cgi/cbook.cgi?ID=C100516&Mask=4): ''Molecular weight: 108.1378 ... CAS Registry Number: 100-51-6''; printed 108.1378; formula weight; grade A_regulatory. Second reader:  Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     cas: 'TGSC: CAS Number: 100-51-6 (https://www.thegoodscentscompany.com/data/rw1001651.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 1.04100 to 1.04600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001651.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'ECHA Committee for Risk Assessment (RAC), Annex 1 Background document to the Opinion on harmonised classification of benzyl alcohol (EC 202-859-9, CAS 100-51-6), CLH-O-0000007024-83-01/F, Table 8 (https://echa.europa.eu/documents/10162/9ce187e6-c367-aae7-c08e-7ebb78c3cdf1): ''Relative density 1.045 g/cm ³ at 20 C (Brühne and Wright, experimental''; printed 1.045 g/cm³ at 20 C; experimental (Brühne and Wright), as tabulated by ECHA RAC; grade A_regulatory. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: Benzyl alcohol, CAS 100-51-6. Reference: Brühne F. and Wright E. (2005), Wiley VCH. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Benzyl Alcohol (BA)
   aliases: []
   cas: null
@@ -1426,12 +1434,12 @@
   smiles: 'CCOC(=O)CCCCCOC(=O)C'
   inchikey: null
   mw_g_mol: 202.25
-  density_25c_g_ml: 1.004
+  density_25c_g_ml: 1.00796
   logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 2.67
-  vp_source: TGSC_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.37
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1464,8 +1472,8 @@
     cas: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "CAS Number: 104986-28-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "Molecular Weight: 202.25026000", calculated from C10H18O4 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     logp: 'https://www.thegoodscentscompany.com/data/rw1061362.html; "logP (o/w): 2.000", database value not marked (est), basis not stated (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    density_25c_g_ml: 'https://www.thegoodscentscompany.com/data/rw1061362.html; supplier range "Specific Gravity: 1.00500 to 1.00900 @ 25.00 C."; midpoint 1.007 x 0.99705 (water at 25 C) = 1.0040 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    vp_25c_pa: 'ESTIMATE: TGSC "0.020000 mmHg @ 25.00 C. (est)" x 133.322 Pa/mmHg = 2.67 Pa; https://www.thegoodscentscompany.com/data/rw1061362.html (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    density_25c_g_ml: 'Givaudan SDS, BERRYFLOR (sales no. 5206903), version 11.0, revised 15 AUG 2025 (hosted by aromology.com) (https://aromology.com/cdn/shop/files/SDS-Berryflor-_Givaudan_-_Floral_Raspberry.pdf?v=14296763192571299935): ''Density : 1 007,96 kg/m3 at 20 C''; printed 1 007,96 kg/m3 at 20 C; producer SDS; grade A_producer. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: 1007.96 kg/m3 = 1.00796 g/mL at 20 C. Item stores it in density_25c_g_ml by ''replace'' with source_field density_20c_g_ml; the page value is 20 C, not 25 C (difference ~0.004 g/mL, negligible). Same SDS, CAS... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'Givaudan SDS, BERRYFLOR (sales no. 5206903), version 11.0, revised 15 AUG 2025 (hosted by aromology.com) (https://aromology.com/cdn/shop/files/SDS-Berryflor-_Givaudan_-_Floral_Raspberry.pdf?v=14296763192571299935): ''Vapour pressure : 0,015 hPa at 20 C Method: OECD Test Guideline 104 0,15 hPa at 50 C Method: OECD Test Guideline 104''; printed 0,015 hPa at 20 C; producer SDS, OECD 104; grade A_producer. Converted from 1.5 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 66.7 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Givaudan SDS sales no. 5206903, ETHYL 6-ACETOXYHEXANOATE, CAS 104986-28-9 (= stock CAS). 0.015 hPa x 100 = 1.5 Pa at 20 C, measured (OECD 104). The page also gives 0.15 hPa (15 Pa) at 50 C; a two-point... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     smiles: 'PubChem CID 113640 structure for CAS 104986-28-9 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: Beta Caryophyllene
   aliases: []
@@ -1599,12 +1607,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 192.3
-  density_25c_g_ml: 0.94
-  logp: 3.0
+  density_25c_g_ml: 0.943
+  logp: 4.1
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.2
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.972
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -1630,17 +1638,17 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ionone (mixed isomers), CAS registry number 8013-90-9 (Api, Bartlett, Belsito et al.; group assessment that includes beta-ionone 14901-07-6 and (E)-beta-ionone 79-77-6 "because the materials are isomers"; ECHA dossiers accessed 07/16/24; journal citation not visible in the excerpt) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/8013-90-9.pdf): ''Vapor Pressure: 0.6 Pa at 20 ◦C ( RIFM, 1991a ), 0.006 mm Hg 20 ◦C (FMA), 0.0227 mm Hg (EPI Suite v4.11)''; printed 0.6 Pa at 20 C (RIFM, 1991a); RIFM study (RIFM, 1991a); grade A_measured. Converted from 0.6 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 70.1 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: RIFM group assessment ionone (mixed isomers) 8013-90-9, FCT 192 (2024) 114969; additional CAS include 14901-07-6 β-ionone and 79-77-6 (E)-β-ionone. In the two-column physical-data block (79-77-6 |... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'RIFM fragrance ingredient safety assessment, ionone (mixed isomers), CAS registry number 8013-90-9 (Api, Bartlett, Belsito et al.; group assessment that includes beta-ionone 14901-07-6 and (E)-beta-ionone 79-77-6 "because the materials are isomers"; ECHA dossiers accessed 07/16/24; journal citation not visible in the excerpt) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/8013-90-9.pdf): ''Log KOW: 4.42 (EPI Suite v4.11), 4.1 at 24 ◦C ( RIFM, 1994b )''; printed 4.1 at 24 C (RIFM, 1994b); RIFM study (RIFM, 1994b); grade A_measured. Second reader: Same document, β-ionone 14901-07-6 column. Quote verbatim. Measured at 24 C. The (E)-β-ionone 79-77-6 column gives 4.0 at 24 C (RIFM, 1989c). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 14901-07-6 (https://www.thegoodscentscompany.com/data/rw1006632.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.93900 to 0.94700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1006632.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, ionone (mixed isomers), CAS registry number 8013-90-9 (Api, Bartlett, Belsito et al.; group assessment that includes beta-ionone 14901-07-6 and (E)-beta-ionone 79-77-6 "because the materials are isomers"; ECHA dossiers accessed 07/16/24; journal citation not visible in the excerpt) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/8013-90-9.pdf): ''Specific Gravity: 0.943 g/mL at 20 ◦C ( RIFM, 1991a )''; printed 0.943 g/mL at 20 C (RIFM, 1991a); RIFM study (RIFM, 1991a); grade A_measured. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: Same document, β-ionone 14901-07-6 column. Quote verbatim. The (E)-β-ionone 79-77-6 column gives 944.4 kp/m³ (RIFM, 2003b), i.e. about 0.944 g/mL, which agrees. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Beta Pinene
   aliases:
   - Beta-Pinene
@@ -2619,12 +2627,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 190.28
-  density_25c_g_ml: 0.955
-  logp: 3.49
+  density_25c_g_ml: 0.962
+  logp: 3.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.04
-  vp_source: 'TGSC_est'
+  vp_25c_pa: 0.333
+  vp_source: measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -2663,10 +2671,10 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 18127-01-0 (https://www.thegoodscentscompany.com/data/rw1023831.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95500 to 0.96100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1023831.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
-    vp_25c_pa: '23 Oct 2026 third data pass: TGSC EPI Suite page for 3-(4-tert-butylphenyl)propanal 18127-01-0: "Subcooled liquid VP: 0.00781 mm Hg (25 deg C, Mod-Grain method)" = "1.04 Pa"; the liquid-state value is used because Bourgeonal is a liquid and EPI''s 0.666 Pa assumes its estimated melting point of 46 C (estimate; TGSC data page prints 0.009 mmHg = 1.2 Pa), http://www.thegoodscentscompany.com/episys/ep1023831.html; replaces the placeholder 0.01 Pa'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, 3-(4-tert-butylphenyl)propionaldehyde (bourgeonal), CAS 18127-01-0 (Api et al., Food Chem Toxicol 189 (2024) 114554) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/18127-01-0.pdf): ''Specific Gravity: 0.959 – 0.965 at 20 ◦ C (Quest88), 0.959 – 0.961 (RIFM), 0.960 (FMA)''; printed 0.959 – 0.965 at 20 C (Quest88); producer value (Quest, 1988) quoted by RIFM; grade A_producer. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: CAS 18127-01-0. Midpoint 0.962 at 20 C correct. Specific gravity, not absolute density. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 3-(4-tert-butylphenyl)propionaldehyde (bourgeonal), CAS 18127-01-0 (Api et al., Food Chem Toxicol 189 (2024) 114554) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/18127-01-0.pdf): ''Vapor Pressure: 0.20 Pa at 20 ◦ C ( RIFM, 2012a ), 0.00277 mm Hg at 20 ◦ C (EPI Suite v4.0), 0.004 mm Hg at 20 ◦ C (FMA), 0.00499 mm Hg at 25 ◦ C (EPI Suite v4.11)''; printed 0.20 Pa at 20 C (RIFM, 2012a); RIFM study (RIFM, 2012a; Givaudan vapour pressure report); grade A_measured. Converted from 0.2 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 74.2 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: CAS 18127-01-0, synonym Bourgeonal. RIFM 2012a = ''Vapour Pressure of P-Tert-Butyldihydrocinnamaldehyde (Bourgeonal). Unpublished Report from Givaudan. RIFM Report Number 64222''. 0.20 Pa at 20 C. The FMA value on the... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
-    logp: '23 Oct 2026 third data pass: TGSC same page: "logP (o/w): 3.486 (est)" (estimate; PubChem XLogP3 3.3 agrees in size); replaces the unsourced 2.8'
+    logp: 'RIFM fragrance ingredient safety assessment, 3-(4-tert-butylphenyl)propionaldehyde (bourgeonal), CAS 18127-01-0 (Api et al., Food Chem Toxicol 189 (2024) 114554) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/18127-01-0.pdf): ''Log K OW : 3.2 ( RIFM, 2009b ), 3.94 (EPI Suite v4.11)''; printed 3.2 (RIFM, 2009b); RIFM study (RIFM, 2009b); grade A_measured. Second reader: CAS 18127-01-0. RIFM 2009b = ''Partition Coefficient N-Octanol/water of P-Tert-Butyldihydrocinnamaldehyde (Bourgeonal). Unpublished Report from Givaudan''. No temperature printed; item states none. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: BROOM F-TEC
   aliases: []
   cas: null
@@ -2749,7 +2757,7 @@
   inchikey: null
   mw_g_mol: 167.25
   density_25c_g_ml: null
-  logp: 2.2
+  logp: 2.94
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.0813
@@ -2790,14 +2798,14 @@
     cas: 'https://thegoodscentscompany.com/data/rw1004001.html; "CAS Number: 75147-23-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1004001.html; "Molecular Weight:167.25169000", calculated from C10H17NO (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00061 mm Hg @ 25 C = 0.0813 Pa (solid; subcooled liquid 0.173 Pa, https://thegoodscentscompany.com/episys/ep1004001.html); ChemicalBook 0.095 Pa @ 20 C (method not stated) agrees; TGSC datasheet 0.80 Pa (est) is a 10x outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
-    logp: 'ESTIMATE (2026-10-14): KOWWIN 2.20; TGSC 1.93 (est) and XLogP3 2.50 (est) are within 0.3. No measured log Kow found. Source: material-data-gaps-2026-10-14/W1_odt_fruity_green.md'
+    logp: 'Symrise AG SDS, BUCCOXIME 195583 - E02160, version 11.1 (31/03/2025) (hosted by parfclub.shop) (https://parfclub.shop/wp-content/uploads/2025/07/buccoxime_sds.pdf): ''Partition coefficient: n-octanol/water : log Pow: 2,94''; printed log Pow: 2,94; producer SDS; method not stated; grade A_producer. Second reader: No temperature or method printed. The SDS is hosted on a reseller site (parfclub.shop), distributed by BLH. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Butyl Butyrate
   aliases: []
   cas: '109-21-7'
   smiles: null
   inchikey: null
   mw_g_mol: 144.21
-  density_25c_g_ml: 0.866
+  density_25c_g_ml: 0.8721
   logp: 2.83
   functional_groups: []
   chirality: null
@@ -2836,7 +2844,7 @@
     mw_g_mol: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/109-21-7_0.pdf: "Molecular Weight: 144.21" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/109-21-7_0.pdf: "Log KOW: 2.83 (EPI Suite)", EPI Suite estimate, no measured value found (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     vp_25c_pa: 'perflavory https://www.perflavory.com/docs/doc1014091.html: "1.810000 mmHg @ 25.00 °C." (database value, not marked est, method not stated); 1.81 mm Hg x 133.322 Pa/mm Hg = 241.3 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
-    density_25c_g_ml: 'perflavory https://www.perflavory.com/docs/doc1014091.html: specific gravity "0.86700 to 0.87100 @ 25.00 °C."; midpoint 0.869 x 0.99705 g/mL (water at 25 C) = 0.866 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    density_25c_g_ml: 'OSHA Method PV2090, Butyl butyrate - Isobutyl isobutyrate (physical properties section) (https://www.osha.gov/sites/default/files/methods/osha-pv2090.pdf): ''Molecular weight: 144.24 Density: 0.8721 Freezing point: - 91.5 C ... Boiling point: 166 C''; printed 0.8721; OSHA method data sheet; temperature not stated; grade A_regulatory. No temperature printed. Second reader: 0.8721 is on the page for n-butyl butyrate (CAS 109-21-7), but with no temperature and no unit; it is taken from the Merck Index, 11th ed. (Ref. 5.1). The item files it as density_20c_g_ml; use density_unspecified_t... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Butyl n-butyrate 0.0048" ppm v/v = 4.8 ppb (measured, triangle odor bag)'
 - canonical_name: Butyl Isovalerate
   aliases: []

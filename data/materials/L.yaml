@@ -1013,8 +1013,8 @@
   logp: 2.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: 24.9312
-  vp_source: 'EPI'
+  vp_25c_pa: 58.2
+  vp_source: producer_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.01
@@ -1060,7 +1060,7 @@
     cas: '23 Oct 2026 second missing-data pass: stated; raw 67633-96-9; https://www.perfumersworld.com/view.php?pro_id=4GI15439'
     mw_g_mol: '23 Oct 2026 third data pass: PubChem for CAS 67633-96-9 (the CAS on PerfumersWorld 4GI15439): (Z)-hex-3-en-1-yl methyl carbonate C8H14O3, MolecularWeight 158.19; replaces the unsourced 154.3'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, cis-3-hexenyl methyl carbonate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf: "Log Pow = 2.6 (RIFM, 2013), 2.47 (EPI Suite)"; measured 2.6 used; replaces the unsourced 2.0'
-    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, cis-3-hexenyl methyl carbonate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf: "0.187 mm Hg at 25 C (EPI Suite)" = 24.9 Pa (estimate; FMA 0.3 mm Hg at 20 C agrees in size); replaces the unsourced 0.5 Pa (50 times lower)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, cis-3-hexenyl methyl carbonate, CAS 67633-96-9, Food Chem Toxicol 159 (2022) 112648 (FMSR PDF) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf): ''Synonyms: Carbonic acid, 3-hexenyl methyl ester, (Z)-; Liffarome; Methyl cis-3-hexenyl carbonate; cis-3-Hexenyl carbonate; Hex-3-en-1-yl methyl carbonate; Leafovert; cis-3-Hexenyl methyl carbonate ... Vapor Pressure:...''; printed 0.3 mm Hg 20 C (Fragrance Materials Association); FMA figure as cited by RIFM (method not stated); grade A_producer. Converted from 40 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 54.5 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: cis-3-Hexenyl methyl carbonate, CAS 67633-96-9; synonyms include Liffarome, Leafovert. Quote verbatim; Leafovert listed in synonyms. 0.3 x 133.322 = 40.0 Pa at 20 C. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Leather F-TEC
   aliases:
@@ -1448,7 +1448,7 @@
   inchikey: null
   mw_g_mol: 163.26
   density_25c_g_ml: 0.87
-  logp: 3.7
+  logp: 3.9
   functional_groups: []
   chirality: null
   vp_25c_pa: 1.2
@@ -1477,6 +1477,7 @@
   character: 'Olfactive Note: Citrus, Lemon, Intense. "More natural and long lasting than Geranitrile."'
   notes: null
   provenance:
+    logp: 'Lemonile | Givaudan (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/lemoniletm): ''C11H17N 163.2 3,9 0.0133 hPa''; printed Log Pow 3,9; producer figure (Givaudan), method not stated; grade A_producer. Second reader: Method and temperature not stated. The page also gives VP 0.0133 hPa (1.33 Pa) with no temperature. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Lemonile™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/lemoniletm: Olfactive Note Citrus Lemon Intense. Lemonile™ is used in lemon, verbena and lime compositions where it imparts freshness and diffusion. This nitrile is an extremely powerful chemical and has excellent stability in alkaline media. More natural and long lasting than Geranitrile. (grade A_producer; ). Second reader: CAS no. 61792-11-8 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -1531,8 +1532,8 @@
   logp: 2.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: 24.9
-  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 58.2
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1572,7 +1573,7 @@
     mw_g_mol: 'https://www.iff.com/scent/ingredients-compendium/liffarome/ (IFF, producer); "158.2" (C8H14O3); TGSC 158.19718 (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     density_25c_g_ml: 'https://thegoodscentscompany.com/data/rw1028731.html; supplier range "Specific Gravity: 0.96600 to 0.97100 @ 25.00 C."; midpoint 0.9685 x 0.99705 (water at 25 C) = 0.9656 g/mL (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     logp: 'MEASURED: RIFM 2022 quotes "Log Pow = 2.6 (RIFM, 2013), 2.47 (EPI Suite)" (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf); IFF 2.5 agrees (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
-    vp_25c_pa: 'ESTIMATE, literature common ground: RIFM 2022 (Food Chem Toxicol 159:112648, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf) quotes EPI Suite 0.187 mm Hg @ 25 C = 24.9 Pa and FMA 0.3 mm Hg @ 20 C = 40 Pa; IFF 33.75 Pa @ 23 C agrees; TGSC 0.721 mmHg (est) = 96.1 Pa is the outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, cis-3-hexenyl methyl carbonate, CAS 67633-96-9, Food Chem Toxicol 159 (2022) 112648 (FMSR PDF) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/67633-96-9.pdf): ''Vapor Pressure: 0.125 mm Hg at 20 C (EPI Suite v4.0), 0.3 mm Hg 20 C (Fragrance Materials Association), 0.187 mm Hg at 25 C (EPI Suite)''; printed 0.3 mm Hg 20 C (Fragrance Materials Association); FMA figure as cited by RIFM (method not stated); grade A_producer. Converted from 40 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 54.5 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: cis-3-Hexenyl methyl carbonate, CAS 67633-96-9; synonyms include Liffarome. Same page as Leafovert; Liffarome listed in synonyms. 0.3 x 133.322 = 40.0 Pa at 20 C. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     smiles: 'PubChem CID 5365699 structure for CAS 67633-96-9 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: LIGHT AND AIRY F-TEC
   aliases: []
@@ -2349,7 +2350,7 @@
   inchikey: null
   mw_g_mol: 154.3
   density_25c_g_ml: 0.86
-  logp: 2.7
+  logp: 2.9
   functional_groups: []
   chirality: null
   vp_25c_pa: 21.3
@@ -2384,7 +2385,7 @@
     odt_air_ppb: 'GC-O detection threshold of racemic linalool. Replaces 1.5, which overrode the 0.51 its own source note gave. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'Update to RIFM fragrance ingredient safety assessment, linalool, CAS 78-70-6 (Food Chem Toxicol 159 (2022) 112687) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/78-70-6.pdf): ''Log KOW: 3.28 ± 0.26 (Cal, 2006a), 2.84 at 25 C (RIFM, 1988c), 2.9 (RIFM, 1991a), 2.9 (RIFM, 1991b), 3.38 (EPI Suite)''; printed 3.28 ± 0.26 (Cal, 2006a), 2.84 at 25 C (RIFM, 1988c), 2.9 (RIFM, 1991a), 2.9 (RIFM...; RIFM studies (RIFM 1991a, 1991b), measured; RIFM also lists 2.84 at 25 C (RIFM 1988c); grade A_measured. Second reader: Update to RIFM linalool, CAS 78-70-6 (FCT 159 (2022) 112687). 2.9 printed without temperature; RIFM itself calls it measured and uses it for the environmental assessment. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -2479,8 +2480,8 @@
   smiles: null
   inchikey: null
   mw_g_mol: 196.3
-  density_25c_g_ml: 0.905
-  logp: 3.2
+  density_25c_g_ml: 0.9
+  logp: 4.0
   functional_groups: []
   chirality: null
   vp_25c_pa: 17.5
@@ -2520,7 +2521,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'RIFM safety assessment, linalyl acetate (FCT 192 (2024) 114805) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/115-95-7-Upd.pdf): ''3. Log KOW: 4.12 ± 0.40 (Cal, 2006), 2.9 (ProcterGamble, 1996), 4.0 (RIFM, 1991c), 4.3 at 35 C (RIFM, 2004), 4.39 (EPI Suite)''; printed ; RIFM 1991c study (measured); RIFM 2004 gave 4.3 at 35 C; P&G 1996 gave 2.9; grade A_measured. Second reader: Page identity: Update to RIFM assessment, linalyl acetate, CAS 115-95-7, FCT 192 (2024) 114805. Quote verbatim. The page itself calls RIFM 1991c ''measured'' (reference: ''Determination of the Partition Coefficient... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -2528,7 +2529,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 115-95-7 (https://www.thegoodscentscompany.com/data/rw1007892.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.90300 to 0.91200 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007892.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM safety assessment, linalyl acetate (FCT 192 (2024) 114805) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/115-95-7-Upd.pdf): ''6. Specific Gravity: 0.900 g/mL at 20 C (RIFM, 1991c), 0.895 – 0.908 (FMA), 0.902 D20/4 – 0.898 to 0.903 (RIFM, 1991a), 0.897 – 0.910 (FMA), 0.91 g/mL (RIFM, 1994)''; printed ; ; grade A_measured. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: Same document (CAS 115-95-7). Quote verbatim. 0.900 g/mL at 20 C from RIFM 1991c; other entries agree (0.895-0.910). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Linalyl Propionate
   aliases: []
   cas: null

@@ -521,7 +521,7 @@
   inchikey:
   mw_g_mol: 172.27
   density_25c_g_ml: 0.8575
-  logp:
+  logp: 3.74
   functional_groups: []
   chirality:
   vp_25c_pa: 130.0
@@ -550,6 +550,7 @@
   character: 'orris-like note with fruity, herbal and fresh nuances'
   notes:
   provenance:
+    logp: 'ESTIMATE (EPI Suite v4.11 estimate as cited by RIFM; Kao prints the same as ''CLogP''...): RIFM fragrance ingredient safety assessment, ethyl 2-ethylhexanoate, CAS 2983-37-1, Food Chem Toxicol 189 (2024) 114708 (FMSR PDF) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/2983-37-1.pdf): ''Log KOW: 3.74 (EPI Suite v4.11)''; printed Log KOW: 3.74 (EPI Suite v4.11); Kao: CLogP 3.74; EPI Suite v4.11 estimate as cited by RIFM; Kao prints the same as ''CLogP'' (calculated); grade EST. Second reader: Page identity: Ethyl 2-ethylhexanoate, CAS 2983-37-1; synonyms include Irotyl. Opened via WebFetch (Parallel fetch gave 403). Estimate; grade EST is correct. The Kao CLogP mentioned in method is not on this page (not... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'IROTYL | Kao Chemicals (fragrances and aromas), https://chemical.kao.com/global/fragrances-and-aromas/products/irotyl: IROTYL ® features orris-like note with fruity, herbal and fresh nuances. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -568,7 +569,7 @@
   inchikey:
   mw_g_mol: 234.4
   density_25c_g_ml: 0.9612
-  logp: 3.6
+  logp: 5.65
   functional_groups: []
   chirality:
   vp_25c_pa: 0.23129
@@ -608,7 +609,7 @@
     odt_air_ppb: 'ESTIMATE (derived from the most potent isomer''s share): Estimate for the commercial mixture from its most potent isomer: isomer G threshold / its 2-4 % share = 0.0130-0.0261 ppb; geometric midpoint 0.0184 (second reader''s arithmetic). The single-isomer values (B about 52 ppb, G 0.0005 ppb) are not used alone. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'ECHA registration dossier 15069 (OTNE), Partition coefficient (https://echa.europa.eu/registration-dossier/-/registered-dossier/15069/4/8): ''The partition coefficient of OTNE has been determined as log P = 5.65 at 30 C under OECD TG 117 (HPLC).''; printed log P = 5.65 at 30 C; OECD TG 117 (HPLC); grade A_measured. Second reader: Quote verbatim. Registered substance is the OTNE isomer reaction mass (EC 915-730-3; page shows no CAS), i.e. the Iso E Super composition. Measured at 30 C (not 25 C) by HPLC (OECD 117), which is a retention-time... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -771,7 +772,7 @@
   inchikey:
   mw_g_mol: 185.3
   density_25c_g_ml: 1.012
-  logp: 2.9
+  logp: 4.4
   functional_groups: []
   chirality:
   # VERIFIED: Profile VP from ingredient_intelligence, 2026-05-30 (was 0.005, corrected to 0.129)
@@ -811,7 +812,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'Butyl Quinoline Secondary | Givaudan (print page, Giv code 3005003) (https://www.givaudan.com/print/1314156): ''C13H15N 185.2 4,4 0.0013 hPa - 65442-31-1, 67634-06-4''; printed Log Pow 4,4; producer figure, method not stated; grade A_producer. Second reader: The page CAS 65442-31-1 matches the stock record (from PerfumersWorld 9UP00247), but the page is Givaudan''s sec-butyl quinoline (1-methylpropyl), not an isobutyl (2-methylpropyl) quinoline. The stock record''s name... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
@@ -937,7 +938,7 @@
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 164.2)
   mw_g_mol: 164.2
   density_25c_g_ml: 1.08
-  logp:
+  logp: 3.04
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.005)
@@ -968,6 +969,7 @@
   character: 'Spicy, floral, carnation, sweet'
   notes:
   provenance:
+    logp: 'PubChem CID 853433 Isoeugenol, Experimental Properties: LogP (https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/853433/JSON?heading=Experimental+Properties): ''log Kow = 3.04 (HSDB, citing Griffin S et al., 1999); 3.04 (HMDB); 3.04 (Sangster)''; printed log Kow = 3.04; measured by RP-HPLC (Griffin et al. 1999) as cited by HSDB; grade A_measured. Second reader: Read with WebFetch. The page does not name the method; RP-HPLC in the item''s method comes from the J Chromatog citation, not from the page text. No temperature printed. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Iso Eugenol | Robertet raw materials, https://matieres-premieres.robertet.com/iso-eugenol: Olfactive description Spicy, floral, carnation, sweet (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 853433 (https://pubchem.ncbi.nlm.nih.gov/compound/853433#section=Vapor-Pressure): "0.0135 mm Hg at 25 /extrapolated/", citing the NIST Chemistry WebBook (97-54-1); x 133.322 = 1.80 Pa. Extrapolated from measured data, not measured at 25 C. CAMEO (NTP 1992) gives "0.02 mmHg at 77 °F" = 2.67 Pa.'
     odt_air_ppb: engine.odor_thresholds
@@ -1247,7 +1249,7 @@
   cas: 20665-85-4
   mw_g_mol: 222.24
   density_25c_g_ml: 1.1326
-  logp: 2.1
+  logp: 2.0
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.03
@@ -1265,5 +1267,6 @@
   user_in_inventory: true
   character: 'Isobutavan has a sweet and creamy vanillic character reminiscent of white chocolate, cream soda with a soft apricot feeling. It is less powdery than vanillin and has a more creamy effect.'
   provenance:
+    logp: 'Isobutavan | Givaudan (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/isobutavan): ''C12H14O4 222,2 2 >0.0013 hPa 300''; printed Log Pow 2; producer figure (Givaudan), method not stated; grade A_producer. Second reader: Givaudan product page, CAS 20665-85-4. Log Pow printed as ''2'' (one significant figure); no method or temperature stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Print Page | Givaudan: Isobutavan, https://www.givaudan.com/print/1314451: Isobutavan has a sweet and creamy vanillic character reminiscent of white chocolate, cream soda with a soft apricot feeling. Isobutavan is much less discolouring than vanillin ... It is less powdery than vanillin and has a more creamy effect. (grade A_producer; ). Second reader: Both value sentences verbatim on the page (one sentence between them omitted in the value). Page family: Gourmand. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1024071.html (vanillyl isobutyrate, CAS 20665-85-4): "Specific Gravity: 1.13200 to 1.14000 @ 25.00 °C."; midpoint 1.136 x 0.99705 g/mL (water at 25 C) = 1.1326; conflict: PerfumersWorld https://www.perfumersworld.com/view.php?pro_id=4VV16856 lists SG 1.1000 (no temperature) (via material-data-firecrawl/allgaps/D1_density_cas.csv)'

@@ -532,8 +532,8 @@
   logp: 4.76
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.08
-  vp_source: RIFM_measured_20C_converted
+  vp_25c_pa: 0.0914
+  vp_source: measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 5.0e-05
@@ -561,7 +561,7 @@
   notes: 'Current restocked bottle user-confirmed neat/as supplied 2026-09-15; the previously depleted bottle remains historical. VP: 0.053 +/- 0.008 Pa measured at 20 C by gas saturation (RIFM 2000c) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa at 25 C, replacing the EPI Suite estimate 0.1 Pa (0.000741 mm Hg) from the same RIFM assessment; bp 299 C; log Pow 4.74-4.79 (RIFM), midpoint 4.76. The producer figure 0.00074 Pa is the EPI estimate printed as Pa.'
   provenance:
     mw_g_mol: 'engine.diffusion_model; matches the sourced 270.36-270.37 (RIFM, TGSC) quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 236391-76-7, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/236391-76-7.pdf (FCT 141 (2020) 111342): measured "0.053 +/- 0.008" Pa at 20 C by gas saturation (RIFM 2000c) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa; the EPI Suite estimate "0.000741 mm Hg" = 0.0988 Pa from the same assessment was the previous value; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, acetic acid, (1-oxopropoxy)-, 1-(3,3-dimethylcyclohexyl)ethyl ester, CAS Registry Number 236391-76-7, Food Chem Toxicol (2020) 111342 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111342): ''Vapor Pressure: 0.053 ± 0.008 Pa at 20 C (RIFM, 2000c), 0.000741 mm Hg @ 20 C (EPI Suite v4.0)''; printed 0.053 ± 0.008 Pa at 20 C; RIFM 2000c study; grade A_measured. Converted from 0.053 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 79.1 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: ScienceDirect, RIFM assessment acetic acid, (1-oxopropoxy)-, 1-(3,3-dimethylcyclohexyl)ethyl ester, CAS 236391-76-7; Synonyms: Romandolide. Quote verbatim. Measured RIFM study, already in Pa (no... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

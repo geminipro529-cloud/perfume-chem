@@ -116,7 +116,7 @@
   inchikey: null
   mw_g_mol: 258.4
   density_25c_g_ml: 1.02
-  logp: 5.9
+  logp: 5.3
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.0727
@@ -151,7 +151,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: 'AICIS assessment, log Kow "5.9" measured, as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); previous repo value 4.8 (engine.skin_interaction, PubChem computed)'
+    logp: 'OECD SIDS Initial Assessment Profile, HHCB, CAS 1222-05-5 (2009) (https://hpvchemicals.oecd.org/ui/handler.axd?id=b36caa92-a554-4853-b98d-744e72cb9d56): ''The vapour pressure is 0.0727 Pa at 25 C. HHCB has a measured water solubility of 1.75 mg/l at 25 C. ... The log Kow as determined by the slow stirring method was 5.3.''; printed The log Kow as determined by the slow stirring method was 5.3.; slow-stirring method; grade A_measured. Pure HHCB; commercial Galaxolide is usually sold diluted. Second reader: No temperature printed for log Kow, which matches the item (''not stated''). The value is for the HHCB substance. Commercial Galaxolide is usually HHCB diluted in IPM, DEP or BB, so the log P of the stock product as... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -518,12 +518,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 170.3
-  density_25c_g_ml: 0.95
+  density_25c_g_ml: 0.955
   logp: 3.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.6826
-  vp_source: 'EPI'
+  vp_25c_pa: 1.7
+  vp_source: producer_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.001
@@ -565,8 +565,8 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 706-14-9 (https://www.thegoodscentscompany.com/data/rw1012281.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.95000 to 0.95500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1012281.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
-    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, gamma-decalactone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/706-14-9.pdf: "0.00512 mm Hg @ 25 C (EPI Suite)" = 0.683 Pa (estimate; FMA 0.008 mm Hg at 20 C agrees); replaces the unsourced 0.005 Pa (136 times lower)'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, γ-decalactone, CAS 706-14-9 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/706-14-9.pdf): ''Specific Gravity: "0.955 (FMA Database)"''; printed 0.955 (FMA Database); FMA Database (temperature not stated); grade A_producer. No temperature printed. Second reader: Temperature not printed, which matches source_field density_unspecified_t. The page also has a measured log Kow 3.0 at 25 C (RIFM, 1995b), which is not part of this item. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, γ-decalactone, CAS 706-14-9 (Api et al., Food Chem Toxicol 134 (2019) 110722) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/706-14-9.pdf): ''Vapor Pressure: "0.00317 mm Hg @ 20 C (EPI Suite v4.0), 0.008 mm Hg 20 C (FMA Database), 0.00512 mm Hg @ 25 C (EPI Suite)"''; printed 0.008 mm Hg at 20 C; 0.008 x 133.322 = 1.07 Pa; FMA Database value quoted by RIFM (method not stated); grade A_producer. Converted from 1.067 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 68.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.008 x 133.322 = 1.07 Pa at 20 C. The FMA 20 C value is 2.5x the EPI 20 C estimate and above the EPI 25 C estimate. One significant figure. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Gamma Dodecalactone
   aliases: []
@@ -611,12 +611,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 156.22
-  density_25c_g_ml: 0.959
+  density_25c_g_ml: 0.962
   logp: 2.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.57
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 4.16
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -645,20 +645,20 @@
     cas: 'perflavory (TGSC mirror) https://www.perflavory.com/docs/doc1000532.html: "104-61-0" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "5. Molecular Weight: 156.22" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "2.5 at 25 °C (RIFM, 1995), 2.08 (EPI Suite)"; RIFM 1995 study value used (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
-    vp_25c_pa: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "0.0118 mm Hg @ 25 °C (EPI Suite)", EPI Suite estimate; 0.0118 mm Hg x 133.322 Pa/mm Hg = 1.57 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
-    density_25c_g_ml: 'perflavory https://www.perflavory.com/docs/doc1000532.html: specific gravity "0.95800 to 0.96500 @ 25.00 °C."; midpoint 0.9615 x 0.99705 g/mL (water at 25 C) = 0.959 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, γ-nonalactone, CAS 104-61-0 (Api et al., Food Chem Toxicol 134 (2019) 110905) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf): ''7. Vapor Pressure: 0.0073 mm Hg @ 20 C (EPI Suite v4.0), 0.02 mm Hg 20 C (FMA Database), 0.0118 mm Hg @ 25 C (EPI Suite)''; printed 0.02 mm Hg at 20 C; 0.02 x 133.322 = 2.67 Pa; FMA Database value quoted by RIFM (method not stated); grade A_producer. Converted from 2.666 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 64.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.02 x 133.322 = 2.666 Pa at 20 C (matches the original). Duplicate of the Aldehyde C-18 item. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, γ-nonalactone, CAS 104-61-0 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf): ''6. Specific Gravity: 0.958–0.966 (FMA Database), 0.962 (FMA Database), 0.960–0.968 (FMA Database)''; printed 0.958–0.966 (FMA Database), 0.962 (FMA Database), 0.960–0.968 (FMA Database); FMA Database (temperature not stated); grade A_producer. No temperature printed. Second reader: No temperature printed; it is correctly filed as density_unspecified_t. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Gamma Octalactone
   aliases: []
   cas: '104-50-7'
   smiles: null
   inchikey: null
   mw_g_mol: 142.2
-  density_25c_g_ml: 0.972
+  density_25c_g_ml: 0.975
   logp: 1.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 8.45
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 14.1
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -694,8 +694,8 @@
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1006541.html: "104-50-7" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1006541.html: "142.19798000" (RIFM https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-50-7.pdf: "5. Molecular Weight: 142.19") (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-50-7.pdf: "Log Pow = 1.8 (RIFM, 2010b), 1.59 (EPI Suite)"; RIFM 2010b study value used (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
-    vp_25c_pa: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-50-7.pdf: "0.0634 mm Hg @ 25 °C (EPI Suite)", EPI Suite estimate; 0.0634 mm Hg x 133.322 Pa/mm Hg = 8.45 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
-    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1006541.html: specific gravity "0.97000 to 0.98000 @ 25.00 °C."; midpoint 0.975 x 0.99705 g/mL (water at 25 C) = 0.972 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, γ-octalactone, CAS 104-50-7 (Api et al., Food Chem Toxicol 134 (2019) 110839) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-50-7.pdf): ''Vapor Pressure: "0.041 mm Hg @ 20 C (EPI Suite v4.0), 0.07 mm Hg 20 C (FMA Database), 0.0634 mm Hg @ 25 C (EPI Suite)"''; printed 0.07 mm Hg at 20 C; 0.07 x 133.322 = 9.33 Pa; FMA Database value quoted by RIFM (method not stated); grade A_producer. Converted from 9.332 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 59.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.07 x 133.322 = 9.333 Pa at 20 C. The quote''s added quotation marks are the only difference from the page. FMA has one significant figure and is 1.7x the EPI 20 C value; it is also above EPI at 25 C (8.45 Pa)... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, γ-octalactone, CAS 104-50-7 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-50-7.pdf): ''Specific Gravity: "0.975 (FMA Database)"''; printed 0.975 (FMA Database); FMA Database (temperature not stated); grade A_producer. No temperature printed. Second reader: No temperature printed; it is correctly filed as density_unspecified_t. Specific gravity (a ratio). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Gamma Undecalactone
   aliases:
   - gamma undecalactone
@@ -707,8 +707,8 @@
   logp: 3.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.5453
-  vp_source: 'EPI'
+  vp_25c_pa: 0.441
+  vp_source: producer_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -738,7 +738,7 @@
     cas: 'TGSC: CAS Number: 104-67-6 (https://www.thegoodscentscompany.com/data/rw1000822.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.94100 to 0.94700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000822.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, gamma-undecalactone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-67-6.pdf: "Log KOW: 3.6 at 25C (RIFM, 1995), 3.06 (EPI Suite)"; measured 3.6 used; replaces the unsourced 3.3'
-    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, gamma-undecalactone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-67-6.pdf: "0.00409 mm Hg @ 25 C (EPI Suite)" = 0.545 Pa (estimate; FMA 0.002 mm Hg at 20 C agrees); replaces the unsourced 0.002 Pa, which was the mm Hg number read as Pa'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, γ-undecalactone, CAS 104-67-6 (Api et al., Food Chem Toxicol 138 (2020) 111101) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-67-6.pdf): ''7. Vapor Pressure: 0.00252 mm Hg @ 20 C (EPI Suite v4.0), 0.002 mm Hg 20 C (FMA), 0.00409 mm Hg @ 25 C (EPI Suite)''; printed 0.002 mm Hg at 20 C; 0.002 x 133.322 = 0.267 Pa; FMA value quoted by RIFM (method not stated); grade A_producer. Converted from 0.2666 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 73.1 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.002 x 133.322 = 0.2666 Pa at 20 C. FMA has one significant figure. Read with WebFetch, because Parallel returned 403. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Gardenia F-TEC
   aliases:
@@ -986,8 +986,8 @@
   smiles: null
   inchikey: null
   mw_g_mol: 154.3
-  density_25c_g_ml: 0.875
-  logp: null
+  density_25c_g_ml: 0.885
+  logp: 2.6
   functional_groups: []
   chirality: null
   vp_25c_pa: 4.0
@@ -1016,6 +1016,7 @@
   character: 'A petal-like, sweet floral rose note with rounded sweetness, accented by hints of citrus and subtle green undertones.'
   notes: null
   provenance:
+    logp: 'Update to RIFM fragrance ingredient safety assessment, geraniol, CAS 106-24-1 (FCT 204 (2025) 115651) (https://research-portal.uu.nl/ws/files/268955357/1-s2.0-S0278691525004193-main.pdf): ''3. Log KOW: 2.6 at 25 C (RIFM, 1995a; RIFM, 1995b), 3.47 (EPI Suite v4.11)''; printed Log KOW: 2.6 at 25 C (RIFM, 1995a; RIFM, 1995b), 3.47 (EPI Suite v4.11); measured, RIFM 1995a,b (report 55925 from Givaudan); ECHA key value identical; grade A_measured. Second reader: Update to RIFM geraniol, CAS 106-24-1 (FCT 204 (2025) 115651), Utrecht University repository copy. Measured at 25 C. 1995a is RIFM report 50305, 1995b is 55925 (both Givaudan). The ''ECHA key value identical'' claim... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'GERANIOL 60 RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/geraniol-60-rc-pe-945173: Olfactive description A petal-like, sweet floral rose note with rounded sweetness, accented by hints of citrus and subtle green undertones. (grade A_producer; ). Second reader: Quote verbatim. Page is the GERANIOL 60 RC grade (E/Z mixture, i.e. geraniol with nerol); same CAS 106-24-1. Kenny''s Geraniol grade is not recorded in inventory.txt, so grade match is unverified. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
@@ -1026,7 +1027,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 106-24-1 (https://www.thegoodscentscompany.com/data/rw1006992.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.87000 to 0.88500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1006992.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'ECHA registration dossier, Geraniol (EC 203-377-1), Density (https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.003.071/4/5): ''Description of key information 0.88 - 0.89 g/cm³ at 20 C''; printed 0.88 - 0.89 g/cm³ at 20 C; ECHA key information range 0.88-0.89 g/cm3 at 20 C, midpoint; grade A_regulatory. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: CAS 106-24-1. Midpoint of 0.88-0.89 = 0.885 at 20 C (key study plus two supporting experimental results listed). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Geranium Bourbon Essential Oil
   aliases: []
   cas: 8000-46-2
@@ -1226,8 +1227,8 @@
   logp: 4.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: 6.17
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.06
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1258,7 +1259,7 @@
     cas: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971'
     logp: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971; log Kow 4.3 at 35 C (RIFM 1999b partition coefficient study)'
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS 105-87-3, Food Chem. Toxicol. 192 (2024) 114971, doi:10.1016/j.fct.2024.114971; 0.0463 mm Hg at 25 C, EPI Suite v4.11 estimate, converted at 133.322 Pa/mm Hg'
+    vp_25c_pa: 'ECHA registration dossier, Geranyl acetate (EC 203-341-5, CAS 105-87-3), Vapour pressure (https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.003.038/4/7): ''001 Key | Experimental result 002 Supporting | Calculation ... Description of key information 0.013 hPa at 20 C Key value for chemical safety assessment Vapour pressure: 0.013 hPa at the temperature of: 20 C''; printed 0.013 hPa at 20 C; x 100 = 1.3 Pa; ECHA key value (experimental key study; supporting calculation also listed; study details not opened); grade A_measured. Converted from 1.3 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 67.2 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: ECHA dossier header: Geranyl acetate, EC 203-341-5, CAS 105-87-3 (= stock CAS). 0.013 hPa x 100 = 1.3 Pa at 20 C. Key study labelled Experimental result (study record itself not opened). Stock record''s notes cite... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.9119; https://www.thegoodscentscompany.com/msds/md101429.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Geranyl Butyrate
   aliases: []
@@ -2408,7 +2409,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 124.1
-  density_25c_g_ml: 1.123
+  density_25c_g_ml: 1.1287
   logp: 1.3
   functional_groups: []
   chirality: null
@@ -2467,7 +2468,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 90-05-1 (https://www.thegoodscentscompany.com/data/rw1032271.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 1.12300 to 1.13000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1032271.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'PubChem CID 460 Guaiacol, Experimental Properties: Density (https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/460/JSON?heading=Experimental+Properties): ''1.1287 g/cu cm at 21 C (Lide, CRC Handbook of Chemistry and Physics, 88th Ed.); 1.129-1.140 (JECFA)''; printed 1.1287 g/cu cm at 21 C; handbook value (CRC Handbook 88th ed.); grade A_measured. Measured at 21 C (about 0.004 g/mL above the 25 C value). Second reader: Page identity: PubChem CID 460, Guaiacol. Opened via WebFetch (PUG-View JSON); density strings quoted as returned. Sources per the JSON: 1.1287 cites Lide, CRC Handbook 88th ed. (2007-2008) p. 3-332; 1.13 is CAMEO... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Guaiyl Acetate
   aliases: []
   cas: null
@@ -2591,7 +2592,7 @@
   inchikey: null
   mw_g_mol: 154.3
   density_25c_g_ml: null
-  logp: 3.0
+  logp: 2.6
   functional_groups: []
   chirality: null
   vp_25c_pa: 4.0
@@ -2610,6 +2611,7 @@
   character: 'A petal-like, sweet floral rose note with rounded sweetness, accented by hints of citrus and subtle green undertones.'
   odour_family: 'floral'
   provenance:
+    logp: 'Update to RIFM fragrance ingredient safety assessment, geraniol, CAS 106-24-1 (FCT 204 (2025) 115651) (https://research-portal.uu.nl/ws/files/268955357/1-s2.0-S0278691525004193-main.pdf): ''3. Log KOW: 2.6 at 25 C (RIFM, 1995a; RIFM, 1995b), 3.47 (EPI Suite v4.11)''; printed Log KOW: 2.6 at 25 C (RIFM, 1995a; RIFM, 1995b), 3.47 (EPI Suite v4.11); measured, RIFM 1995a,b (report 55925 from Givaudan); ECHA key value identical; grade A_measured. Second reader: Same page as item 26 (geraniol, CAS 106-24-1). The stock item is a 10% dilution in DPG: 2.6 is the log Kow of the geraniol solute, not of the solution. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'The molecule''s threshold (the stock is a 10% DPG dilution), as already used for Geraniol neat. Replaces 2.0 on the data-spine record, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     stevens_n: 'Cain W.S., Odor intensity: Differences in the exponent of the psychophysical function, Perception & Psychophysics 6(6A) (1969) 349-354, https://link.springer.com/content/pdf/10.3758/BF03212789.pdf, Experiment 5 (air-dilution olfactometer): "The exponents of the functions obtained with the olfactometer were as follows: acetone, 0.71; geraniol, 0.28; ...". The same paper gives 0.20 by liquid dilution (not used). Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     odour_family: 'odour family "floral" from ''FLORAL (descriptor words: Floral, Rose, Sweet, Petal)'': Geraniol Extra | Takasago International Corporation, https://www.takasago.com/index.php/en/node/673: Geraniol Extra Floral CAS NO.106-24-1 ... FLORAL ROSE SWEET PETAL FLORAL (grade A_producer; ). Second reader: Takasago Geraniol Extra, CAS 106-24-1 (geraniol). Kenny''s stock is a 10% dilution; the family word is for geraniol itself. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'

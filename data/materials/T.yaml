@@ -339,14 +339,14 @@
   inchikey:
   mw_g_mol: 196.3
   density_25c_g_ml: 0.955
-  logp:
+  logp: 4.34
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 3.0, corrected to 0.4)
-  vp_25c_pa: 0.4
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 4.26
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
-  dhvap_kj_mol:
+  dhvap_kj_mol: 68.1
   kaw_eff: 0.005
   hsp:
   odt_air_ppb: 16.93
@@ -374,8 +374,10 @@
   character:
   notes:
   provenance:
+    dhvap_kj_mol: 'NIST Chemistry WebBook, α-Terpinyl acetate, Phase change data (https://webbook.nist.gov/cgi/cbook.cgi?ID=C80262&Mask=4): ''68.1 | 325. | A | Stephenson and Malanowski, 1987 | Based on data from 310. to 424. K.''; printed 68.1 kJ/mol at 325 K; from Antoine-type fit (Stephenson & Malanowski 1987), at 325 K; grade A_measured. Second reader: Applies at 325 K (51.85 C). It is derived from an Antoine fit (method A) to Gardner & Brewer 1937 data over 310-424 K, and is the only ΔvapH on the page; there is no 298 K value. Identity is from the NIST ID C80262... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'ESTIMATE (EPI Suite v4.11): Update to RIFM fragrance ingredient safety assessment, terpinyl acetate (isomer mixture), CAS Registry Number 8007-35-0, Food Chem Toxicol 183 (2024) 114363 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2023.114363): ''Log K OW : 4.34 (EPI Suite v4.11)''; printed ; EPI Suite v4.11; grade EST. The source covers the isomer mixture (8007-35-0). Second reader: EPI Suite estimate, and the item''s grade EST is correct. The page has no measured log Kow. Same CAS caveat as item 4 (8007-35-0 vs stock 80-26-2). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'Update to RIFM fragrance ingredient safety assessment, terpinyl acetate (isomer mixture), CAS Registry Number 8007-35-0, Food Chem Toxicol 183 (2024) 114363 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2023.114363): ''Vapor Pressure: 0.0319 mm Hg at 20 C (EPI Suite v4.0), 0.02 mm Hg at 20 C (FMA), 0.0497 mm Hg at 25 C (EPI Suite v4.11)''; printed 0.02 mm Hg at 20 C; FMA database (isomer mixture 8007-35-0); grade A_measured. Converted from 2.666 Pa at 20 C to 25 C by Clausius-Clapeyron with the NIST dHvap loaded with this batch (68.1 kJ/mol). The source covers the isomer mixture (8007-35-0), which includes 80-26-2. Second reader: 0.02 x 133.322 = 2.67 Pa at 20 C. The FMA value counts as measured. CAS caveat: the stock record (data/materials/T.yaml) has CAS 80-26-2 (alpha-terpinyl acetate). The page assesses the isomer mixture 8007-35-0 and... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate. Replaces an estimated 35 with no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
@@ -3483,12 +3485,12 @@
   inchikey:
   mw_g_mol: 138.21
   density_25c_g_ml: 0.933
-  logp: 2.5
+  logp: 2.8
   functional_groups: []
   chirality:
   # VERIFIED: Profile VP from ingredient_intelligence, 2026-05-30 (was 0.5, corrected to 66.1)
-  vp_25c_pa: 66.1
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 52.5
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -3518,6 +3520,7 @@
   odour_family: 'green'
   notes:
   provenance:
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, dimethylcyclohex-3-ene-1-carbaldehyde (isomer unspecified), CAS Registry Number 27939-60-2, Food Chem Toxicol (2025), article S0278691525002613 (Utrecht University repository copy of the publisher PDF); column for CAS 68039-49-6 (https://research-portal.uu.nl/ws/files/266288296/1-s2.0-S0278691525002613-main.pdf): ''Vapor Pressure: 1.0 mbar at 30 ◦ C (RIFM, 1999), 36 Pa at 20 ◦ C (RIFM, 2011c), 0.352 mm Hg (EPI Suite v4.11)''; printed 36 Pa at 20 C; RIFM 2011c = "Vapor Pressure of 2,4-dimethyl-3-cyclohexen-1-carboxaldehyde (Cyclal C)", unpublished Givaudan report, RIFM report 61475; grade A_measured. Converted from 36 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 54.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Group RIFM assessment (FCT 201 (2025) 115493, lead CAS 27939-60-2). This line sits in the 2,4-dimethyl-3-cyclohexen-1-carboxaldehyde (68039-49-6, Triplal) column, and RIFM 2011c is titled ''Vapor Pressure of... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "green" from ''Green (Olfactive Note: Green, Leafy, Floral, Powerful)'': Cyclal C | Givaudan (print page), https://www.givaudan.com/print/1314216: Cyclal C ... Olfactive Family Green | Olfactive Note Green Leafy Floral Powerful ... CAS no. 68039-49-6, 27939-60-2 (grade A_producer; ). Second reader: Page is Givaudan Cyclal C, not IFF Triplal, but same molecule: CAS 68039-49-6 equals the inventory CAS. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Triplal | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=4GH00450: Triplal has a harsh, herbal, leafy green, somewhat pine tree-like aroma. ... Odour=> dark green, leafy notes, rose lilac, industrial; in its undiluted form it can smell harsh, but at lower levels it can be used to produce a pleasant green, forest aroma (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'Givaudan patent figure for Tricyclal, the same molecule (CAS 68039-49-6). Replaces an estimated 0.5. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
@@ -3528,7 +3531,7 @@
     cas: 'TGSC: CAS Number: 68039-49-6 (https://www.thegoodscentscompany.com/data/rw1007631.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.93200 to 0.94000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1007631.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
     mw_g_mol: 'CORRECTED (2026-10-14): Triplal is C9H14O, 138.21 g/mol (ChemicalBook CAS 68039-49-6 "[Molecular Formula] C9H14O", "[Molecular Weight] 138.21", https://chemicalbook.com/CASEN_68039-49-6.htm; Premiere Peau "MW 138.21 g/mol", https://premierepeau.com/pages/glossary-terms/triplal). The old 152.23 is the mass of a C10H16O molecule and had no source. Source: material-data-gaps-2026-10-14/SUMMARY.md'
-    logp: 'ESTIMATE (2026-10-14): midpoint of two unlabelled compilation values, ChemicalBook "[LogP] 2.67" and Premiere Peau "LogP 2.34" (method not stated for either). No measured log Kow found. Source: material-data-gaps-2026-10-14/SUMMARY.md'
+    logp: 'RIFM fragrance ingredient safety assessment, dimethylcyclohex-3-ene-1-carbaldehyde (isomer unspecified), CAS Registry Number 27939-60-2, Food Chem Toxicol (2025), article S0278691525002613 (Utrecht University repository copy of the publisher PDF); column for CAS 68039-49-6 (https://research-portal.uu.nl/ws/files/266288296/1-s2.0-S0278691525002613-main.pdf): ''Log KOW: 2.6 (RIFM, 2010), 2.85 (EPI Suite v4.11), 2.8 at 25 ◦ C (RIFM, 2006b), 2.7–2.8 at 25 ◦ C ( RIFM, 2007a), 3.1 at 25 ◦ C (RIFM, 1996c)''; printed ; RIFM 2006b; other measured values 2.6 (RIFM 2010), 2.7-2.8 (2007a), 3.1 (1996c); EPI 2.85; grade A_measured. Second reader: Caution: RIFM 2006b is titled ''Measurement of Partition Coefficient for Converted Products in Biodegradation Study of 2,4-dimethyl-3-cyclohexen-1-carboxaldehyde (Triplal)'', so it may be the log P of the degradation... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: TRUE LILY F-TEC
   aliases: []
   cas:
