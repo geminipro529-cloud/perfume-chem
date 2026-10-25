@@ -58,8 +58,6 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     ("jasmine sambac (10% in dpg)", "methyl anthranilate", 0.1, 3.61),
     ("jasmine sambac", "phenethyl alcohol", 0.12, 11.57),
     ("jasmine sambac (10% in dpg)", "phenethyl alcohol", 0.12, 11.57),
-    ("rose essential oil", "phenethyl alcohol", 2.0, 11.57),
-    ("rose de mai absolute", "phenylethyl alcohol", 0.12, 11.57),
     # 2026-10-13: Veloutone's registry VP is now the literature common-ground 2.17 Pa
     # (US EPA estimate quoted by RIFM 2017; TGSC 3.47 Pa), replacing the table's 0.1.
     ("cassis base 345b", "veloutone", 0.1, 2.17),
@@ -109,6 +107,14 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     ("osmanthus absolute (volume grade)", "alpha ionone", 1.0, 3.62),
     ("osmanthus absolute (volume grade)", "dihydro beta ionone", 0.5, 3.8),
     ("osmanthus absolute (volume grade)", "gamma decalactone", 0.5, 1.7),
+    # 2026-10-25 naturals batch: the sourced lime distilled, cabreuva and rose oil
+    # profiles reuse the module's citral and rose oxide rows, so the cited citral
+    # (RIFM) and rose oxide (RIFM measured) registry VPs replace their table values.
+    # The rose essential oil and rose de mai phenylethyl alcohol rows now carry the
+    # cited 11.57 Pa themselves and left this set.
+    ("lime distilled eo", "citral", 3.0, 14.1),
+    ("myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile", "citral", 3.0, 14.1),
+    ("rose essential oil", "rose oxide", 15.0, 77.0),
 }
 
 

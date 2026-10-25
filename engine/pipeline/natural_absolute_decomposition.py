@@ -92,19 +92,6 @@ _ORRIS_LIQUID_CONSTITUENTS = [
     ("irone pool (alpha-equivalent)", 0.03, 206.32, 0.559, 0.9, 1.3),
 ]
 
-_ROSE_DE_MAI_CONSTITUENTS = [
-    ("citronellol", 0.18, 156.27, 7.00, 10.0, 1.5),
-    ("geraniol", 0.10, 154.25, 4.00, 2.00, 1.5),
-    ("nerol", 0.05, 154.25, 2.02, 5.00, 1.5),
-    ("phenethyl alcohol", 0.15, 122.16, 0.12, 200.0, 0.7),
-    ("linalool", 0.03, 154.25, 21.30, 1.50, 2.0),
-    ("beta damascone", 0.0005, 192.30, 0.50, 0.002, 1.5),
-    ("beta ionone", 0.01, 192.30, 1.20, 0.10, 1.5),
-    ("rose oxide", 0.005, 154.25, 15.00, 0.50, 2.0),
-    ("eugenol", 0.008, 164.20, 2.50, 0.50, 1.5),
-    ("farnesol", 0.03, 222.37, 0.05, 3.00, 0.6),
-]
-
 _JASMINE_SAMBAC_CONSTITUENTS = [
     ("benzyl acetate", 0.15, 150.17, 20.00, 2.00, 2.0),
     ("linalool", 0.10, 154.25, 21.30, 1.50, 2.0),
@@ -151,11 +138,27 @@ _IMMORTELLE_CONSTITUENTS = [
     ("alpha pinene", 0.02, 136.24, 400.0, 20.0, 3.0),
 ]
 
+# Rosa damascena Mill. flower oil, North India: Ahmad, Sahoo, Ahmad & Tandon (2009)
+# Asian J. Chem. 21:4643-4647, Table 1 (GC-FID, PE-Wax). Fractions are the
+# midpoints of the four regional oils (Pantnagar, Lucknow, Moradabad, Kashmir).
+# The stearoptene alkanes are mass-only rows; eicosane uses its formula mass
+# (C20H42). cis-Rose oxide uses the rose oxide row. alpha-Humulene has no runtime
+# input and stays unresolved. Nothing is renormalized.
 _ROSE_EO_CONSTITUENTS = [
-    ("citronellol", 0.35, 156.27, 2.0, 5.0, 2.0),
-    ("geraniol", 0.20, 154.25, 4.0, 2.0, 1.5),
-    ("linalool", 0.03, 154.25, 21.3, 1.5, 2.0),
-    ("phenethyl alcohol", 0.03, 122.16, 2.0, 3.0, 2.0),
+    ("citronellol", 0.21975, 156.27, 2.0, 5.0, 2.0),
+    ("geraniol", 0.2561, 154.25, 4.0, 2.0, 1.5),
+    ("nerol", 0.10315, 154.25, 2.02, 5.0, 1.5),
+    ("nonadecane", 0.08665, 268.5, 0.0, 1e6, 0.5),
+    ("heneicosane", 0.0567, 296.58, 0.0, 1e6, 0.5),
+    ("geranyl acetate", 0.0226, 196.29, 5.0, 10.0, 2.0),
+    ("farnesol", 0.0164, 222.37, 0.05, 3.0, 0.6),
+    ("eugenol", 0.013, 164.2, 2.5, 0.5, 1.5),
+    ("eicosane", 0.0121, 282.55, 0.0, 1e6, 0.5),
+    ("linalool", 0.0104, 154.25, 21.3, 1.5, 2.0),
+    ("alpha guaiene", 0.00715, 204.35, 1.0, 3.0, 1.2),
+    ("geranial", 0.00465, 152.23, 3.0, 0.5, 1.5),
+    ("phenylethyl alcohol", 0.0052, 122.16, 11.57, 26.0, 0.7),
+    ("rose oxide", 0.00405, 154.25, 15.0, 0.5, 2.0),
 ]
 
 _CASSIA_EO_CONSTITUENTS = [
@@ -258,21 +261,30 @@ _PETITGRAIN_EO_CONSTITUENTS = [
     ("alpha pinene", 0.02, 136.24, 400.0, 20.0, 3.0),
 ]
 
-# Commercial distilled-key-lime composition from Chisholm et al. (2003),
-# Table 1.  The paper's GC-O analysis identifies geranial, neral and linalool
-# as the dominant fresh citrus odorants, while also documenting substantial
-# batch/process variability.  Only constituents with both quantified commercial
-# fractions and established physical/ODT parameters in this model are included;
-# unquantified linalool and minor odorants are deliberately omitted rather than
-# assigned invented percentages.  The result is a conservative partial composite.
+# Distilled lime oil (Citrus aurantifolia Swingle), Mexico: Dugo, Cotroneo,
+# Bonaccorsi & Mondello (1998) Flavour Fragr. J. 13:93-97, Table 1; fractions are
+# the midpoints of the four Mexican oils' GC ranges. Citral is the owned SKU's
+# PerfumersWorld 7CK00274 declaration (lot LIM00274/26298), which the paper's
+# listed rows do not cover. alpha-Terpinene uses NIST, RIFM-quoted FMA (converted
+# to 25 C) and Cometto-Muniz 1998 inputs; p-cymene and alpha-phellandrene reuse the
+# Schinus class rows. Nine listed constituents have no runtime input and stay
+# unresolved. Nothing is renormalized.
 _LIME_DISTILLED_EO_CONSTITUENTS = [
-    ("alpha pinene", 0.016, 136.24, 400.0, 20.0, 3.0),
-    ("beta pinene", 0.027, 136.24, 250.0, 30.0, 3.0),
-    ("myrcene", 0.012, 136.24, 400.0, 10.0, 3.0),
-    ("limonene", 0.299, 136.24, 200.0, 20.0, 3.0),
-    ("neral", 0.013, 152.23, 3.0, 0.5, 1.5),
-    ("geranial", 0.004, 152.23, 3.0, 0.5, 1.5),
-    ("alpha terpineol", 0.101, 154.25, 2.0, 10.0, 1.5),
+    ("limonene", 0.41365, 136.24, 200.0, 20.0, 3.0),
+    ("gamma terpinene", 0.09725, 136.24, 90.0, 50.0, 3.0),
+    ("terpinolene", 0.0775, 136.23, 150.0, 30.0, 3.0),
+    ("alpha terpineol", 0.07535, 154.25, 2.0, 10.0, 1.5),
+    ("1,8-cineole", 0.073, 154.25, 200.0, 50.0, 2.0),
+    ("p cymene", 0.03045, 134.22, 240.0, 30.0, 3.0),
+    ("alpha-terpinene", 0.01885, 136.234, 96.6, 1418.0, 3.0),
+    ("beta pinene", 0.0152, 136.24, 250.0, 30.0, 3.0),
+    ("alpha pinene", 0.01055, 136.24, 400.0, 20.0, 3.0),
+    ("myrcene", 0.00975, 136.24, 400.0, 10.0, 3.0),
+    ("terpinen-4-ol", 0.0069, 154.25, 10.0, 50.0, 1.5),
+    ("borneol", 0.00645, 154.25, 3.0, 10.0, 1.5),
+    ("beta-caryophyllene", 0.00545, 204.35, 1.5, 10.0, 1.2),
+    ("alpha phellandrene", 0.00395, 136.24, 330.0, 20.0, 3.0),
+    ("citral", 0.007556, 152.23, 3.0, 0.5, 1.5),
 ]
 
 # Conservative partial fingerprints. Each retains only quantified constituents
@@ -326,9 +338,18 @@ _CLOVE_EO_CONSTITUENTS = [
     ("beta caryophyllene", 0.2124, 204.35, 1.00, 10.0, 1.2),
 ]
 
+# Piper nigrum fruit oil: Bagheri, Abdul Manap & Solati (2014) Talanta
+# 121:220-228, hydrodistilled oil of var. Kuching (Sarawak, Malaysia), GC. The
+# six major constituents (73.01%) are modeled as printed, not renormalized.
+# The owned bottle's supplier is not recorded; PerfumersWorld 7SQ00359 declares
+# d-limonene 20.82%, which is recorded in the evidence but not modeled.
 _BLACK_PEPPER_EO_CONSTITUENTS = [
-    ("beta caryophyllene", 0.3742, 204.35, 1.00, 10.0, 1.2),
-    ("limonene", 0.1335, 136.24, 200.0, 20.0, 3.0),
+    ("beta-caryophyllene", 0.1864, 204.35, 1.5, 10.0, 1.2),
+    ("limonene", 0.1495, 136.24, 200.0, 20.0, 3.0),
+    ("sabinene", 0.1319, 136.24, 300.0, 30.0, 3.0),
+    ("beta pinene", 0.0971, 136.24, 250.0, 30.0, 3.0),
+    ("delta-3-carene", 0.0856, 136.23, 200.0, 50.0, 3.0),
+    ("alpha pinene", 0.0796, 136.24, 400.0, 20.0, 3.0),
 ]
 
 # Schinus molle fruit EO — midpoint of the constituent ranges reported for
@@ -589,16 +610,22 @@ _CASSIS_BASE_345B_CONSTITUENTS = [
 
 # ── Wave 2: Literature-Verified Constituents (PubChem MW/logP verified) ─
 
+# Rosa x centifolia absolute: PhytoChemia certificate 22D25-PTH03 (28 Apr 2022)
+# for Plant Therapy lot R30111R, FAST GC-FID with a methyl octanoate internal
+# standard, response factors corrected (Cachet et al. 2016), so fractions are % m/m.
+# The listed constituents total 53.42%; the rest does not elute (waxes, heavier
+# material). Palmitic acid and nonadecane are mass-only rows; five listed
+# constituents have no runtime input and stay unresolved. Not renormalized.
 _ROSE_DE_MAI_CONSTITUENTS = [
-    # Kovats 1987 (J Chrom), Ohloff 1994 (Scent & Fragrances).
-    # Extraction: hexane solvent -> absolute. Major character: citronellol (rosy),
-    # geraniol (fresh rose), nerol (green-rose), beta-damascenone (fruity-apple trace).
-    ("citronellol", 0.35, 156.26, 2.0, 5.0, 2.0),
-    ("geraniol", 0.18, 154.25, 4.0, 2.0, 1.5),
-    ("nerol", 0.08, 154.25, 3.0, 2.0, 1.5),
-    ("phenylethyl alcohol", 0.04, 122.16, 0.12, 200.0, 0.7),
-    ("beta-damascenone", 0.003, 190.28, 0.05, 0.002, 1.5),
-    ("linalool", 0.02, 154.25, 21.3, 1.5, 2.0),
+    ("phenylethyl alcohol", 0.3068, 122.16, 11.57, 26.0, 0.7),
+    ("citronellol", 0.086, 156.27, 2.0, 5.0, 2.0),
+    ("geraniol", 0.0521, 154.25, 4.0, 2.0, 1.5),
+    ("palmitic acid", 0.0241, 256.42, 0.0, 1e6, 0.5),
+    ("eugenol", 0.0048, 164.2, 2.5, 0.5, 1.5),
+    ("nonadecane", 0.0023, 268.5, 0.0, 1e6, 0.5),
+    ("nerol", 0.0022, 154.25, 2.02, 5.0, 1.5),
+    ("methyl eugenol", 0.0011, 178.23, 2.0, 0.5, 1.5),
+    ("benzyl alcohol", 0.001, 108.14, 8.0, 5.0, 1.5),
 ]
 
 _JASMINE_ABSOLUTE_CONSTITUENTS = [
@@ -933,9 +960,9 @@ _SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS = [
 # product the owner buys, not an analysis of the owned bottle. The declaration
 # covers allergens only: elemol, elemicin, alpha-phellandrene, sabinene and
 # p-cymene, which published Canarium oils report as major constituents, are not
-# quantified for this product and stay unresolved. Carvone and alpha-terpinene
-# are declared but have no runtime headspace input. Inputs reuse this module's
-# existing runtime tuples. Nothing is renormalized.
+# quantified for this product and stay unresolved. Carvone (l-carvone per the
+# SDS) and alpha-terpinene take the 25 Oct 2026 constituent inputs; the other
+# rows reuse this module's existing runtime tuples. Nothing is renormalized.
 _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS = [
     ("limonene", 0.450869, 136.23, 200.0, 20.0, 3.0),
     ("alpha terpineol", 0.030843, 154.25, 2.0, 10.0, 1.5),
@@ -945,6 +972,8 @@ _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS = [
     ("gamma terpinene", 0.000507, 136.24, 90.0, 50.0, 3.0),
     ("geranial", 0.000359, 152.23, 3.0, 0.5, 1.5),
     ("camphor", 0.000334, 152.23, 25.0, 20.0, 2.0),
+    ("(R)-carvone", 0.00123, 150.22, 20.16, 5.534, 2.0),
+    ("alpha-terpinene", 0.000545, 136.234, 96.6, 1418.0, 3.0),
 ]
 
 # ISO 3215:1998, Table 1 (normative chromatographic profile of oil of nutmeg,
@@ -970,10 +999,13 @@ _NUTMEG_INDONESIAN_ISO_3215_MIDPOINT_CONSTITUENTS = [
 # (<0.01%) to 0.5%, so its lower bound is taken as 0 (midpoint 0.25%). They
 # describe a conforming commercial oil, not the owned bottle, which is not
 # certified to the standard. Inputs reuse this module's existing runtime tuples.
-# Carvone (50-63%), cis-dihydrocarvone, trans-carveol and cis-carveol have no
-# runtime headspace input and stay unresolved, not odorless: the character
-# constituent is therefore not modeled. Nothing is renormalized.
+# Carvone (50-63%, the (S)-(+) enantiomer in caraway) takes PubChem's mass,
+# RIFM's FMA vapour pressure (converted to 25 C) and Blank & Grosch's air
+# threshold (van Gemert), added 25 Oct 2026. cis-Dihydrocarvone, trans-carveol
+# and cis-carveol have no runtime headspace input and stay unresolved, not
+# odorless. Nothing is renormalized.
 _CARAWAY_ISO_8896_MIDPOINT_CONSTITUENTS = [
+    ("(S)-carvone", 0.565, 150.22, 14.25, 4.883, 2.0),
     ("limonene", 0.390, 136.24, 200.0, 20.0, 3.0),
     ("myrcene", 0.0045, 136.24, 400.0, 10.0, 3.0),
 ]
@@ -1077,13 +1109,15 @@ _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS = [
 # "Linalool synthetic", so the product may be reconstituted or extended. The
 # linalool-dominant pattern matches Michelia alba oil, not true Michelia champaca
 # absolute (Kaiser 1989, phenylethyl alcohol/ester/ionone profile), which is
-# non-equivalent and not used. L-Carvone and safrole have no runtime input.
+# non-equivalent and not used. Safrole has no runtime input; L-carvone takes the
+# 25 Oct 2026 constituent inputs.
 _CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS = [
     ("linalool", 0.529063, 154.25, 21.3, 1.5, 2.0),
     ("benzyl benzoate", 0.020679, 212.24, 0.02, 810.0, 0.5),
     ("benzyl salicylate", 0.009121, 228.24, 0.01, 50.0, 0.5),
     ("limonene", 0.006484, 136.23, 200.0, 20.0, 3.0),
     ("methyl eugenol", 0.004126, 178.23, 2.0, 0.5, 1.5),
+    ("(R)-carvone", 6.7e-05, 150.22, 20.16, 5.534, 2.0),
 ]
 
 # Peru balsam (Myroxylon balsamum var. pereirae). PerfumersWorld SKU 2QV00363
@@ -1245,9 +1279,9 @@ _FRANGIPANI_ABSOLUTE_PW_8ON00534_DECLARATION_CONSTITUENTS = [
 # kept as declared; the main terpenes PW does not declare take the midpoints of
 # Biolandes' ranges (beta-pinene 28-38, alpha-pinene 9-24, delta-3-carene
 # <=18, bornyl acetate 2-12%), and camphene the midpoint of Canadian Flora's
-# balsam fir specification (4-7%, CAS 8021-28-1). Cuminaldehyde and L-carvone
-# (traces) have no row here and stay unresolved. Rows reuse this module's
-# terpene inputs.
+# balsam fir specification (4-7%, CAS 8021-28-1). The declared traces
+# cuminaldehyde and L-carvone take the 25 Oct 2026 constituent inputs; the
+# other rows reuse this module's terpene inputs.
 _FIR_NEEDLE_BALSAM_PW_7KG07758_BIOLANDES_MIDPOINT_CONSTITUENTS = [
     ("beta pinene", 0.33, 136.24, 250.0, 30.0, 3.0),
     ("alpha pinene", 0.165, 136.24, 400.0, 20.0, 3.0),
@@ -1257,6 +1291,8 @@ _FIR_NEEDLE_BALSAM_PW_7KG07758_BIOLANDES_MIDPOINT_CONSTITUENTS = [
     ("camphene", 0.055, 136.24, 400.0, 50.0, 3.0),
     ("alpha-bisabolol", 0.00514, 222.37, 0.01, 5.0, 0.7),
     ("benzyl alcohol", 0.000201, 108.14, 8.00, 5.00, 1.5),
+    ("cuminaldehyde", 0.000314, 148.2, 14.25, 14.19, 1.5),
+    ("(R)-carvone", 0.000274, 150.22, 20.16, 5.534, 2.0),
 ]
 
 # Lemon oil, terpeneless, PerfumersWorld 7CC24027 ("Lemon Terpeneless oil
@@ -1275,6 +1311,62 @@ _LEMON_TERPENELESS_PW_7CC24027_BP_CITRAL_MIDPOINT_CONSTITUENTS = [
 ]
 
 # ── Master Registry ───────────────────────────────────────────────────
+
+# -- Profiles from the 25 Oct 2026 verified research pass (stock thread) --
+# Each value was re-opened by a second reader before loading. Constituent
+# rows reuse this module's existing runtime tuples, or cite the data-spine
+# record or the constituent source named in the profile's input authority.
+# Constituents without a runtime headspace input stay unresolved, not
+# odorless. Nothing is renormalized.
+
+# Cabreuva oil (Myrocarpus spp.): PerfumersWorld 7LW00863 IFRA certificate and
+# allergen declaration, batch CAB00863/26298, % of the neat oil. (E)-Nerolidol, the
+# main constituent (64.54% in Azzi et al. 2017; 60-89% by producer specification),
+# has no traceable air ODT and stays unresolved, so the woody-floral character is
+# not modeled. Nothing is renormalized.
+_CABREUVA_PW_7LW00863_IFRA_DECLARATION_CONSTITUENTS = [
+    ("alpha-bisabolol", 0.046708, 222.37, 0.01, 5.0, 0.7),
+    ("farnesol", 0.021867, 222.37, 0.05, 3.0, 0.6),
+    ("benzyl benzoate", 0.000945, 212.24, 0.02, 810.0, 0.5),
+    ("citral", 0.000859, 152.23, 3.0, 0.5, 1.5),
+    ("limonene", 0.000118, 136.24, 200.0, 20.0, 3.0),
+]
+
+# Pine oil: PerfumersWorld 7KQ07511 IFRA certificate and allergen declaration,
+# batch PIN07511/26298 (the owned neat bottle). Only d-limonene (2.84%) has a
+# runtime input; longifolene (8.88%) has no air ODT and stays unresolved.
+# PerfumersWorld names no species; its levels fit neither Ph. Eur. Scots pine
+# needle oil (limonene 7-12%) nor a published commercial Scots pine oil (11.58%),
+# so neither is used as a proxy. Nothing is renormalized.
+_PINE_PW_7KQ07511_IFRA_DECLARATION_CONSTITUENTS = [
+    ("limonene", 0.028407, 136.24, 200.0, 20.0, 3.0),
+]
+
+# Santalum album L. oil: ISO 3518:2025 Table 2 chromatographic profile; fractions
+# are the midpoints of the (Z)-alpha- and (Z)-beta-santalol ranges. Farnesol and
+# lanceol (n.d.-1.0% and n.d.-5.0%) have upper bounds only and stay unresolved. The
+# santalol rows use NIST masses, RIFM-printed EPI Suite VP estimates and the
+# Bajgrowicz 1998 air thresholds (van Gemert). The owned PerfumersWorld 5WX12225
+# names no species; S. album is inferred from its CAS. Nothing is renormalized.
+_SANDALWOOD_ALBUM_ISO_3518_MIDPOINT_CONSTITUENTS = [
+    ("(Z)-alpha-santalol", 0.48, 220.35, 0.004506, 0.8211, 0.5),
+    ("(Z)-beta-santalol", 0.2, 220.35, 0.009826, 0.05992, 0.5),
+]
+
+# Tuberalia Base (owned as 'Tuberlia Base'): PerfumersWorld 6ND09663 allergen
+# declaration and IFRA certificate, % of the base. A proprietary tuberose-type
+# compound; the rest of its composition is undisclosed. Hexyl salicylate and hexyl
+# cinnamal have no runtime input; constituents given only as SDS bands get no
+# nominal fraction. All stay unresolved. Nothing is renormalized.
+_TUBERALIA_BASE_PW_6ND09663_DECLARATION_CONSTITUENTS = [
+    ("linalool", 0.087605, 154.25, 21.3, 1.5, 2.0),
+    ("hydroxycitronellal", 0.067878, 172.27, 0.3, 1.0, 1.2),
+    ("benzyl salicylate", 0.049065, 228.24, 0.01, 50.0, 0.5),
+    ("eugenol", 0.016008, 164.2, 2.5, 0.5, 1.5),
+    ("benzyl benzoate", 0.009623, 212.24, 0.02, 810.0, 0.5),
+    ("benzyl alcohol", 0.006324, 108.14, 8.0, 5.0, 1.5),
+]
+
 
 _ABSOLUTE_CONSTITUENTS = {
     # Flower absolutes
@@ -1448,6 +1540,18 @@ _ABSOLUTE_CONSTITUENTS = {
     ),
     "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile": (
         _LEMON_TERPENELESS_PW_7CC24027_BP_CITRAL_MIDPOINT_CONSTITUENTS
+    ),
+    "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile": (
+        _CABREUVA_PW_7LW00863_IFRA_DECLARATION_CONSTITUENTS
+    ),
+    "pine oil perfumersworld 7kq07511 ifra declaration profile": (
+        _PINE_PW_7KQ07511_IFRA_DECLARATION_CONSTITUENTS
+    ),
+    "santalum album oil iso 3518 midpoint profile": (
+        _SANDALWOOD_ALBUM_ISO_3518_MIDPOINT_CONSTITUENTS
+    ),
+    "tuberalia base perfumersworld 6nd09663 declaration profile": (
+        _TUBERALIA_BASE_PW_6ND09663_DECLARATION_CONSTITUENTS
     ),
 }
 
@@ -1632,6 +1736,17 @@ _PROFILE_ALIASES = {
     # supplied)", PerfumersWorld 7CC24027 (order 261004-055451ce1).
     "lemon terpeneless oil sicilian": "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile",
     "lemon terpeneless oil sicilian (neat / as supplied)": "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile",
+    "cabreuva eo": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
+    "cabreuva eo (50% w/w in dpg)": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
+    "cabreuva eo 50% in dpg": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
+    "cabreuva essential oil": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
+    "pine eo": "pine oil perfumersworld 7kq07511 ifra declaration profile",
+    "pine essential oil": "pine oil perfumersworld 7kq07511 ifra declaration profile",
+    "sandalwood eo": "santalum album oil iso 3518 midpoint profile",
+    "sandalwood eo (10% in dpg)": "santalum album oil iso 3518 midpoint profile",
+    "sandalwood essential oil": "santalum album oil iso 3518 midpoint profile",
+    "tuberlia base": "tuberalia base perfumersworld 6nd09663 declaration profile",
+    "tuberalia base": "tuberalia base perfumersworld 6nd09663 declaration profile",
 }
 
 _LAVENDER_40_42_PROXY_LIMITATIONS = (
@@ -1788,7 +1903,9 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "galbanum eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10474915/",),
     "frankincense eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10603989/",),
     "clove eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10058340/",),
-    "black pepper eo": ("https://pubmed.ncbi.nlm.nih.gov/41245190/",),
+    "black pepper eo": (
+        "https://doi.org/10.1016/j.talanta.2014.01.007",
+    ),
     "red mandarin eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10985240/",),
     "eucalyptus essential oil": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10004840/",),
     "clary sage eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10049179/",),
@@ -1915,6 +2032,32 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.perfumersworld.com/view.php?pro_id=7CC24027",
         "https://www.sciencedirect.com/topics/medicine-and-dentistry/lemon-oil",
     ),
+    "lime distilled eo": (
+        "https://www.tomsic.co.jp/wp-content/themes/tomsic/images/product/mega/32.pdf",
+        "https://www.perfumersworld.com/document-list.php?pro_id=7CK00274",
+    ),
+    "rose essential oil": (
+        "https://asianpubs.org/index.php/ajchem/article/download/18212/18162/18291",
+    ),
+    "rose de mai absolute": (
+        "https://www.planttherapy.com/cdn/shop/files/Rose_R30111.pdf",
+    ),
+    "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=7LW00863",
+        "https://beilstein-journals.org/bjoc/articles/13/84",
+        "https://www.alpacasa.com/wp-content/uploads/2024/05/DIN-PROD-017.-Ficha-tecnica.-Cabreuva-Oil-60-89_WEB.pdf",
+    ),
+    "pine oil perfumersworld 7kq07511 ifra declaration profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=7KQ07511",
+    ),
+    "santalum album oil iso 3518 midpoint profile": (
+        "https://cdn.standards.iteh.ai/sist-preview/88588/1b7516dd3de5489a8752a4f51f66838c/ISO-3518-2025.pdf",
+        "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/11031-45-1.pdf",
+        "https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0",
+    ),
+    "tuberalia base perfumersworld 6nd09663 declaration profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=6ND09663",
+    ),
 }
 
 
@@ -1957,15 +2100,20 @@ _PARTIAL_PROFILE_EVIDENCE = {
             },
             **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
                for name in ("limonene", "myrcene")},
+            "(S)-carvone": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "mw_source": "https://pubchem.ncbi.nlm.nih.gov/compound/16724",
+                "vp_status": "FMA_DATABASE_20C_VIA_RIFM_CONVERTED_TO_25C",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6485-40-1.pdf",
+                "vp_conversion": "0.07 mm Hg at 20 C (FMA, d-carvone column) = 9.33 Pa; Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol (doi:10.1021/es980812j) = 14.25 Pa",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Blank & Grosch (1991a), (S)-(+)-carvone, as compiled in van Gemert (2011) AIR section; no detection/recognition flag printed",
+                "odt_conversion": "0.03 mg/m3 x 24450 / 150.22 = 4.883 ppb",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
         },
         "unresolved_constituents": (
-            {
-                "name": "carvone",
-                "reported_fraction": 0.565,
-                "reported_fraction_range": (0.50, 0.63),
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
             {
                 "name": "cis-dihydrocarvone",
                 "reported_fraction": 0.008,
@@ -1991,7 +2139,8 @@ _PARTIAL_PROFILE_EVIDENCE = {
         "limitations": (
             "ISO 8896 describes a conforming commercial caraway oil; it is not an analysis of the owned bottle, whose supplier, origin and lot are not recorded.",
             "Range midpoints are nominal model inputs; a conforming oil can sit anywhere in each range (carvone 50-63%, limonene 33-45%). The range minima sum to 83.5% and the maxima to 111.2%.",
-            "Only 39.45% of nominal composition is modeled (limonene and myrcene). Carvone, the caraway character constituent, has no runtime headspace input; it and the other unresolved constituents remain uncomputed, not odorless, so the modeled headspace does not represent caraway character.",
+            "96.0% of nominal composition is modeled (carvone, limonene and myrcene). cis-Dihydrocarvone and the carveols remain uncomputed, not odorless.",
+            "Carvone's 25 C vapour pressure is converted from a 20 C FMA figure, and its air threshold is a single compiled value (Blank & Grosch 1991a, detection or recognition not stated).",
         ),
     },
     "cinnamomum zeylanicum bark oil sri lanka supplier coa profile": {
@@ -2412,20 +2561,32 @@ _PARTIAL_PROFILE_EVIDENCE = {
             **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
                for name in ("limonene", "alpha terpineol", "terpinolene", "alpha pinene",
                             "methyl eugenol", "gamma terpinene", "geranial", "camphor")},
+            "(R)-carvone": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "mw_source": "https://pubchem.ncbi.nlm.nih.gov/compound/439570",
+                "vp_status": "FMA_DATABASE_20C_VIA_RIFM_CONVERTED_TO_25C",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6485-40-1.pdf",
+                "vp_conversion": "0.1 mm Hg at 20 C (FMA, l-carvone column) = 13.33 Pa; Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol (doi:10.1021/es980812j) = 20.16 Pa",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Amoore (1982) detection, (R)-(-)-carvone, as compiled in van Gemert (2011) AIR section",
+                "odt_conversion": "0.034 mg/m3 x 24450 / 150.22 = 5.534 ppb",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "alpha-terpinene": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "mw_source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C99865",
+                "vp_status": "FMA_DATABASE_20C_VIA_RIFM_CONVERTED_TO_25C",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/99-86-5.pdf",
+                "vp_conversion": "0.5 mm Hg at 20 C (FMA) = 66.66 Pa; Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol (doi:10.1021/es980812j) = 96.6 Pa",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Cometto-Muniz JE, Cain WS, Abraham MH, Kumarsingh R (1998) Pharmacol Biochem Behav 60:765-770, doi:10.1016/s0091-3057(98)00054-9, detection, as compiled in van Gemert (2011) AIR section",
+                "odt_conversion": "7.9 mg/m3 x 24450 / 136.234 = 1418 ppb",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
         },
         "unresolved_constituents": (
-            {
-                "name": "carvone",
-                "reported_fraction": 0.001230,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "alpha-terpinene",
-                "reported_fraction": 0.000545,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
             {
                 "name": "beta-pinene",
                 "reported_fraction_range": (0.01, 0.10),
@@ -2456,7 +2617,7 @@ _PARTIAL_PROFILE_EVIDENCE = {
         ),
         "limitations": (
             "An allergen declaration lists regulated allergens only; it is not a full composition and its analytical basis is not stated.",
-            "Only 49.5% of the oil is modeled. Published Canarium oils report elemol, elemicin and alpha-phellandrene as major constituents (for example Galovičová et al. 2020, Potravinarstvo 14:1088-1096, doi:10.5219/1490: d-limonene 36.4, elemol 16.7, alpha-phellandrene 12.2, elemicin 9.59 TIC area %); these remain uncomputed, not odorless.",
+            "Only 49.7% of the oil is modeled. Published Canarium oils report elemol, elemicin and alpha-phellandrene as major constituents (for example Galovičová et al. 2020, Potravinarstvo 14:1088-1096, doi:10.5219/1490: d-limonene 36.4, elemol 16.7, alpha-phellandrene 12.2, elemicin 9.59 TIC area %); these remain uncomputed, not odorless.",
             "PerfumersWorld labels the oil Canarium indicum while the owner's inventory says Canarium luzonicum; species identity is unresolved.",
             "The supplier SDS lists hexyl salicylate at 0.1-1%, which is not a known elemi constituent; supplier documents may follow a template.",
         ),
@@ -2929,17 +3090,23 @@ _PARTIAL_PROFILE_EVIDENCE = {
             **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
                for name in ("linalool", "benzyl benzoate", "benzyl salicylate", "limonene",
                             "methyl eugenol")},
+            "(R)-carvone": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "mw_source": "https://pubchem.ncbi.nlm.nih.gov/compound/439570",
+                "vp_status": "FMA_DATABASE_20C_VIA_RIFM_CONVERTED_TO_25C",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6485-40-1.pdf",
+                "vp_conversion": "0.1 mm Hg at 20 C (FMA, l-carvone column) = 13.33 Pa; Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol (doi:10.1021/es980812j) = 20.16 Pa",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Amoore (1982) detection, (R)-(-)-carvone, as compiled in van Gemert (2011) AIR section",
+                "odt_conversion": "0.034 mg/m3 x 24450 / 150.22 = 5.534 ppb",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
         },
         "unresolved_constituents": (
             {
                 "name": "safrole",
                 "reported_fraction": 0.000104,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "L-carvone",
-                "reported_fraction": 6.7e-05,
                 "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
                 "odor_contribution": "UNCOMPUTED",
             },
@@ -3578,15 +3745,37 @@ _PARTIAL_PROFILE_EVIDENCE = {
             **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
                for name in ("beta pinene", "alpha pinene", "delta-3-carene", "bornyl acetate",
                             "limonene", "camphene", "alpha-bisabolol", "benzyl alcohol")},
+            "cuminaldehyde": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "mw_source": "https://www.sciencedirect.com/science/article/pii/S0278691520303884",
+                "vp_status": "FMA_DATABASE_20C_VIA_RIFM_CONVERTED_TO_25C",
+                "vp_source": "https://www.sciencedirect.com/science/article/pii/S0278691520303884",
+                "vp_conversion": "0.07 mm Hg at 20 C (FMA) = 9.33 Pa; Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol (doi:10.1021/es980812j) = 14.25 Pa",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Von Ranson & Belitz (1992b) detection, as compiled in van Gemert (2011) AIR section",
+                "odt_conversion": "0.086 mg/m3 x 24450 / 148.2 = 14.19 ppb",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "(R)-carvone": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "mw_source": "https://pubchem.ncbi.nlm.nih.gov/compound/439570",
+                "vp_status": "FMA_DATABASE_20C_VIA_RIFM_CONVERTED_TO_25C",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6485-40-1.pdf",
+                "vp_conversion": "0.1 mm Hg at 20 C (FMA, l-carvone column) = 13.33 Pa; Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol (doi:10.1021/es980812j) = 20.16 Pa",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Amoore (1982) detection, (R)-(-)-carvone, as compiled in van Gemert (2011) AIR section",
+                "odt_conversion": "0.034 mg/m3 x 24450 / 150.22 = 5.534 ppb",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
         },
         "unresolved_constituents": (
-            {"name": "cuminaldehyde", "reported_fraction": 0.000314, "reason": "no constituent row in this module"},
-            {"name": "l-carvone", "reported_fraction": 0.000274, "reason": "no constituent row in this module"},
         ),
         "limitations": (
             "The species is inferred from the CAS and the limonene level; PerfumersWorld does not name it.",
             "PW's declared rows are kept as declared; the main terpenes are midpoints of producer specification ranges, not an analysis of the owned lot.",
-            "Only 77.90% of the oil is modeled; myrcene, santene, tricyclene and the other minor terpenes, two declared traces and the remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "Only 77.96% of the oil is modeled; myrcene, santene, tricyclene and the other minor terpenes and the remainder are uncomputed, not odorless. Nothing is renormalized.",
         ),
     },
     "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile": {
@@ -3615,6 +3804,644 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Estimate of the British Pharmacopoeia terpeneless grade from its stated citral content, read through a pharmacognosy textbook, not the pharmacopoeia itself or an analysis of the owned bottle.",
             "Only citral (45%) is modeled. The esters (neryl and geranyl acetate), alcohols (alpha-terpineol, linalool, nerol, geraniol), aliphatic aldehydes and any sesquiterpenes that make up most of the rest are uncomputed, not odorless. Nothing is renormalized.",
             "Neral and geranial are not split; the module's lumped citral row is used.",
+        ),
+    },
+    "black pepper eo": {
+        "analytical_method": "PUBLISHED_GC_PROFILE_HYDRODISTILLED_OIL",
+        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://doi.org/10.1016/j.talanta.2014.01.007",
+                "document": "Bagheri H, Abdul Manap MY, Solati Z (2014) Antioxidant activity of Piper nigrum L. essential oil extracted by supercritical CO2 extraction and hydro-distillation. Talanta 121:220-228 (hydrodistilled oil; the SFE oil is not used)",
+                "published_origin": "Piper nigrum L. var. Kuching fruit, Malaysian Pepper Board, Sarawak, Malaysia",
+                "reported_pct": {
+                    "beta-caryophyllene": 18.64,
+                    "limonene": 14.95,
+                    "sabinene": 13.19,
+                    "beta-pinene": 9.71,
+                    "delta-3-carene": 8.56,
+                    "alpha-pinene": 7.96,
+                },
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Black Pepper EO (neat / as supplied)",
+                "owned_supplier_sku_recorded": False,
+                "supplier_declaration_not_modeled": {
+                    "source": "https://www.perfumersworld.com/document-list.php?pro_id=7SQ00359",
+                    "document": "PerfumersWorld 7SQ00359 IFRA certificate, batch BLA00359/26270",
+                    "declared_pct": {
+                        "d-limonene": 20.816,
+                        "l-carvone": 0.1707,
+                        "linalool": 0.1444,
+                    },
+                },
+                "replaces": "uncited two-row profile (beta caryophyllene 0.3742, limonene 0.1335) attributed to PubMed 41245190",
+            },
+            "beta-caryophyllene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "limonene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "sabinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "beta pinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "delta-3-carene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "alpha pinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+        "unresolved_constituents": (
+            {
+                "name": "constituents below the six major ones",
+                "missing_input": "NOT_LOADED_ONLY_MAJOR_CONSTITUENTS_VERIFIED",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "Literature proxy from one published Malaysian hydrodistilled oil; it is not an analysis of the owned bottle, whose supplier and lot are not recorded.",
+            "Only the six major constituents (73.01%) are modeled; minor constituents, including the oxygenated odorants, are uncomputed, not odorless. Nothing is renormalized.",
+            "PerfumersWorld 7SQ00359 declares d-limonene 20.82%, above this source's 14.95%; the supplier figure is recorded, not modeled.",
+            "Rotundone, the peppery character odorant, is not quantified in the source and is not modeled.",
+        ),
+    },
+    "lime distilled eo": {
+        "analytical_method": "PUBLISHED_GC_PROFILES_RANGE_PLUS_SUPPLIER_DECLARATION",
+        "composition_basis": "LITERATURE_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.tomsic.co.jp/wp-content/themes/tomsic/images/product/mega/32.pdf",
+                "document": "Dugo P, Cotroneo A, Bonaccorsi I, Mondello L (1998) On the genuineness of citrus essential oils. Part LIII. Flavour Fragr. J. 13:93-97, Table 1 (distilled lime oils, Mexico 1-4)",
+                "published_botanical_name": "Citrus aurantifolia Swingle",
+                "published_type": "Distilled lime oil, four commercial Mexican oils (Peru and Ivory Coast columns not used)",
+                "reported_range_pct": {
+                    "limonene": "40.49-42.24",
+                    "gamma-terpinene": "8.51-10.94",
+                    "terpinolene": "6.91-8.59",
+                    "alpha-terpineol": "7.03-8.04",
+                    "1,8-cineole": "7.15-7.45",
+                    "p-cymene": "1.81-4.28",
+                    "1,4-cineole": "2.43-3.22",
+                    "alpha-terpinene": "1.62-2.15",
+                    "(E,E)-alpha-farnesene": "1.09-2.47",
+                    "beta-pinene": "1.19-1.85",
+                    "gamma-terpineol": "1.10-1.31",
+                    "alpha-pinene": "0.94-1.17",
+                    "terpinen-1-ol": "0.74-1.11",
+                    "myrcene": "0.85-1.10",
+                    "terpinen-4-ol": "0.56-0.82",
+                    "cis-beta-terpineol": "0.60-0.91",
+                    "alpha-fenchol": "0.66-0.83",
+                    "alpha-fenchene (+ camphene, co-eluted)": "0.69-0.73",
+                    "borneol": "0.59-0.70",
+                    "trans-alpha-bergamotene": "0.45-0.80",
+                    "beta-caryophyllene": "0.52-0.57",
+                    "alpha-phellandrene": "0.34-0.45",
+                },
+                "fraction_rule": "MIDPOINT_OF_MEXICO_1_4_MIN_MAX_RANGE",
+                "citral_source": {
+                    "source": "https://www.perfumersworld.com/document-list.php?pro_id=7CK00274",
+                    "document": "PerfumersWorld 7CK00274 allergen declaration and IFRA certificate, lot LIM00274/26298",
+                    "declared_pct": {
+                        "d-limonene": 47.9454,
+                        "citral": 0.7556,
+                        "l-carvone": 0.0094,
+                    },
+                    "rows_used": (
+                        "citral",
+                    ),
+                },
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Lime Distilled EO",
+                "owned_supplier_reference": "PerfumersWorld 7CK00274",
+                "owned_species_recorded": False,
+                "replaces": "uncited seven-row profile attributed to Chisholm et al. (2003), 47.2%",
+            },
+            "limonene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "gamma terpinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "terpinolene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "alpha terpineol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "1,8-cineole": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "beta pinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "alpha pinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "myrcene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "terpinen-4-ol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "borneol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "beta-caryophyllene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "citral": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "p cymene": {
+                "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
+                "vp_status": "MODELED_CLASS_INPUT_SCHINUS_ROW",
+                "odt_status": "MODELED_CLASS_INPUT_SCHINUS_ROW",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "alpha phellandrene": {
+                "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
+                "vp_status": "MODELED_CLASS_INPUT_SCHINUS_ROW",
+                "odt_status": "MODELED_CLASS_INPUT_SCHINUS_ROW",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "alpha-terpinene": {
+                "mw_status": "NIST_WEBBOOK_C99865",
+                "mw_source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C99865",
+                "vp_status": "FMA_DATABASE_20C_VIA_RIFM_CONVERTED_TO_25C",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/99-86-5.pdf",
+                "vp_conversion": "0.5 mm Hg at 20 C = 66.66 Pa; Clausius-Clapeyron to 25 C with dHvap 53.96 kJ/mol from 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j) = 96.6 Pa",
+                "odt_status": "PUBLISHED_AIR_DETECTION_THRESHOLD",
+                "odt_source": "Cometto-Muniz JE, Cain WS, Abraham MH, Kumarsingh R (1998) Pharmacol Biochem Behav 60:765-770, doi:10.1016/s0091-3057(98)00054-9; 7.9 mg/m3 detection as compiled in van Gemert (2011) AIR section",
+                "odt_conversion": "7.9 mg/m3 x 24450 / 136.234 = 1418 ppb",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "1,4-cineole",
+                "reported_fraction": 0.02825,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(E,E)-alpha-farnesene",
+                "reported_fraction": 0.0178,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+                "note": "co-elutes with beta-bisabolene per the source table footnote, so the fraction is an upper bound for either",
+            },
+            {
+                "name": "gamma-terpineol",
+                "reported_fraction": 0.01205,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "terpinen-1-ol",
+                "reported_fraction": 0.00925,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "cis-beta-terpineol",
+                "reported_fraction": 0.00755,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-fenchol",
+                "reported_fraction": 0.00745,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-fenchene (+ camphene, co-eluted)",
+                "reported_fraction": 0.0071,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "trans-alpha-bergamotene",
+                "reported_fraction": 0.00625,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "Literature proxy from four published Mexican distilled lime oils; it is not an analysis of the owned PerfumersWorld 7CK00274 lot, whose species and origin PerfumersWorld does not state.",
+            "85.1856% of nominal composition is modeled. 1,4-Cineole, (E,E)-alpha-farnesene (co-eluting with beta-bisabolene), gamma-terpineol, terpinen-1-ol, cis-beta-terpineol, alpha-fenchol, alpha-fenchene with camphene, trans-alpha-bergamotene and the unlisted remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "PerfumersWorld 7CK00274 declares d-limonene 47.95%, above the Mexican oils' 40.49-42.24%; limonene is modeled from the paper, citral from the declaration.",
+            "p-Cymene and alpha-phellandrene reuse the Schinus class rows; alpha-terpinene's 25 C VP is converted from a 20 C FMA figure.",
+            "Neral and geranial are not separately quantified; only the declared citral total is modeled.",
+        ),
+    },
+    "rose essential oil": {
+        "analytical_method": "PUBLISHED_GC_PROFILES_REGIONAL_RANGE",
+        "composition_basis": "LITERATURE_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://asianpubs.org/index.php/ajchem/article/download/18212/18162/18291",
+                "document": "Ahmad A, Sahoo D, Ahmad J, Tandon S (2009) GC-MS Composition of Rose Oil (Rosa damascena) of Different Agro Climatic Regions of North India. Asian J. Chem. 21(6):4643-4647, Table 1",
+                "published_botanical_name": "Rosa damascena Mill.",
+                "published_type": "Hydro-distilled flower oil (CIMAP improved cohobation units), four North Indian regions",
+                "reported_range_pct": {
+                    "citronellol": "13.51-30.44",
+                    "geraniol": "19.48-31.74",
+                    "nerol": "7.54-13.09",
+                    "nonadecane": "5.90-11.43",
+                    "heneicosane": "4.56-6.78",
+                    "geranyl acetate": "0.36-4.16",
+                    "farnesol": "1.05-2.23",
+                    "eugenol": "0.70-1.90",
+                    "eicosane": "0.90-1.52",
+                    "linalool": "0.28-1.80",
+                    "alpha-guaiene": "0.40-1.03",
+                    "alpha-humulene": "0.33-1.05",
+                    "geranial": "0.04-0.89",
+                    "phenylethyl alcohol": "0.05-0.99",
+                    "cis-rose oxide": "0.14-0.67",
+                },
+                "fraction_rule": "MIDPOINT_OF_FOUR_REGION_MIN_MAX_RANGE",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Rose Essential Oil (Rosa Damascena, India)",
+                "owned_supplier_sku_recorded": False,
+                "owned_origin_recorded": True,
+                "replaces": "uncited four-row profile (citronellol 0.35, geraniol 0.20, linalool 0.03, phenethyl alcohol 0.03)",
+            },
+            "citronellol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "geraniol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "nerol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "nonadecane": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "heneicosane": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "geranyl acetate": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "farnesol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "eugenol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "linalool": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "alpha guaiene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "geranial": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "phenylethyl alcohol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "rose oxide": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "eicosane": {
+                "mw_status": "FORMULA_MASS_C20H42",
+                "vp_status": "MASS_ONLY_NONVOLATILE_ROW_CONVENTION",
+                "odt_status": "MASS_ONLY_NONVOLATILE_ROW_CONVENTION",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "alpha-humulene",
+                "reported_fraction": 0.0069,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "Literature proxy from four published North Indian oils; it is not an analysis of the owned bottle, whose supplier, region and lot are not recorded.",
+            "81.79% of nominal composition is modeled, 15.545% of it non-volatile stearoptene alkanes (mass only, no headspace). alpha-Humulene and the unlisted remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "The regional oils differ widely (citronellol 13.51-30.44%, geraniol 19.48-31.74%); a midpoint describes no single oil. The paper's text gives Kashmir citronellol as 33.44% where the table prints 30.44%; the table is used.",
+            "beta-Damascenone and other trace character odorants are not reported and are not modeled.",
+        ),
+    },
+    "rose de mai absolute": {
+        "analytical_method": "LAB_CERTIFICATE_INTERNAL_STANDARD_GC_FID",
+        "composition_basis": "RESPONSE_FACTOR_CORRECTED_MASS_FRACTION_OTHER_LOT_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.planttherapy.com/cdn/shop/files/Rose_R30111.pdf",
+                "document": "Laboratoire PhytoChemia certificate of analysis 22D25-PTH03, 'Rose - R30111R' (Plant Therapy), 28 Apr 2022",
+                "published_botanical_name": "Rosa centifolia",
+                "published_type": "Absolute; origin not stated",
+                "reported_pct_m_m": {
+                    "2-phenylethyl alcohol": 30.68,
+                    "citronellol": 8.6,
+                    "geraniol": 5.21,
+                    "palmitic acid": 2.41,
+                    "docosene isomer": 1.79,
+                    "unknown oxygenated triterpene": 0.85,
+                    "eugenol": 0.48,
+                    "nonadecane": 0.23,
+                    "nerol": 0.22,
+                    "tetradecyl nonanoate": 0.19,
+                    "nonadecene (9Z)": 0.17,
+                    "pentadecyl octanoate": 0.16,
+                    "methyl eugenol": 0.11,
+                    "benzyl alcohol": 0.1,
+                },
+                "consolidated_total_pct_m_m": 53.42,
+                "response_factor_correction": "CACHET_2016_CORRECTED_INTERNAL_STANDARD",
+                "fraction_rule": "REPORTED_MASS_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "REPORTED_AS_MASS_FRACTION",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Rose de Mai Absolute (10% in DPG)",
+                "owned_supplier_reference": "PerfumersWorld 5RM07856 (10% in DPG of 8RM00395)",
+                "profile_is_neat_absolute": True,
+                "replaces": "uncited six-row profile attributed to Kovats 1987 and Ohloff 1994 (citronellol 0.35, geraniol 0.18, nerol 0.08, phenylethyl alcohol 0.04, beta-damascenone 0.003, linalool 0.02)",
+            },
+            "phenylethyl alcohol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "citronellol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "geraniol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "palmitic acid": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "eugenol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "nonadecane": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "nerol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "methyl eugenol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "benzyl alcohol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+        "unresolved_constituents": (
+            {
+                "name": "docosene isomer",
+                "reported_fraction": 0.0179,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "unknown oxygenated triterpene",
+                "reported_fraction": 0.0085,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "tetradecyl nonanoate",
+                "reported_fraction": 0.0019,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "nonadecene (9Z)",
+                "reported_fraction": 0.0017,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "pentadecyl octanoate",
+                "reported_fraction": 0.0016,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "One lab certificate for another supplier's Rosa centifolia absolute (Plant Therapy lot R30111R); it is not an analysis of the owned PerfumersWorld lot.",
+            "48.04% of the absolute is modeled; the listed docosene, triterpene and wax-ester constituents and the non-eluting 46.6% are uncomputed, not odorless. Nothing is renormalized.",
+            "Trace character odorants (beta-damascenone, rose oxide, beta-ionone) are not listed on the certificate and are not modeled, so the modeled headspace understates rose character.",
+        ),
+    },
+    "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile": {
+        "analytical_method": "SUPPLIER_IFRA_AND_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=7LW00863",
+                "document": "PerfumersWorld 7LW00863 Cabreuva Essential Oil, IFRA certificate and allergen declaration, batch CAB00863/26298",
+                "supplier_botanical_label": "myrocarpus frondosus & m. fastigiatus (PerfumersWorld MSDS 'Occurs-in')",
+                "owner_inventory_botanical_label": "Myrocarpus fastigiatus",
+                "declared_pct": {
+                    "alpha-bisabolol": 4.6708,
+                    "farnesol": 2.1867,
+                    "benzyl benzoate": 0.0945,
+                    "citral": 0.0859,
+                    "d-limonene": 0.0118,
+                },
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Cabreuva EO (50% w/w in DPG)",
+                "owned_supplier_reference": "PerfumersWorld 7LW00863",
+                "owned_bottle_sku_verified": False,
+                "profile_is_neat_oil": True,
+                "main_constituent_evidence": {
+                    "(E)-nerolidol": {
+                        "azzi_2017_pct": 64.54,
+                        "azzi_2017_source": "https://beilstein-journals.org/bjoc/articles/13/84",
+                        "producer_specification_pct": "60-89",
+                        "producer_specification_source": "https://www.alpacasa.com/wp-content/uploads/2024/05/DIN-PROD-017.-Ficha-tecnica.-Cabreuva-Oil-60-89_WEB.pdf",
+                        "modeled": False,
+                    },
+                },
+            },
+            "alpha-bisabolol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "farnesol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "benzyl benzoate": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "citral": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "limonene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+        "unresolved_constituents": (
+            {
+                "name": "(E)-nerolidol",
+                "reported_fraction": 0.6454,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+                "note": "64.54% in a commercial Myrocarpus fastigiatus oil (Azzi et al. 2017, Beilstein J. Org. Chem. 13); producer specification 60-89% (ALPACASA DIN-PROD-017). The engine's nerolidol air ODT (150 ppb) has no traceable primary source, so no row is added.",
+            },
+        ),
+        "limitations": (
+            "Declared levels of IFRA-restricted constituents and allergens for one supplier batch; not a full composition or an analysis of the owned bottle.",
+            "Only 7.0497% of the oil is modeled (alpha-bisabolol, farnesol and traces). (E)-Nerolidol (about 60-89%) and the rest are uncomputed, not odorless, so the modeled headspace does not represent cabreuva character. Nothing is renormalized.",
+            "The engine's nerolidol air ODT (150 ppb) could not be traced to a primary source (van Gemert 2011 lists water and ethanol values only), so nerolidol is not modeled.",
+        ),
+    },
+    "pine oil perfumersworld 7kq07511 ifra declaration profile": {
+        "analytical_method": "SUPPLIER_IFRA_AND_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=7KQ07511",
+                "document": "PerfumersWorld 7KQ07511 Pine Essential Oil, IFRA certificate and allergen declaration, batch PIN07511/26298",
+                "supplier_cas": "84012-35-1 (Pinus sylvestris extractives)",
+                "supplier_species_stated": False,
+                "supplier_sds_description": "Proprietary Perfume Compound",
+                "declared_pct": {
+                    "longifolene": 8.8795,
+                    "d-limonene": 2.8407,
+                },
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Pine EO",
+                "owned_supplier_reference": "PerfumersWorld 7KQ07511",
+                "proxies_not_used": {
+                    "ph_eur_pini_silvestris_aetheroleum_limonene_pct": "7-12",
+                    "markowska_2022_commercial_scots_pine_limonene_pct": 11.58,
+                    "reason": "the supplier's limonene (2.84%) and longifolene (8.88%) conflict with both",
+                },
+            },
+            "limonene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+        "unresolved_constituents": (
+            {
+                "name": "longifolene",
+                "reported_fraction": 0.088795,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+                "note": "no published air ODT was found (constituent research list 3)",
+            },
+        ),
+        "limitations": (
+            "Declared levels of two restricted constituents for the owned supplier batch; not a full composition. PerfumersWorld names no species or plant part and its SDS calls the product a proprietary perfume compound.",
+            "Only 2.8407% of the oil is modeled (d-limonene). Longifolene (8.88%) and the undeclared remainder, including the pinenes, are uncomputed, not odorless, so the modeled headspace does not represent pine character. Nothing is renormalized.",
+            "A longifolene level of 8.88% suggests a turpentine-type oil rather than Scots pine needle oil; this is an inference, not a supplier statement.",
+        ),
+    },
+    "santalum album oil iso 3518 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://cdn.standards.iteh.ai/sist-preview/88588/1b7516dd3de5489a8752a4f51f66838c/ISO-3518-2025.pdf",
+                "document": "ISO 3518:2025 Essential oil of sandalwood (Santalum album L.), 4th edition, Table 2 (SIST preview)",
+                "standard_range_pct": {
+                    "(Z)-alpha-santalol": "41.0-55.0",
+                    "(Z)-beta-santalol": "16.0-24.0",
+                    "(E,E)-farnesol": "n.d.-1.0",
+                    "(Z)-lanceol": "n.d.-5.0",
+                },
+                "fraction_rule": "MIDPOINT_OF_STANDARD_MIN_MAX_RANGE",
+                "upper_bound_only_rule": "NO_VALUE_INVENTED_KEPT_UNRESOLVED",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Sandalwood EO (10% in DPG)",
+                "owned_supplier_reference": "PerfumersWorld 5WX12225 (batch SAN12225/26298)",
+                "owned_species_recorded": False,
+                "species_basis": "SUPPLIER_CAS_84787_70_2_EINECS_SANTALUM_ALBUM",
+                "supplier_sds_description": "Proprietary Perfume Compound and Dipropylene Glycol",
+                "profile_is_neat_oil": True,
+                "cross_check_lot": {
+                    "source": "https://www.revive-eo.com/wp-content/uploads/2026/03/REVIVE-GCMS-Report-Sandalwood-album-EO-6K.pdf",
+                    "document": "REVIVE GC/MS report, Sandalwood (album) EO lot 6K, 16 Feb 2026",
+                    "reported_pct": {
+                        "cis-alpha-santalol": 45.24,
+                        "cis-beta-santalol": 19.44,
+                    },
+                    "within_standard_ranges": True,
+                },
+            },
+            "(Z)-alpha-santalol": {
+                "mw_status": "NIST_WEBBOOK_FORMULA_MASS",
+                "vp_status": "ESTIMATE_EPI_SUITE_V4_11_AS_PRINTED_BY_RIFM",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/11031-45-1.pdf",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD_DETECTION_OR_RECOGNITION_NOT_STATED",
+                "odt_source": "Bajgrowicz JA, Frank I, Frater G, Hennig M (1998) Helv. Chim. Acta 81:1349-1358, as compiled in van Gemert (2011) AIR section (mg/m3)",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+                "odt_conversion": "0.0074 mg/m3 x 24450 / 220.35 = 0.8211 ppb",
+            },
+            "(Z)-beta-santalol": {
+                "mw_status": "NIST_WEBBOOK_FORMULA_MASS",
+                "vp_status": "ESTIMATE_EPI_SUITE_V4_11_AS_PRINTED_BY_RIFM",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/11031-45-1.pdf",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD_DETECTION_OR_RECOGNITION_NOT_STATED",
+                "odt_source": "Bajgrowicz JA, Frank I, Frater G, Hennig M (1998) Helv. Chim. Acta 81:1349-1358, as compiled in van Gemert (2011) AIR section (mg/m3)",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+                "odt_conversion": "0.00054 mg/m3 x 24450 / 220.35 = 0.05992 ppb",
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "(E,E)-farnesol",
+                "reported_fraction_range": (0.0, 0.01),
+                "missing_input": "UPPER_BOUND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-lanceol",
+                "reported_fraction_range": (0.0, 0.05),
+                "missing_input": "UPPER_BOUND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "other constituents (cis-alpha-trans-bergamotol, epi-beta-santalol, nuciferols, santalenes and others)",
+                "missing_input": "NOT_IN_STANDARD_RANGES",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "ISO 3518 ranges describe a conforming Santalum album oil, not the owned PerfumersWorld 5WX12225 lot. PerfumersWorld names no species (S. album is inferred from its CAS) and its SDS calls the product a proprietary perfume compound in DPG; if it is a compound, this profile does not describe it.",
+            "68.0% of nominal composition is modeled ((Z)-alpha- and (Z)-beta-santalol). Farnesol and lanceol have upper bounds only; they, the other sesquiterpenols and the remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "Santalol VPs are EPI Suite estimates; the air thresholds are single-study values (Bajgrowicz 1998) with detection or recognition not stated.",
+        ),
+    },
+    "tuberalia base perfumersworld 6nd09663 declaration profile": {
+        "analytical_method": "SUPPLIER_IFRA_AND_ALLERGEN_DECLARATION",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=6ND09663",
+                "document": "PerfumersWorld 6ND09663 Tuberalia Base: SDS section 3, allergen declaration and IFRA restricted-materials table",
+                "declared_pct": {
+                    "linalool": 8.7605,
+                    "hydroxycitronellal": 6.7878,
+                    "benzyl salicylate": 4.9065,
+                    "eugenol": 1.6008,
+                    "benzyl benzoate": 0.9623,
+                    "hexyl salicylate": 0.6406,
+                    "benzyl alcohol": 0.6324,
+                    "hexyl cinnamal": 0.2348,
+                },
+                "sds_section_3_band_pct": {
+                    "linalool": (1.0, 10.0),
+                    "benzyl salicylate": (1.0, 10.0),
+                    "benzyl acetate": (1.0, 10.0),
+                    "methyl benzoate": (1.0, 10.0),
+                    "phenylethyl alcohol": (1.0, 10.0),
+                    "cinnamyl alcohol": (0.1, 1.0),
+                    "isoeugenol": (0.1, 1.0),
+                    "methyl salicylate": (0.1, 1.0),
+                },
+                "band_only_rule": "SDS_HAZARD_BAND_NO_NOMINAL_FRACTION_KEPT_UNRESOLVED",
+                "supplier_inconsistency": "SDS section 3 lists isoeugenol and cinnamyl alcohol at 0.1-1.0%, but neither appears in the allergen declaration or the IFRA restricted table",
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Tuberlia Base",
+                "owned_supplier_reference": "PerfumersWorld 6ND09663 (matched by name; the SKU is not recorded)",
+                "owned_bottle_sku_verified": False,
+            },
+            "linalool": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "hydroxycitronellal": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "benzyl salicylate": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "eugenol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "benzyl benzoate": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+            "benzyl alcohol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+        "unresolved_constituents": (
+            {
+                "name": "hexyl salicylate",
+                "reported_fraction": 0.006406,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "hexyl cinnamal",
+                "reported_fraction": 0.002348,
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "benzyl acetate",
+                "reported_fraction_range": (0.01, 0.1),
+                "missing_input": "SDS_BAND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "methyl benzoate",
+                "reported_fraction_range": (0.01, 0.1),
+                "missing_input": "SDS_BAND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "phenylethyl alcohol",
+                "reported_fraction_range": (0.01, 0.1),
+                "missing_input": "SDS_BAND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "cinnamyl alcohol",
+                "reported_fraction_range": (0.001, 0.01),
+                "missing_input": "SDS_BAND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "isoeugenol",
+                "reported_fraction_range": (0.001, 0.01),
+                "missing_input": "SDS_BAND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "methyl salicylate",
+                "reported_fraction_range": (0.001, 0.01),
+                "missing_input": "SDS_BAND_ONLY_NO_NOMINAL_FRACTION",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "A proprietary compound base: only declared allergen and IFRA-restricted levels are published, for an SKU matched by name, not an analysis of the owned bottle.",
+            "Only 23.6503% of the base is modeled. Benzyl acetate, methyl benzoate and phenylethyl alcohol (1-10% bands), the 0.1-1% band constituents, hexyl salicylate, hexyl cinnamal and the undisclosed remainder are uncomputed, not odorless; tuberose character odorants (methyl anthranilate, indole and others) are not disclosed. Nothing is renormalized.",
         ),
     },
 }

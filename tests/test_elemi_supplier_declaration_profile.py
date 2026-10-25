@@ -19,17 +19,20 @@ def test_elemi_uses_declared_concentrations_without_rescaling(name):
     fractions = {row[0]: row[1] for row in constituents}
     assert fractions["limonene"] == pytest.approx(0.450869)
     assert fractions["alpha terpineol"] == pytest.approx(0.030843)
-    assert sum(fractions.values()) == pytest.approx(0.495001)
+    assert fractions["(R)-carvone"] == pytest.approx(0.00123)
+    assert fractions["alpha-terpinene"] == pytest.approx(0.000545)
+    assert sum(fractions.values()) == pytest.approx(0.496776)
 
     metadata = get_composite_metadata(name)
     assert metadata.profile_key == _ELEMI_KEY
     assert metadata.resolution == "literature_proxy"
-    assert metadata.characterized_fraction == pytest.approx(0.495001)
+    assert metadata.characterized_fraction == pytest.approx(0.496776)
     assert metadata.quantitative_evaluability == "PARTIAL_INPUT_COVERAGE"
     assert metadata.batch_specific is False
     assert metadata.sources and all(src.startswith("http") for src in metadata.sources)
     unresolved = {row["name"] for row in metadata.unresolved_constituents}
-    assert {"carvone", "elemol", "elemicin", "alpha-phellandrene"} <= unresolved
+    assert {"elemol", "elemicin", "alpha-phellandrene"} <= unresolved
+    assert not {"carvone", "alpha-terpinene"} & unresolved
 
 
 def test_elemi_gum_is_not_mapped_to_the_oil_declaration():

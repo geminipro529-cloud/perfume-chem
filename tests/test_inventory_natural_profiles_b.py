@@ -13,7 +13,7 @@ _PERU = "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declara
 
 _NEW_PROXIES = {
     "Magnolia EO": (_MAG, 0.8586),
-    "Champaca Flower EO": (_CHA, 0.569473),
+    "Champaca Flower EO": (_CHA, 0.56954),
     "Peru Balsam Resinoid": (_PERU, 0.268851),
     "Peru Balsam Resinoid (50% w/w in DEP)": (_PERU, 0.268851),
     "Peru Balsam 10%": (_PERU, 0.268851),
@@ -55,7 +55,9 @@ def test_champaca_is_a_declaration_not_a_true_champaca_absolute():
     composition = meta.input_authority["composition"]
     assert composition["true_champaca_absolute_rows_used"] is False
     assert composition["owned_bottle_sku_verified"] is False
-    assert {u["name"] for u in meta.unresolved_constituents} == {"safrole", "L-carvone"}
+    assert {u["name"] for u in meta.unresolved_constituents} == {"safrole"}
+    rows = {row[0]: row[1] for row in get_constituents("Champaca Flower EO")}
+    assert rows["(R)-carvone"] == pytest.approx(6.7e-05)
     assert any("declared levels" in text for text in meta.limitations)
 
 

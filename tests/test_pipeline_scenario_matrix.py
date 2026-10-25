@@ -93,7 +93,10 @@ def test_prada_controls_preserve_architecture_but_fail_closed_on_current_stock(
         # The user lifted the Orris Liquid hold on 2026-10-08; the card's 30%
         # Orris Liquid still does not match the owned 9% stock.
         assert "USER_COMPOUNDING_HOLD" not in str(issue.get("execution_holds", ""))
-    assert _natural_composite_coverage_check(state).status == "PASS"
+    # Black Pepper EO's sourced profile (Bagheri 2014, six major constituents, 73%)
+    # reports its partial coverage as a warning since the 2026-10-25 naturals batch;
+    # the unsourced profile it replaced was unassessed and passed silently.
+    assert _natural_composite_coverage_check(state).status == "WARN"
     assert evaluate_reference_contract(formula, state)["status"] == "PASS"
     assert all(material.oav is not None for material in state.materials)
 
@@ -236,7 +239,8 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
     # This is an evidence-gap contract, not a frozen census of live inventory.
     # New purchases can add unresolved naturals without making this test fail.
     # Champaca Flower EO, Magnolia EO, Peru Balsam Resinoid and Tagetes EO got
-    # labelled partial proxy profiles on 2026-10-09 and left this list.
+    # labelled partial proxy profiles on 2026-10-09 and left this list; Pine EO
+    # (PerfumersWorld 7KQ07511 declaration) left it on 2026-10-25.
     unresolved = set(audit["categories"]["naturals_missing_composite_evidence"])
     assert {
         "Anise EO",
@@ -244,7 +248,6 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
         "Cade Oil Rectified",
         "Himalayan Cedarwood EO",
         "Opoponax Resinoid",
-        "Pine EO",
     }.issubset(unresolved)
     opaque = set(audit["categories"]["opaque_preblends_without_disclosed_composition"])
     assert "Leather FO" in opaque

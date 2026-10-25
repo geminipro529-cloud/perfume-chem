@@ -1,10 +1,12 @@
 """Labelled proxy constituent profiles for owned naturals (batch A).
 
 Basil, Tagetes and Helichrysum EO resolve to partial literature/supplier
-proxies. Anise, Sandalwood and Pine stay unmapped: no defensible composition
-with runtime headspace inputs exists for them. Lemon Terpeneless left this list on
-25 Oct 2026: physics batch 2 gave it a labelled partial profile (citral at the BP
-grade midpoint), pinned in tests/test_physics_batch2_2026_10_25.py.
+proxies. Anise stays unmapped: no defensible composition with runtime headspace
+inputs exists for it. Lemon Terpeneless left this list on 25 Oct 2026: physics
+batch 2 gave it a labelled partial profile (citral at the BP grade midpoint),
+pinned in tests/test_physics_batch2_2026_10_25.py. Sandalwood (ISO 3518 santalol
+midpoints) and Pine (PerfumersWorld 7KQ07511 declaration) left it the same day,
+pinned in tests/test_natural_profiles_batch_2026_10_25.py.
 """
 
 import pytest
@@ -84,8 +86,6 @@ def test_helichrysum_uses_corsica_and_records_the_croatian_conflict():
     "label",
     [
         "Anise EO",
-        "Sandalwood EO",
-        "Pine EO",
         # Lookup drops the parenthetical origin, leaving a bare Basil EO whose
         # chemotype is unknown.
         "Basil EO (India, Ocimum Basilicum)",
