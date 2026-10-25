@@ -77279,8 +77279,8 @@
     "alt_name": null,
     "field_evidence": {
       "character": {
-        "status": "COPIED_FROM_ENGINE_PROFILE",
-        "scope": "Lavender EO profile; 40/42 is a French angustifolia oil standardized toward ~40% linalool / ~42% linalyl acetate. Not a sensory measurement."
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT",
+        "scope": "Lavender EO profile (freshness 6, floral 5, green 4, woody 2, spicy 1) with two dimensions moved one step toward its estimated 40/42-grade composition (natural_absolute_decomposition 'lavender 40/42 grade two published gc midpoint profile'): camphor 3.3% + 1,8-cineole 3.1% + borneol 1.5% from lavandin admixture raise freshness (6 to 7); lavandulyl acetate 0.9% and ocimene 0.7%, below true lavender, lower floral (5 to 4). Not a sensory measurement."
       },
       "mw": {
         "status": "COPIED_FROM_ENGINE_PROFILE",
@@ -77428,6 +77428,12 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "hedonic": 0.4
+        }
       }
     ],
     "mw": 170.0,
@@ -77438,7 +77444,7 @@
     "texture": "lift",
     "or_family": null,
     "activity_coef": 1.0,
-    "hedonic": 0.4,
+    "hedonic": 0.32,
     "material_kind": "NATURAL_MIXTURE",
     "formulation_roles": [],
     "synergies": [

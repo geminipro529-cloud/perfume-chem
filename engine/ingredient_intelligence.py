@@ -2193,9 +2193,11 @@ _PROFILES: dict[str, dict] = {
         "synergies": ["Linalyl Acetate", "Coumarin", "Geraniol", "Terpinyl Acetate"],
     },
     # 2026-10-20: Kenny's Aroma & More Lavender 40/42 (Lav420811P), "another lavender type".
-    # Own entry with the Lavender EO values; not an alias of BONTAUX or Spike Lavender.
+    # Own entry with the Lavender EO physics; not an alias of BONTAUX or Spike Lavender.
+    # 2026-10-25 (Kenny: "You estimate"): character moved off the true-lavender values
+    # toward its 40/42-grade composition (lavandin admixture: camphor + cineole ~6%).
     "Lavender 40/42, Aroma&More": {
-        "character": {"freshness": 6, "floral": 5, "green": 4, "woody": 2, "spicy": 1},
+        "character": {"freshness": 7, "floral": 4, "green": 4, "woody": 2, "spicy": 1},
         "note": "heart",
         "role": "character",
         "texture": "lift",
@@ -2205,7 +2207,7 @@ _PROFILES: dict[str, dict] = {
         "cas": "8000-28-0",
         "material_kind": "NATURAL_MIXTURE",
         "evidence": {
-            "character": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Lavender EO profile; 40/42 is a French angustifolia oil standardized toward ~40% linalool / ~42% linalyl acetate. Not a sensory measurement."},
+            "character": {"status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT", "scope": "Lavender EO profile (freshness 6, floral 5, green 4, woody 2, spicy 1) with two dimensions moved one step toward its estimated 40/42-grade composition (natural_absolute_decomposition 'lavender 40/42 grade two published gc midpoint profile'): camphor 3.3% + 1,8-cineole 3.1% + borneol 1.5% from lavandin admixture raise freshness (6 to 7); lavandulyl acetate 0.9% and ocimene 0.7%, below true lavender, lower floral (5 to 4). Not a sensory measurement."},
             "mw": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Lavender EO profile; a whole-oil proxy, not a single molecule."},
             "vp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Lavender EO profile; a whole-oil proxy, not a single molecule."},
             "clogp": {"status": "COPIED_FROM_ENGINE_PROFILE", "scope": "Lavender EO profile."},
