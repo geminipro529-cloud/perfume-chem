@@ -1544,9 +1544,50 @@ def _cited_accords(
         if spec is None or not any(_phrase_present(request_key, word) for word in spec.named_by):
             continue
         if spec.note not in seen:
-            cited[lead.role_id] = spec
+            cited[lead.role_id] = _brief_lead_order(spec, request_key)
         seen.add(spec.note)
     return cited
+
+
+def _brief_lead_order(spec: note_accord_specs.AccordSpec, request_key: str) -> note_accord_specs.AccordSpec:
+    """The spec with the lead stock the brief's words call for moved first."""
+
+    for words, name in spec.lead_first_when:
+        if any(_phrase_present(request_key, word) for word in words):
+            first = tuple(stock for stock in spec.lead_stocks if stock.name == name)
+            rest = tuple(stock for stock in spec.lead_stocks if stock.name != name)
+            return replace(spec, lead_stocks=first + rest) if first else spec
+    return spec
+
+
+def _brief_lead_anchor(
+    anchor: SemanticRole,
+    spec: note_accord_specs.AccordSpec,
+    request_key: str,
+) -> SemanticRole:
+    """A brief anchor bound to the lead stock the brief's words moved first.
+
+    "lavender" in a brief anchors a lavender stock by the note word alone;
+    when a word of the spec's ``lead_first_when`` moved another lead stock
+    first ("fougere": the 40/42 grade), the anchor takes that stock instead,
+    unless the brief names the anchored stock by a word of its own
+    ("bontaux", "eo").
+    """
+
+    # The brief's material names arrive lowercased, so stocks match by key.
+    names = {_key(stock.name) for stock in spec.lead_stocks}
+    first = spec.lead_stocks[0].name if spec.lead_stocks else None
+    moved = any(
+        name == first and any(_phrase_present(request_key, word) for word in words)
+        for words, name in spec.lead_first_when
+    )
+    anchored = _key(anchor.exact_material or "")
+    if first is None or not moved or anchored not in names or anchored == _key(first):
+        return anchor
+    own_words = set(_key(anchor.exact_material).split()) - set(_key(spec.note).split())
+    if any(_phrase_present(request_key, word) for word in own_words):
+        return anchor
+    return replace(anchor, label=f"Explicit brief anchor: {first}", query_terms=(first,), exact_material=first)
 
 
 def _accord_part(
@@ -1671,7 +1712,8 @@ def _with_accords(
             )
             continue
         if role.role_id in anchor_facets and role.role_id in cited:
-            expanded.append(_cited_lead(role, cited[role.role_id]))
+            expanded.append(_cited_lead(_brief_lead_anchor(role, cited[role.role_id], request_key),
+                                        cited[role.role_id]))
             continue
         count = supports.get(role.role_id, 0)
         spec = cited.get(role.role_id)
