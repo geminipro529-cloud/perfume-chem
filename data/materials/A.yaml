@@ -2559,8 +2559,8 @@
   logp: 6.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.001
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.01
+  vp_source: placeholder  # labelled estimate (method in provenance); gate reports it as estimated
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2578,7 +2578,7 @@
   families:
   - woods / amber / structure
   character: null
-  notes: 'No VP found for the active (CAS 929625-08-1); the Ventos SDS (2025) for the 50% product gives 0.0136 hPa at 20 C, mostly the Dowanol TPM (tripropylene glycol methyl ether) carrier, so the placeholder stays. Stock L219 is 50% in Dowanol TPM, not DPG or TEC. TGSC log P 6.3 (est) not adopted.'
+  notes: 'No VP found for the active (CAS 929625-08-1); the Ventos SDS (2025) for the 50% product gives 0.0136 hPa at 20 C, mostly the Dowanol TPM (tripropylene glycol methyl ether) carrier, so no measured value is loaded. 25 Oct 2026: the placeholder 0.001 Pa is replaced by a labelled estimate of 0.01 Pa (see provenance vp_25c_pa). Stock L219 is 50% in Dowanol TPM, not DPG or TEC. TGSC log P 6.3 (est) not adopted.'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -2586,6 +2586,7 @@
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    vp_25c_pa: 'ESTIMATE, not a measurement (25 Oct 2026, stock thread, from the Prada thread super-amber research): Givaudan prints the pair "0.0136 hPa / 0.0060 hPa" on both its Ambermax 50% Dowanol TPM page (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ambermaxtm-50dowanol-tpm) and its 10%/TEC page (https://www.givaudan.com/print/1314066), so the pair is not a carrier value. Read as hPa it would be 0.60-1.36 Pa, more volatile than Kephalis (Givaudan 0.0053 hPa, blotter 3 days), which contradicts Givaudan''s own Ambermax blotter tenacity of "several months" for a C18H30O of MW 262.4 and log Pow 6.3. Read as Pa, the pair is 0.006-0.014 Pa; 0.01 Pa is its midpoint. Replaces the unsourced 0.001 Pa placeholder; a measured value or Kenny''s nose ladder should replace it.'
     vp_note: 'Ventos SDS 2025 https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Ambermax_50_Ventos_GHS_SDS.pdf (50% product): 0.0136 hPa at 20 C, carrier-dominated; active VP not found, placeholder kept; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     cas: '22 Oct 2026 missing-data pass: stated; raw 929625-08-1; https://www.givaudan.com/print/1314066'
     mw_g_mol: '23 Oct 2026 third data pass: Givaudan producer page, Ambermax 10%/TEC (Givaudan Code 1472033), https://www.givaudan.com/print/1314066: "MW 262,4", CAS 929625-08-1; replaces the unsourced 234.0'
@@ -3100,14 +3101,16 @@
       - form: 10.0% in TEC
         sku: 5WU22696
         price_usd_per_g: 0.58
-  families: []
+  families:
+  - woods / amber / structure
   character: null
-  notes: 'VP 25 C 0.09 Pa for the crystals: 6.0e-2 Pa measured at 20 C (RIFM 1998j; Symrise SDS OECD 104 0.0006 hPa at 20 C) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol); a dissolved (subcooled-liquid) value would be about 0.2 Pa (mp 52.6-58.3 C, RIFM). bp 309.2 C (Symrise datasheet), over 280.5 C (RIFM); density 1.094; water solubility 4.28 mg/L. log Kow 4.865 measured (RIFM 1998h; SDS 4.84) replaces the datasheet integer 6. The air ODT is not set: a figure read from the datasheet chart is unverified. Sources: material-data-firecrawl/AMBROCENIDE_VP_20261010.md (2026-10-10), allgaps/S4_woody_musk_captives.md (2026-10-08).'
+  notes: 'VP 25 C 0.09 Pa for the crystals: 6.0e-2 Pa measured at 20 C (RIFM 1998j; Symrise SDS OECD 104 0.0006 hPa at 20 C) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol); a dissolved (subcooled-liquid) value would be about 0.2 Pa (mp 52.6-58.3 C, RIFM). bp 309.2 C (Symrise datasheet), over 280.5 C (RIFM); density 1.094; water solubility 4.28 mg/L. log Kow 4.865 measured (RIFM 1998h; SDS 4.84) replaces the datasheet integer 6. The air ODT (engine/odor_thresholds.py) is 0.00176 ppb from Elterlein et al., Chem. Eur. J. 2024, e202400006 (0.02 ng/L air), loaded 25 Oct 2026; the Symrise datasheet chart value is higher. Sources: material-data-firecrawl/AMBROCENIDE_VP_20261010.md (2026-10-10), allgaps/S4_woody_musk_captives.md (2026-10-08).'
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    families: 'Symrise Ambrocenide Cryst. datasheet (https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_Cryst.pdf): "Ambery, Wood, Amber" (read 25 Oct 2026)'
     cas: 'https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_Cryst.pdf (Symrise datasheet, producer); "Cas 211299-54-6" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     mw_g_mol: 'https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_Cryst.pdf (Symrise datasheet, producer); "mW 278.4 g/mol" (C18H30O2) (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     logp: 'RIFM assessment for CAS 211299-54-6: log Kow 4.865 measured at pH 7, 22 C (RIFM 1998h; Symrise SDS 4.84); replaces the Symrise datasheet integer "log P (kow) 6"; via /mnt/project-files/material-data-firecrawl/AMBROCENIDE_VP_20261010.md (read 2026-10-10)'

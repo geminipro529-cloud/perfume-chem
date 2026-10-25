@@ -3116,11 +3116,11 @@
   {
     "name": "AMBERMAX",
     "alt_name": null,
-    "cas": "Proprietary",
-    "formula_str": "~C₁₁H₂₀O (est.)",
+    "cas": "929625-08-1 / 1001252-30-7",
+    "formula_str": "C₁₈H₃₀O",
     "mw": 262.4,
     "bp": 265.0,
-    "vp": 0.001,
+    "vp": 0.01,
     "clp": 6.3,
     "odt": 0.5,
     "sar_class": "Amber/woody-amber — cyclohexanone derivatives",
@@ -3148,7 +3148,7 @@
     "avoid": "Nothing specific — very forgiving material",
     "handle_as": "Inner warmth layer. Use with Ambrox for best results.",
     "odor_family": "amber warm",
-    "odor_profile": "Warm full-bodied amber with rounded balsamic sweetness and cozy resinous depth.",
+    "odor_profile": "Powerful, fusing and substantive rich ambery note with woody cedarwood facets (Givaudan).",
     "odt_ethanol_ppm": 0.1,
     "note": "base",
     "role": "volume",
@@ -3201,13 +3201,13 @@
       }
     },
     "odt_evidence": {
-      "vfy": "PEER_SINGLE",
+      "vfy": "PEER_EST",
       "sources": [
         "Amber/ambrox structural class; Kraft (2008) ambrox ODT; ambermax estimated at 0.5 ppb"
       ],
       "odt_air": 0.5,
       "odt_eth": 0.1,
-      "declared_vfy": "PEER_SINGLE"
+      "declared_vfy": "PEER_EST"
     },
     "current_stocks": [
       {
@@ -3310,6 +3310,12 @@
         "fields": {
           "mw": 234.0,
           "clp": 4.2
+        }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 0.001
         }
       }
     ],
@@ -30623,7 +30629,7 @@
     "name": "KEPHALIS",
     "alt_name": null,
     "cas": "36306-87-3",
-    "formula_str": "C₁₂H₁₈O₂",
+    "formula_str": "C₁₄H₂₄O₂",
     "mw": 224.34,
     "bp": 260.0,
     "vp": 0.8,
@@ -73805,15 +73811,15 @@
     },
     "synergies": [],
     "odor_profile": "extremely powerful and very sharp dry woody scent with ambery, slightly animalic and smokey agarwood tones.",
-    "odt": 0.02,
+    "odt": 0.00176,
     "odt_ethanol_ppm": 0.02,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_SINGLE",
       "sources": [
-        "No peer-reviewed air-phase ODT found in indexed literature"
+        "Elterlein F., Bugdahn N., Kraft P. (Symrise), Sniffing Out the Sustainable Future: The Renewability Revolution in Fragrance Chemistry, Chem. Eur. J. 2024, 30, e202400006 (PMID 38358844): 'low threshold of 0.02 ng/L air'; 0.02 x 24.45 / 278.4 = 0.00176 ppb"
       ],
-      "note": "Auto-tagged by audit 2026-05-11",
-      "declared_vfy": "UNVERIFIED"
+      "note": "Loaded 2026-10-25 (stock thread). Symrise's own datasheets print a higher 'threshold in air' by their sheet method (Ambrocenide Cryst. 0.0013 ug/L = 1.3 ng/L; 10% DPG 0.0079 ug/L), so the absolute value is disputed; the paper is the peer-reviewed figure.",
+      "declared_vfy": "PEER_SINGLE"
     },
     "current_stocks": [
       {
@@ -73895,7 +73901,10 @@
       "not_headspace_or_observed_intensity": true
     },
     "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
-    "release_authority": "NOT_TESTED_HOLD"
+    "release_authority": "NOT_TESTED_HOLD",
+    "cas": "211299-54-6",
+    "formula_str": "C₁₈H₃₀O₂",
+    "odor_family": "amber"
   },
   {
     "name": "Ambrox Super Crystals",

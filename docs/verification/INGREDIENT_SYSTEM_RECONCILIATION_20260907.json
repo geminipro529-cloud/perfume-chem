@@ -5,14 +5,14 @@
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
     "engine/ingredient_intelligence.py": "ae87ceca59a66710259eb8eae5c048492711d4501e0ecc9a2730c81113351b60",
     "engine/inventory_parser.py": "5b5ed2f01e9123589d1c5e944aa00ed22f8d8ae8f7d2b75d0ec28fa23f8f00b3",
-    "engine/odor_thresholds.py": "3f5103d3f40f9e0f638b5893f34a629267770f77c932855807ef7ab644234704",
+    "engine/odor_thresholds.py": "78791c550bc3906812d58b83c86dbbdf81cfca0789604e7d22aed0f15e923c15",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
     "engine/data_spine/loader.py": "cd09b0877de31b1fb334811f875dd7305923e9d454efac6ba7cd065f1e6c016f",
     "engine/data_spine/material.py": "79e30aea000c3c326513282ed0304a0fa0a35d46bfc6be86e709061244c03df9",
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
     "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
-    "data/materials/A.yaml": "09eb1f196cdbb32822ad3b1a3b69db04b8ae2c02f59cb98a46394fb7d1c6a33b",
+    "data/materials/A.yaml": "56d66f84da148f62f2d2a16e42191a980dcc5ddb4e7ffa6f51bc1125ef7ce82c",
     "data/materials/B.yaml": "16f7a08c5222fbc67cf3a8c1c855e61269fe0d547bbbe7468a6b5e3c573223d8",
     "data/materials/C.yaml": "05415c915ff4a9d01475f5124ed5a8fcf555267a0e038eaf86233578ece703c6",
     "data/materials/D.yaml": "1b2635deff66c135c4ad4fe2f2ebe96ef1f9de722030037738346073a7ae2eb1",
@@ -6399,6 +6399,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "313f6ced8f9747c13723d5e86f55a61f34f048428cf3adf27e255578d382e76b",
-  "input_cache_sha256": "60c8c82ed4da4429321276011ab03cbbbfebe8c11eab3fec54ffa13c528f2e16"
+  "output_sha256": "736a38ce6b033c0f2aea3d47fe905d9f337b1cc6bde94bf9e828d785359e94c4",
+  "input_cache_sha256": "e50850cf7db054fae9feb55b579792abefe000e1d81b5d5232f0894051e70935"
 }

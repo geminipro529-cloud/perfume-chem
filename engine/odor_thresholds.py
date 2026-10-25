@@ -886,7 +886,10 @@ ODT_DATA: dict[str, dict] = {
         "char": "intense amber, powerful radiance",
     },
     "amberwood f": {"odt_air": 1.0, "odt_eth": 0.3, "char": "clean transparent amber"},
-    "ambrocenide": {"odt_air": 0.02, "odt_eth": 0.02, "char": "crystalline amber"},
+    # Ambrocenide air ODT: 0.02 ng/L air (Elterlein, Bugdahn & Kraft, Symrise, Chem. Eur. J.
+    # 2024, 30, e202400006) = 0.02 x 24.45 / 278.4 = 0.00176 ppb. The earlier 0.02 was that
+    # ng/L figure stored as ppb (11x too weak). odt_eth unchanged.
+    "ambrocenide": {"odt_air": 0.00176, "odt_eth": 0.02, "char": "crystalline amber"},
     # ── Balsamic / sweet-resinous ──
     "heliotropin fleuressence": {
         "odt_air": 0.0,
@@ -1788,9 +1791,17 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Auto-tagged by audit 2026-05-11",
     },
     "ambrocenide": {
-        "vfy": "UNVERIFIED",
-        "sources": ["No peer-reviewed air-phase ODT found in indexed literature"],
-        "note": "Auto-tagged by audit 2026-05-11",
+        "vfy": "PEER_SINGLE",
+        "sources": [
+            "Elterlein F., Bugdahn N., Kraft P. (Symrise), Sniffing Out the Sustainable Future: The "
+            "Renewability Revolution in Fragrance Chemistry, Chem. Eur. J. 2024, 30, e202400006 "
+            "(PMID 38358844): 'low threshold of 0.02 ng/L air'; 0.02 x 24.45 / 278.4 = 0.00176 ppb"
+        ],
+        "note": (
+            "Loaded 2026-10-25 (stock thread). Symrise's own datasheets print a higher 'threshold in "
+            "air' by their sheet method (Ambrocenide Cryst. 0.0013 ug/L = 1.3 ng/L; 10% DPG 0.0079 "
+            "ug/L), so the absolute value is disputed; the paper is the peer-reviewed figure."
+        ),
     },
     "ambrofix": {
         "vfy": "DERIVED",
@@ -3071,7 +3082,9 @@ ODT_VERIFICATION: dict[str, dict] = {
         "odt_eth": 1.0,
     },
     "ambermax": {
-        "vfy": "PEER_SINGLE",
+        # A class estimate, not a measurement: labelled PEER_EST so the gate reports it as
+        # estimated (it was PEER_SINGLE, which read as peer-reviewed). 2026-10-25.
+        "vfy": "PEER_EST",
         "sources": [
             "Amber/ambrox structural class; Kraft (2008) ambrox ODT; ambermax estimated at 0.5 ppb"
         ],
