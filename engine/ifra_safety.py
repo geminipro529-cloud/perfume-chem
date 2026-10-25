@@ -40,6 +40,7 @@ from engine.ifra_standards import (
     estimate_finished_product_pct_w_w,
     evaluate_ifra,
     load_ifra_table,
+    stock_base_name,
 )
 from engine.material_resolver import resolve_material
 from engine.skin_compartments import skin_partition
@@ -378,8 +379,29 @@ _ALLERGEN_NAME_MAP: dict[str, str] = _CaseInsensitiveAllergenMap(
         "Treemoss": "Evernia Furfuracea",
         "Tree Moss": "Evernia Furfuracea",
         "Treemoss Extract": "Evernia Furfuracea",
+        # Stock names whose extra word is not a strength suffix (25 Oct 2026 audit).
+        "Coumarin Powder": "Coumarin",
+        "Citral Natural": "Citral",
+        "Amyl Cinnamic Aldehyde": "Amyl Cinnamal",
     }
 )
+
+
+def _allergen_name(name: str) -> str:
+    """The allergen-list spelling a formula row is checked under.
+
+    A ``_ALLERGEN_NAME_MAP`` alias wins; otherwise the stock suffix is removed ("Geraniol
+    (neat)", "Coumarin 10%" and "Benzyl Alcohol 50% in DPG" give "Geraniol", "Coumarin"
+    and "Benzyl Alcohol"), as the IFRA check already does. The result is compared with the
+    allergen names exactly, ignoring case, so only a name whose plain form is the allergen
+    matches.
+    """
+    mapped = _ALLERGEN_NAME_MAP.get(name)
+    if mapped is not None:
+        return str(mapped)
+    base = stock_base_name(name)
+    mapped = _ALLERGEN_NAME_MAP.get(base)
+    return str(mapped) if mapped is not None else base
 
 
 def _allergen_threshold_pct(allergen_data: dict[str, Any], *, leave_on: bool) -> float:
@@ -395,15 +417,15 @@ def eu_allergen_rows(
 ) -> list[dict[str, Any]]:
     """The EU allergens to declare, each with its % w/w of the finished product.
 
-    A row is an allergen by its own name or its ``_ALLERGEN_NAME_MAP`` alias, as in
-    ``score_ifra_compliance``. Rows that are the same allergen are summed before the
+    A row is an allergen by its own name, its ``_ALLERGEN_NAME_MAP`` alias or its name
+    without a stock suffix (``_allergen_name``), as in ``score_ifra_compliance``. Rows that are the same allergen are summed before the
     label line is compared, so this declares everything that function declares, and
     also an allergen split over two names. Allergens inside naturals and bases are not
     counted. Ordered by first row, as written.
     """
     by_allergen: dict[str, float] = {}
     for name, pct in pct_by_material.items():
-        mapped = str(_ALLERGEN_NAME_MAP.get(name, name)).lower()
+        mapped = _allergen_name(name).lower()
         for allergen_name in EU_FRAGRANCE_ALLERGENS:
             if allergen_name.lower() in (mapped, name.lower()):
                 by_allergen[allergen_name] = by_allergen.get(allergen_name, 0.0) + float(pct)
@@ -457,6 +479,21 @@ SENSITIZATION_DATA: dict[str, dict[str, Any]] = {
         "note": "Nitro musk; environmental persistence concern",
     },
 }
+
+
+_SENSITIZATION_BY_KEY: dict[str, dict[str, Any]] = {
+    key.lower(): value for key, value in SENSITIZATION_DATA.items()
+}
+
+
+def _sensitization_data(name: str) -> dict[str, Any] | None:
+    """Sensitiser data for a row: its own name, then without the stock suffix, then its
+    allergen-list spelling, ignoring case ("Isoeugenol (neat)" finds Isoeugenol)."""
+    for key in (name, stock_base_name(name), _allergen_name(name)):
+        data = _SENSITIZATION_BY_KEY.get(key.lower())
+        if data is not None:
+            return data
+    return None
 
 
 # ═══════════════════════════════════════════════════════════════════════════════
@@ -649,9 +686,8 @@ def score_ifra_compliance(
         dermal_exposure.append(dermal_row)
 
         # Check EU allergen declaration threshold
-        name.lower()
+        mapped = _allergen_name(name)
         for allergen_name, allergen_data in EU_FRAGRANCE_ALLERGENS.items():
-            mapped = _ALLERGEN_NAME_MAP.get(name, name)
             if mapped.lower() == allergen_name.lower() or name.lower() == allergen_name.lower():
                 threshold = _allergen_threshold_pct(allergen_data, leave_on=leave_on)
                 if pct_in_product > threshold:
@@ -659,7 +695,7 @@ def score_ifra_compliance(
                         allergen_decl.append(allergen_name)
 
         # Check sensitization risk
-        sens_data = SENSITIZATION_DATA.get(name)
+        sens_data = _sensitization_data(name)
         if sens_data and pct_in_product > 0.01:
             if sens_data["potency"] in ("moderate", "strong", "extreme"):
                 sensitizer_flags.append(
