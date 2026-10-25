@@ -104,14 +104,16 @@ def test_default_bottle_size_warns_and_is_reported():
 def test_row_with_dilution_suffix_matches_its_standard():
     benzyl = TABLE.lookup("Benzyl Benzoate")
     assert TABLE.lookup("Benzyl Benzoate (10% in DPG)") is benzyl
-    # 1000 uL of a 10 % stock = 0.1 g active + 0.9 mL carrier (DPG not recorded: 1.0 g/mL)
-    # + 29 mL ethanol x 0.789 = 22.881 g; 0.1 / 23.881 = 0.419 % w/w.
+    # The label reaches the Benzyl Benzoate record, so its density is used too.
+    # 1000 uL of a 10 % stock = 0.1 mL x 1.114 g/mL = 0.1114 g active + 0.9 mL carrier
+    # (DPG not recorded: 1.0 g/mL) + 29 mL ethanol x 0.789 = 22.881 g;
+    # 0.1114 / 23.8924 = 0.466 % w/w.
     gate = _gate({"Benzyl Benzoate (10% in DPG)": 1000.0}, {"Benzyl Benzoate (10% in DPG)": 0.1})
 
     row = _row(gate, "Benzyl Benzoate (10% in DPG)")
     assert row["standard"] == benzyl.standard
     assert row["limit_pct"] == pytest.approx(benzyl.cat4_limit_pct)
-    assert row["actual_pct"] == pytest.approx(0.1 / 23.881 * 100, rel=1e-4)
+    assert row["actual_pct"] == pytest.approx(0.1114 / 23.8924 * 100, rel=1e-4)
     assert row["verdict"] == "pass"
     assert "Benzyl Benzoate (10% in DPG)" not in gate.data["unchecked"]
 

@@ -1,9 +1,10 @@
 """A row label naming its stock strength keeps the bare material's physics.
 
-Stock names such as "Eugenol 10%" or "Ethyl Maltol 1% v/v in ethanol" are how
-the Stock page and inventory name materials. Only the trailing strength suffix
-may be dropped for physics lookups; identity text never is, an unknown bare
-name stays unknown, and a label with its own registered record keeps it.
+Stock names such as "Eugenol 10%", "Ethyl Maltol 1% v/v in ethanol" or
+"Helional (neat)" are how the Stock page and inventory name materials. Only
+trailing stock text (a strength, "neat", or a bracket holding only those) may be
+dropped for physics lookups; identity text never is, an unknown bare name stays
+unknown, and a label with its own registered record keeps it.
 """
 
 from __future__ import annotations
@@ -26,12 +27,21 @@ from engine.workbench import PerfumeWorkbench, WorkbenchFormulaRequest
         ("Eugenol", "Eugenol"),
         ("Iso E Super", "Iso E Super"),
         ("Aldehyde C-12 MNA", "Aldehyde C-12 MNA"),
-        ("Geraniol (10% in DPG)", "Geraniol (10% in DPG)"),
+        ("Geraniol (10% in DPG)", "Geraniol"),
+        ("Helional (neat)", "Helional"),
+        ("Vertofix (neat / as supplied)", "Vertofix"),
+        ("Galaxolide 100 (undiluted)", "Galaxolide 100"),
+        ("Ambroxan neat", "Ambroxan"),
+        ("Suederal 10% DPG", "Suederal"),
+        ("Amyl Cinnamic Aldehyde (ACA)", "Amyl Cinnamic Aldehyde (ACA)"),
+        ("Vetiver EO (Haiti)", "Vetiver EO (Haiti)"),
+        ("Coumarin (neat powder)", "Coumarin (neat powder)"),
         ("Eugenol 10% extra", "Eugenol 10% extra"),
         ("10%", "10%"),
+        ("(neat)", "(neat)"),
     ],
 )
-def test_strip_removes_only_a_trailing_stock_strength(label: str, expected: str) -> None:
+def test_strip_removes_only_trailing_stock_text(label: str, expected: str) -> None:
     assert strip_stock_strength_suffix(label) == expected
 
 
@@ -59,6 +69,20 @@ def test_label_with_its_own_registry_record_is_unchanged() -> None:
     resolved = resolve_material("Geraniol 10%")
     assert resolved.matched_name == "Geraniol 10%"
     assert resolved.registry_name != resolve_material("Geraniol").registry_name
+    # A bracket that names identity keeps its own record too.
+    aca = resolve_material("Amyl Cinnamic Aldehyde (ACA)")
+    assert aca.matched_name == "Amyl Cinnamic Aldehyde (ACA)"
+
+
+@pytest.mark.parametrize("bare", ["Helional", "Geraniol", "Ambrox Super", "Coumarin"])
+def test_neat_stock_resolves_as_its_plain_material(bare: str) -> None:
+    # The 25 Oct 2026 audit found 21 "(neat)" stocks missing their spine record
+    # (Helional (neat) got 0.010 Pa instead of the spine's RIFM 0.107 Pa).
+    stock = resolve_material(f"{bare} (neat)")
+    plain = resolve_material(bare)
+    assert stock.matched_name == bare
+    assert stock.registry_name == plain.registry_name
+    assert stock.profile_name == plain.profile_name
 
 
 def test_unknown_bare_name_stays_unknown() -> None:
@@ -98,6 +122,7 @@ def _physics(material) -> tuple:
         ("Eugenol 10%", "Eugenol", 60.0, 0.1),
         ("Cocoa CO2 Extract 7.7%", "Cocoa CO2 Extract", 250.0, 0.077),
         ("Ethyl Maltol 1%", "Ethyl Maltol", 150.0, 0.01),
+        ("Helional (neat)", "Helional", 30.0, 1.0),
     ],
 )
 def test_suffixed_row_gets_bare_material_physics(
