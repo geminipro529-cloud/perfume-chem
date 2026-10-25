@@ -38,7 +38,7 @@
   "runtime_dataset": {
     "dataset_id": "legacy-ifra-cat4-screening-subset-v1",
     "source_path": "engine/ifra_safety.py",
-    "source_sha256": "33c6cb92a913dc94fc123d50a50f5077adbf4afc28780940a58fdf59b7c3b2bf",
+    "source_sha256": "108b7eb806949bdc1ec29abc50641b632957378383475fd1b80a88f4b1d2f7d0",
     "table_symbol": "IFRA_CAT4_LIMITS",
     "policy_id": "IFRA_51ST_AMENDMENT",
     "coverage_state": "NON_EXHAUSTIVE_SCREENING_SUBSET",

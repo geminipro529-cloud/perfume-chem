@@ -1414,6 +1414,126 @@
       "notes": [
         "Added 21 Oct 2026 from the ingredients research thread, which read the 51st Amendment PDF at this url through a page summariser (Cat 1 0.11, Cat 2 0.14, Cat 3 0.75, Cat 4 2.5, Cat 5A 0.64, Cat 9 2.7, Cat 12 no restriction); not re-read verbatim in this session because the url is blocked here. TGSC still shows an older Cat 4 0.82 %."
       ]
+    },
+    "IFRA_STD_016": {
+      "name": "Carvone",
+      "cas": [
+        "99-49-0",
+        "2244-16-8",
+        "6485-40-1"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.59,
+      "cat4_quote": "Category 4 0.59 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_016.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "The natural contribution of Carvone is determined by the sum of the natural contributions of each of its isomers."
+      ]
+    },
+    "IFRA_STD_192": {
+      "name": "alpha-Bisabolol",
+      "cas": [
+        "515-69-5",
+        "23089-26-1",
+        "23178-88-3",
+        "78148-59-1",
+        "76738-75-5",
+        "72691-24-8"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 2.4,
+      "cat4_quote": "Category 4 2.4 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_192.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_024": {
+      "name": "Cuminaldehyde",
+      "cas": [
+        "122-03-2"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.47,
+      "cat4_quote": "Category 4 0.47 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_024.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_052": {
+      "name": "Perilla aldehyde",
+      "cas": [
+        "2111-75-3"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.3,
+      "cat4_quote": "Category 4 0.30 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_052.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_191": {
+      "name": "2-Methoxy-4-propylphenol",
+      "cas": [
+        "2785-87-7"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 0.73,
+      "cat4_quote": "Category 4 0.73 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_191.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well."
+      ]
+    },
+    "IFRA_STD_039": {
+      "name": "2-Hexenal",
+      "cas": [
+        "505-57-7",
+        "6728-26-3",
+        "16635-54-4"
+      ],
+      "kind": "restriction",
+      "amendment": "2023 (Amendment 51)",
+      "cat4_limit_pct": 0.0077,
+      "cat4_quote": "Category 4 0.0077 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_039.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "No Annex I rows are recorded: the 51st Amendment annex is a spreadsheet that could not be read here, and the 2020 standard said trans-2-hexenal occurs in naturals only at trace levels."
+      ]
+    },
+    "IFRA_STD_102": {
+      "name": "Thujone",
+      "cas": [
+        "546-80-5",
+        "471-15-8",
+        "76231-76-0",
+        "1125-12-8"
+      ],
+      "kind": "restriction",
+      "amendment": "2020 (Amendment 49)",
+      "cat4_limit_pct": 1.4,
+      "cat4_quote": "Category 4 1.4 %",
+      "url": "https://d3t14p1xronwr0.cloudfront.net/docs/standards/IFRA_STD_102.pdf",
+      "notes": [
+        "The scope of this Standard includes, but is not limited to the CAS number(s) indicated above;",
+        "any other CAS number(s) used to identify this fragrance ingredient should be considered in scope as well.",
+        "The natural contribution of Thujone is determined by the sum of the natural contributions of each of its isomers."
+      ]
     }
   },
   "materials": {
@@ -2851,14 +2971,23 @@
       "status": "no_standard",
       "standard": null,
       "aliases": [
-        "Piperonal",
-        "Heliotropal",
-        "Heliotropal (Piperonal)"
+        "Piperonal"
       ],
       "note": null,
       "cas": [
         "120-57-0"
       ]
+    },
+    "Heliotropal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Heliotropal (Piperonal)"
+      ],
+      "note": "Kenny's Heliotropal is PerfumersWorld HELIOTROPAL (SKU 6VN21924), sold under piperonal's CAS 120-57-0 but a compound, not pure piperonal. Its IFRA certificate (51st Amendment) lists coumarin 4.1584 %, benzyl benzoate 8.6634 %, anisaldehyde 3.4653 %, benzyl alcohol 1.7327 % and cinnamic alcohol 0.0347 %, with a Fine Fragrance maximum of 25 %. Those contents are counted through ifra_annex1_constituents.json. Split from the Heliotropin row on 2026-10-25.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?ifra=defaultOpen&pro_id=6VN21924",
+      "verified_on": "2026-10-25",
+      "identity_note": "It is PerfumersWorld's HELIOTROPAL compound (6VN21924), not pure piperonal; the restricted contents on its IFRA certificate are counted."
     },
     "Helvetolide": {
       "status": "no_standard",
