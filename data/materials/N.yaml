@@ -458,9 +458,10 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'Sweet, fresh citrus-rose, geranium, citral, verbena, ozone, pear note.'
   notes: null
   provenance:
+    character: 'Nerol 900 | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/nerol-900/: 3,7-Dimethylocta-2,6-dien-1-ol Olfactive Description: Sweet, fresh citrus-rose, geranium, citral, verbena, ozone, pear note. (grade A_producer; ). Second reader: IFF ''Nerol 900'' grade, CAS 106-25-2; Kenny''s Nerol grade not recorded. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -707,9 +708,10 @@
         price_usd_per_g: 0.07
   families:
   - floral materials
-  character: null
+  character: 'suggestive of orange blossom'
   notes: null
   provenance:
+    character: '2-Ethoxynaphthalene | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/2-Ethoxynaphthalene: White crystalline material, aroma suggestive of orange blossom (grade A_regulatory; ). Second reader: Nerolin Bromelia = 2-ethoxynaphthalene (beta-naphthyl ethyl ether), CAS 93-18-5. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -788,9 +790,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Elegant note of pear with fresh rose nuance and a slight watery facet.'
+  odour_family: 'floral'
   notes: null
   provenance:
+    character: 'NERYL ACETATE PURE RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/neryl-acetate-pure-rc-pe-901808: Olfactive description Elegant note of pear with fresh rose nuance and a slight watery facet. (grade A_producer; ). Second reader: CAS 141-12-8 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "floral" from ''Floral (dsm-firmenich: Olfactive family Floral, Technical Descriptors Rose, Pear; Takasago: FLORAL)'': NERYL ACETATE PURE RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/neryl-acetate-pure-rc-pe-901808: Olfactive family Floral ... Technical Descriptors Rose, Pear (grade A_producer; ). Second reader: Takasago part of the value was not checked (not the cited URL). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: '22 Oct 2026 missing-data pass: stated; raw 3.98; https://www.perflavory.com/docs/doc1033552.html'
     smiles: 'PubChem structure resolved from CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
@@ -1317,9 +1322,12 @@
   user_in_inventory: false
   supplier: null
   families: []
-  character: null
+  character: 'Spicy, rising, hot, peppery, woody'
+  odour_family: 'spice'
   notes: null
   provenance:
+    character: 'Nutmeg oil - Robertet Groupe, https://matieres-premieres.robertet.com/nutmeg-oil: Nutmeg oil Code 00021270 Botanical name Myristica fragrans ... Olfactive Family Spicy Part used Dried fruit Origin Indonesia ... Process Steam distillation Olfactive description Spicy, rising, hot, peppery, woody (grade A_producer; producer description (Robertet raw-materials catalogue, Nutmeg oil code 00021270, Myristica fragrans dried fruit, Indonesia, steam distillation); Kenny''s oil is also Indonesian (Aroma&More), but not necessarily Robertet''s). Second reader: Generic inventory ''Nutmeg EO''; CAS 8008-45-5 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "spice" from ''Spicy'': Nutmeg Oil Indonesia | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/nutmeg-oil-indonesia: SPICY | Spicy, Green (grade A_producer; producer classification (Givaudan Nutmeg Oil Indonesia; descriptors ''Spicy, Green'')). Second reader: Same origin as Kenny''s stock (Indonesia oil per inventory). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1470,9 +1478,10 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'Nympheal™ is a diffusive floral cyclamen muguet note with green, watery and linden blossom facets.'
   notes: null
   provenance:
+    character: 'Nympheal™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/nympheal: Nympheal™ is a diffusive floral cyclamen muguet note with green, watery and linden blossom facets. Nympheal™ imparts white floral watery density and brings a floral creaminess to the composition and high diffusivity. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -1562,6 +1571,8 @@
   trp_targets: null
   user_stock_dilution: neat  # user-confirmed 2026-09-06; 10% alias is historical identity only
   user_in_inventory: true
+  odour_family: 'floral'
   provenance:
+    odour_family: 'odour family "floral" from ''Floral'': Neroli Oil Egypt | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/neroli-oil-egypt: FLORAL | Fresh, Floral, Animal-like ... Capturing the essence of orange blossom in its most authentic form, neroli essential oil is one of the freshest and softest expressions of orange blossom on the perfumer’s palette. Greener, lighter and less opulent than orange blossom absolute (grade A_producer; producer classification (Givaudan Neroli Oil Egypt; descriptors ''Fresh, Floral, Animal-like'')). Second reader: Origin of stocked Neroli EO not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'SG 0.8600, supplier-reported (PerfumersWorld 7CN00318 "Neroli Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
     density_basis: supplier_sg_temperature_unstated

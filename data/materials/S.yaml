@@ -259,9 +259,10 @@
   - leather
   - tobacco
   - spice
-  character: Warm powerful saffron, leathery, tobacco and rose-ketone/woody indenone.
+  character: 'Safraleine™ has a very unique warm and vibrant character ... Safraleine™ exhibits warm, powerful, leathery and tobacco facets but its complexity also reveals characteristics of spices reminiscent of natural saffron, enriched by rose ketone-like floral aspects.'
   notes: Neat user stock. Discrete CAS 54440-17-4; supplier's 10% TEC form is a separate carrier/form and is not substituted here.
   provenance:
+    character: 'Print Page | Givaudan: Safraleine, https://www.givaudan.com/print/1314811: Safraleine™ has a very unique warm and vibrant character offering a new alternative to existing spicy ingredients. Safraleine™ exhibits warm, powerful, leathery and tobacco facets but its complexity also reveals characteristics of spices reminiscent of natural saffron, enriched by rose ketone-like floral aspects. (grade A_producer; ). Replaces unsourced text ''Warm powerful saffron, leathery, tobacco and rose-ketone/woody indenone.''. Second reader: CAS 54440-17-4 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: JECFA:54440-17-4
     mw_g_mol: JECFA:174.24
@@ -309,9 +310,12 @@
         sku: 5ES09556
         price_usd_per_g: 0.12
   families: []
-  character: null
+  character: 'Safranal has a spicy saffron-like note with herbaceous, tobacco facets and floral undertones.'
+  odour_family: 'spice'
   notes: 'log Kow not set: two estimates disagree (EPI KOWWIN v1.67 3.22, TGSC EPI page ep1016371; TGSC 2.825 est). VP not set: two estimates disagree, no measured or RIFM value (EPI 21.2 Pa mean Antoine & Grain; TGSC 0.134 mm Hg at 25 C est = 17.9 Pa). No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. 2026-10-14: PerfumersWorld sells Safranal as "Saffranal" (product page 4ES00402: CAS 116-26-7, synonyms Safranal and dehydro-beta-cyclocitral), so the owned "Saffranal 10% in DPG" stock is this entry.'
   provenance:
+    odour_family: 'odour family "spice" from ''Spicy (Olfactive Note: Spicy, Saffron, Herbaceous, Tobacco)'': Print Page | Givaudan: Safranal, https://www.givaudan.com/print/1314816: Olfactive Family Spicy | Olfactive Note Spicy Saffron Herbaceous Tobacco (grade A_producer; ). Second reader: CAS 116-26-7 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Print Page | Givaudan: Safranal, https://www.givaudan.com/print/1314816: Safranal has a spicy saffron-like note with herbaceous, tobacco facets and floral undertones. It is very useful in spicy, agrestic, tobacco, orris and woody compositions. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1220,9 +1224,10 @@
     other: {}
   families:
   - woods / amber / structure
-  character: null
+  character: 'Sandalore™, a powerful, diffusive and extremely tenacious product, imparts a rich, warm, natural sandalwood character to perfumes'
   notes: null
   provenance:
+    character: 'Sandalore™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/sandaloretm: Sandalore™, a powerful, diffusive and extremely tenacious product, imparts a rich, warm, natural sandalwood character to perfumes, as well as volume and substantivity. It is an interesting sandalwood replacement in combination with Ebanol™. (grade A_producer; ). Second reader: CAS 65113-99-7 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1335,9 +1340,10 @@
   user_in_inventory: false
   supplier: null
   families: []
-  character: null
+  character: 'Sandalwood Essential Oil is Sandalwood wood rich cashew creamy bread santal.'
   notes: null
   provenance:
+    character: 'Sandalwood Essential Oil 10% in DPG | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=5WX12225: Sandalwood Essential Oil is Sandalwood wood rich cashew creamy bread santal. ... Top Notes Balsamic ... Heart Notes Wood, Linalool ... Base Notes Wood ... CAS No. 84787-70-2*10% (grade A_producer; supplier description (PerfumersWorld 5WX12225, Kenny''s own product; its ''Odour=>'' field only says ''Dilution of Sandalwood Oil 10% in DPG'')). Second reader: Page is PerfumersWorld''s 10% DPG dilution (researcher says this is Kenny''s own product). Page CAS 84787-70-2 differs from the inventory CAS 8006-87-9; both are sandalwood oil/extract registrations, but the species behind 84787-70-2 is not stated on the page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1908,9 +1914,10 @@
   supplier: null
   families:
   - sweet / gourmand / balsamic
-  character: null
+  character: 'Benzoin resinoid is woody, vanilla-like, sweet and creamy, it smells sort of like caramel when it starts to set. In the dry down, benzoin resinoid develops interesting cinnamic notes that can last a long time.'
   notes: Current user stock is 50% w/w in DPG; exact active mass from volume requires stock-solution density.
   provenance:
+    character: 'Benzoin n°3 Resinoid Laos 50% DPG | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/benzoin-n3-resinoid-laos-50-dpg: AMBERY | Balsamic, Vanilla-like ... Benzoin resinoid is woody, vanilla-like, sweet and creamy, it smells sort of like caramel when it starts to set. In the dry down, benzoin resinoid develops interesting cinnamic notes that can last a long time. (grade A_producer; producer description (Givaudan Benzoin n°3 Resinoid Laos 50% DPG; identical text on Benzoin Powder Resinoid Laos)). Second reader: Styrax tonkinensis, CAS 9000-72-0, resinoid 50% in DPG (same carrier and strength as Kenny''s Siam Benzoin 50% w/w in DPG). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     cas: '22 Oct 2026 missing-data pass: stated; raw 9000-72-0; https://thegoodscentscompany.com/data/rs1000281.html'
@@ -1954,9 +1961,10 @@
         price_usd_per_g: 0.19
   families:
   - leather / smoky / phenolic
-  character: null
+  character: 'mothball, putrid, decayed, faecal; jasmine-like or fruity upon dilution'
   notes: Current 1% stock carrier is DPG. Fraction basis remains unspecified, so quantitative execution is held.
   provenance:
+    character: 'Skatole | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/Skatole: White scales or powder; Mothball, putrid, decayed, faecal odour, jasmine-like or fruity upon dilution (grade A_regulatory; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 6736 (https://pubchem.ncbi.nlm.nih.gov/compound/6736#section=Vapor-Pressure): "0.0055 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 0.733 Pa. The record does not state the temperature.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -3124,9 +3132,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'With its unique combination of citrus and floral notes, orange exudes a sense of sophistication and refinement that sets it apart from other citrus fruits with their bright, colourful, uplifting notes.'
+  odour_family: 'citrus'
   notes: null
   provenance:
+    character: 'Orange Pera Oil Brazil | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orange-pera-oil-brazil: CITRUS | Citrus-like, Orange-like, Peely, Fresh ... With its unique combination of citrus and floral notes, orange exudes a sense of sophistication and refinement that sets it apart from other citrus fruits with their bright, colourful, uplifting notes. (grade A_producer; producer description (Givaudan Orange Pera Oil Brazil, Citrus sinensis var. pera, cold pressed)). Second reader: Generic inventory ''Sweet Orange Essential Oil''; page is cold-pressed Citrus sinensis (pera cultivar, Brazil); CAS 8008-57-9 matches. The value is marketing prose. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "citrus" from ''Citrus'': Orange Pera Oil Brazil | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orange-pera-oil-brazil: CITRUS | Citrus-like, Orange-like, Peely, Fresh (grade A_producer; producer classification (Givaudan; descriptors ''Citrus-like, Orange-like, Peely, Fresh'')). Second reader: Same page as item Orange Peel EO. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.84200 to 0.84600; https://www.thegoodscentscompany.com/msds/md100294.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 8008-57-9; https://www.thegoodscentscompany.com/msds/md100294.html; by name (Kenny 22 Oct: use the name when the MSR CAS is not good)'
@@ -3305,7 +3316,9 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
+  character: 'Wild aroma, camphorated, and with a certain dry touch'
   provenance:
+    character: 'Spike Lavender Essential Oil from the Lavandula latifolia - Esencias Martínez Lozano, https://en.esenciaslozano.com/product/6/spike-lavender-essential-oil-lavandula-latifolia: ORGANOLEPTIC INFORMATION | Aspecto | Liquid transparent | Color | Colorless to yellow pale | Olor | Wild aroma, camphorated, and with a certain dry touch (grade A_producer; producer organoleptic statement (Esencias Martínez Lozano, Spike Lavender, Lavandula latifolia, Spain)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.884 - 0.898 (spec); batch result 0.889; https://www.madarcorporation.com/spec-sheets/essential-oil/spike-lavender/Spike%20Lavender%20-%204512405%20All%20docs.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '23 Oct 2026 third data pass: TGSC spike lavender oil, "distilled from the flowering herbs of the lavender, lavandula latifolia (syn: lavandula spica)", page titled "spike lavender oil, 8016-78-2", https://www.thegoodscentscompany.com/data/es1029951.html'
 - canonical_name: 'Sandalwood Base 3X'

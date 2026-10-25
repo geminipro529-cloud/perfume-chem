@@ -427,9 +427,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Fruity, Apple, Green, Plum (Symrise''s odour words)'
+  odour_family: 'fruity'
   notes:
   provenance:
+    odour_family: 'odour family "fruity" from ''Fruity'': Symrise product sheet: Ethyl Acetoacetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Acetoacetate.pdf: family word printed with the name: "fruity ethyl acetoacetate" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Symrise product sheet: Ethyl Acetoacetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Acetoacetate.pdf: "› Fruity, Apple, Green, Plum › recommended use level: up to 5 %" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCOC(=O)CC(C)=O (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
@@ -569,7 +572,7 @@
   hsp:
   odt_air_ppb: 0.04
   odt_eth_ppm:
-  stevens_n:
+  stevens_n: 0.42
   or_targets: []
   trp_targets:
   hedonic_valence:
@@ -583,9 +586,13 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Fruity, Raspberry, Strawberry, Berries (Symrise''s odour words)'
+  odour_family: 'fruity'
   notes:
   provenance:
+    stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Ethyl butyrate (estery) 236.29 .42 .96, .65". Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
+    character: 'Symrise product sheet: Ethyl Butyrate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Butyrate.pdf: "› Fruity, Raspberry, Strawberry, Berries › recommended use level: 0.1 – 2 %" (grade A_producer; producer/primary text, quoted). Second reader: CAS 105-54-4 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "fruity" from ''Fruity'': Symrise product sheet: Ethyl Butyrate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Butyrate.pdf: family word printed with the name: "fruity Ethyl ButyratE" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: 'MEASURED log Kow 1.71: SangsterLogP via PubChem CID 7762 Experimental Properties > LogP (ref 75), citing Abraham MH, Chadha HS, Whiting GS, Mitchell RC, J Pharm Sci 1994;83(8):1085-1100, doi:10.1002/jps.2600830806. Read 2026-10-23 from https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/7762/JSON?heading=LogP; replaces the RDKit Crippen estimate'
     logp_source: 'SangsterLogP (PubChem CID 7762): Abraham et al. 1994, J Pharm Sci 83:1085-1100'
@@ -740,9 +747,10 @@
     other: {}
   families:
   - citrus / top
-  character:
+  character: 'Ethyl Linalool has a floral, fresh, bergamot character and is sweeter and less agrestic than Linalool.'
   notes:
   provenance:
+    character: 'Ethyl Linalool | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-linalool: "Ethyl Linalool has a floral, fresh, bergamot character and is sweeter and less agrestic than Linalool. As with Linalool, it is used in a wide variety of notes for floral bouquets." Olfactive Note Floral Fresh (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: 'Molecular formula C11H20O for 3,7-dimethylnona-1,6-dien-3-ol, CAS 10339-55-6 (the CAS already cited from TGSC rw1015171); MW from IUPAC standard atomic weights = 168.28. The old 182.3 matched no formula for this CAS.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -786,8 +794,10 @@
     other: {}
   families: []
   character:
+  odour_family: 'citrus'
   notes: 'Density left null (2026-10-08). VP is the RIFM-quoted EPI Suite estimate, "Vapor Pressure: 0.0319 mm Hg (EPI Suite v4.11)" = 4.25 Pa at 133.322 Pa/mmHg; the quote states no temperature, but EPI Suite reports vapour pressure at 25 C. Other values: Givaudan 0.0487 hPa = 4.87 Pa (20 C per Perfumer''s Apprentice); TGSC rw1022781 0.026 mmHg at 25 C (est) = 3.47 Pa. The values agree within 1.4x. Givaudan log Pow "4,7" (garbled scrape); TGSC logP 4.416 (est). Density 0.898-0.901 g/mL at 20 C (Ventos), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odour_family: 'odour family "citrus" from ''Citrus'': Ethyl Linalyl Acetate | Givaudan (print page), https://www.givaudan.com/print/1314291: Olfactive Family Citrus | Olfactive Note Citrus Bergamot Fruity Pear Fresh (grade A_producer; producer/primary text, quoted). Second reader: CAS 61931-80-4 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; PerfumersWorld SDS 3LC19147 (local snapshot, batch ETH19147/26280) (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Molecular Weight: 210.31 g/mol" (PerfumersWorld SDS gives 210.32) (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
@@ -939,9 +949,10 @@
         price_usd_per_g: 0.2
   families:
   - spice / aromatic
-  character:
+  character: 'Ethyl Safranate™ is a complex diffusive spicy rose note with apple cider and spicy aspects.'
   notes:
   provenance:
+    character: 'Ethyl Safranate™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-safranate: "Ethyl Safranate™ is a complex diffusive spicy rose note with apple cider and spicy aspects. This rich and versatile ingredient is used in a wide range of fragrance types, from floral through to fruity, particularly apple." Olfactive Note Floral Rose Fruity Apple Spicy (grade A_producer; producer/primary text, quoted). Second reader: Olfactive Note Floral Rose Fruity Apple Spicy on page; CAS 35044-59-8, 35044-57-6, 35044-58-7. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
@@ -1035,9 +1046,10 @@
         price_usd_per_g: 0.07
   families:
   - sweet / gourmand / balsamic
-  character:
+  character: 'intense vanilla odour'
   notes:
   provenance:
+    character: 'Ethyl vanillin (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/776/: Physical form/odour: "colourless or slightly yellow crystal flakes with an intense vanilla odour" (grade A_regulatory; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'Supplier SDS value kept (engine/ingredient_intelligence._VERIFIED_VP, 2026-05-12 cross-check): Fisher Scientific SDS 0.00014 mmHg = 0.019 Pa (temperature not recorded); DirectPCW SDS 0.000220 mmHg at 25 C = 0.029 Pa. CONFLICT: PubChem CID 8467 HSDB (peer reviewed, citing Yaws, Handbook of Vapor Pressure Vol 3, 1994) "1.04X10-5 mm Hg at 25 °C" = 0.00139 Pa, 14x lower; TGSC estimate 0.00088 mmHg (0.117 Pa); Borregaard SDS 0.000013 Pa. Not replaced: the sources disagree by more than 10x and none of them is a primary measurement (via material-data-firecrawl/followup-20261008/F2_vapour_pressures.md)'
     kaw_eff: engine.diffusion_model
@@ -1270,7 +1282,7 @@
   hsp:
   odt_air_ppb:
   odt_eth_ppm:
-  stevens_n:
+  stevens_n: 0.46
   or_targets: []
   trp_targets:
     TRPM8: 0.0
@@ -1290,15 +1302,16 @@
     other: {}
   families:
   - spice / aromatic
-  character:
+  character: 'Aroma of cloves'
   notes:
   provenance:
+    character: 'Eugenol (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/1520: Physical form/odour: "Colourless to pale yellow liquid; Aroma of cloves" (grade A_regulatory; producer/primary text, quoted). Second reader: CAS 97-53-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 3314 (https://pubchem.ncbi.nlm.nih.gov/compound/3314#section=Vapor-Pressure): "0.0221 mm Hg at 25 °C", citing Van Roon A et al., Chemosphere 61:599-609 (2005); x 133.322 = 2.95 Pa.'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
-    stevens_n: engine.odor_thresholds
+    stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Eugenol (spicy cloves) 44.41 .46 .97,.47". Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal

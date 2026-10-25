@@ -324,9 +324,10 @@
   supplier: null
   families:
   - floral materials
-  character: null
+  character: 'A unique powerful, floral note reminiscent of magnolia blossoms.'
   notes: null
   provenance:
+    character: 'HEDIONE® HC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/hedioner-hc-pe-947325: Olfactive description A unique powerful, floral note reminiscent of magnolia blossoms. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -412,9 +413,10 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'Green, floral (cyclamen) with top notes of ozone and new mown hay.'
   notes: null
   provenance:
+    character: 'Helional® | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/helional: Olfactive Description: Green, floral (cyclamen) with top notes of ozone and new mown hay. (grade A_producer; ). Second reader: CAS 1205-17-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -464,9 +466,10 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'powdery vanillic compound with sweet flowery nuances; Helitrope, sweet, vanilla, fresh, faint narcotic floral'
   notes: null
   provenance:
+    character: 'HELIOTROPAL | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6VN21924: HELIOTROPAL is a powdery vanillic compound with sweet flowery nuances ... Odour=> Helitrope, sweet, vanilla, fresh, faint narcotic floral (grade A_producer; ). Second reader: CAS 120-57-0 (piperonal) matches inventory ''Heliotropal (Piperonal)''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -669,8 +672,10 @@
     other: {}
   families: []
   character: null
+  odour_family: 'musk'
   notes: 'VP 25 C 0.03 Pa = 0.02 Pa at 20 C (Firmenich marketing sheet, measured or estimated not stated) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol); RIFM 2023 EPI estimates 0.0436 Pa at 25 C and 0.0227 Pa at 20 C agree in magnitude. The Firmenich SDS v13 (2024) line "17.2 Pa at 20 C, method A.4" is 800x the other two and inconsistent with its own bp 282-303 C, so it is treated as a unit slip and not used. log P 4.68 (SDS, method A.8; RIFM 1994a); the marketing sheet says 5.46. Density not filled from this source set: Vigon SDS 503096 gives SG 0.94 at 25 C. Air ODT 1.7 ng/L is for the commercial product; 1.1 ng/L applies to the (+)-enantiomer only and is not used.'
   provenance:
+    odour_family: 'odour family "musk" from ''Musky (Technical Descriptors: Musky, Powdery, Ambrette, Fruity)'': HELVETOLIDE® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/helvetolider-pe-947650: Olfactive family Musky ... Technical Descriptors Musky, Powdery, Ambrette, Fruity (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'PerfumersWorld 3XD17215 supplier SDS and RIFM assessment Food Chem. Toxicol. 182 (2023) 114253, doi:10.1016/j.fct.2023.114253: CAS 141773-73-1, as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08)'
     mw_g_mol: 'PerfumersWorld 3XD17215 supplier SDS: "MW 284.43, C17H32O3", as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08)'
     odt_air_ppb: 'Armanino, Charpentier, Flachsmann, Goeke, Liniger, Kraft, Angew. Chem. Int. Ed. 2020, doi:10.1002/anie.202005719: figure label "Helvetolide ... th 1.7 ng/L air" (read from a search excerpt; full page not readable), as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08); 1.7 ng/L x 24.465 / 284.43 = 0.146 ppb at 25 C'
@@ -859,9 +864,10 @@
     other: {}
   families:
   - citrus / top
-  character: null
+  character: 'Hexyl Acetate has a fruity green note reminiscent of pear with floral facets.'
   notes: null
   provenance:
+    character: 'Hexyl Acetate | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/hexyl-acetate: Hexyl Acetate has a fruity green note reminiscent of pear with floral facets. It can be used in all type of compositions and is a very useful top note in fresh and fruity accords. (grade A_producer; ). Second reader: CAS 142-92-7 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem CID 8908 (HSDB), citing Yaws, Handbook of Vapor Pressure vol. 3 (Gulf, 1994): "1.32 mm Hg at 25 °C" x 133.322 = 176 Pa, https://pubchem.ncbi.nlm.nih.gov/compound/8908; RIFM https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/142-92-7.pdf prints "1.0 mm Hg 20 °C (FMA)" = 133 Pa at 20 °C. Replaces an unsourced 194. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     odt_air_ppb: 'Concentration-detection functions for the odor of homologous n-acetate esters, Physiol. Behav. 2008, doi 10.1016/j.physbeh.2008.09.021 (PMID 18950650): "hexyl acetate (2.9 ppb)" (air-dilution olfactometry, 3-AFC, vapour checked by GC); cross-check Nagata (2003) triangle odor bag, Table 2: "n-Hexyl acetate 0.0018" ppm v/v = 1.8 ppb, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf. Replaces an unsourced 2.0. Loaded 2026-10-25 (fruit batch)'
     odt_eth_ppm: engine.odor_thresholds
@@ -950,9 +956,10 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'Hexyl Salicylate has a floral fruity character, with a mild, sweet herbaceous slant.'
   notes: null
   provenance:
+    character: 'Print Page | Givaudan: Hexyl Salicylate, https://www.givaudan.com/print/1314426: Hexyl Salicylate has a floral fruity character, with a mild, sweet herbaceous slant. It is a very useful modifier of floral fragrances especially with Amyl Salicylate. (grade A_producer; ). Second reader: CAS 6259-76-3 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -1041,9 +1048,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Descriptor words: Woody, Sandalwood, Creamy, Powerful. "Provides a natural and fresh character."'
+  odour_family: 'woody'
   notes: 'Identity 2026-10-23: CAS 28219-60-5, 2-methyl-4-(2,2,3-trimethylcyclopent-3-en-1-yl)but-2-en-1-ol (PubChem CID 119897; CID 6438195 is the (E) isomer), confirmed on PubChem by the 2026-10-23 chem check. Maker unverified (Takasago vs Kao).'
   provenance:
+    odour_family: 'odour family "woody" from ''WOODY (descriptor words: Woody, Sandalwood, Creamy, Powerful)'': Hindinol | Takasago International Corporation, https://www.takasago.com/index.php/en/node/676: Hindinol® Woody ... WOODY SANDALWOOD CREAMY POWERFUL WOODY (grade A_producer; ). Second reader: CAS 28219-60-5 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Hindinol | Takasago International Corporation, https://www.takasago.com/index.php/en/node/676: Hindinol® Woody CAS NO.28219-60-5 Chiraroma Hindinol® WOODY SANDALWOOD CREAMY POWERFUL WOODY ... APPLICATION INFORMATION Widely used in all product applications. Provides a natural and fresh character. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.9200, supplier-reported (PerfumersWorld 4WX24656 "Hindinol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.9200; https://www.perfumersworld.com/view.php?pro_id=4WX24656; temperature as printed by source (often 20 C), not corrected to 25 C'
     density_basis: supplier_sg_temperature_unstated

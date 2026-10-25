@@ -227,9 +227,10 @@
     other: {}
   families:
   - woods / amber / structure
-  character: null
+  character: 'Woody, floral complex with amber and violet nuances. ... At high levels an aldehydic, pine needle oil effect is realized.'
   notes: null
   provenance:
+    character: 'Koavone® | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/koavone: Olfactive Description: Woody, floral complex with amber and violet nuances. A highly diffusive product that can be used to enhance amber notes. At high levels an aldehydic, pine needle oil effect is realized. (grade A_producer; ). Second reader: Page CAS list includes 81786-73-4. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds

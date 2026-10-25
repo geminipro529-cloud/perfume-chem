@@ -295,9 +295,10 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Fir Essential Oil is fresh balsam woody fir needle. ... fresh firneedle pineneedle balsam woody'
   notes:
   provenance:
+    character: 'Fir Essential Oil | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=7KG07758: Fir Essential Oil is fresh balsam woody fir needle. ... The odour and uses of Fir Essential Oil: fresh firneedle pineneedle balsam woody Outdoors Types Pine Herbal Air Fresheners Fern ... Heart Notes Konifer, Herb, Wood ... CAS No. 8021-28-1 (grade A_producer; supplier description (PerfumersWorld 7KG07758, named as Kenny''s SKU in 04_descriptions.md; species not stated, CAS 8021-28-1). Usage words after ''woody'' left out.). Second reader: rank 0 (Givaudan Pine Siberian Oil): wrong_material; text is on the page but it is Abies sibirica, CAS 8021-29-2, while Kenny''s Fir Essential Oil is CAS 8021-28-1 (data/materials/F.yaml, PerfumersWorld 7KG07758). rank 1 passes. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'PW 7KG07758 product page; species not stated (PW COA calls it a proprietary compound)'
     density_25c_g_ml: 'PW 7KG07758 page specific gravity 0.8750 (temperature not printed), as printed'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -589,12 +590,10 @@
   families:
   - floral materials
   - muguet
-  character:
-    floral: 8
-    green: 6
-    freshness: 7
+  character: 'Florhydral has a very floral, fresh, natural odour (such as lily of the valley, hyacinth...).'
   notes: Floral, green, muguet, fresh, powerful; lily-of-the-valley and hyacinth direction.
   provenance:
+    character: 'Florhydral™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm: Florhydral™ has a very floral, fresh, natural odour (such as lily of the valley, hyacinth...). Its great intensity and pleasant quality make it useful in all areas of perfumery. (grade A_producer; ). Replaces unsourced text {''floral'': 8, ''green'': 6, ''freshness'': 7}. Second reader: CAS 125109-85-5 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     identity: https://www.simplescentsdiy.com/product/35447-34947/florhydral
     cas: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
     mw_g_mol: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
@@ -997,9 +996,12 @@
         sku: 5ON09236
         price_usd_per_g: 2.02
   families: []
-  character:
+  character: 'floral natural frangipani heavy sweet orangeflower gardenia'
+  odour_family: 'floral'
   notes:
   provenance:
+    character: 'Frangipani Absolute | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=8ON00534: Frangipani Absolute is floral natural frangipani heavy sweet orangeflower gardenia muguet lily-of-the-valley fleur-d-oranger orchid. ... Odour=> floral natural frangipani heavy sweet orangeflower gardenia (grade A_producer; supplier description (PerfumersWorld neat 8ON00534; PW''s ''Odour=>'' line)). Second reader: CAS 94350-02-4 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "floral" from ''Floral'': Frangipani Absolute | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=8ON00534: Odour=> floral natural frangipani heavy sweet orangeflower gardenia ... Heart Notes Narcotic, Orchid, Muguet, Citrus, Wood (grade A_producer; derived from the quoted description (''floral ... heavy sweet orangeflower gardenia''; PW note profile Heart ''Narcotic, Orchid, Muguet, Citrus, Wood'')). Second reader: ''floral'' in the Odour line supports the family Floral. Page is the neat absolute; Kenny''s stock is the 10% DPG SKU 5ON09236. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.96 to 0.97; https://herbaroma-trade.com/supplier-post/frangipani-absolute/; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 94350-02-4; '
@@ -1306,9 +1308,12 @@
   supplier:
   families:
   - floral materials
-  character:
+  character: 'Floral green fresh Freesia-like.'
+  odour_family: 'floral'
   notes:
   provenance:
+    odour_family: 'odour family "floral" from ''floral (derived from the quoted description)'': Freesia HDL | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6LC07501: Freesia HDL is Floral green fresh Freesia-like. (grade A_producer; ). Second reader: Description ''Floral green fresh Freesia-like'' supports ''floral''. Page product is spelled ''Freesia HDL'' (PerfumersWorld base, CAS ''Mixture''); inventory says ''Freesia HDI'', presumably the same base with an I/L typo; please confirm the SKU. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Freesia HDL | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6LC07501: Freesia HDL is Floral green fresh Freesia-like. ... Odour=> Floral green frsh Freesia like (grade A_producer; ). Second reader: Value is verbatim on the page, but the page product is ''Freesia HDL'' (PerfumersWorld 6LC07501); the identity reads ''Freesia HDI''. Likely the same base (I/L), but data/governance/inventory_supplier_document_census_20260830.json records ''NO_EXACT_PW_MATCH'' for Freesia HDI and no other ''Freesia HDI'' product was found by search. Identity link is assumed, not proven. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
@@ -1500,8 +1505,10 @@
     other: {}
   families: []
   character:
+  odour_family: 'fruity'
   notes: 'Fructone B is ethyl 2,4-dimethyl-1,3-dioxolane-2-acetate (the propylene glycol ketal, Fraistone, CAS 6290-17-1), not IFF Fructone (6413-10-1). Corrected 23 Oct 2026 from the PW product page and the RIFM assessment; the earlier values were Fructone data. RIFM: IFRA standard None.'
   provenance:
+    odour_family: 'odour family "fruity" from ''FRUITY (Takasago; descriptor words Fruity, Apple, Strawberry, Sweet)'': Dimethyl Dioxolan | Takasago International Corporation, https://www.takasago.com/en/node/671: Dimethyl Dioxolan Fruity CAS NO.6290-17-1 ... FRUITY APPLE STRAWBERRY SWEET FRUITY ... Ethyl 2-(2,4-dimethyl-1,3-dioxolan-2-yl)acetate (grade A_producer; ). Second reader: CAS 6290-17-1 matches data/materials/F.yaml ''Fructone B''. The ethyl 2-(2,4-dimethyl-1,3-dioxolan-2-yl)acetate name from the quote was not in the excerpt read. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '23 Oct 2026 source check: Kenny''s bottle (PW 3FG00196) is the propylene glycol ketal, not Fructone; PW page: ''CAS No. 6290-17-1'', ''Ethyl acetoacetate propyleneglycol ketal : Dimethyldioxolan : Fraistone''; https://www.perfumersworld.com/view.php?pro_id=3FG00196; RIFM assessment ''CAS Registry Number: 6290-17-1'' https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
     mw_g_mol: 'RIFM assessment 6290-17-1: ''Molecular Weight: 188.22'' (C9H16O4); https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'

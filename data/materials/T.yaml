@@ -2724,9 +2724,10 @@
     other: {}
   families:
   - woods / amber / structure
-  character:
+  character: 'Woody, Wood-Amber, Cedar Wood, Ambergris; imparts a substantive woody-ambery characteristic'
   notes: 'Same molecule as Norlimbanol (CAS 70788-30-6). VP 0.194 Pa at 25 C measured by OECD 104 (Firmenich Norlimbanol SDS v13, 2024) replaces the Vigon Timberol SDS figure 0.0005 mmHg at 25 C = 0.067 Pa (method not stated); log Kow 5.59-5.79 (OECD 123), midpoint 5.7.'
   provenance:
+    character: 'Timberol (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Timberol.pdf: › imparts a substantive woody-ambery characteristic ... › Woody, Wood-Amber, Cedar Wood, Ambergris (grade A_producer; ). Second reader: CAS 70788-30-6 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: Vigon Timberol SDS rev. 2018-04-12
     vp_25c_pa: 'Firmenich Norlimbanol SDS v13 (2024) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/967412_NORLIMBANOL__SDS_NZ_EN.pdf: 0.194 Pa at 25 C, OECD 104; earlier value Vigon Timberol SDS rev. 2018-04-12, 0.0005 mmHg at 25 C = 0.067 Pa, method not stated; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
@@ -2777,9 +2778,10 @@
         sku: 5TH13846
         price_usd_per_g: 1.33
   families: []
-  character:
+  character: 'Tobacco Absolute has a rich natural cured Tobacco odour'
   notes:
   provenance:
+    character: 'Tobacco Absolute | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=8TH08212: Tobacco Absolute has a rich natural cured Tobacco odour useful in mens fragrances ... The odour and uses of Tobacco Absolute: Tobacco : herbal : green : earthy : hay : rich (grade A_producer; supplier description (PerfumersWorld neat 8TH08212; odour line ''Tobacco : herbal : green : earthy : hay : rich''); the usage clause after ''odour'' is left out). Second reader: CAS 8037-19-2 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '22 Oct 2026 missing-data pass: stated; raw 8037-19-2; https://thegoodscentscompany.com/data/ab1029151.html'
 - canonical_name: Tobacco F-TEC
@@ -3512,9 +3514,12 @@
         price_usd_per_g: 0.06
   families:
   - green / fresh / marine
-  character:
+  character: 'Triplal has a harsh, herbal, leafy green, somewhat pine tree-like aroma. Odour: dark green, leafy notes, rose lilac, industrial; in its undiluted form it can smell harsh, but at lower levels it can be used to produce a pleasant green, forest aroma'
+  odour_family: 'green'
   notes:
   provenance:
+    odour_family: 'odour family "green" from ''Green (Olfactive Note: Green, Leafy, Floral, Powerful)'': Cyclal C | Givaudan (print page), https://www.givaudan.com/print/1314216: Cyclal C ... Olfactive Family Green | Olfactive Note Green Leafy Floral Powerful ... CAS no. 68039-49-6, 27939-60-2 (grade A_producer; ). Second reader: Page is Givaudan Cyclal C, not IFF Triplal, but same molecule: CAS 68039-49-6 equals the inventory CAS. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Triplal | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=4GH00450: Triplal has a harsh, herbal, leafy green, somewhat pine tree-like aroma. ... Odour=> dark green, leafy notes, rose lilac, industrial; in its undiluted form it can smell harsh, but at lower levels it can be used to produce a pleasant green, forest aroma (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -3931,9 +3936,10 @@
   families:
   - gourmand
   - specialty base
-  character:
+  character: 'Tonkarome has an intense and powerful tonka bean note, developing powdery, sweet tobacco and almond facets.'
   notes:
   provenance:
+    character: 'Tonkarome (Synarome technical sheet), https://synarome.com/wp-content/uploads/2025/04/Tonkarome.pdf: Odor description Tonkarome has an intense and powerful tonka bean note, developing powdery, sweet tobacco and almond facets. (grade A_producer; ). Second reader: Synarome producer sheet; Kenny''s stock is 20% w/w in TEC. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: pubchem (estimated)
     vp_25c_pa: estimated
     odt_air_ppb: estimated
@@ -4015,9 +4021,10 @@
   families:
   - floral
   - natural
-  character:
+  character: 'An incredibly rich, heavy, and narcotic floral scent. It is multi-faceted, featuring sweet honey and creamy-buttery nuances, with subtle green-medicinal and spicy-balsamic undertones.'
   notes:
   provenance:
+    character: 'Tuberose Absolute | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=8ND00451: An incredibly rich, heavy, and narcotic floral scent. It is multi-faceted, featuring sweet honey and creamy-buttery nuances, with subtle green-medicinal and spicy-balsamic undertones. (grade A_producer; supplier description (PerfumersWorld 8ND00451, neat absolute)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: pubchem (estimated)
     vp_25c_pa: estimated
     odt_air_ppb: estimated
@@ -4094,7 +4101,9 @@
   trp_targets: null
   user_stock_dilution: 10.0
   user_in_inventory: true
+  character: 'Tagetes oil has a fruity, green scent with herbaceous and floral undertones. It reveals vibrant, fruity nuances of apple and juicy apricot with subtle accents of tropical mango.'
   provenance:
+    character: 'Tagetes Oil Extra | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/tagetes-oil-extra: FRUITY | Fruity, Green, Floral, Fresh ... Tagetes oil has a fruity, green scent with herbaceous and floral undertones. It reveals vibrant, fruity nuances of apple and juicy apricot with subtle accents of tropical mango. (grade A_producer; producer description (Givaudan Tagetes Oil Extra, Madagascar/South Africa)). Second reader: Species matches the inventory note (Tagetes minuta). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.860 - 0.900 (spec); batch result 0.877; https://lazenskakava.s24.cdn-upgates.com/5/567503c28cf917-867503c28cf3c9.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
 
 - canonical_name: Tuberose Absolute (volume grade)
@@ -4148,6 +4157,9 @@
   user_stock_dilution: 10.0
   user_in_inventory: true
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
+  character: 'Tonka Bean Absolute has a strong, indulgent fragrance with powdery, almond and vanilla notes. These gourmand notes are nuanced by dry, woody and tobacco facets.'
+  provenance:
+    character: 'Tonka Bean Absolute Brazil | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/tonka-bean-absolute-brazil: GOURMAND | Honey-like, Powdery, Gourmand, Vanilla-like ... Tonka Bean Absolute has a strong, indulgent fragrance with powdery, almond and vanilla notes. These gourmand notes are nuanced by dry, woody and tobacco facets. (grade A_producer; producer description (Givaudan Tonka Bean Absolute Brazil)). Second reader: Dipteryx odorata, absolute; neat, Kenny''s stock is 10% w/w in DPG. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: 'Tuberlia Base'
   aliases: ['tuberlia base']
   cas: None

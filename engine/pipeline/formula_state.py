@@ -31,7 +31,7 @@ from engine.material_resolver import (
 )
 from engine.mixer.prebonding import get_functional_groups
 from engine.odor_thresholds import lookup_odt_entry, verify_odt
-from engine.perception.oav import oav, perceived_intensity_stevens
+from engine.perception.oav import oav, perceived_intensity_stevens, sourced_stevens_n
 from engine.pipeline.natural_absolute_decomposition import (
     NaturalCompositeHeadspace,
     NaturalCompositeMetadata,
@@ -672,7 +672,13 @@ class FormulaState:
                 # Their bulk MW/VP is not a defensible odor authority proxy.
                 oav_value = None
             intensity = (
-                perceived_intensity_stevens(oav_value, m.family) if oav_value is not None else None
+                perceived_intensity_stevens(
+                    oav_value,
+                    m.family,
+                    exponent=sourced_stevens_n(resolve_material(m.name).registry_material),
+                )
+                if oav_value is not None
+                else None
             )
             screening_headspace_available = composite_result is not None or (
                 not requires_composite and m.vp_pure_pa is not None
@@ -1485,9 +1491,14 @@ def _build_formula_state_cached(
             # Unsupported naturals and opaque preblends must fail closed.
             # Their bulk MW/VP is not a defensible odor authority proxy.
             oav_value = None
-        family = getattr(profile, "or_family", None) if profile else None
+        # A sourced family on the data-spine record comes before the profile's.
+        family = getattr(reg_mat, "odour_family", None) or (
+            getattr(profile, "or_family", None) if profile else None
+        )
         intensity = (
-            perceived_intensity_stevens(oav_value, family) if oav_value is not None else None
+            perceived_intensity_stevens(oav_value, family, exponent=sourced_stevens_n(reg_mat))
+            if oav_value is not None
+            else None
         )
         screening_headspace_available = composite_result is not None or (
             not requires_composite and vp is not None

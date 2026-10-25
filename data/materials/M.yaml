@@ -423,8 +423,10 @@
     other: {}
   families: []
   character:
+  odour_family: 'floral'
   notes: 'logP, VP and density left null (2026-10-08). logP: RIFM fragrance ingredient safety assessment, Magnolan, CAS 27606-09-3, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568 quotes "2.67 (EPI Suite), 2.43 and 2.90 for isomer 1 and 2, respectively, at 22.8 C (RIFM, 2014d)"; Magnolan is an isomer mixture with two measured values and unknown isomer ratio, so no single value was chosen. VP: only TGSC rw1007991 0.003 mmHg at 25 C (est) = 0.40 Pa. Density 1.086-1.090 g/mL at 20 C (Ventos, https://www.ventos.com/index.php/en/producto/5104), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odour_family: 'odour family "floral" from ''Floral'': Magnolan (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Magnolan.pdf: Chemical Structure Floral Magnolan® (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); RIFM fragrance ingredient safety assessment, Magnolan, CAS 27606-09-3, Food Chem. Toxicol. 130 Suppl 1 (2019) 110568, doi:10.1016/j.fct.2019.110568 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     mw_g_mol: 'PerfumersWorld SDS 3MN13569 (local snapshot, batch MAG13569/26280); MW 204.27, C13H16O2 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
@@ -769,8 +771,10 @@
         price_usd_per_g: 0.1
   families: []
   character:
+  odour_family: 'gourmand'
   notes: 'ChemicalBook log P 2.3 at 25 C disagrees with the measured 0.09 and is not used. VP not set: EPI Modified Grain estimate 0.00571 Pa at 25 C vs ChemicalBook 0.15 Pa at 24 C (26x apart, neither measured at 25 C). No air ODT found (Leffingwell 35000 ppb has no stated medium). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
+    odour_family: 'odour family "gourmand" from ''gourmand / caramellic (derived from the quoted description)'': Maltol | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/Maltol: Caramel-butterscotch aroma (grade A_regulatory; derived from the quoted description (no producer family found)). Second reader: Family ''gourmand / caramellic'' supported by the quoted JECFA description. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1036,8 +1040,10 @@
     other: {}
   families: []
   character:
+  odour_family: 'fruity'
   notes: 'logP, VP and density left null (2026-10-08). logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 2.667 (est)"; "Vapor Pressure: 2.906000 mmHg @ 25.00 C. (est)" = 387 Pa at 133.322 Pa/mmHg (https://www.perflavory.com/docs/doc1006801.html). Parchem "Specific gravity 0.861-0.865" has no stated temperature. Identity: ethyl 2-methylpentanoate (Givaudan). Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odour_family: 'odour family "fruity" from ''Fruity (Olfactive Note: Fruity, Apple, Pineapple)'': Manzanate | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate: Olfactive family: "Fruity"; Olfactive note: "Fruity", "Apple", "Pineapple" (grade A_producer; ). Second reader: CAS 39255-32-8 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'Givaudan SA, US 12,340,876 B2 (2025), Table 1 (HS ug/l, odor value = HS / odour threshold), https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876: "ethyl 2-methylpentanoate (MANZANATE) 18995 II 62586532"; 18995 / 62586532 = 0.3035 ng/L x 24.45 / 144.21 = 0.0515 ppb (producer measurement). Loaded 2026-10-25 (fruit batch)'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://scentspiracy.com/fragrance-ingredients/p/manzanate and https://www.parchem.com/chemical-supplier-distributor/ethyl-2-methylpentanoate-manzanate-022982; "CAS No.: 39255-32-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
@@ -1143,6 +1149,7 @@
         price_usd_per_g: 0.8
   families: []
   character:
+  odour_family: 'aromatic'
   notes: 'Composition held (25 Oct 2026). PW 8HE00557 declares only methyl heptadienone
     (CAS 1604-28-0) 0.2256%; its SDS has "No composition data available", SG is a 0.0000
     placeholder and the absolute is a hard solid. No published mate absolute GC was found:
@@ -1150,6 +1157,7 @@
     caffeine, with volatiles 3.2% of the extract, and the mate leaf oil and infusion papers
     are other products.'
   provenance:
+    odour_family: 'odour family "aromatic" from ''Aromatic'': Firmenich Perfumery Ingredients 2020 catalogue leaflet (PDF), https://www.firmenich.com/sites/default/files/Catalogue_leaflet_Perfumery_Ingredients_2020.pdf: AROMATIC ... 957218 MATE ABS CTX ... 957163 MATE ABS DECOL CTX (grade A_producer; producer classification (dsm-firmenich 2020 catalogue lists its MATE ABS CTX 957218 and MATE ABS DECOL CTX 957163 under BASES/NATURALS > AROMATIC; studio product pages for these codes returned 404)). Second reader: Firmenich 2020 catalogue lists two mate absolutes under the AROMATIC heading. It is a heading listing only, with no CAS or description, and ''CTX'' is not explained. Inventory ''Mate Absolute'' is generic. Note: Robertet (rank 2, not checked since rank 0 passed) classes mate absolute as ''Tobacco'' per the researcher. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '22 Oct 2026 missing-data pass: stated; raw 68916-96-1; '
     notes: 'https://www.perfumersworld.com/document-list.php?pro_id=8HE00557 and https://patents.google.com/patent/US9434908B2/en,
@@ -1188,9 +1196,10 @@
     other: {}
   families:
   - floral materials
-  character:
+  character: 'A fresh, soft, and clean floral aroma reminiscent of delicate white petals and the blossoms of various flowers such as muguet, cyclamen, magnolia and tuberose, with slightly spicy aldehydic undertones.'
   notes:
   provenance:
+    character: 'MAYOL® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/mayolr-pe-957230: Olfactive description A fresh, soft, and clean floral aroma reminiscent of delicate white petals and the blossoms of various flowers such as muguet, cyclamen, magnolia and tuberose, with slightly spicy aldehydic undertones. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
@@ -1313,9 +1322,10 @@
         price_usd_per_g: 0.14
   families:
   - spice / aromatic
-  character:
+  character: 'Melonal offers a powerful and unique note ... natural smelling marine and fruity-melon notes. (Olfactive Note: Green, Melon, Cucumber, Powerful)'
   notes:
   provenance:
+    character: 'Melonal | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/melonal: Olfactive Note Green Melon Cucumber Powerful. Melonal offers a powerful and unique note. It is effective in all types of fragrances and is invaluable in the creation of natural smelling marine and fruity-melon notes. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: 'RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-72-9.pdf: "log Pow = 3.4 (RIFM, 2000a), 3.04 (EPI Suite 4.0)", measured. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     mw_g_mol: ECHA identity record for CAS 106-72-9
     vp_25c_pa: OECD 104 value reported in EU SDS, 239 Pa at 25 C
@@ -1517,9 +1527,10 @@
         price_usd_per_g: 0.04
   families:
   - floral materials
-  character:
+  character: 'Olfactive Note: Floral, Neroli, Sweet, Warm. "Methyl Anthranilate Extra imparts warmth, volume and sweetness"'
   notes:
   provenance:
+    character: 'Methyl Anthranilate Extra | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-anthranilate-extra: Olfactive Note Floral Neroli Sweet Warm. Methyl Anthranilate Extra is extensively used in many types of floral blends such as neroli and orange blossom, as well as in exotic compositions, gardenia, tuberose and jasmine, Methyl Anthranilate Extra imparts warmth, volume and sweetness and is used in all types of perfumery. (grade A_producer; ). Second reader: CAS 134-20-3 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8635 (https://pubchem.ncbi.nlm.nih.gov/compound/8635#section=Vapor-Pressure): "2.71X10-2 mm Hg at 25 °C /Extrapolated/", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 3.61 Pa. Extrapolated from measured data.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1690,8 +1701,10 @@
     other: {}
   families: []
   character:
+  odour_family: 'spice'
   notes: 'logP and VP left null (2026-10-08). CAS: TGSC gives "5595-79-9"; the 5595-79-6 in an earlier task brief fails the CAS check digit, so it is treated as a typo, not a second source. logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 1.571 (est)"; "Vapor Pressure: 0.003000 mmHg @ 25.00 C. (est)" = 0.400 Pa at 133.322 Pa/mmHg. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
   provenance:
+    odour_family: 'odour family "spice" from ''Spicy (Olfactive Note: Spicy, Carnation, Vanilla, Sweet)'': Methyl Diantilis™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-diantilistm: Olfactive Family Spicy | Olfactive Note Spicy Carnation Vanilla Sweet (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1009761.html; "CAS Number: 5595-79-9", synonyms "dianthus ethone", "methyl diantilis (Givaudan)"; check digit valid (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1009761.html; "Molecular Weight: 182.21918000", calculated from C10H14O3 (2-ethoxy-4-(methoxymethyl)phenol) (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
@@ -1914,9 +1927,10 @@
     other: {}
   families:
   - spice / aromatic
-  character:
+  character: 'citrus, fatty, rue-like'
   notes:
   provenance:
+    character: '2-Undecanone | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/2-Undecanone: colourless to pale yellow liquid with a citrus, fatty, rue-like odour (grade A_regulatory; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8163, 2-undecanone (https://pubchem.ncbi.nlm.nih.gov/compound/8163#section=Vapor-Pressure): "4.1X10-2 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 5.47 Pa. The record does not state the temperature.'
     mw_g_mol: engine.skin_interaction
     logp: engine.skin_interaction
@@ -2083,7 +2097,7 @@
   hsp:
   odt_air_ppb:
   odt_eth_ppm:
-  stevens_n:
+  stevens_n: 0.46
   or_targets: []
   trp_targets:
   hedonic_valence:
@@ -2107,7 +2121,7 @@
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
-    stevens_n: engine.odor_thresholds
+    stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Methyl salicylate (oil of wintergreen) 24.18 .46 .92, .22". Liquid values 0.21 (Doty 1975) and 0.20 (Berglund 1971) not used. Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 119-36-8 (https://www.thegoodscentscompany.com/data/rw1008471.html)'
@@ -2970,7 +2984,9 @@
   trp_targets: null
   user_stock_dilution: 10.0
   user_in_inventory: true
+  character: 'Green, floral, powdery and slightly fruity.'
   provenance:
+    character: 'MIMOSA ABS | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/mimosa-abs-pe-960019: Olfactive family Floral ... Technical Descriptors Mimosa, Powdery, Violet Leaf Olfactive description Green, floral, powdery and slightly fruity. (grade A_producer; producer description (dsm-firmenich MIMOSA ABS 960019)). Second reader: Page shows no botanical name or CAS. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 1.1045; https://www.thegoodscentscompany.com/data/ab1661001.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Methyl Laitone
   aliases: [methyl laitone]

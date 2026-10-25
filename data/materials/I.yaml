@@ -346,9 +346,10 @@
         price_usd_per_g: 0.1
   families:
   - floral materials
-  character:
+  character: 'unpleasant at high concentration, becoming floral at higher dilutions'
   notes:
   provenance:
+    character: 'Indole | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/Indole: White lustrous, flakey crystalline solid; Unpleasant odour at high concentration, odour becomes floral at higher dilutions (grade A_regulatory; ). Second reader: PubChem reproduces the JECFA text; value is a fair paraphrase of that sentence (''unpleasant at high concentration, becoming floral at higher dilutions''). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 798 (https://pubchem.ncbi.nlm.nih.gov/compound/798#section=Vapor-Pressure): "0.0122 mm Hg at 25 °C", citing Yaws CL, Handbook of Vapor Pressure Vol. 3 (Gulf, 1994); x 133.322 = 1.63 Pa.'
     kaw_eff: engine.diffusion_model
@@ -546,9 +547,10 @@
     other: {}
   families:
   - iris / violet
-  character:
+  character: 'orris-like note with fruity, herbal and fresh nuances'
   notes:
   provenance:
+    character: 'IROTYL | Kao Chemicals (fragrances and aromas), https://chemical.kao.com/global/fragrances-and-aromas/products/irotyl: IROTYL ® features orris-like note with fruity, herbal and fresh nuances. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -963,9 +965,10 @@
     other: {}
   families:
   - spice / aromatic
-  character:
+  character: 'Spicy, floral, carnation, sweet'
   notes:
   provenance:
+    character: 'Iso Eugenol | Robertet raw materials, https://matieres-premieres.robertet.com/iso-eugenol: Olfactive description Spicy, floral, carnation, sweet (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 853433 (https://pubchem.ncbi.nlm.nih.gov/compound/853433#section=Vapor-Pressure): "0.0135 mm Hg at 25 /extrapolated/", citing the NIST Chemistry WebBook (97-54-1); x 133.322 = 1.80 Pa. Extrapolated from measured data, not measured at 25 C. CAMEO (NTP 1992) gives "0.02 mmHg at 77 °F" = 2.67 Pa.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1260,5 +1263,7 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  character: 'Isobutavan has a sweet and creamy vanillic character reminiscent of white chocolate, cream soda with a soft apricot feeling. It is less powdery than vanillin and has a more creamy effect.'
   provenance:
+    character: 'Print Page | Givaudan: Isobutavan, https://www.givaudan.com/print/1314451: Isobutavan has a sweet and creamy vanillic character reminiscent of white chocolate, cream soda with a soft apricot feeling. Isobutavan is much less discolouring than vanillin ... It is less powdery than vanillin and has a more creamy effect. (grade A_producer; ). Second reader: Both value sentences verbatim on the page (one sentence between them omitted in the value). Page family: Gourmand. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1024071.html (vanillyl isobutyrate, CAS 20665-85-4): "Specific Gravity: 1.13200 to 1.14000 @ 25.00 °C."; midpoint 1.136 x 0.99705 g/mL (water at 25 C) = 1.1326; conflict: PerfumersWorld https://www.perfumersworld.com/view.php?pro_id=4VV16856 lists SG 1.1000 (no temperature) (via material-data-firecrawl/allgaps/D1_density_cas.csv)'

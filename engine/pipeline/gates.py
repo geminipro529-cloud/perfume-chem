@@ -2189,8 +2189,15 @@ def _gate_namesake(formula: Mapping, state: FormulaState) -> GateResult:
         share = 100.0 * float(material.active_ul) / total if total > 0 else 0.0
         identity, own = _namesake_own_text(_namesake_identity_names(material))
         identity_terms = set(_namesake_terms(identity))
+        # A phrase in the material's own name sets what it is: Violet Leaf Absolute's
+        # descriptor saying "violet" is a facet of the leaf, not a violet note.
+        not_own = {
+            term.split()[0] for term in identity_terms
+            if tuple(term.split()) in _NAMESAKE_PHRASES
+            and term.split()[0] not in _NAMESAKE_PHRASES[tuple(term.split())]
+        }
         own_forms: set[str] = set()
-        for term in identity_terms | set(_namesake_terms(own)):
+        for term in identity_terms | (set(_namesake_terms(own)) - not_own):
             own_forms |= _namesake_forms(term)
         for token in identity_terms & set(_NAMESAKE_TRADE_NAMES):
             for word in _NAMESAKE_TRADE_NAMES[token]:

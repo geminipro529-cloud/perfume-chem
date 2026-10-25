@@ -180,9 +180,10 @@
     other: {}
   families:
   - iris / violet
-  character:
+  character: 'Flowery, Orris, Violet powdery woody, very typical of the Iris family with a strong Orris root character; the most floral and rich of all qualities of methyl ionone with a strong orris, violet character and only a slight fruity nuance'
   notes:
   provenance:
+    character: 'Ultralia | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6II13551: Luxury Methyl Ionone base with natural flowery Iris nuances. ... Flowery, Orris, Violet powdery woody, very typical of the Iris family with a strong Orris root character. The most floral and rich of all qualities of methyl ionone with a strong orris, violet character and only a slight fruity nuance. (grade A_producer; ). Second reader: CAS No. 1335-46-2 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: 'C14H22O (methyl ionone, CAS 1335-46-2) from standard atomic weights = 206.33; TGSC rw1006171 gives 206.32854'
     vp_25c_pa: 'ESTIMATE, not measured: RIFM safety assessment, Api et al., Food Chem Toxicol 134 (2019) 110716, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf: "0.00613 mm Hg @ 25 °C (EPI Suite)" = 0.817 Pa; same line gives 0.005 mm Hg at 20 °C (FMA Database); replaces an unsourced 0.002 Pa (via material-data-firecrawl/followup-20261008/F5_vp_irotyl_vetival_ultralia.md)'
     kaw_eff: engine.diffusion_model
@@ -231,9 +232,10 @@
     other: {}
   families:
   - green / fresh / marine
-  character:
+  character: 'It has a powerful green-floral character, somewhat related to lily-of-the-valley, with natural, fresh, fruity violet leaf and linden-blossom aspects.'
   notes:
   provenance:
+    character: 'Print Page | Givaudan: Undecavertol, https://www.givaudan.com/print/1314916: Undecavertol was developed in connection with structural elucidation work on unknown trace components of lily of the valley. It has a powerful green-floral character, somewhat related to lily-of-the-valley, with natural, fresh, fruity violet leaf and linden-blossom aspects. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

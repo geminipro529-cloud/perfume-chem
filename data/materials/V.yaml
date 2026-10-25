@@ -153,9 +153,12 @@
         sku: 5VW08955
         price_usd_per_g: 2.55
   families: []
-  character:
+  character: 'Vanilla absolute is rich, sweet, creamy, woody and spicy, with facets of leather, caramel and tobacco.'
+  odour_family: 'gourmand'
   notes:
   provenance:
+    character: 'Vanilla Absolute Madagascar | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/vanilla-absolute-madagascar: GOURMAND | Gourmand, Vanilla-like, Woody, Cocoa ... Vanilla absolute is rich, sweet, creamy, woody and spicy, with facets of leather, caramel and tobacco. (grade A_producer; producer description (Givaudan Vanilla Absolute Madagascar)). Second reader: Generic inventory ''Vanilla Absolute''; CAS 8024-06-4 matches. The ''GOURMAND | ...'' family line was not in the part of the page I was shown; the description sentence is verbatim. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "gourmand" from ''Gourmand'': Vanilla Absolute Madagascar | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/vanilla-absolute-madagascar: GOURMAND | Gourmand, Vanilla-like, Woody, Cocoa (grade A_producer; producer classification (Givaudan; dsm-firmenich 2020 catalogue also lists VANILLA PLANIFOLIA ABS under GOURMAND)). Second reader: dsm-firmenich 2020 catalogue part of the value was not checked (no URL given). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 1.0800, supplier-reported (PerfumersWorld 8VW08619 "Vanilla Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 23 Oct 2026 third data pass: PerfumersWorld 8VW08619 "Specific Gravity 1.0800" ("viscous liquid to solid"), https://www.perfumersworld.com/view.php?pro_id=8VW08619; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle); supplier value preferred over the TGSC 1.02'
     density_basis: supplier_sg_temperature_unstated
@@ -180,7 +183,7 @@
   hsp:
   odt_air_ppb:
   odt_eth_ppm:
-  stevens_n:
+  stevens_n: 0.35
   or_targets: []
   trp_targets:
     TRPM8: 0.0
@@ -212,7 +215,7 @@
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
-    stevens_n: engine.odor_thresholds
+    stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Vanihin [vanillin] (vanilla) 15.33 .35 .76, .28" (OCR spelling). Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
@@ -258,8 +261,10 @@
     other: {}
   families: []
   character:
+  odour_family: 'fruity'
   notes: 'VP left null (2026-10-08): 40x conflict and no 25 C measurement. RIFM 2017 quotes "0.00938 mm Hg @ 20 C (US EPA, 2012a), 0.4 mm Hg @20C [FMA Database], 0.0163 mm Hg @ 25 C (US EPA, 2012a)" = 1.25 Pa (20 C, est), 53.3 Pa (20 C, basis unstated), 2.17 Pa (25 C, est) at 133.322 Pa/mmHg; Vigon SDS 502847 also gives 0.4 mmHg at 20 C; TGSC rw1000241 0.026 mmHg at 25 C (est) = 3.47 Pa. TGSC logP 4.164 (est). No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa null -> 2.17.'
   provenance:
+    odour_family: 'odour family "fruity" from ''Fruity (Technical Descriptors: Peach, Lactonic Fruits, Celery)'': VELOUTONE® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/veloutoner-pe-990257: Olfactive family Fruity ... Technical Descriptors Peach, Lactonic Fruits, Celery (grade A_producer; ). Second reader: CAS 65443-14-3 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'PerfumersWorld SDS 3LH00459 (local snapshot, batch VEL00459/26280); RIFM fragrance ingredient safety assessment, Veloutone, CAS 65443-14-3, Food Chem. Toxicol. 110 Suppl 1 (2017) S662-S669, doi:10.1016/j.fct.2017.10.009 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     mw_g_mol: 'PerfumersWorld SDS 3LH00459 (local snapshot, batch VEL00459/26280); MW 196.33, C13H24O (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
@@ -299,9 +304,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Velvione™ is powerful powdery macrocyclic musk with some nitro-musk aspects.'
+  odour_family: 'musk'
   notes:
   provenance:
+    odour_family: 'odour family "musk" from ''Musky (Olfactive Note: Musky, Powdery, Animalic)'': Print Page | Givaudan: Velvione, https://www.givaudan.com/print/1314921: Olfactive Family Musky | Olfactive Note Musky Powdery Animalic (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Print Page | Givaudan: Velvione, https://www.givaudan.com/print/1314921: Velvione™ is powerful powdery macrocyclic musk with some nitro-musk aspects. It is highly substantive and stable, as well as biodegradable (grade A_producer; ). Second reader: CAS 37609-25-9 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1016851.html; PW 4XU11429 page'
     density_25c_g_ml: 'ECHA 0.93 g/cm3 at 20 C (20 C value); TGSC SG 0.932-0.934. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.02 Pa at 20 C (not corrected to 25 C); EPI estimate was 0.0044 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
@@ -675,9 +683,10 @@
   supplier:
   families:
   - woods / amber / structure
-  character: woody:7, freshness:3, green:2, powdery:2
+  character: 'Woody, Vetiver, Grapefruit, Gardenia; adds a fresh woody, vetiver-like accent'
   notes: Vetikon (methyl cedryl ketone) — woody-vetiver volume material, diffusive, fills space between Iso E Super and Vertofix
   provenance:
+    character: 'Vetikon (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetikon.pdf: › Woody, Vetiver, Grapefruit, Gardenia ... › adds a fresh woody, vetiver-like accent (grade A_producer; ). Replaces unsourced text ''woody:7, freshness:3, green:2, powdery:2''. Second reader: CAS 7403-42-1 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.ingredient_intelligence
     vp_25c_pa: engine.ingredient_intelligence
     logp: engine.ingredient_intelligence
@@ -807,9 +816,10 @@
   supplier: null
   families:
   - woods / amber / structure
-  character: null
+  character: 'Vetiver oil from Haiti is dry and woody with earthy, smoky and nutty accents. Haitian vetiver differs from Java vetiver in its sparkling citrus notes and fresh bitterness.'
   notes: Current neat/as-supplied physical stock; Haitian origin is direct user authority. Supplier, botanical lot composition, density, and origin-specific headspace parameters are not asserted.
   provenance:
+    character: 'Vetiver Oil Haiti | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/vetiver-oil-haiti: WOODY | Woody, Earthy, Spicy, Dry ... Vetiver oil from Haiti is dry and woody with earthy, smoky and nutty accents. Haitian vetiver differs from Java vetiver in its sparkling citrus notes and fresh bitterness. (grade A_producer; producer description (Givaudan Vetiver Oil Haiti)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_stock_dilution: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     user_in_inventory: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     origin: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
@@ -1092,9 +1102,10 @@
   - green
   - violet_leaf
   - aldehydic
-  character: Green, watery cucumber-leaf and violet-leaf absolute with fatty, earthy depth.
+  character: 'oily green cucumber leafy fresh sweet floral violet green-leafy woody floral strong green-leaf odour and a delicate floral undertone.'
   notes: 10% in DPG user stock. Natural mixture; composite OAV uses the repository violet-leaf constituent profile and origin variability remains.
   provenance:
+    character: 'Violet Leaf Absolute | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=8IG00469: Odour=> oily green cucumber leafy fresh sweet floral violet green-leafy woody floral strong green-leaf odour and a delicate floral undertone. 2. The flower absolute is a yellowish-green viscous liquid ... Top Notes Green ... Heart Notes Narcotic, Linalool (grade A_producer; supplier description (PerfumersWorld 8IG00469); the following sentence on the violet flower absolute (''2. The flower absolute is ...'') describes a different material and is left out). Replaces unsourced text ''Green, watery cucumber-leaf and violet-leaf absolute with fatty, earthy depth.''. Second reader: Value is verbatim, and the flower-absolute sentence was rightly left out. Page CAS 90147-36-7 (Viola odorata extract) differs from the inventory CAS 8024-41-7 (violet leaf absolute), but the product is the same: violet leaf absolute. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: supplier:8IG00469
     composition: natural_mixture_no_batch_gc_ms
     composite_oav: engine.pipeline.natural_absolute_decomposition

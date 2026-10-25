@@ -501,8 +501,10 @@
     other: {}
   families: []
   character: null
+  odour_family: 'aromatic'
   notes: null
   provenance:
+    odour_family: 'odour family "aromatic" from ''Aromatic'': LAVANDIN ABS DECOL | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/lavandin-abs-decol-pe-954256: Botanical Lavandula hybrida CAS# 0008022-15-9 ... Olfactive family Aromatic ... Olfactive description Lavandin has fresh, aromatic, sweet and floral notes. It is more herbaceous and camphor-like than Lavender. Compared to LAVANDIN GROSSO EO, the absolute is warmer, more herbaceous and coumarinic (hay like). (grade A_producer; producer classification (dsm-firmenich LAVANDIN ABS DECOL 954256 ''Olfactive family'')). Second reader: Page is the decolourised grade of the absolute; Kenny''s stock is PerfumersWorld 8HY00554, whose decolourisation status is not recorded. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.89; https://parchem.com/api/get-pdf/lavandin-absolute-grosso-014114.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 8022-15-9; '
@@ -783,11 +785,12 @@
   families:
   - spice / aromatic
   character: Floral-herbaceous with soft honeyed sweetness; less camphoraceous than
-    standard Lavender EO; premier French lavender angustifolia for fine perfumery.
+  odour_family: 'aromatic'
   notes: Bontoux SAS is a premier French producer of Lavandula angustifolia oils;
     renowned for particularly fine, well-rounded quality suitable for high-end perfumery;
     pairs excellently with bergamot, coumarin, and oakmoss materials.
   provenance:
+    odour_family: 'odour family "aromatic" from ''Aromatic'': Lavender Oil France Orpur™ DP | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/lavender-oil-france-orpur-dp: AROMATIC | Floral, Herbaceous, Sweet, Hay-like ... Lavender essential oil is delicate, floral and slightly powdery, reminiscent of the flower itself. This highly aromatic note is also herbaceous, camphorous and medicinal. (grade A_producer; producer classification (Givaudan Lavender Oil France Orpur DP, L. angustifolia, France; descriptors ''Floral, Herbaceous, Sweet, Hay-like'')). Second reader: Same species and country (L. angustifolia, France). inventory.txt marks this stock row NOT OWNED (removed 2026-09-08). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: manual:2026-05-08 lavender-family EO approximation
     density_25c_g_ml: manual:2026-05-08 lavender EO typical density
     logp: manual:2026-05-08 lavender-family EO approximation
@@ -1038,9 +1041,10 @@
     other: {}
   families:
   - green / fresh / marine
-  character: null
+  character: 'Green, Fruity, Leafy-Green'
   notes: null
   provenance:
+    character: 'Leafovert (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Leafovert.pdf: › Green, Fruity, Leafy-Green (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1470,9 +1474,10 @@
     other: {}
   families:
   - citrus / top
-  character: null
+  character: 'Olfactive Note: Citrus, Lemon, Intense. "More natural and long lasting than Geranitrile."'
   notes: null
   provenance:
+    character: 'Lemonile™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/lemoniletm: Olfactive Note Citrus Lemon Intense. Lemonile™ is used in lemon, verbena and lime compositions where it imparts freshness and diffusion. This nitrile is an extremely powerful chemical and has excellent stability in alkaline media. More natural and long lasting than Geranitrile. (grade A_producer; ). Second reader: CAS no. 61792-11-8 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 61792-11-8 (https://www.thegoodscentscompany.com/data/rw1042831.html)'
@@ -1556,8 +1561,10 @@
       flash_point_c_supplier_value: 76.67
   families: [green, fruity, violet, muguet]
   character: Intense transparent green leafy-fruity material with iris, violet, pear, and muguet facets.
+  odour_family: 'green'
   notes: 'PerfumersWorld SKU 4GI24147 identifies the active material. The user''s separate current stock is 10% w/w in DEP; exact active mass from a volume dose requires the stock-solution density. logP and VP left null (2026-10-08), conflict with no measured value: logP 2.5 (IFF, https://www.iff.com/scent/ingredients-compendium/liffarome/) vs 2.263 (TGSC, not marked est, https://thegoodscentscompany.com/data/rw1028731.html); VP "0.253168 mm Hg @ 23 C" = 33.75 Pa (IFF, 23 C) vs "0.721000 mmHg @ 25.00 C. (est)" = 96.1 Pa (TGSC). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa 96.1 -> 24.9; logp 2.5 -> 2.6.'
   provenance:
+    odour_family: 'odour family "green" from ''green (violet-green, pear, grass)'': Liffarome™ | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/liffarome: A natural smelling violet green, pear, grass odor. (grade A_producer; derived from the quoted description (IFF page gives no family field)). Second reader: Family derived from the description: ''violet green, pear, grass'' supports ''green''; the page''s own icon is also ''green icon''. CAS matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: https://www.perfumersworld.com/view.php?pro_id=4GI24147
     character: https://www.perfumersworld.com/view.php?pro_id=4GI24147
     supplier.perfumersworld: https://www.perfumersworld.com/view.php?pro_id=4GI24147
@@ -2121,9 +2128,10 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'soft delicate floral lily cyclamen hydroxycitronellal-like odour delicately sweet-light-floral'
   notes: null
   provenance:
+    character: 'Lilyreal ND | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6MG22777: it has a soft delicate floral lily cyclamen hydroxycitronellal-like odour delicately sweet-light-floral with outstanding-tenacity and radiation (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
@@ -2416,9 +2424,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Herbal, Pine, Floral, Fresh; a fresh, sweet material with a fresh earthy quality'
+  odour_family: 'herbal'
   notes: 'Air ODT not set: no compatible published air threshold was verified (2026-10-08). FMA lists 0.01 mm Hg at 20 C, higher than the 25 C EPI estimate; the measured boiling point (196.3 C) also suggests EPI underestimates VP.'
   provenance:
+    odour_family: 'odour family "herbal" from ''Herbal - Agrestic'': Linalool Oxide | Givaudan fragrance molecules, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/linalool-oxide: Olfactive Family Herbal - Agrestic | Olfactive Note Herbal Pine Floral Fresh (grade A_producer; ). Second reader: CAS 1365-19-1 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Linalool Oxide | Givaudan fragrance molecules, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/linalool-oxide: Olfactive Note Herbal Pine Floral Fresh ... Linalool Oxide is a fresh, sweet material which is very useful for its ability to give additional lift to floral accords. It also has a fresh earthy quality ... (grade A_producer; ). Second reader: Value is an abridgement of verbatim page pieces. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, linalool oxide, CAS 1365-19-1, Food Chem. Toxicol. 183 (2024) 114277, doi:10.1016/j.fct.2023.114277'
@@ -2729,6 +2740,10 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  character: 'Lime essential oil is a vibrant, fresh citrus note, very distinctive with its sweet, acidulous candy notes.'
+  odour_family: 'citrus'
   provenance:
+    odour_family: 'odour family "citrus" from ''Citrus'': Lime Distilled Oil Mexico | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/lime-distilled-oil-mexico: CITRUS | Zesty, Fresh (grade A_producer; producer classification (Givaudan; descriptors ''Zesty, Fresh'')). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Lime Distilled Oil Mexico | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/lime-distilled-oil-mexico: CITRUS | Zesty, Fresh ... Lime essential oil is a vibrant, fresh citrus note, very distinctive with its sweet, acidulous candy notes. (grade A_producer; producer description (Givaudan Lime Distilled Oil Mexico)). Second reader: Citrus aurantifolia, CAS 8008-26-2, distilled. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.859; https://thegoodscentscompany.com/data/es1618891.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 8008-26-2; https://www.thegoodscentscompany.com/data/es1618891.html'
