@@ -2022,7 +2022,12 @@ def _namesake_forms(term: str) -> frozenset[str]:
 
 
 def _namesake_identity_names(material) -> tuple[str, ...]:
-    """The row's canonical material names, with dilution and carrier labels removed."""
+    """The row's canonical material names, with dilution and carrier labels removed.
+
+    The resolver's own profile and spine names follow in full: a bracket there can
+    be part of the record's name ("Clove EO (India)", "Anise EO (China)"), and
+    cutting it would lose the record.
+    """
     names = []
     for value in (material.name, material.canonical_name, material.profile_name,
                   material.registry_name):
@@ -2030,6 +2035,10 @@ def _namesake_identity_names(material) -> tuple[str, ...]:
         bare = re.sub(r"\s*\d+(?:\.\d+)?\s*%.*$", "", bare).strip()
         if bare and bare.casefold() not in {n.casefold() for n in names}:
             names.append(bare)
+    for value in (material.profile_name, material.registry_name):
+        full = str(value or "").strip()
+        if full and full.casefold() not in {n.casefold() for n in names}:
+            names.append(full)
     return tuple(names)
 
 

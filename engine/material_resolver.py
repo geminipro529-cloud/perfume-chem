@@ -37,21 +37,43 @@ class ResolvedMaterial:
     matched_name: str
 
 
-# A trailing stock strength such as "10%", "7.7%", "1% v/v in ethanol" or
-# "10% w/w in DPG". Only this suffix is removable; identity text never is.
-_STOCK_STRENGTH_SUFFIX = re.compile(
-    r"\s+\d+(?:\.\d+)?\s*%"
+# A stock strength such as "10%", "7.7%", "1% v/v in ethanol", "10% w/w in DPG"
+# or "10% DPG". Only stock text is removable; identity text never is.
+_STRENGTH = (
+    r"\d+(?:\.\d+)?\s*%"
     r"(?:\s*(?:w/w|w/v|v/v))?"
-    r"(?:\s+in\s+(?:dpg|dep|tec|ipm|ethanol))?\s*$",
+    r"(?:\s+(?:in\s+)?(?:dpg|dep|tec|ipm|ethanol|etoh))?"
+)
+_STOCK_STRENGTH_SUFFIX = re.compile(rf"\s+{_STRENGTH}\s*$", re.IGNORECASE)
+# A trailing " neat" or " undiluted", as in "Ambroxan neat".
+_STOCK_WORD_SUFFIX = re.compile(r"\s+(?:neat|undiluted)\s*$", re.IGNORECASE)
+# A trailing bracket that holds only stock text: "(neat)", "(as supplied)",
+# "(neat / as supplied)", "(10% in DPG)". "(ACA)" or "(Haiti)" is identity and stays.
+_TRAILING_BRACKET = re.compile(r"\s*\(([^()]*)\)\s*$")
+_BRACKET_STOCK_TEXT = re.compile(
+    rf"^(?:\s*(?:neat|undiluted|pure|as supplied|{_STRENGTH})\s*[,;/]?)+$",
     re.IGNORECASE,
 )
 
 
 def strip_stock_strength_suffix(name: str) -> str:
-    """Return ``name`` without a trailing stock-strength suffix, if it has one."""
+    """Return ``name`` without its trailing stock text, if it has any.
+
+    Strips repeatedly, so "Helional (neat)", "Geraniol (10% in DPG)" and
+    "Suederal 10% DPG" all come back as the plain material name.
+    """
     text = str(name or "").strip()
-    stripped = _STOCK_STRENGTH_SUFFIX.sub("", text).strip()
-    return stripped or text
+    while True:
+        previous = text
+        bracket = _TRAILING_BRACKET.search(text)
+        if bracket and _BRACKET_STOCK_TEXT.match(bracket.group(1).strip()):
+            text = text[: bracket.start()].strip()
+        text = _STOCK_WORD_SUFFIX.sub("", text).strip()
+        text = _STOCK_STRENGTH_SUFFIX.sub("", text).strip()
+        if not text:
+            return str(name or "").strip()
+        if text == previous:
+            return text
 
 
 @lru_cache(maxsize=1)
