@@ -473,8 +473,11 @@ def test_the_detection_pass_keeps_a_briefs_long_lasting_measure() -> None:
 
 def test_the_floor_holds_describe_the_rows_the_detection_pass_delivers() -> None:
     # The pass raises rows of this brief: the floor holds are measured on the
-    # delivered rows, not on the composer's rows before the pass.
-    result = design_inventory_formula(idea="vanilla tonka gourmand")
+    # delivered rows, not on the composer's rows before the pass. (The brief was
+    # "vanilla tonka gourmand" until 25 Oct 2026, when a stock-record edit renewed
+    # the overlay stock ids, the solver's stable tie picked Ethyl Maltol 1% over
+    # 10%, and the pass no longer raised a row there.)
+    result = design_inventory_formula(idea="coffee vanilla")
     formula = result["optimized_formula"]
     assert formula["detection_check"]["adjustments"]
     long_per_ml, active_pct = _row_measures(formula["rows"])

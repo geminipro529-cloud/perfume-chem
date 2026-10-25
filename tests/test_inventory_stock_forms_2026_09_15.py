@@ -162,6 +162,7 @@ def test_optimizer_uses_only_executable_or_explicit_nominal_model_stocks() -> No
             "Skatole",
             "Methyl Pamplemousse",
             "Maple Lactone",
+            "Glycolierral",
         ],
         {},
     )
@@ -171,6 +172,8 @@ def test_optimizer_uses_only_executable_or_explicit_nominal_model_stocks() -> No
         "Methyl Pamplemousse": pytest.approx(0.1),
         # 2026-10-15: the 1% in DPG is w/w under Kenny's rule, so it is executable.
         "Skatole": pytest.approx(0.01),
+        # 2026-10-25: Maple Lactone left its intake hold ("All neat"); Glycolierral is still held.
+        "Maple Lactone": pytest.approx(1.0),
     }
 
 

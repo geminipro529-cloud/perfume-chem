@@ -76,7 +76,8 @@ def test_received_kephalis_supersedes_absence_without_rewriting_history() -> Non
     admitted = [stock for stock in inventory.materialize_current_inventory().stocks if "user-20261007:" in stock.stock_id]
     # 2026-10-14: Kephalis (receipt line 23) left its intake hold in the v26 record.
     # 2026-10-15: eleven PerfumersWorld dilutions were re-recorded w/w in the v26 record.
-    assert len(admitted) == 31
+    # 2026-10-25: fifteen fruit bottles left their intake hold ("All neat", v26 STK-149 to STK-163).
+    assert len(admitted) == 16
     assert all(stock.execution_ready is False for stock in admitted)
 
 
