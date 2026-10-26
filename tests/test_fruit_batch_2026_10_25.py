@@ -60,10 +60,11 @@ PHYSICS = [
     ("Verdyl Acetate", "vp_25c_pa", 2.84),
     ("Dimethyl Benzyl Carbinyl Acetate", "mw_g_mol", 192.25),
     ("Dimethyl Benzyl Carbinyl Acetate", "logp", 3.4),
-    ("Dimethyl Benzyl Carbinyl Acetate", "vp_25c_pa", 2.97),
+    # The literature fill (same day) replaced the EPI values with converted measured ones.
+    ("Dimethyl Benzyl Carbinyl Acetate", "vp_25c_pa", 2.12),
     ("Melonal", "logp", 3.4),
     ("Verdox", "logp", 4.75),
-    ("Verdox", "vp_25c_pa", 7.11),
+    ("Verdox", "vp_25c_pa", 10.2),
     ("Hexyl Acetate", "vp_25c_pa", 176.0),
     ("Styralyl Acetate", "logp", 2.5),
     ("Styralyl Acetate", "density_25c_g_ml", 1.0215),

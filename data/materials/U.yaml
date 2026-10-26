@@ -153,17 +153,17 @@
   smiles:
   inchikey:
   mw_g_mol: 206.33
-  density_25c_g_ml: 0.9253
+  density_25c_g_ml: 0.93
   logp: 4.2
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.817
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.08
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.002
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.1737
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -180,20 +180,21 @@
     other: {}
   families:
   - iris / violet
-  character:
+  character: 'Flowery, Orris, Violet powdery woody, very typical of the Iris family with a strong Orris root character; the most floral and rich of all qualities of methyl ionone with a strong orris, violet character and only a slight fruity nuance'
   notes:
   provenance:
+    character: 'Ultralia | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6II13551: Luxury Methyl Ionone base with natural flowery Iris nuances. ... Flowery, Orris, Violet powdery woody, very typical of the Iris family with a strong Orris root character. The most floral and rich of all qualities of methyl ionone with a strong orris, violet character and only a slight fruity nuance. (grade A_producer; ). Second reader: CAS No. 1335-46-2 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: 'C14H22O (methyl ionone, CAS 1335-46-2) from standard atomic weights = 206.33; TGSC rw1006171 gives 206.32854'
-    vp_25c_pa: 'ESTIMATE, not measured: RIFM safety assessment, Api et al., Food Chem Toxicol 134 (2019) 110716, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf: "0.00613 mm Hg @ 25 °C (EPI Suite)" = 0.817 Pa; same line gives 0.005 mm Hg at 20 °C (FMA Database); replaces an unsourced 0.002 Pa (via material-data-firecrawl/followup-20261008/F5_vp_irotyl_vetival_ultralia.md)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, methyl ionone (mixture of isomers) and related isomers (Food Chem Toxicol 134 (2019) 110716) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf): ''7. Vapor Pressure: 1335-46-2 0.00345 mm Hg @ 20 C (EPI Suite v4.0), 0.005 mm Hg 20 C (FMA Database), 0.00613 mm Hg @ 25 C (EPI Suite)''; printed 0.005 mm Hg at 20 C; applies to the methyl ionone part (>=90%); FMA database value for CAS 1335-46-2; 0.005 x 133.322 = 0.667 Pa; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 0.667 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 69.7 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.005 x 133.322 = 0.667 Pa at 20 C. Row for methyl ionone mixture CAS 1335-46-2, which matches the stock Ultralia CAS (data/materials/U.yaml). FMA gives one significant figure. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate for Isoraldeine 70, a methyl ionone grade with the same CAS (1335-46-2); isomer ratios may differ. 0.143-0.212 ppb, geometric midpoint 0.174. Replaces 0.3, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=6II13551 (Kenny''s supplier): "CAS 1335-46-2", "1-(2,6,6- trimethyl-1-cyclohex-2-enyl)pent-1-en-3-one" (methyl ionone, mixture of isomers) (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
-    density_25c_g_ml: 'TGSC https://thegoodscentscompany.com/data/rw1006171.html (CAS 1335-46-2): "0.92400 to 0.93200 @ 25.00 C."; midpoint 0.928 x 0.99705 g/mL (water at 25 C) = 0.9253; PerfumersWorld lists SG 0.9240 (no temperature)'
+    density_25c_g_ml: 'RIFM safety assessment, methyl ionone (FCT 134 (2019) 110716) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf): ''6. Specific Gravity: 1335-46-2 0.930 D20/4–0.929–0.932 (RIFM, 1990a), 0.928 (FMA Database)''; printed ; applies to the methyl ionone part (>=90%); relative density d20/4; grade A_measured. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: D20/4 means 20 C relative to water at 4 C, which is numerically g/mL at 20 C, so 0.930 g/mL. Row for CAS 1335-46-2 (matches Ultralia). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, methyl ionone (mixture of isomers), CAS 1335-46-2 as on this row, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf: "Log Pow = 4.0; 4.1; 4.2 and 4.3 (RIFM, 2013b), 4.6 (RIFM, 1994a), 4.84 (EPI Suite)"; 4.2 is the middle of the RIFM 2013b measurements; replaces the unsourced 2.5'
 - canonical_name: Undecavertol
   aliases:
@@ -204,17 +205,17 @@
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 170.29)
   mw_g_mol: 170.29
   density_25c_g_ml: 0.842
-  logp:
+  logp: 3.9
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.06)
-  vp_25c_pa: 0.06
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.93
+  vp_source: producer_T_unstated  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb: 10.0
+  odt_air_ppb: 0.2934
   odt_eth_ppm: 2.0
   stevens_n:
   or_targets: []
@@ -231,10 +232,13 @@
     other: {}
   families:
   - green / fresh / marine
-  character:
+  character: 'It has a powerful green-floral character, somewhat related to lily-of-the-valley, with natural, fresh, fruity violet leaf and linden-blossom aspects.'
   notes:
   provenance:
-    odt_air_ppb: engine.odor_thresholds
+    logp: 'Givaudan, Undecavertol product page (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/undecavertol): ''Log Pow 3,9''; printed ; ; grade A_producer. Second reader: Same Givaudan Undecavertol page, CAS 81782-77-6. Log Pow 3,9, method not stated. The item''s method field is empty. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'Givaudan, Undecavertol product page (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/undecavertol): ''C11H22O 170,2 3,9 0.0293 hPa 255 Colourless Liquid 81782-77-6 - (columns: Formula MW Log Pow Vapour pressure Boiling point ( C) Appearance CAS no. FEMA)''; printed 0.0293 hPa; producer figure, temperature not printed; 0.0293 hPa x 100 = 2.93 Pa. Engine 0.06 Pa (unsourced) is 49x lower. Filed under vp_20c_pa (temperature_c left...; grade A_producer. The page prints no temperature, so the figure (2.93 Pa) is used as printed, not converted. Second reader: Givaudan Undecavertol, 4-methyl-3-decen-5-ol, CAS 81782-77-6 (= stock CAS). 0.0293 hPa x 100 = 2.93 Pa, verbatim, but no temperature or method printed; filed as vp_20c_pa on inference. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Print Page | Givaudan: Undecavertol, https://www.givaudan.com/print/1314916: Undecavertol was developed in connection with structural elucidation work on unknown trace components of lily of the valley. It has a powerful green-floral character, somewhat related to lily-of-the-valley, with natural, fresh, fruity violet leaf and linden-blossom aspects. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'Producer SDS figure for the commercial racemate; the single-enantiomer values (R 0.045, S 0.67 ppb) are not used. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt

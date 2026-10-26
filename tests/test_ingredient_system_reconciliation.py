@@ -117,9 +117,12 @@ def test_odt_metadata_never_uses_fuzzy_prefix_identity(name):
 def test_conflicting_thresholds_are_not_promoted():
     # Exact metadata exists for Tonka Absolute and must not be discarded.
     assert verify_odt("tonka absolute")["vfy"] == "DERIVED"
-    for name in ("Iso E Super", "Linalool"):
-        assert verify_odt(name)["vfy"] == "UNVERIFIED"
+    # Linalool's 0.51 vs 1.5 ppb conflict ended on 2026-10-25 when the literature batch
+    # loaded Elsharif et al.'s 0.51 ppb; the old evidence stays under "superseded".
+    assert verify_odt("Iso E Super")["vfy"] == "UNVERIFIED"
     assert "numeric_conflicts" in verify_odt("Iso E Super")
+    assert verify_odt("Linalool")["vfy"] == "PEER_SINGLE"
+    assert verify_odt("Linalool")["superseded"]["vfy"] == "PEER_CROSS"
     for name in ODT_DATA:
         assert isinstance(oav_reliability(name), str)
 
@@ -163,7 +166,12 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # 2.0 -> 0.172 and verdyl acetate 10 -> 0.134 (Givaudan patent estimates), delta
     # damascone 0.02 -> 0.00267 and alpha damascone 0.04 -> 0.0178 (Firmenich, P&F 2002);
     # odt_eth unchanged. Without those nine the digest is master's b43b04fc….
-    assert digest == "5c7d84b522eb7f20fc37c59489ca1231d5e3fc2f97a6d3c56574f90a96e28e97"
+    # 2026-10-25 literature batch (engine/odor_thresholds.py LITERATURE_ODT_BATCH_2026_10_25):
+    # 55 air ODTs from producer figures, measured literature and labelled Givaudan PROC
+    # estimates, each re-opened by a second reader (list and sources in that block and in
+    # tests/test_literature_odt_batch_2026_10_25.py); odt_eth unchanged. Without those 55
+    # the digest is 5c7d84b5….
+    assert digest == "1be5f1c5af329ffa8b1b53fefa0a627be1189776c6268b2892397a5eb5f80857"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

@@ -113,8 +113,8 @@
   smiles:
   inchikey:
   mw_g_mol: 222.4
-  density_25c_g_ml: 0.884
-  logp:
+  density_25c_g_ml: 0.8871
+  logp: 4.72
   functional_groups: []
   chirality:
   vp_25c_pa: 0.08
@@ -143,6 +143,7 @@
   character:
   notes:
   provenance:
+    logp: 'ECHA registration dossier, Farnesol (EC 225-004-1), Partition coefficient (https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.022.731/4/8): ''The log Pow range from 4.60 to 4.78 (weighted average 4.72) at 22.3 C, as determined by HPLC. Key value for chemical safety assessment Log Kow (Log Pow): 4.72 at the temperature of: 22.3 C''; printed log Pow 4.60-4.78 (weighted average 4.72) at 22.3 C; OECD 117 / EU A.8 HPLC, GLP; three isomer peaks 4.60, 4.67, 4.78, area-weighted mean; grade A_measured. Second reader: Area-weighted mean rechecked: 0.292*4.60 + 0.105*4.67 + 0.604*4.78 = 4.72. OECD 117 HPLC is on the page; the GLP status was not in the text I saw. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
@@ -152,7 +153,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 4602-84-0 (https://www.thegoodscentscompany.com/data/rw1005092.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.88400 to 0.88900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1005092.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'PubChem CID 445070 Farnesol, Experimental Properties: Density (https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/445070/JSON?heading=Experimental+Properties): ''0.8871 at 20 C/4 C (O''Neil, Merck Index, 13th ed.); 0.8846 at 68 F (NTP, 1992); Sp gr: 0.884-0.891 (FCC 5th ed.)''; printed 0.8871 at 20 C/4 C; handbook (Merck Index 13th ed.) via PubChem; grade A_measured. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: PubChem CID 445070, RecordTitle Farnesol. 20 C/4 C relative density equals g/mL at 20 C. CID 445070 is the (2E,6E) isomer record while the stock CAS is 4602-84-0 (farnesol, isomer mix); density hardly differs... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Female Concentratef
   aliases:
   - Female ConcentrateF
@@ -295,9 +296,10 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Fir Essential Oil is fresh balsam woody fir needle. ... fresh firneedle pineneedle balsam woody'
   notes:
   provenance:
+    character: 'Fir Essential Oil | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=7KG07758: Fir Essential Oil is fresh balsam woody fir needle. ... The odour and uses of Fir Essential Oil: fresh firneedle pineneedle balsam woody Outdoors Types Pine Herbal Air Fresheners Fern ... Heart Notes Konifer, Herb, Wood ... CAS No. 8021-28-1 (grade A_producer; supplier description (PerfumersWorld 7KG07758, named as Kenny''s SKU in 04_descriptions.md; species not stated, CAS 8021-28-1). Usage words after ''woody'' left out.). Second reader: rank 0 (Givaudan Pine Siberian Oil): wrong_material; text is on the page but it is Abies sibirica, CAS 8021-29-2, while Kenny''s Fir Essential Oil is CAS 8021-28-1 (data/materials/F.yaml, PerfumersWorld 7KG07758). rank 1 passes. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'PW 7KG07758 product page; species not stated (PW COA calls it a proprietary compound)'
     density_25c_g_ml: 'PW 7KG07758 page specific gravity 0.8750 (temperature not printed), as printed'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -500,12 +502,12 @@
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 190.3, corrected to 192.26)
   mw_g_mol: 190.28
   density_25c_g_ml: 0.955
-  logp: 3.3
+  logp: 3.6
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.431)
-  vp_25c_pa: 0.431
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.526
+  vp_source: producer_23C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -535,11 +537,12 @@
   character:
   notes:
   provenance:
+    vp_25c_pa: 'Floralozone | Fragrance Ingredients | IFF (ingredients compendium page) (https://www.iff.com/scent/ingredients-compendium/floralozone): ''Molecular Weight: 190.1 Vapor Pressure: 0.003238 mm Hg @ 23 C ... CAS Number: 67634-15-5 / 67634-14-4''; printed 0.003238 mm Hg @ 23 C; producer figure, method not stated; grade A_producer. Converted from 0.4317 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 72.5 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: IFF Ingredients Compendium, Floralozone. 0.003238 x 133.322 = 0.4317 Pa at 23 C (item value 0.526 Pa is the 25 C conversion). Method not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
-    logp: engine.skin_interaction
+    logp: 'ESTIMATE (the SDS''s ''Note: Calculated'' may cover this line): IFF Safety Data Sheet FLORALOZONE, IFF code 00062979, version 6, revised 20.09.2019 (hosted by finefrag.com) (https://finefrag.com/wp-content/uploads/2020/06/FLORALOZONE-MSDS.pdf): ''Partition coefficient: n- octanol/water : log Pow: 3.600''; printed Partition coefficient: n-octanol/water : log Pow: 3.600; not stated in SDS; grade A_producer. Second reader: Quote verbatim; IFF SDS, IFF Code 00062979, version 6, revised 20.09.2019 (print date 14.10.2019). No temperature or method for log Pow. The ''Note: Calculated'' line sits under the vapour-pressure entry directly... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -569,7 +572,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb: 0.3
+  odt_air_ppb: 0.008995
   odt_eth_ppm: 0.2
   stevens_n:
   or_targets: []
@@ -589,18 +592,16 @@
   families:
   - floral materials
   - muguet
-  character:
-    floral: 8
-    green: 6
-    freshness: 7
+  character: 'Florhydral has a very floral, fresh, natural odour (such as lily of the valley, hyacinth...).'
   notes: Floral, green, muguet, fresh, powerful; lily-of-the-valley and hyacinth direction.
   provenance:
+    character: 'Florhydral™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm: Florhydral™ has a very floral, fresh, natural odour (such as lily of the valley, hyacinth...). Its great intensity and pleasant quality make it useful in all areas of perfumery. (grade A_producer; ). Replaces unsourced text {''floral'': 8, ''green'': 6, ''freshness'': 7}. Second reader: CAS 125109-85-5 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     identity: https://www.simplescentsdiy.com/product/35447-34947/florhydral
     cas: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
     mw_g_mol: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
     logp: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
     vp_25c_pa: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan patent figure; a ratio in the Givaudan Nympheal article gives 0.0096 ppb. Replaces 0.3, a use-level inference. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt; direct user confirmation 2026-09-10
@@ -615,7 +616,7 @@
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 170.3, corrected to 154.25)
   mw_g_mol: 172.26
   density_25c_g_ml: 0.9515
-  logp: 1.65
+  logp: 2.22
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 3.0, corrected to 0.007)
@@ -657,7 +658,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 63500-71-0 (https://www.thegoodscentscompany.com/data/rw1045182.html)'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 0.9515; https://www.thegoodscentscompany.com/data/rw1045182.html; temperature as printed by source (often 20 C), not corrected to 25 C'
-    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 2-isobutyl-4-methyltetrahydro-2H-pyran-4-ol, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/63500-71-0.pdf: "Log KOW: 1.65 CV = 0.7% (RIFM, 1989a), 2.16 (EPI Suite)"; measured 1.65 used; replaces the unsourced 2.5'
+    logp: 'FLOROL® 966458 marketing sheet (Firmenich) (https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/FLOROL_966458.pdf?908a31e): ''LOG P (MEASURED) 2.22''; printed LOG P (MEASURED) 2.22; measured (producer label ''LOG P (MEASURED)''), method not stated; grade A_producer. Second reader: CAS 63500-71-0. Producer labels it measured; method and temperature not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, Florol, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/63500-71-0.pdf: "0.00712 mm Hg @ 20 C (EPI Suite 4.0), 0.012 mm Hg @ 25 C (EPI Suite)" = 1.6 Pa (estimate); replaces the unsourced 0.007, which was the 20 C mm Hg number read as Pa'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Flower Bouquet F-TEC
@@ -997,9 +998,12 @@
         sku: 5ON09236
         price_usd_per_g: 2.02
   families: []
-  character:
+  character: 'floral natural frangipani heavy sweet orangeflower gardenia'
+  odour_family: 'floral'
   notes:
   provenance:
+    character: 'Frangipani Absolute | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=8ON00534: Frangipani Absolute is floral natural frangipani heavy sweet orangeflower gardenia muguet lily-of-the-valley fleur-d-oranger orchid. ... Odour=> floral natural frangipani heavy sweet orangeflower gardenia (grade A_producer; supplier description (PerfumersWorld neat 8ON00534; PW''s ''Odour=>'' line)). Second reader: CAS 94350-02-4 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "floral" from ''Floral'': Frangipani Absolute | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=8ON00534: Odour=> floral natural frangipani heavy sweet orangeflower gardenia ... Heart Notes Narcotic, Orchid, Muguet, Citrus, Wood (grade A_producer; derived from the quoted description (''floral ... heavy sweet orangeflower gardenia''; PW note profile Heart ''Narcotic, Orchid, Muguet, Citrus, Wood'')). Second reader: ''floral'' in the Odour line supports the family Floral. Page is the neat absolute; Kenny''s stock is the 10% DPG SKU 5ON09236. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.96 to 0.97; https://herbaroma-trade.com/supplier-post/frangipani-absolute/; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 94350-02-4; '
@@ -1306,9 +1310,12 @@
   supplier:
   families:
   - floral materials
-  character:
+  character: 'Floral green fresh Freesia-like.'
+  odour_family: 'floral'
   notes:
   provenance:
+    odour_family: 'odour family "floral" from ''floral (derived from the quoted description)'': Freesia HDL | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6LC07501: Freesia HDL is Floral green fresh Freesia-like. (grade A_producer; ). Second reader: Description ''Floral green fresh Freesia-like'' supports ''floral''. Page product is spelled ''Freesia HDL'' (PerfumersWorld base, CAS ''Mixture''); inventory says ''Freesia HDI'', presumably the same base with an I/L typo; please confirm the SKU. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Freesia HDL | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6LC07501: Freesia HDL is Floral green fresh Freesia-like. ... Odour=> Floral green frsh Freesia like (grade A_producer; ). Second reader: Value is verbatim on the page, but the page product is ''Freesia HDL'' (PerfumersWorld 6LC07501); the identity reads ''Freesia HDI''. Likely the same base (I/L), but data/governance/inventory_supplier_document_census_20260830.json records ''NO_EXACT_PW_MATCH'' for Freesia HDI and no other ''Freesia HDI'' product was found by search. Identity link is assumed, not proven. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
@@ -1500,8 +1507,10 @@
     other: {}
   families: []
   character:
+  odour_family: 'fruity'
   notes: 'Fructone B is ethyl 2,4-dimethyl-1,3-dioxolane-2-acetate (the propylene glycol ketal, Fraistone, CAS 6290-17-1), not IFF Fructone (6413-10-1). Corrected 23 Oct 2026 from the PW product page and the RIFM assessment; the earlier values were Fructone data. RIFM: IFRA standard None.'
   provenance:
+    odour_family: 'odour family "fruity" from ''FRUITY (Takasago; descriptor words Fruity, Apple, Strawberry, Sweet)'': Dimethyl Dioxolan | Takasago International Corporation, https://www.takasago.com/en/node/671: Dimethyl Dioxolan Fruity CAS NO.6290-17-1 ... FRUITY APPLE STRAWBERRY SWEET FRUITY ... Ethyl 2-(2,4-dimethyl-1,3-dioxolan-2-yl)acetate (grade A_producer; ). Second reader: CAS 6290-17-1 matches data/materials/F.yaml ''Fructone B''. The ethyl 2-(2,4-dimethyl-1,3-dioxolan-2-yl)acetate name from the quote was not in the excerpt read. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '23 Oct 2026 source check: Kenny''s bottle (PW 3FG00196) is the propylene glycol ketal, not Fructone; PW page: ''CAS No. 6290-17-1'', ''Ethyl acetoacetate propyleneglycol ketal : Dimethyldioxolan : Fraistone''; https://www.perfumersworld.com/view.php?pro_id=3FG00196; RIFM assessment ''CAS Registry Number: 6290-17-1'' https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
     mw_g_mol: 'RIFM assessment 6290-17-1: ''Molecular Weight: 188.22'' (C9H16O4); https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'

@@ -229,9 +229,10 @@
   supplier: null
   families:
   - citrus / top
-  character: null
+  character: 'Citrus, fruity, zesty and sweet'
   notes: null
   provenance:
+    character: 'Mandarin red oil - Robertet Groupe, https://matieres-premieres.robertet.com/mandarin-red-oil: Mandarin red oil Code 99020119 Botanical name Citrus reticulata blanco ... Olfactive Family Citrus ... Origin Argentina ... Process Cold expression Olfactive description Citrus, fruity, zesty and sweet (grade A_producer; producer description (Robertet raw-materials catalogue, Mandarin red oil code 99020119, Argentina, cold expression)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
@@ -277,9 +278,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'The red infusion has a very rich oriental bouquet. It captures the full Saffron character ... Odour is herbal saffron fresh strong calyx, edible spicy-herbal-coumarin woody, honey, phenolic, medicinal, camphor, green-narcotic-floral, tobacco, hay, narcissus narcisse neroli violet'
+  odour_family: 'spice'
   notes: null
   provenance:
+    odour_family: 'odour family "spice" from ''Spicy-herbal (saffron)'': Red Saffron Infusion | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=5ES18560: Odour is herbal saffron fresh strong calyx, edible spicy-herbal-coumarin woody ... Top Notes Edible, Herb, Citrus, Vanilla, Phenolic (grade A_producer; derived from the quoted description (PW gives no family; ''herbal saffron ... edible spicy-herbal-coumarin woody''; PW Top ''Edible, Herb, Citrus, Vanilla, Phenolic'', Heart ''Herb, Narcotic, Citrus'')). Second reader: Family derived from the description: ''herbal saffron'', ''spicy-herbal'' support ''Spicy-herbal (saffron)''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Red Saffron Infusion | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=5ES18560: The finest red Saffron extracted with dipropylene glycol to give a deep red infusion. ... The red infusion has a very rich oriental bouquet. It captures the full Saffron character giving it a more classic appeal than Saffron oil light ... Odour is herbal saffron fresh strong calyx, edible spicy-herbal-coumarin woody, honey, phenolic, medicinal, camphor, green-narcotic-floral, tobacco, hay, narcissus narcisse neroli violet : (grade A_producer; supplier/producer description (PerfumersWorld makes this infusion; usage clauses left out)). Second reader: Rest of the Odour sentence on page verbatim: ''...phenolic, medicinal, camphor, green-narcotic-floral, tobacco, hay, narcissus narcisse neroli violet :'' Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Reproduce My Perfume Sample From Gcmsgcmscopy
   aliases:
@@ -351,9 +355,10 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'rounded rose with clear fresh aspects from the muguet notes; citronellol-like red rose, sweet, with faint camphor dimensions'
   notes: null
   provenance:
+    character: 'Rhodinol ex Citronella | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=3RB07724: Rhodinol ex Citronella is rounded rose with “clear” fresh aspects from the muguet notes. ... Odour=> Rhodinol ex Citronella is a citronellol-like red-rose. It is sweet and has some faint camphor dimensions (grade A_producer; ). Second reader: Quote verbatim. The ''value'' field is a condensed paraphrase of the two sentences; load the page''s wording if verbatim text is needed. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.8680, supplier-reported (PerfumersWorld 3RB07724 "Rhodinol ex Citronella"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.868; https://www.perfumersworld.com/view.php?pro_id=3RB07724; temperature as printed by source (often 20 C), not corrected to 25 C'
     density_basis: supplier_sg_temperature_unstated
@@ -428,8 +433,10 @@
     other: {}
   families: []
   character: null
+  odour_family: 'woody'
   notes: 'VP and density left null (2026-10-08). VP: dsm-firmenich "0.00735 Pa at 20C" (https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880) and Hekserij "Vapor pressure: 0.007 Pa" with no stated temperature (https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir); no 25 C value. Hekserij "Density: 1.03" has no stated temperature. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odour_family: 'odour family "woody" from ''Woody (Technical Descriptors: Woody, Rhubarb, Grapefruit)'': RHUBOFIX® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880: Olfactive family Woody ... Technical Descriptors Woody, Rhubarb, Grapefruit (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880 (dsm-firmenich, producer); "CAS# 0041816-03-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://www.scentspiracy.com/fragrance-ingredients/p/rhubofix (secondary site); "204.31 g/mol" (C14H20O) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
@@ -525,8 +532,8 @@
   logp: 4.76
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.08
-  vp_source: RIFM_measured_20C_converted
+  vp_25c_pa: 0.0914
+  vp_source: measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 5.0e-05
@@ -554,7 +561,7 @@
   notes: 'Current restocked bottle user-confirmed neat/as supplied 2026-09-15; the previously depleted bottle remains historical. VP: 0.053 +/- 0.008 Pa measured at 20 C by gas saturation (RIFM 2000c) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa at 25 C, replacing the EPI Suite estimate 0.1 Pa (0.000741 mm Hg) from the same RIFM assessment; bp 299 C; log Pow 4.74-4.79 (RIFM), midpoint 4.76. The producer figure 0.00074 Pa is the EPI estimate printed as Pa.'
   provenance:
     mw_g_mol: 'engine.diffusion_model; matches the sourced 270.36-270.37 (RIFM, TGSC) quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 236391-76-7, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/236391-76-7.pdf (FCT 141 (2020) 111342): measured "0.053 +/- 0.008" Pa at 20 C by gas saturation (RIFM 2000c) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa; the EPI Suite estimate "0.000741 mm Hg" = 0.0988 Pa from the same assessment was the previous value; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, acetic acid, (1-oxopropoxy)-, 1-(3,3-dimethylcyclohexyl)ethyl ester, CAS Registry Number 236391-76-7, Food Chem Toxicol (2020) 111342 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111342): ''Vapor Pressure: 0.053 ± 0.008 Pa at 20 C (RIFM, 2000c), 0.000741 mm Hg @ 20 C (EPI Suite v4.0)''; printed 0.053 ± 0.008 Pa at 20 C; RIFM 2000c study; grade A_measured. Converted from 0.053 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 79.1 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: ScienceDirect, RIFM assessment acetic acid, (1-oxopropoxy)-, 1-(3,3-dimethylcyclohexyl)ethyl ester, CAS 236391-76-7; Synonyms: Romandolide. Quote verbatim. Measured RIFM study, already in Pa (no... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1016,9 +1023,12 @@
         sku: 5RR12478
         price_usd_per_g: 4.12
   families: []
-  character: null
+  character: 'The essential oil of Rosa damascena has a fresh and powerful floral note that is very distinctive.'
+  odour_family: 'floral'
   notes: null
   provenance:
+    character: 'Rose Oil Bulgaria | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/rose-oil-bulgaria: FLORAL | Floral, Rosy ... Known as the queen of flowers, the rose is an essential raw material in perfumery. The essential oil of Rosa damascena has a fresh and powerful floral note that is very distinctive. (grade A_producer; producer description (Givaudan Rose Oil Bulgaria, Rosa damascena, distillation)). Second reader: Bulgarian Rosa damascena oil, i.e. Bulgarian rose otto; CAS 8007-01-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "floral" from ''Floral'': Rose Oil Bulgaria | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/rose-oil-bulgaria: FLORAL | Floral, Rosy (grade A_producer; producer classification (Givaudan; descriptors ''Floral, Rosy'')). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.848 to 0.868; https://www.thegoodscentscompany.com/data/es1024951.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 8007-01-0; https://www.thegoodscentscompany.com/data/es1024951.html'
@@ -1302,11 +1312,12 @@
   families:
   - spice / aromatic
   character: Herbal, camphoraceous, fresh, cineole-rich; classic French rosemary leaf
-    oil with green-aromatic lift and balsamic-woody undertone for fougère structures.
+  odour_family: 'aromatic'
   notes: Steam-distilled French Rosmarinus officinalis leaf oil; cineole-rich chemotype;
     excellent for aromatic-fougère lift and herbal freshness in masculine and sport
     compositions. Pairs with lavender, bergamot, pine, and coumarin.
   provenance:
+    odour_family: 'odour family "aromatic" from ''Aromatic'': Rosemary Oil Morocco | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/rosemary-oil-morocco: AROMATIC | Fresh, Camphorated, Rosemary ... A fresh agrestic and camphory note, powerful and fusing, with a light woody inflexion. (grade A_producer; producer classification (Givaudan Rosemary Oil Morocco, ct cineole; descriptors ''Fresh, Camphorated, Rosemary'')). Second reader: Same species; origin differs (identity is French rosemary; page is Moroccan ct cineole). Inventory note calls the stock cineole-rich. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: manual:2026-05-08 rosemary cineole-type EO approximation
     density_25c_g_ml: manual:2026-05-08 rosemary EO typical density
     logp: manual:2026-05-08 terpenoid EO approximation
@@ -1544,9 +1555,10 @@
   families:
   - floral
   - natural
-  character: null
+  character: 'Rose de Mai Absolute is rose with a spicy, balsamic, and prominent mossy character. As an absolute, it is the heaviest and richest of all the roses. Rose de Mai is complex containing top, middle, and base notes of its own. The opening is balsamic and very oily; in its undiluted form it leaves a thick russet colour on the smelling strip. As it settles, it takes on a sweeter, narcotic character and loses some of its mossy nature. In the final stages of the dry down, the top and mid notes are still apparent but the spicy, clove/eugenol aspect becomes more noticeable. When added to a formula it can produce a beautiful if faint lychee quality; Other key descriptors: balsamic, rose, petals, faint honey, spicy, clove, yeast, moss, faint phenol'
   notes: null
   provenance:
+    character: 'Rose de Mai Absolute | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=8RM00395: Rose de Mai Absolute is rich, heavy rose, which has a dry petal quality. ... Odour=> Rose de Mai Absolute is rose with a spicy, balsamic, and prominent mossy character. As an absolute, it is the heaviest and richest of all the roses. ... Other key descriptors: balsamic, rose, petals, faint honey, spicy, clove, yeast, moss, faint phenol (grade A_producer; supplier description (PerfumersWorld 8RM00395, neat absolute); ''Synaesthesia'' story and ''Perfume-Uses'' lines left out). Second reader: Full value text is on the page verbatim. CAS No. 8007-01-0; neat absolute, Kenny''s stock is 10% in DPG. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: pubchem (estimated)
     vp_25c_pa: estimated
     odt_air_ppb: estimated
@@ -1588,11 +1600,11 @@
   families:
   - floral
   - natural
-  character: Rich honeyed rose; Rosa damascena from India, steam-distilled. Classic
-    full-bodied rose character with citronellol-geraniol heart.
+  character: 'The essential oil of Rosa damascena has a fresh and powerful floral note that is very distinctive.'
   notes: Steam-distilled Rosa damascena flower oil. Warm, rich, slightly spicy rose.
     Pairs with PEA, geraniol, hedione, ionones for full rose accords.
   provenance:
+    character: 'Rose Oil Bulgaria | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/rose-oil-bulgaria: FLORAL | Floral, Rosy ... The essential oil of Rosa damascena has a fresh and powerful floral note that is very distinctive. (grade A_producer; producer description (Givaudan Rose Oil Bulgaria; same species and process, origin Bulgaria not India)). Replaces unsourced text ''Rich honeyed rose; Rosa damascena from India, steam-distilled. Classic full-bodied rose character with citronellol-geraniol heart.''. Second reader: Same species and process; origin differs (stock is Indian Rosa damascena oil). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: manual:2026-06-15 constituent-weighted average
     density_25c_g_ml: manual:2026-06-15 typical rose EO density
     logp: manual:2026-06-15 terpenoid EO approximation
@@ -1628,9 +1640,12 @@
   user_in_inventory: true
   supplier:
   families: []
-  character:
+  character: 'Floral, rose, fresh, fruity, slightly metallic'
+  odour_family: 'floral'
   notes: 'MySkinRecipes 2199302 Rhodinol (code 2760, lot 4XG0CM), neat; separate from Rhodinol ex Citronella.'
   provenance:
+    odour_family: 'odour family "floral" from ''Floral'': Rhodinol Nat | Robertet raw materials, https://matieres-premieres.robertet.com/rhodinol-nat: Olfactive Family Floral (grade A_producer; ). Second reader: Robertet natural rhodinol (isolate from an essential oil). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Rhodinol Nat | Robertet raw materials, https://matieres-premieres.robertet.com/rhodinol-nat: Olfactive description Floral, rose, fresh, fruity, slightly metallic (grade A_producer; ). Second reader: Robertet does not name the source oil; Kenny''s stock is ''Rhodinol ex Citronella''. Same CAS. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'MySkinRecipes 2760 page and COA lot 4XG0CM: relative density 0.8500-0.8600 (25/25 C), midpoint x 0.99705; RI 1.4520-1.4620, content 96% min'
     notes: 'MSR lists CAS 141-25-3 (page) and 6812-78-8 (COA, the (3S) form). Its density and RI match citronellol (Parchem 0.850-0.860 / 1.450-1.460) rather than a typical rhodinol blend (Foreverest citronellol 55-75%, geraniol 20-40%), so probably mostly citronellol; only a GC settles it'
     cas: 'MySkinRecipes COA lot 4XG0CM: CAS 6812-78-8, (3S)-3,7-dimethyloct-7-en-1-ol (the page lists the racemate, 141-25-3)'
@@ -1664,12 +1679,13 @@
   user_in_inventory: true
   supplier:
   families: []
-  character:
+  character: 'whiskey; wine-like; rum-like'
   notes: 'MySkinRecipes 2199302 Rum Ether, neat. The COA (lot QI71T6) states "main content
     80% min" without naming it, and its density and RI (0.8644-0.8804, 1.3618-1.3698)
     sit above the published grades (0.807-0.836, 1.334-1.358). The MSR SDS that came
     with order 2199302 has not been read here, so no composition is modeled (25 Oct 2026).'
   provenance:
+    character: 'Rum ether, natural, FG (W299618) | Sigma-Aldrich, https://www.sigmaaldrich.com/US/en/product/aldrich/w299618: Organoleptic : whiskey; wine-like ... Rum ether is a complex mixture of volatile substances that can be used as a flavoring agent for its rum-like odor/flavor. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1034451.html (EC 232-449-5, FEMA 2996)'
     density_25c_g_ml: 'MySkinRecipes COA, order 2199302, lot QI71T6, density specification 0.8644-0.8804, midpoint; temperature not printed (25 Oct 2026). Was the TGSC 0.807-0.836 range for other grades (0.819)'
     notes: 'mostly ethanol, acetic acid and ethyl acetate/formate/propionate; no producer composition; a mixture, so no single MW or VP. COA: /mnt/project-files/coa-msr-2199302-20261016/COA_SUMMARY.md'

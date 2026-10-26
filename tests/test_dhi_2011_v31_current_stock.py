@@ -100,10 +100,12 @@ def test_v31_recognizers_still_model_at_oav_one_or_more(formula):
     for name in NEAR_THRESHOLD:
         assert 0.95 <= (rows[name].oav or 0.0) < 1.0, (name, rows[name].oav)
     # 2026-10-12: Romandolide's sourced vapour pressure (0.08 Pa, the RIFM measured value at
-    # 25 C; was 0.1 Pa) puts the 210 uL dose at about OAV 0.84. The recipe is unchanged; about
-    # 251 uL would restore OAV 1, which is Kenny's call.
+    # 25 C; was 0.1 Pa) put the 210 uL dose at about OAV 0.84. 2026-10-25: the same RIFM
+    # measurement (0.053 Pa at 20 C) carried to 25 C with the batch's dHvap gives 0.0914 Pa,
+    # so the dose models at about OAV 0.95. The recipe is unchanged; about 221 uL would
+    # restore OAV 1, which is Kenny's call.
     for name in BELOW_THRESHOLD_AFTER_VP:
-        assert 0.8 <= (rows[name].oav or 0.0) < 0.9, (name, rows[name].oav)
+        assert 0.9 <= (rows[name].oav or 0.0) < 1.0, (name, rows[name].oav)
 
 
 def test_v31_lacks_authoritative_mass_only_for_its_w_w_stocks(formula):

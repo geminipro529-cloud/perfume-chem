@@ -9,9 +9,10 @@
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "exact",
       "modeled_output_relative_tolerance": 1e-8,
+      "baseline_note": "Re-pinned 2026-10-25: the literature ODT batch set Hedione 0.05 -> 0.03025 ppb (Firmenich), Iso E Super 0.05 -> 0.0184 ppb (isomer-share estimate) and Alpha Irone 0.9 -> 0.81 ppb (PROC estimate); vapour is unchanged and each OAV scales by its threshold ratio.",
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 1.011204563773908, "oav": 20224.09127547816},
-        "Iso E Super": {"vapor_ppm": 2.232451220007353, "oav": 44649.02440014706}
+        "Hedione": {"vapor_ppm": 1.011204563773908, "oav": 33428.25004211266},
+        "Iso E Super": {"vapor_ppm": 2.232451220007353, "oav": 121328.87065257353}
       }
     },
     {
@@ -37,12 +38,13 @@
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "exact",
       "modeled_output_relative_tolerance": 1e-8,
+      "baseline_note": "Re-pinned 2026-10-25: the literature ODT batch set Hedione 0.05 -> 0.03025 ppb (Firmenich), Iso E Super 0.05 -> 0.0184 ppb (isomer-share estimate) and Alpha Irone 0.9 -> 0.81 ppb (PROC estimate); vapour is unchanged and each OAV scales by its threshold ratio.",
       "expected_active_concentrate_ppm_w_w": {
         "Alpha Irone": 500537.0569280343,
         "Orris Liquid": 499462.94307196565
       },
       "expected_material_outputs": {
-        "Alpha Irone": {"vapor_ppm": 5.3124962578201655, "oav": 5902.773619800184},
+        "Alpha Irone": {"vapor_ppm": 5.3124962578201655, "oav": 6558.637355333537},
         "Orris Liquid": {"vapor_ppm": 0.20674274599907444, "oav": 229.71416222119382}
       }
     },
@@ -54,9 +56,10 @@
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
+      "baseline_note": "Re-pinned 2026-10-25: the literature ODT batch set Hedione 0.05 -> 0.03025 ppb (Firmenich), Iso E Super 0.05 -> 0.0184 ppb (isomer-share estimate) and Alpha Irone 0.9 -> 0.81 ppb (PROC estimate); vapour is unchanged and each OAV scales by its threshold ratio.",
       "expected_material_outputs": {
         "Leather FO": {"vapor_ppm": null, "oav": null},
-        "Iso E Super": {"vapor_ppm": 3.992532700449851, "oav": 79850.65400899702}
+        "Iso E Super": {"vapor_ppm": 3.992532700449851, "oav": 216985.47285053539}
       }
     },
     {
@@ -67,10 +70,11 @@
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "unavailable",
       "modeled_output_relative_tolerance": 1e-8,
+      "baseline_note": "Re-pinned 2026-10-25: the literature ODT batch set Hedione 0.05 -> 0.03025 ppb (Firmenich), Iso E Super 0.05 -> 0.0184 ppb (isomer-share estimate) and Alpha Irone 0.9 -> 0.81 ppb (PROC estimate); vapour is unchanged and each OAV scales by its threshold ratio.",
       "expected_composite_materials": ["Bergamot FCF"],
       "expected_material_outputs": {
         "Bergamot FCF": {"vapor_ppm": 2737.7333217283176, "oav": 165421.91322951627},
-        "Hedione": {"vapor_ppm": 1.0134140758930015, "oav": 20268.28151786003}
+        "Hedione": {"vapor_ppm": 1.0134140758930015, "oav": 33501.2917650579}
       }
     },
     {
@@ -81,10 +85,11 @@
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "exact",
       "modeled_output_relative_tolerance": 1e-8,
+      "baseline_note": "Re-pinned 2026-10-25: the literature ODT batch set Hedione 0.05 -> 0.03025 ppb (Firmenich), Iso E Super 0.05 -> 0.0184 ppb (isomer-share estimate) and Alpha Irone 0.9 -> 0.81 ppb (PROC estimate); vapour is unchanged and each OAV scales by its threshold ratio.",
       "equivalent_active_case": "simple_aromachemical",
       "expected_material_outputs": {
-        "Hedione": {"vapor_ppm": 1.011204563773908, "oav": 20224.09127547816},
-        "Iso E Super": {"vapor_ppm": 2.232451220007353, "oav": 44649.02440014706}
+        "Hedione": {"vapor_ppm": 1.011204563773908, "oav": 33428.25004211266},
+        "Iso E Super": {"vapor_ppm": 2.232451220007353, "oav": 121328.87065257353}
       }
     },
     {
@@ -107,12 +112,13 @@
       "batch_volume_ml": 10.0,
       "expected_ppm_status": "exact",
       "modeled_output_relative_tolerance": 1e-8,
+      "baseline_note": "Re-pinned 2026-10-25: the literature ODT batch set Hedione 0.05 -> 0.03025 ppb (Firmenich), Iso E Super 0.05 -> 0.0184 ppb (isomer-share estimate) and Alpha Irone 0.9 -> 0.81 ppb (PROC estimate); vapour is unchanged and each OAV scales by its threshold ratio.",
       "expected_regulatory_status": "unverified",
       "ifra_material": "Eugenol",
       "ifra_limit_pct": 2.5,
       "expected_material_outputs": {
         "Eugenol": {"vapor_ppm": 10.082703486922485, "oav": 1680.4505811537474},
-        "Hedione": {"vapor_ppm": 1.580187139354253, "oav": 31603.74278708506}
+        "Hedione": {"vapor_ppm": 1.580187139354253, "oav": 52237.59138361167}
       }
     }
   ],

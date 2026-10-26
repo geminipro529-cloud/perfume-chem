@@ -228,12 +228,14 @@ def test_french_name_words_are_checked_not_dropped():
 
 
 def test_single_material_without_odour_data_is_named_not_masking():
-    result = _namesake("Pineapple Chypre", {**_PLAIN_BASE, "D-Limonene": 300.0})
+    # Isobornyl Acetate: a single molecule with no descriptor yet (D-Limonene got
+    # its JECFA text on 2026-10-25).
+    result = _namesake("Pineapple Chypre", {**_PLAIN_BASE, "Isobornyl Acetate": 300.0})
 
     assert result.status == "WARN"
     assert result.data["missing"] == ["pineapple"]
-    assert result.data["no_odour_data"] == ["D-Limonene"]
-    assert "no odour data for D-Limonene" in result.detail
+    assert result.data["no_odour_data"] == ["Isobornyl Acetate"]
+    assert "no odour data for Isobornyl Acetate" in result.detail
 
 
 def test_bridge_prose_does_not_carry_oud():

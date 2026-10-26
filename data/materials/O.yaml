@@ -778,9 +778,12 @@
         sku: 5NC07544
         price_usd_per_g: 3.12
   families: []
-  character:
+  character: 'Green, floral, sweet, fruity. Moroccan origin is more animalic, indolic, warm.'
+  odour_family: 'floral'
   notes:
   provenance:
+    odour_family: 'odour family "floral" from ''Floral'': ORANGE FLOWER MOROCCO ABS | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/orange-flower-morocco-abs-pe-942780: Olfactive family Floral (grade A_producer; producer classification (dsm-firmenich ''Olfactive family'')). Second reader: Page is a Moroccan orange flower absolute; inventory ''Orange Flower Absolute'' gives no origin or CAS, so same material type. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'ORANGE FLOWER MOROCCO ABS | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/orange-flower-morocco-abs-pe-942780: Botanical Citrus aurantium amara ... Olfactive family Floral ... Technical Descriptors Orange Blossom Olfactive description Green, floral, sweet, fruity. Moroccan origin is more animalic, indolic, warm. (grade A_producer; producer description (dsm-firmenich ORANGE FLOWER MOROCCO ABS 942780)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'PerfumersWorld 8NC00338 documents (read 25 Oct 2026): specific gravity 0.93; x 0.99705 g/mL (water at 25 C) = 0.927'
 - canonical_name: Orange Flower F-TEC
@@ -888,9 +891,10 @@
   supplier:
   families:
   - citrus / top
-  character:
+  character: 'With its unique combination of citrus and floral notes, orange exudes a sense of sophistication and refinement that sets it apart from other citrus fruits with their bright, colourful, uplifting notes.'
   notes:
   provenance:
+    character: 'Orange Pera Oil Brazil | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orange-pera-oil-brazil: CITRUS | Citrus-like, Orange-like, Peely, Fresh ... With its unique combination of citrus and floral notes, orange exudes a sense of sophistication and refinement (grade A_producer; producer description (Givaudan Orange Pera Oil Brazil, Citrus sinensis var. pera, cold pressed)). Second reader: Citrus sinensis var. pera, CAS 8008-57-9, cold pressed; Kenny''s Orange Peel EO variety/origin not recorded. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_in_inventory: inventory.txt
     cas: '22 Oct 2026 missing-data pass: stated; raw 8008-57-9; https://www.thegoodscentscompany.com/data/ex1033461.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.844; https://thegoodscentscompany.com/data/es1101551.html; temperature as printed by source (often 20 C), not corrected to 25 C'
@@ -943,9 +947,10 @@
   - floral materials
   - orange blossom
   - neroli
-  character: "Powdery sweet orange-blossom/neroli floral; honeyed, crystalline, very tenacious."
+  character: 'Olfactive Note: Floral, Orange blossom, Sweet, Honey.'
   notes: "Powder form is the neat material. For pipettable bench use, prepare a weighed DPG stock; PerfumersWorld also sells Oranger Crystals 10% in DPG. IFRA limit recorded here is active material in finished leave-on skin product."
   provenance:
+    character: 'Print Page | Givaudan: Oranger Crystals, https://www.givaudan.com/print/1314726: Oranger Crystals Giv Code 7758003 Olfactive Family Floral | Olfactive Note Floral Orange blossom Sweet Honey. Oranger Crystals is very useful in neroli / orange blossom blends. It gives pretty effects in jasmine accords and colognes. (grade A_producer; ). Replaces unsourced text ''Powdery sweet orange-blossom/neroli floral; honeyed, crystalline, very tenacious.''. Second reader: CAS 93-08-3 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     public.perfumersworld_identity: "https://www.perfumersworld.com/view.php?pro_id=1NC00340"
@@ -1268,9 +1273,12 @@
   # irone content and stock-solution density are not asserted. Separate row from Orris Concrete Orris Butter.
   supplier:
   families: []
-  character:
+  character: 'Orris is a contrasting duality, rough in its earthy side, but also round like a musk with omnipresent powdery notes. Woody, soft, unctuous, sour, green and slightly aromatic, the oily side binds all the notes in a round, modest and balanced harmony.'
+  odour_family: 'floral'
   notes: Orris butter diluted by mass to 50% in ethanol by the user; no purity assay inferred.
   provenance:
+    odour_family: 'odour family "floral" from ''Floral'': ORRIS CTE NAT 8 IRONE | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/orris-cte-nat-8-irone-pe-950128: Olfactive family Floral (grade A_producer; producer classification (dsm-firmenich ''Olfactive family'', orris concrete)). Second reader: Orris concrete (orris butter), CAS 8002-73-1 matches the inventory. This is dsm-firmenich''s 8% irone grade; the irone grade of Kenny''s butter is not stated, and his stock is a 50% ethanol dilution. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Orris Pallida Butter 8% irones France | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orris-pallida-butter-8-irones-france: Orris is a contrasting duality, rough in its earthy side, but also round like a musk with omnipresent powdery notes. Woody, soft, unctuous, sour, green and slightly aromatic, the oily side binds all the notes in a round, modest and balanced harmony. (grade A_producer; producer description (Givaudan Orris Pallida Butter 8% irones France; source butter of Kenny''s solution unconfirmed)). Second reader: Page: Orris pallida, CAS 8002-73-1, steam distillation standardised to 8% irones, France. Proxy: the stock is made from MySkinRecipes orris butter of unstated grade/irone content. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
     cas: '22 Oct 2026 missing-data pass: stated; raw 8002-73-1; https://www.perfumersworld.com/view.php?pro_id=8IA00344'
 - canonical_name: Orris Concrete Orris Butter
@@ -1311,9 +1319,12 @@
         sku: 5IA07847
         price_usd_per_g: 2.2
   families: []
-  character:
+  character: 'Orris is a contrasting duality, rough in its earthy side, but also round like a musk with omnipresent powdery notes. Woody, soft, unctuous, sour, green and slightly aromatic, the oily side binds all the notes in a round, modest and balanced harmony.'
+  odour_family: 'floral'
   notes:
   provenance:
+    odour_family: 'odour family "floral" from ''Floral'': ORRIS CTE NAT 8 IRONE | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/orris-cte-nat-8-irone-pe-950128: Olfactive family Floral (grade A_producer; producer classification (dsm-firmenich ''Olfactive family'', orris concrete)). Second reader: Proxy: stock is PerfumersWorld 5IA07847 orris concrete/butter (10% in DPG); dsm-firmenich grade is 8% irone. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Orris Pallida Butter 8% irones France | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orris-pallida-butter-8-irones-france: Orris is a contrasting duality, rough in its earthy side, but also round like a musk with omnipresent powdery notes. Woody, soft, unctuous, sour, green and slightly aromatic, the oily side binds all the notes in a round, modest and balanced harmony. (grade A_producer; producer description (Givaudan Orris Pallida Butter 8% irones France)). Second reader: Givaudan grade standardised to 8% irones (steam distilled, CAS 8002-73-1); Kenny''s stock is PerfumersWorld 5IA07847 (10% DPG), irone grade not recorded. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 0.9300; https://www.perfumersworld.com/view.php?pro_id=8IA00344; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 8002-73-1; '
@@ -1780,9 +1791,10 @@
   families:
   - floral
   - natural
-  character:
+  character: 'A luxurious flower with delicate apricot notes on a leathery base. Osmanthus Absolute contains lactones that bring out these soft and creamy facets.'
   notes:
   provenance:
+    character: 'Osmanthus Absolute China | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/osmanthus-absolute-china: FLORAL | Fruity, Floral, Animal-like, Leathery ... A luxurious flower with delicate apricot notes on a leathery base. Osmanthus Absolute contains lactones that bring out these soft and creamy facets. (grade A_producer; producer description (Givaudan Osmanthus Absolute China)). Second reader: Page opened in full; the family line and sentences are verbatim. CAS 68917-05-5 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: pubchem (estimated)
     vp_25c_pa: estimated
     odt_air_ppb: estimated
@@ -1884,3 +1896,6 @@
   trp_targets: null
   user_stock_dilution: 50.0
   user_in_inventory: true
+  character: 'sweet balsamic spicy powdery animalic'
+  provenance:
+    character: 'Opoponax Resinoid | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=2QC00337: Opoponax Resinoid is sweet balsamic spicy powdery animalic oriental fougere. ... Odour=> sweet balsamic spicy powdery animalic Perfume-Uses=> Oriental Fougere ... Top Notes Balsamic, Spice, Vanilla, Fruity (grade A_producer; supplier description (PerfumersWorld 2QC00337, neat resinoid, PW CAS 9000-78-6; one of three ambiguous registry matches); Kenny''s stock is 50% in DEP). Second reader: rank 0 (dsm-firmenich OPOPONAX EO 968188): wrong_material; text ''Sweet, earthy, with a spicy profile.'' is on the page but it is the essential oil, not the resinoid. rank 1 passes; neat resinoid, Kenny''s stock is 50% in DEP. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'

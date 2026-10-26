@@ -43,13 +43,13 @@
   inchikey: null
   mw_g_mol: 122.12
   density_25c_g_ml: 1.1075
-  logp: 0.7
+  logp: -0.38
   functional_groups:
   - pyrazine
   - ketone
   chirality: null
-  vp_25c_pa: 0.02
-  vp_source: estimated_from_supplier_physical_data
+  vp_25c_pa: 9.48
+  vp_source: EPI_est
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -77,9 +77,12 @@
   - gourmand
   - pyrazine
   - synthetic
-  character: Powerful popcorn, toasted bread-crust, roasted corn-chip and nutty pyrazine.
+  character: 'nutty, popcorn, breadcrust odour'
   notes: 1% in DPG user stock. Discrete molecule; ODT/VP are conservative model inputs, not a supplier COA.
   provenance:
+    logp: 'ESTIMATE (EPI Suite estimate): RIFM fragrance ingredient safety assessment, acetylpyrazine, CAS Registry Number 22047-25-2 (Api et al., Food Chem Toxicol 134 (2019) 110947, doi:10.1016/j.fct.2019.110947) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/22047-25-2_0.pdf): ''Log KOW: -0.38 (EPI Suite).''; printed -0.38 (EPI Suite); EPI Suite estimate; grade EST. Second reader: EPI Suite estimate, correctly graded EST. There is no measured log P on the page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'ESTIMATE (EPI Suite, as printed by RIFM): RIFM fragrance ingredient safety assessment, acetylpyrazine, CAS Registry Number 22047-25-2 (Api et al., Food Chem Toxicol 134 (2019) 110947, doi:10.1016/j.fct.2019.110947) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/22047-25-2_0.pdf): ''Vapor Pressure: 0.0418mm Hg @ 20 C (EPI Suite v4.0), 0.5 mm Hg 20 C (FMA Database), 0.0711mm Hg @ 25 C (EPI Suite)''. Uses the EPI Suite figure 0.0711 mm Hg at 25 C (9.48 Pa): the FMA 0.5 mm Hg at 20 C on the same page is 12x the EPI value for a low-melting solid. Replaces 0.02 Pa, which had no source. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: '2-Acetylpyrazine (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/822/: Physical form/odour: "colourless to pale yellow crystals with a nutty, popcorn, breadcrust odour" (grade A_regulatory; producer/primary text, quoted). Replaces unsourced text ''Powerful popcorn, toasted bread-crust, roasted corn-chip and nutty pyrazine.''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: PubChem:22047-25-2
     mw_g_mol: PubChem:CID30914
@@ -309,8 +312,10 @@
         price_usd_per_g: 0.13
   families: []
   character: null
+  odour_family: 'gourmand'
   notes: 'log Kow not set: EPI KOWWIN v1.67 estimate -0.36 vs ChemicalBook 0.1 at 25 C (method not stated). VP not set: EPI estimate 266 Pa at 25 C vs ChemicalBook 86 hPa at 20 C = 8600 Pa, about 30x apart; commercial acetoin is largely the solid dimer, so monomer/dimer state may explain the gap. No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md Update 2026-10-13: logP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa null -> 360.0.'
   provenance:
+    odour_family: 'odour family "gourmand" from ''Buttery / dairy (gourmand)'': JECFA flavouring specification: Acetoin (FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/337: derived from "with a buttery odour" (grade A_regulatory; derived from the quoted description (the source gives no family)). Second reader: Family ''Buttery / dairy'' is supported by ''with a buttery odour''; ''(gourmand)'' is the worker''s gloss. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1007331.html: "acetoin, 513-86-0" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1007331 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 88.11"'
@@ -407,13 +412,13 @@
   - aldehyde
   - alkene
   chirality: null
-  vp_25c_pa: 0.4
-  vp_source: supplier_physical_data_20c_adjusted
+  vp_25c_pa: 0.655
+  vp_source: producer_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 0.3
+  odt_air_ppb: 0.6252
   odt_eth_ppm: 0.05
   stevens_n: null
   or_targets: []
@@ -437,13 +442,15 @@
   - fresh
   - floral
   - synthetic
-  character: Fresh watery aldehydic floral with waxy, ozone and melon-like lift.
+  character: 'Adoxal has a natural, ozonic aspect. ... It can also be seen as having a typical "fresh linen" odour'
   notes: 10% in DPG user stock. CAS 141-13-9 is the discrete material; VP and ODT remain conservative model values.
   provenance:
+    odt_air_ppb: 'Producer SDS figure; the Givaudan PROC estimate agrees within 1.6x. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Adoxal | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/adoxal: Olfactive Note Marine Aldehydic Floral Fresh Powerful. "Adoxal has a natural, ozonic aspect. It is very powerful and must be used carefully. Adoxal blends extremely well with floral notes such as muguet and cyclamen, as well as with fruity and woody compositions. It can also be seen as having a typical "fresh linen" odour which makes it very useful for detergent applications." (grade A_producer; producer/primary text, quoted). Replaces unsourced text ''Fresh watery aldehydic floral with waxy, ozone and melon-like lift.''. Second reader: Givaudan Adoxal page, CAS 141-13-9 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: supplier:4GA00012
     mw_g_mol: literature:CAS_141-13-9
-    vp_25c_pa: supplier:20C_value_temperature_adjusted
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 2,6,10-trimethyl-9-undecenal, CAS Registry Number 141-13-9 (Api et al., Food Chem Toxicol 164 (2022) 113100, doi:10.1016/j.fct.2022.113100) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/141-13-9.pdf): ''7. Vapor Pressure: 0.00682 mm Hg at 20 C (EPI Suite v4.0), 0.003 mm Hg at 20 C (FMA), 0.0111 mm Hg at 25 C (EPI Suite)''; printed 0.003 mm Hg at 20 C (FMA); FMA Database value quoted by RIFM; grade A_producer. Converted from 0.4 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 71.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: RIFM 2,6,10-trimethyl-9-undecenal, CAS 141-13-9, synonym Adoxal. 0.003 mm Hg x 133.322 = 0.400 Pa at 20 C. FMA value, not labelled calculated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_in_inventory: inventory.txt
 - canonical_name: Agarwood F-TEC
   aliases:
@@ -874,13 +881,13 @@
   logp: 4.75
   functional_groups: []
   chirality: null
-  vp_25c_pa: 2.04
-  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.12
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
-  dhvap_kj_mol: null
+  dhvap_kj_mol: 68.3
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.2916
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -905,10 +912,12 @@
   character: null
   notes: 'log Kow not set: only non-measured values (EPI KOWWIN v1.67 estimate 4.75; ChemicalBook 4.9 at 35 C, method not stated). EPI VP estimate 2.06 Pa (Modified Grain) agrees. No air ODT found (Leffingwell 2 ppb has no stated medium). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md Update 2026-10-13: logP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
   provenance:
+    dhvap_kj_mol: 'NIST Chemistry WebBook, Dodecanal, phase change data (Verevkin, Krasnykh et al. 2003) (https://webbook.nist.gov/cgi/cbook.cgi?ID=C112549&Mask=4): ''ΔvapH 68.3 ± 0.9 kJ/mol, GS, Verevkin, Krasnykh, et al., 2003, based on data from 314. to 347. K''; printed 68.3 ± 0.9 kJ/mol; gas saturation (transpiration), ΔvapH at 298.15 K, data 314-347 K; grade A_measured. Second reader: NIST WebBook, Dodecanal (ID C112549 = CAS 112-54-9). Quote verbatim. ΔvapH = standard conditions (298.15 K), from gas-saturation data 314-347 K (Verevkin et al., Fluid Phase Equilibria 206 (2003) 331-339). A second... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate; (log Kcaps + 3) = 0.1, so uncertain by 2x or more. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1000371.html: "dodecanal (aldehyde C-12 lauric), 112-54-9" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000371 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 184.32"'
-    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000371 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 1.53E-02 mm Hg (2.04E+000 Pa) at 25 deg C" (literature value, original reference not shown); 0.0153 mm Hg x 133.322 Pa/mm Hg = 2.04 Pa'
+    vp_25c_pa: 'Axxence, Safety Data Sheet, NATURAL ALDEHYDE C-12 (DODECANAL), product code 261500, revision 23.10.2025 (https://axxence.de/wp-content/uploads/products/sds/natural_aldehyde_c-12_dodecanal_261500_WW-EN_SDS.pdf): ''Partition coefficient n-octanol/water: 4,75 ... 0,007 hPa Vapour pressure: (at 20 C) Vapour pressure: (at 50 C) <300 hPa ... 0,83 g/cm³ Density (at 20 C)''; printed 0,007 hPa (at 20 C); producer SDS section 9 (method not stated); grade A_producer. Converted from 0.7 Pa at 20 C to 25 C by Clausius-Clapeyron with the NIST dHvap loaded with this batch (68.3 kJ/mol). Second reader: 0.007 hPa x 100 = 0.70 Pa at 20 C (the item''s 1.13 is the 25 C conversion done by the worker; not checked here). SDS text has values and labels out of line, but 0,007 hPa sits with ''(at 20 C)''; ''<300 hPa (at 50... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'ChemicalBook property page CASEN_112-54-9 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "density 0.831 g/mL at 25 °C(lit.)"'
     logp: 'ESTIMATE: EPI KOWWIN v1.67 4.75; ChemicalBook 4.9 at 35 C agrees (via material-data-firecrawl/allgaps/S1_aldehydes.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
 - canonical_name: Aldehyde C-12 MNA
@@ -1004,7 +1013,7 @@
   inchikey: null
   mw_g_mol: 206.24
   density_25c_g_ml: 1.096
-  logp: 1.655
+  logp: 2.8
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.8
@@ -1034,8 +1043,10 @@
         price_usd_per_g: 0.06
   families: []
   character: 'fruity, strawberry, powerful'
+  odour_family: 'fruity'
   notes: 'logP and VP left null (2026-10-08). logP conflict, no measured value: 1.655 (TGSC est, https://www.perflavory.com/docs/doc1001602.html) vs 2.43 (ChemicalBook, method not stated, https://www.chemicalbook.com/CASEN_77-83-8.htm). VP: only an estimate exists, not RIFM-quoted: 0.006 mmHg at 25 C (TGSC est) = 0.800 Pa at 133.322 Pa/mmHg. ChemicalBook density 1.087 g/mL at 25 C (lit.) agrees with the TGSC midpoint. ChemicalBook "Aroma threshold values: Detection: 2 ppm" has no stated medium and is not an air ODT. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-23: merged the duplicate entry Aldehyde C16 EMPG (added by commit 94a2cc90, which wrongly said no earlier entry existed); logP now set to a labelled RDKit Crippen estimate (see provenance), still not measured; chemprops RDKit MW 206.241 agrees with 206.24.'
   provenance:
+    odour_family: 'odour family "fruity" from ''Fruity'': Strawberry Pure | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/strawberry-pure: Olfactive Family Fruity | Olfactive Note Fruity Strawberry Powerful (grade A_producer; producer/primary text, quoted). Second reader: Givaudan trade name Strawberry Pure = ethyl methyl phenyl glycidate, CAS 77-83-8. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Givaudan Strawberry Pure page (CAS 77-83-8), https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/strawberry-pure: "Olfactive notes: Fruity, Strawberry, Powerful". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://www.thegoodscentscompany.com/data/rw1001602.html; "ethyl methylphenylglycidate" "CAS 77-83-8"; "aldehyde C-16 (so-called)" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
@@ -1043,7 +1054,7 @@
     density_25c_g_ml: 'https://www.perflavory.com/docs/doc1001602.html (TGSC mirror); supplier range "Specific Gravity: 1.08600 to 1.11200 @ 25.00 C."; midpoint 1.099 x 0.99705 (water at 25 C) = 1.0958 g/mL (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     vp_25c_pa: 'ESTIMATE: TGSC 0.006 mmHg @ 25 C (est) x 133.322 Pa/mmHg = 0.800 Pa; https://www.perflavory.com/docs/doc1001602.html (via material-data-firecrawl/allgaps/S3_fruity_captives.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
     smiles: 'PubChem structure resolved from CAS 77-83-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
-    logp: '22 Oct 2026 missing-data pass: labelled estimate (Kenny chose Fill estimates, 13 Oct); raw 1.655; https://www.perflavory.com/docs/doc1001602.html'
+    logp: 'ECHA Brief Profile, ethyl 3-methyl-3-phenyloxirane-2-carboxylate (EC 201-061-8, CAS 77-83-8), last updated 19/07/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.000.966): ''R Log Pow 2.4 - 2.8 @ 25 C [2] ... Summary: Log Kow (Log Pow) 2.8 @ 25 C''; printed 2.8 @ 25 C; REACH registration (2 studies, range 2.4-2.8 @ 25 C; summary value 2.8); grade A_regulatory. Second reader: CAS 77-83-8 matches. Minor: the page says ''1 study submitted / 1 study processed'' with [2] results, not ''2 studies'' as the method says. Summary value 2.8 is the top of the 2.4-2.8 range. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_in_inventory: 'gate stock list (Aldehyde C16 EMPG), per the merged 2026-10-23 entry'
 - canonical_name: Aldehyde C-18 Gamma Nonalactone
   aliases:
@@ -1053,12 +1064,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 156.22
-  density_25c_g_ml: 0.959
+  density_25c_g_ml: 0.962
   logp: 2.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.57
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 4.16
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1086,15 +1097,17 @@
         price_usd_per_g: 0.07
   families: []
   character: 'coconut odor'
+  odour_family: 'fruity'
   notes: 'VP is an estimate; other values: TGSC/perflavory 0.009 mm Hg at 25 C (est) = 1.20 Pa; at 20 C (not used) EPI v4.0 0.0073 mm Hg = 0.97 Pa and FMA 0.02 mm Hg = 2.67 Pa. Other log Kow estimates: EPI 2.08, perflavory 1.942, XLogP3-AA 2.2. FMA density 0.958-0.966 (temperature not stated). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
+    odour_family: 'odour family "fruity" from ''Fruity'': Symrise product sheet: Aldehyde C18 So-Called, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Aldehyde_C18_So-Called.pdf: family word printed with the name: "fruity aldehyde c18 so-called" (grade A_producer; producer/primary text, quoted). Second reader: Symrise Aldehyde C18 So-Called = gamma-nonalactone, CAS 104-61-0 matches. Family word ''fruity'' printed before the name. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'RIFM, Food Chem. Toxicol. 134 (2019) 110905, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "Colorless to yellow liquid with coconut odor". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'perflavory (TGSC mirror) https://www.perflavory.com/docs/doc1000532.html: "104-61-0" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "5. Molecular Weight: 156.22" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
     logp: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "2.5 at 25 °C (RIFM, 1995), 2.08 (EPI Suite)"; RIFM 1995 study value used (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
-    vp_25c_pa: 'RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf: "0.0118 mm Hg @ 25 °C (EPI Suite)", EPI Suite estimate; 0.0118 mm Hg x 133.322 Pa/mm Hg = 1.57 Pa (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
-    density_25c_g_ml: 'perflavory https://www.perflavory.com/docs/doc1000532.html: specific gravity "0.95800 to 0.96500 @ 25.00 °C."; midpoint 0.9615 x 0.99705 g/mL (water at 25 C) = 0.959 (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, γ-nonalactone, CAS Registry Number 104-61-0 (Api et al., Food Chem Toxicol 134 (2019) 110905, doi:10.1016/j.fct.2019.110905) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf): ''0.0073 mm Hg @ 20 C (EPI Suite v4.0), 0.02 mm Hg 20 C (FMA Database), 0.0118 mm Hg @ 25 C (EPI Suite)''; printed 0.02 mm Hg 20 C (FMA Database); FMA Database value quoted by RIFM; method not stated; grade A_producer. Converted from 2.666 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 64.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.02 x 133.322 = 2.666 Pa at 20 C. ''Aldehyde C-18'' is the trade name for γ-nonalactone, so this is the same molecule and source as item ''Gamma Nonalactone''; two stock records. FMA has one significant figure and is... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, γ-nonalactone, CAS Registry Number 104-61-0 (Api et al., Food Chem Toxicol 134 (2019) 110905, doi:10.1016/j.fct.2019.110905) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-61-0.pdf): ''Specific Gravity: 0.958–0.966 (FMA Database), 0.962 (FMA Database), 0.960–0.968 (FMA Database)''; printed 0.962 (FMA Database); ranges 0.958-0.966 and 0.960-0.968; FMA Database value quoted by RIFM; grade A_producer. No temperature printed. Second reader: 0.962 is on the page for γ-nonalactone, but the page prints no temperature, and the item files it as density_20c_g_ml. The same value is filed as density_unspecified_t in the ''Gamma Nonalactone'' item; file this one... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Aldehyde C-7 Heptanal
   aliases: []
   cas: null
@@ -1138,13 +1151,13 @@
   inchikey: null
   mw_g_mol: 128.22
   density_25c_g_ml: 0.82
-  logp: 2.8
+  logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 157.3
-  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 148.3
+  vp_source: measured_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
-  dhvap_kj_mol: null
+  dhvap_kj_mol: 51.0
   kaw_eff: null
   hsp: null
   odt_air_ppb: 0.17
@@ -1172,12 +1185,13 @@
   character: null
   notes: 'log Kow not set: only non-measured values that disagree (EPI KOWWIN v1.67 estimate 2.78, TGSC EPI page ep1000251; ChemicalBook 3.5 at 20 C, method not stated). VP: EPI estimate 199 Pa (mean Antoine & Grain); ChemicalBook 2 mm Hg at 20 C = 266.6 Pa (not 25 C). Density not set: only ChemicalBook 0.822 g/mL at 20 C. Air ODT: two measured air values conflict 17x, Cometto-Muniz & Abraham 2010 0.17 ppb (used) vs Nagata 2003 0.010 ppb (triangle odor bag). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
+    dhvap_kj_mol: 'NIST Chemistry WebBook, Octanal, phase change data (Verevkin, Krasnykh et al., Fluid Phase Equilib. 206 (2003) 331-339) (https://webbook.nist.gov/cgi/cbook.cgi?ID=C124130&Mask=4): ''ΔvapH 51.0 ± 0.3 kJ/mol, GS, 277–310 K, Verevkin, Krasnykh, et al., 2003''; printed 51.0 ± 0.3 kJ/mol; gas saturation (transpiration), ΔvapH at 298.15 K, data 277-310 K; grade A_measured. Second reader: ΔvapH = standard conditions (298 K), from gas-saturation data over 277-310 K. URL ID C124130 = CAS 124-13-0. Agrees with D''yakova 51.3; the 1965 value of 43.0 is an outlier. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1000251.html: "octanal (aldehyde C-8), 124-13-0" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000251 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 128.22"'
-    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000251 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 1.18E+00 mm Hg (1.57E+002 Pa) at 25 deg C" (literature value, original reference not shown); 1.18 mm Hg x 133.322 Pa/mm Hg = 157.3 Pa'
+    vp_25c_pa: 'ECHA Brief Profile, octanal (EC 204-683-8, CAS 124-13-0), last updated 07/05/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.004.259): ''R Vapour pressure 96.26 - 148.29 Pa @ 18.85 - 24.85 C [3] ... Summary: Vapour pressure 1.483 hPa @ 24.85 C''; printed 1.483 hPa @ 24.85 C; REACH registration (3 study results 96.26-148.29 Pa at 18.85-24.85 C; summary value); grade A_regulatory. Second reader: 1.483 hPa x 100 = 148.3 Pa at 24.85 C. The summary equals the top of the study range. The ''[3]'' means three results in one key study. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639, Table 2: "Octanal | 16 | 0.17", ppb by volume (human, 3-AFC vapour delivery, 16 subjects). Second measured source, conflicting: Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Octylaldehyde 0.000010" ppm v/v = 0.010 ppb'
-    logp: 'ESTIMATE (2026-10-14): consensus of the Sangster-listed 2.53 (via PubChem, DOI 10.1016/j.fluid.2014.01.017), KOWWIN 2.78 (TGSC EPI page ep1000251) and measured nonanal 3.4 (ECHA, OECD 117) minus about 0.5 per CH2 = 2.9. The EPA HPV HPLC 3.5 is set aside because it exceeds measured nonanal. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
+    logp: 'ECHA Brief Profile, octanal (EC 204-683-8, CAS 124-13-0), last updated 07/05/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.004.259): ''R Log Pow 3.5 @ 25 C [1] ... Summary: Log Kow (Log Pow) 3.5 @ 20 C''; printed 3.5 @ 25 C (study); summary 3.5 @ 20 C; REACH registration key study; grade A_regulatory. Second reader: The study prints 25 C and the summary prints 20 C, with the same value. The item uses 25, which matches the study. Method not shown on the Brief Profile. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.82; https://www.perflavory.com/docs/doc1000251.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Aldehyde C-9 Nonanal
   aliases: []
@@ -1185,14 +1199,14 @@
   smiles: null
   inchikey: null
   mw_g_mol: 142.24
-  density_25c_g_ml: 0.827
-  logp: 3.27
+  density_25c_g_ml: 0.824
+  logp: 3.4
   functional_groups: []
   chirality: null
   vp_25c_pa: 49.3
   vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
-  dhvap_kj_mol: null
+  dhvap_kj_mol: 55.3
   kaw_eff: null
   hsp: null
   odt_air_ppb: 0.53
@@ -1218,15 +1232,18 @@
         price_usd_per_g: 0.07
   families: []
   character: null
+  odour_family: 'aldehydic'
   notes: 'log Kow not set: only non-measured values (EPI KOWWIN v1.67 estimate 3.27, TGSC EPI page ep1000291; ChemicalBook 3.4 at 35 C, method not stated). VP alternatives: ChemicalBook ~0.26 mm Hg at 25 C = 34.7 Pa (method not stated); EPI estimate 75.2 Pa. Air ODT: two measured air values conflict, Cometto-Muniz & Abraham 2010 0.53 ppb (used) vs Nagata 2003 0.34 ppb. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md Update 2026-10-13: logP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
   provenance:
+    dhvap_kj_mol: 'NIST Chemistry WebBook, Nonanal, phase change data (Verevkin, Krasnykh et al. 2003) (https://webbook.nist.gov/cgi/cbook.cgi?ID=C124196&Mask=4): ''ΔvapH 55.3 ± 0.3 kJ/mol, GS, 276–309 K, Verevkin, Krasnykh, et al., 2003''; printed 55.3 ± 0.3 kJ/mol; gas saturation (transpiration), ΔvapH at 298.15 K, data 276-309 K; grade A_measured. Second reader: The quote condenses the table row (''276–309 K''); page_text is the actual row. It is ΔvapH at standard conditions (298.15 K), from gas-saturation data at 276-309 K. Other values on the page: 55.2 (CGC, 323-343 K)... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "aldehydic" from ''Aldehydic'': ALDEHYDE C 9 | dsm-firmenich, https://studio.dsm-firmenich.com/product/aldehyde-c-9-pe-906954: Olfactive family "Aldehydic" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1000292.html: "nonanal (aldehyde C-9), 124-19-6" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     mw_g_mol: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000291 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "MOL WT : 142.24"'
     vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1000291 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 3.70E-01 mm Hg (4.93E+001 Pa) at 25 deg C" (literature value, original reference not shown); 0.370 mm Hg x 133.322 Pa/mm Hg = 49.3 Pa'
-    density_25c_g_ml: 'ChemicalBook property page CASEN_124-19-6 (supplier/Sigma compilation, method not stated; via material-data-firecrawl/allgaps/S1_aldehydes.md): "0.827 g/mL at 25 °C(lit.)"'
+    density_25c_g_ml: 'ECHA Brief Profile, nonanal (EC 204-688-5, CAS 124-19-6), last updated 25/04/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.004.263): ''R Relative density 864 @ 20 C [1] ... Summary: Relative density at 20 C 0.824''; printed 0.824 at 20 C (summary); REACH registration (summary; study line prints ''864''); grade A_regulatory. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: 0.824 is the registrant''s summary value. The page''s own study line prints ''864'' at 20 C (units not processed; it may mean 0.864 or 864 kg/m3), so the two figures on the page disagree by about 5%. Handbook nonanal... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'Cometto-Muniz & Abraham (2010) Chem. Senses 35(4):289-299, doi:10.1093/chemse/bjq018, https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639, Table 2: "Nonanal | 17 | 0.53", ppb by volume (human, 3-AFC vapour delivery, 17 subjects). Second measured source, conflicting: Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf, Table 2 (ppm, v/v): "n-Nonylaldehyde 0.00034" ppm v/v = 0.34 ppb'
-    logp: 'ESTIMATE: EPI KOWWIN v1.67 3.27 (TGSC EPI page ep1000291); ChemicalBook 3.4 at 35 C agrees (via material-data-firecrawl/allgaps/S1_aldehydes.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    logp: 'ECHA Brief Profile, nonanal (EC 204-688-5, CAS 124-19-6), last updated 25/04/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.004.263): ''R Log Pow 3.4 @ 35 C [1] ... Summary: Log Kow (Log Pow) 3.4 @ 35 C''; printed 3.4 @ 35 C; REACH registration key study; grade A_regulatory. Second reader: One key study processed. The brief profile does not show the test method. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Aldehyde C10
   aliases:
   - aldehyde c10
@@ -1236,13 +1253,13 @@
   inchikey: null
   mw_g_mol: 156.3
   density_25c_g_ml: 0.826
-  logp: 3.0
+  logp: 3.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 10.0
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 12.3
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
-  dhvap_kj_mol: null
+  dhvap_kj_mol: 59.5
   kaw_eff: 0.008
   hsp: null
   odt_air_ppb: null
@@ -1265,13 +1282,14 @@
   character: null
   notes: null
   provenance:
+    dhvap_kj_mol: 'NIST Chemistry WebBook, Decanal, phase change data (Verevkin, Krasnykh et al. 2003) (https://webbook.nist.gov/cgi/cbook.cgi?ID=C112312&Mask=4): ''ΔvapH 59.5 ± 0.4 kJ/mol, GS, 280–316 K, Verevkin, Krasnykh, et al., 2003''; printed 59.5 ± 0.4 kJ/mol; gas saturation (transpiration), ΔvapH at 298.15 K, data 280-316 K; grade A_measured. Second reader: NIST WebBook Decanal (CAS 112-31-2 in URL). ΔvapH is NIST''s ''enthalpy of vaporization at standard conditions'' (298.15 K); underlying gas-saturation data 280-316 K. Other values on the page: 60.5 (CGC, 308-353 K)... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, decanal, CAS registry number 112-31-2 (Api et al., Food Chem Toxicol 197 (2025) 115203, doi:10.1016/j.fct.2024.115203) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/112-31-2.pdf): ''7. Vapor Pressure: 8.2 Pa at 20 C ( RIFM, 2012 ), 0.1 mm Hg at 20 C (FMA), 0.235 mm Hg at 25 C (EPI Suite v4.11)''; printed 8.2 Pa at 20 C (RIFM, 2012); RIFM study (RIFM, 2012: ''Vapour Pressure of Decanal'', Givaudan report 63651); grade A_measured. Converted from 8.2 Pa at 20 C to 25 C by Clausius-Clapeyron with the NIST dHvap loaded with this batch (59.5 kJ/mol). Second reader: RIFM decanal, CAS 112-31-2, synonym Aldehyde C-10 (FCT 197 (2025) 115203). Measured RIFM study at 20 C, already in Pa. The ''Givaudan report 63651'' in the item''s method was not visible in the excerpt of the reference... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'RIFM fragrance ingredient safety assessment, decanal, CAS registry number 112-31-2 (Api et al., Food Chem Toxicol 197 (2025) 115203, doi:10.1016/j.fct.2024.115203) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/112-31-2.pdf): ''3. Log KOW: 4.8 at 24 C ( RIFM, 1994 ), 4.01 (Biobyte Corp.), 3.76 (EPI Suite v4.11), 3.8 ( RIFM, 2010c ) ... Log K ow Used 3.8''; printed 3.8 (RIFM, 2010c); 4.8 at 24 C (RIFM, 1994); RIFM study (RIFM, 2010c); value RIFM uses for environment; grade A_measured. A second RIFM measurement gives 4.8 at 24 C; RIFM uses 3.8. Second reader: Same RIFM decanal page. 3.8 (RIFM 2010c) printed without temperature and is the value RIFM uses. The two RIFM measurements disagree by a full log unit (4.8 at 24 C, RIFM 1994); 3.8 is also nearly the EPI estimate 3.76. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -1288,7 +1306,7 @@
   inchikey: null
   mw_g_mol: 170.3
   density_25c_g_ml: 0.827
-  logp: 3.5
+  logp: 4.8
   functional_groups: []
   chirality: null
   vp_25c_pa: 50.0
@@ -1297,7 +1315,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.006
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.8796
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1320,10 +1338,10 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Estimate for undecanal (CAS 112-44-7, the record this stock resolves to); (log Kcaps + 3) = 0.2, so +/-0.05 gives 0.66-1.10 ppb. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'ECHA Brief Profile, undecanal (EC 203-972-6, CAS 112-44-7), last updated 26/06/2025 (https://echa.europa.eu/en/brief-profile/-/briefprofile/100.003.611): ''R Pow 69 025 @ 20 C and pH 7 [1] R Log Pow 4.4 - 5.1 @ 20 - 35 C and pH 7 [3] ... Summary: Log Kow (Log Pow) 4.8 @ 20 C''; printed 4.8 @ 20 C; REACH registration (3 study results 4.4-5.1 at 20-35 C, pH 7; summary 4.8 @ 20 C); grade A_regulatory. Second reader: Page identity: Undecanal, EC 203-972-6, CAS 112-44-7. CAS 112-44-7 matches. Pow 69025 = log 4.84, consistent with summary 4.8. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -1346,13 +1364,13 @@
   logp: 3.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: 8.706
-  vp_source: 'EPI'
+  vp_25c_pa: 6.17
+  vp_source: producer_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.4146
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1370,9 +1388,11 @@
   families:
   - citrus / top
   character: null
+  odour_family: 'aldehydic'
   notes: null
   provenance:
-    odt_air_ppb: engine.odor_thresholds
+    odour_family: 'odour family "aldehydic" from ''Aldehydic'': Aldehyde C11 Undecylenic | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/aldehyde-c11-undecylenic: Olfactive Family Aldehydic | Olfactive Note Aldehyde Floral-Green Rosy Citrus (grade A_producer; producer/primary text, quoted). Second reader: CAS 112-45-8 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'Producer SDS figure (10-undecenal, CAS 112-45-8); the PROC estimate is 2.6x lower and fragile ((log Kcaps + 3) = 0.1). Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
@@ -1384,7 +1404,7 @@
     cas: 'TGSC: CAS Number: 112-45-8 (https://www.thegoodscentscompany.com/data/rw1000332.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.84000 to 0.84800 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000332.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 10-undecenal, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/112-45-8.pdf: "Log KOW: 5.1 at 24 C (RIFM, 1994b), 4.12 (EPI Suite), 3.7 (RIFM, 2010a)"; the newer RIFM measurement is used; replaces the unsourced 3.3'
-    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 10-undecenal, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/112-45-8.pdf: "0.0653 mm Hg at 25 C (EPI Suite)" = 8.71 Pa (estimate; FMA 0.03 mm Hg at 20 C agrees in size); replaces the unsourced 0.1 Pa'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 10-undecenal, CAS Registry Number 112-45-8 (Api et al., Food Chem Toxicol 165 (2022) 113135, doi:10.1016/j.fct.2022.113135) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/112-45-8.pdf): ''7. Vapor Pressure: 0.0423 mm Hg at 20 C (EPI Suite v4.0), 0.0423 mm Hg at 20 C (EPI Suite v4.0), 0.03 mm Hg at 20 C (FMA), 0.0653 mm Hg at 25 C (EPI Suite)''; printed 0.03 mm Hg at 20 C (FMA); FMA value quoted by RIFM; method not stated; grade A_producer. Converted from 4 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 63.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Quote verbatim, CAS 112-45-8 matches. 0.03 x 133.322 = 4.00 Pa at 20 C. FMA value (method not stated), graded A_producer; FMA counts as measured per brief, so no estimate mislabel. Printed to one significant figure. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Aldehyde C12 Lauric
   aliases:
@@ -1441,8 +1461,8 @@
   # checked 2026-10-09; x1.5 to 25 C with dHvap ~60 kJ/mol (the repo's working value).
   # Other figures: the Yaws Handbook correlation (Chemeo; fitted 397-551 K) extrapolates
   # to 1.1 Pa at 25 C; ChemicalBook lists 2.4 Pa at 20 C. The old 0.01 Pa had no source.
-  vp_25c_pa: 1.5
-  vp_source: supplier_physical_data_20c_adjusted
+  vp_25c_pa: 6.0
+  vp_source: producer_25C
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.005
@@ -1468,7 +1488,7 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'Kao Corporation SDS, ALDEHYDE C-12 MNA (product B0001588), version 2.0, revised 2025-02-28 (https://chemical.kao.com/content/dam/sites/kao/chemical-kao-com/en/products/sds_glen_B0001588.pdf): ''Vapor pressure: 6 Pa (25.0 C/77.0 F)''; printed 6 Pa (25.0 C/77.0 F); producer SDS; method not stated; grade A_producer. Second reader: Kao SDS v2.0 (rev. 2025.02.28), single component 2-methylundecanal CAS 110-41-8. No method stated on the SDS; A_producer is fair. One significant figure. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1638,12 +1658,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 186.25
-  density_25c_g_ml: 0.936
-  logp: 1.0
+  density_25c_g_ml: 0.94
+  logp: 1.96
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.2
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 19.7
+  vp_source: measured_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.006
@@ -1676,16 +1696,17 @@
         price_usd_per_g: 0.05
   families:
   - sweet / gourmand / balsamic
-  character: null
+  character: 'strong, fruity and galbanum with a pineapple modification'
   notes: null
   provenance:
+    character: 'Allyl Amyl Glycolate (IFF) technical datasheet | SpecialChem, https://www.specialchem.com/cosmetics/product/iff-allyl-amyl-glycolate: "Allyl Amyl Glycolate by IFF is a readily biodegradable, fragrance ingredient. Its olfactory factor is described as a strong, fruity and galbanum with a pineapple modification. It adds a modern sparkle to any fragrance." (grade A_producer; producer/primary text, quoted). Second reader: SpecialChem listing of IFF''s product; CAS is behind login, product name identifies the molecule. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'ECHA Brief Profile, allyl (3-methylbutoxy)acetate (EC 266-803-5, CAS 67634-00-8), last updated 09/04/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.060.711): ''R Vapour pressure 19.7 Pa @ 25 C [1] ... Summary: Vapour pressure 19.7 Pa @ 25 C''; printed 19.7 Pa @ 25 C; REACH registration key study; grade A_regulatory. Second reader: Page identity: CAS 67634-00-8, C10H18O3, trade name Allyl Amyl Glycolate. CAS 67634-00-8 matches; trade name Allyl Amyl Glycolate on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: 'ESTIMATE: Givaudan SA, US 2018/0185808, PROC_i = OV_i [log10 Kcaps_i + 3], https://www.freepatentsonline.com/y2018/0185808.html: PROC 448677, log Kcaps -2.2, so OV = 560,846; Givaudan US 10,982,173 puts ALLYL AMYL GLYCOLATE in the 601-900 ug/l headspace band (https://patents.justia.com/patent/10982173). Threshold = HS / OV = 1.07-1.60 ng/L = 0.141-0.211 ppb (MW 186.25); geometric midpoint 0.172 ppb. Replaces an unsourced 2.0. Loaded 2026-10-25 (fruit batch)'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'ECHA Brief Profile, allyl (3-methylbutoxy)acetate (EC 266-803-5, CAS 67634-00-8), last updated 09/04/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.060.711): ''R Log Pow 1.96 @ 25 C and pH 2.3 [1] ... Summary: Log Kow (Log Pow) 1.96 @ 25 C''; printed 1.96 @ 25 C and pH 2.3; REACH registration key study (pH 2.3); grade A_regulatory. Second reader: CAS 67634-00-8. Measured at pH 2.3 (unusual for a neutral ester); value is on the low side for a C10 ester ether, but it is what the key study prints. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -1693,7 +1714,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 67634-00-8 (https://www.thegoodscentscompany.com/data/rw1001841.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.93500 to 0.94300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001841.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'ECHA Brief Profile, allyl (3-methylbutoxy)acetate (EC 266-803-5, CAS 67634-00-8), last updated 09/04/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.060.711): ''R Relative density 0.936 - 0.944 @ 20 C [1] ... Summary: Relative density at 20 C 0.94''; printed 0.936 - 0.944 @ 20 C; summary 0.94; REACH registration (study range 0.936-0.944 @ 20 C); grade A_regulatory. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: CAS 67634-00-8. Range 0.936-0.944 at 20 C; summary 0.94. Relative density (unitless), numerically ~g/cm3. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Allyl Caproate
   aliases: []
   cas: null
@@ -1789,7 +1810,7 @@
   inchikey: null
   mw_g_mol: 232.37
   density_25c_g_ml: 0.931
-  logp: 5.3
+  logp: 5.4
   functional_groups:
   - ionone ketone
   chirality: null
@@ -1817,17 +1838,19 @@
   families:
   - iris / violet
   - tropical fruity florals
-  character: Fruity floral woody ionone material with tropical pineapple, waxy, green,
-    orris-like and leathery facets.
+  character: 'Floral, Green, Fruity, Woody, Powerful (Givaudan''s olfactive note words; the page prose is usage only)'
+  odour_family: 'floral'
   notes: TGSC-backed allyl-alpha-ionone / tropical ionone record. Supplier trade names
     include Ketone V, Cetone V, and Hexalon.
   provenance:
+    character: 'Cetone V | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/cetone-v: Olfactive Note "Floral", "Green", "Fruity", "Woody", "Powerful". Prose: "Cetone V has many facets to its character and thus has many uses." "It blends very well with ionones, citrus notes, lavender, fruity, woody and oriental accords" "where it adds body and excellent diffusion." (grade A_producer; producer/primary text, quoted). Replaces unsourced text ''Fruity floral woody ionone material with tropical pineapple, waxy, green, orris-like and leathery facets.''. Second reader: Cetone V is Givaudan''s allyl ionone; page CAS 79-78-7 (allyl ionone). Quote segments are verbatim. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "floral" from ''Floral'': Cetone V | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/cetone-v: Olfactive Family "Floral" | Olfactive Note "Floral", "Green", "Fruity", "Woody", "Powerful" (grade A_producer; producer/primary text, quoted). Second reader: Cetone V is Givaudan''s allyl ionone (CAS 79-78-7 on page). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: user TGSC paste 2026-05-09
     mw_g_mol: user TGSC paste 2026-05-09
     density_25c_g_ml: user TGSC paste 2026-05-09
     vp_25c_pa: user TGSC paste 2026-05-09 (0.000498 mmHg @ 25 C converted to 0.0664
       Pa)
-    logp: user TGSC paste 2026-05-09
+    logp: 'Givaudan, Cetone V product page (allyl alpha-ionone) (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/cetone-v): ''Log Pow ... 5,4''; printed 5,4; producer figure; method not stated; grade A_producer. Second reader: Page identity: Givaudan Cetone V, CAS 79-78-7 (allyl alpha-ionone). No temperature or method printed. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1845,8 +1868,8 @@
   logp: 3.66
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.10657
-  vp_source: patent_reported_25C
+  vp_25c_pa: 3.2
+  vp_source: measured_25C
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -1874,11 +1897,12 @@
         price_usd_per_g: 0.21
   families:
   - floral materials
-  character: null
+  character: 'Belonging to the rose ketone family, this ketone presents a versatile profile. It is characterized by a distinctly fruity apple effect with clear floral and rose petal nuances and a slightly plum undertone. A highly diffusive and distinctive fruity floral ingredient.'
   notes: 'log P 3.66 is an unmarked database value (ChemicalBook, EPI-type estimate). ChemicalBook also lists 3.2 Pa at 25 C (estimate) against the patent-reported 1.1 Pa kept here.'
   provenance:
+    character: 'DAMASCONE ALPHA (937470) | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/damascone-alpha-pe-937470: Olfactive family Fruity. Technical Descriptors Apple, Rose, Coniferous. Olfactive description "Belonging to the rose ketone family, this ketone presents a versatile profile. It is characterized by a distinctly fruity apple effect with clear floral and rose petal nuances and a slightly plum undertone. A highly diffusive and distinctive fruity floral ingredient." (grade A_producer; producer/primary text, quoted). Second reader: Full description on page continues verbatim: ''A highly diffusive and distinctive fruity floral ingredient.'' Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: EP 3141239 B1, 0.00830 Torr at 25 C
+    vp_25c_pa: 'ECHA Brief Profile, (E)-1-(2,6,6-trimethyl-2-cyclohexen-1-yl)-2-buten-1-one (alpha-damascone, EC 246-430-4, CAS 24720-09-0), last updated 07/05/2025 (https://echa.europa.eu/brief-profile/-/briefprofile/100.042.195): ''R Vapour pressure 3.2 Pa @ 25 C [1] ... Summary: Vapour pressure 3.2 Pa @ 25 C''; printed 3.2 Pa @ 25 C; REACH registration key study; grade A_regulatory. Second reader: CAS 24720-09-0 matches the stock record (data/materials/A.yaml). Method not shown on the Brief Profile. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: 'Williams A. (Firmenich), Rose Ketones: Celebrating 30 Years of Success, Perfumer & Flavorist 27(2) 2002, Table 4 (gaseous detection thresholds, ug/dm3 air, averages), https://img.perfumerflavorist.com/files/base/allured/all/document/2016/02/pf.PF_27_02_018_11.pdf: "alpha-damascone 1.4 x 10-4" ug/dm3 = 0.14 ng/L x 24.45 / 192.30 = 0.0178 ppb (producer measurement of the commercial material). Replaces 0.04 (no source). Loaded 2026-10-25 (fruit batch)'
     odt_eth_ppm: engine.odor_thresholds
@@ -1896,12 +1920,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 192.3
-  density_25c_g_ml: 0.927
+  density_25c_g_ml: 0.93
   logp: 4.29
   functional_groups: []
   chirality: null
-  vp_25c_pa: 1.5
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 3.62
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.003
@@ -1927,7 +1951,7 @@
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'ESTIMATE (Takasago figure equal to the EPI estimate): Takasago, Ionone alpha (compendium catalog) (https://www.takasago.com/en/node/678): ''Vapor Pressure 3.62 Pa at 25ºC ... CLogP 4.29 ... Molecular Weight 192.30''; printed 3.62 Pa at 25ºC; producer catalogue figure (method not stated; equals the EPI estimate); grade A_producer. Second reader: The page lists both the α-ionone (127-41-3) and β-ionone (14901-07-6) CAS numbers, and states no method. The worker''s method says the figure equals the EPI estimate; the page does not say so, but if that holds it... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1936,7 +1960,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 127-41-3 (https://www.thegoodscentscompany.com/data/rw1011952.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.92700 to 0.93300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1011952.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, α-ionone, CAS Registry Number 127-41-3 (Api et al., Food Chem Toxicol 97 (2016) S1-S10, doi:10.1016/j.fct.2015.12.010) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/127-41-3.pdf): ''6. Specific Gravity : 0.930 [FMA]''; printed 0.930 [FMA]; FMA value quoted by RIFM; grade A_producer. No temperature printed. Second reader: RIFM a-Ionone, CAS 127-41-3. Value verbatim, but no temperature printed; item files it under density_20c_g_ml. Specific gravity (dimensionless). Fine as a density at unstated temperature. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, alpha-ionone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/127-41-3.pdf: "Log KOW: 4.29 [EPI Suite]" (estimate, the only value printed); replaces the unsourced 3.0'
 - canonical_name: Alpha Irone
   aliases:
@@ -1956,7 +1980,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.002
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.81
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1988,14 +2012,14 @@
     density_25c_g_ml: https://www.perfumersworld.com/view.php?pro_id=8II00243
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate. Replaces 0.9, an audit correction with no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt (confirmed 2026-07-16)
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, alpha-irone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/79-69-6.pdf: "log Pow = 3.8 and 4.0 (RIFM, 2010)", mean of the two measurements; EPI 4.71; replaces the unsourced 3.2'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, alpha-irone, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/79-69-6.pdf: "log Pow = 3.8 and 4.0 (RIFM, 2010)", mean of the two measurements; EPI 4.71; replaces the unsourced 3.2 Kept on 2026-10-25 over Givaudan''s product-page 4.4 (no method or temperature printed): RIFM''s two measurements outrank it.'
 - canonical_name: Alpha Irone 10% In Myristic Acid(solid)
   aliases:
   - Alpha Irone 10% in Myristic Acid(solid)
@@ -2047,12 +2071,12 @@
   smiles: CC1=CCCC(C1/C=C(/C)\C(=O)C)(C)C
   inchikey: JRJBVWJSTHECJK-LUAWRHEFSA-N
   mw_g_mol: 206.32
-  density_25c_g_ml: 0.927
+  density_25c_g_ml: 0.93
   logp: 3.3
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.4
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.29
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2078,13 +2102,15 @@
       document_url: https://www.perfumersworld.com/document-list.php?ifra=defaultOpen3&pro_id=3IW00300
   families:
   - iris / violet
-  character: Violet-sweet orris powdery floral with woody-amber diffusion.
+  character: 'Floral, Orris, Woody, Powdery (Givaudan''s olfactive note words for its alpha-iso-methyl ionone; the page has no odour sentence)'
   notes: PerfumersWorld product 3IW00300 is Alpha Isomethyl Ionone (CAS 127-51-5),
     commonly abbreviated AIMI or called Alpha Methyl Ionone. User confirmed one
     owned neat/as-supplied bottle on 2026-09-30. This identity is distinct from
     the depleted Methyl Ionone Gamma Coeur stock. Supplier identity does not by
     itself establish the exact assay or density of the user's physical lot.
   provenance:
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, methyl ionone (mixture of isomers), CAS 1335-46-2 (Api et al., Food Chem Toxicol 134 (2019) 110716, doi:10.1016/j.fct.2019.110716); group assessment with a separate physical-data row for alpha-iso-methylionone 127-51-5 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf): ''127-51-5 0.00554 mm Hg @ 20 C (EPI Suite v4.0), 0.006 mm Hg 20 C (FMA Database), 0.00972 mm Hg @ 25 C (EPI Suite)''; printed 0.006 mm Hg 20 C (FMA Database); FMA Database value quoted by RIFM; method not stated; grade A_producer. Converted from 0.8 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 69.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.006 x 133.322 = 0.80 Pa at 20 C. This is the row for CAS 127-51-5, which matches the stock Alpha Isomethyl Ionone. FMA gives one significant figure. Grade A_producer for an FMA value is acceptable (not an estimate). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Isoraldeine™ Cetone Alpha | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/isoraldeinetm-cetone-alpha: Olfactive Family Floral | Olfactive Note Floral Orris Woody Powdery. "Isoraldeine™ Cetone Alpha is a highly refined alpha-iso-methyl ionone used in rich floral perfumes where an exceptional quality of methyl ionone is required." (grade A_producer; producer/primary text, quoted). Replaces unsourced text ''Violet-sweet orris powdery floral with woody-amber diffusion.''. Second reader: Page CAS list includes 127-51-5 (inventory CAS). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: pubchem:ISO-alpha-METHYL-IONONE
     smiles: pubchem:ISO-alpha-METHYL-IONONE
     inchikey: pubchem:ISO-alpha-METHYL-IONONE
@@ -2094,7 +2120,7 @@
     user_in_inventory: inventory.txt + direct user confirmation 2026-09-30
     user_stock_dilution: inventory.txt
     supplier.perfumersworld_catalog_snapshot: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.92500 to 0.93500 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1023012.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, methyl ionone (mixture of isomers), CAS 1335-46-2 (Api et al., Food Chem Toxicol 134 (2019) 110716, doi:10.1016/j.fct.2019.110716); group assessment with a separate physical-data row for alpha-iso-methylionone 127-51-5 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1335-46-2.pdf): ''6. Specific Gravity: ... 127-51-5 0.931 (FMA Database), 0.93 g/mL ( RIFM, 1994b )''; printed 0.93 g/mL (RIFM, 1994b); RIFM study (RIFM, 1994b); temperature not printed; grade A_measured. No temperature printed. Second reader: The value is on the page for CAS 127-51-5 (correct material), but the page prints no temperature, while source_field says density_20c_g_ml. As density_unspecified_t it would be confirmed. RIFM 1994b is cited in the... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Alpha Pinene
   aliases: []
   cas: null
@@ -2580,8 +2606,10 @@
   families:
   - woods / amber / structure
   character: null
+  odour_family: 'amber'
   notes: 'No VP found for the active (CAS 929625-08-1); the Ventos SDS (2025) for the 50% product gives 0.0136 hPa at 20 C, mostly the Dowanol TPM (tripropylene glycol methyl ether) carrier, so no measured value is loaded. 25 Oct 2026: the placeholder 0.001 Pa is replaced by a labelled estimate of 0.01 Pa (see provenance vp_25c_pa). Stock L219 is 50% in Dowanol TPM, not DPG or TEC. TGSC log P 6.3 (est) not adopted.'
   provenance:
+    odour_family: 'odour family "amber" from ''Ambery'': Ambermax 50%/Dowanol TPM | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ambermaxtm-50dowanol-tpm: Olfactive Family Ambery | Olfactive Note Ambery Woody Cedarwood (grade A_producer; producer/primary text, quoted). Second reader: Page is the 50% solution in Dowanol TPM (Givaudan''s sales form); CAS 929625-08-1, 1001252-30-7/25498-49-1. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -2758,7 +2786,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.0005
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.04947
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2770,12 +2798,13 @@
   supplier: null
   families:
   - woods / amber / structure
-  character: null
+  character: 'Woody, Cedar Wood, Amber, Sandalwood; adds a substantive woody-ambery note'
   notes: 'Taken as Boisambrene Forte (Kao, CAS 58567-11-6): VP 0.296 Pa at 25 C and log P 5.4 are unmarked ChemicalBook database values (EPI-type estimates); the Kao catalogue (B0017583) has no VP. Replaces the 0.001 Pa placeholder.'
   provenance:
+    character: 'Symrise product sheet: Amberwood F, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Amberwood_F.pdf: "› adds a substantive woody-ambery note › fits well into sandalwood reconstitutions › acts as a pillar material for woody creations › recommended use level: 0.5 – 10 %" "› Woody, Cedar Wood, Amber, Sandalwood" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'https://chemicalbook.com/CASEN_58567-11-6.htm: 0.296 Pa at 25 C, unmarked (estimate); identity Amberwood F = Boisambrene Forte (Kao); replaces the 0.001 placeholder; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate for Boisambrene Forte, the same molecule (CAS 58567-11-6). Replaces an unsourced 1.0. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: 'same ChemicalBook page: log P 5.4 (estimate); replaces engine.skin_interaction 3.8; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
@@ -2928,9 +2957,12 @@
         sku: 5XU12235
         price_usd_per_g: 2.52
   families: []
-  character: null
+  character: 'Our Ambrette Seed Absolute revolves around earthy facets, fleeting nutty notes with silky fruity undertones and liquor nuances. As it dries, it evolves into a powdery floral note of orris.'
+  odour_family: 'musk'
   notes: null
   provenance:
+    odour_family: 'odour family "musk" from ''Musky'': Ambrette Seed Absolute | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/ambrette-seed-absolute: MUSKY | Powerful, Fruity (grade A_producer; producer classification (Givaudan family line; descriptors ''Powerful, Fruity'')). Second reader: Givaudan absolute (Peru/Ecuador); inventory stock is PerfumersWorld 5XU12235 at 10% in DPG, same material type. Rank 1 not opened. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Ambrette Seed Absolute | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/ambrette-seed-absolute: Our Ambrette Seed Absolute revolves around earthy facets, fleeting nutty notes with silky fruity undertones and liquor nuances. As it dries, it evolves into a powdery floral note of orris. (grade A_producer; producer description (Givaudan''s own ambrette seed absolute, Peru/Ecuador, distillation + molecular distillation)). Second reader: Givaudan''s product is made by distillation followed by molecular distillation (Peru/Ecuador), sold as an absolute; Kenny''s stock is PerfumersWorld 5XU12235 (10% in DPG), whose process is not stated. Same species and product name. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.898-0.900; https://www.thegoodscentscompany.com/data/ab1029391.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 84455-19-6; '
@@ -2980,7 +3012,7 @@
   inchikey: null
   mw_g_mol: 252.4
   density_25c_g_ml: 0.956
-  logp: 5.5
+  logp: 6.7
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.003
@@ -3017,6 +3049,7 @@
   character: null
   notes: null
   provenance:
+    logp: 'Fragrance material review on oxacycloheptadec-10-ene-2-one (RIFM FMR, Food Chem Toxicol, 2011) (https://www.sciencedirect.com/science/article/abs/pii/S0278691511003486): ''3.5 Log Kow: 5.51; or 6.7 (23 C).''; printed 6.7 (23 C); RIFM fragrance material review; method not stated; grade A_regulatory. Second reader: Abstract page (Parallel fetch). The page does not say whether 5.51 or 6.7 is measured; it marks VP and Henry''s law as ''calculated'' but not log Kow. The 23 C suggests a measurement. CAS matches the stock record. The... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
@@ -3106,8 +3139,10 @@
   families:
   - woods / amber / structure
   character: null
+  odour_family: 'amber'
   notes: 'VP 25 C 0.09 Pa for the crystals: 6.0e-2 Pa measured at 20 C (RIFM 1998j; Symrise SDS OECD 104 0.0006 hPa at 20 C) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol); a dissolved (subcooled-liquid) value would be about 0.2 Pa (mp 52.6-58.3 C, RIFM). bp 309.2 C (Symrise datasheet), over 280.5 C (RIFM); density 1.094; water solubility 4.28 mg/L. log Kow 4.865 measured (RIFM 1998h; SDS 4.84) replaces the datasheet integer 6. The air ODT (engine/odor_thresholds.py) is 0.00176 ppb from Elterlein et al., Chem. Eur. J. 2024, e202400006 (0.02 ng/L air), loaded 25 Oct 2026; the Symrise datasheet chart value is higher. Sources: material-data-firecrawl/AMBROCENIDE_VP_20261010.md (2026-10-10), allgaps/S4_woody_musk_captives.md (2026-10-08).'
   provenance:
+    odour_family: 'odour family "amber" from ''Ambery'': Symrise product sheet: Ambrocenide 10 DPG, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_10_DPG.pdf: family word printed before the name: "ambery ambrocenide® 10 dpg" (grade A_producer; producer/primary text, quoted). Second reader: Sheet is for Ambrocenide 10 DPG (the 10% DPG dilution of the same molecule); CAS 211299-54-6 matches. Family word ''ambery'' printed before the name. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -3186,7 +3221,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.0003
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.02146
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -3212,13 +3247,14 @@
         price_usd_per_g: 0.2
   families:
   - woods / amber / structure
-  character: null
+  character: 'Extremely powerful and elegant ambery odor with musky and woody tonalities. ... Compared to CETALOX®, this profile is more natural, animalic, and closer to the original ambregris.'
   notes: 'VP 0.054 Pa measured at 20 C (RIFM 1998d, in the RIFM 2021 assessment for CAS 6790-58-5) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa at 25 C; log Kow 5.09 (RIFM 2013d); water 1.88 mg/L. Same molecule as Ambrofix (ambroxide).'
   provenance:
+    character: 'AMBROX® SUPER (909158) | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/ambroxr-super-pe-909158: Olfactive family Ambery. Technical Descriptors Ambery, Woody. Olfactive description "Extremely powerful and elegant ambery odor with musky and woody tonalities. Sparklingly sensual, AMBROX® SUPER offers musky and woody tonalities to amber ingredients. Compared to CETALOX®, this profile is more natural, animalic, and closer to the original ambregris." (grade A_producer; producer/primary text, quoted). Second reader: Same product (AMBROX SUPER 909158). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6790-58-5.pdf: 0.054 Pa at 20 C measured (RIFM 1998d) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa; replaces engine.diffusion_model 0.05; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan Ambrofix SDS (Sales No. 127737), the same molecule ((-)-ambroxide, CAS 6790-58-5). Replaces 0.3, an audit correction with no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: 'same RIFM assessment: log Kow 5.09 (RIFM 2013d); replaces engine.skin_interaction 4.5; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
@@ -3313,9 +3349,9 @@
   cas: '122-40-7'
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 202.29
   density_25c_g_ml: 0.964
-  logp: null
+  logp: 4.7
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -3340,9 +3376,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'strong floral odour suggestive of jasmine'
   notes: null
   provenance:
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment update, α-amylcinnamaldehyde, CAS 122-40-7 (Api et al., Food Chem Toxicol 183 (2024) 114447) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/122-40-7-Upd.pdf): ''Molecular Weight: 202.29 g/mol''; printed 202.29 g/mol; formula weight (RIFM identification); grade A_regulatory. Second reader: Same document (CAS 122-40-7). Quote verbatim; consistent with C14H18O. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'RIFM fragrance ingredient safety assessment update, α-amylcinnamaldehyde, CAS 122-40-7 (Api et al., Food Chem Toxicol 183 (2024) 114447) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/122-40-7-Upd.pdf): ''Log K OW : 4.7 ( RIFM, 1994b ), 4.33 (EPI Suite v4.11)''; printed 4.7 (RIFM, 1994b); RIFM study (RIFM, 1994b); grade A_measured. Second reader: Same document (CAS 122-40-7). Quote verbatim; RIFM 1994b is a partition-coefficient study report, so measured. No temperature printed. RIFM''s environmental screen also used 4.7. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'alpha-Amylcinnamaldehyde (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/565/: Physical form/odour: "Pale yellowish liquid, strong floral odour suggestive of jasmine" (grade A_regulatory; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 122-40-7 (https://www.thegoodscentscompany.com/data/rw1001011.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.96300 to 0.97100 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1001011.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
@@ -3605,9 +3644,10 @@
     other: {}
   families:
   - sweet / gourmand / balsamic
-  character: null
+  character: 'Intensely sweet, floral odour'
   notes: null
   provenance:
+    character: 'p-Methoxybenzaldehyde (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/783/: Physical form/odour: "colourless to slightly yellow liquid with a Intensely sweet, floral odour" (grade A_regulatory; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 31244 (https://pubchem.ncbi.nlm.nih.gov/compound/31244#section=Vapor-Pressure): "3.29X10-2 mm Hg at 25 °C (extrapolated)", citing Ohe S, Vapor-Liquid Equilibrium Data (Kodansha/Elsevier 1989) p. 742; x 133.322 = 4.39 Pa. Extrapolated from measured data.'
     kaw_eff: engine.diffusion_model
@@ -3731,9 +3771,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Floral, Lilac, Mimosa, Heliotrope (Symrise''s odour words)'
+  odour_family: 'floral'
   notes: null
   provenance:
+    character: 'Symrise product sheet: Anisyl Acetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Anisyl_Acetate.pdf: "› Floral, Lilac, Mimosa, Heliotrope › recommended use level: up to 15 %" (grade A_producer; producer/primary text, quoted). Second reader: CAS 104-21-2 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "floral" from ''Floral'': Symrise product sheet: Anisyl Acetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Anisyl_Acetate.pdf: family word printed with the name: "floral anisyl acetate" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
@@ -4039,7 +4082,7 @@
   inchikey: null
   mw_g_mol: 220.35
   density_25c_g_ml: 0.911
-  logp: null
+  logp: 5.6
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.133
@@ -4065,9 +4108,11 @@
     other: {}
   families:
   - citrus / top
-  character: null
+  character: 'Warm apricot, peach flesh with a jasmine-based and jam-like quality. Extremely long lasting with a rare fruity and natural character.'
   notes: null
   provenance:
+    logp: 'Bedoukian Research SDS (EU REACH), APRITONE NØ410 - V01060, version 21.1 (31/03/2025) (hosted by perfumiarz.com) (https://perfumiarz.com/cdn/shop/files/V01060_FDSu_03-25.pdf?v=5009314613869947402): ''Partition coefficient: n-octanol/water : 5,6 OECD 117''; printed 5,6 OECD 117; producer SDS, OECD 117; grade A_producer. Second reader: Bedoukian SDS v21.1 (31/03/2025). Section 12 gives the unrounded 5.57 (HPLC). No temperature printed. Product is 96-100% CAS 68133-79-9. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Bedoukian spec sheet: Apritone (BRI 410), https://bedoukian.com/wp-content/uploads/FR-410-spec-sheet.pdf: Odor Description: "Warm apricot, peach flesh with a jasmine-based and jam-like quality." Description: "Extremely long lasting with a rare fruity and natural character." (grade A_producer; producer/primary text, quoted). Second reader: Labels ''Odor Description''/''Description'' not shown in the fetched text, but both quoted sentences are verbatim on the Bedoukian sheet. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
@@ -4303,17 +4348,17 @@
   smiles: null
   inchikey: null
   mw_g_mol: 305.4
-  density_25c_g_ml: 1.0245
-  logp: 3.3
+  density_25c_g_ml: 1.05796
+  logp: 4.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.533
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.284
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.01845
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -4325,18 +4370,20 @@
   supplier: null
   families:
   - floral materials
-  character: null
+  character: 'Floral, Orange blossom, Linden blossom (Givaudan''s olfactive note words; the page has no odour sentence, only usage text)'
   notes: null
   provenance:
-    odt_air_ppb: engine.odor_thresholds
+    vp_25c_pa: 'Givaudan SDS, AURANTIOL PURE (sales no. 2365901), version 14.1, revised 11 JUL 2023 (hosted by perfumiarz.com) (https://perfumiarz.com/cdn/shop/files/2365901_AURANTIOL_PURE_SDS_EN.pdf?v=14674485429420110479): ''Vapour pressure : 0,0017 hPa at 20 C''; printed 0,0017 hPa at 20 C; producer SDS; method not stated; grade A_producer. Converted from 0.17 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 74.8 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Givaudan SDS v14.1 (rev. 11 JUL 2023). 0.0017 hPa x 100 = 0.17 Pa at 20 C. No method stated for VP. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Aurantiol™ Pure | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/aurantioltm-pure: Olfactive Family Floral | Olfactive Note Floral Orange blossom Linden blossom. "Aurantiol™ Pure is perhaps the best known Schiff base and is extensively used in a large variety of floral notes such as orange-blossom, linden-blossom and tuberose. Used in citrus cologne types, it acts as an excellent fixative as well as exalting the top notes." (grade A_producer; producer/primary text, quoted). Second reader: Givaudan Aurantiol Pure; no CAS shown in the part read. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'Producer SDS figure. Replaces 30, an audit correction with no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
+    logp: 'Givaudan SDS, AURANTIOL PURE (sales no. 2365901), version 14.1, revised 11 JUL 2023 (hosted by perfumiarz.com) (https://perfumiarz.com/cdn/shop/files/2365901_AURANTIOL_PURE_SDS_EN.pdf?v=14674485429420110479): ''Partition coefficient: n- octanol/water : log Pow: 4,8 Method: OECD Test Guideline 117''; printed log Pow: 4,8 Method: OECD Test Guideline 117; producer SDS, OECD 117; grade A_producer. Second reader: CAS 89-43-0. OECD 117 (HPLC) measurement; no temperature printed; item states none. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     cas: '22 Oct 2026 missing-data pass: stated; raw 89-43-0; https://thefragrancefoundry.com/products/aurantiol-pure-givaudan'
-    density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 1.0216 to 1.0273; https://www.thegoodscentscompany.com/data/rw1004281.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_25c_g_ml: 'Givaudan SDS, AURANTIOL PURE (sales no. 2365901), version 14.1, revised 11 JUL 2023 (hosted by perfumiarz.com) (https://perfumiarz.com/cdn/shop/files/2365901_AURANTIOL_PURE_SDS_EN.pdf?v=14674485429420110479): ''Density : 1 057,96 kg/m3 at 20 C''; printed 1 057,96 kg/m3 at 20 C; producer SDS; grade A_producer. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: CAS 89-43-0. 1057.96 kg/m3 = 1.05796 g/mL at 20 C. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Aurantiol (methyl Anthranilate Schiffs Base)
   aliases:
   - Aurantiol (Methyl Anthranilate Schiffs Base)
@@ -4510,7 +4557,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 0.3
+  odt_air_ppb: 0.02146
   odt_eth_ppm: 0.005
   stevens_n: null
   or_targets: []
@@ -4518,10 +4565,14 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
   notes: 'Same molecule as the Ambrofix and Ambrox Super rows (ambroxide, CAS 6790-58-5), so the molecular data match them. The stock stays a separate record (the crystalline bottle); no substitution between bottles is implied.'
+  character: 'Ambrofix™ is a highly powerful, highly substantive and highly stable ambery note. It is the most suitable material to deliver an authentic Ambergris note. Ambrofix™ also brings a woody sensuality to the composition'
+  odour_family: 'amber'
   provenance:
+    odour_family: 'odour family "amber" from ''Ambery'': Ambrofix™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ambrofix: Olfactive Family Ambery | Olfactive Note Ambery Woody Tobacco Dry (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Ambrofix™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ambrofix: "Ambrofix™ is a highly powerful, highly substantive and highly stable ambery note. It is the most suitable material to deliver an authentic Ambergris note. Ambrofix™ also brings a woody sensuality to the composition and can be easily overdosed. It is the most widely used and most biodegradable ambery molecule." (grade A_producer; producer/primary text, quoted). Second reader: Page shows White Crystals, CAS 6790-58-5, 3738-00-9. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: 'matched to the Ambrofix / Ambrox Super rows (23 Oct 2026): RIFM assessment log Kow 5.09 (RIFM 2013d), https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6790-58-5.pdf; replaces the superseded engine.skin_interaction 4.7'
     vp_25c_pa: 'matched to the Ambrofix / Ambrox Super rows (23 Oct 2026): RIFM 0.054 Pa at 20 C measured (RIFM 1998d) x 1.51 (20 to 25 C) = 0.08 Pa; replaces the unsourced 0.066'
-    odt_air_ppb: 'matched to engine.odor_thresholds ambrofix / ambrox super (0.3 ppb, 23 Oct 2026); replaces the unsourced 0.5'
+    odt_air_ppb: 'Givaudan Ambrofix SDS (Sales No. 127737). Replaces 0.3 on the data-spine record, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: 'matches engine.odor_thresholds ambrofix / ambrox super (0.005)'
     cas: '22 Oct 2026 missing-data pass: stated; raw 6790-58-5; https://www.tcichemicals.com/DE/en/p/A2472'
 
@@ -4542,14 +4593,17 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 8.0
+  odt_air_ppb: 1.268
   odt_eth_ppm: 0.8
   stevens_n: null
   or_targets: []
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  character: 'Fruity, Aromatic, Apple, Pineapple; imparts texture and ripe fruit impressions'
   provenance:
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate with a measured RIFM vapour pressure. Replaces 8.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Symrise product sheet: Allyl Cyclohexyl Propionate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Allyl_Cyclohexyl_Propionate.pdf: Odor: "Fruity, Aromatic, Apple, Pineapple"; "imparts texture and ripe fruit impressions" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '23 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.945 to 0.954; https://www.thegoodscentscompany.com/data/rw1000322.html; temperature as printed by source (often 20 C), not corrected to 25 C. Moved 23 Oct to this effective row (it had landed on the shadowed duplicate row).'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, allyl cyclohexanepropionate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/2705-87-5.pdf: "Log Pow = 4.3 (RIFM, 2010b), 4.8 at 30 C (RIFM, 1996a), 4.47 (EPI Suite)"; measured 4.3 used; replaces the unsourced 3.3'
     vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, allyl cyclohexanepropionate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/2705-87-5.pdf: "3.8 Pa at 25 C (RIFM, 2012d)", measured; replaces the unsourced 5.0'

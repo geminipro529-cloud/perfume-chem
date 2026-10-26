@@ -227,19 +227,19 @@
   inchikey: null
   mw_g_mol: 174.24
   density_25c_g_ml: 1.02
-  logp: 2.3
+  logp: 2.9
   functional_groups:
   - indenone
   - ketone
   - aromatic
   chirality: null
-  vp_25c_pa: 0.02
-  vp_source: boiling_point_proxy
+  vp_25c_pa: 1.2
+  vp_source: producer_T_unstated
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 0.1
+  odt_air_ppb: 0.7915
   odt_eth_ppm: 0.02
   stevens_n: null
   or_targets: []
@@ -259,9 +259,13 @@
   - leather
   - tobacco
   - spice
-  character: Warm powerful saffron, leathery, tobacco and rose-ketone/woody indenone.
+  character: 'Safraleine™ has a very unique warm and vibrant character ... Safraleine™ exhibits warm, powerful, leathery and tobacco facets but its complexity also reveals characteristics of spices reminiscent of natural saffron, enriched by rose ketone-like floral aspects.'
   notes: Neat user stock. Discrete CAS 54440-17-4; supplier's 10% TEC form is a separate carrier/form and is not substituted here.
   provenance:
+    logp: 'Givaudan, Safraleine product page (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/safraleinetm): ''Log Pow 2,9''; printed ; engine 2.3 unsourced; grade A_producer. Second reader: Same page (Safraleine, CAS 54440-17-4). Log Pow printed as ''2,9'' (comma decimal). No temperature or method stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'Givaudan, Safraleine product page (Giv Code 0015893) (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/safraleinetm): ''C12H14O 174,2 2,9 0.0120 hPa 251 Colourless Liquid 54440-17-4 4556 (columns: Formula MW Log Pow Vapour pressure Boiling point ( C) Appearance CAS no. FEMA)''; printed 0.0120 hPa; producer figure, temperature not printed; 0.0120 hPa x 100 = 1.20 Pa. Engine 0.02 Pa (''boiling point proxy'') is 60x lower. Filed under vp_20c_pa...; grade A_producer. The page prints no temperature, so the figure (1.2 Pa) is used as printed, not converted. Second reader: Quote matches (opened the page directly; worker had only a search excerpt). CAS 54440-17-4. 0.0120 hPa x 100 = 1.20 Pa. TEMPERATURE: page prints no temperature for the vapour pressure; item temperature_c is null, but... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'Producer SDS figure. Replaces 0.1, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Print Page | Givaudan: Safraleine, https://www.givaudan.com/print/1314811: Safraleine™ has a very unique warm and vibrant character offering a new alternative to existing spicy ingredients. Safraleine™ exhibits warm, powerful, leathery and tobacco facets but its complexity also reveals characteristics of spices reminiscent of natural saffron, enriched by rose ketone-like floral aspects. (grade A_producer; ). Replaces unsourced text ''Warm powerful saffron, leathery, tobacco and rose-ketone/woody indenone.''. Second reader: CAS 54440-17-4 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: JECFA:54440-17-4
     mw_g_mol: JECFA:174.24
@@ -275,12 +279,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 150.22
-  density_25c_g_ml: 0.971
-  logp: 3.22
+  density_25c_g_ml: 0.974
+  logp: 2.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: 21.2
-  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 14.1
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -309,18 +313,21 @@
         sku: 5ES09556
         price_usd_per_g: 0.12
   families: []
-  character: null
+  character: 'Safranal has a spicy saffron-like note with herbaceous, tobacco facets and floral undertones.'
+  odour_family: 'spice'
   notes: 'log Kow not set: two estimates disagree (EPI KOWWIN v1.67 3.22, TGSC EPI page ep1016371; TGSC 2.825 est). VP not set: two estimates disagree, no measured or RIFM value (EPI 21.2 Pa mean Antoine & Grain; TGSC 0.134 mm Hg at 25 C est = 17.9 Pa). No air ODT found. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. 2026-10-14: PerfumersWorld sells Safranal as "Saffranal" (product page 4ES00402: CAS 116-26-7, synonyms Safranal and dehydro-beta-cyclocitral), so the owned "Saffranal 10% in DPG" stock is this entry.'
   provenance:
+    odour_family: 'odour family "spice" from ''Spicy (Olfactive Note: Spicy, Saffron, Herbaceous, Tobacco)'': Print Page | Givaudan: Safranal, https://www.givaudan.com/print/1314816: Olfactive Family Spicy | Olfactive Note Spicy Saffron Herbaceous Tobacco (grade A_producer; ). Second reader: CAS 116-26-7 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Print Page | Givaudan: Safranal, https://www.givaudan.com/print/1314816: Safranal has a spicy saffron-like note with herbaceous, tobacco facets and floral undertones. It is very useful in spicy, agrestic, tobacco, orris and woody compositions. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html: "Molecular Weight: | 150.22078000" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
-    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1016371.html: specific gravity "0.96800 to 0.98000 @ 25.00 °C."; midpoint 0.974 x 0.99705 g/mL (water at 25 C) = 0.971 (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
-    logp: 'ESTIMATE: EPI KOWWIN v1.67 3.22 (TGSC EPI page ep1016371); TGSC 2.825 (est) is within 0.5 (via material-data-firecrawl/allgaps/S1_aldehydes.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
-    vp_25c_pa: 'ESTIMATE: EPI 21.2 Pa (mean of Antoine and Grain); TGSC 0.134 mmHg @ 25 C (est) = 17.9 Pa agrees (via material-data-firecrawl/allgaps/S1_aldehydes.md); filled 2026-10-13, Kenny chose "Fill estimates" on 2026-10-13'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Specific Gravity: 0.96800 to 0.98000 @ 20.00 C''; printed 0.968-0.980 at 20 C; range midpoint; JECFA (PubChem CID 61041) "0.968-0.980 (20 C)"; grade A_regulatory. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: CAS 116-26-7. Range midpoint 0.974 at 20 C is correct. The page prints no source tag for this range; the JECFA/PubChem attribution in the method is not on this page. Specific gravity, not absolute density (difference... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Log K OW : Log Pow = 2.7 (RIFM, 2014a), 3.22 (EPI Suite)''; printed ; RIFM 2014a study; grade A_measured. Second reader: CAS 116-26-7. RIFM 2014a study value; no temperature or method printed on this page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 2,6,6-trimethylcyclohexa-1,3-dienyl methanal, CAS Registry Number 116-26-7, Food Chem Toxicol (2020) 111233 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2020.111233): ''Vapor Pressure: 0.105 mm Hg @ 20 C (EPI Suite v4.0), 0.07 mm Hg 20 C (FMA Database), 0.159 mm Hg @ 25 C (EPI Suite)''; printed 0.07 mm Hg at 20 C; FMA database; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 9.333 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 59.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: RIFM assessment, CAS 116-26-7, synonym Safranal. 0.07 x 133.322 = 9.33 Pa at 20 C. FMA value (measured per brief); one significant figure. EPI estimate at 20 C is 50% higher (0.105 mm Hg). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Sage Dalmation Essential Oil
   aliases: []
   cas: null
@@ -1197,8 +1204,8 @@
   logp: 4.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.08
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0591
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1220,9 +1227,11 @@
     other: {}
   families:
   - woods / amber / structure
-  character: null
+  character: 'Sandalore™, a powerful, diffusive and extremely tenacious product, imparts a rich, warm, natural sandalwood character to perfumes'
   notes: null
   provenance:
+    vp_25c_pa: 'ESTIMATE (): RIFM safety assessment, Sandalore (FCT 163 (2022) 113030), read-across table (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/65113-99-7.pdf): ''Vapor Pressure (Pa @ 25 C, EPI SUITE) 0.0591''; printed ; ; grade EST. Second reader: RIFM assessment FCT 163 (2022) 113030, CAS 65113-99-7. EPI Suite estimate, graded EST: correct. Physical data section agrees: 0.000443 mm Hg at 25 C (EPI Suite) = 0.0591 Pa. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Sandalore™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/sandaloretm: Sandalore™, a powerful, diffusive and extremely tenacious product, imparts a rich, warm, natural sandalwood character to perfumes, as well as volume and substantivity. It is an interesting sandalwood replacement in combination with Ebanol™. (grade A_producer; ). Second reader: CAS 65113-99-7 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1335,9 +1344,10 @@
   user_in_inventory: false
   supplier: null
   families: []
-  character: null
+  character: 'Sandalwood Essential Oil is Sandalwood wood rich cashew creamy bread santal.'
   notes: null
   provenance:
+    character: 'Sandalwood Essential Oil 10% in DPG | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=5WX12225: Sandalwood Essential Oil is Sandalwood wood rich cashew creamy bread santal. ... Top Notes Balsamic ... Heart Notes Wood, Linalool ... Base Notes Wood ... CAS No. 84787-70-2*10% (grade A_producer; supplier description (PerfumersWorld 5WX12225, Kenny''s own product; its ''Odour=>'' field only says ''Dilution of Sandalwood Oil 10% in DPG'')). Second reader: Page is PerfumersWorld''s 10% DPG dilution (researcher says this is Kenny''s own product). Page CAS 84787-70-2 differs from the inventory CAS 8006-87-9; both are sandalwood oil/extract registrations, but the species behind 84787-70-2 is not stated on the page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1753,8 +1763,8 @@
   logp: 2.0
   functional_groups: []
   chirality: null
-  vp_25c_pa: 6.0
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.655
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.007
@@ -1788,7 +1798,7 @@
   character: null
   notes: null
   provenance:
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, methoxy dicyclopentadiene carboxaldehyde, CAS Registry Number 86803-90-9, Food Chem Toxicol 134 (2019) 110826 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2019.110826): ''Vapor Pressure: 0.003 mm Hg 20 C (FMA Database), 0.00446 mm Hg @ 25 C (EPI Suite), 0.00248 mm Hg @ 20 C (EPI Suite v4.0)''; printed 0.003 mm Hg at 20 C; FMA database; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 0.4 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 71.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Opened via the ScienceDirect article page (doi.org redirect; Parallel could not connect to doi.org directly). Page is the RIFM assessment of methoxy dicyclopentadiene carboxaldehyde, CAS 86803-90-9, synonym... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -1908,9 +1918,10 @@
   supplier: null
   families:
   - sweet / gourmand / balsamic
-  character: null
+  character: 'Benzoin resinoid is woody, vanilla-like, sweet and creamy, it smells sort of like caramel when it starts to set. In the dry down, benzoin resinoid develops interesting cinnamic notes that can last a long time.'
   notes: Current user stock is 50% w/w in DPG; exact active mass from volume requires stock-solution density.
   provenance:
+    character: 'Benzoin n°3 Resinoid Laos 50% DPG | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/benzoin-n3-resinoid-laos-50-dpg: AMBERY | Balsamic, Vanilla-like ... Benzoin resinoid is woody, vanilla-like, sweet and creamy, it smells sort of like caramel when it starts to set. In the dry down, benzoin resinoid develops interesting cinnamic notes that can last a long time. (grade A_producer; producer description (Givaudan Benzoin n°3 Resinoid Laos 50% DPG; identical text on Benzoin Powder Resinoid Laos)). Second reader: Styrax tonkinensis, CAS 9000-72-0, resinoid 50% in DPG (same carrier and strength as Kenny''s Siam Benzoin 50% w/w in DPG). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     cas: '22 Oct 2026 missing-data pass: stated; raw 9000-72-0; https://thegoodscentscompany.com/data/rs1000281.html'
@@ -1933,7 +1944,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.0056
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1954,11 +1965,12 @@
         price_usd_per_g: 0.19
   families:
   - leather / smoky / phenolic
-  character: null
+  character: 'mothball, putrid, decayed, faecal; jasmine-like or fruity upon dilution'
   notes: Current 1% stock carrier is DPG. Fraction basis remains unspecified, so quantitative execution is held.
   provenance:
+    character: 'Skatole | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/Skatole: White scales or powder; Mothball, putrid, decayed, faecal odour, jasmine-like or fruity upon dilution (grade A_regulatory; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 6736 (https://pubchem.ncbi.nlm.nih.gov/compound/6736#section=Vapor-Pressure): "0.0055 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 0.733 Pa. The record does not state the temperature.'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Nagata triangle-odour-bag detection threshold. Zhou et al. 2016 (abstract only) gives 0.061 ppb, 11x higher. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
@@ -2497,8 +2509,8 @@
   logp: 2.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 7.0
-  vp_source: "est/literature"
+  vp_25c_pa: 8.42
+  vp_source: measured_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2526,6 +2538,7 @@
   character: 'green-sweet gardenia-floral ester'
   notes: "material intake batch 2026-08-07; merged 2026-10-09 with the misspelt 'Stralyl Acetate' record (same CAS 93-92-5) so the owned V5 label reaches its data"
   provenance:
+    vp_25c_pa: 'RIFM safety assessment, alpha-methylbenzyl acetate (FCT 97 (2016) S57-S68) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/93-92-5.pdf): ''7 Vapor Pressure: 5.5 Pa at 20 C [RIFM, 2011], 0.0733 mm Hg @ 20 C [EPI Suite 4.0], 0.1 mm Hg 20 C [FMA database], 0.112 mm Hg @ 25 C [EPI Suite]''; printed ; RIFM 2011 vapour-pressure study; grade A_measured. Converted from 5.5 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 61.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Parallel fetch returned 403; read with WebFetch, which rendered the degree sign as a replacement character. The RIFM 2011 reference entry was not in the fetched text, so the study type is not visible. On the same... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: 'RIFM, Food Chem. Toxicol. 97 (2016) S57-S68, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/93-92-5.pdf: "2.5 at 30 °C [RIFM, 1996b], 2.5 [EPI Suite]", measured. Replaces an unsourced 2.0. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/93-92-5.pdf: "1.023-1.026 @ 25/25 °C [Gaunt et al., 1974]"; midpoint 1.0245 x 0.99705 (water at 25 °C) = 1.0215 g/mL. Replaces a TGSC range midpoint (1.024). Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
@@ -3124,9 +3137,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'With its unique combination of citrus and floral notes, orange exudes a sense of sophistication and refinement that sets it apart from other citrus fruits with their bright, colourful, uplifting notes.'
+  odour_family: 'citrus'
   notes: null
   provenance:
+    character: 'Orange Pera Oil Brazil | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orange-pera-oil-brazil: CITRUS | Citrus-like, Orange-like, Peely, Fresh ... With its unique combination of citrus and floral notes, orange exudes a sense of sophistication and refinement that sets it apart from other citrus fruits with their bright, colourful, uplifting notes. (grade A_producer; producer description (Givaudan Orange Pera Oil Brazil, Citrus sinensis var. pera, cold pressed)). Second reader: Generic inventory ''Sweet Orange Essential Oil''; page is cold-pressed Citrus sinensis (pera cultivar, Brazil); CAS 8008-57-9 matches. The value is marketing prose. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "citrus" from ''Citrus'': Orange Pera Oil Brazil | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orange-pera-oil-brazil: CITRUS | Citrus-like, Orange-like, Peely, Fresh (grade A_producer; producer classification (Givaudan; descriptors ''Citrus-like, Orange-like, Peely, Fresh'')). Second reader: Same page as item Orange Peel EO. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.84200 to 0.84600; https://www.thegoodscentscompany.com/msds/md100294.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 8008-57-9; https://www.thegoodscentscompany.com/msds/md100294.html; by name (Kenny 22 Oct: use the name when the MSR CAS is not good)'
@@ -3305,7 +3321,9 @@
   user_stock_dilution: 100.0
   user_in_inventory: true
 # MATERIAL_INTAKE_BATCH_2026_08_07 additions
+  character: 'Wild aroma, camphorated, and with a certain dry touch'
   provenance:
+    character: 'Spike Lavender Essential Oil from the Lavandula latifolia - Esencias Martínez Lozano, https://en.esenciaslozano.com/product/6/spike-lavender-essential-oil-lavandula-latifolia: ORGANOLEPTIC INFORMATION | Aspecto | Liquid transparent | Color | Colorless to yellow pale | Olor | Wild aroma, camphorated, and with a certain dry touch (grade A_producer; producer organoleptic statement (Esencias Martínez Lozano, Spike Lavender, Lavandula latifolia, Spain)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.884 - 0.898 (spec); batch result 0.889; https://www.madarcorporation.com/spec-sheets/essential-oil/spike-lavender/Spike%20Lavender%20-%204512405%20All%20docs.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '23 Oct 2026 third data pass: TGSC spike lavender oil, "distilled from the flowering herbs of the lavender, lavandula latifolia (syn: lavandula spica)", page titled "spike lavender oil, 8016-78-2", https://www.thegoodscentscompany.com/data/es1029951.html'
 - canonical_name: 'Sandalwood Base 3X'

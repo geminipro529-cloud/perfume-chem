@@ -146,6 +146,9 @@ class Material:
     # --- categorization ---
     families: list[str] = field(default_factory=list)  # ["citrus","top"]
     character: str | None = None  # short blurb
+    # A sourced odour family in the engine's family words ("woody", "fruity");
+    # the gate uses it before the profile layer's or_family.
+    odour_family: str | None = None
     notes: str | None = None  # freeform
 
     # --- provenance: per-field source tag ---

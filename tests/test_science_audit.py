@@ -134,9 +134,11 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # made Lemon Terpeneless Oil Sicilian OAV-available (252 -> 253).
     # 2026-10-25 fruit batch: Givaudan US 12,340,876 air thresholds made Cis-3 Hexenyl
     # Acetate and Manzanate OAV-available (253 -> 255).
-    assert audit["oav_available_count"] == 255
-    assert audit["oav_unknown_count"] == 35
-    assert audit["oav_coverage_pct"] == 87.931
+    # 2026-10-25 literature batch: producer air thresholds made Berry Hexanoate
+    # (BerryFlor), Magnolan and Methyl Diantilis OAV-available (255 -> 258).
+    assert audit["oav_available_count"] == 258
+    assert audit["oav_unknown_count"] == 32
+    assert audit["oav_coverage_pct"] == 88.966
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"

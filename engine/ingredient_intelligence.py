@@ -273,7 +273,7 @@ _PROFILES: dict[str, dict] = {
         "role": "trace",
         "texture": "halo",
         "mw": 184.32,
-        "vp": 1.5,  # registry data/materials/A.yaml (Merck 1.0 Pa at 20 C, adjusted)
+        "vp": 6.0,  # registry data/materials/A.yaml (Kao SDS, 6 Pa at 25 C)
         "clogp": 4.83,
         "synergies": ["Aldehyde C10", "Aldehyde C11", "Benzyl Salicylate", "Hedione"],
     },
@@ -5034,6 +5034,51 @@ _VERIFIED_VP_SOURCE = {
         "EPI Suite 8.03 mm Hg at 25 C = 1.07E+003 Pa; estimate, not measured"
     ),
 }
+
+# 2026-10-25 literature batch (stock thread): these profile VPs follow the data spine,
+# whose provenance carries each re-opened source in full.
+_VERIFIED_VP.update(
+    {
+        "Vanillin": 0.01573,
+        "Ethyl Maltol": 0.01933,
+        "Dynascone": 2.28,
+        "Calone": 0.87,
+        "Coumarin": 0.08759,
+        "Ethyl 2-Methylbutyrate": 1010.0,
+    }
+)
+_VERIFIED_VP_SOURCE.update(
+    {
+        "Vanillin": (
+            "PubChem CID 1183, Vapor Pressure (HSDB citing Yaws, Handbook of Vapor Pressure, "
+            "Vol. 3, 1994): 1.18E-4 mm Hg at 25 C; estimate, not measured (re-opened "
+            "2026-10-25)"
+        ),
+        "Ethyl Maltol": (
+            "RIFM fragrance ingredient safety assessment, ethyl maltol, CAS 4940-11-8 (Food "
+            "Chem Toxicol 201 (2025) 115424): 0.000145 mm Hg at 25 C; 0.000145 x 133.322 = "
+            "0.0193 Pa; estimate, not measured (re-opened 2026-10-25)"
+        ),
+        "Dynascone": (
+            "DYNASCONE® 939745 marketing sheet (Firmenich): 1.44 Pa at 20 C, converted to 25 "
+            "C = 2.28 Pa (re-opened 2026-10-25)"
+        ),
+        "Calone": (
+            "ECHA Brief Profile, 7-methyl-2H-benzo-1,5-dioxepin-3(4H)-one (EC 249-320-4, CAS "
+            "28940-11-6), last updated...: 0.87 Pa @ 25 C (re-opened 2026-10-25)"
+        ),
+        "Coumarin": (
+            "RIFM fragrance ingredient safety assessment, coumarin, CAS 91-64-5 (Api et al., "
+            "Food Chem Toxicol 130...: 0.000657 mm Hg @ 25 C (calculated) (EPI Suite); "
+            "estimate, not measured (re-opened 2026-10-25)"
+        ),
+        "Ethyl 2-Methylbutyrate": (
+            "RIFM fragrance ingredient safety assessment, ethyl 2-methylbutyrate, CAS "
+            "7452-79-1: 5.6 mm Hg at 20 C; 5.6 x 133.322 = 746.6 Pa, converted to 25 C = "
+            "1010.0 Pa (re-opened 2026-10-25)"
+        ),
+    }
+)
 
 for _key, _val in _VERIFIED_VP.items():
     if _key in _PROFILES:

@@ -104,9 +104,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'A rich Palm Date odour deep dried fruit balsamic oriental character. Odour=> palm dates, rich dried fruit, sweet, balsamic, oriental'
+  odour_family: 'fruity'
   notes: null
   provenance:
+    odour_family: 'odour family "fruity" from ''Fruity / balsamic (gourmand dried fruit)'': Palm Dates Base | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6FQ21068: Odour=> palm dates, rich dried fruit, sweet, balsamic, oriental (grade A_producer; derived from the quoted description (PW gives no family; ''rich dried fruit, sweet, balsamic, oriental''; PW Top notes ''Fruity, Balsamic, Citrus, Dairy'')). Second reader: Family ''Fruity / balsamic'' supported by the quoted Odour=> line. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Palm Dates Base | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6FQ21068: A rich Palm Date odour deep dried fruit balsamic oriental character ... Odour=> palm dates, rich dried fruit, sweet, balsamic, oriental ... Top Notes Fruity, Balsamic, Citrus, Dairy ... Heart Notes Citrus (grade A_producer; supplier/producer description of a PW compound base (composition undisclosed)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Palm Oil Fractionated - Fixed Oil (palm MCT)
   aliases:
@@ -216,9 +219,12 @@
     other: {}
   families:
   - citrus / top
-  character: null
+  character: 'Fresh and powerful fruity fragrance of grapefruit zest with hints of green, floral and transparent notes.'
+  odour_family: 'citrus'
   notes: null
   provenance:
+    odour_family: 'odour family "citrus" from ''Citrus'': Pamzest (Synarome technical sheet), https://synarome.com/wp-content/uploads/2025/04/Pamzest.pdf: Olfactive family Citrus (grade A_producer; ). Second reader: No CAS seen in the fetched text. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Pamzest (Synarome technical sheet), https://synarome.com/wp-content/uploads/2025/04/Pamzest.pdf: Odor description Fresh and powerful fruity fragrance of grapefruit zest with hints of green, floral and transparent notes. (grade A_producer; ). Second reader: Synarome producer sheet. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -321,8 +327,8 @@
   logp: 2.62
   functional_groups: []
   chirality: null
-  vp_25c_pa: 159.9864
-  vp_source: 'EPI'
+  vp_25c_pa: 243.0
+  vp_source: producer_20C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -347,14 +353,15 @@
         sku: 5PN08178
         price_usd_per_g: 0.1
   families: []
-  character: null
+  character: 'pungent sharp sweet'
   notes: null
   provenance:
+    character: '4-Methylanisole | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/4-Methylanisole: Colourless liquid, Pungent sharp sweet aroma (grade A_regulatory; ). Second reader: Rank 1 text (Fenaroli via HSDB) also seen on the same page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 104-93-8 (https://www.thegoodscentscompany.com/data/rw1003932.html)'
     mw_g_mol: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, p-methylanisole, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-93-8.pdf: "Molecular Weight: 122.17" (C8H10O); fills an empty field'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, p-methylanisole, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-93-8.pdf: "Log Kow: 2.62 [US EPA, 2012a]" (estimate, the only value printed); fills an empty field'
-    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, p-methylanisole, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-93-8.pdf: "1.2 mm Hg @ 25 C [US EPA, 2012a]" = 160 Pa (estimate; FMA 1.3 mm Hg at 20 C agrees); fills an empty field'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, p-methylanisole (CAS 104-93-8), section 2 Physical data (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-93-8.pdf): ''1.3 mm Hg 20 C [FMA database], 0.839mm Hg @ 20 C [US EPA, 2012a], 1.2mm Hg @ 25 C [US EPA, 2012a]''; printed 1.3 mm Hg at 20 C; FMA database (measured); grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 173.3 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 49.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Parallel fetch returned 403; opened with WebFetch. 1.3 x 133.322 = 173.3 Pa at 20 C. FMA value (measured per brief); US EPA (EPI) estimate at 20 C is lower (0.839 mm Hg). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
     density_25c_g_ml: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, p-methylanisole, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/104-93-8.pdf: "Specific Gravity: .9689 [EOA, 1973 Sample 72-193], 0.968-0.972 [FMA database], 0.966-0.970 [FMA database]"; replaces 0.997 from the TGSC page (0.996-1.004 at 25 C), which matches anisole, not p-methylanisole'
 - canonical_name: Para-Cresyl Phenyl Acetate
@@ -365,7 +372,7 @@
   inchikey: null
   mw_g_mol: 226.27
   density_25c_g_ml: null
-  logp: 3.79
+  logp: 3.7
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.0127
@@ -394,13 +401,16 @@
         sku: 5PN07817
         price_usd_per_g: 0.17
   families: []
-  character: null
+  character: 'faint narcissus-like'
+  odour_family: 'animalic'
   notes: null
   provenance:
+    character: 'RIFM fragrance ingredient safety assessment, p-tolyl phenylacetate, CAS 101-94-0 (Api et al., Food Chem Toxicol 201 (2025) 115423, doi:10.1016/j.fct.2025.115423), https://research-portal.uu.nl/ws/portalfiles/portal/262544017/1-s2.0-S0278691525001917-main.pdf: Appearance/Organoleptic: White to off-white crystals or powder having a faint narcissus-like odor (grade A_regulatory; ). Second reader: CAS 101-94-0 matches. RIFM/FCT text. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "animalic" from ''animalic'': Cresyl Phenylacetate para | ACS International, https://acsint.biz/products/cresyl-phenylacetate-para/: Olfactive Family animalic (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1003972.html; PW 1PF01952 page'
     vp_25c_pa: 'ESTIMATE: EPI Suite (solid basis) via TGSC; /mnt/project-files/missing-data-20261021 (ingredients research thread, 21 Oct 2026); white crystals, mp 74-76 C; no density found'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: '22 Oct 2026 missing-data pass: stated; raw 3.79; https://www.perflavory.com/docs/doc1003971.html'
+    logp: 'RIFM safety assessment, p-tolyl phenylacetate (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/101-94-0.pdf): ''3. Log KOW: 3.7 (RIFM, 2004), 3.84 (EPI Suite v4.11)''; printed ; RIFM 2004 study; engine 3.79 is the TGSC/perflavory figure; grade A_measured. Second reader: The RIFM 2004 reference is a partition-coefficient study (measured). No temperature printed. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     smiles: 'PubChem structure resolved from CAS 101-94-0 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Para-Methyl Acetophenone
   aliases:
@@ -456,7 +466,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 8.0
+  odt_air_ppb: 0.1371
   odt_eth_ppm: 0.1
   stevens_n: null
   or_targets: []
@@ -473,12 +483,13 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'Paradisamide™ is a long lasting, fresh tropical fruit note of guava and passion fruit with nuances of grapefruit, rhubarb and cassis.'
   notes: null
   provenance:
+    character: 'Paradisamide™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/paradisamidetm: Paradisamide™ is a long lasting, fresh tropical fruit note of guava and passion fruit with nuances of grapefruit, rhubarb and cassis. Paradisamide™ can be overdosed in tropical fruit accords up to 20%... (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Producer SDS figure. Replaces 8.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     hedonic_valence: engine.hedonic_model
@@ -876,9 +887,10 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Patchouli Light Essential Oil is patchouli sweet herbal spicy woody fruity. The Light Patchouli is more transparent dry crisper than regular patchouli. Odour=> patchouli old wood woody balsam weedy earthy: woody, warm, balsamic, earth'
   notes: null
   provenance:
+    character: 'Patchouli Light Essential Oil | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=7WB13670: Patchouli Light Essential Oil is patchouli sweet herbal spicy woody fruity. The Light Patchouli is more transparent dry crisper than regular patchouli. ... Odour=> patchouli old wood woody balsam weedy earthy: woody, warm, balsamic, earth Flavor: herbaceous, aromatic, green, cooked (grade A_producer; supplier description (PerfumersWorld 7WB13670, Kenny''s own SKU; patchouli oil decolorized). The repeated ''Flavor:'' words are left out.). Second reader: rank 0 (dsm-firmenich PATCHOULI HEART SFE 970929): wrong_material; text ''Woody, balsamic, earthy, camphor.'' is on the page but it is a CO2 (SFE) heart extract without sesquiterpenes, not the light essential oil. rank 1 passes (CAS 8014-09-3 on page). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.9500, supplier-reported (PerfumersWorld 7WB13670 "Patchouli Light Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.9500; https://www.perfumersworld.com/view.php?pro_id=7WB13670; temperature as printed by source (often 20 C), not corrected to 25 C'
     density_basis: supplier_sg_temperature_unstated
@@ -967,7 +979,7 @@
   inchikey:
   mw_g_mol: 220.36
   density_25c_g_ml: 0.963
-  logp: 4.344
+  logp: 5.3
   functional_groups: []
   chirality:
   vp_25c_pa: 0.009
@@ -989,14 +1001,16 @@
   supplier:
   families: []
   character: 'smell of a natural nectarine; fruity, peach, apricot, lactonic'
+  odour_family: 'fruity'
   notes: MySkinRecipes order 2199458 'Peach Cyclopentanone, Peach Ketone', neat as supplied; CAS and purity not asserted.
   provenance:
+    odour_family: 'odour family "fruity" from ''Fruity (Olfactive Note: Fruity, Peach, Apricot, Lactonic)'': Print Page | Givaudan: Nectaryl, https://www.givaudan.com/print/1314696: Nectaryl Giv Code 7446003 Olfactive Family Fruity | Olfactive Note Fruity Peach Apricot Lactonic (grade A_producer; ). Second reader: Page is Givaudan Nectaryl; its CAS 95962-14-4 equals the inventory CAS for ''Peach Ketone'', so same molecule. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Givaudan Nectaryl page (CAS 95962-14-4), https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/nectaryl: "Nectaryl has the smell of a natural nectarine." "Olfactive notes: Fruity, Peach, Apricot, Lactonic". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     cas: 'MySkinRecipes 2571 ''Peach Cyclopentanone'' = Nectaryl (Givaudan), 2-[2-(4-methyl-3-cyclohexen-1-yl)propyl]cyclopentanone (https://www.thegoodscentscompany.com/data/rw1052381.html); not 2-heptylcyclopentanone (137-03-1)'
     density_25c_g_ml: 'ECHA 0.963 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study (Nectaryl, 95962-14-4) 0.009 Pa at 20 C; EPI estimate was 0.049 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
-    logp: '23 Oct 2026 second missing-data pass: labelled estimate (Kenny chose Fill estimates, 13 Oct); raw 4.344; https://www.thegoodscentscompany.com/data/rw1052381.html'
+    logp: 'RIFM safety assessment, Nectaryl (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/95962-14-4.pdf): ''3 Log Kow: Log Pow = 5.3 1. (RIFM, 2000b), log Pow = 4.8 (RIFM, 2010), 5.05 (EPI Suite)''; printed ; RIFM 2000b study (Givaudan page also 5,3); RIFM 2010 gave 4.8; engine 4.344 is a TGSC estimate; grade A_measured. RIFM''s environmental section uses 4.8. Second reader: Page identity: 2-(p-Menth-1-ene-10-yl)cyclopentanone, CAS 95962-14-4; synonym Nectaryl. CAS 95962-14-4 equals the inventory CAS for Peach Ketone. No temperature printed. The page''s environmental section uses log Kow... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     smiles: 'PubChem structure resolved from CAS 95962-14-4 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Pear Valerate
   aliases:
@@ -1029,8 +1043,10 @@
   supplier:
   families: []
   character: 'Fruity, pear-like, natural'
+  odour_family: 'citrus'
   notes: 'MySkinRecipes order 2199458 ''Pear Valerate, Peranat'', neat as supplied; CAS and purity not asserted. Identity 2026-10-23: CAS 90397-38-9 (2-methylpentyl 2-methylpentanoate, PubChem CID 163588) confirmed on PubChem; the link from the MySkinRecipes "Peranat" product to this CAS is unverified.'
   provenance:
+    odour_family: 'odour family "citrus" from ''Citrus, Fruity'': PERANAT | Kao Chemicals store on Knowde, https://www.knowde.com/stores/kao-chemicals/products/peranat: Fragrance Family: Citrus, Fruity (grade A_producer; ). Second reader: Kao''s Peranat; data/materials/P.yaml records Pear Valerate as ''Peranat'', CAS 90397-38-9 (its link to the MySkinRecipes product is marked unverified there). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Kao PERANAT data sheet (2-methylpentyl 2-methylvalerate, CAS 90397-38-9), https://chemical.kao.com/content/dam/sites/kao/chemical-kao-com/en/products/catalog_usen_B0010631.pdf: "Odor ... Fruity, pear-like, natural". Usage sentences left out. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     cas: 'Kao PERANAT https://chemical.kao.com/en/products/B0010631_en/; 2-methylpentyl 2-methylpentanoate'
     density_25c_g_ml: 'ECHA 0.8564 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
@@ -1415,7 +1431,7 @@
   hsp: null
   odt_air_ppb: null
   odt_eth_ppm: null
-  stevens_n: null
+  stevens_n: 0.41
   or_targets: []
   trp_targets: null
   hedonic_valence: 0.82
@@ -1442,7 +1458,7 @@
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
-    stevens_n: engine.odor_thresholds
+    stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Phenylethanol (rose) 25.69 41 .98, .53" (OCR drops the decimal point: .41). Liquid values 0.22 (Doty 1975) and 0.19 (Berglund 1971) not used. Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     logp: user TGSC paste 2026-05-09
     hedonic_valence: engine.hedonic_model
     ifra_max_pct_edp: user TGSC paste 2026-05-09
@@ -1482,13 +1498,15 @@
     other: {}
   families: []
   character: 'soft honey-rose character'
+  odour_family: 'floral'
   notes: null
   provenance:
+    odour_family: 'odour family "floral" from ''floral'': Phenirat (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Phenirat.pdf: Chemical Structure Phenirat® floral (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'RIFM, Food Chem. Toxicol. 197 (2025), https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-60-6.pdf: "Colorless liquid (color 4 maximum) with a soft honey-rose character (Givaudan)". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     odt_air_ppb: 'Givaudan SA, US 12,340,876 B2 (2025), Table 1 (HS ug/l, odor value = HS / odour threshold), https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876: "2-(phenoxy)ethyl 2-methylpropionate 20 V 816"; 20 / 816 = 24.51 ng/L x 24.45 / 208.25 = 2.88 ppb (producer measurement). Loaded 2026-10-25 (fruit batch)'
     cas: 'Perflavory https://www.perflavory.com/docs/doc1031511.html'
     density_25c_g_ml: 'ECHA 1.05 g/cm3 at 20 C (20 C value); TGSC/Perflavory SG 1.042-1.048. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
-    vp_25c_pa: 'MEASURED: ECHA key study 0.77 Pa at 25 C (EPI estimate 0.701 Pa agrees). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'MEASURED: ECHA key study 0.77 Pa at 25 C (EPI estimate 0.701 Pa agrees). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026) Kept on 2026-10-25 over RIFM''s FMA figure (0.004 mm Hg at 20 C, one significant figure, method not stated): a measured ECHA key study at 25 C needs no temperature conversion.'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: '23 Oct 2026 deep-research pass (3-0 verified): RIFM fragrance ingredient safety assessment for CAS 103-60-6 reports measured log Kow 3.2 at 24 C (RIFM 1994b); EPI Suite estimate 3.01 not used; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-60-6.pdf'
     smiles: 'PubChem structure resolved from CAS 103-60-6 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
@@ -1503,8 +1521,8 @@
   logp: 1.78
   functional_groups: []
   chirality: null
-  vp_25c_pa: 52.3
-  vp_source: EPI_exp_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 58.2
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1532,13 +1550,15 @@
         price_usd_per_g: 0.32
   families: []
   character: null
+  odour_family: 'floral'
   notes: 'Other values: RIFM (Food Chem Toxicol 2020, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/122-78-1_0.pdf) log Kow 1.54 (EPI Suite estimate) and VP 0.354 mm Hg at 25 C (EPI Suite) = 47.2 Pa; TGSC 0.368 mm Hg at 25 C (est); FMA 0.3 mm Hg at 20 C = 40.0 Pa (not 25 C). Density not set: sources conflict (RIFM 1.07 g/mL (RIFM 1994); FMA 1.03; TGSC specific gravity 1.025-1.035 at 25 C), none measured. No air ODT found (RIFM: none reported). Polymerises/oxidises on storage. Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
+    odour_family: 'odour family "floral" from ''Floral (Olfactive Note: Floral, Green, Honey)'': Print Page | Givaudan: Phenyl Acetaldehyde 85%/PEA, https://www.givaudan.com/print/1314766: Phenyl Acetaldehyde 85%/PEA Giv Code 1597503 Olfactive Family Floral | Olfactive Note Floral Green Honey (grade A_producer; ). Second reader: Givaudan sells it as an 85% solution in phenylethyl alcohol (CAS 60-12-8 listed too); phenylacetaldehyde CAS 122-78-1 matches. Family word is for this stabilised grade. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1009931.html and RIFM safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/122-78-1_0.pdf (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     mw_g_mol: 'TGSC https://www.thegoodscentscompany.com/data/rw1009931.html: "Molecular Weight: | 120.15096000" (via material-data-firecrawl/allgaps/S1_aldehydes.md)'
     logp: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1009932 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "Log Kow (Exper. database match) = 1.78" (Ref: Hansch C et al. 1995), measured'
-    vp_25c_pa: 'EPI Suite output reproduced on The Good Scents Company EPI System Information page ep1009932 (via material-data-firecrawl/allgaps/S1_aldehydes.md): "VP (exp database): 3.92E-01 mm Hg (5.23E+001 Pa) at 25 deg C" (literature value, original reference not shown); 0.392 mm Hg x 133.322 Pa/mm Hg = 52.3 Pa'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, phenylacetaldehyde (Food Chem Toxicol (2020) 111658) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/122-78-1.pdf): ''7. Vapor Pressure: 0.217 mm Hg @ 20 C (EPI Suite v4.0), 0.3 mm Hg 20 C (FMA Database), 0.354 mm Hg @ 25 C (EPI Suite)''; printed 0.3 mm Hg at 20 C; FMA; 0.3 x 133.322 = 40.0 Pa; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 40 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 54.5 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Parallel fetch returned 403; read with WebFetch. 0.3 x 133.322 = 40.0 Pa at 20 C, which matches the item''s method; the item value 58.2 is the 25 C conversion. FMA gives one significant figure. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 1.025 to 1.035; https://www.thegoodscentscompany.com/data/rw1009931.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Phenyl Acetaldehyde Dimethyl Acetal (padma)
   aliases:
@@ -1548,13 +1568,13 @@
   cas: 101-48-4
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 166.22
   density_25c_g_ml: 1.003
-  logp: null
+  logp: 2.23
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 4.16
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1582,6 +1602,9 @@
   character: null
   notes: null
   provenance:
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment, phenylacetaldehyde dimethyl acetal (Food Chem Toxicol 167 (2022) 113226) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/101-48-4.pdf): ''5. Molecular Weight: 166.22 g/mol''; printed ; ; grade A_regulatory. Second reader: Same document (phenylacetaldehyde dimethyl acetal, CAS 101-48-4, FCT 167 (2022) 113226), read via WebFetch. Quote verbatim. Consistent with C10H14O2. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'RIFM safety assessment, PADMA (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/101-48-4.pdf): ''3. Log KOW: 2.3 at 35 C (RIFM, 1999b), 1.93 (EPI Suite), 2.23 at 24.7 C (RIFM, 2016c)''; printed ; RIFM 2016c; RIFM 1999b gave 2.3 at 35 C; grade A_measured. Second reader: Same document as previous item (CAS 101-48-4), read via WebFetch. Quote verbatim. Measured at 24.7 C; second measured value 2.3 at 35 C agrees. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM safety assessment, PADMA (FCT 167 (2022) 113226) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/101-48-4.pdf): ''7. Vapor Pressure: 0.0875 mm Hg at 20 C (EPI Suite v4.0), 0.02 mm Hg at 20 C (FMA), 0.133 mm Hg at 25 C (EPI Suite)''; printed 0.02 mm Hg at 20 C; FMA; 0.02 x 133.322 = 2.67 Pa; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 2.666 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 64.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Parallel fetch returned HTTP 403; read with WebFetch (text quoted by the fetch tool). Quote matches. 0.02 x 133.322 = 2.666 Pa at 20 C (method''s 2.67 correct). FMA value is ~4x below the EPI estimates on the same... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 1.003; https://www.parchem.com/api/get-pdf/phenyl-acetaldehyde-dimethyl-acetal-004663.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 101-48-4; https://www.parchem.com/api/get-pdf/phenyl-acetaldehyde-dimethyl-acetal-004663.pdf'
@@ -1627,9 +1650,9 @@
   cas: 103-05-9
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 164.2441
   density_25c_g_ml: 0.9595
-  logp: null
+  logp: 2.93
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -1658,6 +1681,8 @@
   character: null
   notes: null
   provenance:
+    mw_g_mol: 'NIST Chemistry WebBook, Benzenepropanol, α,α-dimethyl- (https://webbook.nist.gov/cgi/cbook.cgi?ID=C103059): ''Molecular weight : 164.2441''; printed ; formula weight C11H16O; NIST CAS 103-05-9; grade A_measured. Second reader: NIST WebBook, CAS 103-05-9 (= stock CAS). Formula weight, not a measurement; the grade makes no practical difference for MW. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'ESTIMATE (EPI Suite v4.11 KOWWIN): RIFM fragrance ingredient safety assessment, 2-methyl-4-phenyl-2-butanol, CAS Registry Number 103-05-9, Food Chem Toxicol 189 (2024) 114712, Physical data (https://doi.org/10.1016/j.fct.2024.114712): ''Log K OW : 2.93 (EPI Suite v4.11)''; printed ; EPI Suite v4.11 KOWWIN; grade EST. Second reader: Same RIFM page, CAS 103-05-9. Value is an EPI Suite estimate and the item grades it EST, which is correct. No measured log Kow is listed on the page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1676,8 +1701,8 @@
   logp: 2.96
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.7
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1698,9 +1723,13 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Persistent sweet floral aroma with leafy qualities. Rich balsamic tone.'
+  odour_family: 'floral'
   notes: null
   provenance:
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 2-methyl-4-phenyl-2-butyl acetate, CAS Registry Number 103-07-1, Food Chem Toxicol (2023/2024) 114393 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2023.114393): ''Vapor Pressure: 0.00417 mm Hg at 20 C (EPI Suite v4.0), 0.008 mm Hg at 20 C (FMA), 0.00743 mm Hg at 25 C (EPI Suite v4.11)''; printed 0.008 mm Hg at 20 C; FMA database; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 1.067 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 68.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: 2-Methyl-4-phenyl-2-butyl acetate, CAS 103-07-1; synonym Dimethylphenylethylcarbinyl acetate. Quote verbatim; CAS 103-07-1 matches. 0.008 mm Hg x 133.322 = 1.067 Pa at 20 C (item value 1.71 Pa is the... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "floral" from ''floral (derived from the quoted description)'': Dimethyl Phenyl Ethyl Carbinyl Acetate | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/dimethyl-phenyl-ethyl-carbinyl-acetate/: Persistent sweet floral aroma with leafy qualities. (grade A_producer; ). Second reader: Family derived from the description: ''sweet floral aroma'' supports ''floral''. CAS 103-07-1 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Dimethyl Phenyl Ethyl Carbinyl Acetate | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/dimethyl-phenyl-ethyl-carbinyl-acetate/: Olfactive Description: Persistent sweet floral aroma with leafy qualities. Rich balsamic tone. (grade A_producer; ). Second reader: IFF name order differs (Dimethyl Phenyl Ethyl Carbinyl Acetate); same molecule, CAS 103-07-1. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CC(=O)OC(C)(C)CCc1ccccc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
@@ -2404,9 +2433,10 @@
       url: https://aromaandmore.com/en/essential-oil-100-pure-/879-pink-pepper-essential-oil-peru.html
   families:
   - spice / aromatic
-  character: fresh rosy pepper, citrus-terpenic lift, dry woody-resinous undertone
+  character: 'Pink Peppercorn Oil has a blend of spicy peppery and zesty lime top notes with coniferous facets and balsamic undertones reminiscent of Elemi.'
   notes: User-confirmed neat physical stock. Bulk MW, logP, VP and whole-oil ODT are mixture proxies; density and supplier-lot assay are unknown. Natural composite uses a non-renormalized Peruvian fruit-EO literature midpoint profile, not GC-O or a batch certificate. Current leave-on IFRA conformity remains unverified.
   provenance:
+    character: 'Pink Peppercorn Oil Peru | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/pink-peppercorn-oil-peru: SPICY | Terpenic, Spicy, Fruity, Liqueur-like ... Pink Peppercorn Oil has a blend of spicy peppery and zesty lime top notes with coniferous facets and balsamic undertones reminiscent of Elemi. (grade A_producer; producer description (Givaudan Pink Peppercorn Oil Peru, Schinus molle)). Replaces unsourced text ''fresh rosy pepper, citrus-terpenic lift, dry woody-resinous undertone''. Second reader: Botanical name ''Shinus molle'' (sic), CAS 68917-52-2, Peru, essential oil: matches Kenny''s Schinus molle oil from Peru. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_in_inventory: inventory.txt
     user_stock_dilution: direct user assertion 2026-09-03
     supplier.other: data/governance/inventory_user_confirmation_20260915_pink_pepper.json
@@ -2606,9 +2636,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'A fresh, bitter, green, zesty and aldehydic note.'
+  odour_family: 'citrus'
   notes: null
   provenance:
+    odour_family: 'odour family "citrus" from ''Citrus'': Pomelo Corsica - Synarome (PDF), https://synarome.com/wp-content/uploads/2025/05/Pomelo-Corsica.pdf: Olfactive family Citrus (grade A_producer; producer classification (Synarome ''Olfactive family'')). Second reader: The material record''s supplier SKU is PerfumersWorld 7CN23708; I opened that page and it says ''<>Pomelo Rectific He Corse - Synarome'', CAS 8016-20-4. So this Synarome sheet is for the same oil. Species on both is Citrus paradisi (French ''pomelo'' = grapefruit), not Citrus maxima. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Pomelo Corsica - Synarome (PDF), https://synarome.com/wp-content/uploads/2025/05/Pomelo-Corsica.pdf: Pomelo Corsica CP Rectified Olfactive family Citrus ... Odor description A fresh, bitter, green, zesty and aldehydic note. ... CAS Number : 8016-20-4 INCI : Citrus paradisi peel oil Sourcing : Corsica (France) Process : high vaccuum flash distillation of cold pressed pomelo oil (grade A_producer; producer description (Synarome product sheet, Pomelo Corsica CP Rectified, ref 086943; high-vacuum flash distillation of cold-pressed pomelo oil, Corsica)). Second reader: The PerfumersWorld Pomelo Essential Oil page (7CN23708, CAS 8016-20-4) names this exact product (''Pomelo Rectific He Corse - Synarome''). Note the INCI is Citrus paradisi (grapefruit; French ''pomelo''), not Citrus maxima. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.852 to 0.86; https://www.perfumersworld.com/document-list.php?pro_id=7CN23708; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Powdery F-TEC
@@ -3474,13 +3507,13 @@
   logp: 2.4
   functional_groups: []
   chirality: null
-  vp_25c_pa: 3.0
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 8.17
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 3.0
+  odt_air_ppb: 1.996
   odt_eth_ppm: 0.03
   stevens_n: null
   or_targets: []
@@ -3498,12 +3531,13 @@
   families:
   - floral
   - aromachemical
-  character: null
+  character: 'Fruity, Rose'
   notes: null
   provenance:
+    character: 'Phenylethyl Acetate (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Phenylethyl_Acetate.pdf: › Fruity, Rose ... › Phenethyl acetate (grade A_producer; ). Second reader: Symrise prints the family word ''floral''; the odour words are ''Fruity, Rose''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: pubchem (estimated)
-    vp_25c_pa: estimated
-    odt_air_ppb: estimated
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, phenethyl acetate (Food Chem Toxicol 161 (2022) 112875) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-45-7.pdf): ''7. Vapor Pressure: 0.0442 mm Hg at 20 C (EPI Suite v4.0), 0.04 mm Hg 20 C (FMA), 0.0683 mm Hg at 25 C (EPI Suite)''; printed 0.04 mm Hg at 20 C; FMA; 0.04 x 133.322 = 5.33 Pa; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 5.333 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 62.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.04 x 133.322 = 5.333 Pa at 20 C, which matches the method text. The input value 8.16 is the stock thread''s 25 C figure. The FMA value has one significant figure; method not stated (FMA counts as measured). Read... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'Air entries of the van Gemert compilation, 1.0-4.0 ppb; geometric midpoint 2.0. Primary papers not opened. Replaces 3.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: estimated
     user_in_inventory: inventory.txt
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 1.032; https://www.perflavory.com/docs/doc1010032.html; temperature as printed by source (often 20 C), not corrected to 25 C'
@@ -3577,7 +3611,11 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  character: 'Pine Scots essential oil is a very strong woody ingredient with coniferous and balsamic facets.'
+  odour_family: 'woody'
   provenance:
+    odour_family: 'odour family "woody" from ''Woody'': Pine Scotch Oil Bulgaria | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/pine-scotch-oil-bulgaria: WOODY | Balsamic, Strong (grade A_producer; producer classification (Givaudan; descriptors ''Balsamic, Strong'')). Second reader: Generic inventory ''Pine EO''. Page is Pinus sylvestris needle oil, CAS 8023-99-2; the inventory CAS 84012-35-1 is (per the researcher) the Pinus sylvestris extract number. Kenny''s species is not recorded. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Pine Scotch Oil Bulgaria | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/pine-scotch-oil-bulgaria: WOODY | Balsamic, Strong ... Pine Scots essential oil is a very strong woody ingredient with coniferous and balsamic facets. It is used in woody accords to give them a fresh, resinous and woody facet. (grade A_producer; producer description (Givaudan Pine Scotch Oil Bulgaria, Pinus sylvestris needle)). Second reader: Species of the stocked Pine EO is not stated; page is Pinus sylvestris needle oil. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.871; https://thegoodscentscompany.com/data/es1019031.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 84012-35-1; https://www.perfumersworld.com/view.php?pro_id=7KQ07511'
 - canonical_name: Peppermint Essential Oil
@@ -3619,9 +3657,12 @@
   families:
   - green / fresh
   - natural
-  character: "Crisp herbal-fresh menthol cooling. Powerful menthol-mint with green-herbal lift."
+  character: 'Fresh and invigorating, peppermint is the ingredient of choice in many musky or oriental colognes. Its mentholated facet creates an intense freshness effect specific to this essential oil.'
+  odour_family: 'aromatic'
   notes: "Steam-distilled Mentha piperita herb India. ~45% menthol, ~25% menthone. Fresh/herbal accords, fougere lift."
   provenance:
+    odour_family: 'odour family "aromatic" from ''Aromatic'': Peppermint Oil India | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/peppermint-oil-india: AROMATIC | Mint-like, Milky, Aromatic, Menthol (grade A_producer; producer classification (Givaudan; descriptors ''Mint-like, Milky, Aromatic, Menthol'')). Second reader: Generic inventory ''Peppermint EO''; CAS 8006-90-4 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Peppermint Oil India | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/peppermint-oil-india: AROMATIC | Mint-like, Milky, Aromatic, Menthol ... Fresh and invigorating, peppermint is the ingredient of choice in many musky or oriental colognes. Its mentholated facet creates an intense freshness effect specific to this essential oil. (grade A_producer; producer description (Givaudan Peppermint Oil India; same origin as Kenny''s)). Replaces unsourced text ''Crisp herbal-fresh menthol cooling. Powerful menthol-mint with green-herbal lift.''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: manual:2026-06-15 constituent-weighted average
     density_25c_g_ml: manual:2026-06-15 typical peppermint EO density
     logp: manual:2026-06-15 constituent-weighted approximation
@@ -3656,7 +3697,9 @@
   user_stock_dilution: "50% w/w in DEP"
   user_in_inventory: true
   notes: Current user stock is 50% w/w in DEP. The separate 10% requirement remains preparation-required; exact active mass from volume requires stock-solution density.
+  character: 'The olfactive profile is rich, sweet, and deeply ambery.'
   provenance:
+    character: 'PERU BALSAM RES | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/peru-balsam-res-pe-971716: Botanical Myroxylon pereirae CAS# 0008007-00-9 ... Olfactive family Balsamic ... Technical Descriptors Peru Olfactive description The olfactive profile is rich, sweet, and deeply ambery. (grade A_producer; producer description (dsm-firmenich PERU BALSAM RES 971716)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
 - canonical_name: Para-Acetanisole
   aliases:
@@ -3687,9 +3730,12 @@
   user_in_inventory: true
   supplier:
   families: []
-  character:
+  character: 'Floral, Mimosa, Lilac, Heliotrope, Tonka'
+  odour_family: 'floral'
   notes: 'MySkinRecipes 2199302 Para-Acetanisole, a solid: dosed by weight or as a dilution Kenny has made.'
   provenance:
+    character: 'Acetanisole Cryst. (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Acetanisole_Cryst.pdf: › Floral, Mimosa, Lilac, Heliotrope, Tonka (grade A_producer; ). Second reader: CAS 100-06-1 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "floral" from ''floral'': Acetanisole Cryst. (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Acetanisole_Cryst.pdf: Chemical Structure floral acetanisole cryst. › cas 100-06-1 (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'PubChem CID 7476 (4''-methoxyacetophenone)'
     vp_25c_pa: 'MEASURED: 6.44E-03 mmHg at 25 C (Jones, J Chem Eng Data 5:196, 1960) via PubChem CID 7476; solid, mp 38 C, so no 25 C liquid density (1.0818 g/cm3 at 41 C, CRC)'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, acetanisole, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/100-06-1.pdf: "Log KOW: 1.75 (EPI Suite), 1.79+-0.00 at 20 C (RIFM, 2017d)"; measured 1.79 used; replaces the 1.74 from Perflavory'

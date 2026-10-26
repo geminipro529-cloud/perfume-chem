@@ -3304,13 +3304,11 @@ def verify_odt(material_name: str) -> Optional[dict]:
     if conflicts:
         metadata["numeric_conflicts"] = conflicts
         metadata["vfy"] = "UNVERIFIED"
-    if key == normalize_name("linalool"):
-        metadata["vfy"] = "UNVERIFIED"
-        metadata["evidence_conflict"] = (
-            "Legacy source prose cites 0.51 ppb; active late patch is 1.5 ppb. "
-            "Neither source is silently replaced or promoted."
-        )
-    elif key in {normalize_name("hedione"), normalize_name("iso e super")} and not conflicts:
+    # Linalool's 0.51 vs 1.5 ppb conflict and Hedione's isomer-based estimate were
+    # retired on 2026-10-25, when the literature batch loaded Elsharif et al.'s 0.51 ppb
+    # and Firmenich's figure for the commercial grade (earlier evidence is kept under
+    # "superseded").
+    if key == normalize_name("iso e super") and not conflicts:
         metadata["vfy"] = "PEER_EST"
         metadata["scope"] = "Commercial-grade estimate from isolated-isomer evidence"
     elif key == normalize_name("heliotropin fleuressence"):
@@ -4361,6 +4359,1265 @@ for _name, (_odt_air, _vfy, _sources) in _FRUIT_ODT_2026_10_25.items():
         "note": "Fruit threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
     }
 FRUIT_ODT_BATCH_2026_10_25 = True
+
+
+# LITERATURE_ODT_BATCH_2026_10_25 — air thresholds from the evening literature fill.
+# Kenny, 25 Oct 2026: "You do a complete literature research of where to find any or
+# all or whatever information is needed and parse all the information that is missing
+# into the engine". Workers ranked the sources first; a second reader re-opened every
+# cited page and redid every conversion (ppb = ng/L x 24.45 / MW at 25 C) before
+# loading. Placed after the fruit batch so these values are the ones the gate uses.
+# PEER_SINGLE / PEER_CROSS mark one or two printed sources (peer-reviewed or the
+# producer's own figure, as each source line says); PEER_EST marks an estimate:
+# Givaudan's patent route (threshold = headspace / odour value), or for Iso E Super
+# its most potent isomer's threshold over that isomer's share. odt_eth is left as
+# it was. Values not loaded (constituent-only, single-isomer, recognition-only or
+# conflicting) are listed in the stock thread's report.
+_LITERATURE_ODT_2026_10_25 = {
+    'iso e super': (0.0184, 'PEER_EST', [
+        "derived from 'The Composition of Iso E Super', Perfumer & Flavorist (isomer G "
+        'threshold and 2-4 % content) '
+        '(https://www.perfumerflavorist.com/fragrance/ingredients/article/21860577/the-composition-of-iso-e-super):'
+        " 'G: 2-4% (the isomer responsible for the amber note) ... approximately 5 pg/l "
+        "of air'; printed 0.125-0.25 ng/L (derived); estimate for the commercial product:"
+        ' if detection is driven by isomer G at 2-4 % of the product, product threshold ='
+        ' 5 pg/L / (0.02 to 0.04) = 0.125-0.25 ng/L (inference, not a measurement); grade'
+        ' EST, access full text; second reader: EST (derived, not a measurement). Inputs '
+        "(G 2-4 %, ~5 pg/l air) are printed; quote's 'G: 2-4% (the isomer "
+        "responsible...)' is a paraphrase. Redone: 0.005/0.04-0.005/0.02 = 0.125-0.25 "
+        'ng/L = 0.0130-0.0261 ppb, geometric mid 0.0184; the stated 0.017 is inside the '
+        'range but not its midpoint...',
+        "'The Composition of Iso E Super', Perfumer & Flavorist (article page; "
+        'author/date not shown in the fetched text) '
+        '(https://www.perfumerflavorist.com/fragrance/ingredients/article/21860577/the-composition-of-iso-e-super):'
+        " 'Givaudan researchers have found that the predominant isomer B has a weak odor "
+        "with a threshold of about 500 ng/l of air'; printed about 500 ng/l of air "
+        '(isomer B); Givaudan measurement of the main isomer B (method not stated); grade'
+        ' A_producer, access full text (web article via fetch tool); second reader: '
+        'Single isomer (B, main isomer, 40-60 % of the product), approximate value '
+        "('about'); not the commercial mixture. Article by IFF authors citing Givaudan "
+        'work. MW 234.38.; listed, not used (52.16 ppb)',
+        "'The Composition of Iso E Super', Perfumer & Flavorist "
+        '(https://www.perfumerflavorist.com/fragrance/ingredients/article/21860577/the-composition-of-iso-e-super):'
+        " 'which has a very low odor threshold value of approximately 5 pg/l of air. ... "
+        'In other words, the odor of ketone G is a hundred thousand times stronger than '
+        "that of B.'; printed approximately 5 pg/l of air (isomer G); Givaudan "
+        'measurement of minor isomer G (Arborone / Iso E Super Plus); grade A_producer, '
+        'access full text (web article via fetch tool); second reader: Single minor '
+        'isomer (G, 2-4 % of the product); approximate value; not the commercial mixture.'
+        ' MW 234.38.; listed, not used (0.000522 ppb)',
+        'Estimate for the commercial mixture from its most potent isomer: isomer G '
+        'threshold / its 2-4 % share = 0.0130-0.0261 ppb; geometric midpoint 0.0184 '
+        "(second reader's arithmetic). The single-isomer values (B about 52 ppb, G 0.0005"
+        ' ppb) are not used alone.',
+    ]),
+    'undecavertol': (0.2934, 'PEER_SINGLE', [
+        'Givaudan Suisse SA, Safety Data Sheet UNDECAVERTOL, Sales No. 9449903, Version '
+        '19.0, Revision Date 09 OCT 2020 (copy hosted by reseller perfumiarz.com) '
+        '(https://perfumiarz.com/cdn/shop/files/9449903_UNDECAVERTOL_SDS_EN.pdf?v=7199951083912431849):'
+        ' \'"Odour : Green, Floral, Orris-like, mild Odour Threshold : 2,0435 ng/l"; '
+        '"Molecular weight : 170,29 g/mol"\'; printed 2,0435 ng/l; producer SDS Section '
+        '9.1 figure for the commercial (racemic) material; Givaudan SDS Section 9 prints '
+        "'Odour Threshold : x ng/l' without medium or method; ng/l is a gas-phase unit "
+        "and Givaudan's patents (US 12,340,876 B2) describe their odour thresholds as "
+        'measured with a linear-dilution olfactometer, panel of 15 (inference that the '
+        'SDS figure is that measurement); grade A_producer, access full text (PDF, '
+        "Parallel extract); second reader: medium not printed; ng/L is the producer's "
+        'air-threshold unit (inferred). Reseller-hosted (perfumiarz.com) copy is the '
+        "producer's own SDS: Givaudan header, Sales No. 9449903, Version 19.0, revision "
+        '09 OCT 2020. Commercial (racemic) material.',
+        'Abate A., Brenna E., Fregosi G. (2005) Bio-catalysed synthesis of optically '
+        'active Undecavertol enantiomers, Tetrahedron: Asymmetry 16, 1997-1999 (as quoted'
+        " on Leffingwell 'The Undecavertols' page) "
+        '(http://www.leffingwell.com/chirality/undecavertols.htm): \'"(+)-(R)-Undecavertol'
+        ' (ee = 93%) - Typical Undecavertol odour, floral, green, fresh, violet leaves, '
+        'stronger and greener than the racemic commercial material ... Odour threshold: '
+        '0.31 ng/L air."\'; printed 0.31 ng/L air; measured odour threshold of the '
+        '(+)-(R)-enantiomer (ee 93 %), Abate, Brenna & Fregosi; applies to the '
+        '(R)-enantiomer only; grade A_measured, access full text of the Leffingwell page;'
+        ' primary paper not opened; second reader: Single enantiomer ((R), ee 93 %), not '
+        'the racemic commercial material; secondary page quoting Abate et al. 2005. MW '
+        '170.29.; listed, not used (0.04451 ppb)',
+        'Abate, Brenna & Fregosi (2005) Tetrahedron: Asymmetry 16, 1997-1999 (as quoted '
+        'on Leffingwell) (http://www.leffingwell.com/chirality/undecavertols.htm): '
+        '\'"(-)-(S)-Undecavertol (ee = 75%) - Weaker enantiomer ... Odour threshold: 4.7 '
+        'ng/L air."\'; printed 4.7 ng/L air; measured odour threshold of the '
+        '(-)-(S)-enantiomer (ee 75 %); applies to the (S)-enantiomer only; grade '
+        'A_measured, access full text of the Leffingwell page; primary paper not opened; '
+        'second reader: Single enantiomer ((S), ee 75 %), not the racemic commercial '
+        'material; secondary page quoting Abate et al. 2005. MW 170.29.; listed, not used'
+        ' (0.6748 ppb)',
+        'Producer SDS figure for the commercial racemate; the single-enantiomer values (R'
+        ' 0.045, S 0.67 ppb) are not used.',
+    ]),
+    'adoxal': (0.6252, 'PEER_CROSS', [
+        'Givaudan Safety Data Sheet ADOXAL, Sales No. 1028001, Version 14.0, revision 01 '
+        'AUG 2023 '
+        '(https://perfumiarz.com/cdn/shop/files/1028001_ADOXAL_SDS_EN.pdf?v=12656794224100816259):'
+        " 'Odour Threshold : 5,38 ng/l ... Molecular weight : 210,40 g/mol ... Vapour "
+        "pressure : 0,0031 hPa at 20 °C Method: OECD Test Guideline 104'; printed 5.38 "
+        'ng/l; producer SDS figure; 5.38 ng/L x 24.45 / 210.4 g/mol = 0.625195 ppb v/v '
+        "(25 C). Givaudan SDS Section 9 prints 'Odour Threshold : x ng/l'; the sheet does"
+        " not print the medium or method. ng/l is an air (gas-phase) unit; Givaudan's "
+        'patents define their odour threshold as measured with a linear dilution '
+        'olfactometer, panel of 15 (US 2018/0185808, US 12,340,876).; grade A_producer, '
+        "access PDF (full); second reader: medium not printed; ng/L is the producer's "
+        'air-threshold unit (inferred). Reseller-hosted (perfumiarz.com) copy is the '
+        "producer's own SDS: Givaudan header, Sales No. 1028001, Version 14.0, revision "
+        '01 AUG 2023.',
+        'Givaudan SA, US 2018/0185808 A1 (perfume compositions / microcapsules), PROC and'
+        ' log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): '
+        "'Table: ADOXAL ... PROC 3827; calculated log10 Kcaps such that [log10 Kcaps + 3]"
+        " = 0.5 (PROC_i = OV_i [log10 Kcaps_i + 3])'; printed OV = 3827 / 0.5 = 7654; "
+        'cross-check only: odour value OV = headspace / odour threshold; threshold_ppb = '
+        '(VP/101325 x 1e9)/OV = (0.31 Pa / 101325 x 1e9) / 7654 = 0.40 ppb, using the SDS'
+        ' VP 0.0031 hPa at 20 C. Agrees with the SDS 0.625 ppb within 1.6x.; grade EST, '
+        'access full text; second reader: EST cross-check. Inputs printed (PROC 3827, '
+        "LogKcaps -2.5, VP 0.31 Pa at 20 C); quote's '[log10 Kcaps + 3] = 0.5' is a "
+        'paraphrase of the -2.5 entry. OV = 7,654; sat. vapour 3,060 ppb; ODT 0.400 ppb '
+        '(matches). VP is at 20 C, OV headspace at 25 C.',
+        'Producer SDS figure; the Givaudan PROC estimate agrees within 1.6x.',
+    ]),
+    'aldehyde c11 undecylenic': (0.4146, 'PEER_CROSS', [
+        'Givaudan Safety Data Sheet ALDEHYDE C 11 UNDECYLENIC, Sales No. 1361001, Version'
+        ' 19.0, revision 11 JUL 2025 (Givaudan Suisse SA; copy hosted by reseller '
+        'Aromology) '
+        '(https://aromology.com/cdn/shop/files/1361001_ALDEHYDE_C_11_UNDECYLENIC_SDS_EN.pdf?v=15613551495079480320):'
+        " 'Odour : Aldehydic, Floral, Bitter, Citrus-like Odour Threshold : 2,8541 ng/l "
+        '... Molecular weight : 168,30 g/mol ... Vapour pressure : 0,026 hPa at 20 °C '
+        "Method: OECD Test Guideline 104'; printed 2.8541 ng/l; producer SDS figure; "
+        '2.8541 ng/L x 24.45 / 168.3 g/mol = 0.414633 ppb v/v (25 C). Givaudan SDS '
+        "Section 9 prints 'Odour Threshold : x ng/l' (medium and method not printed; ng/l"
+        ' is an air unit; Givaudan patents define their odour threshold as measured with '
+        'a linear-dilution olfactometer, forced-choice triangle, panel of 15: US '
+        '2018/0185808).; grade A_producer, access PDF (full); second reader: medium not '
+        "printed; ng/L is the producer's air-threshold unit (inferred). Reseller-hosted "
+        "(aromology.com) copy is the producer's own SDS: Givaudan header, Sales No. "
+        '1361001, Version 19.0, revision 11 JUL 2025.',
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables '
+        "(https://www.freepatentsonline.com/y2018/0185808.html): 'ALDEHYDE C 11 "
+        'UNDECYLENIC (undec-10-enal) |15988 (PROC table); ALDEHYDE C 11 UNDECYLENIC '
+        "(undec- |1498 |-2.9 (RECON_VOLTAE, log Kcaps)'; printed PROC 15988, log10 Kcaps "
+        '-2.9; cross-check only, OV = PROC / (log10 Kcaps + 3) = 15988 / 0.10 = 159,880; '
+        'saturated vapour = 2.6 Pa / 101325 Pa x 1e9 = 25,660 ppb; threshold = 25,660 / '
+        '159,880 = 0.1605 ppb (range 0.0802 to 0.241 ppb for log10 Kcaps +/- 0.05). VP '
+        '2.6 Pa = Givaudan SDS 0,026 hPa at 20 C. The factor (log Kcaps + 3) is only 0.1,'
+        ' so the estimate is very sensitive to rounding.; grade EST, access full text; '
+        'second reader: EST cross-check. Inputs printed. OV = 15988/0.1 = 159,880; sat. '
+        'vapour 25,660 ppb; ODT 0.1605 ppb (matches). (LogKcaps+3) = 0.1 makes this very '
+        'sensitive to rounding; VP at 20 C.',
+        'Producer SDS figure (10-undecenal, CAS 112-45-8); the PROC estimate is 2.6x '
+        'lower and fragile ((log Kcaps + 3) = 0.1).',
+    ]),
+    'aldehyde c11': (0.8796, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables ; VP: RIFM safety assessment '
+        'trans-4-decen-1-al (Food Chem. Toxicol. 2025), read-across table '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; VP: '
+        'https://research-portal.uu.nl/ws/files/255290703/1-s2.0-S0278691525000511-main.pdf):'
+        " 'ALDEHYDE C 110 UNDECYLIC (undecanal) |18200 (PROC); ALDEHYDE C 110 UNDECYLIC "
+        "(undecanal) |1533 |-2.8 (log Kcaps) || VP: 'Vapor Pressure (Pa @ 25 °C, EPI "
+        "Suite) 1.59E+01 8.71E+00 8.11E+00' (columns: trans-4-decenal, 10-undecenal, "
+        "undecanal)'; printed PROC 18200, log10 Kcaps -2.8; VP 8.11 Pa (EPI, 25 C); OV = "
+        'PROC / (log10 Kcaps + 3) = 18200 / 0.20 = 91,000; saturated vapour = 8.11 Pa / '
+        '101325 Pa x 1e9 = 80,039 ppb; threshold = 80,039 / 91,000 = 0.8796 ppb (range '
+        '0.66 to 1.1 ppb for log10 Kcaps +/- 0.05). VP 8.11 Pa at 25 C is an EPI Suite '
+        'estimate; a supplier SDS gives 0.04 mmHg at 20 C = 5.33 Pa...; grade EST, access'
+        ' full text (patent); search snippet (VP); second reader: Inputs printed; I '
+        'checked the column order against the table header. Saturated 80,039 ppb / OV '
+        '91,000 = 0.880 ppb. (LogKcaps+3) = 0.2, so ±0.05 gives 0.66–1.10 ppb. The VP is '
+        'an EPI estimate.',
+        'Estimate for undecanal (CAS 112-44-7, the record this stock resolves to); (log '
+        'Kcaps + 3) = 0.2, so +/-0.05 gives 0.66-1.10 ppb.',
+    ]),
+    'benzaldehyde': (140.5, 'PEER_SINGLE', [
+        'AIHA, Odor Thresholds for Chemicals with Established Health Standards, 2nd '
+        "Edition (2013), Table 6.3 'Reported Odor Thresholds from All Sources' (values "
+        'taken from the van Gemert compendium) '
+        "(https://swesiaq.se/onewebmedia/Dokument/ODOR%20THRESHOLDS.pdf): '18 "
+        'Benzaldehyde cont. ... Von Ranson & Belitz 1992b d 0.61 0.093 [mg/m3, ppm] Von '
+        "Ranson & Belitz 1992b r 2.1 0.32'; printed 0.61 mg/m3 detection (AIHA lists "
+        '0.093 ppm); detection threshold as quoted by AIHA; primary (von Ranson & Belitz '
+        '1992, Z. Lebensm. Unters. Forsch.) not opened. 0.61 mg/m3 = 610 ng/L; 610 x '
+        '24.45 / 106.12 = 140.544 ppb v/v (25 C; conversion redone here, the '
+        "compilation's own ppm column uses STP); grade A_measured, access PDF "
+        '(compilation; primary paper not opened); second reader: Detection (d) value from'
+        ' a secondary air-threshold compilation; primary not opened. Medium is given by '
+        "the mg/m3 / ppm air units of the compilation. The compilation's ppm column "
+        '(0.093) fits neither 25 C (0.141 ppm) nor STP (0.129 ppm); the mg/m3 figure was '
+        'converted here. MW 106.12.',
+        'AIHA, Odor Thresholds for Chemicals with Established Health Standards, 2nd '
+        "Edition (2013), Table 6.3 'Reported Odor Thresholds from All Sources' (values "
+        'taken from the van Gemert compendium) '
+        "(https://swesiaq.se/onewebmedia/Dokument/ODOR%20THRESHOLDS.pdf): '18 "
+        "Benzaldehyde cont. ... Yang et al 2008 0.085 0.013 [mg/m3, ppm]'; printed 0.085 "
+        'mg/m3 (AIHA lists 0.013 ppm); as quoted by AIHA; Yang et al. 2008 (J. Agric. '
+        'Food Chem. 56:2780, doi 10.1021/jf072685t) determined odour thresholds in air by'
+        ' GC-O. 0.085 mg/m3 = 85 ng/L; 85 x 24.45 / 106.12 = 19.584 ppb v/v (25 C; '
+        "conversion redone here, the compilation's own ppm column uses STP); grade "
+        'A_measured, access PDF (compilation; primary paper not opened); second reader: '
+        'Secondary compilation; the row carries no d/r flag, so detection vs recognition '
+        'is not stated on the page. Primary (Yang et al. 2008) not opened. ppm column '
+        'again uses a non-standard factor; mg/m3 converted here. MW 106.12.; listed, not '
+        'used (19.58 ppb)',
+        'Detection-flagged row of the AIHA compilation (primary not opened); converted '
+        'from its mg/m3 column, whose ppm column fits neither 25 C nor STP. A second row '
+        '(Yang 2008, no detection/recognition flag) gives 19.6 ppb.',
+    ]),
+    'cyclamen aldehyde': (0.3237, 'PEER_CROSS', [
+        'Givaudan Safety Data Sheet CYCLAMEN ALDEHYDE EXTRA, Sales No. 1534001, Version '
+        '25.0, revision 16 JUL 2024 '
+        '(https://perfumiarz.com/cdn/shop/files/1534001_CYCLAMEN_ALDEHYDE_EXTRA_SDS_EN.pdf?v=136731341100825894):'
+        " 'Odour : Floral, Fresh, Lily-of-the-valley, Green Odour Threshold : 2,5198 ng/l"
+        " ... Molecular weight : 190,30 g/mol ... Vapour pressure : 0,003 hPa at 20 °C'; "
+        'printed 2.5198 ng/l; producer SDS figure; 2.5198 ng/L x 24.45 / 190.3 g/mol = '
+        "0.323747 ppb v/v (25 C). Givaudan SDS Section 9 prints 'Odour Threshold : x "
+        "ng/l' (medium and method not printed; ng/l is an air unit; Givaudan patents "
+        'define their odour threshold as measured with a linear-dilution olfactometer, '
+        'forced-choice triangle, panel of 15: US 2018/0185808).; grade A_producer, access'
+        " PDF (full); second reader: medium not printed; ng/L is the producer's "
+        'air-threshold unit (inferred). Reseller-hosted (perfumiarz.com) copy is the '
+        "producer's own SDS: Givaudan header, Sales No. 1534001, Version 25.0, revision "
+        "16 JUL 2024. Givaudan 'Extra' grade of the same molecule.",
+        "Goeke A., Kraft P. et al. (Givaudan), 'Discovery of Nympheal: The Definitive "
+        "Muguet Aldehyde', Perfumer & Flavorist, 20 Feb 2018 "
+        '(https://www.perfumerflavorist.com/fragrance/ingredients/article/21856694/discovery-of-nympheal-the-definitive-muguet-aldehyde):'
+        " 'cyclamen aldehyde (2), which at 2.5 ng/L air is twice as powerful as "
+        "hydroxycitronellal'; printed 2.5 ng/L air; Givaudan R&D odour threshold (method "
+        'not described in the article); 2.5 ng/L x 24.45 / 190.28 g/mol = 0.321237 ppb '
+        'v/v (25 C); grade A_producer, access full text; second reader: Producer R&D '
+        'value, method not described in the article. MW 190.28.',
+        'Givaudan SDS and Givaudan R&D article agree (0.324 and 0.321 ppb). Replaces '
+        '0.76, cited to Nagata (2003) and Devos (1990), which were not checked to list '
+        'it.',
+    ]),
+    'maple lactone': (5.669, 'PEER_CROSS', [
+        'van Gemert L.J. (2011) Odour Thresholds: Compilations of Odour Threshold Values '
+        'in Air, Water and Other Media (2nd ed., Oliemans Punter & Partners), AIR section'
+        ' "detection (d) and recogniton (r) odour threshold values in mg/m3" (book text '
+        'as hosted on vdoc.pub); primary: Miyazawa et al. (2009a) '
+        '(https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0):'
+        ' \'"... Miyazawa et al. (2009a) d 0.026" (same entry as above)\'; printed d 0.026 '
+        'mg/m3; detection threshold, Miyazawa et al. (2009a) as compiled by van Gemert; '
+        'grade A_measured, access full text of the book via Parallel web_fetch '
+        'excerpts...; second reader: Detection (d) value; AIR section inferred from '
+        'layout as for candidate 0. Secondary compilation; primary not opened. MW 112.13.',
+        'van Gemert L.J. (2011) Odour Thresholds: Compilations of Odour Threshold Values '
+        'in Air, Water and Other Media (2nd ed., Oliemans Punter & Partners), AIR section'
+        ' "detection (d) and recogniton (r) odour threshold values in mg/m3" (book text '
+        'as hosted on vdoc.pub); primary: Blank I. (1997, 2002) GC-O '
+        '(https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0):'
+        ' \'"2-HYDROXY-3-METHYL-2-CYCLOPENTEN-1-ONE (3-methyl-1,2-cyclopentanedione, '
+        'cyclotene, methylcyclopentenolone, maple lactone) [80-71-7, 765-70-8] Blank '
+        '(1997, 2002) 0.01 – 0.02 [GC-O with SE-54 capillary column] Blank (1997, 2002) '
+        "0.01 – 0.02 [GC-O with FFAP...'; printed 0.01 - 0.02 mg/m3; GC-olfactometry air "
+        'threshold (Blank 1997, 2002), on SE-54 and on FFAP columns (same range on both);'
+        ' grade A_measured, access full text of the book via Parallel web_fetch '
+        'excerpts...; second reader: Air section inferred from layout: the same compound '
+        'has separate WATER (Wasserman 2; Nishimura & Mihara d 0.3) and OTHER MEDIA '
+        '(Yoshida, nujol) entries, so this GC-O entry is the AIR one. Blank values carry '
+        'no d/r flag. Secondary compilation; primary not opened. MW 112.13.',
+        'Detection-flagged air entry of the van Gemert compilation; a GC-O entry in the '
+        'same air section gives 2.2-4.4 ppb. Primary papers not opened.',
+    ]),
+    'neryl acetate': (38.88, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1 "MICROCAPSULES": GROUP 1 table "Perfumery '
+        'ingredient | RECON_VOLTAE (Bohr3) | LogKcaps" and GROUP 4 table "Perfumery '
+        'ingredient | PROC"; definition "PROC i =OV i [log10 Kcaps i +3]" and "The '
+        'standard Odour Value (OV i) is defined as the ratio of the standard equilibrium '
+        'headspace concentration of the ingredient to the Odour Detection Threshold of '
+        'this ingredient." + Givaudan SA, US 10,982,173 "Fragrance compositions" '
+        '(headspace-concentration bins at 25 C) '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; '
+        'https://patents.justia.com/patent/10982173): \'"|NERYL ACETATE HC '
+        '((Z)-3,7-dimethylocta-2,6-dien-1-yl acetate) |472 |" ; "|NERYL ACETATE HC '
+        '((Z)-3,7-dimethylocta- |1643 |−2.4" ; "ingredients having equilibrium headspace '
+        "concentration from 201 μg/l to about 300 μg/l, such as ...'; printed PROC 472, "
+        'LogKcaps -2.4, HS bin 201–300 ug/L; EST back-calculated from Givaudan patent '
+        "tables for 'NERYL ACETATE HC': ODT = HS / OV, OV = PROC / (LogKcaps + 3). The "
+        'underlying ODT is Givaudan olfactometer, as described in US 2018/0185808: "The '
+        'olfactometer functions on the principle of a linear dilution of an odorant in a '
+        'carrier gas ... Each panellist (panel of 15 persons) ... The final threshold '
+        'value of a given...; grade EST, access full text of both patents (Parallel '
+        'full-content fetch...; second reader: EST. Inputs printed (PROC table names the '
+        "'HC' grade, HS list the same molecule). OV = 472/0.6 = 786.7; ODT 255.5-381.4 "
+        'ng/L = 31.8-47.5 ppb (matches). MW 196.29.',
+        'van Gemert L.J. (2011) Odour Thresholds: Compilations of Odour Threshold Values '
+        'in Air, Water and Other Media (2nd ed., Oliemans Punter & Partners), AIR section'
+        ' "detection (d) and recogniton (r) odour threshold values in mg/m3" (book text '
+        'as hosted on vdoc.pub); primary: Cristoph (1983) '
+        '(https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0):'
+        ' \'"3,7-DIMETHYL-(Z)-2,6-OCTADIEN-1-YL ACETATE (neryl acetate) [141-12-8] '
+        'Cristoph (1983) r 20.0 - 25.0"\'; printed r 20.0 - 25.0 mg/m3; RECOGNITION '
+        'threshold (r), Cristoph (1983), as compiled by van Gemert; grade A_measured, '
+        'access full text of the book via Parallel web_fetch excerpts...; second reader: '
+        'RECOGNITION threshold (r), not detection: an upper bound for the detection '
+        'threshold. Air section (the WATER entry for neryl acetate is separate: Pino et '
+        'al. d 0.042 etc.). Secondary compilation; primary not opened. MW 196.29.; '
+        'listed, not used (2491.0-3114.0 ppb)',
+        'Givaudan PROC estimate 31.8-47.5 ppb; geometric midpoint 38.9. The van Gemert '
+        'value (2,491-3,114 ppb) is a recognition threshold, an upper bound only, and is '
+        'not used.',
+    ]),
+    'skatole': (0.0056, 'PEER_SINGLE', [
+        'Nagata Y. (2003) Measurement of Odor Threshold by Triangle Odor Bag Method. In: '
+        'Odor Measurement Review, Ministry of the Environment, Japan, pp. 118-127; Table '
+        '2 "Odor thresholds measured by the triangle odor bag method (ppm,v/v)" '
+        "(https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf): 'Skatole 0.0000056 "
+        'Ethyl-o-toluidine 0.026 (Table 2 line); Table 1 row: "Skatole 1.7 30 ～ 3000 13";'
+        ' text: "since the dilution error was large compared with other substances, their'
+        ' thresholds were corrected by their recovery rate."\'; printed 0.0000056 ppm '
+        '(v/v); triangle odor bag method, panel; Nagata notes skatole and indole '
+        'thresholds were corrected by their recovery rate (Table 1 recovery 13 %); grade '
+        'A_measured, access full text (PDF via WebFetch); second reader: Triangle odor '
+        "bag method, air. Bag recovery for skatole only 13 %; the candidate's quoted text"
+        ' that thresholds were corrected by recovery was not in the excerpt I saw. '
+        'Printed in ppm v/v; no MW conversion.',
+        'J Environ Manage 2016;180:257-263 (Zhou, Hallis, Vitko, Suffet): odour study of '
+        'indole and skatole (abstract and highlights) '
+        "(https://www.sciencedirect.com/science/article/abs/pii/S030147971630295X): 'odor"
+        " threshold ... 0.327 ng/L (60 pptV)'; printed 0.327 ng/L (60 pptV); trained "
+        'panel, air (olfactometry details not in the abstract); grade A_measured, access '
+        'abstract and highlights only; second reader: Air (Teflon bags), expert/trained '
+        'panel; abstract and highlights only, method details not shown. Candidate quote '
+        'is an ellipsis paraphrase. 0.327 ng/L x 24.45/131.17 = 0.061 ppb (page prints 60'
+        ' pptV).; listed, not used (0.06095 ppb)',
+        'Nagata triangle-odour-bag detection threshold. Zhou et al. 2016 (abstract only) '
+        'gives 0.061 ppb, 11x higher.',
+    ]),
+    'aldehyde c-12 lauric dodecanal': (0.2916, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables ; VP: Axxence Aromatic GmbH SDS NATURAL '
+        'ALDEHYDE C-12 (DODECANAL), product 261500, revision 23.10.2025 '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; VP: '
+        'https://axxence.de/wp-content/uploads/products/sds/natural_aldehyde_c-12_dodecanal_261500_WW-EN_SDS.pdf):'
+        " 'ALDEHYDE C 12 LAURIC (dodecanal) |2369 (PROC); ALDEHYDE C 12 LAURIC "
+        "(dodecanal) |1662 |-2.9 (log Kcaps) || VP: 'Partition coefficient "
+        "n-octanol/water: 4,75 0,007 hPa Vapour pressure: (at 20 °C)''; printed PROC "
+        '2369, log10 Kcaps -2.9; VP 0.7 Pa at 20 C; OV = PROC / (log10 Kcaps + 3) = 2369 '
+        '/ 0.10 = 23,690; saturated vapour = 0.7 Pa / 101325 Pa x 1e9 = 6,908 ppb; '
+        'threshold = 6,908 / 23,690 = 0.2916 ppb (range 0.146 to 0.437 ppb for log10 '
+        'Kcaps +/- 0.05). The factor (log Kcaps + 3) is only 0.1, so the estimate is '
+        'uncertain by at least 2x; a 25 C VP estimate of 0.034 mmHg (4.5 Pa, scentfriends'
+        " SDS, 'est') would give 1.9 ppb.; grade EST, access full text (patent); PDF "
+        '(VP); second reader: EST. Inputs printed. OV = 23,690; sat. vapour 6,908 ppb; '
+        'ODT 0.2916 ppb (matches). (LogKcaps+3) = 0.1, so uncertain by 2x or more; VP at '
+        '20 C (natural grade, CAS 112-54-9).',
+        'Givaudan PROC estimate; (log Kcaps + 3) = 0.1, so uncertain by 2x or more.',
+    ]),
+    'alpha irone': (0.81, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables ; VP: Givaudan, Irone Alpha product page '
+        '(vapour pressure; temperature not stated) '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; VP: '
+        'https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/irone-alpha):'
+        " 'IRONE ALPHA ((E)-4-(2,5,6,6-tetramethylcyclohex-2-en-1-yl)but-3-en-2- |9686 "
+        '(PROC); IRONE ALPHA ((E)-4-(2,5,6,6- |1800 |-1.5 (log Kcaps) || VP source: '
+        'Physico chemical properties: Formula MW Log Pow Vapour pressure ... C14H22O '
+        "206.3 4,4 0.0053 hPa ... 79-69-6'; printed PROC 9686, log10 Kcaps -1.5; VP 0.53 "
+        'Pa at not stated C; OV = PROC / (log10 Kcaps + 3) = 9686 / 1.50 = 6,457; '
+        'saturated vapour = 0.53 Pa / 101325 Pa x 1e9 = 5,231 ppb; threshold = 5,231 / '
+        '6,457 = 0.81 ppb (range 0.783 to 0.837 ppb for log10 Kcaps +/- 0.05). VP 0.53 Pa'
+        ' (not stated C) from the source named. Givaudan OV = equilibrium headspace (25 '
+        'C) / olfactometer odour threshold (panel of 15); headspace estimated here from '
+        'VP, so...; grade EST, access full text (patent); web page (VP); second reader: '
+        'EST. Inputs printed. OV = 6,457; sat. vapour 5,231 ppb; ODT 0.810 ppb (matches).'
+        ' VP temperature not stated on the Givaudan page.',
+        'Givaudan PROC estimate. Replaces 0.9, an audit correction with no source.',
+    ]),
+    'amberwood f': (0.04947, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables ; VP: Symrise Safety Data Sheet 600113 '
+        'AMBERWOOD F, Version 12, revision 12.01.2015 (copy hosted by Aromology) '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; VP: '
+        'https://aromology.com/cdn/shop/files/Amber-Wood-F_MSDS.pdf?v=12117092210280659830):'
+        " 'BOISAMBRENE FORTE ((ethoxymethoxy)cyclododecane) |59050 (PROC); BOISAMBRENE "
+        'FORTE |2063 |-2.0 (log Kcaps) || VP source: Odour Threshold : No data available '
+        '... Vapour pressure : < 1 kPa at 50 °C calculated 0,00296 hPa at 25 °C Method: '
+        "Directive...'; printed PROC 59050, log10 Kcaps -2.0; VP 0.296 Pa at 25 C; OV = "
+        'PROC / (log10 Kcaps + 3) = 59050 / 1.00 = 59,050; saturated vapour = 0.296 Pa / '
+        '101325 Pa x 1e9 = 2,921 ppb; threshold = 2,921 / 59,050 = 0.04947 ppb (range '
+        '0.047 to 0.0519 ppb for log10 Kcaps +/- 0.05). VP 0.296 Pa (25 C) from the '
+        'source named. Givaudan OV = equilibrium headspace (25 C) / olfactometer odour '
+        'threshold (panel of 15); headspace estimated here from VP, so...; grade EST, '
+        'access full text (patent); PDF (full) (VP); second reader: EST. Inputs printed. '
+        'Patent values are for Givaudan BOISAMBRENE FORTE, same molecule as Symrise '
+        'Amberwood F. OV = 59,050; sat. vapour 2,921 ppb (calculated VP); ODT 0.0495 ppb '
+        "(matches). Aromology copy is Symrise's own SDS (header, material 600113, version"
+        ' 12).',
+        'Givaudan PROC estimate for Boisambrene Forte, the same molecule (CAS '
+        '58567-11-6). Replaces an unsourced 1.0.',
+    ]),
+    'ambrox super': (0.02146, 'PEER_SINGLE', [
+        'Givaudan Safety Data Sheet AMBROFIX, Sales No. 1836803, Version 5.3, revision 19'
+        ' SEP 2016 (CAS 6790-58-5 / 3738-00-9, C16H28O) '
+        "(https://cdn.hstatic.net/files/200000928041/file/ambrofix-sds.pdf): 'Odour "
+        "Threshold : 0,2075 ng/l'; printed 0.2075 ng/l; producer SDS figure; 0.2075 ng/L "
+        'x 24.45 / 236.39 g/mol = 0.0214619 ppb v/v (25 C) (MW of C16H28O = 236.39). '
+        "Givaudan SDS Section 9 prints 'Odour Threshold : x ng/l'; the sheet does not "
+        "print the medium or method. ng/l is an air (gas-phase) unit; Givaudan's patents "
+        'define their odour threshold as measured with a linear dilution olfactometer, '
+        'panel of 15 (US 2018/0185808, US...; grade A_producer, access PDF (full); second'
+        " reader: medium not printed; ng/L is the producer's air-threshold unit "
+        "(inferred). Producer's own SDS (Givaudan header, revision 19 SEP 2016) hosted on"
+        " cdn.hstatic.net (a shop CDN). The SDS Sales No. is 127737; '1836803' is part of"
+        " the product name. Value is for Givaudan Ambrofix, a different producer's...",
+        'Givaudan Ambrofix SDS (Sales No. 127737), the same molecule ((-)-ambroxide, CAS '
+        '6790-58-5). Replaces 0.3, an audit correction with no source.',
+    ]),
+    'ambrofix crystals (solid)': (0.02146, 'PEER_SINGLE', [
+        'Givaudan Safety Data Sheet AMBROFIX, Sales No. 1836803, Version 5.3, revision 19'
+        ' SEP 2016 (CAS 6790-58-5 / 3738-00-9, C16H28O) '
+        "(https://cdn.hstatic.net/files/200000928041/file/ambrofix-sds.pdf): 'Odour "
+        "Threshold : 0,2075 ng/l'; printed 0.2075 ng/l; producer SDS figure; 0.2075 ng/L "
+        'x 24.45 / 236.39 g/mol = 0.0214619 ppb v/v (25 C) (MW of C16H28O = 236.39). '
+        "Givaudan SDS Section 9 prints 'Odour Threshold : x ng/l'; the sheet does not "
+        "print the medium or method. ng/l is an air (gas-phase) unit; Givaudan's patents "
+        'define their odour threshold as measured with a linear dilution olfactometer, '
+        'panel of 15 (US 2018/0185808, US...; grade A_producer, access PDF (full); second'
+        " reader: medium not printed; ng/L is the producer's air-threshold unit "
+        "(inferred). This is the producer's own SDS, hosted on cdn.hstatic.net (a shop "
+        'CDN, not one of the hosts the brief names). The sheet prints Sales No. 127737; '
+        '1836803 appears in the product-name line.',
+        'Givaudan Ambrofix SDS (Sales No. 127737). Replaces 0.3 on the data-spine record,'
+        ' which had no source.',
+    ]),
+    'berry hexanoate (berryflor)': (4.087, 'PEER_SINGLE', [
+        'Givaudan Safety Data Sheet BERRYFLOR, Sales No. 5206903, Version 11.0, revision '
+        '15 AUG 2025 (Givaudan Suisse SA; copy hosted by reseller Aromology) '
+        '(https://aromology.com/cdn/shop/files/SDS-Berryflor-_Givaudan_-_Floral_Raspberry.pdf?v=14296763192571299935):'
+        " 'Odour : fruity, Floral, mild, Balsamic Odour Threshold : 33,7961 ng/l ... "
+        'Molecular weight : 202,20 g/mol ... Vapour pressure : 0,015 hPa at 20 °C Method:'
+        " OECD Test Guideline 104'; printed 33.7961 ng/l; producer SDS figure; 33.7961 "
+        'ng/L x 24.45 / 202.2 g/mol = 4.08662 ppb v/v (25 C). Givaudan SDS Section 9 '
+        "prints 'Odour Threshold : x ng/l' (medium and method not printed; ng/l is an air"
+        ' unit; Givaudan patents define their odour threshold as measured with a '
+        'linear-dilution olfactometer, forced-choice triangle, panel of 15: US '
+        '2018/0185808).; grade A_producer, access PDF (full); second reader: medium not '
+        "printed; ng/L is the producer's air-threshold unit (inferred). Reseller-hosted "
+        "(aromology.com) copy is the producer's own SDS: Givaudan header, Sales No. "
+        '5206903, Version 11.0, revision 15 AUG 2025.',
+        'Producer SDS figure; first air threshold for this stock.',
+    ]),
+    'cashmeran': (0.04128, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables ; VP: RIFM fragrance ingredient safety '
+        'assessment, 6,7-dihydro-1,1,2,3,3-pentamethyl-4(5H)-indanone, Food Chem. '
+        'Toxicol. 149 (2021) 111929 (https://www.freepatentsonline.com/y2018/0185808.html'
+        ' ; VP: '
+        'https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/33704-61-9.pdf):'
+        " 'CASHMERAN (1,1,2,3,3-pentamethyl-2,3,6,7-tetrahydro-1H-inden-4(5H)- |141286 "
+        '(PROC); CASHMERAN (1,1,2,3,3-pentamethyl-2,3,6,7- |1772 |-1.9 (log Kcaps) || VP '
+        'source: 7. Vapor Pressure: 0.00224 mm Hg @ 20 °C (EPI Suite v4.0), 0.004 mm Hg '
+        "20 °C (FMA), 0.00403...'; printed PROC 141286, log10 Kcaps -1.9; VP 0.537 Pa at "
+        '25 C; OV = PROC / (log10 Kcaps + 3) = 141286 / 1.10 = 128,442; saturated vapour '
+        '= 0.537 Pa / 101325 Pa x 1e9 = 5,300 ppb; threshold = 5,300 / 128,442 = 0.04126 '
+        'ppb (range 0.0394 to 0.0431 ppb for log10 Kcaps +/- 0.05). VP 0.537 Pa (25 C) '
+        'from the source named. Givaudan OV = equilibrium headspace (25 C) / olfactometer'
+        ' odour threshold (panel of 15); headspace estimated here from...; grade EST, '
+        'access full text (patent); PDF (full) (VP); second reader: EST. Inputs printed. '
+        '0.00403 mmHg = 0.537 Pa (EPI estimate); OV = 128,442; ODT 0.0413 ppb (matches).',
+        'Givaudan PROC estimate with an EPI vapour pressure. Replaces 2.0, cited only as '
+        "'van Gemert (2011); IFF sensory data' with no page or value.",
+    ]),
+    'cyclogalbanate': (0.07514, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables ; VP: RIFM safety assessment, allyl '
+        'cyclohexanepropionate (2021), Appendix B read-across table (EPI Suite values for'
+        ' the analog cyclogalbanate) '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; VP: '
+        'https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/2705-87-5.pdf):'
+        " 'CYCLOGALBANATE (allyl 2-(cyclohexyloxy)acetate) |220660 (PROC); CYCLOGALBANATE"
+        ' (allyl 2- |1546 |-2.4 (log Kcaps) || VP source: Read-across table: Vapor '
+        'Pressure (Pa @ 25 °C, EPI Suite) 2.91 [allyl cyclohexanepropionate] 2.80 [allyl '
+        "(cyclohexyloxy)acetate...'; printed PROC 220660, log10 Kcaps -2.4; VP 2.8 Pa at "
+        '25 C; OV = PROC / (log10 Kcaps + 3) = 220660 / 0.60 = 367,767; saturated vapour '
+        '= 2.8 Pa / 101325 Pa x 1e9 = 27,634 ppb; threshold = 27,634 / 367,767 = 0.07514 '
+        'ppb (range 0.0689 to 0.0814 ppb for log10 Kcaps +/- 0.05). VP 2.8 Pa (25 C) from'
+        ' the source named. Givaudan OV = equilibrium headspace (25 C) / olfactometer '
+        'odour threshold (panel of 15); headspace estimated here from VP...; grade EST, '
+        'access full text (patent); PDF (full) (VP); second reader: EST. Inputs printed. '
+        'VP 2.80 Pa is an EPI Suite estimate for cyclogalbanate (CAS 68901-15-5) in '
+        "another material's RIFM assessment. OV = 367,767; ODT 0.0751 ppb (matches).",
+        'Givaudan PROC estimate with an EPI vapour pressure; first air threshold for this'
+        ' stock.',
+    ]),
+    'dupical': (0.04308, 'PEER_SINGLE', [
+        "'Discovery of Nympheal, the definitive muguet aldehyde', Perfumer & Flavorist, "
+        'Feb 2018 (Givaudan R&D article; authors Goeke, Kraft, Lelievre, Alchenberger per'
+        ' the earlier project file 02_odour_thresholds.md, not shown in the page text '
+        'this session) '
+        '(https://www.perfumerflavorist.com/fragrance/ingredients/article/21856694/discovery-of-nympheal-the-definitive-muguet-aldehyde):'
+        " 'With an odor threshold of 0.36 ng/L air, it is comparable in strength to "
+        "Bourgeonal (4).'; printed 0.36 ng/L air; producer R&D figure (Givaudan), method "
+        'not stated; grade A_producer, access full text (web article, via fetch tool); '
+        'second reader: Producer R&D value, method not stated. Authors shown on page: '
+        'Goeke, Kraft, Lelievre, Alchenberger. MW 204.31.',
+        'Givaudan R&D article figure (method not stated); first air threshold for this '
+        'stock.',
+    ]),
+    'geosmin': (0.0065, 'PEER_SINGLE', [
+        "Nagata Y. (2003) 'Measurement of odor threshold by triangle odor bag method', "
+        'Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, Table 2'
+        " (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf): 'Table 2 Odor "
+        'thresholds measured by the triangle odor bag method (ppm,v/v) ... Geosmin '
+        "0.0000065'; printed 0.0000065 ppm v/v; triangle odor bag method, panel of 6 "
+        '(Japan Environmental Sanitation Center, measurements 1976-1988); grade '
+        'A_measured, access full text (PDF via fetch tool; matches project copy...; '
+        'second reader: Triangle odor bag method (odourless air). Panel size and '
+        'measurement years not checked in the excerpt I saw. No MW conversion.',
+        'Nagata triangle-odour-bag detection threshold. Replaces 0.006, whose note said '
+        'no peer-reviewed value existed.',
+    ]),
+    'geraniol (10% in dpg)': (2.219, 'PEER_SINGLE', [
+        "Elsharif S.A., Buettner A. 'Structure-Odor Relationship Study on Geraniol, "
+        "Nerol, and Their Synthesized Oxygenated Derivatives', J. Agric. Food Chem. 2018,"
+        ' 66(10), 2324-2333, doi:10.1021/acs.jafc.6b04534 '
+        "(https://pubmed.ncbi.nlm.nih.gov/27794602): 'All compounds were individually "
+        'tested for their odor qualities and odor thresholds in air (OT). Geraniol, the '
+        'Z-isomer, with an OT of 14 ng/L, was found to be more potent than its E-isomer, '
+        "nerol, which has an OT of 60 ng/L.'; printed 14 ng/L (air); GC-olfactometry, "
+        "'odor thresholds in air (OT)' (same group and method as Elsharif 2015: internal "
+        'standard (E)-dec-2-enal); grade A_measured, access abstract (PubMed and ACS '
+        'abstract pages, search excerpts); second reader: GC-olfactometry air threshold '
+        '(abstract only; abstract mislabels geraniol as Z). Value is for neat geraniol; '
+        'the stock is a 10 % DPG dilution. MW 154.25.',
+        "The molecule's threshold (the stock is a 10% DPG dilution), as already used for "
+        'Geraniol neat. Replaces 2.0 on the data-spine record, which had no source.',
+    ]),
+    'hedione': (0.03025, 'PEER_SINGLE', [
+        "Chapuis C. (Firmenich SA), 'The Chemistry and Creative Legacy of Methyl "
+        "Jasmonate and Hedione', Perfumer & Flavorist 36 (Dec 2011) 36-48, table T-1 "
+        "'Cis/trans ratios and thresholds of past/current Firmenich qualities of 2' "
+        '(https://img.perfumerflavorist.com/files/base/allured/all/document/2011/11/pf.PF_36_12_036_13.pdf):'
+        " 'T-1 Cis/trans ratios and thresholds of past/current Firmenich qualities of 2 "
+        "... cis/trans ca. | Odor threshold [ngL-1] ... Hedione 10:90 0.280'; printed "
+        '0.280 ng/L; producer data (Firmenich), method not stated; grade A_producer, '
+        'access full text (PDF, via fetch tool); second reader: medium not printed; ng/L '
+        "is the producer's air-threshold unit (inferred). Value for standard Hedione "
+        '(cis/trans ca. 10:90); HC grades are far lower. Method not stated. MW 226.31.',
+        'Firmenich figure for standard Hedione (cis/trans about 10:90). Replaces an '
+        'estimated 0.05.',
+    ]),
+    'hedione hc': (0.003997, 'PEER_SINGLE', [
+        "Chapuis C. (Firmenich SA), 'The Chemistry and Creative Legacy of Methyl "
+        "Jasmonate and Hedione', Perfumer & Flavorist 36 (Dec 2011) 36-48, table T-1 "
+        "'Cis/trans ratios and thresholds of past/current Firmenich qualities of 2' "
+        '(https://img.perfumerflavorist.com/files/base/allured/all/document/2011/11/pf.PF_36_12_036_13.pdf):'
+        " 'Hedione HC 75:25 0.037 (column 'Odor threshold [ngL-1]'); same table: Cisdione"
+        " 30:70 0.093; Hedione VHC 90:10 0.031; (+)-Paradisone 94:6 0.015'; printed 0.037"
+        ' ng/L; producer data (Firmenich), method not stated; grade A_producer, access '
+        'full text (PDF, via fetch tool); second reader: medium not printed; ng/L is the '
+        "producer's air-threshold unit (inferred). The method is not stated in the table."
+        ' MW 226.31.',
+        'Firmenich figure for the high-cis grade. Replaces 0.05, which had no source.',
+    ]),
+    'helional': (0.14, 'PEER_SINGLE', [
+        "Cometto-Muniz J.E., Abraham M.H. 'Odor Detection by Humans of Lineal Aliphatic "
+        "Aldehydes and Helional as Gauged by Dose-Response Functions', Chem. Senses 2010 "
+        "(PMC2912639) (https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639): 'The strong "
+        'olfactory receptor (OR) ligands octanal and helional (0.14 ppb) showed the '
+        "lowest thresholds. ... Table 2 ... Helional | 17 | 0.14 | -0.868 | +/-0.024'; "
+        'printed 0.14 ppb (log ppb C = -0.868 +/- 0.024); 8-station vapor delivery '
+        'device, 3-alternative forced choice, ascending concentrations, GC-quantified; 17'
+        ' subjects; ODT = concentration at P=0.5 of fitted sigmoid; tested range '
+        '0.020-2.6 ppb; grade A_measured, access full text (PMC via Parallel fetch '
+        'excerpts); second reader: Air (vapor delivery device VDD8 vs carbon-filtered '
+        'air), 17 subjects, ODT = P 0.5 above chance. Printed in ppb by volume; no '
+        'conversion.',
+        "Replaces 0.1, which cited this paper under another author's name with 0.097 ppb;"
+        ' the second reader read 0.14 ppb.',
+    ]),
+    'melonal': (0.1018, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1 "MICROCAPSULES": GROUP 1 table "Perfumery '
+        'ingredient | RECON_VOLTAE (Bohr3) | LogKcaps" and GROUP 4 table "Perfumery '
+        'ingredient | PROC"; definition "PROC i =OV i [log10 Kcaps i +3]" and "The '
+        'standard Odour Value (OV i) is defined as the ratio of the standard equilibrium '
+        'headspace concentration of the ingredient to the Odour Detection Threshold of '
+        'this ingredient." + Givaudan SA, US 10,982,173 "Fragrance compositions" '
+        '(headspace-concentration bins at 25 C) '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; '
+        'https://patents.justia.com/patent/10982173): \'"|MELONAL '
+        '(2,6-dimethylhept-5-enal) |3633579 |" ; "|MELONAL (2,6-dimethylhept-5-enal) '
+        '|1229 |−2.0" ; "FRUITY ingredients having equilibrium headspace concentration '
+        'from 901 μg/l to 5000 μg/l, such as ... 2,6-dimethylhept-5-enal (for example '
+        'MELONAL)"\'; printed PROC 3633579, LogKcaps -2.0, HS bin 901–5000 ug/L; EST '
+        "back-calculated from Givaudan patent tables for 'MELONAL': ODT = HS / OV, OV = "
+        'PROC / (LogKcaps + 3). The underlying ODT is Givaudan olfactometer, as described'
+        ' in US 2018/0185808: "The olfactometer functions on the principle of a linear '
+        'dilution of an odorant in a carrier gas ... Each panellist (panel of 15 persons)'
+        ' ... The final threshold value of a given odorant is...; grade EST, access full '
+        'text of both patents (Parallel full-content fetch...; second reader: EST. Inputs'
+        ' printed. OV = 3,633,579; ODT 0.248-1.376 ng/L = 0.0432-0.2399 ppb (matches). '
+        'Wide HS bin (5.5x).',
+        'Givaudan PROC estimate 0.043-0.240 ppb (wide headspace bin); geometric midpoint '
+        '0.102. Replaces an estimated 0.5 with no source.',
+    ]),
+    'paradisamide': (0.1371, 'PEER_SINGLE', [
+        'Givaudan Suisse SA, Safety Data Sheet PARADISAMIDE, Version 9.0, revision 02 AUG'
+        ' 2024 (copy hosted by reseller scentfriends.com) '
+        '(https://scentfriends.com/wp-content/uploads/2026/09/Paradisamide_SDS.pdf): '
+        '\'"Odour Threshold : 1,2301 ng/l"\'; printed 1,2301 ng/l; producer SDS Section 9.1'
+        ' figure; method not stated; grade A_producer, access full text (PDF); second '
+        "reader: medium not printed; ng/L is the producer's air-threshold unit "
+        "(inferred). Reseller-hosted (scentfriends.com) copy is the producer's own SDS: "
+        'Givaudan header, Sales No. 0025633, Version 9.0, revision 02 AUG 2024. PubChem '
+        'MW 219.32 used (SDS prints 219,00, giving 0.1373).',
+        'Producer SDS figure. Replaces 8.0, which had no source.',
+    ]),
+    'phenyl ethyl acetate': (1.996, 'PEER_SINGLE', [
+        'van Gemert L.J. (2011) Odour Thresholds: Compilations of Odour Threshold Values '
+        'in Air, Water and Other Media (2nd ed., Oliemans Punter & Partners), AIR section'
+        ' "detection (d) and recogniton (r) odour threshold values in mg/m3" (book text '
+        'as hosted on vdoc.pub); primary: Schieberle (1998) '
+        '(https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0):'
+        ' \'"1-PHENYLETHYL ACETATE (styrallyl acetate) [93-92-5] Appell (1969) 0.000 2 '
+        '2-PHENYLETHYL ACETATE [103-45-7] Schieberle (1998) 0.0067- 0.0268" (AIR section,'
+        ' mg/m3; the WATER section lists the same compound separately with Takahashi '
+        "(1990) 3-5, Ong & Acree...'; printed 0.0067- 0.0268 mg/m3; as compiled by van "
+        'Gemert from Schieberle (1998) (GC-olfactometry air threshold, Munich school; '
+        'method details not shown in the excerpt); grade A_measured, access full text of '
+        'the book via Parallel web_fetch excerpts...; second reader: Air section (the '
+        'WATER entry for 103-45-7 is separate: Takahashi (1990) 3-5, Ong & Acree (1999) '
+        '0.02 ...). No d/r flag; method not shown. Secondary compilation; primary not '
+        'opened. MW 164.20.',
+        'Air entries of the van Gemert compilation, 1.0-4.0 ppb; geometric midpoint 2.0. '
+        'Primary papers not opened. Replaces 3.0, which had no source.',
+    ]),
+    'safraleine': (0.7915, 'PEER_SINGLE', [
+        'Givaudan Suisse SA, Safety Data Sheet SAFRALEINE, Sales No. 0015893, Version '
+        '12.0, Revision Date 09 SEP 2024 (copy hosted by reseller perfumiarz.com) '
+        '(https://perfumiarz.com/cdn/shop/files/0015893_SAFRALEINE_SDS_NOT_FOOD_GRADE_IN_EU-EN.pdf?v=9493094553353147398):'
+        ' \'"Odour : Spicy, Leathery, woody, Warm Odour Threshold : 5,6389 ng/l"; '
+        '"Molecular weight : 174,20 g/mol"\'; printed 5,6389 ng/l; producer SDS Section '
+        "9.1 figure; Givaudan SDS Section 9 prints 'Odour Threshold : x ng/l' without "
+        "medium or method; ng/l is a gas-phase unit and Givaudan's patents (US 12,340,876"
+        ' B2) describe their odour thresholds as measured with a linear-dilution '
+        'olfactometer, panel of 15 (inference that the SDS figure is that measurement); '
+        'grade A_producer, access full text (PDF, Parallel extract); second reader: '
+        "medium not printed; ng/L is the producer's air-threshold unit (inferred). "
+        "Reseller-hosted (perfumiarz.com) copy is the producer's own SDS: Givaudan "
+        'header, Sales No. 0015893, Version 12.0, revision 09 SEP 2024.',
+        'Producer SDS figure. Replaces 0.1, which had no source.',
+    ]),
+    'triplal': (0.582, 'PEER_SINGLE', [
+        'Givaudan SA, US 12,340,876 B2, Table 1/Table 2 "Equilibrium Headspace '
+        'Concentration [ug/l] | Group | Odor Value"; text: "The odor value is determined '
+        'by dividing the equilibrium headspace concentration of the fragrance ingredient '
+        'by its odor threshold." (https://patents.google.com/patent/US12340876B2/en): '
+        '\'"2,4-dimethylcyclohex-3-enecarbaldehyde |1926 |III |585468 |6 |6.5 |35 |GREEN |'
+        ' |(TRICYCLAL)"\'; printed headspace 1926 ug/l, odor value 585468; threshold = '
+        'equilibrium headspace / odor value (producer table). Patent method: "The '
+        'olfactometer functions on the principle of a linear dilution of a fragrance '
+        'ingredient in a carrier gas ... Each panelist (panel of 15 persons) ..."; value '
+        "for 'TRICYCLAL' (same chemical, Givaudan grade); grade A_producer, access full "
+        'text (Google Patents page, Parallel full-content fetch); second reader: Producer'
+        ' (Givaudan) value derived from printed HS and OV: 1926/585,468 ug/L = 3.29 ng/L.'
+        ' Odor threshold by olfactometer (linear dilution in carrier gas, odourless air, '
+        "panel of 15), so air. TRICYCLAL is Givaudan's name for the same molecule as IFF "
+        'Triplal. MW 138.21.',
+        'Givaudan patent figure for Tricyclal, the same molecule (CAS 68039-49-6). '
+        'Replaces an estimated 0.5.',
+    ]),
+    'verdox': (10.88, 'PEER_SINGLE', [
+        'Givaudan SA, US 12,340,876 B2, Table 1/Table 2 "Equilibrium Headspace '
+        'Concentration [ug/l] | Group | Odor Value"; text: "The odor value is determined '
+        'by dividing the equilibrium headspace concentration of the fragrance ingredient '
+        'by its odor threshold." (https://patents.google.com/patent/US12340876B2/en): '
+        '\'"2-(tert-butyl)cyclohexyl acetate (AGRUMEX) |773 |IV |8764 |40 |5.5 |158 '
+        '|FRUITY"\'; printed headspace 773 ug/l, odor value 8764; threshold = equilibrium '
+        'headspace / odor value (producer table). Patent method: "The olfactometer '
+        'functions on the principle of a linear dilution of a fragrance ingredient in a '
+        'carrier gas ... Each panelist (panel of 15 persons) ..."; value for \'AGRUMEX\' '
+        '(same chemical, Symrise grade); grade A_producer, access full text (Google '
+        'Patents page, Parallel full-content fetch); second reader: Producer value '
+        'derived from printed HS and OV: 773/8,764 ug/L = 88.2 ng/L. AGRUMEX is another '
+        "producer's grade of the same molecule as IFF Verdox (2-tert-butylcyclohexyl "
+        'acetate); cis/trans ratio of the grades may differ. MW 198.30.',
+        'Givaudan patent figure for Agrumex, the same molecule (2-tert-butylcyclohexyl '
+        'acetate); the cis/trans ratio may differ. Replaces 20, which had no source.',
+    ]),
+    'vetival': (13.41, 'PEER_SINGLE', [
+        "Symrise Perfumery Ingredients datasheet 'Vetival' (SYM_PC-Vetival.pdf, product "
+        'no. 105274) '
+        '(https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetival.pdf):'
+        ' \'page 2: "Performance ... thresholD in air ... woody vetival® 0.1000 μg/l # '
+        'Vetival › 105274"\'; printed 0.1000 μg/l; producer figure: Symrise datasheet '
+        "'Performance' panel labelled 'threshold in air'; method not stated; grade "
+        'A_producer, access full text layer of the PDF (Parallel extract)...; second '
+        'reader: Producer figure, method not stated. The number sits apart from its label'
+        " in the PDF text layer; binding to 'threshold in air' is inferred from layout "
+        '(only μg/l value on the page, same layout as other Symrise sheets). 100 ng/L x '
+        '24.45/182.3.',
+        "Symrise datasheet for its own product; the number sits next to 'threshold in "
+        "air' by layout. Replaces an estimated 7.0.",
+    ]),
+    'citral': (4.337, 'PEER_CROSS', [
+        'AIHA, Odor Thresholds for Chemicals with Established Health Standards, 2nd '
+        "Edition (2013), Table 6.3 'Reported Odor Thresholds from All Sources' (values "
+        'taken from the van Gemert compendium) '
+        "(https://swesiaq.se/onewebmedia/Dokument/ODOR%20THRESHOLDS.pdf): '59 Citral ... "
+        'Schneider & Wolf 1955 0.027 0.0043 [mg/m3, ppm] ... 452. Schneider, R.A. and S. '
+        'Wolf: Olfactory Perception Thresholds for Citral Utilizing a New Type '
+        "Olfactorium. J. Appl. Physiol. 8:337-42 (1955).'; printed 0.027 mg/m3 (AIHA "
+        'lists 0.0043 ppm); olfactorium (whole-body chamber) perception threshold, as '
+        'quoted by the AIHA compilation; primary not opened. 0.027 mg/m3 = 27 ng/L; 27 x '
+        '24.45 / 152.23 = 4.33653 ppb v/v (25 C; conversion redone here, the '
+        "compilation's own ppm column uses STP); grade A_measured, access PDF "
+        '(compilation; primary paper not opened); second reader: Printed 0.027 mg/m3 = 27'
+        ' ng/L, air. This row has no d/r label, so detection vs recognition is not '
+        'printed. Compilation only; primary not opened. MW 152.23 (as printed).',
+        'AIHA, Odor Thresholds for Chemicals with Established Health Standards, 2nd '
+        "Edition (2013), Table 6.3 'Reported Odor Thresholds from All Sources' (values "
+        'taken from the van Gemert compendium) '
+        "(https://swesiaq.se/onewebmedia/Dokument/ODOR%20THRESHOLDS.pdf): '59 Citral ... "
+        "Etzweiler et al 1980 0.02 0.032 [mg/m3, ppm]'; printed 0.02 mg/m3 (AIHA prints "
+        '0.032 ppm, which does not match 0.02 mg/m3; 0.0032...; as quoted by the AIHA '
+        'compilation; method not given there; primary not opened. 0.02 mg/m3 = 20 ng/L; '
+        '20 x 24.45 / 152.23 = 3.21224 ppb v/v (25 C; conversion redone here, the '
+        "compilation's own ppm column uses STP); grade A_measured, access PDF "
+        '(compilation; primary paper not opened); second reader: Printed 0.02 mg/m3 = 20 '
+        "ng/L, in the compilation's air table. No d/r label and no method for this row. "
+        'The ppm column (0.032) does not match 0.02 mg/m3 (0.0032 would).',
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables ; VP: RIFM safety assessment citral, Food '
+        'Chem. Toxicol. 141 (2020) 111339 '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; VP: '
+        'https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5392-40-5.pdf):'
+        " 'CITRAL LEMAROME N ((E)-3,7-dimethylocta-2,6-dienal) |20039 (PROC); CITRAL "
+        "LEMAROME N ((E)-3,7- |1311 |-2.1 (log Kcaps) || VP: '0.0913 mm Hg @ 25 °C (EPI "
+        "Suite)''; printed PROC 20039, log10 Kcaps -2.1; VP 0.0913 mmHg = 12.17 Pa (EPI, "
+        '25 C); cross-check, OV = PROC / (log10 Kcaps + 3) = 20039 / 0.90 = 22,266; '
+        'saturated vapour = 12.17 Pa / 101325 Pa x 1e9 = 120,109 ppb; threshold = 120,109'
+        ' / 22,266 = 5.394 ppb (range 5.09 to 5.69 ppb for log10 Kcaps +/- 0.05).; grade '
+        'EST, access full text (patent); PDF (VP); second reader: Inputs printed. 0.0913 '
+        'mmHg = 12.17 Pa, giving 120,131 ppb saturated; OV 22,266; threshold 5.395 ppb '
+        '(5.10–5.70 for LogKcaps ±0.05). The VP is an EPI estimate standing in for '
+        "Givaudan's headspace value. Grade is CITRAL LEMAROME N.",
+        'AIHA compilation rows (no detection/recognition flag; primaries not opened) and '
+        'a Givaudan PROC estimate agree at 3.2-5.4 ppb. Replaces 20, which had no source.',
+    ]),
+    'guaiacol': (0.01654, 'PEER_SINGLE', [
+        "Schranz M., Lorber K., Klos K., Kerschbaumer J., Buettner A. 'Influence of the "
+        'chemical structure on the odor qualities and odor thresholds of guaiacol-derived'
+        " odorants, Part 1', Food Chem. 2017, 232, 808-819 (value as quoted by the same "
+        'group in Juhlke F., Lorber K., Wagenstaller M., Buettner A., Front. Chem. 2017, '
+        '5:120, doi:10.3389/fchem.2017.00120) '
+        '(https://www.frontiersin.org/journals/chemistry/articles/10.3389/fchem.2017.00120/full):'
+        " 'In comparison to guaiacol itself, with a median odor threshold of 0.084 "
+        'ng/Lair (Schranz et al., 2017) and therefore being already a quite potent '
+        "substance itself ...'; printed 0.084 ng/L air (median); GC-olfactometry, odor "
+        'thresholds in air (Buettner group, Ullrich & Grosch method with (E)-2-decenal '
+        'internal standard); median of panel; grade A_measured, access full text of '
+        'Juhlke 2017 (Frontiers HTML via fetch...; second reader: Printed 0.084 ng/L, air'
+        ' (median of panel). Secondary citation of Schranz et al. 2017, Food Chem '
+        '232:808-819 (not opened). GC-O with (E)-2-decenal standard. MW 124.14.',
+        "Yang D.S., Shewfelt R.L., Lee K.-S., Kays S.J. 'Comparison of odor-active "
+        "compounds from six distinctly different rice flavor types', J. Agric. Food Chem."
+        ' 2008, doi:10.1021/jf072685t (PMID 18363355) '
+        "(https://pubmed.ncbi.nlm.nih.gov/18363355): 'Their odor thresholds in air were "
+        'determined using GC-O. 2-Acetyl-1-pyrroline (2-AP) had the lowest odor threshold'
+        ' (0.02 ng/L) followed by 11 aldehydes (ranging from 0.09 to 3.1 ng/L), guaiacol '
+        "(1.5 ng/L), and 1-octen-3-ol (2.7 ng/L).'; printed 1.5 ng/L; GC-O odor "
+        'thresholds in air (rice aroma study); grade A_measured, access abstract (PubMed,'
+        ' search excerpt); second reader: Printed 1.5 ng/L, air (GC-O). Abstract only. MW'
+        ' 124.14.; listed, not used (0.2954 ppb)',
+        'Influence of the Chemical Structure on Odor Qualities and Odor Thresholds of '
+        'Halogenated Guaiacol-Derived Odorants (Frontiers in Chemistry 2017) '
+        "(https://pmc.ncbi.nlm.nih.gov/articles/PMC5741668/): 'guaiacol itself, with a "
+        "median odor threshold of 0.084 ng/L air (Schranz et al., 2017)'; printed 0.084 "
+        'ng/L air; odour threshold in air by GC-O (method of Ullrich & Grosch, '
+        '(E)-2-decenal internal standard), as cited; primary is Schranz et al. 2017 (Part'
+        ' 1, Food Chem); grade A_measured, access full text (PMC, opened with fetch tool,'
+        ' 25 Oct 2026); second reader: Same value and article as candidate 0 (PMC copy), '
+        'so it is not an independent source. Secondary citation of Schranz 2017.; listed,'
+        ' not used (0.01654 ppb)',
+        'Schranz et al. 2017 GC-O air threshold as cited by the Buettner group (primary '
+        'not opened). Yang et al. 2008 (abstract) gives 0.295 ppb. Replaces 0.5, a phenol'
+        ' class value.',
+    ]),
+    'velvione': (0.052, 'PEER_SINGLE', [
+        'Park S.M. (2012) Determining Potency of Odorants: Concentration-Detection '
+        'Functions and Recognition Point of Fragrance Chemicals. M.S. thesis, University '
+        'of California, San Diego '
+        "(https://escholarship.org/content/qt6c18p70s/qt6c18p70s.pdf): 'Table 3: "
+        '"Velvione 0.052 4.284" (header "Material Name ODT (ppb) log(1/ODT)"); odorant '
+        'list: "... and Velvione 37609-25-9."\'; printed 52 ppt (Figure 5); Table 3 \'ODT '
+        "(ppb)' 0.052, log(1/ODT ppm) 4.284; 8-station vapour delivery device (VDD8), "
+        '3-alternative forced choice, ascending concentrations; ODT from group '
+        'psychometric function (Cain lab, UCSD); grade A_measured, access full text '
+        '(PDF); second reader: Detection threshold, already ppb v/v, in air (vapour '
+        "delivery). The words 'carbon-filtered air' were not seen; the page says make-up "
+        'and background flows.',
+        'Givaudan Suisse SA, Safety Data Sheet VELVIONE, Sales No. 1382293, Version 3.1, '
+        'Revision Date 14 OCT 2021 (copy hosted by reseller perfumiarz.com) '
+        '(https://perfumiarz.com/cdn/shop/files/1382293_VELVIONE_SDS_EN.pdf?v=13910140795854116974):'
+        ' \'"Odour : Musky, Metallic, Powdery, mild Odour Threshold : 4,589 ng/l"; '
+        '"Molecular weight : 236,40 g/mol"\'; printed 4,589 ng/l; producer SDS Section 9.1'
+        " figure; Givaudan SDS Section 9 prints 'Odour Threshold : x ng/l' without medium"
+        " or method; ng/l is a gas-phase unit and Givaudan's patents (US 12,340,876 B2) "
+        'describe their odour thresholds as measured with a linear-dilution olfactometer,'
+        ' panel of 15 (inference that the SDS figure is that measurement); grade '
+        'A_producer, access full text (PDF, Parallel extract); second reader: medium not '
+        "printed; ng/L is the producer's air-threshold unit (inferred). This is the "
+        "producer's own SDS (Givaudan header, sales no., version and revision); no "
+        'perfumiarz branding on the PDF.; listed, not used (0.4746 ppb)',
+        'van Gemert L.J. (2011) Odour Thresholds: Compilations of Odour Threshold Values '
+        'in Air, Water and Other Media (2nd ed., Oliemans Punter & Partners), AIR section'
+        ' "detection (d) and recogniton (r) odour threshold values in mg/m3" (book text '
+        'as hosted on vdoc.pub); primary: Traynor S. (2001) The musk dilemma, Perfumer & '
+        'Flavorist 26 (Sept/Oct) 28, 30-39 '
+        '(https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0):'
+        ' \'"5-CYCLOHEXADECEN-1-ONE (ambretone) [37609-25-9] Traynor (2001) 0.116"\'; '
+        'printed 0.116 mg/m3; Traynor (2001) as compiled by van Gemert (AIR section, '
+        'mg/m3); method not shown in the compilation; grade A_measured, access full text '
+        'of the book via Parallel web_fetch excerpts...; second reader: Same CAS as '
+        "Velvione (37609-25-9). The entry is Takasago's ambretone, so the isomer ratio "
+        'may differ. No d/r label; Traynor 2001 says detection. 0.116 mg/m3 = 116 ng/L; '
+        'MW 236.40. Book copy on vdoc.pub.; listed, not used (12.0 ppb)',
+        "Vapour-delivery psychophysics (detection). Givaudan's SDS gives 0.475 ppb and "
+        "van Gemert's Takasago ambretone entry 12 ppb; measured air olfactometry ranks "
+        'first. First air threshold for this stock.',
+    ]),
+    'bourgeonal': (0.05187, 'PEER_CROSS', [
+        'Givaudan Safety Data Sheet BOURGEONAL, Sales No. 2837903, Version 25.0, revision'
+        ' 10 JUL 2025 (Givaudan Suisse SA; copy hosted by reseller Aromology) '
+        '(https://aromology.com/cdn/shop/files/SDS-Bourgeonal_-_Givaudan_-_Muguet.pdf?v=3428077962748523002):'
+        " 'Odour : Floral, Fresh, Lily-of-the-valley, Green Odour Threshold : 0,4037 ng/l"
+        " ... Molecular weight : 190,28 g/mol ... Vapour pressure : 0,002 hPa at 20 °C'; "
+        'printed 0.4037 ng/l; producer SDS figure; 0.4037 ng/L x 24.45 / 190.28 g/mol = '
+        "0.0518734 ppb v/v (25 C). Givaudan SDS Section 9 prints 'Odour Threshold : x "
+        "ng/l' (medium and method not printed; ng/l is an air unit; Givaudan patents "
+        'define their odour threshold as measured with a linear-dilution olfactometer, '
+        'forced-choice triangle, panel of 15: US 2018/0185808).; grade A_producer, access'
+        " PDF (full); second reader: medium not printed; ng/L is the producer's "
+        "air-threshold unit (inferred). This is the producer's own SDS (Givaudan Suisse "
+        'SA / Givaudan France SAS header, sales no., version and revision); no Aromology '
+        'branding. Value is for neat Bourgeonal; the stock is 20% in TEC.',
+        "Goeke A., Kraft P. et al. (Givaudan), 'Discovery of Nympheal: The Definitive "
+        "Muguet Aldehyde', Perfumer & Flavorist, 20 Feb 2018 "
+        '(https://www.perfumerflavorist.com/fragrance/ingredients/article/21856694/discovery-of-nympheal-the-definitive-muguet-aldehyde):'
+        " 'Isolilial is with a threshold of 0.4 ng/L air ... the former Quest began to "
+        "produce and market Isolilial as Bourgeonal'; printed 0.4 ng/L air; Givaudan R&D "
+        'odour threshold (method not described in the article); 0.4 ng/L x 24.45 / 190.28'
+        ' g/mol = 0.0513979 ppb v/v (25 C); grade A_producer, access full text; second '
+        'reader: Printed 0.4 ng/L air. Method not described. MW 190.28.',
+        'Givaudan SDS and Givaudan R&D article agree (0.052 and 0.051 ppb). Replaces '
+        '0.03, which had no source.',
+    ]),
+    'florhydral': (0.008995, 'PEER_CROSS', [
+        "US 4,910,346 A, '3-(3-propan-2-ylphenyl)butanal and "
+        "3-(3-propen-2-ylphenyl)butanal', Givaudan Corp., priority 1988-11-10, Example II"
+        ' (compound la = Florhydral) (https://patents.google.com/patent/US4910346A/en): '
+        "'Preparation of 3-(3-propan-2-ylphenyl)butanal, la ... Odor value: 981,483; Odor"
+        " threshold value: 0.07 ng/L.'; printed 0.07 ng/L; producer compound patent "
+        "(Givaudan), method not stated; same example gives 'Odor value: 981,483'; grade "
+        'A_producer, access full text (Google Patents, via fetch tool); second reader: '
+        "medium not printed; ng/L is the producer's air-threshold unit (inferred). The "
+        'patent does not describe how the threshold was measured. Compound la = '
+        'Florhydral. MW 190.28.',
+        "'Discovery of Nympheal, the definitive muguet aldehyde', Perfumer & Flavorist, "
+        'Feb 2018 (Givaudan R&D article; authors Goeke, Kraft, Lelievre, Alchenberger per'
+        ' the earlier project file 02_odour_thresholds.md, not shown in the page text '
+        'this session) '
+        '(https://www.perfumerflavorist.com/fragrance/ingredients/article/21856694/discovery-of-nympheal-the-definitive-muguet-aldehyde):'
+        " 'Florhydral (7) ... six times more potent even than Lilial (3) in terms of "
+        'detection threshold. / [Lilial] lowered the odor detection threshold by a factor'
+        " of 5 to 0.45 ng/L air.'; printed 'six times more potent even than Lilial (3) in"
+        ' terms of detection...; ratio statement by the producer; derived: Lilial 0.45 '
+        'ng/L air / 6 = 0.075 ng/L (inference from a ratio); grade EST, access full text '
+        '(web article, via fetch tool); second reader: EST from a ratio statement: 0.45/6'
+        ' = 0.075 ng/L air; MW 190.28. Agrees with candidate 0 (0.07 ng/L).',
+        'Givaudan patent figure; a ratio in the Givaudan Nympheal article gives 0.0096 '
+        'ppb. Replaces 0.3, a use-level inference.',
+    ]),
+    'magnolan': (1.508, 'PEER_SINGLE', [
+        "Symrise Perfumery Ingredients datasheet 'Magnolan' (SYM_PC-Magnolan.pdf, product"
+        ' no. 690304) '
+        '(https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Magnolan.pdf):'
+        ' \'page 2: "Performance ... thresholD in air ... # Magnolan 0.0126 μg/l › '
+        '690304"\'; printed 0.0126 μg/l; producer figure: Symrise datasheet \'Performance\' '
+        "panel, chart labelled 'threshold in air'; method not stated; grade A_producer, "
+        'access full text layer of the PDF (Parallel extract). The text...; second '
+        'reader: Printed 0.0126 µg/l = 12.6 ng/L, air. The number is tied to the '
+        "'threshold in air' label by layout only (text layer), as noted by the worker.",
+        "Symrise datasheet for its own product; number bound to 'threshold in air' by "
+        'layout. First air threshold for this stock.',
+    ]),
+    'methyl pamplemousse': (6.575, 'PEER_CROSS', [
+        "Symrise Perfumery Ingredients datasheet 'Amarocit' (SYM_PC-Amarocit.pdf, product"
+        ' no. 197007) '
+        '(https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Amarocit.pdf):'
+        ' \'"› 6,6-Dimethoxy-2,5,5-trimethylhex-2-ene › cas 67674-46-8 › 197007"; '
+        'Performance panel: "Threshold in Air" ... "citrus Amarocit® 0.0501 μg/l"\'; '
+        "printed 0.0501 μg/l; producer figure: Symrise Amarocit datasheet 'Performance' "
+        "panel labelled 'Threshold in Air'; method not stated. Same CAS as Methyl "
+        'Pamplemousse (different producer); grade A_producer, access full text layer of '
+        'the PDF (Parallel extract)...; second reader: Same molecule and CAS as Methyl '
+        'Pamplemousse (Givaudan), from a different producer. The label binding is by '
+        'layout. 50.1 ng/L, air; MW 186.29.',
+        'Givaudan SA, US 2018/0185808 A1 "MICROCAPSULES": GROUP 1 table "Perfumery '
+        'ingredient | RECON_VOLTAE (Bohr3) | LogKcaps" and GROUP 4 table "Perfumery '
+        'ingredient | PROC"; definition "PROC i =OV i [log10 Kcaps i +3]" and "The '
+        'standard Odour Value (OV i) is defined as the ratio of the standard equilibrium '
+        'headspace concentration of the ingredient to the Odour Detection Threshold of '
+        'this ingredient." + Givaudan S.A., US 9,868,923 "Perfume compositions": point '
+        'values "HS i0", defined as "the concentration of the ingredient in equilibrium '
+        'with the condensed form ... at a temperature of 25 C and under a pressure of 1 '
+        'atmosphere", measured by Porapak Q trapping and GC, mean of three measurements '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; '
+        'https://patents.justia.com/patent/9868923): \'"|METHYL PAMPLEMOUSSE '
+        '(6,6-dimethoxy-2,5,5-trimethylhex-2-ene) |151438 |" ; "|METHYL PAMPLEMOUSSE '
+        '(6,6-dimethoxy- |1632 |−1.9 |" ; "6,6-dimethoxy-2,5,5-trimethylhex-2-ene, for '
+        'example METHYL PAMPLEMOUSSE (HS i ⁰ =2464 μg/L)"\'; printed PROC 151438, LogKcaps'
+        " -1.9, HS 2464 ug/L; EST back-calculated from Givaudan patent tables for 'METHYL"
+        " PAMPLEMOUSSE': ODT = HS / OV, OV = PROC / (LogKcaps + 3). The underlying ODT is"
+        ' Givaudan olfactometer, as described in US 2018/0185808: "The olfactometer '
+        'functions on the principle of a linear dilution of an odorant in a carrier gas '
+        '... Each panellist (panel of 15 persons) ... The final threshold value of a '
+        'given...; grade EST, access full text of both patents (Parallel full-content '
+        'fetch...; second reader: All inputs printed; HS i0 defined at 25 °C, 1 atm. OV ='
+        ' 151438/1.1 = 137,671; ODT = 17.90 ng/L; MW 186.29.',
+        'Symrise Amarocit datasheet, the same molecule and CAS; the Givaudan PROC '
+        'estimate for its own material gives 2.35 ppb (2.8x lower). Replaces 3.0, which '
+        'had no source.',
+    ]),
+    'nympheal': (0.007184, 'PEER_CROSS', [
+        'Givaudan Safety Data Sheet NYMPHEAL, Sales No. 1489703, Version 19.0, Revision '
+        'Date 26 JUN 2023 (copy hosted by reseller perfumiarz.com) '
+        '(https://perfumiarz.com/cdn/shop/files/1489703_NYMPHEAL_SDS_EN.pdf?v=16768464028873411806):'
+        ' \'"Odour : Floral, Aldehydic, Green, Lily-of-the-valley Odour Threshold : 0,06 '
+        'ng/l"; "Molecular weight : 204,2 g/mol"\'; printed 0,06 ng/l; producer SDS '
+        "Section 9.1 figure; Givaudan SDS Section 9 prints 'Odour Threshold : x ng/l' "
+        "without medium or method; ng/l is a gas-phase unit and Givaudan's patents (US "
+        '12,340,876 B2) describe their odour thresholds as measured with a '
+        'linear-dilution olfactometer, panel of 15 (inference that the SDS figure is that'
+        ' measurement); grade A_producer, access full text (PDF, Parallel extract); '
+        "second reader: medium not printed; ng/L is the producer's air-threshold unit "
+        "(inferred). This is the producer's own SDS (Givaudan header, sales no., version "
+        'and revision); no perfumiarz branding. It is about 3x the P&F measured value '
+        '(candidate 0).',
+        'Discovery of Nympheal: The Definitive Muguet Aldehyde, Perfumer & Flavorist, Feb'
+        ' 2018 (Givaudan Fragrances S&T, Duebendorf; Lelievre, Alchenberger et al.) '
+        '(https://www.perfumerflavorist.com/fragrance/ingredients/article/21856694/discovery-of-nympheal-the-definitive-muguet-aldehyde):'
+        ' \'"Compound 10 was the closest to Lilial in odor character and was also the most'
+        ' intense having an odor threshold of 0.021 ng/L air."; "the calculated threshold'
+        ' of 0.16 ng/L for Nympheal (10) is almost eight times higher than the '
+        'experimentally measured one"\'; printed 0.021 ng/L air; Givaudan R&D odour '
+        'threshold (measured; article contrasts it with a calculated 0.16 ng/L); grade '
+        'A_producer, access full text (web page); second reader: Printed 0.021 ng/L air, '
+        'measured. MW 204.31.',
+        'Givaudan SDS for the commercial material; the Givaudan discovery article gives '
+        '0.0025 ppb (2.9x lower). Replaces 2.0, which had no source.',
+    ]),
+    'vetikon': (87.53, 'PEER_SINGLE', [
+        "Symrise Perfumery Ingredients datasheet 'Vetikon' (SYM_PC-Vetikon.pdf, product "
+        'no. 131014) '
+        '(https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetikon.pdf):'
+        ' \'page 2: "Performance ... thresholD in air ... # Vetikon 0.6310 μg/l › '
+        '131014"\'; printed 0.6310 μg/l; producer figure: Symrise datasheet \'Performance\' '
+        "panel labelled 'threshold in air'; method not stated; grade A_producer, access "
+        'full text layer of the PDF (Parallel extract)...; second reader: Printed 0.6310 '
+        'µg/l = 631 ng/L, air; MW 176.25. The label binding is by layout.',
+        'Vetikon (Symrise Perfumery Ingredients datasheet) '
+        '(https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetikon.pdf):'
+        " 'thresholD in air ... woody vetikon® ... 0.6310 μg/l'; printed 0.6310 µg/l; "
+        'producer datasheet "Threshold in Air" (method not stated); grade A_producer, '
+        'access full PDF datasheet (Symrise Ingredient Finder, opened...; second reader: '
+        'Printed 0.6310 µg/l = 631 ng/L, air; MW 176.25. The label binding is by layout. '
+        'Duplicate of candidate 0.; listed, not used (87.53 ppb)',
+        "Symrise datasheet for its own product; number bound to 'threshold in air' by "
+        'layout. Replaces 5.0, which had no source.',
+    ]),
+    'allyl cyclohexyl propionate': (1.268, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables ; VP: RIFM fragrance ingredient safety '
+        'assessment, allyl cyclohexanepropionate, Food Chem. Toxicol. (2021), doi '
+        '10.1016/j.fct.2021.112424 (https://www.freepatentsonline.com/y2018/0185808.html '
+        '; VP: '
+        'https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/2705-87-5.pdf):'
+        " 'ALLYL CYCLOHEXYL PROPIONATE (allyl 3-cyclohexylpropanoate) |29587 (PROC); "
+        'ALLYL CYCLOHEXYL PROPIONATE (allyl |1606 |-2.0 (log Kcaps) || VP source: 7. '
+        'Vapor Pressure: 3.8 Pa at 25 °C ( RIFM, 2012d ) ... RIFM 2012d: Determination of'
+        " Vapor Pressure Using the...'; printed PROC 29587, log10 Kcaps -2.0; VP 3.8 Pa "
+        'at 25 C; OV = PROC / (log10 Kcaps + 3) = 29587 / 1.00 = 29,587; saturated vapour'
+        ' = 3.8 Pa / 101325 Pa x 1e9 = 37,503 ppb; threshold = 37,503 / 29,587 = 1.268 '
+        'ppb (range 1.2 to 1.33 ppb for log10 Kcaps +/- 0.05). VP 3.8 Pa (25 C) from the '
+        'source named. Givaudan OV = equilibrium headspace (25 C) / olfactometer odour '
+        'threshold (panel of 15); headspace estimated here from VP, so this is...; grade '
+        'EST, access full text (patent); PDF (full) (VP); second reader: Inputs printed. '
+        '37,503 ppb / OV 29,587 = 1.268 ppb. A measured VP (RIFM 2012d) stands in for '
+        "Givaudan's headspace value.",
+        'Givaudan PROC estimate with a measured RIFM vapour pressure. Replaces 8.0, which'
+        ' had no source.',
+    ]),
+    'aurantiol': (0.01845, 'PEER_SINGLE', [
+        'Givaudan Safety Data Sheet AURANTIOL PURE, Version 14.1, revision 11 JUL 2023 '
+        '(https://perfumiarz.com/cdn/shop/files/2365901_AURANTIOL_PURE_SDS_EN.pdf?v=14674485429420110479):'
+        " 'Odour Threshold : 0,2305 ng/l ... Molecular weight : 305,40 g/mol ... Vapour "
+        "pressure : 0,0017 hPa at 20 °C'; printed 0.2305 ng/l; producer SDS figure; "
+        '0.2305 ng/L x 24.45 / 305.4 g/mol = 0.0184536 ppb v/v (25 C). Givaudan SDS '
+        "Section 9 prints 'Odour Threshold : x ng/l'; the sheet does not print the medium"
+        " or method. ng/l is an air (gas-phase) unit; Givaudan's patents define their "
+        'odour threshold as measured with a linear dilution olfactometer, panel of 15 (US'
+        ' 2018/0185808, US 12,340,876).; grade A_producer, access PDF (full); second '
+        "reader: medium not printed; ng/L is the producer's air-threshold unit "
+        "(inferred). This is the producer's own SDS (Givaudan header, sales no., version "
+        'and revision); no perfumiarz branding.',
+        'Producer SDS figure. Replaces 30, an audit correction with no source.',
+    ]),
+    'calone': (0.004254, 'PEER_SINGLE', [
+        'Occurrence of Marine Ingredients in Fragrance, Chemistry (MDPI) 3(4) (2021) 103 '
+        "(https://www.mdpi.com/2624-8549/3/4/103): '“watermelon ketone” with a very low "
+        "odor threshold of 3.1 × 10−2 ng/L air [190]'; printed 0.031 ng/L air; review "
+        'figure; its ref. 190 is the Pfizer patent US 3,799,892 (Beereboom), which was '
+        'not opened, so the original measurement is not verified. 0.031 ng/L x 24.45 / '
+        '178.18 g/mol = 0.00425384 ppb v/v (25 C); grade A_measured, access full text '
+        '(review; primary not verified); second reader: Printed 0.031 ng/L air, in a '
+        'review; primary ref 190 not opened. Value is for the neat molecule; the stock is'
+        ' 1% in DPG. MW 178.18.',
+        'Review figure (primary reference not opened), for the neat molecule. Replaces '
+        '0.05, an audit correction with no source.',
+    ]),
+    'champignol': (0.5149, 'PEER_SINGLE', [
+        "Yang D.S., Shewfelt R.L., Lee K.-S., Kays S.J., 'Comparison of odor-active "
+        "compounds from six distinctly different rice flavor types', J. Agric. Food Chem."
+        ' 56 (2008) 2780-2787, doi 10.1021/jf072685t '
+        "(https://pubmed.ncbi.nlm.nih.gov/18363355): 'Their odor thresholds in air were "
+        'determined using GC-O. 2-Acetyl-1-pyrroline (2-AP) had the lowest odor threshold'
+        ' (0.02 ng/L) followed by 11 aldehydes (ranging from 0.09 to 3.1 ng/L), guaiacol '
+        "(1.5 ng/L), and 1-octen-3-ol (2.7 ng/L).'; printed 2.7 ng/L air; GC-olfactometry"
+        ' odour threshold in air (trained assessors); enantiomer not stated. 2.7 ng/L x '
+        '24.45 / 128.21 g/mol = 0.514897 ppb v/v (25 C); grade A_measured, access '
+        'abstract only; second reader: Printed 2.7 ng/L, air. Champignol is '
+        '(R)-(−)-1-octen-3-ol (CAS 3687-48-7, PerfumersWorld/TGSC listing); the paper '
+        'gives 1-octen-3-ol with no enantiomer stated. Abstract only. MW 128.21.',
+        'GC-O air threshold for 1-octen-3-ol, enantiomer not stated (Champignol is the '
+        '(R)-enantiomer). Replaces 0.1, which had no source.',
+    ]),
+    'citronellyl acetate': (14.49, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1, PROC table (PROC_i = OV_i [log10 Kcaps_i + 3]) '
+        'and calculated log10 Kcaps tables ; VP: BASF Safety Data Sheet Citronellyl '
+        'Acetate, version 6.0, revision 2025/07/03 '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; VP: '
+        'https://download.basf.com/p1/000000000030035076_SDS_GEN_US/en_US/Citronellyl_Acetate_30035076_SDS_GEN_US_en_6-0.pdf):'
+        " 'CITRONELLYL ACETATE (3,7-dimethyloct-6-en-1-yl acetate) |1744 (PROC); "
+        'CITRONELLYL ACETATE (3,7-dimethyloct- |1678 |-1.7 (log Kcaps) || VP source: '
+        "Vapour pressure: 0.0197 hPa ( 20 °C) Extrapolated value, dynamic (measured)'; "
+        'printed PROC 1744, log10 Kcaps -1.7; VP 1.97 Pa at 20 C; OV = PROC / (log10 '
+        'Kcaps + 3) = 1744 / 1.30 = 1,342; saturated vapour = 1.97 Pa / 101325 Pa x 1e9 ='
+        ' 19,442 ppb; threshold = 19,442 / 1,342 = 14.49 ppb (range 13.9 to 15.1 ppb for '
+        'log10 Kcaps +/- 0.05). VP 1.97 Pa (20 C) from the source named. Givaudan OV = '
+        'equilibrium headspace (25 C) / olfactometer odour threshold (panel of 15); '
+        'headspace estimated here from VP, so this is...; grade EST, access full text '
+        '(patent); search snippet (VP); second reader: Inputs printed. 1.97 Pa gives '
+        "19,442 ppb; OV 1,342; threshold 14.49 ppb. The VP is at 20 °C, while Givaudan's "
+        'HS is defined at 25 °C, which probably biases the threshold low.',
+        'Givaudan PROC estimate with a BASF vapour pressure at 20 C (headspace is defined'
+        ' at 25 C, so probably biased low). First air threshold for this stock.',
+    ]),
+    'decatone': (4.183, 'PEER_SINGLE', [
+        'Givaudan Safety Data Sheet DECATONE, Sales No. 4356101, Version 10.0, revision '
+        '07 DEC 2023 (Givaudan Suisse SA) '
+        '(https://perfumiarz.com/cdn/shop/files/4356101_DECATONE_SDS_EN.pdf?v=2113061062550949607):'
+        " 'Odour Threshold : 33,2402 ng/l ... Molecular weight : 194,30 g/mol'; printed "
+        '33.2402 ng/l; producer SDS figure; 33.2402 ng/L x 24.45 / 194.3 g/mol = 4.18282 '
+        "ppb v/v (25 C). Givaudan SDS Section 9 prints 'Odour Threshold : x ng/l'; the "
+        'sheet does not print the medium or method. ng/l is an air (gas-phase) unit; '
+        "Givaudan's patents define their odour threshold as measured with a linear "
+        'dilution olfactometer, panel of 15 (US 2018/0185808, US 12,340,876).; grade '
+        'A_producer, access PDF (full); second reader: medium not printed; ng/L is the '
+        "producer's air-threshold unit (inferred). This is the producer's own SDS "
+        '(Givaudan header, sales no., version and revision); no perfumiarz branding.',
+        'Producer SDS figure; first air threshold for this stock.',
+    ]),
+    'ethyl maltol': (0.0059, 'PEER_SINGLE', [
+        "UC San Diego thesis 'Determining potency of odorants: concentration-detection "
+        "functions and recognition point of fragrance chemicals' (2012), eScholarship "
+        'qt6c18p70s (author S.M. Park per earlier project files; not shown in this '
+        "session's excerpt) (https://escholarship.org/content/qt6c18p70s/qt6c18p70s.pdf):"
+        " 'Veltol Plus ... Number of Subjects 12 Detection Threshold 5.9 ppt Recognition "
+        'Threshold 9.7 ppt Recognition : Detection 1.6:1 ... Table 3 ... Veltol Plus '
+        "0.005 5.301'; printed 5.9 ppt; concentration-detection (psychometric) functions,"
+        ' dynamic olfactometry in the Cain/Cometto-Muniz laboratory (UCSD), 12 subjects; '
+        'detection threshold 5.9 ppt, recognition 9.7 ppt; grade A_measured, access full '
+        'text (PDF via Parallel fetch excerpts); second reader: Detection threshold in '
+        'air (VDD8 vapour delivery), already ppb v/v. CAS 4940-11-8 is ethyl maltol. '
+        'Table 3 rounds it to 0.005 ppb.',
+        'Vapour-delivery psychophysics (detection). Replaces 0.3, which had no source.',
+    ]),
+    'habanolide': (17.0, 'PEER_SINGLE', [
+        "Traynor S. (Takasago International Corp.), 'The Musk Dilemma', Perfumer & "
+        "Flavorist 26 (Sept/Oct 2001) 28ff., Table 1 'Relative musk performance' "
+        '(https://img.perfumerflavorist.com/files/base/allured/all/document/2016/02/pf.PF_26_05_028_11.pdf):'
+        " 'Table 1 ... Threshold ppb ... Galaxolide PCM 4 ... Exaltolide MCM 10 ... "
+        'Habanolide MCM 17 ... Ambrettolide MCM 12 ... The detection threshold of a '
+        "variety of musks has been determined using an air dilution instrument.'; printed"
+        " 17 ppb (Table 1 'Threshold ppb'); 'determined using an air dilution instrument'"
+        " (Takasago), panel not described; the author says the values 'are thus best "
+        "viewed as relative, rather than as an absolute value'; grade A_measured, access "
+        'full text (PDF via fetch tool); second reader: Printed 17 ppb, air, detection. '
+        'The author calls these values relative. van Gemert lists habanolide Traynor '
+        '(2001) 0.166 mg/m3, which is consistent.',
+        'Takasago detection value (the author calls the values relative); van Gemert '
+        'lists Traynor 2001 at 0.166 mg/m3, consistent. Replaces 2.8, which had no '
+        'source.',
+    ]),
+    'linalool': (0.5072, 'PEER_SINGLE', [
+        "Elsharif S.A., Banerjee A., Buettner A. 'Structure-odor relationships of "
+        "linalool, linalyl acetate and their corresponding oxygenated derivatives', "
+        'Front. Chem. 2015, 3:57, doi:10.3389/fchem.2015.00057 '
+        "(https://www.frontiersin.org/articles/10.3389/fchem.2015.00057/full): 'Linalool "
+        'was found to be the most potent odorant among the investigated compounds, with '
+        'an average OT of 3.2 ng/L ... we found that linalool is the most potent odorant '
+        "having an odor threshold of 3.2 ng/L in air (Table 3).'; printed 3.2 ng/L air; "
+        'GC-olfactometry, odor thresholds in air after Czerny et al. 2011 with '
+        '(E)-dec-2-enal as internal odor standard; 8 trained panellists; group value = '
+        'geometric mean of individual thresholds (individual 2.1-8.4 ng/L); grade '
+        'A_measured, access full text (Frontiers HTML via fetch tool; PMC copy...; second'
+        ' reader: Printed 3.2 ng/L air; GC-O detection thresholds as the geometric mean '
+        'of the panel. MW 154.25.',
+        'GC-O detection threshold of racemic linalool. Replaces 1.5, which overrode the '
+        '0.51 its own source note gave.',
+    ]),
+    'methyl diantilis': (0.2287, 'PEER_SINGLE', [
+        'Givaudan Suisse SA, Safety Data Sheet METHYL DIANTILIS, Sales No. 6906203, '
+        'Version 3.0, Revision Date 20 APR 2022 (copy hosted by reseller perfumiarz.com) '
+        '(https://perfumiarz.com/cdn/shop/files/6906203_METHYL_DIANTILIS_SDS_EN.pdf?v=15036295580728543378):'
+        ' \'"Odour : Spicy, Vanilla-like, Balsamic, mild Odour Threshold : 1,7043 ng/l"; '
+        '"Molecular weight : 182,20 g/mol"\'; printed 1,7043 ng/l; producer SDS Section '
+        "9.1 figure; Givaudan SDS Section 9 prints 'Odour Threshold : x ng/l' without "
+        "medium or method; ng/l is a gas-phase unit and Givaudan's patents (US 12,340,876"
+        ' B2) describe their odour thresholds as measured with a linear-dilution '
+        'olfactometer, panel of 15 (inference that the SDS figure is that measurement); '
+        'grade A_producer, access full text (PDF, Parallel extract); second reader: '
+        "medium not printed; ng/L is the producer's air-threshold unit (inferred). This "
+        "is the producer's own SDS (Givaudan header, sales no., version and revision); no"
+        ' perfumiarz branding.',
+        'Producer SDS figure; first air threshold for this stock.',
+    ]),
+    'terpinyl acetate': (16.93, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1 "MICROCAPSULES": GROUP 1 table "Perfumery '
+        'ingredient | RECON_VOLTAE (Bohr3) | LogKcaps" and GROUP 4 table "Perfumery '
+        'ingredient | PROC"; definition "PROC i =OV i [log10 Kcaps i +3]" and "The '
+        'standard Odour Value (OV i) is defined as the ratio of the standard equilibrium '
+        'headspace concentration of the ingredient to the Odour Detection Threshold of '
+        'this ingredient." + Givaudan S.A., US 9,868,923 "Perfume compositions": point '
+        'values "HS i0", defined as "the concentration of the ingredient in equilibrium '
+        'with the condensed form ... at a temperature of 25 C and under a pressure of 1 '
+        'atmosphere", measured by Porapak Q trapping and GC, mean of three measurements '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; '
+        'https://patents.justia.com/patent/9868923): \'"|TERPINYL ACETATE '
+        '(2-(4-methylcyclohex-3-en-1-yl)propan-2-yl acetate) |3429 |" ; "|TERPINYL '
+        'ACETATE (2-(4-methylcyclohex- |1590 |−2.0 |" ; '
+        '"2-(4-methylcyclohex-3-en-1-yl)propan-2-yl acetate, for example, TERPINYL '
+        'ACETATE (HS i ⁰ =466 μg/L)"\'; printed PROC 3429, LogKcaps -2.0, HS 466 ug/L; EST'
+        " back-calculated from Givaudan patent tables for 'TERPINYL ACETATE': ODT = HS / "
+        'OV, OV = PROC / (LogKcaps + 3). The underlying ODT is Givaudan olfactometer, as '
+        'described in US 2018/0185808: "The olfactometer functions on the principle of a '
+        'linear dilution of an odorant in a carrier gas ... Each panellist (panel of 15 '
+        'persons) ... The final threshold value of a given...; grade EST, access full '
+        'text of both patents (Parallel full-content fetch...; second reader: All inputs '
+        'printed. OV 3,429; ODT = 135.9 ng/L; MW 196.29.',
+        'Givaudan PROC estimate. Replaces an estimated 35 with no source.',
+    ]),
+    'ultralia': (0.1737, 'PEER_EST', [
+        'Givaudan SA, US 2018/0185808 A1 "MICROCAPSULES": GROUP 1 table "Perfumery '
+        'ingredient | RECON_VOLTAE (Bohr3) | LogKcaps" and GROUP 4 table "Perfumery '
+        'ingredient | PROC"; definition "PROC i =OV i [log10 Kcaps i +3]" and "The '
+        'standard Odour Value (OV i) is defined as the ratio of the standard equilibrium '
+        'headspace concentration of the ingredient to the Odour Detection Threshold of '
+        'this ingredient." + Givaudan SA, US 10,982,173 "Fragrance compositions" '
+        '(headspace-concentration bins at 25 C) '
+        '(https://www.freepatentsonline.com/y2018/0185808.html ; '
+        'https://patents.justia.com/patent/10982173): \'"|ISORALDEINE 70 '
+        '((E)-3-methyl-4-(2,6,6-trimethylcyclohex-2-en-1-yl)but- 3-en-2-one) |83954 |" ; '
+        '"|ISORALDEINE 70 ((E)-3-methyl-4-(2,6,6- |1806 |−2.0 |" ; "ingredients having '
+        'equilibrium headspace concentration from about 101 g/l to 150 μg/l, such as '
+        "...'; printed PROC 83954, LogKcaps -2.0, HS bin 101–150 ug/L; EST "
+        "back-calculated from Givaudan patent tables for 'ISORALDEINE 70': ODT = HS / OV,"
+        ' OV = PROC / (LogKcaps + 3). The underlying ODT is Givaudan olfactometer, as '
+        'described in US 2018/0185808: "The olfactometer functions on the principle of a '
+        'linear dilution of an odorant in a carrier gas ... Each panellist (panel of 15 '
+        'persons) ... The final threshold value of a given...; grade EST, access full '
+        'text of both patents (Parallel full-content fetch...; second reader: Inputs '
+        'printed for ISORALDEINE 70 (Givaudan methyl ionone, named as '
+        "alpha-isomethylionone). Ultralia is a PerfumersWorld 'Luxury Methyl Ionone base'"
+        ' (CAS 1335-46-2), so this is a main-isomer proxy, not the same product. ODT '
+        '1.20–1.79 ng/L; MW 206.33.',
+        'Givaudan PROC estimate for Isoraldeine 70, a methyl ionone grade with the same '
+        'CAS (1335-46-2); isomer ratios may differ. 0.143-0.212 ppb, geometric midpoint '
+        '0.174. Replaces 0.3, which had no source.',
+    ]),
+    'zenolide': (10.02, 'PEER_SINGLE', [
+        'van Gemert L.J. (2011) Odour Thresholds: Compilations of Odour Threshold Values '
+        'in Air, Water and Other Media (2nd ed., Oliemans Punter & Partners), AIR section'
+        ' "detection (d) and recogniton (r) odour threshold values in mg/m3" (book text '
+        'as hosted on vdoc.pub); primary: Traynor S. (2001) The musk dilemma, Perfumer & '
+        'Flavorist 26 (Sept/Oct) 28, 30-39 '
+        '(https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0):'
+        ' \'"ETHYLENE 1,12-DODECANEDIOATE (musk C-14) [54982-83-1] ... Traynor (2001) '
+        '0.105"\'; printed 0.105 mg/m3; Traynor (2001) as compiled by van Gemert (AIR '
+        'section, mg/m3); method not shown in the compilation; grade A_measured, access '
+        'full text of the book via Parallel web_fetch excerpts...; second reader: Same '
+        'CAS as Zenolide (ethylene dodecanedioate). No d/r label; Traynor 2001 reports '
+        'detection. 105 ng/L; MW 256.34. Book copy on vdoc.pub.',
+        'van Gemert compilation entry (Traynor 2001, detection), same CAS. Replaces 3.0, '
+        'which had no source.',
+    ]),
+    'leafovert': (7.744, 'PEER_SINGLE', [
+        'Leafovert (Symrise Perfumery Ingredients datasheet) '
+        '(https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Leafovert.pdf):'
+        " 'Threshold in Air ... 0.0501 μg/l'; printed 0.0501 µg/l; producer datasheet "
+        '"Threshold in Air" (method not stated); grade A_producer, access number seen in '
+        'the search-tool excerpt of the datasheet...; second reader: I saw the number in '
+        'the PDF myself (the worker had it from a snippet only). The label binding is by '
+        'layout. 50.1 ng/L, air; MW 158.19.',
+        "Symrise datasheet for its own product; number bound to 'threshold in air' by "
+        'layout. Replaces 8.0, a class model.',
+    ]),
+    'timberol': (13.6, 'PEER_SINGLE', [
+        'Timberol (Symrise Perfumery Ingredients datasheet) '
+        '(https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Timberol.pdf):'
+        " 'thresholD in air ... woody timberol® 0.1259 μg/l'; printed 0.1259 µg/l; "
+        'producer datasheet "Threshold in Air" (method not stated); grade A_producer, '
+        'access full PDF datasheet (Symrise Ingredient Finder, opened...; second reader: '
+        'Printed 0.1259 µg/l = 125.9 ng/L, air; MW 226.40. The label binding is by '
+        'layout.',
+        "Symrise datasheet for its own product, read directly; number bound to 'threshold"
+        " in air' by layout. Replaces 0.6, cited to the same datasheet via TGSC as '<= 1 "
+        "ppb'.",
+    ]),
+}
+
+# Write each value to the raw key the runtime lookup already selects (query aliases
+# included, e.g. "aldehyde c-12 lauric dodecanal" -> "aldehyde c12 lauric"), so
+# the normalized index gains no collisions.
+_refresh_normalized_odt_index()
+for _name, (_odt_air, _vfy, _sources) in _LITERATURE_ODT_2026_10_25.items():
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources"):
+        _entry.pop(_field, None)
+    if str(_entry.get("note", "")).startswith("Inventory receipt"):
+        _entry.pop("note")
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": _vfy,
+        "sources": list(_sources),
+        "note": "Literature threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
+    }
+    _prior = ODT_VERIFICATION.get(_key)
+    if _prior:
+        # Earlier evidence stays readable, and an ethanol value it carries still checks
+        # the runtime ethanol threshold: this batch sets the air value only.
+        _meta["superseded"] = dict(_prior)
+        if "odt_eth" in _prior:
+            _meta["odt_eth"] = _prior["odt_eth"]
+    ODT_VERIFICATION[_key] = _meta
+LITERATURE_ODT_BATCH_2026_10_25 = True
 
 
 # (auditor CRITICAL C1: without this, batch ODT_DATA entries are unreachable via runtime lookup)

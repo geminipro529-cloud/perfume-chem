@@ -89,7 +89,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.0002
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 17.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -115,7 +115,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 34902-57-3, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/34902-57-3.pdf; "0.076" Pa at 25 C, measured (RIFM 2004), as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Takasago detection value (the author calls the values relative); van Gemert lists Traynor 2001 at 0.166 mg/m3, consistent. Replaces 2.8, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: 'Producer figure "5.45" (supplier value, method not stated), as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08); previous repo value 4.5 (engine.skin_interaction)'
@@ -246,7 +246,7 @@
   inchikey: null
   mw_g_mol: 226.3
   density_25c_g_ml: 0.999
-  logp: 3.1
+  logp: 2.8
   functional_groups: []
   chirality: null
   vp_25c_pa: 0.09466
@@ -255,7 +255,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.003
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.03025
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -283,7 +283,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: EP 3141239 B1, 0.000710 Torr at 25 C
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Firmenich figure for standard Hedione (cis/trans about 10:90). Replaces an estimated 0.05. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     trp.TRPM8: engine.trigeminal
@@ -294,7 +294,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 24851-98-7 (https://www.thegoodscentscompany.com/data/rw1015272.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.99700 to 1.00600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015272.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
-    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, methyl dihydrojasmonate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/24851-98-7.pdf: "Log KOW: 3.1 at 35 C [RIFM, 1997], 2.98 (EPI Suite)"; measured 3.1 used; replaces the unsourced 2.7'
+    logp: 'ECHA registration dossier 14840 (methyl 3-oxo-2-pentylcyclopentaneacetate, CAS 24851-98-7), Partition coefficient (https://echa.europa.eu/registration-dossier/-/registered-dossier/14840/4/8): ''Two recommended methods by OECD guidelines were used to determine the Partition Coefficient of the test substance: HPLC method (OECD 117) and Shake flask method (OECD 107). Both methods provided very similar values...''; printed log Pow 2.79 and log Pow 2.81 at 30 C for high trans quality (cis/trans: 10/90) (HPLC...; measured, OECD 117 (HPLC), high-trans quality (cis/trans 10/90): 2.79 and 2.81 at 30 C; grade A_regulatory. Second reader: Quote verbatim. 2.8 = mean of 2.79 and 2.81 (HPLC, OECD 117) at 30 C for the high-trans (10/90) quality, which matches standard Hedione. Page adds: ''the change in the ratio cis/trans does not involve any difference... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Hedione HC
   aliases:
   - hedione hc
@@ -303,16 +303,16 @@
   inchikey: null
   mw_g_mol: 226.3
   density_25c_g_ml: 1.0015
-  logp: 2.7
+  logp: 2.93
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.2104
+  vp_source: measured_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.003997
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -324,14 +324,16 @@
   supplier: null
   families:
   - floral materials
-  character: null
+  character: 'A unique powerful, floral note reminiscent of magnolia blossoms.'
   notes: null
   provenance:
-    odt_air_ppb: engine.odor_thresholds
+    vp_25c_pa: 'ECHA registration dossier 14840 (methyl 3-oxo-2-pentylcyclopentaneacetate, CAS 24851-98-7), Vapour pressure (https://echa.europa.eu/registration-dossier/-/registered-dossier/14840/4/7): ''An extrapolated Vapor pressure of 0.002104 hPa at 25 C was determined for the high cis (cis/trans: 85/15) quality.''; printed 0.002104 hPa at 25 C; 0.002104 x 100 = 0.210 Pa; measured, OECD 104 / EU A.4 dynamic method, extrapolated to 25 C, on the high-cis quality (cis/trans 85/15); grade A_regulatory. Measured on the high-cis grade (85/15). Second reader: Same page as previous item. Quote verbatim. 0.002104 x 100 = 0.2104 Pa at 25 C (extrapolated from dynamic-method measurements, OECD 104 / EU A.4). Tested grade (high cis 85/15) matches Hedione HC. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'HEDIONE® HC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/hedioner-hc-pe-947325: Olfactive description A unique powerful, floral note reminiscent of magnolia blossoms. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'Firmenich figure for the high-cis grade. Replaces 0.05, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
-    logp: engine.skin_interaction
+    logp: 'ECHA registration dossier 14840 (CAS 24851-98-7), Partition coefficient (https://echa.europa.eu/registration-dossier/-/registered-dossier/14840/4/8): ''Key value for chemical safety assessment * Log Kow (Log Pow): * 2.93 * at the temperature of: * 22 C ... log Pow 2.93 at 22 C for high cis quality (cis/trans: 85/15) (shake flask)''; printed Log Kow (Log Pow): 2.93 at 22 C; measured, OECD 107 shake flask, high-cis quality (cis/trans 85/15); ECHA key value; grade A_regulatory. Second reader: Same dossier (CAS 24851-98-7). 2.93 is the shake-flask (OECD 107) value for the 85/15 high-cis quality, which matches Hedione HC; the page says it was chosen as key value as the ''worst case''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
@@ -395,7 +397,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.14
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -412,10 +414,11 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'Green, floral (cyclamen) with top notes of ozone and new mown hay.'
   notes: null
   provenance:
-    odt_air_ppb: engine.odor_thresholds
+    character: 'Helional® | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/helional: Olfactive Description: Green, floral (cyclamen) with top notes of ozone and new mown hay. (grade A_producer; ). Second reader: CAS 1205-17-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'Replaces 0.1, which cited this paper under another author''s name with 0.097 ppb; the second reader read 0.14 ppb. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: engine.skin_interaction
@@ -464,9 +467,10 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'powdery vanillic compound with sweet flowery nuances; Helitrope, sweet, vanilla, fresh, faint narcotic floral'
   notes: null
   provenance:
+    character: 'HELIOTROPAL | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6VN21924: HELIOTROPAL is a powdery vanillic compound with sweet flowery nuances ... Odour=> Helitrope, sweet, vanilla, fresh, faint narcotic floral (grade A_producer; ). Second reader: CAS 120-57-0 (piperonal) matches inventory ''Heliotropal (Piperonal)''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -669,8 +673,10 @@
     other: {}
   families: []
   character: null
+  odour_family: 'musk'
   notes: 'VP 25 C 0.03 Pa = 0.02 Pa at 20 C (Firmenich marketing sheet, measured or estimated not stated) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol); RIFM 2023 EPI estimates 0.0436 Pa at 25 C and 0.0227 Pa at 20 C agree in magnitude. The Firmenich SDS v13 (2024) line "17.2 Pa at 20 C, method A.4" is 800x the other two and inconsistent with its own bp 282-303 C, so it is treated as a unit slip and not used. log P 4.68 (SDS, method A.8; RIFM 1994a); the marketing sheet says 5.46. Density not filled from this source set: Vigon SDS 503096 gives SG 0.94 at 25 C. Air ODT 1.7 ng/L is for the commercial product; 1.1 ng/L applies to the (+)-enantiomer only and is not used.'
   provenance:
+    odour_family: 'odour family "musk" from ''Musky (Technical Descriptors: Musky, Powdery, Ambrette, Fruity)'': HELVETOLIDE® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/helvetolider-pe-947650: Olfactive family Musky ... Technical Descriptors Musky, Powdery, Ambrette, Fruity (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'PerfumersWorld 3XD17215 supplier SDS and RIFM assessment Food Chem. Toxicol. 182 (2023) 114253, doi:10.1016/j.fct.2023.114253: CAS 141773-73-1, as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08)'
     mw_g_mol: 'PerfumersWorld 3XD17215 supplier SDS: "MW 284.43, C17H32O3", as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08)'
     odt_air_ppb: 'Armanino, Charpentier, Flachsmann, Goeke, Liniger, Kraft, Angew. Chem. Int. Ed. 2020, doi:10.1002/anie.202005719: figure label "Helvetolide ... th 1.7 ng/L air" (read from a search excerpt; full page not readable), as quoted in /mnt/project-files/material-data-firecrawl/BATCH1_FEMME_20261008.md (Helvetolide section, read 2026-10-08); 1.7 ng/L x 24.465 / 284.43 = 0.146 ppb at 25 C'
@@ -832,7 +838,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 144.21
-  density_25c_g_ml: 0.869
+  density_25c_g_ml: 0.875
   logp: 3.3
   functional_groups: []
   chirality: null
@@ -859,9 +865,10 @@
     other: {}
   families:
   - citrus / top
-  character: null
+  character: 'Hexyl Acetate has a fruity green note reminiscent of pear with floral facets.'
   notes: null
   provenance:
+    character: 'Hexyl Acetate | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/hexyl-acetate: Hexyl Acetate has a fruity green note reminiscent of pear with floral facets. It can be used in all type of compositions and is a very useful top note in fresh and fruity accords. (grade A_producer; ). Second reader: CAS 142-92-7 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem CID 8908 (HSDB), citing Yaws, Handbook of Vapor Pressure vol. 3 (Gulf, 1994): "1.32 mm Hg at 25 °C" x 133.322 = 176 Pa, https://pubchem.ncbi.nlm.nih.gov/compound/8908; RIFM https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/142-92-7.pdf prints "1.0 mm Hg 20 °C (FMA)" = 133 Pa at 20 °C. Replaces an unsourced 194. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     odt_air_ppb: 'Concentration-detection functions for the odor of homologous n-acetate esters, Physiol. Behav. 2008, doi 10.1016/j.physbeh.2008.09.021 (PMID 18950650): "hexyl acetate (2.9 ppb)" (air-dilution olfactometry, 3-AFC, vapour checked by GC); cross-check Nagata (2003) triangle odor bag, Table 2: "n-Hexyl acetate 0.0018" ppm v/v = 1.8 ppb, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf. Replaces an unsourced 2.0. Loaded 2026-10-25 (fruit batch)'
     odt_eth_ppm: engine.odor_thresholds
@@ -870,7 +877,7 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 142-92-7 (https://www.thegoodscentscompany.com/data/rw1003201.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.86800 to 0.87600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1003201.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'ECHA registration dossier, Hexyl acetate (EC 205-572-7), Density (https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.005.066/4/5): ''The relative density of hexyl acetate at 20 C is 0.875. Key value for chemical safety assessment Relative density at 20C: 0.875''; printed The relative density of hexyl acetate at 20 C is 0.875.; ECHA key value; grade A_regulatory. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: Quote verbatim; CAS 142-92-7 confirmed in page header. Printed as relative density (dimensionless), water reference temperature not stated: if relative to water at 20 C the density is 0.873 g/mL, if D20/4 it is... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, hexyl acetate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/142-92-7.pdf: "Log KOW: 3.3 at 30 C (RIFM, 1996a), 2.83 (US EPA, 2012a)"; measured 3.3 used; replaces the unsourced 2.83 (the EPA estimate)'
 - canonical_name: Hexyl Cinnamic Aldehyde (HCA)
   aliases:
@@ -927,8 +934,8 @@
   logp: 5.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.0033
-  vp_source: 'EPI'
+  vp_25c_pa: 0.0955
+  vp_source: measured_23C_converted
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0003
@@ -950,9 +957,10 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'Hexyl Salicylate has a floral fruity character, with a mild, sweet herbaceous slant.'
   notes: null
   provenance:
+    character: 'Print Page | Givaudan: Hexyl Salicylate, https://www.givaudan.com/print/1314426: Hexyl Salicylate has a floral fruity character, with a mild, sweet herbaceous slant. It is a very useful modifier of floral fragrances especially with Amyl Salicylate. (grade A_producer; ). Second reader: CAS 6259-76-3 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -963,8 +971,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 6259-76-3 (https://www.thegoodscentscompany.com/data/rw1002751.html)'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: reference value; raw 1.037; https://www.thegoodscentscompany.com/data/rw1002751.html; temperature as printed by source (often 20 C), not corrected to 25 C'
-    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, hexyl salicylate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6259-76-3.pdf: "Log KOW: 5.5 at 30 C (RIFM, 1996), 5.06 (EPI Suite v4.11)"; measured 5.5 used; replaces the unsourced 5.7'
-    vp_25c_pa: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, hexyl salicylate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6259-76-3.pdf: "2.44e-005 mm Hg at 25 C (EPI Suite v4.11)" = 0.0033 Pa (estimate, the only 25 C value printed); replaces the unsourced 0.077 Pa'
+    logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, hexyl salicylate, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6259-76-3.pdf: "Log KOW: 5.5 at 30 C (RIFM, 1996), 5.06 (EPI Suite v4.11)"; measured 5.5 used; replaces the unsourced 5.7 Kept on 2026-10-25 over Givaudan''s product-page 4.9 (no method or temperature printed): RIFM''s measured study outranks it.'
+    vp_25c_pa: 'ECHA registration dossier, Hexyl salicylate (EC 228-408-6, CAS 6259-76-3), Vapour pressure (https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.025.826/4/7): ''The vapour pressure of hexyl salicylate was determined to be 7.7 x 10^-5 kPa at 23 C.''; printed 7.7 x 10^-5 kPa at 23 C; x 1000 = 0.077 Pa; experimental, purge & trap (method AI08.00 QC), few details; Klimisch 2; grade A_measured. Converted from 0.077 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 79.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 7.7e-5 kPa x 1000 = 0.077 Pa at 23 C (the structured field rounds it to ''0 kPa''). Experimental, Klimisch 2, guideline ''not stated''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Himalayan Cedarwood EO
   aliases:
@@ -1019,8 +1027,8 @@
   logp: 4.65
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.032
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.03
+  vp_source: producer_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1041,9 +1049,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Descriptor words: Woody, Sandalwood, Creamy, Powerful. "Provides a natural and fresh character."'
+  odour_family: 'woody'
   notes: 'Identity 2026-10-23: CAS 28219-60-5, 2-methyl-4-(2,2,3-trimethylcyclopent-3-en-1-yl)but-2-en-1-ol (PubChem CID 119897; CID 6438195 is the (E) isomer), confirmed on PubChem by the 2026-10-23 chem check. Maker unverified (Takasago vs Kao).'
   provenance:
+    odour_family: 'odour family "woody" from ''WOODY (descriptor words: Woody, Sandalwood, Creamy, Powerful)'': Hindinol | Takasago International Corporation, https://www.takasago.com/index.php/en/node/676: Hindinol® Woody ... WOODY SANDALWOOD CREAMY POWERFUL WOODY (grade A_producer; ). Second reader: CAS 28219-60-5 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Hindinol | Takasago International Corporation, https://www.takasago.com/index.php/en/node/676: Hindinol® Woody CAS NO.28219-60-5 Chiraroma Hindinol® WOODY SANDALWOOD CREAMY POWERFUL WOODY ... APPLICATION INFORMATION Widely used in all product applications. Provides a natural and fresh character. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 0.9200, supplier-reported (PerfumersWorld 4WX24656 "Hindinol"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.9200; https://www.perfumersworld.com/view.php?pro_id=4WX24656; temperature as printed by source (often 20 C), not corrected to 25 C'
     density_basis: supplier_sg_temperature_unstated
@@ -1051,7 +1062,7 @@
     cas: 'PubChem CID 119897 for CAS 28219-60-5, confirmed by the 2026-10-23 chem check (PUG REST, fetched 2026-10-23); also: 22 Oct 2026 missing-data pass: stated; raw 28219-60-5; https://www.perflavory.com/docs/doc1013511.html'
     mw_g_mol: '22 Oct 2026 missing-data pass: stated; raw 194.31754; https://www.perflavory.com/docs/doc1013511.html'
     logp: '22 Oct 2026 missing-data pass: stated; raw 4.65; https://www.perflavory.com/docs/doc1013511.html'
-    vp_25c_pa: '23 Oct 2026 second missing-data pass: stated; raw 0.032; https://assets.takasago.com/prod/default/s3fs-public/2022-02/19_Hindinol.pdf'
+    vp_25c_pa: 'Hindinol | Takasago International Corporation (producer compendium page) (https://www.takasago.com/en/node/676): ''CAS No. 28219-60-5 / 185068-68-2 / 198405-38-8 ... CLogP 4.65 ... Molecular Weight 194.32 ... Vapor Pressure 0.03 Pa at 25ºC''; printed 0.03 Pa at 25ºC; producer figure (Takasago), method not stated; grade A_producer. Second reader: Producer figure; method not stated; one significant figure. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Ho Essential Oil
   aliases: []
   cas: null
@@ -1360,8 +1371,8 @@
   logp: 1.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.773
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.889
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.005
@@ -1387,7 +1398,7 @@
   notes: "User-corrected bottle identity 2026-09-07. Neat inherited from V5, not new assay. VP remains unverified and temperature-conflicted."
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: 'ESTIMATE, not measured: RIFM safety assessment, Api et al., Food Chem Toxicol 163 (2022) 112983, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/107-75-5.pdf: "0.0058 mm Hg at 25 °C (EPI Suite)" = 0.773 Pa; no measured 25 C value found; BASF SDS gives "0.005472 hPa (20 C) Extrapolated value (measured)" = 0.547 Pa at 20 C; replaces an unsourced 0.005 Pa, about 100x below every source (via material-data-firecrawl/followup-20261008/F2_vapour_pressures.md)'
+    vp_25c_pa: 'ECHA registration dossier, 7-hydroxycitronellal (EC 203-518-7), Vapour pressure (https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.003.199/4/7): ''001 Key | Experimental result 002 Supporting | Experimental result ... Description of key information 0.005472 hPa at 20 C Key value for chemical safety assessment Vapour pressure: 0.005 hPa at the temperature of: 20 C''; printed 0.005472 hPa at 20 C; x 100 = 0.547 Pa; ECHA key value from an experimental key study (study details not opened); grade A_measured. Converted from 0.5472 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 70.5 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: ECHA dossier header: 7-hydroxycitronellal, EC 203-518-7, CAS 107-75-5 (= stock CAS). 0.005472 hPa x 100 = 0.547 Pa at 20 C (key value field rounds it to 0.005 hPa = 0.5 Pa). Key and supporting studies both labelled... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

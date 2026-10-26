@@ -153,9 +153,12 @@
         sku: 5VW08955
         price_usd_per_g: 2.55
   families: []
-  character:
+  character: 'Vanilla absolute is rich, sweet, creamy, woody and spicy, with facets of leather, caramel and tobacco.'
+  odour_family: 'gourmand'
   notes:
   provenance:
+    character: 'Vanilla Absolute Madagascar | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/vanilla-absolute-madagascar: GOURMAND | Gourmand, Vanilla-like, Woody, Cocoa ... Vanilla absolute is rich, sweet, creamy, woody and spicy, with facets of leather, caramel and tobacco. (grade A_producer; producer description (Givaudan Vanilla Absolute Madagascar)). Second reader: Generic inventory ''Vanilla Absolute''; CAS 8024-06-4 matches. The ''GOURMAND | ...'' family line was not in the part of the page I was shown; the description sentence is verbatim. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "gourmand" from ''Gourmand'': Vanilla Absolute Madagascar | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/vanilla-absolute-madagascar: GOURMAND | Gourmand, Vanilla-like, Woody, Cocoa (grade A_producer; producer classification (Givaudan; dsm-firmenich 2020 catalogue also lists VANILLA PLANIFOLIA ABS under GOURMAND)). Second reader: dsm-firmenich 2020 catalogue part of the value was not checked (no URL given). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'SG 1.0800, supplier-reported (PerfumersWorld 8VW08619 "Vanilla Absolute"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 23 Oct 2026 third data pass: PerfumersWorld 8VW08619 "Specific Gravity 1.0800" ("viscous liquid to solid"), https://www.perfumersworld.com/view.php?pro_id=8VW08619; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle); supplier value preferred over the TGSC 1.02'
     density_basis: supplier_sg_temperature_unstated
@@ -172,15 +175,15 @@
   functional_groups: []
   chirality:
   # VERIFIED: Profile VP from ingredient_intelligence, 2026-05-30 (was 0.0003, corrected to 0.2)
-  vp_25c_pa: 0.2
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.01573
+  vp_source: Yaws_correlation_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0002
   hsp:
   odt_air_ppb:
   odt_eth_ppm:
-  stevens_n:
+  stevens_n: 0.35
   or_targets: []
   trp_targets:
     TRPM8: 0.0
@@ -208,11 +211,11 @@
   notes:
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'ESTIMATE (Yaws handbook correlation value for a solid (mp 81 C)): PubChem CID 1183, Vapor Pressure (HSDB citing Yaws, Handbook of Vapor Pressure, Vol. 3, 1994) (https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/1183/JSON?heading=Experimental+Properties): ''1.18X10-4 mm Hg at 25 C''; printed 1.18E-4 mm Hg at 25 C; Yaws handbook correlation value; 1.18e-4 x 133.322 = 0.0157 Pa. Haz-Map ''0.000118 [mmHg]'' same. Engine 0.2 Pa (unnamed) is 13x higher; grade A_measured. Second reader: PubChem CID 1183, RecordTitle Vanillin (stock CAS 121-33-5). 1.18e-4 mm Hg x 133.322 = 0.0157 Pa at 25 C. PubChem does not call it estimated, so the verdict is confirmed, but the item''s own method calls it a ''Yaws... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
-    stevens_n: engine.odor_thresholds
+    stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Vanihin [vanillin] (vanilla) 15.33 .35 .76, .28" (OCR spelling). Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
@@ -258,8 +261,10 @@
     other: {}
   families: []
   character:
+  odour_family: 'fruity'
   notes: 'VP left null (2026-10-08): 40x conflict and no 25 C measurement. RIFM 2017 quotes "0.00938 mm Hg @ 20 C (US EPA, 2012a), 0.4 mm Hg @20C [FMA Database], 0.0163 mm Hg @ 25 C (US EPA, 2012a)" = 1.25 Pa (20 C, est), 53.3 Pa (20 C, basis unstated), 2.17 Pa (25 C, est) at 133.322 Pa/mmHg; Vigon SDS 502847 also gives 0.4 mmHg at 20 C; TGSC rw1000241 0.026 mmHg at 25 C (est) = 3.47 Pa. TGSC logP 4.164 (est). No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa null -> 2.17.'
   provenance:
+    odour_family: 'odour family "fruity" from ''Fruity (Technical Descriptors: Peach, Lactonic Fruits, Celery)'': VELOUTONE® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/veloutoner-pe-990257: Olfactive family Fruity ... Technical Descriptors Peach, Lactonic Fruits, Celery (grade A_producer; ). Second reader: CAS 65443-14-3 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'PerfumersWorld SDS 3LH00459 (local snapshot, batch VEL00459/26280); RIFM fragrance ingredient safety assessment, Veloutone, CAS 65443-14-3, Food Chem. Toxicol. 110 Suppl 1 (2017) S662-S669, doi:10.1016/j.fct.2017.10.009 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     mw_g_mol: 'PerfumersWorld SDS 3LH00459 (local snapshot, batch VEL00459/26280); MW 196.33, C13H24O (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
@@ -283,7 +288,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.052
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -299,9 +304,13 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Velvione™ is powerful powdery macrocyclic musk with some nitro-musk aspects.'
+  odour_family: 'musk'
   notes:
   provenance:
+    odt_air_ppb: 'Vapour-delivery psychophysics (detection). Givaudan''s SDS gives 0.475 ppb and van Gemert''s Takasago ambretone entry 12 ppb; measured air olfactometry ranks first. First air threshold for this stock. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "musk" from ''Musky (Olfactive Note: Musky, Powdery, Animalic)'': Print Page | Givaudan: Velvione, https://www.givaudan.com/print/1314921: Olfactive Family Musky | Olfactive Note Musky Powdery Animalic (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Print Page | Givaudan: Velvione, https://www.givaudan.com/print/1314921: Velvione™ is powerful powdery macrocyclic musk with some nitro-musk aspects. It is highly substantive and stable, as well as biodegradable (grade A_producer; ). Second reader: CAS 37609-25-9 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1016851.html; PW 4XU11429 page'
     density_25c_g_ml: 'ECHA 0.93 g/cm3 at 20 C (20 C value); TGSC SG 0.932-0.934. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.02 Pa at 20 C (not corrected to 25 C); EPI estimate was 0.0044 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
@@ -393,13 +402,13 @@
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.3)
-  vp_25c_pa: 7.11
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 10.2
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 10.88
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -419,10 +428,10 @@
   character:
   notes:
   provenance:
-    vp_25c_pa: 'ESTIMATE: EPI Suite value printed by RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/88-41-5.pdf: "0.0533 mm Hg at 25 °C (EPI Suite v4.11)" x 133.322 = 7.11 Pa; RIFM also prints "0.05 mm Hg at 20 °C (FMA)" = 6.67 Pa at 20 °C, and Eternis (cis-rich OTBCHA Super SDS) "9.72 Pa @ 23°C". Replaces an unsourced 0.3. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 2-tert-butylcyclohexyl acetate (Food Chem Toxicol 204 (2025) 115614) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/88-41-5.pdf): ''Vapor Pressure: 0.05 mm Hg at 20 C (FMA), 0.0533 mm Hg at 25 C (EPI Suite v4.11)''; printed 0.05 mm Hg at 20 C; FMA; 0.05 x 133.322 = 6.67 Pa; grade A_producer (an FMA database figure, method not stated; relabelled from measured on 2026-10-25). Converted from 6.666 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 61.1 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Value is in the CAS 88-41-5 column (isomer unspecified); the page also has cis (20298-69-5) and trans (20298-70-8) columns. 0.05 x 133.322 = 6.67 Pa at 20 C, matching the method. FMA value, one significant figure. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: 'IFF VERDOX SDS (code 00222496; copy hosted at https://johndwalsh.com/wp-content/uploads/2016/09/VERDOX-GHS-SDS-1.pdf): "log Pow: 4.75 at 77 °F (25 °C)"; Eternis OTBCHA Super SDS prints 4.75; RIFM https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/88-41-5.pdf prints measured 4.8 and 4.7. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     mw_g_mol: 'Molecular formula C12H22O2 for 2-tert-butylcyclohexyl acetate, CAS 88-41-5 (the CAS already cited from TGSC rw1002461); MW from IUPAC standard atomic weights = 198.30. The old 170.25 matched no formula for this CAS.'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan patent figure for Agrumex, the same molecule (2-tert-butylcyclohexyl acetate); the cis/trans ratio may differ. Replaces 20, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
@@ -602,17 +611,17 @@
   smiles:
   inchikey:
   mw_g_mol: 182.31
-  density_25c_g_ml: 0.9103
-  logp: 3.0
+  density_25c_g_ml: 0.9135
+  logp: 4.36
   functional_groups: []
   chirality:
-  vp_25c_pa: 6.53
-  vp_source: TGSC_database  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 14.27
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0008
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 13.41
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -633,17 +642,17 @@
   notes:
   provenance:
     mw_g_mol: 'C12H22O (4-cyclohexyl-4-methylpentan-2-one, CAS 4927-39-3) from standard atomic weights = 182.31; Symrise datasheet MW 182.3'
-    vp_25c_pa: 'ESTIMATE, not measured: TGSC https://www.thegoodscentscompany.com/data/rw1019151.html (CAS 4927-39-3): "0.049000 mmHg @ 25.00 °C. (est)" = 6.53 Pa (value unchanged, now attributed); the EPI Suite page https://www.thegoodscentscompany.com/episys/ep1019151.html gives 0.107 mm Hg (14.3 Pa), also an estimate; no measured value found (via material-data-firecrawl/followup-20261008/F5_vp_irotyl_vetival_ultralia.md)'
+    vp_25c_pa: 'ESTIMATE (calculated value (FMR 2013); 0.107 mm Hg x 133.322): Fragrance material review on cyclohexyl methyl pentanone, Food Chem Toxicol (2013) (RIFM Fragrance Material Review) (https://www.sciencedirect.com/science/article/abs/pii/S0278691513005115): ''3.8 Vapor pressure (calculated): 0.107 mmHg @ 25 C''; printed 0.107 mmHg @ 25 C; calculated value (FMR 2013); 0.107 mm Hg x 133.322; grade EST. Second reader: Page identity: Fragrance material review on cyclohexyl methyl pentanone (2013); CAS 4927-39-3; synonyms include vetinal; vetival; vetivertone. Page labels it calculated; grade EST is correct. 0.107 x 133.322 = 14.27... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Symrise datasheet for its own product; the number sits next to ''threshold in air'' by layout. Replaces an estimated 7.0. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'RIFM fragrance ingredient safety assessment, cyclohexyl methyl pentanone, CAS Registry Number 4927-39-3, Food Chem Toxicol 213 (2026) 116090 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2026.116090): ''Log K OW : 4.36 (22.7 C) (RIFM, 2016d), 3.89 (EPI Suite v4.11)''; printed ; RIFM 2016d study; grade A_measured. Second reader: RIFM assessment cyclohexyl methyl pentanone, CAS 4927-39-3; synonyms include Vetival. Measured RIFM study at 22.7 C. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=4WL15944 (Kenny''s supplier): "CAS 4927-39-3", synonym "cyclohexyl-4-methyl pentan-2-one"; Symrise datasheet gives the same CAS (via material-data-firecrawl/followup-20261008/F1_densities_identity.md)'
-    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1019151.html: "Specific Gravity: 0.91000 to 0.91600 @ 25.00 °C."; midpoint 0.913 x 0.99705 g/mL (water at 25 C) = 0.9103; PerfumersWorld lists SG 0.9100 (no temperature)'
+    density_25c_g_ml: 'Fragrance material review on cyclohexyl methyl pentanone, Food Chem Toxicol (2013) (RIFM Fragrance Material Review) (https://www.sciencedirect.com/science/article/abs/pii/S0278691513005115): ''3.7 Specific gravity: 0.910–0.917 @ 25 C''; printed 0.910–0.917 @ 25 C; specification range midpoint (0.910-0.917); grade A_measured. Second reader: CAS 4927-39-3 (vetival). Midpoint 0.9135. This is a specific-gravity specification range, not a single measurement; if SG is 25/25 C, density = 0.9135 x 0.99705 = 0.911 g/mL (0.3% lower). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Vetikon
   aliases:
   - vetikon
@@ -653,8 +662,8 @@
   smiles: CC1(C)C2CCC1(C)C(C)(C)C2C(=O)C
   inchikey:
   mw_g_mol: 176.25
-  density_25c_g_ml: 0.97
-  logp: 2.7
+  density_25c_g_ml: 0.9722
+  logp: 2.77
   functional_groups: []
   chirality:
   vp_25c_pa: 4.16
@@ -663,7 +672,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.0012
   hsp:
-  odt_air_ppb: 5.0
+  odt_air_ppb: 87.53
   odt_eth_ppm: 1.0
   stevens_n:
   or_targets: []
@@ -675,16 +684,17 @@
   supplier:
   families:
   - woods / amber / structure
-  character: woody:7, freshness:3, green:2, powdery:2
+  character: 'Woody, Vetiver, Grapefruit, Gardenia; adds a fresh woody, vetiver-like accent'
   notes: Vetikon (methyl cedryl ketone) — woody-vetiver volume material, diffusive, fills space between Iso E Super and Vertofix
   provenance:
+    character: 'Vetikon (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetikon.pdf: › Woody, Vetiver, Grapefruit, Gardenia ... › adds a fresh woody, vetiver-like accent (grade A_producer; ). Replaces unsourced text ''woody:7, freshness:3, green:2, powdery:2''. Second reader: CAS 7403-42-1 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.ingredient_intelligence
     vp_25c_pa: engine.ingredient_intelligence
-    logp: engine.ingredient_intelligence
-    odt_air_ppb: engine.odor_thresholds
+    logp: 'RIFM fragrance ingredient safety assessment, 4-methyl-4-phenyl-2-pentanone, CAS Registry Number 7403-42-1, Food Chem Toxicol 183 (2024) 114388 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2023.114388): ''Log K OW : 2.84 (EPI Suite), 2.77 (RIFM, 2017c)''; printed ; RIFM 2017c study; grade A_measured. Second reader: The page calls 2.77 a measured value. No temperature printed. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'Symrise datasheet for its own product; number bound to ''threshold in air'' by layout. Replaces 5.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     user_in_inventory: inventory.txt
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.97050 to 0.97450 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1047261.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'Associate Allied Chemicals Europe, VETIKALON AAC230 Technical Data Sheet (https://aac-europe.com/media/products/VETIKALON_AAC230_AACE_DSdRXfZ.pdf): ''Specific gravity (D20/20) : [0.969 ; 0.979]''; printed [0.969 ; 0.979] (D20/20); specification range midpoint; d20/20 relative to water. Producer is AAC (Vetikalon), same substance CAS 7403-42-1 named on the sheet, not the Symrise...; grade A_producer. The printed 0.974 is a relative density (d20/20); x 0.9982 g/mL water = 0.9722 g/mL. Measured at 20 C (about 0.004 g/mL above the 25 C value). Second reader: Spec range midpoint (0.969+0.979)/2 = 0.974, a d20/20 ratio, not g/mL; x 0.99821 g/mL (water 20 C) = 0.9723 g/mL. Page is AAC''s Vetikalon, same CAS 7403-42-1 as the stock record, not the Symrise sheet; it is a spec... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Vetiver EO
   aliases:
   - vetiver
@@ -807,9 +817,10 @@
   supplier: null
   families:
   - woods / amber / structure
-  character: null
+  character: 'Vetiver oil from Haiti is dry and woody with earthy, smoky and nutty accents. Haitian vetiver differs from Java vetiver in its sparkling citrus notes and fresh bitterness.'
   notes: Current neat/as-supplied physical stock; Haitian origin is direct user authority. Supplier, botanical lot composition, density, and origin-specific headspace parameters are not asserted.
   provenance:
+    character: 'Vetiver Oil Haiti | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/vetiver-oil-haiti: WOODY | Woody, Earthy, Spicy, Dry ... Vetiver oil from Haiti is dry and woody with earthy, smoky and nutty accents. Haitian vetiver differs from Java vetiver in its sparkling citrus notes and fresh bitterness. (grade A_producer; producer description (Givaudan Vetiver Oil Haiti)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     user_stock_dilution: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     user_in_inventory: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
     origin: data/governance/inventory_user_confirmation_20260910_stock_clarifications.json
@@ -1092,9 +1103,10 @@
   - green
   - violet_leaf
   - aldehydic
-  character: Green, watery cucumber-leaf and violet-leaf absolute with fatty, earthy depth.
+  character: 'oily green cucumber leafy fresh sweet floral violet green-leafy woody floral strong green-leaf odour and a delicate floral undertone.'
   notes: 10% in DPG user stock. Natural mixture; composite OAV uses the repository violet-leaf constituent profile and origin variability remains.
   provenance:
+    character: 'Violet Leaf Absolute | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=8IG00469: Odour=> oily green cucumber leafy fresh sweet floral violet green-leafy woody floral strong green-leaf odour and a delicate floral undertone. 2. The flower absolute is a yellowish-green viscous liquid ... Top Notes Green ... Heart Notes Narcotic, Linalool (grade A_producer; supplier description (PerfumersWorld 8IG00469); the following sentence on the violet flower absolute (''2. The flower absolute is ...'') describes a different material and is left out). Replaces unsourced text ''Green, watery cucumber-leaf and violet-leaf absolute with fatty, earthy depth.''. Second reader: Value is verbatim, and the flower-absolute sentence was rightly left out. Page CAS 90147-36-7 (Viola odorata extract) differs from the inventory CAS 8024-41-7 (violet leaf absolute), but the product is the same: violet leaf absolute. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: supplier:8IG00469
     composition: natural_mixture_no_batch_gc_ms
     composite_oav: engine.pipeline.natural_absolute_decomposition

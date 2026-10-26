@@ -38,15 +38,20 @@ def test_lemon_terpeneless_is_citral_at_the_bp_grade_midpoint(label):
     assert all(source.startswith("https://") for source in meta.sources)
 
 
-def test_lemon_terpeneless_records_the_ifra_certificate_conflict_and_keeps_the_ifra_hold():
+def test_lemon_terpeneless_records_the_ifra_certificate_conflict_and_counts_annex_citral():
     from engine.pipeline.natural_absolute_decomposition import _PARTIAL_PROFILE_EVIDENCE
 
     composition = _PARTIAL_PROFILE_EVIDENCE[_LEMON]["input_authority"]["composition"]
     assert composition["reported_range_pct"] == {"citral": (40.0, 50.0)}
     assert composition["pharmacopoeia_read_directly"] is False
     assert "25%" in composition["supplier_ifra_certificate_conflict"]
+    # Since the 25 Oct IFRA batch the stock has a row: IFRA Annex I's 40 % citral in
+    # terpeneless lemon oil is counted, so the gate warns instead of holding it unrecognised.
     state = build_formula_state({"Lemon Terpeneless Oil Sicilian": 80.0, "Hedione": 920.0})
-    assert gates._gate_safety(state, gates.ReleaseGateConfig()).status == "HOLD"
+    result = gates._gate_safety(state, gates.ReleaseGateConfig())
+    assert result.status == "WARN"
+    [row] = [w for w in result.data["warnings"] if w["material"] == "Lemon Terpeneless Oil Sicilian"]
+    assert "Citral up to 40 %" in row["message"]
 
 
 def test_lemon_terpeneless_passes_the_physics_gate_and_uses_pw_density():
@@ -81,8 +86,13 @@ def test_ginger_lily_has_an_identity_record_and_its_physics_stay_held():
     state = build_formula_state({"Ginger Lily Oil": 1000.0})
     assert gates._gate_material_coverage(state).status == "PASS"
     assert gates._gate_data_coverage(state).status == "FAIL"
+    # Since the 25 Oct IFRA batch the stock has a row that counts nothing in it (PerfumersWorld
+    # gives no species, CAS, composition or certificate), so the gate warns instead of holding.
     mixed = build_formula_state({"Ginger Lily Oil": 80.0, "Hedione": 920.0})
-    assert gates._gate_safety(mixed, gates.ReleaseGateConfig()).status == "HOLD"
+    result = gates._gate_safety(mixed, gates.ReleaseGateConfig())
+    assert result.status == "WARN"
+    [row] = [w for w in result.data["warnings"] if w["material"] == "Ginger Lily Oil"]
+    assert "nothing in it is counted" in row["message"]
 
 
 def test_mate_absolute_stays_held_with_the_checked_sources_written_down():

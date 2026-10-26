@@ -288,12 +288,15 @@ class NaturalConstituents:
     def coverage_note(self, table: IFRATable) -> str:
         names = sorted({table.standards[sid].name for sid in self.standards})
         return (
-            f"Restricted constituents of naturals are counted for {len(names)} substances "
-            f"({', '.join(names)}), using the highest level IFRA Amendment "
-            f"{self.amendment} ({self.amendment_year}) Annex I reports for each natural. "
-            "Each value was read twice by independent automated readers and has not been "
-            "checked by a person. Annexes of other restricted substances were not read, so "
-            "their amounts in naturals are not counted."
+            f"Restricted constituents of naturals and supplier bases are counted for "
+            f"{len(names)} substances ({', '.join(names)}), using for each stock the highest "
+            f"level among its IFRA Amendment {self.amendment} ({self.amendment_year}) Annex I "
+            "rows and, where recorded, its supplier's IFRA certificate (or that of a same-named "
+            "supplier product when the bottle's supplier is not recorded), SDS band upper bound "
+            "or product statement. Annex I values were read twice by independent automated "
+            "readers, supplier rows once and then re-opened by a second reader; they have "
+            "not been checked by a person. Annexes of other restricted substances were not read, "
+            "so their amounts in naturals are not counted."
         )
 
 

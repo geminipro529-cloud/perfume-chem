@@ -73,8 +73,11 @@ def test_natural_and_synthetic_eugenol_add_up():
     )
     assert total["total_pct"] > 2.5
     failed = [f["group"] for f in gate.data["headroom_violations"] if "group" in f]
-    # Rose de Mai Absolute's methyl eugenol (up to 0.5 %) also exceeds its own limit.
-    assert failed == ["IFRA_STD_035_constituents", "IFRA_STD_100_constituents"]
+    # Rose de Mai Absolute's methyl eugenol (0.709 % on PerfumersWorld's certificate) and its
+    # certificate's isoeugenol (1.9907 % as printed) also exceed their own limits.
+    assert failed == [
+        "IFRA_STD_035_constituents", "IFRA_STD_048_constituents", "IFRA_STD_100_constituents",
+    ]
     # Counted once: the synthetic-only eugenol total is not also built.
     assert "IFRA_STD_035_total" not in [g["group"] for g in gate.data["groups"]]
 
@@ -91,6 +94,9 @@ def test_two_synthetic_rows_still_total_without_a_natural():
 # 22 Oct 2026: Black Pepper EO got a sourced density (Biolandes spec), so the
 # density/carrier assumptions drop from 3 to 2 and its 100 uL weighs 0.877 g/mL
 # instead of the 1.0 fallback (0.421 % -> 0.3694 %); the verdicts are unchanged.
+# 25 Oct 2026: Black Pepper EO's constituents are now counted from another supplier's
+# certificate, so the unmapped natural here is Spike Lavender EO (0.3753 %; coumarin
+# 0.08423 % with its density); the verdicts are unchanged.
 BASE_NO_MAPPED_NATURAL = {
     "status": "WARN",
     "detail": (
@@ -99,23 +105,23 @@ BASE_NO_MAPPED_NATURAL = {
         "assumption(s))"
     ),
     "rows": [
-        ("Black Pepper EO", "warn",
-         "Black Pepper EO at 0.3694 % is a natural with no IFRA standard of its own; its "
-         "restricted constituents are not summed here."),
         ("Coumarin", "pass",
-         "Coumarin at 0.08424 % is within the IFRA Category 4 limit of 1.5 % (IFRA_STD_023)."),
+         "Coumarin at 0.08423 % is within the IFRA Category 4 limit of 1.5 % (IFRA_STD_023)."),
         ("Eugenol", "pass",
          "Eugenol at 0.1344 % is within the IFRA Category 4 limit of 2.5 % (IFRA_STD_035)."),
         ("Evernyl", "pass",
          "Evernyl (Evernyl Crystals) at 1.011 % has no IFRA standard of its own."),
+        ("Spike Lavender EO", "warn",
+         "Spike Lavender EO at 0.3753 % is a natural with no IFRA standard of its own; its "
+         "restricted constituents are not summed here."),
     ],
     "groups": [],
 }
 
 
 def test_formula_without_a_mapped_natural_is_unchanged():
-    assert "Black Pepper EO" not in RAW["stocks"]
-    gate = _gate({"Coumarin": 20.0, "Eugenol": 30.0, "Black Pepper EO": 100.0, "Evernyl": 240.0})
+    assert "Spike Lavender EO" not in RAW["stocks"]
+    gate = _gate({"Coumarin": 20.0, "Eugenol": 30.0, "Spike Lavender EO": 100.0, "Evernyl": 240.0})
 
     assert gate.status == BASE_NO_MAPPED_NATURAL["status"]
     assert gate.detail == BASE_NO_MAPPED_NATURAL["detail"]
@@ -123,7 +129,7 @@ def test_formula_without_a_mapped_natural_is_unchanged():
     assert rows == [tuple(r) for r in BASE_NO_MAPPED_NATURAL["rows"]]
     assert gate.data["groups"] == BASE_NO_MAPPED_NATURAL["groups"]
     assert gate.data["constituent_totals"] == []
-    assert "27 substances" in gate.data["constituent_coverage"]
+    assert f"{len(load_natural_constituents().standards)} substances" in gate.data["constituent_coverage"]
     assert "not been checked by a person" in gate.data["constituent_coverage"]
 
 
@@ -139,9 +145,10 @@ def test_every_mapped_stock_resolves_and_names_known_rows(stock):
 
 def test_diluted_tonka_stock_name_is_counted():
     evaluation = evaluate_ifra({"Tonka Bean Absolute 10% in DPG": 2.0})
-    [total] = evaluation.constituent_totals
-    assert total.standard == "IFRA_STD_023"
-    assert total.total == pytest.approx(2.0 * 0.79133)
+    totals = {t.standard: t.total for t in evaluation.constituent_totals}
+    # Coumarin, plus phenylacetaldehyde from PerfumersWorld's 8VQ00445 certificate.
+    assert set(totals) == {"IFRA_STD_023", "IFRA_STD_073"}
+    assert totals["IFRA_STD_023"] == pytest.approx(2.0 * 0.79133)
 
 
 def test_candidate_rows_take_the_highest_level_not_the_sum():
@@ -159,14 +166,28 @@ def test_candidate_rows_take_the_highest_level_not_the_sum():
     assert several > 0  # some stock has several candidate rows for one substance
 
 
-def test_no_mapped_natural_is_itself_a_member_of_a_counted_standard():
-    # A stock restricted under one of the counted standards would enter that total twice:
-    # once as a synthetic member and once through its Annex I level.
+def test_no_mapped_stock_also_counts_its_own_standard_as_a_constituent():
+    # A stock restricted under a standard would enter that total twice if one of its own
+    # constituent rows named the same standard: once as a synthetic member and once
+    # through its constituent level. (Rhodinol ex Citronella counts whole as citronellol
+    # under IFRA_STD_022, and its certificate rows leave citronellol out.)
     data = load_natural_constituents()
-    for stock in data.stocks:
+    for stock, levels in data.stocks.items():
         material = TABLE.lookup(stock)
         assert material is not None
-        assert material.standard not in data.standards, stock
+        assert material.standard is None or material.standard not in levels, stock
+
+
+def test_rhodinol_counts_citronellol_once_and_geraniol_from_its_certificate():
+    evaluation = evaluate_ifra({"Rhodinol ex Citronella": 2.0, "Cassis Base 345B": 5.0})
+    citronellol = next(t for t in evaluation.constituent_totals if t.standard == "IFRA_STD_022")
+    assert {c.material: c.kind for c in citronellol.contributors} == {
+        "Rhodinol ex Citronella": "synthetic",
+        "Cassis Base 345B": "natural",
+    }
+    assert citronellol.total == pytest.approx(2.0 + 5.0 * 0.03)
+    geraniol = next(t for t in evaluation.constituent_totals if t.standard == "IFRA_STD_037")
+    assert geraniol.total == pytest.approx(2.0 * 0.471666 + 5.0 * 0.00021)
 
 
 def test_compliance_check_says_where_mapped_constituents_are_counted():
@@ -178,17 +199,17 @@ def test_compliance_check_says_where_mapped_constituents_are_counted():
         rule_set="IFRA_51st_2025",
         effective_date="2025-01-01",
     )
-    [tonka, pepper] = check_compliance(
+    [tonka, spike] = check_compliance(
         [
             {"name": "Tonka Bean Absolute", "active_ul": 300.0, "finished_product_volume_ml": 30.0},
-            {"name": "Black Pepper EO", "active_ul": 300.0, "finished_product_volume_ml": 30.0},
+            {"name": "Spike Lavender EO", "active_ul": 300.0, "finished_product_volume_ml": 30.0},
         ],
         jurisdiction="EU",
         product_category="Cat4",
         snapshot=snapshot,
     )
     assert "release gate's IFRA check counts its IFRA Annex I constituents" in tonka.detail
-    assert "its restricted constituents are not summed here." in pepper.detail
+    assert "its restricted constituents are not summed here." in spike.detail
 
 
 def test_optimizer_repairs_a_natural_driven_constituent_total():

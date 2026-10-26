@@ -159,7 +159,8 @@ def test_cocoa_stock_row_evaporates_constituent_by_constituent() -> None:
 
 def test_registered_stock_and_unknown_rows_keep_current_results() -> None:
     geraniol = _row(_analyze("Geraniol 10%", 60.0, 0.1), "Geraniol 10%")
-    assert geraniol.sources.get("odt") == "registry:data_spine.odt_air_ppb"
+    # Geraniol's air threshold is a checked literature value (2026-10-25 batch).
+    assert geraniol.sources.get("odt") == "literature:peer_reviewed.odt_air"
     unknown = _row(_analyze("Foo 10%", 60.0, 0.1), "Foo 10%")
     assert unknown.oav is None
     assert unknown.sources.get("odt") == "missing"

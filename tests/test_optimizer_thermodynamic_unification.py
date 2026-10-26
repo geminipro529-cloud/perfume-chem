@@ -365,14 +365,16 @@ def test_composite_oav_temperature_corrects_constituent_vp(monkeypatch):
 
 
 def test_formula_state_temperature_corrects_vp_with_material_specific_estimate():
+    # Two materials with no measured dHvap (D-Limonene has NIST's 48.9 kJ/mol since the
+    # 2026-10-25 literature batch, so it no longer takes the correlation).
     build_formula_state.cache_clear()
     at_25c = build_formula_state(
-        {"D-Limonene": 50.0, "Vanillin": 50.0},
+        {"Dihydromyrcenol": 50.0, "Vanillin": 50.0},
         temperature_K=298.15,
     )
     build_formula_state.cache_clear()
     at_32c = build_formula_state(
-        {"D-Limonene": 50.0, "Vanillin": 50.0},
+        {"Dihydromyrcenol": 50.0, "Vanillin": 50.0},
         temperature_K=305.15,
     )
     rows_25 = {row.name: row for row in at_25c.materials}
@@ -396,7 +398,7 @@ def test_formula_state_temperature_corrects_vp_with_material_specific_estimate()
         )
 
     limonene_factor = (
-        rows_32["D-Limonene"].vp_pure_pa / rows_25["D-Limonene"].vp_pure_pa
+        rows_32["Dihydromyrcenol"].vp_pure_pa / rows_25["Dihydromyrcenol"].vp_pure_pa
     )
     vanillin_factor = (
         rows_32["Vanillin"].vp_pure_pa / rows_25["Vanillin"].vp_pure_pa
@@ -407,7 +409,7 @@ def test_formula_state_temperature_corrects_vp_with_material_specific_estimate()
 def test_vp_gate_exposes_inferred_temperature_authority():
     build_formula_state.cache_clear()
     state = build_formula_state(
-        {"D-Limonene": 50.0, "Vanillin": 50.0},
+        {"Dihydromyrcenol": 50.0, "Vanillin": 50.0},
         temperature_K=305.15,
     )
 
@@ -418,7 +420,7 @@ def test_vp_gate_exposes_inferred_temperature_authority():
 
     assert gate.status == "WARN"
     assert gate.data["inferred_dhvap_materials"] == [
-        "D-Limonene",
+        "Dihydromyrcenol",
         "Vanillin",
     ]
     assert gate.data["temperature_models"] == {

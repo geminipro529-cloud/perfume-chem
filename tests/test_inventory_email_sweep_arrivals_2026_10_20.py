@@ -102,13 +102,15 @@ def test_the_statements_are_on_record(records):
         ("Velvione", "37609-25-9", 236.40, "ECHA_measured_20C_not_corrected"),
         ("Canthoxal", "5462-06-6", 178.23, "ECHA_measured_24C_not_corrected"),
         ("Phenoxy Ethyl Isobutyrate", "103-60-6", 208.26, "ECHA_measured"),
-        ("Dimethyl Benzyl Carbinol", "100-86-7", 150.22, "EPI"),
+        ("Dimethyl Benzyl Carbinol", "100-86-7", 150.22, "producer_20C_converted"),
     ),
 )
 def test_researched_identity_and_physics_are_loaded(name, cas, mw, vp_source):
     # Kenny chose "Load all" on 21 Oct 2026 for /mnt/project-files/missing-data-20261021;
     # the PC lookups there (PC_LOOKUPS_RESULTS.md) replaced estimates with ECHA measured
     # vapour pressures where they agree, and kept the estimate where ECHA is disputed.
+    # The 2026-10-25 literature batch replaced DMBC's estimate with the FMA figure RIFM
+    # quotes (0.04 mm Hg at 20 C, converted to 25 C); ECHA's disputed 100 Pa stays out.
     material = resolve_material(name).registry_material
     assert (material.cas, material.mw_g_mol) == (cas, mw)
     assert material.density_25c_g_ml is not None
@@ -124,7 +126,7 @@ def test_researched_identity_and_physics_are_loaded(name, cas, mw, vp_source):
         ("Phenoxy Ethyl Isobutyrate", 1.05, 0.77),
         ("Dupical", 1.008, 0.11),
         ("Cyclogalbanate", 1.02, 0.4),
-        ("Dimethyl Benzyl Carbinol", 0.979, 3.94),
+        ("Dimethyl Benzyl Carbinol", 0.979, 8.17),
         ("Pear Valerate", 0.8564, 13.9),
     ),
 )

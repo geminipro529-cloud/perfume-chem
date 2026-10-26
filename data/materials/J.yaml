@@ -230,12 +230,12 @@
   - floral
   - jasmine
   - absolute
-  character: Rich sweet heavy narcotic fruity-floral jasmine tea absolute with warm
-    velvety body.
+  character: 'Floral, sweet, fruity, animalic.'
   notes: Natural extract / proprietary perfume compound; treat as mixture rather than
     a single-molecule record. Supplier typical use 0.07 to 5.7%; fine-fragrance IFRA
     class 4 max 37.63%.
   provenance:
+    character: 'JASMINE EGYPT ABS | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/jasmine-egypt-abs-pe-952155: Botanical Jasminum grandiflorum CAS# 0008022-96-6 ... Olfactive family Floral ... Technical Descriptors Jasmine Olfactive description Floral, sweet, fruity, animalic. (grade A_producer; producer description (dsm-firmenich JASMINE EGYPT ABS 952155, Jasminum grandiflorum)). Replaces unsourced text ''Rich sweet heavy narcotic fruity-floral jasmine tea absolute with warm velvety body.''. Second reader: Same species as Kenny''s stock (Jasminum grandiflorum, inventory line 107); the text describes the neat absolute, the stock is 10% in DPG. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: perfumersworld:8JN00254
     ifra_max_pct_edp: perfumersworld:IFRA_8JN00254
     odt_air_ppb: engine.odor_thresholds
@@ -466,9 +466,10 @@
         sku: 5JN08327
         price_usd_per_g: 1.2
   families: []
-  character: null
+  character: 'Jasmine sambac has an intriguing floral green bouquet. Compared to Jasmine grandiflorum, it has an intense floral note with more anthranilate compound, giving orange blossom nuances to the jasmine scent found in Jasmine grandiflorum.'
   notes: null
   provenance:
+    character: 'Jasmine Sambac Absolute India | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/jasmine-sambac-absolute-india: FLORAL | Fruity, Jasmine-like, Green, Floral ... Jasmine sambac has an intriguing floral green bouquet. Compared to Jasmine grandiflorum , it has an intense floral note with more anthranilate compound, giving orange blossom nuances to the jasmine scent found in Jasmine grandiflorum . (grade A_producer; producer description (Givaudan Jasmine Sambac Absolute India)). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.951 to 0.969; https://pentachem.com/products/jasmine-sambac-india-absolute; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Jasmine Sambac Blossoms
@@ -541,9 +542,10 @@
     other: {}
   families:
   - woods / amber / structure
-  character: null
+  character: 'It has a rich, natural, creamy sandalwood note like beta santanol combined with some rosy nuances.'
   notes: null
   provenance:
+    character: 'Javanol™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/javanol: Javanol™ is the latest generation of sandalwood molecule with unprecedented power and substantivity. It has a rich, natural, creamy sandalwood note like beta santanol combined with some rosy nuances. (grade A_producer; ). Second reader: CAS 198404-98-7 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -732,11 +734,11 @@
   inchikey: null
   mw_g_mol: 214.3
   density_25c_g_ml: 0.966
-  logp: 2.8
+  logp: 2.6
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.5
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.466
+  vp_source: producer_23C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -748,7 +750,11 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  character: 'A good jasmin note, extremely rich and stable.'
   provenance:
+    logp: 'Jessemal® | Fragrance Ingredients | IFF (ingredients compendium page) (https://www.iff.com/scent/ingredients-compendium/jessemal): ''Log P: 2.6''; printed Log P: 2.6; producer figure, method not stated; grade A_producer. Second reader: Producer figure; method and temperature not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'Jessemal® | Fragrance Ingredients | IFF (ingredients compendium page) (https://www.iff.com/scent/ingredients-compendium/jessemal): ''Vapor Pressure: 0.002867 mm Hg @ 23 C Log P: 2.6 IPC Number: 102563 CAS Number: 38285-49-3 Chemical Formula: C12H22O3''; printed 0.002867 mm Hg @ 23 C; producer figure, method not stated; grade A_producer. Converted from 0.3822 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 72.9 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: 0.002867 x 133.322 = 0.3822 Pa at 23 C. Producer figure; method not stated (four significant figures suggest a converted or computed number). WebFetch failed on this site; read with Parallel. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Jessemal® | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/jessemal: tetrahydro-3-pentyl-2H-pyran-4-yl acetate Olfactive Description: A good jasmin note, extremely rich and stable. (grade A_producer; ). Second reader: Page is IFF Jessemal; the ''(jasmonyl)'' alias in the identity is not on the page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC: CAS Number: 38285-49-3 (https://www.thegoodscentscompany.com/data/rw1028961.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.96500 to 0.97300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1028961.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
 - canonical_name: juniper berry eo
@@ -775,7 +781,11 @@
   trp_targets: null
   user_stock_dilution: 100.0
   user_in_inventory: true
+  odour_family: 'spice'
+  character: 'Juniper berry essential oil is a fresh, spicy, aromatic and woody natural ingredient.'
   provenance:
+    character: 'Juniper Berry Oil Albania | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/juniper-berry-oil-albania: SPICY | Spicy, Woody, Terpenic ... Juniper berry essential oil is a fresh, spicy, aromatic and woody natural ingredient. (grade A_producer; producer description (Givaudan Juniper Berry Oil Albania)). Second reader: Generic inventory ''Juniper Berry EO''; the page is juniper berry EO (Albania). Page CAS 8002-68-4 differs from the inventory CAS 8012-91-7, but both are juniper (berry) oil numbers. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "spice" from ''Spicy'': Juniper Berry Oil Albania | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/juniper-berry-oil-albania: SPICY | Spicy, Woody, Terpenic (grade A_producer; producer classification (Givaudan; descriptors ''Spicy, Woody, Terpenic'')). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'SG 0.8640, supplier-reported (PerfumersWorld 7KH00262 "Juniper Berry Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU; also: 22 Oct 2026 missing-data pass: stated; raw 0.8640; https://www.perfumersworld.com/view.php?pro_id=7KH00262; temperature as printed by source (often 20 C), not corrected to 25 C'
     density_basis: supplier_sg_temperature_unstated
     cas: '23 Oct 2026 second missing-data pass: stated; raw 8012-91-7; https://www.perfumersworld.com/view.php?pro_id=7KH00262'

@@ -53,9 +53,10 @@ def test_a_diluted_stock_name_is_flagged_as_its_base():
 
 
 def test_a_base_never_lowers_a_hold_or_a_fail():
-    held = _gate({"Evernyl": 240.0, "Vertofix": 20.0, "Castoreum Synthetic": 10.0})
+    # Orange Flower Absolute stays unrecognised by Kenny's decision ("Keep the hold").
+    held = _gate({"Evernyl": 240.0, "Orange Flower Absolute": 20.0, "Castoreum Synthetic": 10.0})
     assert held.status == "HOLD"
-    assert "Vertofix" in held.detail and "Castoreum Synthetic" in held.detail
+    assert "Orange Flower Absolute" in held.detail and "Castoreum Synthetic" in held.detail
 
     failed = _gate({"Hydroxycitronellal": 2000.0, "Castoreum Synthetic": 10.0})
     assert failed.status == "FAIL"
@@ -66,7 +67,7 @@ def test_a_base_never_lowers_a_hold_or_a_fail():
     "ingredients",
     [
         {"Evernyl": 240.0},
-        {"Evernyl": 240.0, "Vertofix": 20.0},
+        {"Evernyl": 240.0, "Orange Flower Absolute": 20.0},
         {"Hydroxycitronellal": 2000.0},
         {"Hydroxycitronellal": 450.0, "Evernyl": 240.0},
     ],

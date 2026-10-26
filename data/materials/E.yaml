@@ -310,12 +310,12 @@
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 130.18)
   mw_g_mol: 130.18
   density_25c_g_ml: 0.864
-  logp:
+  logp: 2.26
   functional_groups: []
   chirality:
   # 2026-10-08: was 5.0 (unsourced profile sync; about 200x low); replaced with RIFM's quoted EPI Suite estimate
-  vp_25c_pa: 1070.0
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1010.0
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -346,8 +346,9 @@
   character: 'very diffusive fruity; green, apple, pineapple skin'
   notes:
   provenance:
+    logp: 'ESTIMATE (EPI Suite estimate as printed by RIFM): RIFM fragrance ingredient safety assessment, ethyl 2-methylbutyrate, CAS 7452-79-1 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/7452-79-1.pdf): ''Log KOW: 2.26 (US EPA, 2012a)''; printed 2.26 (US EPA, 2012a); EPI Suite estimate as printed by RIFM; grade EST. Second reader: CAS 7452-79-1. US EPA 2012a is EPI Suite in RIFM papers; grade EST is correct. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Givaudan Ethyl Methyl-2-Butyrate page (CAS 7452-79-1), https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-methyl-2-butyrate: "a very diffusive fruity effect"; "Fruity, Green, Apple, Pineapple skin, Diffusive". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl 2-methylbutyrate, CAS 7452-79-1 (Api et al., Food Chem. Toxicol. 2018, doi:10.1016/j.fct.2018.11.033): "8.03 mm Hg @ 25 C (US EPA, 2012a)"; appendix "Vapor Pressure (Pa @ 25 C, EPI Suite) 1.07E+003". Estimate, not measured. ChemicalBook lists 11.73 hPa at 20 C (method not stated); Verevkin et al. 1992 (Thermochim. Acta 197:27) measured vapour pressures at 288-308 K but were not read.'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl 2-methylbutyrate, CAS 7452-79-1 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/7452-79-1.pdf): ''Vapor Pressure: 5.9mm Hg @ 20 C (US EPA, 2012a), 5.6mm Hg 20 C (FMA Database), 8.03mm Hg @ 25 C (US EPA, 2012a)''; printed 5.6 mm Hg at 20 C; 5.6 x 133.322 = 746.6 Pa; FMA Database value quoted by RIFM (method not stated); grade A_producer. Converted from 746.6 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 43.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: Ethyl 2-methylbutyrate, CAS 7452-79-1. Opened via WebFetch (Parallel fetch gave 403). 5.6 x 133.322 = 746.6 Pa at 20 C, matching the item''s method. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'Givaudan SA, US 12,340,876 B2 (2025), Table 1 (HS ug/l, odor value = HS / odour threshold), https://image-ppubs.uspto.gov/dirsearch-public/print/downloadPdf/12340876: "ethyl 2-methylbutanoate 59643 II 16577930"; 59643 / 16577930 = 3.598 ng/L x 24.45 / 130.18 = 0.676 ppb (producer measurement). Replaces an unsourced 0.06. Loaded 2026-10-25 (fruit batch)'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -427,9 +428,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Fruity, Apple, Green, Plum (Symrise''s odour words)'
+  odour_family: 'fruity'
   notes:
   provenance:
+    odour_family: 'odour family "fruity" from ''Fruity'': Symrise product sheet: Ethyl Acetoacetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Acetoacetate.pdf: family word printed with the name: "fruity ethyl acetoacetate" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Symrise product sheet: Ethyl Acetoacetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Acetoacetate.pdf: "› Fruity, Apple, Green, Plum › recommended use level: up to 5 %" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCOC(=O)CC(C)=O (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
     logp_source: 'rdkit-crippen-estimate'
@@ -569,7 +573,7 @@
   hsp:
   odt_air_ppb: 0.04
   odt_eth_ppm:
-  stevens_n:
+  stevens_n: 0.42
   or_targets: []
   trp_targets:
   hedonic_valence:
@@ -583,9 +587,13 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Fruity, Raspberry, Strawberry, Berries (Symrise''s odour words)'
+  odour_family: 'fruity'
   notes:
   provenance:
+    stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Ethyl butyrate (estery) 236.29 .42 .96, .65". Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
+    character: 'Symrise product sheet: Ethyl Butyrate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Butyrate.pdf: "› Fruity, Raspberry, Strawberry, Berries › recommended use level: 0.1 – 2 %" (grade A_producer; producer/primary text, quoted). Second reader: CAS 105-54-4 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "fruity" from ''Fruity'': Symrise product sheet: Ethyl Butyrate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Butyrate.pdf: family word printed with the name: "fruity Ethyl ButyratE" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: 'MEASURED log Kow 1.71: SangsterLogP via PubChem CID 7762 Experimental Properties > LogP (ref 75), citing Abraham MH, Chadha HS, Whiting GS, Mitchell RC, J Pharm Sci 1994;83(8):1085-1100, doi:10.1002/jps.2600830806. Read 2026-10-23 from https://pubchem.ncbi.nlm.nih.gov/rest/pug_view/data/compound/7762/JSON?heading=LogP; replaces the RDKit Crippen estimate'
     logp_source: 'SangsterLogP (PubChem CID 7762): Abraham et al. 1994, J Pharm Sci 83:1085-1100'
@@ -712,13 +720,13 @@
   inchikey:
   # 2026-10-08: was 182.3; corrected from the molecular formula
   mw_g_mol: 168.28
-  density_25c_g_ml: 0.858
-  logp:
+  density_25c_g_ml: 0.866
+  logp: 3.3
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 0.08)
-  vp_25c_pa: 0.08
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 4.16
+  vp_source: producer_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -740,9 +748,12 @@
     other: {}
   families:
   - citrus / top
-  character:
+  character: 'Ethyl Linalool has a floral, fresh, bergamot character and is sweeter and less agrestic than Linalool.'
   notes:
   provenance:
+    logp: '2nd Update to RIFM fragrance ingredient safety assessment, 3,7-dimethyl-1,6-nonadien-3-ol, CAS 10339-55-6 (Food Chem Toxicol 2025, 115852) (https://www.sciencedirect.com/science/article/pii/S0278691525006209): ''Log KOW: 3.2 at 35 C (for cis isomer); 3.3 at 35 C (for trans isomer) (RIFM, 1997), 3.87 (EPI Suite v4.11)''; printed 3.2 at 35 C (cis isomer); 3.3 at 35 C (trans isomer) (RIFM, 1997); EPI 3.87; RIFM study (RIFM 1997), measured: 3.2 (cis) and 3.3 (trans) at 35 C; grade A_measured. Second reader: CAS 10339-55-6. Measured at 35 C; the item takes the trans-isomer value (3.3); cis is 3.2. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: '2nd Update to RIFM fragrance ingredient safety assessment, 3,7-dimethyl-1,6-nonadien-3-ol, CAS 10339-55-6 (Api et al., Food Chem Toxicol 206 Suppl 1 (2025) 115852) (https://www.sciencedirect.com/science/article/pii/S0278691525006209): ''Vapor Pressure: 0.02 mm Hg at 20 C (FMA), 0.0177 mm Hg (EPI Suite v4.11)''; printed 0.02 mm Hg at 20 C; 0.02 x 133.322 = 2.67 Pa; FMA value quoted by RIFM (method not stated); grade A_producer. Converted from 2.666 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 64.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: 2nd Update to RIFM safety assessment, 3,7-dimethyl-1,6-nonadien-3-ol, CAS 10339-55-6. Quote verbatim. 0.02 x 133.322 = 2.666 Pa at 20 C (item value 4.16 Pa is the 25 C conversion). FMA value, method... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'Ethyl Linalool | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-linalool: "Ethyl Linalool has a floral, fresh, bergamot character and is sweeter and less agrestic than Linalool. As with Linalool, it is used in a wide variety of notes for floral bouquets." Olfactive Note Floral Fresh (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: 'Molecular formula C11H20O for 3,7-dimethylnona-1,6-dien-3-ol, CAS 10339-55-6 (the CAS already cited from TGSC rw1015171); MW from IUPAC standard atomic weights = 168.28. The old 182.3 matched no formula for this CAS.'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -750,7 +761,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 10339-55-6 (https://www.thegoodscentscompany.com/data/rw1015171.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.85800 to 0.86300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015171.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: '2nd Update to RIFM fragrance ingredient safety assessment, 3,7-dimethyl-1,6-nonadien-3-ol, CAS 10339-55-6 (https://www.sciencedirect.com/science/article/pii/S0278691525006209): ''Specific Gravity: 0.866 (FMA)''; printed 0.866 (FMA); FMA (temperature not stated); grade A_producer. No temperature printed. Second reader: CAS 10339-55-6. No temperature printed; item states none, so consistent. Specific gravity, reference temperature unknown. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Ethyl Linalyl Acetate
   aliases: []
   cas: '61931-80-4'
@@ -758,7 +769,7 @@
   inchikey:
   mw_g_mol: 210.31
   density_25c_g_ml: 0.9
-  logp: 4.88
+  logp: 4.7
   functional_groups: []
   chirality:
   vp_25c_pa: 4.25
@@ -786,12 +797,14 @@
     other: {}
   families: []
   character:
+  odour_family: 'citrus'
   notes: 'Density left null (2026-10-08). VP is the RIFM-quoted EPI Suite estimate, "Vapor Pressure: 0.0319 mm Hg (EPI Suite v4.11)" = 4.25 Pa at 133.322 Pa/mmHg; the quote states no temperature, but EPI Suite reports vapour pressure at 25 C. Other values: Givaudan 0.0487 hPa = 4.87 Pa (20 C per Perfumer''s Apprentice); TGSC rw1022781 0.026 mmHg at 25 C (est) = 3.47 Pa. The values agree within 1.4x. Givaudan log Pow "4,7" (garbled scrape); TGSC logP 4.416 (est). Density 0.898-0.901 g/mL at 20 C (Ventos), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odour_family: 'odour family "citrus" from ''Citrus'': Ethyl Linalyl Acetate | Givaudan (print page), https://www.givaudan.com/print/1314291: Olfactive Family Citrus | Olfactive Note Citrus Bergamot Fruity Pear Fresh (grade A_producer; producer/primary text, quoted). Second reader: CAS 61931-80-4 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; PerfumersWorld SDS 3LC19147 (local snapshot, batch ETH19147/26280) (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Molecular Weight: 210.31 g/mol" (PerfumersWorld SDS gives 210.32) (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
-    logp: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Log K OW : 4.88 (EPI Suite v4.11)", estimate, not measured (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
+    logp: 'Ethyl Linalyl Acetate | Givaudan (producer page) (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-linalyl-acetate): ''Formula MW Log Pow Vapour pressure Boiling point ( C) CAS no. FEMA C13H22O2 210.3 4,7 0.0487 hPa - 61931-80-4 -''; printed Log Pow 4,7; producer figure, method not stated; grade A_producer. Second reader: CAS 61931-80-4 matches. No temperature or method printed for Log Pow. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; "Vapor Pressure: 0.0319 mm Hg (EPI Suite v4.11)", EPI Suite estimate (reported at 25 C), converted at 133.322 Pa/mm Hg; not measured (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
     density_25c_g_ml: '23 Oct 2026 third data pass: Berje Ethyl Linalyl Acetate "Specific Gravity: 0.8900 - 0.9100", midpoint, temperature not printed, https://berjeinc.com/products/ethyl-linalyl-acetate/'
 - canonical_name: Ethyl Maltol
@@ -805,17 +818,17 @@
   inchikey:
   mw_g_mol: 140.1
   density_25c_g_ml:
-  logp: 0.8
+  logp: 0.3
   functional_groups: []
   chirality:
   # VERIFIED: Profile VP from ingredient_intelligence, 2026-05-30 (was 0.001, corrected to 0.029)
-  vp_25c_pa: 0.029
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.01933
+  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0001
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.0059
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -843,12 +856,12 @@
   notes:
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'ESTIMATE (EPI Suite v4.11 estimate as printed by RIFM (no measured value in RIFM)): RIFM fragrance ingredient safety assessment, ethyl maltol, CAS 4940-11-8 (Food Chem Toxicol 201 (2025) 115424) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/4940-11-8.pdf): ''Vapor Pressure: "0.000145 mm Hg at 25 C" (EPI Suite v4.11)''; printed 0.000145 mm Hg at 25 C; 0.000145 x 133.322 = 0.0193 Pa; EPI Suite v4.11 estimate as printed by RIFM (no measured value in RIFM); grade EST. Second reader: Parallel fetch returned HTTP 404; read with WebFetch. Quote matches. EPI Suite v4.11 estimate, graded EST: correct. 0.000145 x 133.322 = 0.01933 Pa at 25 C. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Vapour-delivery psychophysics (detection). Replaces 0.3, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'ESTIMATE (EPI Suite v4.11 estimate as printed by RIFM): RIFM fragrance ingredient safety assessment, ethyl maltol, CAS 4940-11-8 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/4940-11-8.pdf): ''Log KOW: "0.3" (EPI Suite v4.11)''; printed 0.3 (EPI Suite v4.11); EPI Suite v4.11 estimate as printed by RIFM; grade EST. Second reader: Same document (ethyl maltol, CAS 4940-11-8), read via WebFetch. EPI estimate, graded EST: correct. No temperature printed (item temperature empty). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
@@ -903,7 +916,7 @@
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 166.2, corrected to 168.23)
   mw_g_mol: 194.27
   density_25c_g_ml:
-  logp: 2.5
+  logp: 4.2
   functional_groups: []
   chirality:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 3.5, corrected to 0.05)
@@ -939,16 +952,17 @@
         price_usd_per_g: 0.2
   families:
   - spice / aromatic
-  character:
+  character: 'Ethyl Safranate™ is a complex diffusive spicy rose note with apple cider and spicy aspects.'
   notes:
   provenance:
+    character: 'Ethyl Safranate™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-safranate: "Ethyl Safranate™ is a complex diffusive spicy rose note with apple cider and spicy aspects. This rich and versatile ingredient is used in a wide range of fragrance types, from floral through to fruity, particularly apple." Olfactive Note Floral Rose Fruity Apple Spicy (grade A_producer; producer/primary text, quoted). Second reader: Olfactive Note Floral Rose Fruity Apple Spicy on page; CAS 35044-59-8, 35044-57-6, 35044-58-7. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'Ethyl Safranate | Givaudan (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-safranate): ''C12H18O2 194 4,2 0.0933 hPa 229''; printed Log Pow 4,2; producer figure (Givaudan), method not stated; grade A_producer. Second reader: Givaudan Ethyl Safranate page, ethyl 2,6,6-trimethylcyclohexa-1,3-diene-1-carboxylate; CAS list includes stock CAS 35044-59-8. Log Pow 4,2, method not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -1035,9 +1049,10 @@
         price_usd_per_g: 0.07
   families:
   - sweet / gourmand / balsamic
-  character:
+  character: 'intense vanilla odour'
   notes:
   provenance:
+    character: 'Ethyl vanillin (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/776/: Physical form/odour: "colourless or slightly yellow crystal flakes with an intense vanilla odour" (grade A_regulatory; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'Supplier SDS value kept (engine/ingredient_intelligence._VERIFIED_VP, 2026-05-12 cross-check): Fisher Scientific SDS 0.00014 mmHg = 0.019 Pa (temperature not recorded); DirectPCW SDS 0.000220 mmHg at 25 C = 0.029 Pa. CONFLICT: PubChem CID 8467 HSDB (peer reviewed, citing Yaws, Handbook of Vapor Pressure Vol 3, 1994) "1.04X10-5 mm Hg at 25 °C" = 0.00139 Pa, 14x lower; TGSC estimate 0.00088 mmHg (0.117 Pa); Borregaard SDS 0.000013 Pa. Not replaced: the sources disagree by more than 10x and none of them is a primary measurement (via material-data-firecrawl/followup-20261008/F2_vapour_pressures.md)'
     kaw_eff: engine.diffusion_model
@@ -1057,11 +1072,11 @@
   inchikey:
   mw_g_mol: 270.4
   density_25c_g_ml: 1.0404
-  logp: 4.2
+  logp: 4.3
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.008
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0302
+  vp_source: measured_20C_converted  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 8.0e-05
@@ -1092,12 +1107,12 @@
   notes:
   provenance:
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'AICIS Evaluation statement EVA00038, Ethylene brassylate and zenolide (30 June 2022) (https://www.industrialchemicals.gov.au/sites/default/files/2022-06/EVA00038%20-%20Evaluation%20statement%20-%2030%20June%202022.pdf): ''Chemical Ethylene brassylate Zenolide ... Vapour Pressure 0.017 Pa at 20 C (exp.) 0.028 Pa at 25 C (exp.) ... log KOW 4.30 at 25 C (exp.) 3.65 at 20 C (exp.)''; printed 0.017 Pa at 20 C (exp.); experimental value from the REACH registration dossier, as compiled by AICIS; grade A_regulatory. Converted from 0.017 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 83.4 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: AICIS EVA00038; ethylene brassylate CAS 105-95-3. The table has two columns: 0.017 Pa at 20 C is ethylene brassylate; 0.028 Pa at 25 C belongs to ZENOLIDE (CAS 54982-83-1), not ethylene brassylate, although the... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'AICIS Evaluation statement EVA00038, Ethylene brassylate and zenolide (30 June 2022) (https://www.industrialchemicals.gov.au/sites/default/files/2022-06/EVA00038%20-%20Evaluation%20statement%20-%2030%20June%202022.pdf): ''log KOW 4.30 at 25 C (exp.) 3.65 at 20 C (exp.)''; printed log KOW 4.30 at 25 C (exp.); experimental value from the REACH dossier (via AICIS); grade A_regulatory. Second reader: CAS 105-95-3. 4.30 at 25 C is the ethylene brassylate column; 3.65 at 20 C is zenolide. Experimental, from REACH dossier via AICIS. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
     trp.TRPV1: engine.trigeminal
@@ -1270,7 +1285,7 @@
   hsp:
   odt_air_ppb:
   odt_eth_ppm:
-  stevens_n:
+  stevens_n: 0.46
   or_targets: []
   trp_targets:
     TRPM8: 0.0
@@ -1290,15 +1305,16 @@
     other: {}
   families:
   - spice / aromatic
-  character:
+  character: 'Aroma of cloves'
   notes:
   provenance:
+    character: 'Eugenol (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/1520: Physical form/odour: "Colourless to pale yellow liquid; Aroma of cloves" (grade A_regulatory; producer/primary text, quoted). Second reader: CAS 97-53-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 3314 (https://pubchem.ncbi.nlm.nih.gov/compound/3314#section=Vapor-Pressure): "0.0221 mm Hg at 25 °C", citing Van Roon A et al., Chemosphere 61:599-609 (2005); x 133.322 = 2.95 Pa.'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
-    stevens_n: engine.odor_thresholds
+    stevens_n: 'Moskowitz H.R., Dravnieks A., Klarman L.A., Odor intensity and pleasantness for a diverse set of odorants, Perception & Psychophysics 19(2) (1976) 122-128, https://link.springer.com/content/pdf/10.3758/BF03204218.pdf, Table 1 (S = k1 C^k2, S a derived magnitude estimate calibrated on butanol; ''All stimuli were presented to the observers by air dilution olfactometers''): "Eugenol (spicy cloves) 44.41 .46 .97,.47". Air-dilution exponent, measured. Liquid-dilution exponents are lower and are not used. Loaded 2026-10-25 (literature fill; source re-opened before loading).'
     logp: engine.skin_interaction
     trp.TRPM8: engine.trigeminal
     trp.TRPA1: engine.trigeminal
@@ -1357,8 +1373,8 @@
   logp: 2.8
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.0013
-  vp_source: 'TGSC_est'
+  vp_25c_pa: 0.00227
+  vp_source: measured_24C_converted
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0005
@@ -1398,7 +1414,7 @@
     current_working_stock: data/governance/inventory_user_authority_overlay_20260915_evernyl_10w_w_dpg.json
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '22 Oct 2026 missing-data pass: stated; raw 4707-47-5; https://www.hekserij.nl/wp-content/uploads/2025/11/1Doc-23081-Evernyl-Giv-2025-11.pdf'
-    vp_25c_pa: '23 Oct 2026 third data pass: TGSC veramoss (IFF) / evernyl (Givaudan), CAS 4707-47-5: "Vapor Pressure: 0.000010 mmHg @ 25.00 C. (est)" = 0.0013 Pa (estimate; a solid, "Melting Point: 143.00 C"), https://www.thegoodscentscompany.com/data/rw1023372.html; replaces the placeholder 0.1 Pa'
+    vp_25c_pa: 'ECHA registration dossier, methyl 2,4-dihydroxy-3,6-dimethylbenzoate (EC 225-193-0, CAS 4707-47-5; tested as Veramoss), Vapour pressure (https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.022.902/4/7): ''The vapour pressure of the Veramoss was investigated using the Transpiration method equivalent to OECD TG 104, gas saturation method. The vapour pressure of the substance was found to be 0.002 Pa at 24 C.''; printed 0.002 Pa at 24 C; transpiration / gas saturation method, equivalent to OECD TG 104, triplicate, non-GLP; grade A_measured. Converted from 0.002 Pa at 24 C to 25 C by Clausius-Clapeyron with dHvap 93.3 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Quote verbatim (conclusions/executive summary). Test item named Veramoss (= methyl atrarate, same CAS as Evernyl). The record field reads ''dynamic method'' while the text says transpiration/gas saturation; triplicate... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
 - canonical_name: Exaltolide
   aliases:

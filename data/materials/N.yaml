@@ -429,7 +429,7 @@
   smiles: C\C(C)=C\CCC(C)=CCO
   inchikey: GLZPCOQZEFWAFX-YFHOEESVSA-N
   mw_g_mol: 154.25
-  density_25c_g_ml: 0.876
+  density_25c_g_ml: 0.88
   logp: 2.7
   functional_groups:
   - alcohol
@@ -458,9 +458,10 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'Sweet, fresh citrus-rose, geranium, citral, verbena, ozone, pear note.'
   notes: null
   provenance:
+    character: 'Nerol 900 | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/nerol-900/: 3,7-Dimethylocta-2,6-dien-1-ol Olfactive Description: Sweet, fresh citrus-rose, geranium, citral, verbena, ozone, pear note. (grade A_producer; ). Second reader: IFF ''Nerol 900'' grade, CAS 106-25-2; Kenny''s Nerol grade not recorded. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -468,7 +469,7 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.87500 to 0.88300 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1008952.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'RIFM safety assessment, nerol (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-25-2.pdf): ''6. Specific Gravity: 0.88 g/mL (RIFM, 1994), 0.877 (FMA)''; printed ; temperature not printed; JECFA 0.875-0.880; grade A_measured. No temperature printed. Second reader: 0.88 is on the page for nerol, but the page prints no temperature, and the item''s source_field is density_25c_g_ml. File it as density_unspecified_t. The FMA 0.877 is also on the page. The JECFA range in the method... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, nerol, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-25-2.pdf: "Log KOW: 2.7 (RIFM, 1999b), 3.47 (EPI Suite)"; measured 2.7 used; replaces the unsourced 2.9'
 - canonical_name: Neroli EO
   aliases:
@@ -633,9 +634,9 @@
   cas: 7212-44-4
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 222.37
   density_25c_g_ml: 0.873
-  logp: null
+  logp: 4.8
   functional_groups: []
   chirality: null
   vp_25c_pa: null
@@ -663,6 +664,8 @@
   character: null
   notes: null
   provenance:
+    mw_g_mol: 'Addendum to Fragrance material review on Nerolidol (isomer unspecified), Food Chem Toxicol (2010) (RIFM) (https://www.sciencedirect.com/science/article/abs/pii/S0278691509005249): ''1.5. Molecular weight: 222.37''; printed ; NIST WebBook formula weight 222.3663; grade A_regulatory. Second reader: RIFM FMR addendum, nerolidol (isomer unspecified). 222.37 confirmed; the NIST 222.3663 in the method is not on this page but agrees (C15H26O = 222.37). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    logp: 'RIFM fragrance ingredient safety assessment, nerolidol (isomer unspecified), FCT 183 (2024) 114290, Physical data (https://doi.org/10.1016/j.fct.2023.114290): ''Log K OW : 4.8 at 35 C (RIFM, 1997), 5.0 at 35 C (RIFM, 1997), 5.68 (EPI Suite v4.11)''; printed ; RIFM 1997 study (two values 4.8 and 5.0 at 35 C); EPI Suite 5.68; grade A_measured. Second reader: Page identity: ScienceDirect, RIFM nerolidol (isomer unspecified), CAS 7212-44-4 (also tabulates trans 40716-66-3 and cis 142-50-7, which carry only EPI 5.68). Quote verbatim. Measured at 35 C, not 25 C; the same... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.870 to 0.876; https://www.thegoodscentscompany.com/data/rw1009032.html; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 7212-44-4; https://www.perfumersworld.com/view.php?pro_id=3LM00319'
@@ -707,9 +710,10 @@
         price_usd_per_g: 0.07
   families:
   - floral materials
-  character: null
+  character: 'suggestive of orange blossom'
   notes: null
   provenance:
+    character: '2-Ethoxynaphthalene | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/2-Ethoxynaphthalene: White crystalline material, aroma suggestive of orange blossom (grade A_regulatory; ). Second reader: Nerolin Bromelia = 2-ethoxynaphthalene (beta-naphthyl ethyl ether), CAS 93-18-5. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
@@ -763,16 +767,16 @@
   inchikey: null
   mw_g_mol: 196.29
   density_25c_g_ml: 0.9095
-  logp: 3.98
+  logp: 4.2
   functional_groups: []
   chirality: null
-  vp_25c_pa: 3.33
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 6.17
+  vp_source: producer_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 38.88
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -788,16 +792,20 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Elegant note of pear with fresh rose nuance and a slight watery facet.'
+  odour_family: 'floral'
   notes: null
   provenance:
+    odt_air_ppb: 'ESTIMATE (Givaudan PROC/headspace route): Givaudan PROC estimate 31.8-47.5 ppb; geometric midpoint 38.9. The van Gemert value (2,491-3,114 ppb) is a recognition threshold, an upper bound only, and is not used. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: 'NERYL ACETATE PURE RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/neryl-acetate-pure-rc-pe-901808: Olfactive description Elegant note of pear with fresh rose nuance and a slight watery facet. (grade A_producer; ). Second reader: CAS 141-12-8 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "floral" from ''Floral (dsm-firmenich: Olfactive family Floral, Technical Descriptors Rose, Pear; Takasago: FLORAL)'': NERYL ACETATE PURE RC | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/neryl-acetate-pure-rc-pe-901808: Olfactive family Floral ... Technical Descriptors Rose, Pear (grade A_producer; ). Second reader: Takasago part of the value was not checked (not the cited URL). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: '22 Oct 2026 missing-data pass: stated; raw 3.98; https://www.perflavory.com/docs/doc1033552.html'
+    logp: 'RIFM fragrance ingredient safety assessment, geranyl acetate, CAS registry number 105-87-3, Food Chem Toxicol (2024) 114971 (neryl acetate 141-12-8 assessed alongside; ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2024.114971): ''Log K OW : 4.8 at 35 C (EPI Suite v4.11), cis isomer log Pow = 4.2; trans isomer log P''; printed ; RIFM 2024 cites "cis isomer log Pow = 4.2" (source reference cut off in the extract); "4.8 at 35 C (EPI Suite v4.11)" printed as-is; grade A_regulatory. Second reader: Page is the RIFM geranyl acetate assessment (FCT 2024, 114971) with a neryl acetate column; neryl acetate is the cis isomer. The page snippet stops at ''trans isomer log P'', so no source, method or temperature is... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     smiles: 'PubChem structure resolved from CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES CC(=O)OC/C=C(/C)CCC=C(C)C (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; also: 22 Oct 2026 missing-data pass: stated; raw 196.29; https://www.perflavory.com/docs/doc1033552.html'
     cas: 'PubChem record for CAS 141-12-8 by D:\agent-cache\tools\chemprops.py, run 2026-10-23; also: 22 Oct 2026 missing-data pass: stated; raw 141-12-8; https://www.perflavory.com/docs/doc1033552.html'
     density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.905 to 0.914; https://thegoodscentscompany.com/data/rw1033552.html; temperature as printed by source (often 20 C), not corrected to 25 C'
-    vp_25c_pa: '23 Oct 2026 second missing-data pass: stated; raw 3.33; https://www.scentree.co/en/Neryl_acetate.html'
+    vp_25c_pa: 'Takasago International, Neryl Acetate technical data sheet (40_Neryl Acetate.pdf, 2022-02) (https://assets.takasago.com/prod/default/s3fs-public/2022-02/40_Neryl%20Acetate.pdf): ''Vapor Pressure ... 6.170 Pa at 25ºC''; printed 6.170 Pa at 25 C; producer TDS; method not stated; grade A_producer. Second reader: Read via Parallel web_fetch. CAS 141-12-8 matches neryl acetate. The label/value columns are split in the PDF text, but the value carries its own unit and temperature, so the assignment is safe. Method not stated... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: NEW MOWN HAY F-TEC
   aliases: []
   cas: null
@@ -1317,9 +1325,12 @@
   user_in_inventory: false
   supplier: null
   families: []
-  character: null
+  character: 'Spicy, rising, hot, peppery, woody'
+  odour_family: 'spice'
   notes: null
   provenance:
+    character: 'Nutmeg oil - Robertet Groupe, https://matieres-premieres.robertet.com/nutmeg-oil: Nutmeg oil Code 00021270 Botanical name Myristica fragrans ... Olfactive Family Spicy Part used Dried fruit Origin Indonesia ... Process Steam distillation Olfactive description Spicy, rising, hot, peppery, woody (grade A_producer; producer description (Robertet raw-materials catalogue, Nutmeg oil code 00021270, Myristica fragrans dried fruit, Indonesia, steam distillation); Kenny''s oil is also Indonesian (Aroma&More), but not necessarily Robertet''s). Second reader: Generic inventory ''Nutmeg EO''; CAS 8008-45-5 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odour_family: 'odour family "spice" from ''Spicy'': Nutmeg Oil Indonesia | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/nutmeg-oil-indonesia: SPICY | Spicy, Green (grade A_producer; producer classification (Givaudan Nutmeg Oil Indonesia; descriptors ''Spicy, Green'')). Second reader: Same origin as Kenny''s stock (Indonesia oil per inventory). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
@@ -1453,7 +1464,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.002
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.007184
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1470,12 +1481,13 @@
     other: {}
   families:
   - floral materials
-  character: null
+  character: 'Nympheal™ is a diffusive floral cyclamen muguet note with green, watery and linden blossom facets.'
   notes: null
   provenance:
+    character: 'Nympheal™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/nympheal: Nympheal™ is a diffusive floral cyclamen muguet note with green, watery and linden blossom facets. Nympheal™ imparts white floral watery density and brings a floral creaminess to the composition and high diffusivity. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Givaudan SDS for the commercial material; the Givaudan discovery article gives 0.0025 ppb (2.9x lower). Replaces 2.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     hedonic_valence: engine.hedonic_model
@@ -1562,6 +1574,8 @@
   trp_targets: null
   user_stock_dilution: neat  # user-confirmed 2026-09-06; 10% alias is historical identity only
   user_in_inventory: true
+  odour_family: 'floral'
   provenance:
+    odour_family: 'odour family "floral" from ''Floral'': Neroli Oil Egypt | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/neroli-oil-egypt: FLORAL | Fresh, Floral, Animal-like ... Capturing the essence of orange blossom in its most authentic form, neroli essential oil is one of the freshest and softest expressions of orange blossom on the perfumer’s palette. Greener, lighter and less opulent than orange blossom absolute (grade A_producer; producer classification (Givaudan Neroli Oil Egypt; descriptors ''Fresh, Floral, Animal-like'')). Second reader: Origin of stocked Neroli EO not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'SG 0.8600, supplier-reported (PerfumersWorld 7CN00318 "Neroli Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
     density_basis: supplier_sg_temperature_unstated

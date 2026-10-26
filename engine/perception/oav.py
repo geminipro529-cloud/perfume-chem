@@ -49,10 +49,28 @@ def oav(conc_ppm: float, odt_air_ppm: float) -> float:
 
 
 def perceived_intensity_stevens(oav_value: float, family: str | None = None,
-                                k: float = 1.0) -> float:
+                                k: float = 1.0, exponent: float | None = None) -> float:
+    """k * OAV^n, with a material's own measured ``exponent`` before the family value."""
     if oav_value <= 0:
         return 0.0
-    return k * (oav_value ** stevens_exponent(family))
+    n = exponent if exponent is not None else stevens_exponent(family)
+    return k * (oav_value ** n)
+
+
+def sourced_stevens_n(registry_material) -> float | None:
+    """A data-spine record's own Stevens exponent, if it was loaded from a source.
+
+    Older records carry an exponent copied from the threshold table with no source
+    (provenance "engine.odor_thresholds"); those are not used.
+    """
+    value = getattr(registry_material, "stevens_n", None)
+    if value is None:
+        return None
+    provenance = getattr(registry_material, "provenance", None) or {}
+    source = str(provenance.get("stevens_n") or "").strip()
+    if not source or source == "engine.odor_thresholds":
+        return None
+    return float(value)
 
 
 def perceived_intensity_weber(oav_value: float, k: float = 1.0) -> float:

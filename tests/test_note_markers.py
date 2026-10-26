@@ -60,13 +60,17 @@ def test_a_natural_with_no_single_impact_compound_stays_held(name, key, vapour) 
 
 
 def test_an_uncited_threshold_gives_no_reading(monkeypatch: pytest.MonkeyPatch) -> None:
-    # The spine's citral air threshold has no source, so it cannot carry a verdict.
-    assert nm.cited_air_odt_ppb("citral") is None
-    # Linalool is declared PEER_CROSS, but verify_odt downgrades it: the effective level rules.
-    from engine.odor_thresholds import verify_odt
+    # Iso E Super is declared PEER_EST, but its ethanol value conflicts with the runtime
+    # one, so verify_odt downgrades it: the effective level rules.
+    from engine.odor_thresholds import ODT_VERIFICATION, verify_odt
 
-    assert verify_odt("linalool")["declared_vfy"] == "PEER_CROSS"
-    assert nm.cited_air_odt_ppb("linalool") is None
+    assert verify_odt("iso e super")["declared_vfy"] == "PEER_EST"
+    assert verify_odt("iso e super")["vfy"] == "UNVERIFIED"
+    assert nm.cited_air_odt_ppb("iso e super") is None
+    # A threshold with no source cannot carry a verdict. Citral's own is cited since the
+    # 2026-10-25 literature batch, so its evidence is blanked for this check.
+    monkeypatch.setitem(ODT_VERIFICATION, "citral", {"vfy": "UNVERIFIED", "sources": []})
+    assert nm.cited_air_odt_ppb("citral") is None
     monkeypatch.setitem(nm.NOTE_MARKERS, "test lemon", (nm.Marker("citral", "citral", "-"),))
     row = _Natural("Lemon EO", "test lemon", {"citral": 1e3})
     assert nm.marker_readings(row) == []
