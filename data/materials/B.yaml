@@ -1476,17 +1476,21 @@
     vp_25c_pa: 'Givaudan SDS, BERRYFLOR (sales no. 5206903), version 11.0, revised 15 AUG 2025 (hosted by aromology.com) (https://aromology.com/cdn/shop/files/SDS-Berryflor-_Givaudan_-_Floral_Raspberry.pdf?v=14296763192571299935): ''Vapour pressure : 0,015 hPa at 20 C Method: OECD Test Guideline 104 0,15 hPa at 50 C Method: OECD Test Guideline 104''; printed 0,015 hPa at 20 C; producer SDS, OECD 104; grade A_producer. Converted from 1.5 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 66.7 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Givaudan SDS sales no. 5206903, ETHYL 6-ACETOXYHEXANOATE, CAS 104986-28-9 (= stock CAS). 0.015 hPa x 100 = 1.5 Pa at 20 C, measured (OECD 104). The page also gives 0.15 hPa (15 Pa) at 50 C; a two-point... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     smiles: 'PubChem CID 113640 structure for CAS 104986-28-9 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
 - canonical_name: Beta Caryophyllene
-  aliases: []
-  cas: null
+  aliases:
+  - Beta-Caryophyllene
+  - beta-caryophyllene
+  - (E)-Caryophyllene
+  - Caryophyllene
+  cas: 87-44-5
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 204.35
+  density_25c_g_ml: 0.91
+  logp: 6.23
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.513
+  vp_source: 'producer_20C_converted'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1511,6 +1515,12 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'RIFM fragrance ingredient safety assessment, beta-caryophyllene, CAS Registry Number 87-44-5 (Api et al., Food Chem Toxicol 159 (2022) 112707) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/87-44-5.pdf): ''CAS Registry Number: 87-44-5''; Chemical Name beta-Caryophyllene. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment, beta-caryophyllene, CAS Registry Number 87-44-5 (Api et al., Food Chem Toxicol 159 (2022) 112707) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/87-44-5.pdf): ''Molecular Weight: 204.35'' (C15H24). Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, beta-caryophyllene, CAS Registry Number 87-44-5 (Api et al., Food Chem Toxicol 159 (2022) 112707) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/87-44-5.pdf): ''Specific Gravity: 0.910 (FMA)''; FMA value quoted by RIFM; grade A_producer. No temperature printed. BASF and Axxence SDS print 0.89-0.91 and 0.90 g/cm3 at 20 C. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    logp: 'RIFM fragrance ingredient safety assessment, beta-caryophyllene, CAS Registry Number 87-44-5 (Api et al., Food Chem Toxicol 159 (2022) 112707) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/87-44-5.pdf): ''Log KOW: 6.3 (EPI Suite), 6.23 +/- 0.15 at 25 +/- 1 C (RIFM, 2017c)''; measured, RIFM report 72683 (Symrise, caryophyllene nat. rect.). Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, beta-caryophyllene, CAS Registry Number 87-44-5 (Api et al., Food Chem Toxicol 159 (2022) 112707) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/87-44-5.pdf): ''Vapor Pressure: 0.02 mm Hg at 20 C (EPI Suite v4.0), 0.007 mm Hg at 20 C (FMA), 0.0312 mm Hg at 25 C (EPI Suite)''; printed 0.007 mm Hg at 20 C (FMA); FMA value quoted by RIFM; grade A_producer. Converted from 0.9333 Pa at 20 C to 25 C by Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol from the engine''s correlation (doi:10.1021/es980812j) = 1.513 Pa. CONFLICT RECORDED, NOT USED: producer safety data sheets for technical natural grades print 0.06 hPa at 20 C and 0.45 hPa at 50 C (BASF Isobionics Natural beta-Caryophyllene 80 SDS rev. 27.04.2026, ''measured''; Axxence natural beta-caryophyllene 225210 SDS rev. 03.09.2026), and RIFM''s structure card in the O-acetyleugenol assessment (8000-34-8) prints 0.06, 0.09 and 0.45 hPa at 20, 25 and 50 C (0.09 hPa = 9 Pa at 25 C). That is 6x the FMA figure. Reasoning, not a source: the engine models this molecule alone, and a total pressure measured on an 80-89 % natural grade includes its volatile impurities (1 mol % alpha-pinene at roughly 600 Pa would add about 6 Pa by itself), so the lower FMA figure is kept; the natural profiles that hold a caryophyllene row already use 1.0-1.5 Pa. Reopen if a measured value on the pure compound is found. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    vp_source: 'same source as vp_25c_pa (27 Oct 2026 incoming-bottle pass)'
 - canonical_name: Beta Damascone
   aliases:
   - beta damascone

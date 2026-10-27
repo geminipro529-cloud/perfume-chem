@@ -2961,16 +2961,16 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cinnamyl Acetate
   aliases: []
-  cas: null
+  cas: 103-54-8
   smiles: null
   inchikey: null
-  mw_g_mol: null
-  density_25c_g_ml: null
-  logp: null
+  mw_g_mol: 176.21
+  density_25c_g_ml: 1.05
+  logp: 2.7
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.724
+  vp_source: 'producer_20C_converted'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2995,6 +2995,12 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'RIFM fragrance ingredient safety assessment, cinnamyl acetate, CAS Registry Number 103-54-8 (Api et al., Food Chem Toxicol 159 (2022) 112692) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-54-8.pdf): ''CAS Registry Number: 103-54-8''; Chemical Name Cinnamyl acetate. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    mw_g_mol: 'RIFM fragrance ingredient safety assessment, cinnamyl acetate, CAS Registry Number 103-54-8 (Api et al., Food Chem Toxicol 159 (2022) 112692) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-54-8.pdf): ''Molecular Weight: 176.21'' (C11H12O2). Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    density_25c_g_ml: 'RIFM fragrance ingredient safety assessment, cinnamyl acetate, CAS Registry Number 103-54-8 (Api et al., Food Chem Toxicol 159 (2022) 112692) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-54-8.pdf): ''Specific Gravity: 1.05 (FMA)''; FMA value quoted by RIFM; grade A_producer. No temperature printed. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    logp: 'RIFM fragrance ingredient safety assessment, cinnamyl acetate, CAS Registry Number 103-54-8 (Api et al., Food Chem Toxicol 159 (2022) 112692) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-54-8.pdf): ''Log KOW: 2.7 at 35 C (RIFM, 1999b), 2.85 (EPI Suite)''; measured, at 35 C not 25 C. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, cinnamyl acetate, CAS Registry Number 103-54-8 (Api et al., Food Chem Toxicol 159 (2022) 112692) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-54-8.pdf): ''Vapor Pressure: 0.00751 mm Hg at 20 C (EPI Suite v4.0), 0.008 mm Hg at 20 C (FMA), 0.0121 mm Hg at 25 C (EPI Suite)''; printed 0.008 mm Hg at 20 C (FMA); FMA value quoted by RIFM; grade A_producer. Converted from 1.0666 Pa at 20 C to 25 C by Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol from the engine''s correlation (doi:10.1021/es980812j) = 1.724 Pa; the EPI Suite estimate at 25 C (0.0121 mm Hg = 1.613 Pa) agrees within 7 %. FMA method not stated. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
+    vp_source: 'same source as vp_25c_pa (27 Oct 2026 incoming-bottle pass)'
 - canonical_name: Cinnamyl Alcohol
   aliases:
   - "Cinnamyl alcohol 50% in DPG"

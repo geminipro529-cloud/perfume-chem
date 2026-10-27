@@ -38,9 +38,11 @@ def test_guaiacwood_keeps_the_sesquiterpene_alcohols_unresolved_not_renormalized
     assert set(rows) == {"alpha guaiene", "beta caryophyllene"}
     assert rows["alpha guaiene"][1] == pytest.approx(0.0067)
     assert rows["beta caryophyllene"][1] == pytest.approx(0.0058)
-    # Reused tuples: the module's existing alpha-guaiene and caryophyllene inputs.
+    # Reused tuples: the module's existing alpha-guaiene and caryophyllene inputs. The
+    # caryophyllene VP is the data spine's cited 1.513 Pa (RIFM's FMA figure, 27 Oct 2026),
+    # which replaces the table's 1.0 Pa at run time.
     assert rows["alpha guaiene"][2:] == (204.35, 1.00, 3.00, 1.2)
-    assert rows["beta caryophyllene"][2:] == (204.35, 1.0, 10.0, 1.2)
+    assert rows["beta caryophyllene"][2:] == (204.35, 1.513, 10.0, 1.2)
     unresolved = {u["name"]: u for u in meta.unresolved_constituents}
     assert set(unresolved) == {"bulnesol", "guaiol", "elemol", "alpha-gurjunene"}
     assert unresolved["bulnesol"]["reported_fraction"] == pytest.approx(0.5818)
