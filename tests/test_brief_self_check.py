@@ -51,7 +51,10 @@ def test_a_vanilla_balsam_lead_is_the_vanilla_molecule() -> None:
     result = design_formula(idea="a gourmand vanilla")
 
     assert _facets(result)["facet_vanilla_balsam"] == "Vanillin"
-    assert _self_check(result)["picked"] == "repair:facet_vanilla_balsam"
+    # Since Siam Benzoin moved to the JECFA resin means (2026-10-25 naturals batch),
+    # the first solve already leads with Vanillin and the check keeps it; the pepper
+    # brief above still pins the repair path.
+    assert _self_check(result)["picked"] == "primary"
 
 
 def test_a_brief_whose_leads_carry_their_notes_keeps_its_first_solve() -> None:

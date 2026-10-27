@@ -25,8 +25,8 @@ _LABELS = {
     "Orange Flower Absolute 10% in DPG": (_ORANGE, 0.1514),
     "Frangipani Absolute": (_FRANG, 0.122353),
     "Frangipani Absolute (10% in DPG)": (_FRANG, 0.122353),
-    "Fir Essential Oil": (_FIR, 0.779023),
-    "Fir EO 10%": (_FIR, 0.779023),
+    "Fir Essential Oil": (_FIR, 0.779611),
+    "Fir EO 10%": (_FIR, 0.779611),
 }
 
 
@@ -69,6 +69,8 @@ def test_fir_keeps_pw_limonene_and_takes_producer_midpoints_for_the_main_terpene
     assert rows["alpha pinene"] == pytest.approx(0.165)
     assert rows["delta-3-carene"] == pytest.approx(0.09)
     assert rows["bornyl acetate"] == pytest.approx(0.07)
+    assert rows["cuminaldehyde"] == pytest.approx(0.000314)
+    assert rows["(R)-carvone"] == pytest.approx(0.000274)
     composition = get_composite_metadata("Fir Essential Oil").input_authority["composition"]
     assert composition["species_asserted_by_supplier"] is False
 

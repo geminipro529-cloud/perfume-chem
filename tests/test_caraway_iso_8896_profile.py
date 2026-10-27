@@ -18,24 +18,24 @@ def test_caraway_uses_iso_8896_midpoints_without_rescaling(name):
     constituents = get_constituents(name)
     assert constituents is not None
     assert {row[0]: row[1] for row in constituents} == pytest.approx(
-        {"limonene": 0.390, "myrcene": 0.0045}
+        {"(S)-carvone": 0.565, "limonene": 0.390, "myrcene": 0.0045}
     )
-    assert sum(row[1] for row in constituents) == pytest.approx(0.3945)
+    assert sum(row[1] for row in constituents) == pytest.approx(0.9595)
 
     metadata = get_composite_metadata(name)
     assert metadata.profile_key == _CARAWAY_KEY
     assert metadata.resolution == "literature_proxy"
-    assert metadata.characterized_fraction == pytest.approx(0.3945)
-    assert metadata.unresolved_fraction == pytest.approx(0.6055)
+    assert metadata.characterized_fraction == pytest.approx(0.9595)
+    assert metadata.unresolved_fraction == pytest.approx(0.0405)
     assert metadata.quantitative_evaluability == "PARTIAL_INPUT_COVERAGE"
     assert metadata.batch_specific is False
     assert metadata.sources and all(src.startswith("http") for src in metadata.sources)
     unresolved = {row["name"]: row["reported_fraction"] for row in metadata.unresolved_constituents}
-    # Carvone has no runtime tuple: it stays listed as unresolved, not odorless.
-    # trans-Carveol "traces (<0.01)" to 0.5% takes its midpoint from 0.
+    # The carveols and cis-dihydrocarvone have no runtime tuple: they stay listed as
+    # unresolved, not odorless. trans-Carveol "traces (<0.01)" to 0.5% takes its
+    # midpoint from 0.
     assert unresolved == pytest.approx(
         {
-            "carvone": 0.565,
             "cis-dihydrocarvone": 0.008,
             "cis-carveol": 0.0035,
             "trans-carveol": 0.0025,

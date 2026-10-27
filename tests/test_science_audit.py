@@ -136,9 +136,11 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # Acetate and Manzanate OAV-available (253 -> 255).
     # 2026-10-25 literature batch: producer air thresholds made Berry Hexanoate
     # (BerryFlor), Magnolan and Methyl Diantilis OAV-available (255 -> 258).
-    assert audit["oav_available_count"] == 258
-    assert audit["oav_unknown_count"] == 32
-    assert audit["oav_coverage_pct"] == 88.966
+    # 2026-10-25 naturals batch: labelled partial profiles made Cabreuva EO, Pine EO,
+    # Sandalwood EO and Tuberlia Base OAV-available (258 -> 262).
+    assert audit["oav_available_count"] == 262
+    assert audit["oav_unknown_count"] == 28
+    assert audit["oav_coverage_pct"] == 90.345
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"

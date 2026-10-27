@@ -47,11 +47,14 @@ def test_stock_label_resolves_to_a_partial_labelled_proxy(label):
     assert all(s.startswith(("http", "amrita.net", "Pellerin")) for s in meta.sources)
 
 
-def test_siam_benzoin_stock_label_reaches_the_existing_siam_profile():
+def test_siam_benzoin_stock_label_reaches_the_jecfa_resin_profile():
+    # 2026-10-25 naturals batch: the stock labels moved from the uncited
+    # "benzoin siam resinoid" rows to the JECFA 2011 resin means.
+    key = "styrax tonkinensis resin jecfa 2011 mean profile"
     for label in ("Siam Benzoin", "Siam Benzoin (50% w/w in DPG)"):
         meta = get_composite_metadata(label)
-        assert meta is not None and meta.profile_key == "benzoin siam resinoid"
-        assert get_constituents(label) == get_constituents("benzoin siam resinoid")
+        assert meta is not None and meta.profile_key == key
+        assert get_constituents(label) == get_constituents(key)
 
 
 def test_cinnamon_is_a_bark_profile_with_cinnamyl_acetate_unresolved():
