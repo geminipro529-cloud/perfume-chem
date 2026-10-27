@@ -2181,6 +2181,22 @@
       "source_url": "https://ifrafragrance.org/standards-library",
       "verified_on": "2026-10-09"
     },
+    "Beta Caryophyllene": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Beta-Caryophyllene",
+        "beta-caryophyllene",
+        "(E)-Caryophyllene",
+        "Caryophyllene"
+      ],
+      "note": "Beta-caryophyllene, CAS 87-44-5 (PerfumersWorld 3WS00089). No IFRA standard names it or its CAS. IFRA's 'Index of IFRA Standards - 51st Amendment' (30 June 2023, all 13 pages) was read in full on 2026-10-27: neither the name nor the CAS appears. The IFRA Standards Library (amendment 51 is its latest) was not re-read for this row, and no second reader re-read the index. RIFM's safety assessment (Food Chem Toxicol 159 (2022) 112707) finds no skin-sensitisation concern at declared levels of use; producer safety data sheets classify it Skin Sens. 1B (H317), Asp. Tox. 1 (H304), and it oxidises to caryophyllene oxide. That is a hazard classification, not an IFRA limit.",
+      "cas": [
+        "87-44-5"
+      ],
+      "source_url": "https://ifrafragrance.org/docs/default-source/51st-amendment/ifra-51st-amendment---index-of-ifra-standards.pdf",
+      "verified_on": "2026-10-27"
+    },
     "Beta Damascone": {
       "status": "restricted",
       "standard": "IFRA_STD_077",
@@ -2429,6 +2445,17 @@
       "standard": null,
       "aliases": [],
       "note": "Rich in cinnamal (STD_018, 0.25 %) and contains eugenol (STD_035)."
+    },
+    "Cinnamyl Acetate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Cinnamyl acetate, CAS 103-54-8 (PerfumersWorld 3SQ00109). No IFRA standard names it or its CAS. IFRA's 'Index of IFRA Standards - 51st Amendment' (30 June 2023, all 13 pages) was read in full on 2026-10-27: neither the name nor the CAS appears. The IFRA Standards Library (amendment 51 is its latest) was not re-read for this row, and no second reader re-read the index. The index lists cinnamic alcohol (104-54-1), cinnamic aldehyde, its dimethyl acetal, cinnamylidene acetone and cinnamyl nitrile, but not the acetate. RIFM expects the acetate to be metabolised to cinnamyl alcohol (Food Chem Toxicol 159 (2022) 112692, section 7) and finds it not a skin sensitiser at declared levels; no limit is applied here because no Standard names the acetate.",
+      "cas": [
+        "103-54-8"
+      ],
+      "source_url": "https://ifrafragrance.org/docs/default-source/51st-amendment/ifra-51st-amendment---index-of-ifra-standards.pdf",
+      "verified_on": "2026-10-27"
     },
     "Cinnamyl Alcohol": {
       "status": "restricted",
