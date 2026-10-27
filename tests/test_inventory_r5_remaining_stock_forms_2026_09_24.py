@@ -86,9 +86,9 @@ def test_mimosa_is_released_by_the_owner_use_as_is_decision() -> None:
         "Ethyl Linalool",
         "Spike Lavender EO",
         "Linalool Oxide",
-        "Hedione HC",
         # Cedrat FCF Sicilian and Geranyl Acetate left this list on 2026-10-15:
-        # Kenny cleared their holds.
+        # Kenny cleared their holds. Hedione HC left it on 2026-10-27: the MySkinRecipes
+        # bottle (STK-178, lot X6K6NQ from its COA) replaced the unlotted one.
     ],
 )
 def test_exact_neat_products_are_materialized_but_lineage_held(

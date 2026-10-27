@@ -292,6 +292,41 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: White Sandalwood Oil (China)
+  aliases:
+  - white sandalwood oil (china)
+  - White Sandalwood Oil
+  cas: '8024-35-9'
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  vp_source: null  # natural: no single VP; the engine uses the constituent profile when one exists
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true  # Kenny 27 Oct 2026: MySkinRecipes order in his mail (overlay STK-172)
+  supplier:
+  families: []
+  character: null
+  notes: 'MySkinRecipes lot W9F536 (order 2200410, STK-172): COA CAS 8024-35-9 (registered as Australian sandalwood oil, Santalum spicatum), RI(20 C) spec 1.4950-1.5050, SG(20/20 C) spec 0.9750-0.9850, ''Yellow to brown viscous liquid'', no measured values. The RI floor is below and the SG ceiling above every sandalwood and amyris standard (ISO 22769, ISO 3518, ISO 3525), the colour is outside both Santalum standards, and the price (53.27 THB per 5 g) is below MySkinRecipes'' own synthetic Sandela 803. It is probably a sandalwood-type compound (amyris and/or synthetic sandalwood chemicals) under a borrowed CAS, so the ISO 3518 sandalwood profile is not used and no physics or odour text is loaded. A GC or an optical-rotation reading would settle it.'
+  provenance:
+    cas: 'MySkinRecipes COA and MSDS lot W9F536 print 8024-35-9 (''White Sandalwood Oil 100.0000000 8024-35-9''). AICIS, Essential oils, Australian sandalwood: Human health tier II assessment (https://www.industrialchemicals.gov.au/sites/default/files/Essential%20oils,%20Australian%20sandalwood_Human%20health%20tier%20II%20assessment.pdf): ''CAS Number: 8024-35-9'', synonyms ''Santalum spicatum sandalwood oil''. The CAS is the supplier''s; it is not evidence of the bottle''s contents. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    notes: 'ISO 22769:2022 (S. spicatum) RI 1,500 to 1,517 and d20/20 0,945 to 0,980; ISO 3518:2025 (S. album) RI 1,503 to 1,509 and d20/20 0,968 to 0,983 (iTeh/SIST preview PDFs); ISO 3525:1979 amyris RI 1,5050-1,5100 and d20/20 0,946-0,978 (iso.org abstract). Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    user_in_inventory: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: White Thyme Essential Oil
   aliases: []
   cas: null

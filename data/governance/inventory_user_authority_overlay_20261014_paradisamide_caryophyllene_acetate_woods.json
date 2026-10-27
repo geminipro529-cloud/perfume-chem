@@ -337,6 +337,11 @@
         "message_timestamp_utc": "2026-10-25T08:16:22Z",
         "text": "All neat",
         "context": "Stock data thread decision card 'Mark these 15 PerfumersWorld fruit bottles neat, as supplied?' (the 4 Oct order received 7 Oct, receipt lines 11-48); Kenny tapped 'All neat'"
+      },
+      {
+        "message_timestamp_utc": "2026-10-27T11:02:01Z",
+        "text": "Stock data from msr emails and find all of the properties.",
+        "context": "Stock data thread; the MySkinRecipes mail in k3nnyw@gmail.com holds two paid 25 Oct orders, #2200410 (ten lines, sent by Lalamove 27 Oct) and #2200413 (three lines, picked up 27 Oct), each with COA and MSDS PDFs. Twelve fragrance lines are recorded (STK-170 to STK-181); L-Arginine HCl, a cosmetic amino acid, is not a perfume stock and is left out."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -405,7 +410,8 @@
     "orange_flower_absolute_10pct_dpg_pw_20261023": true,
     "vetiveryl_acetate_used_up_20261025": true,
     "pw_fruit_order_lines_five_stocks_added_20261025": true,
-    "pw_fruit_bottles_fifteen_neat_20261025": true
+    "pw_fruit_bottles_fifteen_neat_20261025": true,
+    "msr_orders_2200410_2200413_stocked_20261027": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -454,7 +460,9 @@
     "INV-USER-20261007-PW-032",
     "INV-USER-20261007-PW-048",
     "INV-USER-20261007-PW-035",
-    "INV-USER-20260924-R5-002"
+    "INV-USER-20260924-R5-002",
+    "INV-USER-20260924-R5-016",
+    "INV-USER-20260908-AHSEE-001"
   ],
   "records": [
     {
@@ -8213,6 +8221,789 @@
         "release_authorized": false
       },
       "note": "Kenny: 'i am out of vetiveryl acetate' (25 Oct 2026 07:33:48 UTC, another project thread, relayed to the Stock data thread). The 2026-09-24 neat stock INV-USER-20260924-R5-002 is retired; no Vetiveryl Acetate stock remains. Historical formulas are unchanged. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-170",
+      "canonical_name": "Magnolia Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200410_MAGNOLIA_ABSOLUTE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Magnolia Absolute",
+        "order": "2200410",
+        "pack": "5 g",
+        "lot": "ZDHY6L",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200410 ('COA/MSDS/Vegan/Halal : 2200410', 27 Oct 2026 12:21 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2025-11-17",
+          "expiry_date": "2027-11-17",
+          "results_as_printed": {
+            "appearance": "Liquid (conforms)",
+            "color": "Clear to yellowish (conforms)"
+          },
+          "flags": [
+            "The COA prints no CAS and the MSDS composition section is blank, so the species and material type are not stated by the supplier.",
+            "A clear-to-yellowish liquid is unusual for a flower absolute.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": false
+      },
+      "note": "MySkinRecipes order #2200410 placed 25 Oct 2026 08:19 ICT, paid (payment received 25 Oct 01:24 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200410 left MySkinRecipes by Lalamove car delivery: chat message 27 Oct 2026 12:31 UTC, 'The item is currently being shipped'. No delivery email was seen; it is recorded on Kenny's instruction to stock the MSR emails. Listed as 'Magnolia Absolute', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). A separate stock from Magnolia EO and from the MySkinRecipes Magnolia Flower Extract (a PG cosmetic extract, STK-126); never their alias."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-171",
+      "canonical_name": "Labdanum Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200410_LABDANUM_ABSOLUTE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Labdanum Absolute",
+        "order": "2200410",
+        "pack": "5 g",
+        "lot": "3J7L0O",
+        "cas_on_coa": "8016-26-0",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200410 ('COA/MSDS/Vegan/Halal : 2200410', 27 Oct 2026 12:21 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2026-01-28",
+          "expiry_date": "2028-01-28",
+          "results_as_printed": {
+            "appearance": "Liquid, viscous (conforms)",
+            "color": "Dark brown (conforms)"
+          },
+          "flags": [
+            "The COA gives no measured values, only appearance and 'conforms'.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": false
+      },
+      "note": "MySkinRecipes order #2200410 placed 25 Oct 2026 08:19 ICT, paid (payment received 25 Oct 01:24 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200410 left MySkinRecipes by Lalamove car delivery: chat message 27 Oct 2026 12:31 UTC, 'The item is currently being shipped'. No delivery email was seen; it is recorded on Kenny's instruction to stock the MSR emails. Listed as 'Labdanum Absolute', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). MSDS section 3: Cistus ladaniferus resin 100%. A separate stock from Labdanum Resinoid (PerfumersWorld, 10% in DPG)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-172",
+      "canonical_name": "White Sandalwood Oil (China)",
+      "aliases": [
+        "White Sandalwood Oil"
+      ],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200410_WHITE_SANDALWOOD_OIL_CHINA",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "White Sandalwood Oil (China)",
+        "order": "2200410",
+        "pack": "5 g",
+        "lot": "W9F536",
+        "cas_on_coa": "8024-35-9",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200410 ('COA/MSDS/Vegan/Halal : 2200410', 27 Oct 2026 12:21 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2026-05-13",
+          "expiry_date": "2028-05-13",
+          "results_as_printed": {
+            "appearance": "Yellow to brown viscous liquid (conforms)",
+            "refractive_index_20c_spec": "1.4950-1.5050 (conforms)",
+            "specific_gravity_20_20c_spec": "0.9750-0.9850 (conforms)"
+          },
+          "flags": [
+            "The COA gives specification ranges with 'conforms', no measured values.",
+            "Species not stated; at 53.27 THB per 5 g it is not assumed to be Santalum album.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": false
+      },
+      "note": "MySkinRecipes order #2200410 placed 25 Oct 2026 08:19 ICT, paid (payment received 25 Oct 01:24 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200410 left MySkinRecipes by Lalamove car delivery: chat message 27 Oct 2026 12:31 UTC, 'The item is currently being shipped'. No delivery email was seen; it is recorded on Kenny's instruction to stock the MSR emails. Listed as 'White Sandalwood Oil (China)', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). A separate stock from Sandalwood EO (PerfumersWorld 10% in DPG) and Sandalwood Base X3; never their alias."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-173",
+      "canonical_name": "Olibanum Oil",
+      "aliases": [
+        "Olibanum (Frankincense) Oil"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200410_OLIBANUM_OIL",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Olibanum (Frankincense) Oil",
+        "order": "2200410",
+        "pack": "5 g",
+        "lot": "3S74J8",
+        "cas_on_coa": "89957-98-2",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200410 ('COA/MSDS/Vegan/Halal : 2200410', 27 Oct 2026 12:21 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2026-07-08",
+          "expiry_date": "2028-07-08",
+          "results_as_printed": {
+            "appearance": "Liquid (conforms)",
+            "color": "Clear to yellowish (conforms)"
+          },
+          "flags": [
+            "The COA gives no measured values, only appearance and 'conforms'.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": false
+      },
+      "note": "MySkinRecipes order #2200410 placed 25 Oct 2026 08:19 ICT, paid (payment received 25 Oct 01:24 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200410 left MySkinRecipes by Lalamove car delivery: chat message 27 Oct 2026 12:31 UTC, 'The item is currently being shipped'. No delivery email was seen; it is recorded on Kenny's instruction to stock the MSR emails. Listed as 'Olibanum (Frankincense) Oil', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). MSDS section 3: Boswellia carterii gum oil 100%. An essential oil, separate from Olibanum Resinoid (PerfumersWorld, 50% in DPG) and the Oman frankincense ethanol tincture."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-174",
+      "canonical_name": "Cinnamyl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200410_CINNAMYL_ACETATE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Cinnamyl Acetate (FEMA-2293)",
+        "order": "2200410",
+        "pack": "5 g",
+        "lot": "B62L38",
+        "cas_on_coa": "103-54-8",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200410 ('COA/MSDS/Vegan/Halal : 2200410', 27 Oct 2026 12:21 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2026-03-16",
+          "expiry_date": "2028-03-16",
+          "results_as_printed": {
+            "appearance": "Liquid (conforms)",
+            "color": "Clear to yellowish (conforms)"
+          },
+          "flags": [
+            "The COA gives no measured values, only appearance and 'conforms'.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": false
+      },
+      "note": "MySkinRecipes order #2200410 placed 25 Oct 2026 08:19 ICT, paid (payment received 25 Oct 01:24 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200410 left MySkinRecipes by Lalamove car delivery: chat message 27 Oct 2026 12:31 UTC, 'The item is currently being shipped'. No delivery email was seen; it is recorded on Kenny's instruction to stock the MSR emails. Listed as 'Cinnamyl Acetate (FEMA-2293)', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). Not Cinnamyl Alcohol, which is a separate stock (50% w/w in DPG)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-175",
+      "canonical_name": "Fir Needle Oil (Canada)",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / conifer / structure",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200410_FIR_NEEDLE_OIL_CANADA",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Fir Needle Oil (Canada)",
+        "order": "2200410",
+        "pack": "5 g",
+        "lot": "ECPT07",
+        "cas_on_coa": "85085-34-3",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200410 ('COA/MSDS/Vegan/Halal : 2200410', 27 Oct 2026 12:21 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2026-04-12",
+          "expiry_date": "2028-04-12",
+          "results_as_printed": {
+            "appearance": "Liquid (conforms)",
+            "color": "Clear to yellowish (conforms)"
+          },
+          "flags": [
+            "The COA gives no measured values, only appearance and 'conforms'.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": false
+      },
+      "note": "MySkinRecipes order #2200410 placed 25 Oct 2026 08:19 ICT, paid (payment received 25 Oct 01:24 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200410 left MySkinRecipes by Lalamove car delivery: chat message 27 Oct 2026 12:31 UTC, 'The item is currently being shipped'. No delivery email was seen; it is recorded on Kenny's instruction to stock the MSR emails. Listed as 'Fir Needle Oil (Canada)', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). MSDS section 3: Abies balsamea needle oil 100%. A separate stock from Fir Essential Oil (PerfumersWorld, 10% in DPG)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-176",
+      "canonical_name": "Galbanum Resinoid",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / galbanum / modifier",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200410_GALBANUM_RESINOID",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Galbanum Resinoid",
+        "order": "2200410",
+        "pack": "5 g",
+        "lot": "QM0D25",
+        "cas_on_coa": "9000-24-2",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200410 ('COA/MSDS/Vegan/Halal : 2200410', 27 Oct 2026 12:21 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2026-04-16",
+          "expiry_date": "2028-04-16",
+          "results_as_printed": {
+            "appearance": "Light yellow-green viscous transparent or translucent liquid",
+            "refractive_index_20c": "1.5200",
+            "refractive_index_20c_spec": "1.5100-1.5320"
+          },
+          "flags": [
+            "Whether the resinoid contains a diluent is not stated.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": false
+      },
+      "note": "MySkinRecipes order #2200410 placed 25 Oct 2026 08:19 ICT, paid (payment received 25 Oct 01:24 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200410 left MySkinRecipes by Lalamove car delivery: chat message 27 Oct 2026 12:31 UTC, 'The item is currently being shipped'. No delivery email was seen; it is recorded on Kenny's instruction to stock the MSR emails. Listed as 'Galbanum Resinoid', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). MSDS section 3: galbanum resin (Ferula spp.) 100%. Not the Galbanum Resinoid 10% or Galbanum EO requirements, which stay unowned."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-177",
+      "canonical_name": "Methyl Anthranilate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200410_METHYL_ANTHRANILATE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Methyl Anthranilate (FEMA-2682)",
+        "order": "2200410",
+        "pack": "5 g",
+        "lot": "222GWQ",
+        "cas_on_coa": "134-20-3",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200410 ('COA/MSDS/Vegan/Halal : 2200410', 27 Oct 2026 12:21 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2026-05-06",
+          "expiry_date": "2028-05-06",
+          "results_as_printed": {
+            "refractive_index_20c_spec": "1.5810-1.5840 (conforms)",
+            "specific_gravity_25_25c_spec": "1.1620-1.1670 (conforms)",
+            "purity_gc_spec": "99 min (conforms)",
+            "acid_value_spec": "1 max mg KOH/g (conforms)"
+          },
+          "flags": [
+            "The COA gives specification ranges with 'conforms', no measured values.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 170
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": false
+      },
+      "note": "MySkinRecipes order #2200410 placed 25 Oct 2026 08:19 ICT, paid (payment received 25 Oct 01:24 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200410 left MySkinRecipes by Lalamove car delivery: chat message 27 Oct 2026 12:31 UTC, 'The item is currently being shipped'. No delivery email was seen; it is recorded on Kenny's instruction to stock the MSR emails. Listed as 'Methyl Anthranilate (FEMA-2682)', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). A second bottle of a material he already had neat (V5 row 170, inventory.txt 'Methyl Anthranilate'). This record supersedes that row as the one Methyl Anthranilate stock (neat); the older bottle is not said to be used up and its facts are unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-178",
+      "canonical_name": "Hedione HC",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200410_HEDIONE_HC",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Methyl Dihydrojasmonate, Hedione (high Cis)",
+        "order": "2200410",
+        "pack": "5 g",
+        "lot": "X6K6NQ",
+        "cas_on_coa": "2630-39-9",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200410 ('COA/MSDS/Vegan/Halal : 2200410', 27 Oct 2026 12:21 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2026-08-21",
+          "expiry_date": "2028-08-21",
+          "results_as_printed": {
+            "content_sum_of_isomers": "98.72 %",
+            "content_spec": "95-100",
+            "refractive_index_20c": "1.4610",
+            "refractive_index_20c_spec": "1.459-1.463",
+            "relative_density_25_25c_spec": "0.998-1.006 (conforms)",
+            "acid_value_spec": "0-1 KOH mg/g (conforms)"
+          },
+          "flags": [
+            "The COA gives no cis/trans ratio, so the cis content behind 'high cis' is not stated.",
+            "CAS 2630-39-9 is printed, not the 24851-98-7 commercial Hedione usually carries (the same mismatch as the 2199302 Hedione COA).",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": false,
+        "cis_content_asserted": false
+      },
+      "note": "MySkinRecipes order #2200410 placed 25 Oct 2026 08:19 ICT, paid (payment received 25 Oct 01:24 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200410 left MySkinRecipes by Lalamove car delivery: chat message 27 Oct 2026 12:31 UTC, 'The item is currently being shipped'. No delivery email was seen; it is recorded on Kenny's instruction to stock the MSR emails. Listed as 'Methyl Dihydrojasmonate, Hedione (high Cis)', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). A second bottle of a material he already had neat: the 24 Sep Hedione HC record INV-USER-20260924-R5-016, held for a missing bottle lot and label receipt. This record supersedes it as the one Hedione HC stock (neat) and is ready because this MySkinRecipes bottle has its lot from the COA; the older bottle still has no lot receipt."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-179",
+      "canonical_name": "Dihydro Beta Ionone",
+      "aliases": [
+        "Dihydro-beta-ionone"
+      ],
+      "state": "OWNED",
+      "category": "orris_violet",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200413_DIHYDRO_BETA_IONONE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Dihydro-beta-ionone",
+        "order": "2200413",
+        "pack": "5 g",
+        "lot": "N58L3K",
+        "cas_on_coa": "17283-81-7",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200413 ('COA/MSDS/Vegan/Halal : 2200413', 27 Oct 2026 12:28 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2025-05-05",
+          "expiry_date": "2027-05-05",
+          "results_as_printed": {
+            "appearance": "Liquid (conforms)",
+            "color": "Clear to yellowish (conforms)",
+            "odor": "In compliance to standard (conforms)"
+          },
+          "flags": [
+            "The COA gives no measured values, only appearance and 'conforms'.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 92
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": true
+      },
+      "note": "MySkinRecipes order #2200413 placed 25 Oct 2026 10:41 ICT, paid (payment received 25 Oct 03:45 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200413 (pickup) was collected: MySkinRecipes chat message 27 Oct 2026 10:36 UTC, 'Your order has been picked up on 2026-10-27 17:21:15'. Listed as 'Dihydro-beta-ionone', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). A second bottle of a material he already had neat (V5 row 92, inventory.txt 'Dihydro Beta Ionone'). This record supersedes that row as the one Dihydro Beta Ionone stock (neat); the 10% requirement row (V5 row 93) is unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-180",
+      "canonical_name": "Phenyl Ethyl Dimethyl Carbinol",
+      "aliases": [
+        "Carbinol Muguet",
+        "Dimethyl Phenylethyl Carbinol"
+      ],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200413_PHENYL_ETHYL_DIMETHYL_CARBINOL",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Carbinol Muguet, Dimethyl Phenylethyl Carbinol",
+        "order": "2200413",
+        "pack": "5 g",
+        "lot": "70E1FQ",
+        "cas_on_coa": "103-05-9",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200413 ('COA/MSDS/Vegan/Halal : 2200413', 27 Oct 2026 12:28 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2025-11-18",
+          "expiry_date": "2027-11-18",
+          "results_as_printed": {
+            "appearance_20c": "Colorless crystallizable liquid (conforms)",
+            "refractive_index_20c_spec": "1.508-1.513 (conforms)",
+            "specific_gravity_20_20c_spec": "0.960-0.968 (conforms)",
+            "purity_gc_spec": "98-100 % (conforms)",
+            "acid_value_spec": "1 max mg KOH/g (conforms)"
+          },
+          "flags": [
+            "The COA gives specification ranges with 'conforms', no measured values.",
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": true
+      },
+      "note": "MySkinRecipes order #2200413 placed 25 Oct 2026 10:41 ICT, paid (payment received 25 Oct 03:45 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200413 (pickup) was collected: MySkinRecipes chat message 27 Oct 2026 10:36 UTC, 'Your order has been picked up on 2026-10-27 17:21:15'. Listed as 'Carbinol Muguet, Dimethyl Phenylethyl Carbinol', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). Carbinol Muguet is MySkinRecipes' name for 2-methyl-4-phenyl-2-butanol, CAS 103-05-9, the same molecule as his PEDMC (INV-USER-20260908-AHSEE-001, neat, confirmed a clear liquid on 8 Sep). This record supersedes it as the one Phenyl Ethyl Dimethyl Carbinol stock (neat). Not Dimethyl Benzyl Carbinol (CAS 100-86-7) and not the carbinyl acetate (STK-168)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-181",
+      "canonical_name": "Farnesol",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "air_floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261027_MSR_2200413_FARNESOL",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Farnesol",
+        "order": "2200413",
+        "pack": "5 g",
+        "lot": "CF557U",
+        "cas_on_coa": "4602-84-0",
+        "coa": {
+          "source": "MySkinRecipes COA emailed for order #2200413 ('COA/MSDS/Vegan/Halal : 2200413', 27 Oct 2026 12:28 UTC, k3nnyw@gmail.com), PDF read in full on 27 Oct 2026; values copied as printed. Expiry is two years after the MFG/last-retest date.",
+          "test_date": "2026-05-08",
+          "expiry_date": "2028-05-08",
+          "results_as_printed": {
+            "refractive_index_20c": "1.4897",
+            "refractive_index_20c_spec": "1.4800-1.4920",
+            "specific_gravity_20_20c_spec": "0.8840-0.9000 (conforms)",
+            "content_gc_area_pct": "98.70",
+            "content_spec": "98.00-100.00",
+            "odor": "Lily of the valley; green; woody (conform)"
+          },
+          "flags": [
+            "The MSR safety data sheet's physical-property section and flash point ('>200 F / >100 C') are the same template text on all 13 sheets of these two orders (the Farnesol sheet even calls it a white solid melting at 63-67 C), so nothing is taken from them."
+          ],
+          "flash_point_given": false,
+          "melting_point_given": false
+        }
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 108
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Stock data from msr emails and find all of the properties.",
+      "source_message_timestamp_utc": "2026-10-27T11:02:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "delivery_email_seen": true
+      },
+      "note": "MySkinRecipes order #2200413 placed 25 Oct 2026 10:41 ICT, paid (payment received 25 Oct 03:45 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200413 (pickup) was collected: MySkinRecipes chat message 27 Oct 2026 10:36 UTC, 'Your order has been picked up on 2026-10-27 17:21:15'. Listed as 'Farnesol', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). A second bottle of a material he already had neat (V5 row 108, inventory.txt 'Farnesol'). This record supersedes that row as the one Farnesol stock (neat). Farnesol has its own IFRA standard."
     }
   ]
 }

@@ -116,6 +116,13 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     ("lime distilled eo", "citral", 3.0, 14.1),
     ("myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile", "citral", 3.0, 14.1),
     ("rose essential oil", "rose oxide", 15.0, 77.0),
+    # 2026-10-27 MySkinRecipes batch: farnesol's registry VP is now RIFM's EPI Suite v4.11
+    # estimate (3.94e-5 mm Hg at 25 C), replacing an unsourced 0.08 Pa; four profiles
+    # reuse the module's farnesol row (table 0.05 Pa).
+    ("tobacco absolute", "farnesol", 0.05, 0.005253),
+    ("rose essential oil", "farnesol", 0.05, 0.005253),
+    ("myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile", "farnesol", 0.05, 0.005253),
+    ("abelmoschus moschatus seed oil arokiyaraj 2015 gc-ms profile", "farnesol", 0.05, 0.005253),
 }
 
 

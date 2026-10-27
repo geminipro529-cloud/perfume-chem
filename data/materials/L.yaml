@@ -169,11 +169,11 @@
 - canonical_name: Labdanum Absolute
   aliases:
   - labdanum absolute
-  cas: null
+  cas: '8016-26-0'
   smiles: null
   inchikey: null
   mw_g_mol: 304.47
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.0215
   logp: 3.5
   functional_groups: []
   chirality: null
@@ -191,7 +191,7 @@
   hedonic_valence: 0.5
   ifra_max_pct_edp: null
   user_stock_dilution: null
-  user_in_inventory: false
+  user_in_inventory: true  # Kenny 27 Oct 2026: MySkinRecipes order in his mail (overlay STK-171)
   supplier:
     perfumersworld_sku: 8UQ08219
     perfumersworld_price_usd_per_g: 1.2
@@ -203,9 +203,12 @@
         sku: 5UQ07791
         price_usd_per_g: 0.18
   families: []
-  character: null
-  notes: null
+  character: 'Ambery/vanillic, woody, leather'
+  notes: 'MySkinRecipes lot 3J7L0O (order 2200410, STK-171): the COA prints CAS 8016-26-0, ''Liquid, viscous'', ''Dark brown'' and no RI or density, so neat vs cut cannot be checked from it; a neat absolute reads about 1.023 relative density at 20 C (Biolandes F1545). Not the PerfumersWorld Labdanum Resinoid.'
   provenance:
+    character: 'Robertet, Labdanum absolute 00220722 (https://matieres-premieres.robertet.com/labdanum-absolute): ''Olfactive description Ambery/vanillic, woody, leather'' (grade A_producer; producer text, quoted). Biolandes F1545 gives ''Odour: amber''. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    density_25c_g_ml: 'Biolandes, Chemical Safety Data Sheet LABDANUM ABSOLUTE F1545, reviewed 20.01.2023 (https://biolandes.com/wp-content/uploads/fiche-securite-F1545.pdf): ''Relative density 1,0233 20°C''; one producer''s absolute, not this lot; x 0.99820 g/mL (water at 20 C) = 1.0215 g/mL at 20 C, not 25 C (about 0.1 % above the 25 C value); grade A_producer. MySkinRecipes prints no density. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    cas: 'MySkinRecipes COA lot 3J7L0O (order 2200410) prints 8016-26-0. Robertet, Labdanum absolute 00220722, Cistus ladaniferus gum, Spain (https://matieres-premieres.robertet.com/labdanum-absolute): CAS and TSCA 8016-26-0, EINECS 289-711-7, FEMA 2608. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: engine.diffusion_model
     kaw_eff: engine.diffusion_model

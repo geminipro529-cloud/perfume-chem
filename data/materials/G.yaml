@@ -388,7 +388,7 @@
 - canonical_name: Galbanum Resinoid
   aliases:
   - galbanum resinoid
-  cas: null
+  cas: '9000-24-2'
   smiles: null
   inchikey: null
   mw_g_mol: 200.0
@@ -432,9 +432,11 @@
         price_usd_per_g: 1.25
   families:
   - green / fresh / marine
-  character: null
-  notes: null
+  character: 'Green, metallic, fresh, earthy, balsamic.'
+  notes: 'MySkinRecipes lot QM0D25 (order 2200410, STK-176): COA RI(20 C) 1.5200 (spec 1.5100-1.5320), ''Light yellow-green viscous transparent or translucent liquid''. The RI is below the neat Firmenich-type resinoid specification (1.5250-1.5480, Ventos T1) and ordinary resinoids are orange-brown, so a diluent such as Hercolyn (RI 1.52) may be present; MySkinRecipes does not say. The engine uses the Canton 2025 volatile-fraction profile.'
   provenance:
+    character: 'dsm-firmenich Studio, GALBANUM RES 944453, Ferula galbaniflua gum, Iran (https://studio.dsm-firmenich.com/product/galbanum-res-pe-944453): ''Olfactive description Green, metallic, fresh, earthy, balsamic. This profile is very balsamic and resinous.'' (grade A_producer; producer text, quoted; flashpoint 46 C on the same page). Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    cas: 'MySkinRecipes COA lot QM0D25 prints 9000-24-2 and the MSDS section 3 lists ''GALBANUM, RESIN (FERULA SPP.) 100.0000000 9000-24-2'' (the galbanum gum/resin number). dsm-firmenich GALBANUM RES 944453 (https://studio.dsm-firmenich.com/product/galbanum-res-pe-944453) prints ''CAS# 0008023-91-4'', the galbanum oil number; both are in use for resinoids. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds

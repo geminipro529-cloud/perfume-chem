@@ -475,7 +475,10 @@ def test_extraction_mismatch_profiles_are_explicit_literature_proxies() -> None:
 
     assert galbanum is not None
     assert galbanum.resolution == "literature_proxy"
-    assert any("essential oil" in item for item in galbanum.limitations)
+    # Since 2026-10-27 a published resinoid replaces the galbanum essential-oil proxy; it models
+    # only the volatile fraction and says so.
+    assert galbanum.profile_key == "ferula galbaniflua resinoid canton 2025 volatile fraction profile"
+    assert any("volatile" in item for item in galbanum.limitations)
 
     assert tonka is not None
     assert tonka.resolution == "literature_proxy"

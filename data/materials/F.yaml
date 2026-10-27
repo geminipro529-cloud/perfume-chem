@@ -117,8 +117,8 @@
   logp: 4.72
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.08
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.005253
+  vp_source: 'EPI'
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0004
@@ -145,7 +145,7 @@
   provenance:
     logp: 'ECHA registration dossier, Farnesol (EC 225-004-1), Partition coefficient (https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.022.731/4/8): ''The log Pow range from 4.60 to 4.78 (weighted average 4.72) at 22.3 C, as determined by HPLC. Key value for chemical safety assessment Log Kow (Log Pow): 4.72 at the temperature of: 22.3 C''; printed log Pow 4.60-4.78 (weighted average 4.72) at 22.3 C; OECD 117 / EU A.8 HPLC, GLP; three isomer peaks 4.60, 4.67, 4.78, area-weighted mean; grade A_measured. Second reader: Area-weighted mean rechecked: 0.292*4.60 + 0.105*4.67 + 0.604*4.78 = 4.72. OECD 117 HPLC is on the page; the GLP status was not in the text I saw. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'ESTIMATE (EPI Suite v4.11): RIFM fragrance ingredient safety assessment, farnesol, CAS Registry Number 4602-84-0, Food Chem Toxicol 182 (2023) 114229 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/4602-84-0.pdf): ''Vapor Pressure: 0.000021 mm Hg at 20 °C (EPI Suite v4.0), 3.94e-005 mm Hg at 25 °C (EPI Suite v4.11)''; the read-across table gives ''Vapor Pressure (Pa @ 25 °C, EPI Suite)'' 0.00525 for farnesol. 3.94e-5 mm Hg x 133.322 = 0.005253 Pa; grade EST, no measured value printed. Replaces the unsourced 0.08 Pa from engine.diffusion_model (15x higher). Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -303,6 +303,42 @@
     cas: 'PW 7KG07758 product page; species not stated (PW COA calls it a proprietary compound)'
     density_25c_g_ml: 'PW 7KG07758 page specific gravity 0.8750 (temperature not printed), as printed'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Fir Needle Oil (Canada)
+  aliases:
+  - fir needle oil (canada)
+  - Abies balsamea needle oil
+  cas: '85085-34-3'
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: 0.8709
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  vp_source: null  # natural: no single VP; the engine uses the constituent profile when one exists
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true  # Kenny 27 Oct 2026: MySkinRecipes order in his mail (overlay STK-175)
+  supplier:
+  families: []
+  character: 'woody'
+  notes: 'MySkinRecipes lot ECPT07 (order 2200410, STK-175): COA CAS 85085-34-3, ''Clear to yellowish'' liquid, no measured values; MSDS ''ABIES BALSAMEA NEEDLE OIL 100%''. Other CAS in use: 8021-28-1 (TSCA) and 8024-15-5 (FDA balsam fir oil). The engine uses the Swor 2022 Canadian commercial range-midpoint profile. IFRA: Pinaceae oils need a peroxide value below 10 mmol/L, so keep the bottle full, closed and cool.'
+  provenance:
+    cas: 'MySkinRecipes COA lot ECPT07 prints 85085-34-3. Biolandes, Chemical Safety Data Sheet FIR BALSAM Canada ORGANIC oil, article B847, reviewed 21.09.2026 (https://biolandes.com/wp-content/uploads/fiche-securite-B847.pdf): ''CAS Number: 8024-15-5'', ''EC Number: 285-364-0'', ''No CAS EINECS: 85085-34-3''. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    density_25c_g_ml: 'Biolandes SDS B847 (https://biolandes.com/wp-content/uploads/fiche-securite-B847.pdf): ''Relative density 0,8600 0,8850 (D20/20)''; specification midpoint 0.8725 x 0.99820 g/mL (water at 20 C) = 0.8709 g/mL at 20 C, not 25 C; producer specification for Canadian balsam fir oil, not this lot; grade A_producer. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    character: 'Biolandes SDS B847 (https://biolandes.com/wp-content/uploads/fiche-securite-B847.pdf): ''Odour: woody'' (grade A_producer; producer text, quoted; flash point 43,1 C closed cup on the same sheet). Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    user_in_inventory: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Fixamber
   aliases: []
   cas:

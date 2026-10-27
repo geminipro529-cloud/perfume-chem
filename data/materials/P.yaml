@@ -1655,8 +1655,8 @@
   logp: 2.93
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.933
+  vp_source: 'producer_20C_converted'
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1681,6 +1681,7 @@
   character: null
   notes: null
   provenance:
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 2-methyl-4-phenyl-2-butanol, CAS Registry Number 103-05-9, Food Chem Toxicol 189 (2024) 114712, Physical data (https://doi.org/10.1016/j.fct.2024.114712): ''Vapor Pressure: 0.0023 mm Hg at 20 °C (EPI Suite v4.0), 0.009 mm Hg at 20 °C (FMA), 0.00398 mm Hg at 25 °C (EPI Suite v4.11)''; printed 0.009 mm Hg at 20 C (FMA); FMA value quoted by RIFM; grade A_producer. Converted from 1.1999 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol from the engine''s correlation (doi:10.1021/es980812j) = 1.933 Pa. CONFLICT: the EPI Suite v4.11 estimate at 25 C (0.00398 mm Hg = 0.531 Pa) is 3.6x lower; the FMA figure is loaded as the producer value, as for Cinnamyl Acetate. FMA method not stated. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
     mw_g_mol: 'NIST Chemistry WebBook, Benzenepropanol, α,α-dimethyl- (https://webbook.nist.gov/cgi/cbook.cgi?ID=C103059): ''Molecular weight : 164.2441''; printed ; formula weight C11H16O; NIST CAS 103-05-9; grade A_measured. Second reader: NIST WebBook, CAS 103-05-9 (= stock CAS). Formula weight, not a measurement; the grade makes no practical difference for MW. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: 'ESTIMATE (EPI Suite v4.11 KOWWIN): RIFM fragrance ingredient safety assessment, 2-methyl-4-phenyl-2-butanol, CAS Registry Number 103-05-9, Food Chem Toxicol 189 (2024) 114712, Physical data (https://doi.org/10.1016/j.fct.2024.114712): ''Log K OW : 2.93 (EPI Suite v4.11)''; printed ; EPI Suite v4.11 KOWWIN; grade EST. Second reader: Same RIFM page, CAS 103-05-9. Value is an EPI Suite estimate and the item grades it EST, which is correct. No measured log Kow is listed on the page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: engine.odor_thresholds
