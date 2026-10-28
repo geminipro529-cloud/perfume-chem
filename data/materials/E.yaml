@@ -601,8 +601,8 @@
     mw_g_mol: 'RDKit exact from SMILES CCCC(=O)OCC (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     cas: 'PubChem record for CAS 105-54-4 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     vp_25c_pa: '2011.0 Pa at 25 C from the Poling et al. Antoine fit (298-422.7 K, not extrapolated) via D:\agent-cache\tools\chemprops.py (run 2026-10-23). Second source: the NIST WebBook Antoine fit gives 2304 Pa'
-    density_25c_g_ml: 'SG 0.8750, supplier-reported (PerfumersWorld 3FD00174 "Ethyl Butyrate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
-    density_basis: supplier_sg_temperature_unstated
+    density_25c_g_ml: 'SG 0.8750, PerfumersWorld 3FD00174 "Ethyl Butyrate"; the PW MSDS (https://www.perfumersworld.com/document-list.php?pro_id=3FD00174) prints ''SPECIFIC GRAVITY @ 25C (water = 100): 0.875 TO 0.883'', so the value is at 25 C (lower end of the spec). Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
+    density_basis: supplier_sg_25c
     odt_air_ppb: 'Nagata (2003) Measurement of odor threshold by triangle odor bag method, Odor Measurement Review, Japan Ministry of the Environment, pp. 118-127, https://www.env.go.jp/content/900450144.pdf, Table 2 (ppm, v/v): "Ethyl n-butyrate 0.000040" ppm v/v = 0.040 ppb (x 1000; measured, triangle odor bag). No ethanol-solution threshold found'
 - canonical_name: Ethyl Isovalerate
   aliases: []

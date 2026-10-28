@@ -26,7 +26,7 @@ _PROFILES = {
     "Fir Needle Oil (Canada)": (_FIR, 0.902, "https://journals.sagepub.com/doi/10.1177/1934578X221086901"),
     "Olibanum Oil": (_OLIBANUM, 0.744, "https://doi.org/10.1016/j.chroma.2012.06.073"),
     "Olibanum (Frankincense) Oil": (_OLIBANUM, 0.744, "https://doi.org/10.1016/j.chroma.2012.06.073"),
-    "Galbanum Resinoid": (_GALBANUM, 0.13662, "https://doi.org/10.1002/cbdv.202501442"),
+    "Galbanum Resinoid": (_GALBANUM, 0.139035, "https://doi.org/10.1002/cbdv.202501442"),
 }
 
 
@@ -47,7 +47,9 @@ def test_galbanum_resinoid_models_only_its_volatile_fraction():
     # Canton et al. 2025 volatile-fraction %FID scaled by the 34.5 % volatile share.
     assert rows["beta pinene"] == pytest.approx(0.08763)
     assert rows["alpha-bisabolol"] == pytest.approx(0.003105)
-    assert sum(rows.values()) == pytest.approx(0.13662)
+    # 2026-10-28: (3E,5Z)-undecatriene (0.7 %FID) is modeled with Givaudan's air threshold.
+    assert rows["(3E,5Z)-1,3,5-undecatriene"] == pytest.approx(0.002415)
+    assert sum(rows.values()) == pytest.approx(0.139035)
     meta = get_composite_metadata("Galbanum Resinoid")
     assert any("1.5200" in item for item in meta.limitations)
     unresolved = {row["name"]: row["reported_fraction"] for row in meta.unresolved_constituents}

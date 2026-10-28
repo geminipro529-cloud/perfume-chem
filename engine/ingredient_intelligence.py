@@ -932,15 +932,15 @@ _PROFILES: dict[str, dict] = {
         "clogp": 3.9,
         "synergies": ["Alpha Damascone", "Damascol", "Geraniol"],
     },
-    # Damascol — damascone alcohol, rose-plum rounded
+    # Damascol (IFF) — 5-methyl-5-phenylhexan-3-one, an aryl ketone (not a damascone); rose-plum rounded
     "Damascol": {
         "character": {"floral": 5, "fruity": 4, "rose": 4, "sweetness": 2},
         "note": "heart",
         "role": "character",
         "texture": "diffusion",
-        "mw": 194.3,
-        "vp": 0.6,
-        "clogp": 3.5,
+        "mw": 190.28,
+        "vp": 1.2,  # 2026-10-28 RIFM 2024 (EPI 1.22 Pa at 25 C), was 0.6
+        "clogp": 3.215,  # IFF SDS log Pow
         "synergies": ["Alpha Damascone", "Rose Absolute", "Hedione"],
     },
     # PEDMC — iris-rose harmonic, magnolia-soft

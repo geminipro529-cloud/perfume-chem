@@ -66,14 +66,18 @@ def test_lemon_terpeneless_passes_the_physics_gate_and_uses_pw_density():
     assert "7CC24027 MSDS" in registry.provenance["density_25c_g_ml"]
 
 
-def test_rum_ether_density_is_the_owned_lot_coa_midpoint_and_composition_stays_held():
+def test_rum_ether_density_is_the_owned_lot_coa_midpoint_and_composition_is_a_labelled_scenario():
     registry = resolve_material("Rum Ether").registry_material
     assert registry.density_25c_g_ml == pytest.approx((0.8644 + 0.8804) / 2, abs=5e-4)
     assert "QI71T6" in registry.provenance["density_25c_g_ml"]
-    assert registry.mw_g_mol is None and registry.vp_25c_pa is None
-    assert get_composite_metadata("Rum Ether") is None
+    # 2026-10-28: EFSA FGE.500 Company 2 scenario (density-matched), labelled estimates only.
+    assert (registry.mw_g_mol, registry.vp_25c_pa) == (pytest.approx(51), pytest.approx(9100))
+    assert registry.vp_source == "constituent_raoult_estimate"
+    meta = get_composite_metadata("Rum Ether")
+    assert meta.profile_key == "rum ether efsa fge500 company 2 scenario profile"
+    assert meta.input_authority["composition"]["owned_lot_match"] == "UNVERIFIED_CONDITIONAL_PROXY"
     state = build_formula_state({"Rum Ether": 1000.0})
-    assert gates._gate_data_coverage(state).status == "FAIL"
+    assert gates._gate_data_coverage(state).status == "PASS"
 
 
 def test_ginger_lily_has_an_identity_record_and_a_closest_identity_profile():

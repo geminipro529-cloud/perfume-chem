@@ -321,6 +321,21 @@ _SWEET_ORANGE_ISO3140_CONSTITUENTS = [
     ("nonanal", 0.0005, 142.24, 49.3, 0.34, 2.5),  # Nagata 0.00034 ppm
 ]
 
+# Rum ether (pyroligneous acids ethyl esters, CAS 8030-89-5), Kenny's MySkinRecipes 2805 lot QI71T6
+# (STK-109, neat). EFSA FGE.500 (2017, https://doi.org/10.2903/j.efsa.2017.4897) per-producer table, Company 2: mean of its three
+# batch sets (2009/10, 2015, 2016; GC-FID % of peak area, water-free), put on a whole-product basis
+# with its mean water 9.59% (x0.9041). Water and the 1.4% unknown remainder are not rows; nothing is
+# renormalized. Company 2 is chosen because its ideal-mix density (~0.86-0.87) fits the COA
+# 0.8644-0.8804 (Company 1, 83% ethanol, gives ~0.80): a scenario, not a GC of the lot.
+# Air ODTs: Nagata (2003) Table 2 (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf); VPs: PubChem/HSDB at 25 C. gamma 1.0 = ideal mixing.
+_RUM_ETHER_EFSA_COMPANY2_CONSTITUENTS = [
+    ("ethanol", 0.3850, 46.07, 7906.0, 520.0, 1.0),  # 42.58 % dry; Nagata 0.52 ppm; HSDB 59.3 mmHg
+    ("ethyl acetate", 0.3984, 88.11, 12426.0, 870.0, 1.0),  # 44.07 % dry; Nagata 0.87; HSDB 93.2 mmHg
+    ("ethyl formate", 0.0908, 74.08, 32664.0, 2700.0, 1.0),  # 10.04 % dry; Nagata 2.7; HSDB 245 mmHg
+    ("ethyl propionate", 0.0143, 102.13, 4773.0, 7.0, 1.0),  # 1.58 % dry; Nagata 0.0070; HSDB 35.8 mmHg
+    ("ethyl butyrate", 0.00157, 116.16, 2011.0, 0.040, 1.0),  # 0.173 % dry; Nagata 0.000040 ppm
+]
+
 _LEMON_FCF_EO_CONSTITUENTS = [
     ("limonene", 0.5139, 136.24, 200.0, 20.0, 3.0),
     ("beta pinene", 0.1704, 136.24, 250.0, 30.0, 3.0),
@@ -1407,11 +1422,14 @@ _OLIBANUM_CARTERII_WOOLLEY_2012_AVERAGE_CONSTITUENTS = [
 # fraction 34.5% of the whole by vacuum distillation, its GC-FID % in Table 1. Each
 # fraction is the Table 1 % x 0.345, the paper's own volatile share, so the rows
 # are on a whole-resinoid basis; nothing is renormalized. Only rows with inputs in
-# this module are modeled (13.66% of the resinoid); bulnesol 7.2, guaiol 6.9, an
+# this module are modeled (13.90% of the resinoid); bulnesol 7.2, guaiol 6.9, an
 # unknown 6.5, 10-epi-alpha-eudesmol 3.5, germacrene B 2.5, gamma-elemene 2.1,
-# delta-cadinene 1.9, the 1,3,5-undecatrienes 1.2 (% of the volatile fraction) and
+# delta-cadinene 1.9, (3E,5E)-undecatriene 0.5 (% of the volatile fraction) and
 # the 65.5% non-volatile coumarin fraction are uncomputed, not odorless. Limonene
 # coelutes with beta-phellandrene; both eudesmols take the eudesmol inputs.
+# (3E,5Z)-undecatriene (0.7 %FID, added 28 Oct 2026): air ODT 0.202 ng/L = 0.033 ppb from
+# Givaudan's log(OV) 6.65 (US 2019/0336413 A1) and headspace 904 ug/l at 25 C (US 2023/0151305 A1
+# Table 12), the commercial Undecatriene (an isomer mix); VP 14.9 Pa from that headspace (ideal gas).
 _GALBANUM_RESINOID_CANTON_2025_VF_CONSTITUENTS = [
     ("beta pinene", 0.08763, 136.24, 250.0, 30.0, 3.0),
     ("beta eudesmol", 0.00966, 222.37, 0.01, 2.00, 0.5),
@@ -1423,6 +1441,7 @@ _GALBANUM_RESINOID_CANTON_2025_VF_CONSTITUENTS = [
     ("myrcene", 0.00414, 136.24, 400.0, 10.0, 3.0),
     ("alpha-bisabolol", 0.003105, 222.37, 0.01, 5.0, 0.7),
     ("beta caryophyllene", 0.00138, 204.35, 1.00, 10.0, 1.2),
+    ("(3E,5Z)-1,3,5-undecatriene", 0.002415, 150.26, 14.9, 0.033, 3.0),
 ]
 
 # Davana oil (Artemisia pallens), PerfumersWorld 5HH12466 "Davana Essential Oil 10%
@@ -1560,6 +1579,7 @@ _ABSOLUTE_CONSTITUENTS = {
     "petitgrain eo paraguay": _PETITGRAIN_EO_CONSTITUENTS,
     "lime distilled eo": _LIME_DISTILLED_EO_CONSTITUENTS,
     "orange peel eo": _ORANGE_PEEL_EO_CONSTITUENTS,
+    "rum ether efsa fge500 company 2 scenario profile": _RUM_ETHER_EFSA_COMPANY2_CONSTITUENTS,
     "citrus sinensis sweet orange iso 3140 2019 midpoint profile": _SWEET_ORANGE_ISO3140_CONSTITUENTS,
     "lemon fcf oil sicilian": _LEMON_FCF_EO_CONSTITUENTS,
     "neroli eo": _NEROLI_EO_CONSTITUENTS,
@@ -1750,6 +1770,8 @@ _PROFILE_ALIASES = {
     "coriander essential oil": "coriander essential oil",
     "coriander seed eo": "coriander essential oil",
     "bergamot eo": "citrus bergamia calabrian type iso 3520 midpoint profile",
+    # Kenny's MSR Rum Ether (STK-109, neat): EFSA FGE.500 Company 2 scenario since 28 Oct 2026.
+    "rum ether": "rum ether efsa fge500 company 2 scenario profile",
     # Kenny's sweet orange (STK-112, COA limonene 95.28 %): its own ISO 3140 profile since 28 Oct 2026.
     "sweet orange essential oil": "citrus sinensis sweet orange iso 3140 2019 midpoint profile",
     "blood orange sicilian": "orange peel eo",
@@ -2006,6 +2028,7 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
     "galbanum resinoid": (
         "The owned Galbanum Resinoid (MySkinRecipes lot QM0D25) is modeled from one published commercial resinoid (Canton et al. 2025, supplied by RIFM), not from an analysis of the owned lot.",
         "The lot's refractive index (1.5200) is below a neat resinoid's 1.525-1.548 and inside the range of a grade cut with 30% Hercolyn; MySkinRecipes states no diluent, so the bottle may be diluted and the profile may overstate it.",
+        "Ventos sells the liquid trade grade as 'Contains hercolyn 30%.', 'Viscous liquid', RI nd20 1.5060-1.5400 (https://www.ventos.com/index.php/en/producto/5206); the lot's 1.5200 is inside it. Fractions stay unscaled until MySkinRecipes confirms a diluent (x0.70 if 30%).",
     ),
     "fir needle oil (canada)": (
         "The owned Fir Needle Oil (Canada) (MySkinRecipes lot ECPT07, Abies balsamea per its MSDS) is modeled from range midpoints of 10 commercial Canadian oils, not from an analysis of the owned lot.",
@@ -2149,6 +2172,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://webbook.nist.gov/cgi/cbook.cgi?ID=2216-51-5",
     ),
     "orange peel eo": ("https://pubmed.ncbi.nlm.nih.gov/12862384/",),
+    "rum ether efsa fge500 company 2 scenario profile": (
+        "https://doi.org/10.2903/j.efsa.2017.4897",
+        "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf",
+    ),
     "citrus sinensis sweet orange iso 3140 2019 midpoint profile": (
         "https://cdn.standards.iteh.ai/samples/74546/29e56c6708e14f9996fc5bda21efc05b/ISO-3140-2019.pdf",
         "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf",
@@ -2683,6 +2710,45 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Only limonene comes from Kenny's COA; the ten minor rows are ISO 3140 range midpoints scaled to fill the volatiles, not an analysis of his lot.",
             "The 23 ppb whole-oil threshold assumes additive odour units; octanal carries a third of it and its two measured air values differ 17x (0.17 and 0.010 ppb), so the threshold may be as low as 3.6 ppb.",
             "99.8% is modeled; valencene (0.18%) and beta-sinensal have no runtime input and are uncomputed, not odorless. Nothing is renormalized.",
+        ),
+    },
+    "rum ether efsa fge500 company 2 scenario profile": {
+        "analytical_method": "REGULATORY_ASSESSMENT_GC_FID_PRODUCER_BATCHES",
+        "composition_basis": "PRODUCER_BATCH_MEAN_WHOLE_PRODUCT_SCENARIO_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "EFSA CEF Panel (2017) Scientific Opinion on Flavouring Group Evaluation 500 (FGE.500): rum ether. EFSA Journal 15(8):4897, doi:10.2903/j.efsa.2017.4897, per-producer composition table, Company 2",
+                "company_2_dry_pct": {
+                    "ethanol": (41.23, 42.97, 43.55), "ethyl acetate": (44.99, 44.01, 43.21),
+                    "ethyl formate": (10.49, 9.66, 9.96), "ethyl propionate": (1.45, 1.67, 1.62),
+                    "ethyl butyrate": (0.16, 0.19, 0.17), "ethyl crotonate": (0.16, 0.19, 0.17),
+                },
+                "company_2_water_pct": (10.14, 9.83, 8.79),
+                "fraction_rule": "MEAN_OF_THREE_BATCH_SETS_TIMES_ONE_MINUS_MEAN_WATER_0_0959",
+                "selection_rule": "DENSITY_MATCH_TO_OWNED_COA_0_8644_0_8804",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Rum Ether (STK-109, MySkinRecipes 2805 lot QI71T6, neat)",
+            },
+            **{name: {
+                "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata 2003 Table 2, triangle odor bag",
+                "vp_status": "PUBLISHED_EXPERIMENTAL_VP_HSDB",
+                "gamma_status": "IDEAL_MIXING_ASSUMED",
+                "owned_oil_activity_measured": False,
+            } for name in ("ethanol", "ethyl acetate", "ethyl formate", "ethyl propionate", "ethyl butyrate")},
+        },
+        "unresolved_constituents": (
+            {"name": "water", "reported_fraction": 0.0959, "missing_input": "ODORLESS_SOLVENT_NOT_A_ROW", "odor_contribution": "UNCOMPUTED"},
+            {"name": "ethyl crotonate", "reported_fraction": 0.00157, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "unidentified remainder", "reported_fraction": 0.0125, "missing_input": "NOT_QUANTIFIED_FOR_THIS_PRODUCT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "A producer-type scenario chosen by density, not a GC of lot QI71T6: EFSA batches range ethanol 27-83% and ethyl acetate 2-49%; a Company 1-type lot (more ethanol, ethyl valerate/isovalerate 1.1-1.6%) would be about 10x more potent and more berry-fruity.",
+            "Ideal mixing (gamma 1.0); esters in ethanol deviate positively, so ester headspace and potency are probably underestimated.",
+            "Acetic acid, guaiacol, vanillin and ethyl acrylate (the burnt-woody, whiskey facet) are not quantified for Company 2 and are uncomputed, not odorless. Nothing is renormalized.",
         ),
     },
     "citrus bergamia calabrian type iso 3520 midpoint profile": {
@@ -4228,6 +4294,7 @@ _PARTIAL_PROFILE_EVIDENCE = {
                     "myrcene": 1.2,
                     "alpha-bisabolol": 0.9,
                     "beta caryophyllene": 0.4,
+                    "(3E,5Z)-1,3,5-undecatriene": 0.7,
                 },
                 "species": "Ferula galbaniflua resinoid; the MySkinRecipes MSDS states 'GALBANUM, RESIN (FERULA SPP.) 100%', CAS 9000-24-2 (galbanum gum)",
                 "species_asserted_by_supplier": True,
@@ -4242,6 +4309,15 @@ _PARTIAL_PROFILE_EVIDENCE = {
                for name in ("beta pinene", "beta eudesmol", "alpha eudesmol", "limonene",
                             "delta-3-carene", "alpha pinene", "germacrene d", "myrcene",
                             "alpha-bisabolol", "beta caryophyllene")},
+            "(3E,5Z)-1,3,5-undecatriene": {
+                "mw_status": "NIST_WEBBOOK_MOLECULAR_MASS",
+                "odt_status": "PRODUCER_PATENT_ODOUR_VALUE_COMMERCIAL_ISOMER_MIX",
+                "odt_source": "Givaudan US 2019/0336413 A1 [0035]-[0045], '(3E,5Z)-undeca-1,3,5-triene (for example UNDECATRIENE, log(OV)=6.65)', OV = HS/ODT; HS 904 ug/l from US 2023/0151305 A1 Table 12 ('UNDECATRIENE 0.07 904 YES'); 904/10^6.65 ug/L = 0.202 ng/L = 0.033 ppb",
+                "vp_status": "PRODUCER_PATENT_HEADSPACE_IDEAL_GAS",
+                "vp_source": "US 2023/0151305 A1 [0022]: volatility = equilibrium headspace at 25 C; 0.904 g/m3 / 150.26 g/mol x RT = 14.9 Pa",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
         },
         "unresolved_constituents": (
             # Volatile rows: %FID in the volatile fraction x its 34.5 % share of the resinoid.
@@ -4251,7 +4327,6 @@ _PARTIAL_PROFILE_EVIDENCE = {
             {"name": "germacrene B", "reported_fraction": 0.008625, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
             {"name": "gamma-elemene", "reported_fraction": 0.007245, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
             {"name": "delta-cadinene", "reported_fraction": 0.006555, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
-            {"name": "(3E,5Z)-1,3,5-undecatriene", "reported_fraction": 0.002415, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
             {"name": "(3E,5E)-1,3,5-undecatriene", "reported_fraction": 0.001725, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
             # Non-volatile coumarins: the paper's HPLC content in the raw resinoid (its Table 4).
             {"name": "galbanic acid", "reported_fraction": 0.11856, "missing_input": "NON_VOLATILE_NO_HEADSPACE", "odor_contribution": "UNCOMPUTED"},
@@ -4259,7 +4334,8 @@ _PARTIAL_PROFILE_EVIDENCE = {
         ),
         "limitations": (
             "Composition is one published commercial resinoid, not an analysis of the owned lot.",
-            "Only 13.66% of the resinoid is modeled: the volatile rows with inputs in this module. The other volatile rows, including the undecatrienes behind galbanum's green note, and the 65.5% non-volatile fraction are uncomputed, not odorless. Nothing is renormalized.",
+            "Only 13.90% of the resinoid is modeled: the volatile rows with inputs in this module. The other volatile rows, including (3E,5E)-undecatriene, and the 65.5% non-volatile fraction are uncomputed, not odorless. Nothing is renormalized.",
+            "The (3E,5Z)-undecatriene threshold is Givaudan's value for its commercial Undecatriene, a mix of about 55% (3E,5Z) with other isomers; if the others are weak, the pure isomer is about 0.018 ppb.",
             "Both eudesmols take one eudesmol input; limonene coelutes with beta-phellandrene.",
         ),
     },

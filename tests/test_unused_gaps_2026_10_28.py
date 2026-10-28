@@ -1,4 +1,4 @@
-"""Groups 1-5 of the least-used report (28 Oct 2026): sourced fixes, labelled threshold estimates and
+"""Groups 1-6 of the least-used report (28 Oct 2026): sourced fixes, labelled threshold estimates and
 Kenny's bottle answers from the "Fix gaps in unused materials" thread. Every source was re-opened
 before loading. These pin the data and its sources; they make no sensory claim."""
 
@@ -569,3 +569,67 @@ def test_myrrh_eo_vp_is_one_labelled_estimate_everywhere():
     assert load_registry().get("Myrrh EO").vp_25c_pa == pytest.approx(0.5)
     assert _PROFILES["Myrrh EO"]["vp"] == pytest.approx(0.5)
     assert DIFFUSION_DATA["Myrrh EO"]["VP_25"] == pytest.approx(0.5)
+
+
+# ── Group 6 (28 Oct 2026) ──────────────────────────────────────────────────────────────────
+
+
+def test_galbanum_resinoid_models_its_undecatriene_with_givaudans_threshold():
+    from engine.pipeline.natural_absolute_decomposition import get_composite_metadata, get_constituents
+
+    rows = {row[0]: row for row in get_constituents("Galbanum Resinoid")}
+    assert rows["(3E,5Z)-1,3,5-undecatriene"][1:] == pytest.approx((0.002415, 150.26, 14.9, 0.033, 3.0))
+    meta = get_composite_metadata("Galbanum Resinoid")
+    assert "(3E,5Z)-1,3,5-undecatriene" not in {r["name"] for r in meta.unresolved_constituents}
+    assert "log(OV)=6.65" in meta.input_authority["(3E,5Z)-1,3,5-undecatriene"]["odt_source"]
+    assert load_registry().get("Galbanum Resinoid").density_25c_g_ml == pytest.approx(1.008)
+
+
+def test_triplal_stale_rows_match_the_givaudan_threshold():
+    assert ODT_DATA["triplal"]["odt_air"] == pytest.approx(0.582)
+    assert ODT_VERIFICATION["triplal"]["vfy"] == "PEER_SINGLE"
+    assert "US 12,340,876" in ODT_VERIFICATION["triplal"]["sources"][0]
+
+
+def test_rum_ether_is_neat_and_modeled_as_the_efsa_company_2_scenario(records, stocks):
+    from engine.pipeline.natural_absolute_decomposition import get_constituents
+
+    assert "'Neat' (11:20:58 UTC)" in records["INV-USER-20261014-STK-109"]["note"]
+    assert _one(stocks, "Rum Ether").dilution == 1.0
+    rows = {row[0]: row[1] for row in get_constituents("Rum Ether")}
+    assert rows["ethyl butyrate"] == pytest.approx(0.00157)
+    assert sum(rows.values()) == pytest.approx(0.89007)  # water and the unknown 1.4 % are not rows
+    assert ODT_DATA["rum ether"]["odt_air"] == pytest.approx(160.0)
+    assert ODT_VERIFICATION["rum ether"]["vfy"] == "UNVERIFIED"
+
+
+def test_ethyl_butyrate_is_fruity_and_its_density_is_at_25c(records):
+    assert records["INV-USER-20261014-STK-164"]["category"] == "fruity"
+    assert load_registry().get("Ethyl Butyrate").provenance["density_basis"] == "supplier_sg_25c"
+
+
+def test_florhydral_keeps_givaudans_physics_and_takes_an_sds_density():
+    # Givaudan's page (2.0 Pa, logP 3.8) outranks a reseller SDS (0.65 Pa at 20 C, 3.1) until ECHA is read.
+    spine = load_registry().get("Florhydral")
+    assert (spine.vp_25c_pa, spine.logp, spine.density_25c_g_ml) == (
+        pytest.approx(2.0), pytest.approx(3.8), pytest.approx(0.9505))
+    assert ODT_DATA["florhydral"]["odt_air"] == pytest.approx(0.008995)
+
+
+def test_damascol_is_one_aryl_ketone_everywhere():
+    from engine.diffusion_model import DIFFUSION_DATA
+    from engine.ingredient_intelligence import _PROFILES
+
+    assert load_registry().get("Damascol").vp_25c_pa == pytest.approx(1.2)
+    assert (_PROFILES["Damascol"]["mw"], _PROFILES["Damascol"]["vp"], _PROFILES["Damascol"]["clogp"]) == (
+        pytest.approx(190.28), pytest.approx(1.2), pytest.approx(3.215))
+    assert (DIFFUSION_DATA["Damascol"]["MW"], DIFFUSION_DATA["Damascol"]["VP_25"]) == (
+        pytest.approx(190.28), pytest.approx(1.2))
+
+
+def test_lilyreal_vp_is_one_labelled_surrogate():
+    from engine.diffusion_model import DIFFUSION_DATA
+
+    spine = load_registry().get("Lilyreal ND")
+    assert spine.vp_25c_pa == pytest.approx(0.02) and "UNVERIFIED" in spine.provenance["vp_25c_pa"]
+    assert DIFFUSION_DATA["Lilyreal ND"]["VP_25"] == pytest.approx(0.02)

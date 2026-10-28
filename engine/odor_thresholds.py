@@ -372,7 +372,7 @@ ODT_DATA: dict[str, dict] = {
     "damascol": {
         "odt_air": 0.5,
         "odt_eth": 0.005,
-        "char": "rose-plum damascone alcohol",
+        "char": "deep peppery-woody rose absolute, fruity-spicy (aryl ketone)",
     },
     # Verified: Motooka et al. (2015) J Oleo Sci 64:503 — 0.004 ppb in air
     # Extremely potent rose-fruit-faceted odorant
@@ -387,7 +387,7 @@ ODT_DATA: dict[str, dict] = {
         "odt_eth": 0.05,
         "char": "green, fruity, leafy-green, violet, pear",
     },
-    "triplal": {"odt_air": 0.5, "odt_eth": 0.001, "char": "cyclamen, ozonic, metallic"},
+    "triplal": {"odt_air": 0.582, "odt_eth": 0.001, "char": "green, leafy, aldehydic, citrus-peel"},
     "allyl amyl glycolate": {
         "odt_air": 2.0,
         "odt_eth": 0.3,
@@ -440,7 +440,7 @@ ODT_DATA: dict[str, dict] = {
     "nympheal": {"odt_air": 2.0, "odt_eth": 0.4, "char": "muguet, creamy-green"},
     "florol": {"odt_air": 10.0, "odt_eth": 2.0, "char": "muguet, soft-floral"},
     "freesia hdi": {"odt_air": 3.0, "odt_eth": 0.5, "char": "freesia, green-floral"},
-    "florhydral": {"odt_air": 0.3, "odt_eth": 0.2, "char": "floral, green, muguet, fresh"},
+    "florhydral": {"odt_air": 0.008995, "odt_eth": 0.2, "char": "floral, green, muguet, fresh"},
     # ── Additional florals ──
     "dbca": {"odt_air": 3.0, "odt_eth": 0.1, "char": "gardenia-rose, cosmetic"},
     "peonile": {"odt_air": 5.0, "odt_eth": 1.0, "char": "peony, rose-green"},
@@ -2218,9 +2218,9 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Auto-tagged by audit 2026-05-11",
     },
     "florhydral": {
-        "vfy": "DERIVED",
-        "sources": ["Givaudan product page; retailer descriptions — use-level inference only"],
-        "note": "Legacy 0.3 ppb screen retained; not a measured air-threshold result.",
+        "vfy": "PEER_CROSS",
+        "sources": ["Givaudan US 4,910,346 'Odor threshold value: 0.07 ng/L' (literature batch 2026-10-25, the runtime row)"],
+        "note": "Static row aligned to the literature value 2026-10-28 (was a 0.3 ppb use-level inference).",
     },
     "florol": {
         "vfy": "UNVERIFIED",
@@ -2249,7 +2249,10 @@ ODT_VERIFICATION: dict[str, dict] = {
     "galbanum resinoid": {
         "vfy": "DERIVED",
         "sources": [
-            "Whole oil/natural — no single air-phase ODT exists in peer-reviewed literature"
+            "Whole oil/natural — no single air-phase ODT exists in peer-reviewed literature",
+            "2026-10-28: the odour is modeled from Canton 2025 constituents, including (3E,5Z)-undecatriene "
+            "at Givaudan's 0.033 ppb (engine/pipeline/natural_absolute_decomposition.py); this 0.3 ppb row is "
+            "an unsourced class value and does not drive the resinoid's odour.",
         ],
         "note": "Auto-tagged by audit 2026-05-11",
     },
@@ -2919,11 +2922,12 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Auto-tagged by audit 2026-05-11",
     },
     "triplal": {
-        "vfy": "PEER_EST",
+        "vfy": "PEER_SINGLE",
         "sources": [
-            "ScenTree entry — usage at 0.01-0.03% implies ~0.3-0.8 ppb; cyclamen-ozonic aldehyde class"
+            "Givaudan SA, US 12,340,876 B2 (engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25 'triplal'): 0.582 ppb (3.29 ng/L) air, linear-dilution olfactometer; replaces a ScenTree "
+            "usage inference (2026-10-28)."
         ],
-        "note": "Tier B — usage pattern + supplier data",
+        "note": "Producer patent air threshold; the literature batch row is the runtime value.",
     },
     "ultralia": {
         "vfy": "UNVERIFIED",
@@ -3616,8 +3620,8 @@ _VERIFIED_ODT = {
     "scentenal": 0.02,
     "floralozone": 1.0,
     "vetival": 7.0,
-    "triplal": 0.5,
-    "florhydral": 0.3,
+    "triplal": 0.582,
+    "florhydral": 0.008995,
     "ethyl maltol": 0.3,
     "cis-jasmone": 0.5,
     "dihydromyrcenol": 1.0,
@@ -5955,6 +5959,22 @@ ODT_VERIFICATION["sweet orange essential oil"] = {
 # 0.05 and 5.0 ppb rows had no source, so they are retired and the gate warns on the undeclared part.
 ODT_DATA.pop("costus olifac", None)
 ODT_VERIFICATION.pop("costus olifac", None)
+_refresh_normalized_odt_index()
+# Group 6 (28 Oct 2026). Inputs: /mnt/project-files/unused-gaps-20261028/group6/ (g6_*/VALUES.md).
+ODT_DATA["rum ether"] = {"odt_air": 160.0, "odt_eth": None}
+ODT_VERIFICATION["rum ether"] = {
+    "vfy": "UNVERIFIED",
+    "sources": [
+        "Constituent estimate, not a measurement: headspace odorant ppb / sum of OAVs over the Raoult "
+        "headspace of the EFSA FGE.500 Company 2 rum ether scenario (doi:10.2903/j.efsa.2017.4897; "
+        "engine/pipeline/natural_absolute_decomposition.py). Measured air thresholds (Nagata 2003, "
+        "Table 2): ethanol 520, ethyl acetate 870, ethyl formate 2700, ethyl propionate 7.0, ethyl "
+        "butyrate 0.040 ppb. Ethyl butyrate carries 69% of the odour units.",
+        "Range 15-170 ppb across the EFSA producers (Company 1 profile 15, Company 4 17); the label is "
+        "for the composition choice and ideal mixing, not the constituent thresholds.",
+    ],
+    "note": "Constituent estimate 2026-10-28 (stock thread, unused-materials group 6); sources re-opened before loading.",
+}
 _refresh_normalized_odt_index()
 ANALOGUE_ODT_BATCH_2026_10_28 = True
 

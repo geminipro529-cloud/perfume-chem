@@ -596,10 +596,10 @@
   - florhydral
   - Florhydral(TM)
   cas: 125109-85-5
-  smiles:
+  smiles: 'CC(C)c1cccc(c1)C(C)CC=O'
   inchikey:
   mw_g_mol: 190.3
-  density_25c_g_ml: 0.9495
+  density_25c_g_ml: 0.9505
   logp: 3.8
   functional_groups:
   - aldehyde
@@ -632,8 +632,9 @@
   - floral materials
   - muguet
   character: 'Florhydral has a very floral, fresh, natural odour (such as lily of the valley, hyacinth...).'
-  notes: Floral, green, muguet, fresh, powerful; lily-of-the-valley and hyacinth direction.
+  notes: 'Floral, green, muguet, fresh, powerful; lily-of-the-valley and hyacinth direction. VP 2.0 Pa and logP 3.8 stay Givaudan''s product-page values (page 8754243, re-read 28 Oct 2026 on Kenny''s PC); a reseller SDS (PCW FDS 2024-06) prints 0.65 Pa at 20 C and log Pow 3.1, unconfirmed until the ECHA dossier is read.'
   provenance:
+    smiles: '3-(3-isopropylphenyl)butanal, CAS 125109-85-5 (Givaudan). Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
     character: 'Florhydral™ | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm: Florhydral™ has a very floral, fresh, natural odour (such as lily of the valley, hyacinth...). Its great intensity and pleasant quality make it useful in all areas of perfumery. (grade A_producer; ). Replaces unsourced text {''floral'': 8, ''green'': 6, ''freshness'': 7}. Second reader: CAS 125109-85-5 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     identity: https://www.simplescentsdiy.com/product/35447-34947/florhydral
     cas: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm
@@ -645,7 +646,7 @@
     stevens_n: engine.odor_thresholds
     user_in_inventory: inventory.txt; direct user confirmation 2026-09-10
     user_stock_dilution: direct user confirmation 2026-09-10
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.9495; https://scent.vn/en/products/florhydral-aroma-chemical; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_25c_g_ml: 'PCW Florhydral FDS (https://directpcw.com/cdn/shop/files/FLORHYDRAL_-_FLAL1G_-_FDS_V1-R2_-_2024-06.pdf): ''Densité à 20/4°C : [0.948 ; 0.953]'', midpoint 0.9505 at 20 C, not corrected to 25 C. Replaces 0.9495 (a scent.vn midpoint). Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
 - canonical_name: Florol
   aliases:
   - florol

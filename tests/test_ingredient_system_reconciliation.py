@@ -184,7 +184,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # (UNVERIFIED analogues; maltol 1.0 relabelled) and methyl laitone 0.0303 (Givaudan SDS).
     # Groups 1-3 alone gave 9b2c3880…. Group 5 adds sweet orange essential oil 23 (UNVERIFIED
     # constituent estimate) and retires the unsourced costus olifac 5.0; groups 1-4 gave 5531c14a….
-    assert digest == "bdcd5e59eb263750b3a7cd0a8208cb3ef60ef963800ce413646b02d52ba7ae59"
+    # 2026-10-28 group 6: rum ether 160 ppb (UNVERIFIED constituent estimate) and the stale static rows
+    # triplal 0.5 -> 0.582 and florhydral 0.3 -> 0.008995 aligned to their literature values; group 5 gave bdcd5e59….
+    assert digest == "ed3945b005030fd261a9b3e59ba4322d0fb2f893bc602ae8f5a61d675f1527ad"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

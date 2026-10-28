@@ -76,11 +76,7 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # (UNVERIFIED analogue air ODTs) and Ethyl Linalyl Acetate (Givaudan PROC, PEER_EST) left too.
     "Sandalwood Base 3X": (_ALL, "PerfumersWorld 6WX24054, a partly declared base (Javanol and Sandalore 1-10% each); the invented 2026-08-07 values were removed 2026-10-28"),
     "Sandalwood Base X3": (_ALL, "PerfumersWorld 6WX24054, a partly declared base (Javanol and Sandalore 1-10% each); the invented 2026-08-07 values were removed 2026-10-28"),
-    "Rum Ether": (
-        _ALL,
-        "CAS 8030-89-5 is a reaction-product mixture with no single MW or VP; the MSR COA's "
-        "'main content 80% min' is unnamed and the MSR SDS has not been read (2026-10-25)",
-    ),
+    # Rum Ether left this list on 2026-10-28: EFSA FGE.500 Company 2 scenario profile (labelled estimates).
     # Naturals with no peer-reviewed GC-MS of the same product type (Rule 4).
     # Lemon Terpeneless Oil Sicilian left this list on 2026-10-25 (citral 45%, BP grade estimate).
     "Mate Absolute": (

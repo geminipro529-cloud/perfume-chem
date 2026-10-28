@@ -107,8 +107,8 @@ ODT_PATCH = {
     "vetival":          7.0,      # Vetiver sesquiterpene midpoint 5-20 ppb
     "melonal":          0.15,     # Unsaturated C7 aldehyde class; (Z)-4-heptenal 0.04 ppb
     "ethyl maltol":     0.3,      # van Gemert 2011: tactile sweetener, near-zero OAV
-    "triplal":          0.5,      # ScenTree: extremely powerful at 0.01-0.03%
-    "florhydral":       0.3,      # Givaudan product page: floral-aquatic 0.01-0.1%
+    "triplal":          0.582,    # Givaudan US 12,340,876 B2 air threshold (2026-10-28; runtime row in odor_thresholds)
+    "florhydral":       0.008995, # Givaudan US 4,910,346 0.07 ng/L (2026-10-28; runtime row in odor_thresholds)
     "cis-jasmone":      0.5,      # Nagata 2003: published ODT
     "dihydromyrcenol":  1.0,      # Devos 1990: published ODT
     "cyclamen aldehyde":0.76,     # Nagata 2003; Devos 1990: published

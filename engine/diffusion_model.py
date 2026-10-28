@@ -89,7 +89,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     "DBCA": {"MW": 204.3, "VP_25": 0.8, "Kaw_eff": 0.003},
     "Hydroxycitronellal": {"MW": 172.27, "VP_25": 0.889, "Kaw_eff": 0.005},
     "Phenethyl Alcohol": {"MW": 122.2, "VP_25": 12.0, "Kaw_eff": 0.002},
-    "Lilyreal ND": {"MW": 192.3, "VP_25": 1.5, "Kaw_eff": 0.003},
+    "Lilyreal ND": {"MW": 192.3, "VP_25": 0.02, "Kaw_eff": 0.003},  # 2026-10-28 UNVERIFIED Lyral-class surrogate, was 1.5
     "Bourgeonal": {"MW": 204.3, "VP_25": 1.0, "Kaw_eff": 0.003},
     "Nympheal": {"MW": 204.3, "VP_25": 0.6, "Kaw_eff": 0.002},
     "Florol": {"MW": 170.3, "VP_25": 3.0, "Kaw_eff": 0.005},
@@ -108,7 +108,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     "Alpha Damascone": {"MW": 192.3, "VP_25": 2.0, "Kaw_eff": 0.003},
     "Damascone Beta": {"MW": 192.3, "VP_25": 1.5, "Kaw_eff": 0.003},
     "Damascenone": {"MW": 190.3, "VP_25": 1.0, "Kaw_eff": 0.002},
-    "Damascol": {"MW": 194.3, "VP_25": 0.6, "Kaw_eff": 0.001},
+    "Damascol": {"MW": 190.28, "VP_25": 1.2, "Kaw_eff": 0.001},  # 2026-10-28 RIFM 2024 (EPI 1.22 Pa), was 194.3 / 0.6
     # ── Muguet heart (additions) ──
     "Mayol": {"MW": 166.3, "VP_25": 1.5, "Kaw_eff": 0.002},
     "Farnesol": {"MW": 222.4, "VP_25": 0.08, "Kaw_eff": 0.0004},

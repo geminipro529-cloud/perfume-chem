@@ -2111,7 +2111,7 @@
   logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
+  vp_25c_pa: 0.02
   vp_source: placeholder  # unsourced round value; gate reports it as estimated
   antoine: null
   dhvap_kj_mol: null
@@ -2135,11 +2135,11 @@
   families:
   - floral materials
   character: 'soft delicate floral lily cyclamen hydroxycitronellal-like odour delicately sweet-light-floral'
-  notes: null
+  notes: 'PerfumersWorld house compound (https://www.perfumersworld.com/document-list.php?pro_id=6MG22777): ''Proprietary Perfume Compound. Complex mixture of essential oils, aroma chemical, natural extracts and isolates.''; SDS ''No composition data available for this product.''; IFRA certificate and allergen declaration ''No restricted materials found for this product.'' (Cat 4 25%). Sold to replace HMPCC (Lyral). MW 192.3 / logP 3.5 are placeholders; its 2.0 ppb thresholds are unsourced placeholders (the gate needs a row; an opaque base gets no OAV). Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
   provenance:
     character: 'Lilyreal ND | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6MG22777: it has a soft delicate floral lily cyclamen hydroxycitronellal-like odour delicately sweet-light-floral with outstanding-tenacity and radiation (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'UNVERIFIED evaporation surrogate, not a vapour pressure: PerfumersWorld publishes none (house compound, ''https://www.perfumersworld.com/document-list.php?pro_id=6MG22777'' SDS ''No composition data available for this product.''). Its strip life 300 h (https://www.perfumersworld.com/view.php?pro_id=6MG22777) is close to Lyral''s 250 h (https://www.perfumersworld.com/view.php?pro_id=3MG00282), so it takes a Lyral-class 0.02 Pa. Replaces 0.01 here and 1.5 in engine/diffusion_model.py, which disagreed. Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

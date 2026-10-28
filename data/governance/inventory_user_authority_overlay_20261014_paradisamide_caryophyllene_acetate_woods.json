@@ -497,6 +497,16 @@
         "message_timestamp_utc": "2026-10-28T11:09:57Z",
         "text": "Already made",
         "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'is your Costus Olifac 10% PW's ready-made 10% in DPG, or your own dilution of the neat?'. STK-029 gains supplier PerfumersWorld 5UW11312; strength and carrier unchanged."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T11:20:58Z",
+        "text": "Neat",
+        "context": "Kenny's own words in the 'Fix gaps in unused materials' thread, answering 'is your Rum Ether still neat only, or did you make a 10% dilution?'. STK-109 stays neat; no 10% stock."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T11:21:31Z",
+        "text": "Only 10%",
+        "context": "Kenny's own words in the 'Fix gaps in unused materials' thread, answering 'do you still have a neat Damascol bottle, or only the 10%?'. STK-025 (10% in DPG) now retires the V5 neat row 277."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -1671,8 +1681,20 @@
         "execution_ready": true,
         "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
       },
-      "supersedes_parent_stocks": [],
-      "requirement_overrides": [],
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 277
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 277,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN DPG ONLY (USER-CONFIRMED 2026-10-28); REPLACES THE V5 NEAT / AS SUPPLIED STOCK",
+          "actual_stock_text": "Damascol 10% w/w in DPG",
+          "can_prepare": ""
+        }
+      ],
       "effective_date": "2026-10-14",
       "source_kind": "DIRECT_USER_STOCK_CORRECTION",
       "source_quote": "1. yes 2. no idea, its neat 3. DPG 3. Check Sandalwood EO 10% in DPG on PW 5. the incoming one will be sweet orange, but sour version from china. 6. Yes. Javanol has both neat and 20%, . Ambretteolide is neat but you tell me if you need a solitin prepared. 7 do it",
@@ -1689,7 +1711,7 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "Asked 'Damascol 10%: do you own it? (yes / no)', Kenny answered 'yes' (item 1 of his 15 Oct 15:40 reply). The 10% is inventory.txt L154 'Damascol (10%)'; the carrier is his 14 Oct rule 'All the Damascones, etc stock dilution bases are in DPG'; the basis is the project default (w/w). The neat V5 stock (row 277) is unchanged."
+      "note": "Asked 'Damascol 10%: do you own it? (yes / no)', Kenny answered 'yes' (item 1 of his 15 Oct 15:40 reply). The 10% is inventory.txt L154 'Damascol (10%)'; the carrier is his 14 Oct rule 'All the Damascones, etc stock dilution bases are in DPG'; the basis is the project default (w/w). 28 Oct 2026: asked in the 'Fix gaps in unused materials' thread 'do you still have a neat Damascol bottle, or only the 10%?', Kenny: 'Only 10%' (11:21:31 UTC). The V5 neat row (277) is retired."
     },
     {
       "record_id": "INV-USER-20261014-STK-026",
@@ -5400,7 +5422,7 @@
         "release_authorized": false,
         "lot_from_supplier_coa": true
       },
-      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Rum Ether (pyroligneous acids ethyl esters)', 5 g. A natural-derived mixture, dosed as supplied; its composition is not expanded (AGENTS.md Rule 4)."
+      "note": "MySkinRecipes order #2199302, placed 15 Oct 2026 (Kenny posted it 08:14 UTC, 'Isomethyl ionone grades compared'). Kenny: 'Tell all chats that myskinrecipes chemicals arrived' (16 Oct 03:55:55 UTC, 'Formulation studio 3'). Neat as supplied, as MySkinRecipes lists it; the label, MSDS and COA are not transcribed here. Listed as 'Rum Ether (pyroligneous acids ethyl esters)', 5 g. A natural-derived mixture, dosed as supplied (whole-product dosing unchanged). Since 28 Oct 2026 the engine models it with the EFSA FGE.500 Company 2 composition scenario, chosen because its density fits this COA; a scenario, not a GC of lot QI71T6. 28 Oct 2026: asked 'is your Rum Ether still neat only, or did you make a 10% dilution?', Kenny: 'Neat' (11:20:58 UTC), so no 10% stock exists."
     },
     {
       "record_id": "INV-USER-20261014-STK-110",
@@ -8158,7 +8180,7 @@
         "Ethyl n-Butyrate"
       ],
       "state": "OWNED",
-      "category": "sweet / gourmand / balsamic",
+      "category": "fruity",
       "stock": {
         "physical_form": "as_supplied",
         "fraction": 1.0,

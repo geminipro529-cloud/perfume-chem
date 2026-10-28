@@ -239,6 +239,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Neat liquid",
         "I diluted it myself, from PW",
         "Already made",
+        # 28 Oct 11:20-11:21 UTC: Rum Ether neat only (STK-109 note); Damascol 10% only, so STK-025
+        # retires the V5 neat row 277.
+        "Neat",
+        "Only 10%",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -491,9 +495,10 @@ def test_aurantiol_ten_percent_dpg_and_neat_bottle_both_carry_his_word() -> None
     ]
 
 
-def test_damascol_and_javanol_keep_their_other_bottle() -> None:
+def test_damascol_is_ten_percent_only_and_javanol_keeps_its_other_bottle() -> None:
+    # 28 Oct 2026, Kenny: "Only 10%"; STK-025 retires the V5 neat Damascol row (277).
     damascol = sorted((s.dilution, s.stock_id.split(":")[1]) for s in _stocks("Damascol") if s.status == "owned")
-    assert damascol == [(pytest.approx(0.1), "user-20261014"), (1.0, "v5")]
+    assert damascol == [(pytest.approx(0.1), "user-20261014")]
     javanol = sorted((s.dilution, s.carrier) for s in _stocks("Javanol") if s.status == "owned")
     assert javanol == [(pytest.approx(0.2), "dpg"), (1.0, "")]
     (row,) = [r for r in inventory.materialize_current_inventory().requirements if r.source_row == 149]
