@@ -50,7 +50,8 @@ def test_beta_caryophyllene_values_are_rifms() -> None:
     # 0.007 mm Hg at 20 C (FMA, quoted by RIFM) converted to 25 C
     assert material.vp_25c_pa == pytest.approx(_clausius_clapeyron_25c(0.007 * MM_HG_PA), abs=0.001)
     assert material.vp_source == "producer_20C_converted"
-    assert material.odt_air_ppb is None  # its single air value disagrees with the water data
+    # 2026-10-28: Givaudan's measured odour value over the engine VP (PEER_EST), 1.3x from Ruth 1986.
+    assert material.odt_air_ppb == pytest.approx(49.0)
 
 
 def test_beta_caryophyllene_vp_records_the_conflict_it_did_not_load() -> None:

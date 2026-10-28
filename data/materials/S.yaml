@@ -3110,18 +3110,18 @@
   cas: 8008-57-9
   smiles: null
   inchikey: null
-  mw_g_mol: null
+  mw_g_mol: 136.4
   density_25c_g_ml: 0.844
-  logp: null
+  logp: 4.38
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 203
+  vp_source: constituent_raoult_estimate
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 23
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -3139,8 +3139,12 @@
   families: []
   character: 'With its unique combination of citrus and floral notes, orange exudes a sense of sophistication and refinement that sets it apart from other citrus fruits with their bright, colourful, uplifting notes.'
   odour_family: 'citrus'
-  notes: null
+  notes: 'Kenny''s bottle (STK-112) is sweet orange per his COA (optical rotation 99 deg, limonene 95.28 %; ISO 3140 sweet range +94 to +99). The label ''China, Sour'' is not read as bitter orange: Kenny has twice said sweet. Own profile since 28 Oct 2026 (engine/pipeline/natural_absolute_decomposition.py, ''citrus sinensis sweet orange iso 3140 2019 midpoint profile''): COA limonene plus ISO 3140:2019 Table 2 midpoints for 10 minors, scaled x0.8725; not a lot GC. Oxidises: IFRA Standard 186 peroxide spec applies (store cold, dark, full). Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
   provenance:
+    odt_air_ppb: 'UNVERIFIED constituent estimate: 1/ODT = sum of y_i/ODT_i over the Raoult headspace of the citrus sinensis sweet orange iso 3140 2019 midpoint profile, measured air thresholds limonene 38 ppb (Nagata 2003, ''0.038'' ppm, https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf), octanal 0.17, decanal 0.40, linalool 0.51, alpha-pinene 18 ppb; limonene carries 57 % and octanal 35 % of the odour units. Range 3.6-24 ppb (octanal at Nagata''s 0.010 ppb gives 3.6). Not a measurement. Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
+    vp_25c_pa: 'ESTIMATE: Raoult''s law (ideal) over the citrus sinensis sweet orange iso 3140 2019 midpoint profile: limonene 200 Pa (ECHA) is 94 % of the vapour; myrcene 279, alpha-pinene 633 Pa. ISO 3140:2019 (https://cdn.standards.iteh.ai/samples/74546/29e56c6708e14f9996fc5bda21efc05b/ISO-3140-2019.pdf) Table 2. Replaces the borrowed Orange Peel EO figure. Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
+    logp: 'Limonene log Kow 4.38 (ECHA, engine D-Limonene row), the dominant constituent (95 %); mass-weighted mean 4.37. Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
+    mw_g_mol: 'Number-mean MW of the citrus sinensis sweet orange iso 3140 2019 midpoint profile (11 constituents). Derived, not measured. Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
     character: 'Orange Pera Oil Brazil | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orange-pera-oil-brazil: CITRUS | Citrus-like, Orange-like, Peely, Fresh ... With its unique combination of citrus and floral notes, orange exudes a sense of sophistication and refinement that sets it apart from other citrus fruits with their bright, colourful, uplifting notes. (grade A_producer; producer description (Givaudan Orange Pera Oil Brazil, Citrus sinensis var. pera, cold pressed)). Second reader: Generic inventory ''Sweet Orange Essential Oil''; page is cold-pressed Citrus sinensis (pera cultivar, Brazil); CAS 8008-57-9 matches. The value is marketing prose. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "citrus" from ''Citrus'': Orange Pera Oil Brazil | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orange-pera-oil-brazil: CITRUS | Citrus-like, Orange-like, Peely, Fresh (grade A_producer; producer classification (Givaudan; descriptors ''Citrus-like, Orange-like, Peely, Fresh'')). Second reader: Same page as item Orange Peel EO. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md

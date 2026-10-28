@@ -142,10 +142,13 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # Cedryl Acetate OAV-available (262 -> 263). Group 2 the same day did the same for
     # Caryophyllene Acetate (263 -> 264). Group 3 made Acetoin and Ethyl Linalyl Acetate
     # OAV-available (264 -> 266). Group 4 gave Methyl Laitone Givaudan's SDS air threshold
-    # (266 -> 267).
-    assert audit["oav_available_count"] == 267
-    assert audit["oav_unknown_count"] == 23
-    assert audit["oav_coverage_pct"] == 92.069
+    # (266 -> 267). Group 5 shared Leafovert's Symrise air threshold with Liffarome, the same
+    # molecule (267 -> 268). Group 7 gave Buccoxime Symrise's air threshold, Veloutone a Givaudan
+    # PROC value and Cis-3 Hexenyl Hexanoate, Linalool Oxide and Rhubofix labelled UNVERIFIED
+    # analogue estimates (268 -> 273).
+    assert audit["oav_available_count"] == 273
+    assert audit["oav_unknown_count"] == 17
+    assert audit["oav_coverage_pct"] == 94.138
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"

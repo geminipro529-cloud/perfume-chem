@@ -372,7 +372,7 @@ ODT_DATA: dict[str, dict] = {
     "damascol": {
         "odt_air": 0.5,
         "odt_eth": 0.005,
-        "char": "rose-plum damascone alcohol",
+        "char": "deep peppery-woody rose absolute, fruity-spicy (aryl ketone)",
     },
     # Verified: Motooka et al. (2015) J Oleo Sci 64:503 — 0.004 ppb in air
     # Extremely potent rose-fruit-faceted odorant
@@ -385,9 +385,9 @@ ODT_DATA: dict[str, dict] = {
     "leafovert": {
         "odt_air": 8.0,
         "odt_eth": 0.05,
-        "char": "cut grass, galbanum, sharp",
+        "char": "green, fruity, leafy-green, violet, pear",
     },
-    "triplal": {"odt_air": 0.5, "odt_eth": 0.001, "char": "cyclamen, ozonic, metallic"},
+    "triplal": {"odt_air": 0.582, "odt_eth": 0.001, "char": "green, leafy, aldehydic, citrus-peel"},
     "allyl amyl glycolate": {
         "odt_air": 2.0,
         "odt_eth": 0.3,
@@ -440,7 +440,7 @@ ODT_DATA: dict[str, dict] = {
     "nympheal": {"odt_air": 2.0, "odt_eth": 0.4, "char": "muguet, creamy-green"},
     "florol": {"odt_air": 10.0, "odt_eth": 2.0, "char": "muguet, soft-floral"},
     "freesia hdi": {"odt_air": 3.0, "odt_eth": 0.5, "char": "freesia, green-floral"},
-    "florhydral": {"odt_air": 0.3, "odt_eth": 0.2, "char": "floral, green, muguet, fresh"},
+    "florhydral": {"odt_air": 0.008995, "odt_eth": 0.2, "char": "floral, green, muguet, fresh"},
     # ── Additional florals ──
     "dbca": {"odt_air": 3.0, "odt_eth": 0.1, "char": "gardenia-rose, cosmetic"},
     "peonile": {"odt_air": 5.0, "odt_eth": 1.0, "char": "peony, rose-green"},
@@ -2218,9 +2218,9 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Auto-tagged by audit 2026-05-11",
     },
     "florhydral": {
-        "vfy": "DERIVED",
-        "sources": ["Givaudan product page; retailer descriptions — use-level inference only"],
-        "note": "Legacy 0.3 ppb screen retained; not a measured air-threshold result.",
+        "vfy": "PEER_CROSS",
+        "sources": ["Givaudan US 4,910,346 'Odor threshold value: 0.07 ng/L' (literature batch 2026-10-25, the runtime row)"],
+        "note": "Static row aligned to the literature value 2026-10-28 (was a 0.3 ppb use-level inference).",
     },
     "florol": {
         "vfy": "UNVERIFIED",
@@ -2249,7 +2249,10 @@ ODT_VERIFICATION: dict[str, dict] = {
     "galbanum resinoid": {
         "vfy": "DERIVED",
         "sources": [
-            "Whole oil/natural — no single air-phase ODT exists in peer-reviewed literature"
+            "Whole oil/natural — no single air-phase ODT exists in peer-reviewed literature",
+            "2026-10-28: the odour is modeled from Canton 2025 constituents, including (3E,5Z)-undecatriene "
+            "at Givaudan's 0.033 ppb (engine/pipeline/natural_absolute_decomposition.py); this 0.3 ppb row is "
+            "an unsourced class value and does not drive the resinoid's odour.",
         ],
         "note": "Auto-tagged by audit 2026-05-11",
     },
@@ -2919,11 +2922,12 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Auto-tagged by audit 2026-05-11",
     },
     "triplal": {
-        "vfy": "PEER_EST",
+        "vfy": "PEER_SINGLE",
         "sources": [
-            "ScenTree entry — usage at 0.01-0.03% implies ~0.3-0.8 ppb; cyclamen-ozonic aldehyde class"
+            "Givaudan SA, US 12,340,876 B2 (engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25 'triplal'): 0.582 ppb (3.29 ng/L) air, linear-dilution olfactometer; replaces a ScenTree "
+            "usage inference (2026-10-28)."
         ],
-        "note": "Tier B — usage pattern + supplier data",
+        "note": "Producer patent air threshold; the literature batch row is the runtime value.",
     },
     "ultralia": {
         "vfy": "UNVERIFIED",
@@ -3237,6 +3241,9 @@ _ODT_QUERY_ALIASES = {
     "orris butter 50%": "orris concrete orris butter",
     # Data spine row "Beta Pinene" (CAS 127-91-3): the beta-pinene row.
     "beta pinene": "beta-pinene",
+    # IFF Liffarome and Symrise Leafovert are one molecule, (Z)-hex-3-en-1-yl methyl carbonate,
+    # CAS 67633-96-9 (RIFM synonyms list both): Liffarome shares the Leafovert air threshold.
+    "liffarome": "leafovert",
 }
 
 
@@ -3613,8 +3620,8 @@ _VERIFIED_ODT = {
     "scentenal": 0.02,
     "floralozone": 1.0,
     "vetival": 7.0,
-    "triplal": 0.5,
-    "florhydral": 0.3,
+    "triplal": 0.582,
+    "florhydral": 0.008995,
     "ethyl maltol": 0.3,
     "cis-jasmone": 0.5,
     "dihydromyrcenol": 1.0,
@@ -5933,6 +5940,129 @@ ODT_VERIFICATION[_key] = {
     "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 4); source re-opened before loading.",
     **({"superseded": dict(ODT_VERIFICATION[_key])} if ODT_VERIFICATION.get(_key) else {}),
 }
+# Group 5 (28 Oct 2026). Inputs: /mnt/project-files/unused-gaps-20261028/group5/ (g5_*/VALUES.md).
+ODT_DATA["sweet orange essential oil"] = {"odt_air": 23.0, "odt_eth": None}
+ODT_VERIFICATION["sweet orange essential oil"] = {
+    "vfy": "UNVERIFIED",
+    "sources": [
+        "Constituent estimate, not a measurement: 1/ODT = sum of y_i/ODT_i over the Raoult headspace of "
+        "the sweet orange profile (COA limonene 95.28 % plus ISO 3140:2019 Table 2 midpoints, "
+        "engine/pipeline/natural_absolute_decomposition.py). Measured air thresholds: limonene 38 ppb "
+        "(Nagata 2003, Table 2 '0.038' ppm), alpha-pinene 18 ppb (Nagata), octanal 0.17 ppb "
+        "(Cometto-Muniz 2010), decanal 0.40 ppb (Nagata), linalool 0.51 ppb (Elsharif 2015).",
+        "Limonene carries 57 % and octanal 35 % of the odour units; range 3.6-24 ppb (octanal at "
+        "Nagata's 0.010 ppb gives 3.6). Replaces the borrowed Orange Peel EO row.",
+    ],
+    "note": "Constituent estimate 2026-10-28 (stock thread, unused-materials group 5); sources re-opened before loading.",
+}
+# Costus Olifac is a partly declared IFF base (data/regulatory/partly_declared_bases.json): its
+# 0.05 and 5.0 ppb rows had no source, so they are retired and the gate warns on the undeclared part.
+ODT_DATA.pop("costus olifac", None)
+ODT_VERIFICATION.pop("costus olifac", None)
+_refresh_normalized_odt_index()
+# Group 6 (28 Oct 2026). Inputs: /mnt/project-files/unused-gaps-20261028/group6/ (g6_*/VALUES.md).
+ODT_DATA["rum ether"] = {"odt_air": 160.0, "odt_eth": None}
+ODT_VERIFICATION["rum ether"] = {
+    "vfy": "UNVERIFIED",
+    "sources": [
+        "Constituent estimate, not a measurement: headspace odorant ppb / sum of OAVs over the Raoult "
+        "headspace of the EFSA FGE.500 Company 2 rum ether scenario (doi:10.2903/j.efsa.2017.4897; "
+        "engine/pipeline/natural_absolute_decomposition.py). Measured air thresholds (Nagata 2003, "
+        "Table 2): ethanol 520, ethyl acetate 870, ethyl formate 2700, ethyl propionate 7.0, ethyl "
+        "butyrate 0.040 ppb. Ethyl butyrate carries 69% of the odour units.",
+        "Range 15-170 ppb across the EFSA producers (Company 1 profile 15, Company 4 17); the label is "
+        "for the composition choice and ideal mixing, not the constituent thresholds.",
+    ],
+    "note": "Constituent estimate 2026-10-28 (stock thread, unused-materials group 6); sources re-opened before loading.",
+}
+_refresh_normalized_odt_index()
+# Group 7 (28 Oct 2026). Inputs: /mnt/project-files/unused-gaps-20261028/group7/ (g7_*/VALUES.md);
+# Kenny 11:11 UTC: "Also put chemicals that are never used or cannot be used here". The PEER_EST rows
+# are Givaudan odour values divided into the engine's own saturated vapour, so each is tied to its VP.
+_SOURCED_ODT_2026_10_28.update({
+    "peach ketone": (0.0140, "PEER_EST", [
+        _GIVAUDAN_PROC + ": 'NECTARYL (2-(2-(4-methylcyclohex-3-en-1-yl)propyl)cyclopentanone) 13091' "
+        "(PROC) and log Kcaps -1.9, so OV = 13091 / 1.1 = 11,901; saturated vapour at the engine VP "
+        "0.0169 Pa (ECHA OECD 104, 0.0092 Pa at 20 C and 0.27 Pa at 50 C, interpolated) = 167.2 ppb; "
+        "167.2 / 11,901 = 0.0140 ppb.",
+        "Cross-check: Brenna et al., Tetrahedron: Asymmetry 19 (2008) 800, per-isomer air thresholds "
+        "0.094, 0.112, 11.2 and 14.9 ng/L (https://www.leffingwell.com/chirality/nectaryl.htm); a "
+        "1:1:1:1 mix is 0.0225 ppb (1.9x).",
+    ]),
+    "veloutone": (6.85, "PEER_EST", [
+        _GIVAUDAN_PROC + ": 'VELOUTONE (2,2,5-trimethyl-5-pentylcyclopentanone) 14571' (PROC) and log "
+        "Kcaps -1.9, so OV = 14571 / 1.1 = 13,246; saturated vapour at the ECHA VP 9.2 Pa (OECD 104 gas "
+        "saturation, 25 C) = 90,797 ppb; 90,797 / 13,246 = 6.85 ppb. Replaces an empty row.",
+    ]),
+    "beta caryophyllene": (49.0, "PEER_EST", [
+        _GIVAUDAN_PROC + ": 'CARYOPHYLLENE ((Z)-4,11,11-trimethyl-8-methylenebicyclo[7.2.0]undec-4-ene) "
+        "| 609' (PROC) and log Kcaps -1.0, so OV = 609 / 2.0 = 304.5; saturated vapour at the engine VP "
+        "1.513 Pa = 14,932 ppb; 14,932 / 304.5 = 49.0 ppb.",
+        "Cross-check: Ruth 1986 0.535 mg/m3 = 64 ppb (quoted by UBA 54/2024), within 1.3x.",
+    ]),
+    "buccoxime": (5.818, "PEER_SINGLE", [
+        "Symrise Buccoxime product sheet "
+        "(https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/"
+        "Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Buccoxime.pdf), 'Threshold in Air': "
+        "'Buccoxime 0.0398 ug/l'; 39.8 x 24.45 / 167.25 = 5.818 ppb. Grade A_producer.",
+    ]),
+})
+_ANALOGUE_ODT_ESTIMATES_2026_10_28.update({
+    "pear valerate": (2.1, [
+        "Analogue: hexyl acetate 2.9 ppb in air (Cometto-Muniz 2008, engine row) = 17.1 ng/L, held at "
+        "the same mass threshold: 17.1 x 24.45 / 200.32 = 2.1 ppb. Manzanate (same acid) 0.30 ng/L is "
+        "the strong bound; order-of-magnitude only.",
+    ]),
+    "cis-3 hexenyl hexanoate": (3.1, [
+        "Analogues: cis-3-hexenyl acetate 15.52 ng/L (Givaudan US 12,340,876 Table 1) and "
+        "cis-3-hexenyl butyrate about 40 ng/L (" + _GIVAUDAN_PROC + ": OV 97634 / 1.8 with an "
+        "estimated VP 25-39 Pa); geometric mean 25 ng/L x 24.45 / 198.31 = 3.1 ppb (range 1.9-6.0).",
+    ]),
+    "isolongifolanone": (9.0, [
+        "Analogue: methyl cedryl ketone (Vertofix) 6.3 ppb (van Gemert 2011 / Devos 1990, engine row), "
+        "geometric mean with a PerfumersWorld ROI regression for ROI 50 (14 ppb) = 9 ppb (range 6-14).",
+    ]),
+    "rhubofix": (6.0, [
+        "Analogue: methyl cedryl ketone (Vertofix) 6.3 ppb (engine row), geometric mean with a "
+        "PerfumersWorld ROI regression for ROI 100 (5.25 ppb) = 6 ppb (range 5-6.3).",
+    ]),
+    "linalool oxide": (2.3, [
+        "Analogues from one panel and method (Elsharif, Banerjee & Buettner, Front. Chem. 3:57 (2015), "
+        "Table 3): linalool 3.2 ng/L; every oxygenated derivative at least 2x weaker (floor 6.4 ng/L); "
+        "8-oxolinalool 38.1 ng/L. Geometric mean 16 ng/L x 24.45 / 170.25 = 2.3 ppb (range 0.92-23). "
+        "No isomer has a measured air threshold.",
+    ]),
+})
+_refresh_normalized_odt_index()
+for _name in ("peach ketone", "veloutone", "beta caryophyllene", "buccoxime"):
+    _odt_air, _vfy, _sources = _SOURCED_ODT_2026_10_28[_name]
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    ODT_VERIFICATION[_key] = {
+        "vfy": _vfy,
+        "sources": list(_sources),
+        "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 7); source re-opened before loading.",
+        **({"superseded": dict(ODT_VERIFICATION[_key])} if ODT_VERIFICATION.get(_key) else {}),
+    }
+for _name in ("pear valerate", "cis-3 hexenyl hexanoate", "isolongifolanone", "rhubofix", "linalool oxide"):
+    _odt_air, _sources = _ANALOGUE_ODT_ESTIMATES_2026_10_28[_name]
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    ODT_VERIFICATION[_key] = {
+        "vfy": "UNVERIFIED",
+        "sources": list(_sources),
+        "note": "Analogue estimate 2026-10-28 (unused-materials group 7); not a measurement.",
+        **({"superseded": dict(ODT_VERIFICATION[_key])} if ODT_VERIFICATION.get(_key) else {}),
+    }
+_refresh_normalized_odt_index()
 ANALOGUE_ODT_BATCH_2026_10_28 = True
 
 

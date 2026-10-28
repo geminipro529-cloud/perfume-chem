@@ -67,6 +67,93 @@
       "declared_pct": [2.0, 20.0],
       "undeclared_pct": [80.0, 98.0],
       "undeclared_note": "including the 'over 10% natural essential oils' the product page states"
+    },
+    {
+      "name": "Costus Olifac",
+      "aliases": [
+        "Costus Olifac 10%",
+        "Costus Olifac Iff",
+        "Costus Oliffac"
+      ],
+      "supplier": "PerfumersWorld (IFF base)",
+      "sku": "5UW11312",
+      "source_url": "https://perfumersupplyhouse.com/wp-content/uploads/2014/04/COSTUS-OLIFFAC-2020-FPIS.pdf",
+      "declaration_document": "IFF Fragrance Product Information Sheet, COSTUS OLIFFAC 2020, Sales No. 30F35189, Document ID 3297145, 15 Feb 2024",
+      "declared_constituents": [
+        {
+          "name": "Triethyl citrate",
+          "cas": "77-93-0",
+          "range_pct": [
+            65.935,
+            65.935
+          ]
+        },
+        {
+          "name": "Guaiacwood oil (Bulnesia sarmientoi)",
+          "cas": "8016-23-7",
+          "range_pct": [
+            3.158,
+            3.158
+          ]
+        },
+        {
+          "name": "Benzyl benzoate",
+          "cas": "120-51-4",
+          "range_pct": [
+            0.063,
+            0.063
+          ]
+        },
+        {
+          "name": "Diethyl tartrate",
+          "cas": "87-91-2",
+          "range_pct": [
+            0.048,
+            0.048
+          ]
+        },
+        {
+          "name": "Styrax",
+          "cas": "8024-01-9",
+          "range_pct": [
+            0.011,
+            0.011
+          ]
+        },
+        {
+          "name": "Isoeugenol",
+          "cas": "97-54-1",
+          "range_pct": [
+            0.004,
+            0.004
+          ]
+        },
+        {
+          "name": "Furfural",
+          "cas": "98-01-1",
+          "range_pct": [
+            0.002,
+            0.002
+          ]
+        }
+      ],
+      "allergens_pct": {
+        "Benzyl Benzoate": 0.063,
+        "Isoeugenol": 0.004
+      },
+      "other_listed_pct": {
+        "Ethanol (unintentional)": 0.007,
+        "alpha-Tocopherol": 0.001
+      },
+      "declared_pct": [
+        69.25,
+        69.25
+      ],
+      "undeclared_pct": [
+        30.75,
+        30.75
+      ],
+      "undeclared_note": "the costus, animalic and leathery odorants; IFF's 2020 formula, PerfumersWorld's lot version not verified (closest-identity proxy). Percentages are of the neat base; Kenny's stock is PW's ready-made 10% in DPG"
     }
   ]
 }

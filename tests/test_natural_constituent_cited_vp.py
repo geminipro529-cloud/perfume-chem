@@ -58,9 +58,9 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     ("jasmine sambac (10% in dpg)", "methyl anthranilate", 0.1, 3.61),
     ("jasmine sambac", "phenethyl alcohol", 0.12, 11.57),
     ("jasmine sambac (10% in dpg)", "phenethyl alcohol", 0.12, 11.57),
-    # 2026-10-13: Veloutone's registry VP is now the literature common-ground 2.17 Pa
-    # (US EPA estimate quoted by RIFM 2017; TGSC 3.47 Pa), replacing the table's 0.1.
-    ("cassis base 345b", "veloutone", 0.1, 2.17),
+    # 2026-10-28: Veloutone's registry VP is ECHA's OECD 104 9.2 Pa at 25 C (was the 2.17 Pa
+    # US EPA estimate quoted by RIFM 2017), replacing the table's 0.1.
+    ("cassis base 345b", "veloutone", 0.1, 9.2),
     # 2026-10-23 third data pass: registry VPs now sourced, replacing table values.
     # Rose oxide: RIFM measured 0.77 hPa at 25 C (RIFM 2013a).
     ("cassis base 345b", "rose oxide", 15.0, 77.0),

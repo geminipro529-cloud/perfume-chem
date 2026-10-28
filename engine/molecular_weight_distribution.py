@@ -152,7 +152,7 @@ MW_DATA: dict[str, dict] = {
     "styrax ftec": {"mw": 210.0, "logp": 3.5, "tags": ["leather", "balsamic", "base"]},
     "koavone": {"mw": 206.3, "logp": 4.2, "tags": ["woody", "cedar", "heart"]},
     "freesia hdi": {"mw": 168.2, "logp": 2.8, "tags": ["floral", "green", "heart"]},
-    "lilyreal nd": {"mw": 172.0, "logp": 2.6, "tags": ["muguet", "floral", "heart"]},
+    "lilyreal nd": {"mw": 192.3, "logp": 3.5, "tags": ["muguet", "floral", "heart"]},  # placeholders, as the data spine
     "grapefruit fcf": {"mw": 136.2, "logp": 4.2, "tags": ["citrus", "fresh", "top"]},
     "blood orange sicilian": {
         "mw": 136.2,

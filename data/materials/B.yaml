@@ -1495,7 +1495,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 49.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1514,6 +1514,7 @@
   character: 'Spicy, terpenic'
   notes: null
   provenance:
+    odt_air_ppb: 'PEER_EST: Givaudan SA, US 2018/0185808 A1 (https://www.freepatentsonline.com/y2018/0185808.html): ''CARYOPHYLLENE ((Z)-4,11,11-trimethyl-8-methylenebicyclo[7.2.0]undec-4-ene) | 609'' (PROC) and log Kcaps -1.0, so OV = 609 / 2.0 = 304.5; saturated vapour at the engine VP 1.513 Pa = 14,932 ppb; 14,932 / 304.5 = 49.0 ppb. Agrees within 1.3x with Ruth 1986 0.535 mg/m3 = 64 ppb (quoted by UBA 54/2024). Givaudan''s ''Caryophyllene'' is the commercial grade. The ''0.535 ng/L'' in PMC13420774 is a 1000x unit slip and is not used. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     character: 'Robertet, Caryophyllene nat 00051051 (https://matieres-premieres.robertet.com/caryophyllene-nat): ''Olfactive description Spicy, terpenic'' (grade A_producer; producer text, quoted; a natural grade, not this bottle). Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
     user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -2772,13 +2773,13 @@
   logp: 2.94
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.0813
-  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.16
+  vp_source: ECHA_measured
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 5.818
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2802,14 +2803,15 @@
   families: []
   character: 'Fruity, Cassis, Buchu Leaf, Green (Symrise''s odour words)'
   odour_family: 'fruity'
-  notes: 'logP, VP and density left null (2026-10-08). logP conflict, no measured value: 1.930 (TGSC est, https://thegoodscentscompany.com/data/rw1004001.html) vs "LogP 2.94 at 25C" (ChemicalBook, method not stated, https://chemicalbook.com/CASEN_75147-23-8.htm). VP conflict: TGSC "0.006000 mmHg @ 25.00 C. (est)" = 0.800 Pa vs ChemicalBook "vapor pressure 0.095 Pa at 20C" (method not stated), 8-fold. Density only "1.13+/-0.1 g/cm3 (Predicted)" (ChemicalBook), an estimate. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa null -> 0.0813.'
+  notes: 'logP, VP and density left null (2026-10-08). logP conflict, no measured value: 1.930 (TGSC est, https://thegoodscentscompany.com/data/rw1004001.html) vs "LogP 2.94 at 25C" (ChemicalBook, method not stated, https://chemicalbook.com/CASEN_75147-23-8.htm). VP conflict: TGSC "0.006000 mmHg @ 25.00 C. (est)" = 0.800 Pa vs ChemicalBook "vapor pressure 0.095 Pa at 20C" (method not stated), 8-fold. Density only "1.13+/-0.1 g/cm3 (Predicted)" (ChemicalBook), an estimate. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa null -> 0.0813. 2026-10-28: the neat material is a solid (Symrise SDS E02160 v11.1: ''Physical state : Solid.'', ''Melting point/melting range : 132,3 C'', ''Density : CoA''), so neat density stays blank and the neat bottle is weighed. Symrise''s product sheet prints ''Log P (kow) 2.2'' against the SDS ''log Pow: 2,94''; the SDS value is kept.'
   provenance:
+    odt_air_ppb: 'Symrise Buccoxime product sheet (https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Buccoxime.pdf), Performance panel ''Threshold in Air'': ''Buccoxime 0.0398 ug/l''; 39.8 x 24.45 / 167.25 = 5.818 ppb. Grade A_producer (same sheet layout as Symrise Leafovert). Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     odour_family: 'odour family "fruity" from ''Fruity'': Symrise product sheet: Buccoxime, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Buccoxime.pdf: family word printed with the name: "fruity Buccoxime®" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Symrise product sheet: Buccoxime, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Buccoxime.pdf: Odor: "Fruity, Cassis, Buchu Leaf, Green"; family word "fruity Buccoxime®" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1004001.html; "CAS Number: 75147-23-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1004001.html; "Molecular Weight:167.25169000", calculated from C10H17NO (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00061 mm Hg @ 25 C = 0.0813 Pa (solid; subcooled liquid 0.173 Pa, https://thegoodscentscompany.com/episys/ep1004001.html); ChemicalBook 0.095 Pa @ 20 C (method not stated) agrees; TGSC datasheet 0.80 Pa (est) is a 10x outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    vp_25c_pa: 'MEASURED: ECHA lead dossier 01-2120138209-57-0000, OECD 104 Knudsen effusion, reliability 1: ''The test item has a vapour pressure of 0.095 Pa at 20°C and 0.16 Pa at 25°C.'' Replaces the EPI estimate 0.0813 Pa. The solid''s density (ca. 1.087 at 20 C) is not used: the neat bottle is weighed. ECHA CHEM registration dossier, read on Kenny''s PC 28 Oct 2026 after his ''ok'' to the legal notice (verbatim quotes: /mnt/project-files/unused-gaps-20261028/ECHA_QUOTES_20261028.md). Loaded 2026-10-28 (unused-materials group 7).'
     logp: 'Symrise AG SDS, BUCCOXIME 195583 - E02160, version 11.1 (31/03/2025) (hosted by parfclub.shop) (https://parfclub.shop/wp-content/uploads/2025/07/buccoxime_sds.pdf): ''Partition coefficient: n-octanol/water : log Pow: 2,94''; printed log Pow: 2,94; producer SDS; method not stated; grade A_producer. Second reader: No temperature or method printed. The SDS is hosted on a reseller site (parfclub.shop), distributed by BLH. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Butyl Butyrate
   aliases: []

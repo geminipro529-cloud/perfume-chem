@@ -182,8 +182,15 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # and ethyl linalyl acetate 14.42 (Givaudan PROC). Group 2 alone gave d57c0a18….
     # Group 4 adds 2-acetyl pyrazine 0.3 -> 0.40, allyl ionone 1.0 -> 0.035, cade 3.0 -> 0.05
     # (UNVERIFIED analogues; maltol 1.0 relabelled) and methyl laitone 0.0303 (Givaudan SDS).
-    # Groups 1-3 alone gave 9b2c3880….
-    assert digest == "5531c14a6eb4e35c417902a086984f1809adc872b5ebde750d061d117799b554"
+    # Groups 1-3 alone gave 9b2c3880…. Group 5 adds sweet orange essential oil 23 (UNVERIFIED
+    # constituent estimate) and retires the unsourced costus olifac 5.0; groups 1-4 gave 5531c14a….
+    # 2026-10-28 group 6: rum ether 160 ppb (UNVERIFIED constituent estimate) and the stale static rows
+    # triplal 0.5 -> 0.582 and florhydral 0.3 -> 0.008995 aligned to their literature values; group 5 gave bdcd5e59….
+    # Group 7: Givaudan PROC values for peach ketone 0.0117, veloutone 1.62 and beta caryophyllene 49.0,
+    # Symrise buccoxime 5.818, and UNVERIFIED analogues pear valerate 2.1, cis-3 hexenyl hexanoate 3.1,
+    # isolongifolanone 9, rhubofix 6 and linalool oxide 2.3; group 6 gave ed3945b0….
+    # The VP-tied rows then moved with ECHA's measured VPs: peach ketone 0.0140, veloutone 6.85.
+    assert digest == "e90a945349d83f82e75821e6c369df0ff3a3abc2daf6d9f2140cfeab1f71341a"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

@@ -998,7 +998,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 9
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -1017,6 +1017,7 @@
   character: 'fresh woody note, dry and diffusive with rich amber quality'
   notes: 'PerfumersWorld 3WY14446 (STK-186, order PW-261024-21230599a, 3 g, neat). PW''s SDS prints CAS 14727-47-0 (EC 238-780-1), MW 220.35 and ''No composition data available''; that CAS is a different isomer (an octahydro-tetramethyl-1,4-methanoazulen-2-one). Givaudan, IFF (Piconia), RIFM and the REACH registration use 23787-90-8 (stereoisomers 29461-13-0, 29461-14-1), and PW''s odour sentence is Givaudan''s, so the bottle is taken as the commercial 23787-90-8 material. No IFRA standard (RIFM 2017: ''IFRA standard: None''). No air odour threshold was found.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: methyl cedryl ketone (Vertofix) 6.3 ppb in air (van Gemert 2011 / Devos 1990, engine row), the closest measured tricyclic woody ketone, geometric mean with a PerfumersWorld ROI regression for ROI 50 (14 ppb) = 9 ppb (range 6-14). Givaudan prints no PROC row for it. Not a measurement. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     character: 'Givaudan Isolongifolanone 5850143 (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/isolongifolanone): ''Isolongifolanone has a fresh woody note, dry and diffusive with rich amber quality.'' Olfactive notes Woody, Ambery, Dry (grade A_producer; producer text, quoted). Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
     vp_source: 'same source as vp_25c_pa (28 Oct 2026 PerfumersWorld pass)'
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, Isolongifolene ketone, CAS registry number 23787-90-8, Food Chem Toxicol 2017 (https://www.sciencedirect.com/science/article/pii/S0278691517300807), Physical data: ''Vapor Pressure : 0.00143 mm Hg @ 20 C [EPI Suite 4.0], 0.001 mm Hg 20 C [FMA], 0.00259 mm Hg @ 25 C [EPI Suite]''; printed 0.001 mm Hg at 20 C (FMA); FMA value quoted by RIFM; grade A_producer. Converted from 0.1333 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol from the engine''s correlation (doi:10.1021/es980812j) = 0.2275 Pa. Givaudan Isolongifolanone 5850143 (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/isolongifolanone) prints ''Vapour pressure 0.0013 hPa'' (0.13 Pa, temperature not stated), which agrees with the FMA figure. Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'

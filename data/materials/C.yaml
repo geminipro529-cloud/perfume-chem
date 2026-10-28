@@ -3373,7 +3373,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 3.1
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -3395,6 +3395,7 @@
   odour_family: 'fruity'
   notes: 'log Kow not set: only TGSC estimates (4.438 est; XLogP3-AA 3.80), no RIFM/EPI or measured value. VP not set: only a TGSC estimate, 0.016 mm Hg at 25 C (est) = 2.13 Pa, no RIFM-quoted EPI value. No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md Update 2026-10-13: VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: cis-3-hexenyl acetate 15.52 ng/L (Givaudan US 12,340,876 Table 1, engine 2.67 ppb) and cis-3-hexenyl butyrate about 40 ng/L (Givaudan SA, US 2018/0185808 A1 (https://www.freepatentsonline.com/y2018/0185808.html): OV 97634 / 1.8 = 54,241 with an estimated VP 25-39 Pa, so 32-49 ng/L); geometric mean 25 ng/L x 24.45 / 198.31 = 3.1 ppb (range 1.9-6.0). Not a measurement. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     odour_family: 'odour family "fruity" from ''Fruity / Green'': Bedoukian spec sheet: cis-3-Hexenyl Hexanoate (BRI 108), https://bedoukian.com/wp-content/uploads/108-SUS%20FRAGRANCE%20FLAVOR%20Spec%20Sheet.pdf: derived from "Fruity, green pear-like odor with vegetable notes." (grade A_producer; derived from the quoted description (the source gives no family)). Second reader: Family ''Fruity / Green'' supported by the quoted description. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1007981.html: "CAS Number: 31501-11-8" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
@@ -5866,7 +5867,7 @@
   families: []
   character: 'Animalic, Costus Root, Leather, Labdanum, "Wet Dog" smell.'
   odour_family: 'animalic'
-  notes: 'IFF proprietary costus base, not a single molecule (Fraterworks, reseller: "IFF produce this wonderful base"; PerfumersWorld COA 5UW08963 for the 1% in DPG grade: "Proprietary Perfume Compound and Dipropylene Glycol. Complex mixture of aroma chemicals, homologues, isomers, and isolates", no CAS). The former mw_g_mol 200.0 and vp_25c_pa 0.001 were placeholders, not data, and are removed (2026-10-14): a blend has no single MW, VP or air ODT, and its composition is not published. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
+  notes: 'IFF proprietary costus base, not a single molecule (Fraterworks, reseller: "IFF produce this wonderful base"; PerfumersWorld COA 5UW08963 for the 1% in DPG grade: "Proprietary Perfume Compound and Dipropylene Glycol. Complex mixture of aroma chemicals, homologues, isomers, and isolates", no CAS). The former mw_g_mol 200.0 and vp_25c_pa 0.001 were placeholders, not data, and are removed (2026-10-14): a blend has no single MW, VP or air ODT, and its composition is not published. Source: material-data-gaps-2026-10-14/W3_vp_logp.md Update 2026-10-28: IFF''s FPIS for COSTUS OLIFFAC 2020 (Sales No. 30F35189, 2024; https://perfumersupplyhouse.com/wp-content/uploads/2014/04/COSTUS-OLIFFAC-2020-FPIS.pdf) declares triethyl citrate 65.935 %, Bulnesia sarmientoi (guaiacwood) oil 3.158 % and traces (styrax 0.011, isoeugenol 0.004, furfural 0.002, benzyl benzoate 0.063 %): 69.25 % declared, 30.75 % undeclared, and the costus odorants are in the undeclared part. Kenny''s bottle is PerfumersWorld''s ready-made 10% in DPG (5UW11312; ''Already made'', 28 Oct 2026 11:09:57 UTC); whether PW''s lot is the 2020 formula is not known, so the declaration is a closest-identity proxy. Listed in data/regulatory/partly_declared_bases.json: the gate warns on its undeclared part instead of failing on physics a mixture cannot have. Its old air thresholds (0.05 and 5.0 ppb) had no source and are retired.'
   provenance:
     odour_family: 'odour family "animalic" from ''Animalic / leather'': Costus Olifac 10% in DPG | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=5UW11312: derived from "Animalic, Costus Root, Leather, Labdanum" (grade supplier; derived from the quoted description (the source gives no family)). Second reader: Page is PerfumersWorld''s 10% in DPG dilution of IFF Costus Olifac (same material, diluted). Family ''Animalic / leather'' supported by ''Animalic, Costus Root, Leather, Labdanum''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Costus Olifac 10% in DPG | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=5UW11312: "Costus Olifac 10% in DPG is Animalic, Costus Root, Leather, Labdanum, "Wet Dog" smell." (grade supplier; producer/primary text, quoted). Second reader: Page is the 10% in DPG product, matching Kenny''s stock form. Its own Odour=> line only says ''Dilution of Costus Olifac Iff 10% in DPG''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'

@@ -61,7 +61,9 @@ def test_twelve_lines_quote_his_message(overlay):
 
 @pytest.mark.parametrize(("name", "order_lot"), sorted(MSR_STOCKS.items()))
 def test_msr_lines_are_neat_ready_and_carry_the_coa_lot(stocks, overlay, name, order_lot):
-    (stock,) = [s for s in stocks if s.name == name]
+    # A name with a second bottle gets the "(neat)" form: Labdanum Absolute since PW's 10% in DPG
+    # was recorded on 28 Oct 2026 (v26 STK-209).
+    (stock,) = [s for s in stocks if s.name in (name, f"{name} (neat)")]
     assert stock.status == "owned"
     assert stock.dilution == 1.0 and stock.fraction_basis == "neat"
     assert stock.execution_ready is True

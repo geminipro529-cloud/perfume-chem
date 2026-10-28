@@ -114,11 +114,13 @@ def test_registry_physics_for_geranyl_acetate_and_linalool_oxide(name, mw, vp_25
     assert row.logp is not None
 
 
-def test_linalool_oxide_has_no_air_threshold_so_oav_stays_unavailable():
+def test_linalool_oxide_uses_its_labelled_analogue_air_threshold():
+    # It had no air threshold until 28 Oct 2026, when group 7 of the unused-materials fixes
+    # loaded 2.3 ppb (Elsharif 2015 analogue, tagged UNVERIFIED), so its OAV is now computed.
     state = build_formula_state({"Linalool Oxide": 100.0, "Hedione": 900.0})
     row = next(row for row in state.materials if row.name == "Linalool Oxide")
-    assert row.odt_air_ppm is None
-    assert row.oav is None
+    assert row.odt_air_ppm == pytest.approx(0.0023)
+    assert row.oav is not None
 
 
 def test_geranyl_acetate_uses_the_published_gc_o_air_threshold():

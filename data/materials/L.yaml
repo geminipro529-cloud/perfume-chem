@@ -1009,7 +1009,7 @@
   aliases:
   - leafovert
   cas: 67633-96-9
-  smiles: null
+  smiles: 'CC/C=C\CCOC(=O)OC'
   inchikey: null
   mw_g_mol: 158.19
   density_25c_g_ml: 0.965
@@ -1047,6 +1047,7 @@
   character: 'Green, Fruity, Leafy-Green'
   notes: null
   provenance:
+    smiles: 'PubChem CID 5365699, (Z)-hex-3-en-1-yl methyl carbonate, as on the Liffarome row (same CAS 67633-96-9). Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
     character: 'Leafovert (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Leafovert.pdf: › Green, Fruity, Leafy-Green (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: 'Symrise datasheet for its own product; number bound to ''threshold in air'' by layout. Replaces 8.0, a class model. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
@@ -1541,7 +1542,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 7.744
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1568,6 +1569,7 @@
   odour_family: 'green'
   notes: 'PerfumersWorld SKU 4GI24147 identifies the active material. The user''s separate current stock is 10% w/w in DEP; exact active mass from a volume dose requires the stock-solution density. logP and VP left null (2026-10-08), conflict with no measured value: logP 2.5 (IFF, https://www.iff.com/scent/ingredients-compendium/liffarome/) vs 2.263 (TGSC, not marked est, https://thegoodscentscompany.com/data/rw1028731.html); VP "0.253168 mm Hg @ 23 C" = 33.75 Pa (IFF, 23 C) vs "0.721000 mmHg @ 25.00 C. (est)" = 96.1 Pa (TGSC). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa 96.1 -> 24.9; logp 2.5 -> 2.6.'
   provenance:
+    odt_air_ppb: 'Symrise Leafovert datasheet (https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Leafovert.pdf): ''Threshold in Air'' 0.0501 ug/l for (Z)-hex-3-en-1-yl methyl carbonate, CAS 67633-96-9, the same molecule as IFF''s Liffarome (RIFM synonyms list both names); 50.1 x 24.45 / 158.19 = 7.744 ppb, shared through the leafovert threshold row (engine/odor_thresholds.py _ODT_QUERY_ALIASES). Grade A_producer. Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
     odour_family: 'odour family "green" from ''green (violet-green, pear, grass)'': Liffarome™ | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/liffarome: A natural smelling violet green, pear, grass odor. (grade A_producer; derived from the quoted description (IFF page gives no family field)). Second reader: Family derived from the description: ''violet green, pear, grass'' supports ''green''; the page''s own icon is also ''green icon''. CAS matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: https://www.perfumersworld.com/view.php?pro_id=4GI24147
     character: https://www.perfumersworld.com/view.php?pro_id=4GI24147
@@ -2109,7 +2111,7 @@
   logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
+  vp_25c_pa: 0.02
   vp_source: placeholder  # unsourced round value; gate reports it as estimated
   antoine: null
   dhvap_kj_mol: null
@@ -2133,11 +2135,11 @@
   families:
   - floral materials
   character: 'soft delicate floral lily cyclamen hydroxycitronellal-like odour delicately sweet-light-floral'
-  notes: null
+  notes: 'PerfumersWorld house compound (https://www.perfumersworld.com/document-list.php?pro_id=6MG22777): ''Proprietary Perfume Compound. Complex mixture of essential oils, aroma chemical, natural extracts and isolates.''; SDS ''No composition data available for this product.''; IFRA certificate and allergen declaration ''No restricted materials found for this product.'' (Cat 4 25%). Sold to replace HMPCC (Lyral). MW 192.3 / logP 3.5 are placeholders; its 2.0 ppb thresholds are unsourced placeholders (the gate needs a row; an opaque base gets no OAV). Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
   provenance:
     character: 'Lilyreal ND | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=6MG22777: it has a soft delicate floral lily cyclamen hydroxycitronellal-like odour delicately sweet-light-floral with outstanding-tenacity and radiation (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'UNVERIFIED evaporation surrogate, not a vapour pressure: PerfumersWorld publishes none (house compound, ''https://www.perfumersworld.com/document-list.php?pro_id=6MG22777'' SDS ''No composition data available for this product.''). Its strip life 300 h (https://www.perfumersworld.com/view.php?pro_id=6MG22777) is close to Lyral''s 250 h (https://www.perfumersworld.com/view.php?pro_id=3MG00282), so it takes a Lyral-class 0.02 Pa. Replaces 0.01 here and 1.5 in engine/diffusion_model.py, which disagreed. Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
@@ -2412,7 +2414,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 2.3
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2430,8 +2432,9 @@
   families: []
   character: 'Herbal, Pine, Floral, Fresh; a fresh, sweet material with a fresh earthy quality'
   odour_family: 'herbal'
-  notes: 'Air ODT not set: no compatible published air threshold was verified (2026-10-08). FMA lists 0.01 mm Hg at 20 C, higher than the 25 C EPI estimate; the measured boiling point (196.3 C) also suggests EPI underestimates VP.'
+  notes: 'Air ODT not set: no compatible published air threshold was verified (2026-10-08). FMA lists 0.01 mm Hg at 20 C, higher than the 25 C EPI estimate; the measured boiling point (196.3 C) also suggests EPI underestimates VP. 2026-10-28: air ODT now a labelled analogue estimate (2.3 ppb, see provenance); searched van Gemert-type compilations, Givaudan and Elsharif 2015, no isomer has a measured air value. PW 4LL00277 labels CAS 5989-33-3.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: Elsharif, Banerjee & Buettner, Front. Chem. 3:57 (2015), Table 3 (doi:10.3389/fchem.2015.00057), one panel and one GC-O method: linalool 3.2 ng/L air; ''All other compounds investigated within this study exhibited an odor threshold of at least a factor of 2 higher than the threshold of linalool'' (floor 6.4 ng/L); 8-oxolinalool 38.1 ng/L. Geometric mean of the floor and 8-oxolinalool = 16 ng/L x 24.45 / 170.25 = 2.3 ppb (range 0.92-23). Commercial furanoid cis/trans grade (FEMA 3746). No measured air threshold exists for any isomer. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     odour_family: 'odour family "herbal" from ''Herbal - Agrestic'': Linalool Oxide | Givaudan fragrance molecules, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/linalool-oxide: Olfactive Family Herbal - Agrestic | Olfactive Note Herbal Pine Floral Fresh (grade A_producer; ). Second reader: CAS 1365-19-1 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Linalool Oxide | Givaudan fragrance molecules, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/linalool-oxide: Olfactive Note Herbal Pine Floral Fresh ... Linalool Oxide is a fresh, sweet material which is very useful for its ability to give additional lift to floral accords. It also has a fresh earthy quality ... (grade A_producer; ). Second reader: Value is an abridgement of verbatim page pieces. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md

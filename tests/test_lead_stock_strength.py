@@ -183,3 +183,14 @@ def test_a_fruit_lead_on_hexyl_acetate_keeps_the_one_percent_grade(mode):
     assert len(leads) == 2
     for row in leads:
         assert float(row["stock_fraction_decimal"]) < .05, row["stock_label"]
+
+
+def test_a_name_that_only_contains_the_trace_name_is_another_material(monkeypatch):
+    # Spike Lavender EO became design-ready on 28 Oct 2026 (Kenny's "Clear on order evidence");
+    # it is Lavandula latifolia, not a stronger grade of the 1% "Lavender EO".
+    spike = _cap("Spike Lavender EO", 1.0)
+    ranked = [(15.2, _DILUTION), (15.1, spike)]
+    role = _role("explicit_anchor_1", provenance="EXPLICIT_REQUEST_MATERIAL",
+                 exact_material="lavender eo")
+    out = _ranked(role, ranked, monkeypatch, reserved_identities=frozenset({"lavender eo bontaux sas"}))
+    assert [c.identity_name for c in out] == ["Lavender EO", "Spike Lavender EO"]

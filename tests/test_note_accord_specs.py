@@ -159,7 +159,9 @@ def test_every_stock_binds_to_one_pipettable_capability_of_the_solver_index():
 @pytest.mark.parametrize("stock", [
     specs.StockRef("Methyl Ionone Gamma Coeur", 1.0),  # depleted
     specs.StockRef("Javanol Super", 1.0),  # not owned
-    specs.StockRef("Ethyl Linalool", 1.0),  # owned, not design-ready (lineage held)
+    # owned, not design-ready (species unknown); Ethyl Linalool until Kenny's 28 Oct 2026
+    # "Clear on order evidence" card cleared its lineage hold
+    specs.StockRef("Cedarwood EO (China; species unspecified)", 1.0),
     specs.StockRef("Hedione", .1),  # owned name, wrong strength
 ])
 def test_a_stock_that_is_not_one_owned_design_ready_bottle_is_rejected(stock):

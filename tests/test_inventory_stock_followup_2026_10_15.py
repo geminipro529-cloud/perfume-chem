@@ -99,12 +99,17 @@ def test_tonka_is_the_perfumersworld_dilution_and_ready():
 
 
 def test_rows_left_out_of_the_rule_stay_held():
-    # Apritone is held for identity, not basis; Aldehyde C11 10% and Birch Tar 1% are not
-    # in inventory.txt. Aldehyde C16 EMPG 10% left on 2026-10-28 ("hye", v26 STK-194).
+    # Birch Tar 1% and 10% (V5 row 46) are not in inventory.txt, which lists only PW's Birch Tar
+    # Rectified 10% in DPG, so they stay held. Aldehyde C16 EMPG 10% left on 2026-10-28 ("hye",
+    # v26 STK-194); once its identity was settled, Apritone 10% took the w/w rule (STK-226). Aldehyde
+    # C11 10% was never a bottle (Kenny, 21 Oct: "Aldehyde C11 neat + 1%"); STK-036 retires the row.
     names = _by_name()
-    for name in ("Apritone 10%", "Aldehyde C11 10%", "Birch Tar 1%"):
+    for name in ("Birch Tar 1%", "Birch Tar 10%"):
         assert names[name].fraction_basis == "unspecified"
         assert names[name].execution_ready is False
+    apritone = names["Apritone 10%"]
+    assert (apritone.fraction_basis, apritone.carrier, apritone.execution_ready) == ("mass_fraction", "dpg", True)
+    assert "Aldehyde C11 10%" not in names
 
 
 def test_no_display_name_was_taken_twice():

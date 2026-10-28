@@ -234,6 +234,30 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Dissolve crystals",
         "Yes",
         "Ginger root, check on msr",
+        # 28 Oct 11:06-11:09 UTC: Methyl Diantilis neat (STK-206); Opoponax 50% DEP made by him
+        # from PW 2QC00337 (STK-207); Costus Olifac 10% is PW's ready-made 5UW11312 (STK-029 note).
+        "Neat liquid",
+        "I diluted it myself, from PW",
+        "Already made",
+        # 28 Oct 11:20-11:21 UTC: Rum Ether neat only (STK-109 note); Damascol 10% only, so STK-025
+        # retires the V5 neat row 277.
+        "Neat",
+        "Only 10%",
+        # 28 Oct 11:27-11:28 UTC: the "Clear on order evidence" card (STK-208 to STK-219); his
+        # Labdanum 10% is PW's absolute (STK-209); Hay Absolute is PW's 10% (STK-215); Spike
+        # Lavender is from Chemipan (STK-216).
+        "Clear on order evidence",
+        "I have two right now, one is that one from PW another is from MSR",
+        "Yes",
+        "Chemipan",
+        # 28 Oct 12:18-12:21 UTC: Octanal, Glycolierral, Black Tea Base and Buccoxime leave their
+        # intake holds (STK-220 to STK-223); Aldehyde C10 and Cyclamen Aldehyde 10% (STK-224, STK-225).
+        "neat",
+        "neat",
+        "ye",
+        "I got 2 versions, yes",
+        "I have both",
+        "I have both",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -284,6 +308,28 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         # hold as a weighed solid (STK-205).
         "INV-USER-20260915-STOCK-003",
         "INV-USER-20261007-PW-047",
+        # 2026-10-28: Methyl Diantilis leaves its intake hold (STK-206); Opoponax its receipt hold
+        # (STK-207).
+        "INV-USER-20261007-PW-033",
+        "INV-USER-20260924-R5-010",
+        # 2026-10-28: the twelve receipt holds cleared on order evidence (STK-208 to STK-219).
+        "INV-USER-20261007-PW-003",
+        "INV-USER-20260924-R5-008",
+        "INV-USER-20260924-R5-012",
+        "INV-USER-20260924-R5-009",
+        "INV-USER-20261007-PW-031",
+        "INV-USER-20260924-R5-005",
+        "INV-USER-20260924-R5-015",
+        "INV-USER-20260924-R5-006",
+        "INV-USER-20260924-R5-014",
+        "INV-USER-20261007-PW-019",
+        "INV-USER-20261007-PW-051",
+        "INV-USER-20261007-PW-037",
+        # 2026-10-28: the last four PW intake holds (STK-220 to STK-223).
+        "INV-USER-20261007-PW-016",
+        "INV-USER-20261007-PW-030",
+        "INV-USER-20261007-PW-050",
+        "INV-USER-20261007-PW-041",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -292,7 +338,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 206)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 227)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
@@ -482,9 +528,10 @@ def test_aurantiol_ten_percent_dpg_and_neat_bottle_both_carry_his_word() -> None
     ]
 
 
-def test_damascol_and_javanol_keep_their_other_bottle() -> None:
+def test_damascol_is_ten_percent_only_and_javanol_keeps_its_other_bottle() -> None:
+    # 28 Oct 2026, Kenny: "Only 10%"; STK-025 retires the V5 neat Damascol row (277).
     damascol = sorted((s.dilution, s.stock_id.split(":")[1]) for s in _stocks("Damascol") if s.status == "owned")
-    assert damascol == [(pytest.approx(0.1), "user-20261014"), (1.0, "v5")]
+    assert damascol == [(pytest.approx(0.1), "user-20261014")]
     javanol = sorted((s.dilution, s.carrier) for s in _stocks("Javanol") if s.status == "owned")
     assert javanol == [(pytest.approx(0.2), "dpg"), (1.0, "")]
     (row,) = [r for r in inventory.materialize_current_inventory().requirements if r.source_row == 149]

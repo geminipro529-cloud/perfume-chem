@@ -78,6 +78,9 @@ def test_vetiveryl_is_neat_and_the_old_ten_percent_record_is_retired():
     )
 
 
+# Held for PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING until 2026-10-28: both are PerfumersWorld's
+# ready-made 10% in DPG (Hay Absolute: Kenny's "Yes"), cleared on his "Clear on order evidence" card
+# (v26 STK-213, STK-215).
 @pytest.mark.parametrize(
     ("identity_name", "source_row"),
     [
@@ -85,7 +88,7 @@ def test_vetiveryl_is_neat_and_the_old_ten_percent_record_is_retired():
         ("Hay Absolute", 127),
     ],
 )
-def test_dpg_clarifications_bind_mass_basis_but_preserve_lineage_hold(
+def test_dpg_clarifications_bind_mass_basis_and_clear_on_order_evidence(
     identity_name: str,
     source_row: int,
 ):
@@ -96,10 +99,8 @@ def test_dpg_clarifications_bind_mass_basis_but_preserve_lineage_hold(
     assert stock.carrier == "dpg"
     assert stock.fraction_basis == "mass_fraction"
     assert stock.physical_form == "solution"
-    assert stock.execution_ready is False
-    assert stock.execution_hold_reason == (
-        "PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING"
-    )
+    assert stock.execution_ready is True
+    assert stock.execution_hold_reason == ""
     assert stock.source_rows == (source_row,)
 
 

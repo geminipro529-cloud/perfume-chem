@@ -232,15 +232,15 @@
   aliases:
   - damascol
   cas: 4927-36-0
-  smiles:
+  smiles: 'CCC(=O)CC(C)(C)c1ccccc1'
   inchikey:
   mw_g_mol: 190.28
   density_25c_g_ml: 0.963
-  logp: 3.215
+  logp: 3.5
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.6
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 2.17
+  vp_source: ECHA_measured_24C_converted
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.001
@@ -263,11 +263,12 @@
   families:
   - floral materials
   character: 'Distinctive ''deep'' tones, peppery, woody, fruity, spicy, rose absolute type odor.'
-  notes:
+  notes: 'Kenny owns only the 10% in DPG (''Only 10%'', 28 Oct 2026 11:21:31 UTC); the V5 neat row is retired. RIFM 2024 (FCT 183:114458) rates it a skin sensitiser (NESIL 1800 ug/cm2) with a QRA maximum of 0.77 % in Cat 4 (advisory, not an IFRA Standard). Air threshold 0.5 ppb stays an unsourced estimate. Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
   provenance:
+    smiles: '5-methyl-5-phenylhexan-3-one (RIFM: C13H18O, synonyms ''4-Damascol; Damascol/4''), an aryl ketone, not a damascone. Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
     character: 'Damascol | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/damascol: Olfactive Description: "Distinctive ''deep'' tones, peppery, woody, fruity, spicy, rose absolute type odor. Can be used to extend rose ketones in fragrances." (grade A_producer; producer/primary text, quoted). Second reader: Page opened in full this time (researcher had only a search excerpt). CAS 4927-36-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    logp: 'IFF DAMASCOL BHT SDS (IFF code 00040810, version 4.1, revision 04.09.2019; copy hosted at https://finefrag.com/wp-content/uploads/2019/11/DAMASCOL-BHT_00040810_EU_MSDS_17SEP2019_111076.pdf): "log Pow: 3,215", method not stated. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
-    vp_25c_pa: engine.diffusion_model
+    logp: 'ECHA lead dossier 01-2120525297-53-0000, OECD 117 HPLC, reliability 2: ''log P = 3.5 at 25°C''. IFF''s Damascol BHT SDS prints ''log Pow: 3,215'' without a method. ECHA CHEM registration dossier, read on Kenny''s PC 28 Oct 2026 after his ''ok'' to the legal notice (verbatim quotes: /mnt/project-files/unused-gaps-20261028/ECHA_QUOTES_20261028.md). Loaded 2026-10-28 (unused-materials group 7).'
+    vp_25c_pa: 'MEASURED at 24 C, converted: ECHA lead dossier 01-2120525297-53-0000, OECD 104 dynamic method, non-GLP, reliability 2: ''Temp. 24 °C  Vapour pressure 1.98 Pa''; converted to 25 C with Clausius-Clapeyron (dHvap 67.4 kJ/mol, the engine''s 70 - 3.82 ln VP rule): 2.17 Pa. Replaces the RIFM 2024 EPI figure (1.2 Pa). ECHA CHEM registration dossier, read on Kenny''s PC 28 Oct 2026 after his ''ok'' to the legal notice (verbatim quotes: /mnt/project-files/unused-gaps-20261028/ECHA_QUOTES_20261028.md). Loaded 2026-10-28 (unused-materials group 7).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

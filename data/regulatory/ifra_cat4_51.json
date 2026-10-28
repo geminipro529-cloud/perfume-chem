@@ -2653,7 +2653,7 @@
       "status": "no_standard",
       "standard": null,
       "aliases": [],
-      "note": "A ketone (5-methyl-5-phenylhexan-3-one), not a damascone; STD_077 does not list its CAS.",
+      "note": "A ketone (5-methyl-5-phenylhexan-3-one), not a damascone; STD_077 does not list its CAS. RIFM 2024 (FCT 183:114458): skin sensitiser, NESIL 1800 ug/cm2, QRA maximum 0.77% in Cat 4 (advisory, not an IFRA Standard). IFF SDS: delta-damascone trace 0.0025-0.025%, negligible at 10% stock.",
       "cas": [
         "4927-36-0"
       ]
@@ -3014,6 +3014,8 @@
       "aliases": [],
       "note": null,
       "cas": [
+        "23333-91-7",
+        "16423-19-1",
         "19700-21-1"
       ]
     },
@@ -4290,7 +4292,8 @@
       "aliases": [
         "Ligustral",
         "Cyclal C",
-        "Vertocitral"
+        "Vertocitral",
+        "Tricyclal"
       ],
       "note": null,
       "cas": [

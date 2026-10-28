@@ -248,4 +248,6 @@ def test_requested_notes_never_pick_an_ifra_limited_material() -> None:
             float(row["amount_decimal"]) * float(row["stock_fraction_decimal"]) / 30_000 * 100
         )
         assert finished_pct <= limit, (row["slot"], row["identity_name"], finished_pct, limit)
-    assert checked
+    # Rhodinol ex Citronella was the limited material checked here until Peach Ketone took the
+    # top-to-heart link (28 Oct 2026); with none picked, Peru Balsam must not be in the formula.
+    assert checked or not any("peru balsam" in row["identity_name"].casefold() for row in _rows(result))

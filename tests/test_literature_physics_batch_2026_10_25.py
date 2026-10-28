@@ -145,7 +145,7 @@ LOADED = [
     ('Liffarome', 'vp_25c_pa', 58.2, False),
     ('Ethyl 2-Methylbutyrate', 'vp_25c_pa', 1010.0, False),
     ('Ethyl 2-Methylbutyrate', 'logp', 2.26, True),
-    ('Peach Ketone', 'logp', 5.3, False),
+    # (Peach Ketone logp 5.3 left this list on 2026-10-28: ECHA OECD 117 4.8.)
     ('Guaiacol', 'density_25c_g_ml', 1.1287, False),
     ('Methyl Anthranilate', 'density_25c_g_ml', 1.168, False),
     ('Cis-3 Hexenyl Acetate', 'vp_25c_pa', 214.0, False),
@@ -183,7 +183,7 @@ LOADED = [
     ('Ethyl Maltol', 'logp', 0.3, True),
     ('Citral', 'vp_25c_pa', 14.1, False),
     ('Citral', 'density_25c_g_ml', 0.89, False),
-    ('Methyl Diantilis', 'vp_25c_pa', 0.07946, True),
+    # (Methyl Diantilis vp_25c_pa left this list on 2026-10-28: ECHA key study 0.003 Pa at 20 C, converted.)
     ('Beta Ionone', 'vp_25c_pa', 0.972, False),
     ('Beta Ionone', 'logp', 4.1, False),
     ('Beta Ionone', 'density_25c_g_ml', 0.943, False),
@@ -248,7 +248,7 @@ HELD = [
     ("Melonal", "vp_25c_pa", 239.0),  # OECD 104 at 25 C vs RIFM 53 Pa at 20 C
     ("Hedione", "vp_25c_pa", 0.09466),  # ECHA's figure is for the high-cis grade
     ("Citronellol", "vp_25c_pa", 2.26),  # 9.52 Pa has no printed temperature
-    ("Veloutone", "vp_25c_pa", 2.17),  # FMA 53 Pa at 20 C is 43x EPI
+    ("Veloutone", "vp_25c_pa", 9.2),  # FMA 53 Pa at 20 C stays out; ECHA OECD 104 9.2 Pa loaded 2026-10-28
     ("Allyl Ionone", "vp_25c_pa", 0.0664),  # Givaudan 13 Pa has no temperature
     ("Acetoin", "logp", -0.36),  # the source's 0.36 lost its minus sign
 ]

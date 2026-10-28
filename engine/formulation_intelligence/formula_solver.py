@@ -1398,24 +1398,31 @@ def _without_trace_grades(
     one by synergy credit matched on name text: "Lavender EO" (the 1%
     dilution's name) is in other stocks' synergy lists, "Lavender EO (BONTAUX
     SAS)" is not. A stronger grade is a design-ready stock still selectable
-    here whose name carries every word of the trace stock's name, and that
-    no other stock the brief names is (``reserved``: "lavender eo" beside
-    "Lavender EO (BONTAUX SAS)" keeps the 1% grade). A trace stock with no
-    stronger owned grade stays eligible, and so does a fast top material's
-    (``_is_fast_top``): its weak grade is the dose, not a handling dilution.
+    here whose name starts with the trace stock's name, word for word, and
+    that no other stock the brief names is (``reserved``: "lavender eo" beside
+    "Lavender EO (BONTAUX SAS)" keeps the 1% grade). A name that only contains
+    those words is another material: "Spike Lavender EO" is not a grade of
+    "Lavender EO". A trace stock with no stronger owned grade stays eligible,
+    and so does a fast top material's (``_is_fast_top``): its weak grade is
+    the dose, not a handling dilution.
     """
 
     strong = [
-        frozenset(_chemical_identity(capability).split())
+        tuple(_chemical_identity(capability).split())
         for _score, capability in ranked
         if capability.design_ready
         and float(capability.candidate.stock.dilution) >= _TRACE_STOCK_FRACTION
         and _chemical_identity(capability) not in reserved
     ]
+
+    def has_stronger_grade(capability: MaterialCapability) -> bool:
+        words = tuple(_chemical_identity(capability).split())
+        return any(grade[: len(words)] == words for grade in strong)
+
     return [
         row for row in ranked
         if float(row[1].candidate.stock.dilution) >= _TRACE_STOCK_FRACTION
-        or not any(frozenset(_chemical_identity(row[1]).split()) <= words for words in strong)
+        or not has_stronger_grade(row[1])
         or _is_fast_top(row[1])
     ]
 

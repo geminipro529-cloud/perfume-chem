@@ -41,31 +41,25 @@ def test_v17_overlay_remains_pinned_to_its_historical_receipt_and_inventory() ->
     )
 
 
+# Until 2026-10-28 these were held for BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING. Kenny's "Clear on
+# order evidence" card cleared them with the PerfumersWorld order recorded and the lot "not recorded"
+# (v26 STK-209, STK-211). His "Labdanum Resinoid" is PW's Labdanum Absolute 10% in DPG ("I have two
+# right now, one is that one from PW another is from MSR"). Tonka Bean Absolute left on 2026-10-15
+# and Opoponax Resinoid on 2026-10-28 (v26 STK-207).
 @pytest.mark.parametrize(
     ("identity_name", "fraction", "carrier"),
-    [
-        ("Labdanum Resinoid", 0.1, "dpg"),
-        # Tonka Bean Absolute left this list on 2026-10-15: it is PerfumersWorld's own
-        # 10% in DPG, so it has no preparation to receipt.
-        ("Olibanum Resinoid", 0.5, "dpg"),
-        ("Opoponax Resinoid", 0.5, "dep"),
-    ],
+    [("Labdanum Absolute", 0.1, "dpg"), ("Olibanum Resinoid", 0.5, "dpg")],
 )
-def test_percentage_stocks_are_mass_fraction_without_false_lineage_readiness(
+def test_percentage_stocks_are_mass_fraction_and_cleared_on_order_evidence(
     identity_name: str,
     fraction: float,
     carrier: str,
 ) -> None:
-    stocks = _stocks(identity_name)
-    assert len(stocks) == 1
-    stock = stocks[0]
-    assert stock.dilution == pytest.approx(fraction)
+    (stock,) = [s for s in _stocks(identity_name) if s.dilution == pytest.approx(fraction)]
     assert stock.fraction_basis == "mass_fraction"
     assert stock.carrier == carrier
-    assert stock.execution_ready is False
-    assert stock.execution_hold_reason == (
-        "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
-    )
+    assert stock.execution_ready is True
+    assert stock.execution_hold_reason == ""
 
 
 def test_mimosa_is_released_by_the_owner_use_as_is_decision() -> None:
@@ -80,18 +74,11 @@ def test_mimosa_is_released_by_the_owner_use_as_is_decision() -> None:
     assert stock.stock_id.startswith("inventory:user-20261008:")
 
 
-@pytest.mark.parametrize(
-    "identity_name",
-    [
-        "Ethyl Linalool",
-        "Spike Lavender EO",
-        "Linalool Oxide",
-        # Cedrat FCF Sicilian and Geranyl Acetate left this list on 2026-10-15:
-        # Kenny cleared their holds. Hedione HC left it on 2026-10-27: the MySkinRecipes
-        # bottle (STK-178, lot X6K6NQ from its COA) replaced the unlotted one.
-    ],
-)
-def test_exact_neat_products_are_materialized_but_lineage_held(
+# Cedrat FCF Sicilian and Geranyl Acetate were cleared on 2026-10-15 and Hedione HC on 2026-10-27
+# (MySkinRecipes lot X6K6NQ, STK-178). The last three were cleared on the 2026-10-28 "Clear on order
+# evidence" card (v26 STK-210, STK-214, STK-216; Spike Lavender is from Chemipan).
+@pytest.mark.parametrize("identity_name", ["Ethyl Linalool", "Spike Lavender EO", "Linalool Oxide"])
+def test_exact_neat_products_are_materialized_and_cleared_on_order_evidence(
     identity_name: str,
 ) -> None:
     stocks = _stocks(identity_name)
@@ -100,7 +87,7 @@ def test_exact_neat_products_are_materialized_but_lineage_held(
     assert stock.dilution == pytest.approx(1.0)
     assert stock.fraction_basis == "neat"
     assert stock.carrier == ""
-    assert stock.execution_ready is False
+    assert stock.execution_ready is True
 
 
 def test_gamma_coeur_is_depleted_without_family_substitution() -> None:

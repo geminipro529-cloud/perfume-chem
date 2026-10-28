@@ -415,7 +415,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 6
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -437,6 +437,7 @@
   odour_family: 'woody'
   notes: 'VP and density left null (2026-10-08). VP: dsm-firmenich "0.00735 Pa at 20C" (https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880) and Hekserij "Vapor pressure: 0.007 Pa" with no stated temperature (https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir); no 25 C value. Hekserij "Density: 1.03" has no stated temperature. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: methyl cedryl ketone (Vertofix) 6.3 ppb in air (van Gemert 2011 / Devos 1990, engine row), the closest measured polycyclic woody oxygenate (no epoxide has a measured air threshold), geometric mean with a PerfumersWorld ROI regression for ROI 100 (5.25 ppb) = 6 ppb (range 5-6.3). Givaudan lists only log Kcaps -1.2, no PROC. Paired with the low-confidence 0.98 Pa VP. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     odour_family: 'odour family "woody" from ''Woody (Technical Descriptors: Woody, Rhubarb, Grapefruit)'': RHUBOFIX® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880: Olfactive family Woody ... Technical Descriptors Woody, Rhubarb, Grapefruit (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880 (dsm-firmenich, producer); "CAS# 0041816-03-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
@@ -1658,18 +1659,18 @@
   cas: '8030-89-5'
   smiles:
   inchikey:
-  mw_g_mol:
+  mw_g_mol: 51
   density_25c_g_ml: 0.872
-  logp:
+  logp: 0.24
   functional_groups: []
   chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 9100
+  vp_source: constituent_raoult_estimate
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 160
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -1679,13 +1680,15 @@
   user_stock_dilution: neat / as supplied
   user_in_inventory: true
   supplier:
-  families: []
+  families: [gourmand]
   character: 'whiskey; wine-like; rum-like'
-  notes: 'MySkinRecipes 2199302 Rum Ether, neat. The COA (lot QI71T6) states "main content
-    80% min" without naming it, and its density and RI (0.8644-0.8804, 1.3618-1.3698)
-    sit above the published grades (0.807-0.836, 1.334-1.358). The MSR SDS that came
-    with order 2199302 has not been read here, so no composition is modeled (25 Oct 2026).'
+  notes: 'MySkinRecipes 2805 Rum Ether (order 2199302), lot QI71T6, neat only (Kenny, 28 Oct 2026 11:20:58 UTC: ''Neat''; STK-109). The COA states ''main content 80% min'' without naming it; density and RI (0.8644-0.8804, 1.3618-1.3698) sit above the published grades (0.807-0.836, 1.334-1.358). Since 28 Oct 2026 it is modeled as the EFSA FGE.500 Company 2 scenario (''rum ether efsa fge500 company 2 scenario profile'', engine/pipeline/natural_absolute_decomposition.py): ethanol 38.5, ethyl acetate 39.8, ethyl formate 9.1, ethyl propionate 1.4, ethyl butyrate 0.16, water 9.6 %; chosen because its density fits this COA; a scenario, not a GC of the lot. Ethyl butyrate carries most of the modeled odour. Use stays trace: MSR fine fragrance 0.0002-0.010 %. No IFRA Standard. Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
   provenance:
+    families: 'MySkinRecipes 2805: ''fruity-ethereal ... rum, pineapple''; Sigma W299618 ''whiskey; wine-like''; engine family word ''gourmand'' (no boozy family exists). Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
+    odt_air_ppb: 'UNVERIFIED constituent estimate: odorant headspace / sum of OAVs over the Raoult headspace of the rum ether efsa fge500 company 2 scenario profile, measured air thresholds from Nagata 2003 Table 2 (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf): ethanol 0.52, ethyl acetate 0.87, ethyl formate 2.7, ethyl propionate 0.0070, ethyl n-butyrate 0.000040 ppm. 166 ppb computed, 160 loaded; range 15-170 ppb across EFSA producers. Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
+    vp_25c_pa: 'ESTIMATE (grade C): Raoult total (ideal) over the rum ether efsa fge500 company 2 scenario profile: ethanol 7906, ethyl acetate 12426, ethyl formate 32664, ethyl propionate 4773 Pa (PubChem/HSDB), water 3169 Pa; 9186 Pa (8000-9200 across EFSA producers). EFSA FGE.500 (https://doi.org/10.2903/j.efsa.2017.4897). Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
+    logp: 'ESTIMATE (grade C): mass-weighted constituent log Kow of the rum ether efsa fge500 company 2 scenario profile (0.24; -0.11 to 0.24 across producers). Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
+    mw_g_mol: 'ESTIMATE (grade C): mole-mean MW of the rum ether efsa fge500 company 2 scenario profile including its 9.6 % water (50.4; 50.5-56 across EFSA producers). A mixture has no single MW. Loaded 2026-10-28 (unused-materials group 6; source re-opened).'
     character: 'Rum ether, natural, FG (W299618) | Sigma-Aldrich, https://www.sigmaaldrich.com/US/en/product/aldrich/w299618: Organoleptic : whiskey; wine-like ... Rum ether is a complex mixture of volatile substances that can be used as a flavoring agent for its rum-like odor/flavor. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1034451.html (EC 232-449-5, FEMA 2996)'
     density_25c_g_ml: 'MySkinRecipes COA, order 2199302, lot QI71T6, density specification 0.8644-0.8804, midpoint; temperature not printed (25 Oct 2026). Was the TGSC 0.807-0.836 range for other grades (0.819)'
