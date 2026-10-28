@@ -443,7 +443,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: 0.895
+  density_25c_g_ml: null
   logp: null
   functional_groups: []
   chirality: null
@@ -464,12 +464,10 @@
   user_in_inventory: true  # Kenny 27 Oct 2026: MySkinRecipes order in his mail (overlay STK-170)
   supplier:
   families: []
-  character: 'Floral, typical of Magnolia'
-  notes: 'MySkinRecipes ''Magnolia Absolute'' #7870, lot ZDHY6L (order 2200410, STK-170), filed under Absolute (Solvent Extract), INCI ''Magnolia Officinalis Flower Extract'', 356.56 THB per 5 g. The COA prints no CAS; the MSDS composition is blank and its density ''N/A''; ''Clear to yellowish'' is template text printed on other products too. Kenny 28 Oct 2026: ''select the one that is the closest''. Closest identity: Michelia x alba (white champaca, bai lan) flower absolute, the material sold in trade as magnolia absolute; no perfumery Magnolia officinalis flower absolute exists and the INCI matches MSR''s cosmetic extract 7871, so it is probably carried over. Its CAS would be 92457-18-6 (Michelia alba flower extract, EC 296-299-2), not printed by MSR and not loaded. The engine uses the Ueyama 1992 flower concrete oil profile. Density is a distilled M. x alba flower oil specification, not this bottle; an absolute is likely denser. Measuring SG and RI would settle the type: SG 0.86-0.95 and RI 1.455-1.495 is oil type; SG 0.97-1.02 and RI 1.49-1.535 is extract type.'
+  character: null
+  notes: 'MySkinRecipes ''Magnolia Absolute'' #7870, lot ZDHY6L (order 2200410, STK-170), filed under Natural Extracts > Absolute (Solvent Extract), label ''FRAGRANCE/FLAVOR/PURE ESSENTIAL OIL'', INCI ''Magnolia Officinalis Flower Extract'' (page subtitle, title and Info tab), 356.56 THB per 5 g; nothing on the page says it is diluted. The COA prints no CAS; the MSDS composition is blank and its density ''N/A''; the page prints no density, RI, origin or solvent. Kenny 28 Oct 2026: ''magnolia abolute takje the INCI on the mykinrecipe page'', so the identity is Magnolia officinalis flower and the engine uses the Liu et al. 2025 hydrodistilled flower-bud oil (S1) profile. No density is loaded: none was found for an M. officinalis flower extract or oil. The same INCI is on MySkinRecipes'' cosmetic extract 7871, so a sweet-floral smell would point back to Michelia x alba (white champaca); measuring SG and RI would help.'
   provenance:
-    character: 'Plant''s Power Inc (https://www.knowde.com/stores/plant-s-power-inc/products/plant-s-power-inc-magnolia-flower-michelia-alba-essential-oil): ''Odor Floral, typical of Magnolia'' (grade A_producer; producer text for the distilled oil of the closest identity, quoted; not a reading of this bottle). Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct and MSR identities; source re-opened).'
-    density_25c_g_ml: 'Plant''s Power Inc, Magnolia Flower (Michelia alba) Essential Oil, Enhanced TDS on Knowde (https://www.knowde.com/stores/plant-s-power-inc/products/plant-s-power-inc-magnolia-flower-michelia-alba-essential-oil): ''Specific Gravity (at 20°C) 0.880 - 0.910 g/cm³'', ''Refractive Index (at 20°C) 1.460 - 1.490''; specification midpoint 0.895 g/cm3 at 20 C as printed, not 25 C; ESTIMATE for the closest identity: a producer specification for the distilled flower oil, not an absolute and not this lot (MySkinRecipes prints ''Density N/A''); grade A_producer for the oil. Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct and MSR identities; source re-opened).'
-    notes: 'MySkinRecipes COA and MSDS for lot ZDHY6L (Kenny''s mail, 27 Oct 2026); MySkinRecipes product 7870 page title ''Magnolia Officinalis Flower Extract''; identity reading from Pensuk et al. (Michelia alba flower oil by steam distillation, hexane extraction and enfleurage) and Cheng et al., Molecules 2022, 27(11), 3450 (PMC9182571). Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    notes: 'MySkinRecipes COA and MSDS for lot ZDHY6L (Kenny''s mail, 27 Oct 2026); MySkinRecipes product 7870 page (https://www.myskinrecipes.com/shop/en/absolute-solvent-extract/7870-magnolia-officinalis-flower-extract.html) read in Kenny''s Chrome on 28 Oct 2026; Liu et al., J Oleo Sci 2025, 74(10):915-927, doi:10.5650/jos.ess25113. Loaded 2026-10-28 (PC-only stock of 20-21 Oct and the Magnolia INCI; source re-opened).'
     user_in_inventory: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Magnolia EO
   aliases:

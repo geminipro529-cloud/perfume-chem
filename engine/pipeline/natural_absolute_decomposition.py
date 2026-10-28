@@ -1078,6 +1078,24 @@ _ORRIS_CONCRETE_8PCT_IRONE_CONSTITUENTS = [
 # Same conventions as the block above: labelled literature or supplier proxies,
 # reused runtime tuples, unresolved constituents kept, nothing renormalized.
 
+# Magnolia officinalis flower bud essential oil, Liu, Wang, Cheng, Wang, Wu, Guo, Miao and Hu
+# (2025), J Oleo Sci 74(10):915-927, doi:10.5650/jos.ess25113, Table 3 column S1 (GC-MS peak-area
+# %; buds dried at 60 C and hydrodistilled by Chinese Pharmacopoeia Method A). Used for
+# MySkinRecipes "Magnolia Absolute" (STK-170), whose page names the INCI Magnolia Officinalis
+# Flower Extract (Kenny, 28 Oct 2026: "magnolia abolute takje the INCI on the mykinrecipe page"). No GC of an M. officinalis
+# flower absolute was found; the bottle's non-volatile share is unknown, so nothing is scaled or
+# renormalized. Seventeen printed constituents (30.73%) have no runtime input and stay unresolved.
+_MAGNOLIA_OFFICINALIS_FLOS_LIU_2025_S1_CONSTITUENTS = [
+    ("beta caryophyllene", 0.3007, 204.35, 1.0, 10.0, 1.2),
+    ("caryophyllene oxide", 0.1872, 220.35, 0.1, 2.0, 0.6),
+    ("bornyl acetate", 0.0252, 196.29, 3.0, 10.0, 1.5),
+    ("linalool", 0.0167, 154.25, 21.3, 1.5, 2.0),
+    ("geraniol", 0.0145, 154.25, 4.00, 2.00, 1.5),
+    ("borneol", 0.0142, 154.25, 3.0, 10.0, 1.5),
+    ("trans-beta-farnesene", 0.0106, 204.35, 3.0, 5.0, 1.2),
+    ("alpha terpineol", 0.0043, 154.25, 2.0, 10.0, 1.5),
+]
+
 # Michelia alba DC. (Magnolia x alba) flower, Zhu et al. (1993) Aromatic Plants
 # and Essential Constituents p.14, as tabulated by scent.vn ("Michelia alba
 # flower absolute (China)"; listed sum 92.03%). The page calls the sample an
@@ -1090,22 +1108,6 @@ _ORRIS_CONCRETE_8PCT_IRONE_CONSTITUENTS = [
 # engine/odor_thresholds.py). Citral (0.10%) uses the module's 3.0 Pa / 0.5 ppb
 # citral row. Eleven minor constituents (6.17%) have no runtime input and stay
 # unresolved.
-# Michelia x alba flower concrete oil, Ueyama, Hashimoto, Nii and Furukawa (1992), J Essent
-# Oil Res 4:15-23, GC/MS with retention indices, abstract values (about 100 compounds; linalool
-# (R):(S) 75:25). Used for MySkinRecipes "Magnolia Absolute" (STK-170), whose closest identity
-# is a Michelia x alba flower absolute (Kenny, 28 Oct 2026: "select the one that is the
-# closest"). The concrete oil is the volatile part of the solvent product; the absolute's
-# non-volatile share is unknown, so nothing is scaled or renormalized. Methyl 2-methylbutyrate
-# (1.46%) has no runtime input and stays unresolved.
-_MICHELIA_ALBA_FLOWER_CONCRETE_OIL_UEYAMA_1992_CONSTITUENTS = [
-    ("linalool", 0.728, 154.25, 21.3, 1.5, 2.0),
-    ("alpha terpineol", 0.0604, 154.25, 2.0, 10.0, 1.5),
-    ("phenylethyl alcohol", 0.0258, 122.16, 11.57, 26.0, 0.7),
-    ("beta pinene", 0.0239, 136.24, 250.0, 30.0, 3.0),
-    ("geraniol", 0.0123, 154.25, 4.00, 2.00, 1.5),
-    ("1,8-cineole", 0.0103, 154.25, 200.0, 50.0, 2.0),
-]
-
 _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS = [
     ("linalool", 0.7629, 154.25, 21.3, 1.5, 2.0),
     ("phenylethyl alcohol", 0.0638, 122.16, 11.57, 26.0, 0.7),
@@ -1615,7 +1617,7 @@ _ABSOLUTE_CONSTITUENTS = {
         _HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS
     ),
     "michelia alba flower oil zhu 1993 literature profile": _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS,
-    "michelia x alba flower concrete oil ueyama 1992 profile": _MICHELIA_ALBA_FLOWER_CONCRETE_OIL_UEYAMA_1992_CONSTITUENTS,
+    "magnolia officinalis flos essential oil liu 2025 stage s1 profile": _MAGNOLIA_OFFICINALIS_FLOS_LIU_2025_S1_CONSTITUENTS,
     "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
         _CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS
     ),
@@ -1794,9 +1796,9 @@ _PROFILE_ALIASES = {
     # Owner stock "Magnolia EO (neat / as supplied)": Michelia alba flower oil
     # (owner-confirmed species; Shopee shop "True Industry").
     "magnolia eo": "michelia alba flower oil zhu 1993 literature profile",
-    # MySkinRecipes Magnolia Absolute, lot ZDHY6L (STK-170): closest identity Michelia x alba
-    # flower absolute (Kenny, 28 Oct 2026). Not the MSR Magnolia Flower Extract (PG, 7871).
-    "magnolia absolute": "michelia x alba flower concrete oil ueyama 1992 profile",
+    # MySkinRecipes Magnolia Absolute, lot ZDHY6L (STK-170): its INCI, Magnolia officinalis
+    # flower (Kenny, 28 Oct 2026). Not the MSR Magnolia Flower Extract (PG, 7871).
+    "magnolia absolute": "magnolia officinalis flos essential oil liu 2025 stage s1 profile",
     # Owner stock "Champaca Flower EO"; PerfumersWorld 7NJ07740 is assumed.
     "champaca flower eo": "champaca flower oil perfumersworld 7nj07740 ifra declaration profile",
     # Owner stock "Peru Balsam Resinoid (50% w/w in DEP)" and the V5 requirement
@@ -1966,8 +1968,8 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "Plant part, origin, extraction, oxidation state, density, and current leave-on IFRA conformity for the user's bottle remain unverified.",
     ),
     "magnolia absolute": (
-        "The owned Magnolia Absolute (MySkinRecipes #7870, lot ZDHY6L) is modeled as Michelia x alba flower absolute, the closest identity Kenny asked for on 28 Oct 2026; MySkinRecipes prints no CAS, origin, extraction, composition or density, and its INCI (Magnolia officinalis flower extract) matches its cosmetic PG extract 7871.",
-        "No GC of a commercial Michelia x alba absolute was found. A lab hexane extract (Pensuk et al. 2007) had 2-methylbutanoic acid 33.01% and linalool 28.92%, so a real absolute may carry far less linalool than this concrete-oil profile.",
+        "The owned Magnolia Absolute (MySkinRecipes #7870, lot ZDHY6L) is modeled as Magnolia officinalis flower, the identity the INCI on its MySkinRecipes page names (Kenny, 28 Oct 2026: 'magnolia abolute takje the INCI on the mykinrecipe page'); MySkinRecipes prints no CAS, origin, extraction solvent, composition or density.",
+        "No GC of a Magnolia officinalis flower absolute or solvent extract was found; the only quantified composition is the pharmacopoeial hydrodistilled oil of dried buds, which is caryophyllene-rich. The same INCI is on MySkinRecipes' cosmetic extract 7871, so if the bottle smells sweet-floral the name may be carried over and Michelia x alba would fit better.",
     ),
     "white sandalwood oil (china)": (
         "The owned White Sandalwood Oil (China) (MySkinRecipes lot W9F536) is modeled as Santalum album oil, the closest identity Kenny asked for on 28 Oct 2026: its name and the COA's nominal density (0.980, inside ISO 3518) point to S. album. MySkinRecipes prints no GC.",
@@ -2149,9 +2151,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.cir-safety.org/sites/default/files/cpeelo092014FR.pdf",
         "https://www.oand3.com/product/pomelo-essential-oil/",
     ),
-    "michelia x alba flower concrete oil ueyama 1992 profile": (
-        "https://www.tandfonline.com/doi/abs/10.1080/10412905.1992.9698004",
-        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9182571/",
+    "magnolia officinalis flos essential oil liu 2025 stage s1 profile": (
+        "https://doi.org/10.5650/jos.ess25113",
+        "https://www.jstage.jst.go.jp/article/jos/74/10/74_ess25113/_pdf",
+        "https://www.myskinrecipes.com/shop/en/absolute-solvent-extract/7870-magnolia-officinalis-flower-extract.html",
     ),
     "michelia alba flower oil zhu 1993 literature profile": (
         "https://scent.vn/pages/oil/michelia-alba-flower-absolute-china-1874",
@@ -3134,25 +3137,45 @@ _PARTIAL_PROFILE_EVIDENCE = {
             },
         },
     },
-    "michelia x alba flower concrete oil ueyama 1992 profile": {
-        "analytical_method": "PUBLISHED_GC_MS_ABSTRACT_VALUES",
-        "composition_basis": "PUBLISHED_PERCENT_OF_CONCRETE_OIL_NOMINAL_MODEL_PROXY",
+    "magnolia officinalis flos essential oil liu 2025 stage s1 profile": {
+        "analytical_method": "PUBLISHED_GC_PROFILE_HYDRODISTILLED_OIL",
+        "composition_basis": "GC_MS_AREA_NOMINAL_MODEL_PROXY",
         "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
         "input_authority": {
             "composition": {
-                "source": "Ueyama Y, Hashimoto S, Nii H, Furukawa K. The Chemical Composition of the Flower Oil and the Leaf Oil of Michelia alba D.C. J Essent Oil Res 1992;4(1):15-23, doi:10.1080/10412905.1992.9698004 (abstract)",
+                "source": "Liu Z-Y, Wang X-Y, Cheng Q-Q, Wang S, Wu Y, Guo T-Y, Miao W-J, Hu M-L. Assessment of Quality in Essential Oil from Magnolia officinalis flos at Different Developmental Stages by Anatomy, GC-MS, and Chemometric Methods. J Oleo Sci 2025;74(10):915-927, doi:10.5650/jos.ess25113, Table 3 column S1",
                 "reported_pct": {
-                    "linalool": 72.8,
-                    "alpha terpineol": 6.04,
-                    "phenylethyl alcohol": 2.58,
-                    "beta pinene": 2.39,
-                    "methyl 2-methylbutyrate": 1.46,
-                    "geraniol": 1.23,
-                    "1,8-cineole": 1.03,
+                    "linalool": 1.67,
+                    "borneol": 1.42,
+                    "alpha terpineol": 0.43,
+                    "geraniol": 1.45,
+                    "bornyl acetate": 2.52,
+                    "alpha-cubebene": 0.22,
+                    "geranyl butyrate": 1.48,
+                    "beta caryophyllene": 30.07,
+                    "trans-alpha-bergamotene": 1.28,
+                    "1,4,7-cycloundecatriene, 1,5,9,9-tetramethyl-, (1Z,4Z,7Z)-": 3.79,
+                    "trans-beta-farnesene": 1.06,
+                    "beta-selinene": 4.19,
+                    "alpha-selinene": 4.1,
+                    "(Z,E)-alpha-farnesene": 2.24,
+                    "alpha-muurolene": 0.39,
+                    "cis-calamenene": 4.6,
+                    "caryophyllene oxide": 18.72,
+                    "humulene-1,2-epoxide": 2.09,
+                    "T-cadinol": 2.19,
+                    "copaene": 0.4,
+                    "2-(4a,8-dimethyl-2,3,4,5,6,8a-hexahydro-1H-naphthalen-2-yl)propan-2-ol": 0.24,
+                    "neointermedeol": 1.82,
+                    "alpha-cadinol": 0.93,
+                    "cadalene": 0.43,
+                    "methyl linolenate": 0.34,
                 },
-                "sample": "flower concrete oil, the volatile part of the solvent concrete",
-                "species": "Michelia x alba, the closest identity chosen on Kenny's 28 Oct 2026 instruction; MySkinRecipes names Magnolia officinalis flower extract (INCI) and prints no CAS",
-                "species_asserted_by_supplier": False,
+                "reported_total_pct": 88.81,
+                "unitemized_pct": 0.74,
+                "sample": "essential oil hydrodistilled (Chinese Pharmacopoeia Method A) from M. officinalis flower buds dried at 60 C, stage S1 (bud length 4.1-6.0 cm), Hubei, China; peak-area normalization",
+                "species": "Magnolia officinalis, the identity the INCI on MySkinRecipes product 7870 names (Kenny, 28 Oct 2026: 'magnolia abolute takje the INCI on the mykinrecipe page')",
+                "species_asserted_by_supplier": True,
                 "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
                 "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
                 "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
@@ -3161,22 +3184,30 @@ _PARTIAL_PROFILE_EVIDENCE = {
                 "owned_sku": "MySkinRecipes #7870, order 2200410, lot ZDHY6L, 5 g",
             },
             **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
-               for name in ("linalool", "alpha terpineol", "beta pinene", "geraniol", "1,8-cineole")},
-            "phenylethyl alcohol": {
-                "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
-                "vp_status": "CITED_DATA_SPINE_VP",
-                "vp_source": "PubChem CID 6054 HSDB, Daubert & Danner (1989): 8.68e-2 mm Hg at 25 C = 11.57 Pa",
-                "odt_status": "ODT_DATA_MULTI_SOURCE_LITERATURE",
-                "gamma_status": "HEURISTIC_CLASS_INPUT",
-                "owned_oil_activity_measured": False,
-            },
+               for name in ("beta caryophyllene", "caryophyllene oxide", "bornyl acetate", "linalool", "geraniol", "borneol", "trans-beta-farnesene", "alpha terpineol")},
         },
         "unresolved_constituents": (
-            {"name": "methyl 2-methylbutyrate", "reported_fraction": 0.0146, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "cis-calamenene", "reported_fraction": 0.046, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "beta-selinene", "reported_fraction": 0.0419, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-selinene", "reported_fraction": 0.041, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "1,4,7-cycloundecatriene, 1,5,9,9-tetramethyl-, (1Z,4Z,7Z)-", "reported_fraction": 0.0379, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "(Z,E)-alpha-farnesene", "reported_fraction": 0.0224, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "T-cadinol", "reported_fraction": 0.0219, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "humulene-1,2-epoxide", "reported_fraction": 0.0209, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "neointermedeol", "reported_fraction": 0.0182, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "geranyl butyrate", "reported_fraction": 0.0148, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "trans-alpha-bergamotene", "reported_fraction": 0.0128, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-cadinol", "reported_fraction": 0.0093, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "cadalene", "reported_fraction": 0.0043, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "copaene", "reported_fraction": 0.004, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-muurolene", "reported_fraction": 0.0039, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "methyl linolenate", "reported_fraction": 0.0034, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "2-(4a,8-dimethyl-2,3,4,5,6,8a-hexahydro-1H-naphthalen-2-yl)propan-2-ol", "reported_fraction": 0.0024, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-cubebene", "reported_fraction": 0.0022, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
         ),
         "limitations": (
-            "Composition is a published flower concrete oil (abstract values), not an analysis of the owned lot and not a commercial absolute.",
-            "Only the seven constituents the abstract prints are known (87.53%); 86.07% is modeled and the rest is uncomputed, not odorless. The absolute's non-volatile share is unknown, so nothing is scaled or renormalized.",
+            "Composition is the published hydrodistilled oil of oven-dried M. officinalis flower buds (stage S1), not an analysis of the owned lot and not a solvent absolute; the absolute's non-volatile share is unknown, so nothing is scaled or renormalized.",
+            "57.34% is modeled; 30.73% is printed but has no runtime input, 0.74% is not itemized and four trace rows (<0.20%) carry no value. Later stages shift beta-caryophyllene (30.07 to 17.31%) to its oxide (18.72 to 33.81%).",
         ),
     },
     "michelia alba flower oil zhu 1993 literature profile": {
