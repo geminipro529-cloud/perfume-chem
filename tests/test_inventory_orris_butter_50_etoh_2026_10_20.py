@@ -27,7 +27,8 @@ def test_orris_butter_50_is_a_separate_mass_fraction_ethanol_stock():
     # Kenny, 20 Oct 21:32: "no. the 50% one i made from mykinrecipe".
     assert record["authority_limits"]["butter_source_asserted"] is True
     assert record["supplier_product"]["supplier"] == "MySkinRecipes"
-    assert record["supplier_product"]["sku"] is None
+    # 28 Oct 2026 ("After this PR"): the source butter's MSR product code from order 2199458.
+    assert record["supplier_product"]["sku"] == "3261"
     stocks = inventory.materialize_current_inventory().stocks
     new = [s for s in stocks if s.name == NAME]
     old = [s for s in stocks if s.name == "Orris Concrete Orris Butter"]

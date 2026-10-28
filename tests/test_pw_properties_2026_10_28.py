@@ -109,11 +109,19 @@ def test_tuberose_density_and_the_legacy_profile_note():
     assert any("Petrzilka and Ehret" in item for item in meta.limitations)
 
 
-def test_magnolia_absolute_models_the_concrete_oil_without_renormalizing():
+def test_magnolia_absolute_takes_its_inci_identity_without_renormalizing():
+    # Kenny, 28 Oct 2026: "magnolia abolute takje the INCI on the mykinrecipe page".
     rows = {row[0]: row[1] for row in get_constituents("Magnolia Absolute")}
-    assert rows["linalool"] == pytest.approx(0.728)
-    assert sum(rows.values()) == pytest.approx(0.8607)
+    assert rows["beta caryophyllene"] == pytest.approx(0.3007)
+    assert rows["caryophyllene oxide"] == pytest.approx(0.1872)
+    assert sum(rows.values()) == pytest.approx(0.5734)
     meta = get_composite_metadata("Magnolia Absolute")
-    assert {row["name"] for row in meta.unresolved_constituents} == {"methyl 2-methylbutyrate"}
+    assert meta.profile_key == "magnolia officinalis flos essential oil liu 2025 stage s1 profile"
+    assert meta.sources[0] == "https://doi.org/10.5650/jos.ess25113"
+    unresolved = {row["name"]: row["reported_fraction"] for row in meta.unresolved_constituents}
+    assert len(unresolved) == 17
+    assert unresolved["cis-calamenene"] == pytest.approx(0.046)
+    assert sum(unresolved.values()) == pytest.approx(0.3073)
+    assert any("INCI" in item for item in meta.limitations)
     # The MSR cosmetic PG extract stays a separate, unmodelled stock.
     assert get_composite_metadata("Magnolia Flower Extract") is None

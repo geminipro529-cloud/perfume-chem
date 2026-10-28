@@ -4330,6 +4330,16 @@
       "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=4UY07514",
       "source_kind": "supplier_ifra_certificate",
       "note": "Not an Annex I row. PerfumersWorld's IFRA conformity certificate (51st Amendment) for Fixative 505 4UY07514, the SKU of Kenny's stock; read live 2026-10-28 (a cached copy of the page showed the 50th Amendment and rounded values). Certificate row 'COUMARIN 91-64-5 0.0002'; the allergen declaration prints the same."
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Magnolia officinalis flos essential oil, Liu et al. 2025 GC-MS (stage S1)",
+      "max_pct": 1.45,
+      "max_pct_as_printed": "1.45",
+      "source_url": "https://doi.org/10.5650/jos.ess25113",
+      "source_kind": "published_gc_ms_literature",
+      "note": "Not an Annex I row. Annex I has no Magnolia officinalis row, so the restricted constituents of the profile the engine uses for Magnolia Absolute are counted: geraniol 1.45% (peak area, Table 3 column S1); no methyl eugenol is reported. The Michelia alba extract rows stay listed for the same stock because the identity rests on a supplier INCI (safety first: highest value per substance)."
     }
   ],
   "stocks": {
@@ -4952,9 +4962,10 @@
     },
     "Magnolia Absolute": {
       "ncs_names": [
-        "Michelia alba extract"
+        "Michelia alba extract",
+        "Magnolia officinalis flos essential oil, Liu et al. 2025 GC-MS (stage S1)"
       ],
-      "note": "MySkinRecipes lot ZDHY6L (STK-170), identity not established; Michelia x alba is the most likely source, and Michelia alba extract is the only Michelia alba row, as for Magnolia EO."
+      "note": "MySkinRecipes lot ZDHY6L (STK-170). Kenny, 28 Oct 2026: 'magnolia abolute takje the INCI on the mykinrecipe page', so the identity is Magnolia officinalis flower, which has no Annex I row; its published composition (Liu et al. 2025) is counted. The identity rests on a supplier INCI that may be carried over from the cosmetic extract 7871, so the Michelia alba extract rows stay as a second candidate and the highest value per substance is used."
     },
     "Davana Essential Oil": {
       "ncs_names": [

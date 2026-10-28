@@ -1,10 +1,10 @@
 """Properties for the MySkinRecipes orders #2200410 and #2200413 (Kenny, 27 Oct 2026: "Stock data
 from msr emails and find all of the properties.").
 
-Fir needle, olibanum and galbanum get published compositions. Magnolia Absolute and White
-Sandalwood Oil (China) have no established identity; on 28 Oct 2026 Kenny asked for the closest
-one ("select the one that is the closest"), so each takes that identity's profile as a labelled
-proxy. Every value was re-opened before loading. These pin the data and its sources; they make
+Fir needle, olibanum and galbanum get published compositions. White Sandalwood Oil (China) has no
+established identity; on 28 Oct 2026 Kenny asked for the closest one ("select the one that is the
+closest"), so it takes that identity's profile as a labelled proxy. Magnolia Absolute takes the
+identity its INCI names ("magnolia abolute takje the INCI on the mykinrecipe page"). Every value was re-opened before loading. These pin the data and its sources; they make
 no sensory claim.
 """
 from __future__ import annotations
@@ -63,16 +63,17 @@ def test_labdanum_absolute_keeps_its_legacy_rows_and_says_they_are_unsupported()
     assert any("Weyerstahl 1998, an oil study" in item for item in meta.limitations)
 
 
-def test_unidentified_msr_bottles_take_their_closest_identity_as_a_labelled_proxy():
-    # Kenny, 28 Oct 2026: "select the one that is the closest".
-    for label, key in (
-        ("Magnolia Absolute", "michelia x alba flower concrete oil ueyama 1992 profile"),
-        ("White Sandalwood Oil (China)", "santalum album oil iso 3518 midpoint profile"),
+def test_unidentified_msr_bottles_take_a_labelled_proxy_identity():
+    # Kenny, 28 Oct 2026: "select the one that is the closest", then for the magnolia
+    # "magnolia abolute takje the INCI on the mykinrecipe page".
+    for label, key, phrase in (
+        ("Magnolia Absolute", "magnolia officinalis flos essential oil liu 2025 stage s1 profile", "INCI"),
+        ("White Sandalwood Oil (China)", "santalum album oil iso 3518 midpoint profile", "closest identity"),
     ):
         meta = get_composite_metadata(label)
         assert meta.profile_key == key
         assert meta.input_authority["composition"]["owned_lot_match"] == "UNVERIFIED_CONDITIONAL_PROXY"
-        assert any("closest identity" in item for item in meta.limitations)
+        assert any(phrase in item for item in meta.limitations)
 
 
 @pytest.mark.parametrize(
@@ -115,20 +116,20 @@ def test_coa_cas_and_producer_odour_text(record, cas, character_source):
     assert spine.user_in_inventory is True
 
 
-def test_closest_identity_bottles_carry_labelled_density_and_odour_but_no_molecule_physics():
+def test_proxy_identity_bottles_carry_no_molecule_physics_or_borrowed_density():
     registry = load_registry()
     magnolia = registry.get("Magnolia Absolute")
     sandalwood = registry.get("White Sandalwood Oil (China)")
     assert magnolia.cas is None
     assert sandalwood.cas == "8024-35-9"  # as printed by MySkinRecipes, not proof of contents
-    assert magnolia.density_25c_g_ml == pytest.approx(0.895)
-    assert magnolia.provenance["density_25c_g_ml"].startswith("Plant's Power")
-    assert "ESTIMATE for the closest identity" in magnolia.provenance["density_25c_g_ml"]
+    # No density is published for a Magnolia officinalis flower extract, so none is borrowed.
+    assert magnolia.density_25c_g_ml is None and magnolia.character is None
+    assert "Magnolia Officinalis Flower Extract" in magnolia.notes
     assert sandalwood.density_25c_g_ml == pytest.approx(0.9782)
     assert sandalwood.provenance["density_25c_g_ml"].startswith("MySkinRecipes COA lot W9F536")
     assert sandalwood.provenance["character"].startswith("ISO 3518:2025")
+    assert sandalwood.character
     for spine in (magnolia, sandalwood):
-        assert spine.character
         assert spine.vp_25c_pa is None and spine.mw_g_mol is None
     assert registry.get("Olibanum (Frankincense) Oil").canonical_name == "Olibanum Oil"
 
@@ -143,7 +144,7 @@ LEVELS = load_natural_constituents().stocks
         ("Fir Needle Oil (Canada)", "specification", "IFRA_STD_184", {"IFRA_STD_199": 0.2}),
         ("Olibanum Oil", "natural_no_own_standard", None, {"IFRA_STD_102": 0.5, "IFRA_STD_016": 0.3}),
         ("Galbanum Resinoid", "natural_no_own_standard", None, {"IFRA_STD_026": 0.1}),
-        ("Magnolia Absolute", "natural_no_own_standard", None, {"IFRA_STD_037": 0.4, "IFRA_STD_100": 2.8}),
+        ("Magnolia Absolute", "natural_no_own_standard", None, {"IFRA_STD_037": 1.45, "IFRA_STD_100": 2.8}),
         (
             "White Sandalwood Oil (China)",
             "natural_no_own_standard",

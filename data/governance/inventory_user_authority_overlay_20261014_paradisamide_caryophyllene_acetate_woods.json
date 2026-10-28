@@ -347,6 +347,11 @@
         "message_timestamp_utc": "2026-10-28T07:24:05Z",
         "text": "PW orders have arrived",
         "context": "Stock data thread; the PerfumersWorld mail in k3nnyw@gmail.com holds three paid 25 Oct orders (261024-211206f41, 261024-21230599a, 261024-23332424a), all shipped 26 Oct by Thai EMS EQ291309744TH. Six lines are recorded (STK-182 to STK-187). Three lines are second bottles of stocks he already owns at the same strength, so no record is added: Ambrox Super 5 g (1UW00035, neat; INV-USER-20260924-R5-001), Isobutyl Quinoline 10% in DPG 5 g (5UP07523; IBQ 10%, STK-059) and Orange Flower Absolute 10% in DPG 2 g (5NC07544; STK-148)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T07:51:33Z",
+        "text": "After this PR",
+        "context": "Stock data thread, card tap on 'Bring the 20-21 Oct stock that exists only on your PC into master?'. Scope he chose: the three fragrance items only. Iso E Super Anthamber (MySkinRecipes 2845, lot 42V557) is recorded as STK-188, superseding V5 row 140; Magnolia Flower Extract (STK-126) gets product 7871, lot D5924C and its SDS; Orris Butter 50% in EtOH (STK-119) gets its source butter, MySkinRecipes 3261 lot VFD29V. Receipts read on his PC by the Remote Control session."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -417,7 +422,8 @@
     "pw_fruit_order_lines_five_stocks_added_20261025": true,
     "pw_fruit_bottles_fifteen_neat_20261025": true,
     "msr_orders_2200410_2200413_stocked_20261027": true,
-    "pw_orders_20261025_stocked_20261028": true
+    "pw_orders_20261025_stocked_20261028": true,
+    "pc_only_stock_20261020_ported_20261028": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -5782,14 +5788,19 @@
         "compounding_authorized": false,
         "safety_asserted": false,
         "release_authorized": false,
-        "supplier_sku_asserted": false
+        "supplier_sku_asserted": true,
+        "supplier_sku_from_receipt": true
       },
-      "note": "Kenny: 'open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too' (20 Oct 2026 21:19:36 UTC, 'Check new ingredients in code'), then '50%' (21:19:57). Read as Orris Butter 50% weight/weight in ethanol; the 30% was corrected to 50% twenty seconds later. He did not say which orris butter it is made from (PerfumersWorld 8IA00344 is the one on his list), so no supplier or irone content is asserted. A separate stock from Orris Concrete Orris Butter 10% in DPG (STK-077) and from Orris Liquid 9% in DEP. Kenny, 21:32:08 UTC: 'no. the 50% one i made from mykinrecipe': the butter is MySkinRecipes', not the PerfumersWorld 8IA00344/5IA07847, and the PW 10% DPG bottle stays a separate stock. The MSR order line and code were not checked, so no SKU is asserted (MSR's only orris butter listing is code 3261).",
+      "note": "Kenny: 'open every document and then add to inventory, add orri butter 30% in EtOH eight/.eight too' (20 Oct 2026 21:19:36 UTC, 'Check new ingredients in code'), then '50%' (21:19:57). Read as Orris Butter 50% weight/weight in ethanol; the 30% was corrected to 50% twenty seconds later. He did not say which orris butter it is made from (PerfumersWorld 8IA00344 is the one on his list), so no supplier or irone content is asserted. A separate stock from Orris Concrete Orris Butter 10% in DPG (STK-077) and from Orris Liquid 9% in DEP. Kenny, 21:32:08 UTC: 'no. the 50% one i made from mykinrecipe': the butter is MySkinRecipes', not the PerfumersWorld 8IA00344/5IA07847, and the PW 10% DPG bottle stays a separate stock. The MSR order line and code were not checked, so no SKU is asserted (MSR's only orris butter listing is code 3261). On 28 Oct 2026 the butter was matched to MySkinRecipes order #2199458, Orris Root Concrete Butter code 3261, lot VFD29V, 5 g (the receipt on Kenny's PC; the lot is on the COA attachment in his mail). Kenny: 'After this PR', his tap on the card 'Bring the 20-21 Oct stock that exists only on your PC into master?' (Stock data thread), after the PerfumersWorld PR #158 merged. Preparation date, prepared mass and ethanol strength are not recorded.",
       "supplier_product": {
         "supplier": "MySkinRecipes",
-        "product_name": "orris butter (MySkinRecipes listing not matched to an order line)",
-        "sku": null,
-        "candidate_listing": "3261 Orris Root Concrete Butter (Iris pallida rhizome concrete), unverified"
+        "product_name": "Orris Root Concrete Butter",
+        "sku": "3261",
+        "order": "2199458",
+        "pack": "5 g",
+        "price_thb": "619.00",
+        "lot": "VFD29V",
+        "coa_mail": "MySkinRecipes mail 'COA/MSDS/Vegan/Halal : 2199458 1/2' (19 Oct 2026 14:32 UTC), attachment 'COA - 2199458 - Orris Root Concrete Butter Lot VFD29V.pdf'"
       }
     },
     {
@@ -6179,10 +6190,22 @@
       },
       "supplier_product": {
         "supplier": "MySkinRecipes",
-        "product_name": "magnolia flower extract (listing not matched)",
-        "sku": null,
-        "pack": null,
-        "order_reference": "MSR 2199505 (dispatched 19 Oct 2026; arrived per Kenny 'both', 22:10:43 UTC); no COA email seen"
+        "product_name": "Magnolia Flower Extract Magnolia Extract",
+        "sku": "7871",
+        "pack": "5 g (nominal, not weighed)",
+        "order_reference": "MSR 2199505 line 4 (ordered 16 Oct 2026, dispatched 19 Oct 14:36 UTC; arrived per Kenny 'both', 22:10:43 UTC); no COA",
+        "order_line": 4,
+        "price_thb": "35.00",
+        "lot": "D5924C",
+        "mfg_date": "2026-02-11",
+        "expiry_date": "2028-02-11",
+        "packing_weight_as_printed": "5.05 (unit not printed)",
+        "inci_on_sds": "Magnolia Officinalis Flower Extract, Propylene Glycol",
+        "sds_section_3": {
+          "PROPYLENE GLYCOL (57-55-6)": "95.0000000",
+          "MAGNOLIA OFFICINALIS FLOWER EXTRACT": "5.0000000 (CAS printed '8-52-9', malformed, not adopted)"
+        },
+        "sds_source": "MySkinRecipes public SDS for product 7871 (https://docs.myskinrecipes.com/api/pdfs/generate?id_product=7871&template_name=my-msds-no-id-order), retrieved on Kenny's PC 2026-10-20T10:26:58Z, sha256 92700b265a0646a37cefa93ff76ea6c9f19aa2f2d0f1b2770d42d3aa8b9fcdfb"
       },
       "supersedes_parent_stocks": [],
       "requirement_overrides": [],
@@ -6204,9 +6227,10 @@
         "fraction_from_user_message": true,
         "basis_from_user_message": false,
         "carrier_from_user_message": true,
-        "extract_identity_asserted": false
+        "extract_identity_asserted": false,
+        "supplier_sku_from_receipt": true
       },
-      "note": "Kenny: 'magnolia flower extract is 5% in DPG' (22:08:35 UTC, 'Check new ingredients in code'): his dilution of the MySkinRecipes extract, w/w by his standing rule. Species, extraction solvent and strength of the supplied extract not asserted; a separate stock from Magnolia EO. No IFRA row or physics yet."
+      "note": "Kenny: 'magnolia flower extract is 5% in DPG' (22:08:35 UTC, 'Check new ingredients in code'): his dilution of the MySkinRecipes extract, w/w by his standing rule. Species, extraction solvent and strength of the supplied extract not asserted; a separate stock from Magnolia EO. No IFRA row or physics yet. Product code, lot and SDS added on 28 Oct 2026 from the receipt on Kenny's PC (Kenny: 'After this PR', his tap on the card 'Bring the 20-21 Oct stock that exists only on your PC into master?' (Stock data thread), after the PerfumersWorld PR #158 merged). As supplied, the MySkinRecipes product is 5% Magnolia officinalis flower extract in 95% propylene glycol (SDS section 3), so this 5% DPG stock holds about 0.25% of the botanical extract. It is not linked to the Magnolia Absolute profile."
     },
     {
       "record_id": "INV-USER-20261014-STK-127",
@@ -9311,6 +9335,79 @@
         "shipped_email_seen": true
       },
       "note": "PerfumersWorld order PW-261024-23332424a, THB 511.36, placed 25 Oct 2026 10:34 ICT as in-store pickup, payment approved 10:40 ICT (pworders@perfumersworld.com, 25 Oct 03:51 UTC). Kenny: 'PW orders have arrived' (28 Oct 2026 07:24:05 UTC, Stock data thread). PerfumersWorld's 26 Oct 2026 03:40 UTC mails say all three orders shipped by Thai EMS under one tracking number, EQ291309744TH. Listed as 'Tuberose Absolute 10% in TEC' (5ND19125), 2 g; PerfumersWorld's own dilution as named, 10% in TEC, basis the project default (w/w). PerfumersWorld's mails carry no lot, and the batch reference on its online CoA page is generated on the day the page is read, so no bottle lot is recorded. A separate stock from Tuberose Absolute 10% (STK-066), recorded in DPG by the project default; Tuberlia Base and the volume-grade tuberose EO are also separate. PerfumersWorld's SDS gives CAS '8024-05-3*10' (10 % tuberose absolute); its page's odour line says 'in DPG', a template slip for this TEC product."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-188",
+      "canonical_name": "Iso E Super",
+      "aliases": [
+        "Iso E Super Anthamber",
+        "Iso E Super, Anthamber"
+      ],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261028_MSR_2199458_ISO_E_SUPER_ANTHAMBER",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "MySkinRecipes",
+        "product_name": "Iso E Super, Anthamber",
+        "sku": "2845",
+        "order": "2199458",
+        "order_line": 3,
+        "pack": "15 g",
+        "price_thb": "69.13",
+        "lot": "42V557",
+        "cas_on_coa": "54464-57-2",
+        "mfg_date": "2026-07-17",
+        "expiry_date": "2028-07-17",
+        "packing_weight_as_printed": "15.14 (unit not printed)",
+        "coa": {
+          "source": "MySkinRecipes mail 'COA/MSDS/Vegan/Halal : 2199458 1/2' (19 Oct 2026 14:32 UTC, k3nnyw@gmail.com), attachment 'COA - 2199458 - Iso E Super Anthamber Lot 42V557.pdf'; values as transcribed on Kenny's PC from that PDF (sha256 6e92d4ecd9d5685fb05c13598c75ab4540c106c55becaa601c0f81163b2fd237), 20 Oct 2026",
+          "results_as_printed": {
+            "appearance": "Colorless to pale yellow liquid (conforms)",
+            "assay_isomer_sum": ">=90.0% (conforms)",
+            "isomer_1": ">=65.0% (conforms)",
+            "isomer_2": "12.54 (spec 10.00-20.00)",
+            "isomer_3": "10.17 (spec 5.00-15.00)",
+            "isomer_4": "conforms (spec 8.00-16.00)",
+            "specific_gravity_20c": "0.9660 (spec 0.960-1.000)",
+            "refractive_index_20c": "1.5000 (spec 1.4970-1.5010)",
+            "odour": "conforms"
+          }
+        }
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 140
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "After this PR",
+      "source_message_timestamp_utc": "2026-10-28T07:51:33Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "MySkinRecipes order #2199458 line 3, ordered 16 Oct 2026, paid and dispatched 19 Oct ('Order 2199458 is being dispatched with Lalamove', 19 Oct 14:23 UTC). Kenny confirmed it arrived on 20 Oct ('Yes they have arrived', recorded on his PC). Kenny: 'After this PR' (28 Oct 2026 07:51:33 UTC), his tap on the card 'Bring the 20-21 Oct stock that exists only on your PC into master?' (Stock data thread), after the PerfumersWorld PR #158 merged. Listed as 'Iso E Super, Anthamber' (code 2845), 15 g; neat as supplied. A second bottle of a material he already had neat (V5 row 140, inventory.txt 'Iso E Super', the PerfumersWorld 3WY00244 listing). This record supersedes that row as the one Iso E Super stock (neat). Anthamber is a trade name for the same OTNE isomer mixture (CAS 54464-57-2, as the COA prints)."
     }
   ]
 }

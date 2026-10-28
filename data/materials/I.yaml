@@ -601,8 +601,9 @@
   families:
   - woods / amber / structure
   character:
-  notes:
+  notes: 'Owned bottle: MySkinRecipes ''Iso E Super, Anthamber'' code 2845, lot 42V557, 15 g, neat (STK-188, order 2199458), CAS 54464-57-2 on the COA; it supersedes the V5 PerfumersWorld 3WY00244 row. COA: isomer sum >=90.0%, isomer 2 12.54%, isomer 3 10.17%, SG(20 C) 0.9660, RI(20 C) 1.5000.'
   provenance:
+    notes: 'MySkinRecipes COA lot 42V557, values as transcribed on Kenny''s PC from the PDF attached to his mail. Loaded 2026-10-28 (PC-only stock of 20-21 Oct and the Magnolia INCI; source re-opened).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: IFF official compendium, 0.001735 mmHg at 23 C
     kaw_eff: engine.diffusion_model
@@ -617,7 +618,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'PerfumersWorld product page https://www.perfumersworld.com/view.php?pro_id=3WY00244 (Kenny''s supplier): "CAS 54464-57-2"'
-    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1020611.html (CAS 54464-57-2): "Specific Gravity: 0.96000 to 0.96800 @ 25.00 °C."; midpoint 0.964 x 0.99705 g/mL (water at 25 C) = 0.9612; PerfumersWorld lists SG 0.9610 (no temperature) (via material-data-firecrawl/allgaps/D1_density_cas.csv)'
+    density_25c_g_ml: 'TGSC https://www.thegoodscentscompany.com/data/rw1020611.html (CAS 54464-57-2): "Specific Gravity: 0.96000 to 0.96800 @ 25.00 °C."; midpoint 0.964 x 0.99705 g/mL (water at 25 C) = 0.9612; PerfumersWorld lists SG 0.9610 (no temperature) (via material-data-firecrawl/allgaps/D1_density_cas.csv). Checked 2026-10-28 against the owned bottle: MySkinRecipes COA lot 42V557 prints SG(20 C) 0.9660 (0.9643 g/mL at 20 C), consistent with this 25 C value, so it is kept.'
 - canonical_name: Isoamyl Acetate
   aliases: []
   cas:
