@@ -116,6 +116,40 @@ def _get_kb_read_connection() -> sqlite3.Connection:
 # ===================================================================
 
 
+def _single_bonded_oxygen_degrees(s: str) -> list[int]:
+    """Heavy-atom neighbour count of each O not written as ``=O``.
+
+    The previous atom (or branch root), ring-closure digits, branches and the
+    next atom each count once. Bracket atoms are not parsed.
+    """
+    degrees: list[int] = []
+    for match in re.finditer(r"O", s):
+        i = match.start()
+        if i > 0 and s[i - 1] == "=":
+            continue
+        degree = 1 if i > 0 else 0
+        k = i + 1
+        while k < len(s) and s[k].isdigit():
+            degree += 1
+            k += 1
+        while k < len(s) and s[k] == "(":
+            degree += 1
+            depth = 0
+            while k < len(s):
+                if s[k] == "(":
+                    depth += 1
+                elif s[k] == ")":
+                    depth -= 1
+                    if depth == 0:
+                        break
+                k += 1
+            k += 1
+        if k < len(s) and (s[k].isalpha() or s[k] == "["):
+            degree += 1
+        degrees.append(degree)
+    return degrees
+
+
 def _count_group_features(smiles: str) -> dict[str, float]:
     """Return a dict ``{group_name: count}`` extracted from *smiles*.
 
@@ -168,17 +202,14 @@ def _count_group_features(smiles: str) -> dict[str, float]:
     eq_in_carbonyl = n_carbonyl  # every =O uses one =
     feats["olefin"] = float(max(0, total_eq - eq_in_carbonyl))
 
-    # ── Hydroxyl O  —  O atoms not accounted for by carbonyl ──
-    # Total O count minus O in =O, minus the bridging O in carboxyl/ester
-    o_total = float(s.count("O"))
-    o_accounted = float(n_carbonyl) + feats["carboxyl"] + feats["ester"]
-    feats["hydroxyl"] = max(0.0, o_total - o_accounted)
-
-    # ── Ether  (any O in C-O-C not already counted) ──
-    # Very rough heuristic: if we have "extra" O beyond what we've matched,
-    # those could be in ether linkages.
-    o_still_unaccounted = o_total - o_accounted - feats["hydroxyl"]
-    feats["ether"] = max(0.0, o_still_unaccounted)
+    # ── Hydroxyl and ether O ──
+    # A single-bonded O with one heavy neighbour is a hydroxyl (the carboxyl
+    # OH excluded); one with two is a bridge: an ester's or an ether's. Before
+    # 2026-10-28 every such O was counted as a hydroxyl, so methoxy groups and
+    # cyclic acetals were scored as alcohols and ethers were never counted.
+    o_degrees = _single_bonded_oxygen_degrees(s)
+    feats["hydroxyl"] = max(0.0, float(sum(1 for d in o_degrees if d == 1)) - feats["carboxyl"])
+    feats["ether"] = max(0.0, float(sum(1 for d in o_degrees if d >= 2)) - feats["ester"])
 
     # ── Aliphatic C count (uppercase C) ──
     all_upper_c = float(len(re.findall(r"C", s)))  # noqa: N806
