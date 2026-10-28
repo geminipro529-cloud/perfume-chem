@@ -119,3 +119,138 @@ def test_magnolia_eo_counts_the_higher_published_methyl_eugenol():
     levels = load_natural_constituents().stocks["Magnolia EO"]
     assert levels["IFRA_STD_100"][0] == pytest.approx(3.59)
     assert levels["IFRA_STD_037"][0] == pytest.approx(0.4)
+
+
+# ── Group 2 (same thread, 28 Oct 2026) ──────────────────────────────────────────────
+
+
+@pytest.mark.parametrize(
+    ("record_id", "quote"),
+    [
+        ("INV-USER-20261014-STK-192", "I have a solution"),
+        ("INV-USER-20261014-STK-193", "Yes"),
+        ("INV-USER-20261014-STK-194", "hye"),
+        ("INV-USER-20261014-STK-195", "1 g"),
+        ("INV-USER-20261014-STK-196", "Neat"),
+    ],
+)
+def test_group2_bottle_answers_quote_kenny(records, record_id, quote):
+    assert records[record_id]["source_quote"] == quote
+
+
+def test_group2_new_dilutions_are_ten_percent_in_dpg(stocks):
+    rows = {s.name: s for s in stocks}
+    for name in ("Melonal 10%", "Para-Acetanisole 10%", "Aldehyde C16 EMPG 10%"):
+        assert (rows[name].dilution, rows[name].carrier) == (0.1, "dpg"), name
+
+
+def test_methyl_nonyl_ketone_has_no_one_percent_stock(stocks):
+    assert not [s for s in stocks if s.name == "Methyl Nonyl Ketone 1%" and s.execution_ready]
+
+
+@pytest.mark.parametrize(
+    ("name", "odt"),
+    [
+        ("Dimethyl Benzyl Carbinol", 12.0),
+        ("Caryophyllene Acetate", 6.0),
+        ("Hindinol", 7.0),
+        ("Para-Acetanisole", 30.0),
+        ("Methyl Nonyl Ketone", 5.5),
+    ],
+)
+def test_group2_analogue_thresholds_are_tagged_unverified(name, odt):
+    key = lookup_odt_raw_name(name)
+    assert ODT_DATA[key]["odt_air"] == odt
+    assert ODT_VERIFICATION[key]["vfy"] == "UNVERIFIED"
+    assert load_registry().get(name).odt_air_ppb == odt
+
+
+@pytest.mark.parametrize("name", ["Diethyl Malonate", "Aldehyde C16 EMPG"])
+def test_pw_fit_alone_loads_no_threshold(name):
+    key = lookup_odt_raw_name(name)
+    assert key is None or ODT_VERIFICATION.get(key, {}).get("note", "").find("2026-10-28") == -1
+
+
+def test_sandalwood_base_x3_carries_no_invented_physics():
+    key = lookup_odt_raw_name("Sandalwood Base X3")
+    assert (ODT_DATA[key]["odt_air"], ODT_DATA[key]["odt_eth"]) == (None, None)
+    assert ODT_VERIFICATION[key]["vfy"] == "UNAVAILABLE"
+    spine = load_registry().get("Sandalwood Base 3X")
+    assert (spine.mw_g_mol, spine.logp, spine.vp_25c_pa, spine.odt_air_ppb) == (None, None, None, None)
+
+
+def test_himalayan_cedarwood_threshold_is_labelled_copied():
+    assert ODT_VERIFICATION["himalayan cedarwood eo"]["vfy"] == "UNVERIFIED"
+
+
+@pytest.mark.parametrize(
+    ("name", "field", "value", "provenance_start"),
+    [
+        ("Dimethyl Benzyl Carbinol", "density_25c_g_ml", 0.972, "TGSC, dimethyl benzyl carbinol"),
+        ("Hindinol", "logp", 3.8, "RIFM fragrance ingredient safety assessment"),
+        ("Para-Acetanisole", "inchikey", "NTPLXRHDUXRPNE-UHFFFAOYSA-N", "NIST Chemistry WebBook"),
+        ("Red Saffron Infusion", "cas", "8022-19-3", "PerfumersWorld 5ES18560 SDS"),
+    ],
+)
+def test_group2_loaded_values_carry_a_dated_provenance(name, field, value, provenance_start):
+    spine = load_registry().get(name)
+    assert getattr(spine, field) == (pytest.approx(value) if isinstance(value, float) else value)
+    assert spine.provenance[field].startswith(provenance_start)
+    assert "Loaded 2026-10-28" in spine.provenance[field]
+
+
+def test_cabbage_rose_extract_is_not_aliased_to_rosa_centifolia():
+    spine = load_registry().get("Cabbage Rose Extract")
+    assert "rosa centifolia extract" not in [a.lower() for a in spine.aliases]
+    assert "Propylene Glycol + Fragrance" in spine.notes
+
+
+def _gates_for(rows):
+    from engine.pipeline.gates import ReleaseGateConfig, gate_formula
+
+    total = sum(rows.values())
+    formula = {
+        "number": 1,
+        "name": "Bases",
+        "ingredients_ul": rows,
+        "dilutions": {},
+        "ingredients_pct": {k: v / total * 100 for k, v in rows.items()},
+        "body": "Bases",
+    }
+    report = gate_formula(formula, ReleaseGateConfig(expected_concentrate_ul=sum(rows.values()), brief="generic"))
+    return {g.gate: g for g in report.gates}
+
+
+def test_partly_declared_bases_warn_with_their_undeclared_part_instead_of_failing():
+    gates = _gates_for({
+        "Iso E Super": 1500.0, "Hedione": 1500.0, "Black Tea Base": 300.0,
+        "Palm Dates Base": 300.0, "Sandalwood Base 3X": 400.0,
+    })
+    for gate in ("opaque_preblends", "physics_data_coverage", "odt_coverage"):
+        assert gates[gate].status == "WARN", (gate, gates[gate].detail)
+    assert "undeclared part" in gates["opaque_preblends"].detail
+    assert "Sandalwood Base 3X" in gates["opaque_preblends"].data["partly_declared_bases"]
+    assert gates["osmotheque_archivability"].status == "WARN"
+    assert "opaque preblend" not in gates["master_perfumer_gate"].detail
+    allergens = gates["safety_ifra_allergen"].data["partly_declared_base_allergens"]
+    assert {(a["base"], a["allergen"]) for a in allergens} == {
+        ("Black Tea Base", "Linalool"), ("Black Tea Base", "Benzyl Benzoate"), ("Sandalwood Base X3", "Limonene"),
+    }
+
+
+def test_other_opaque_preblends_still_fail_beside_a_partly_declared_base():
+    gates = _gates_for({"Hedione": 3000.0, "Iso E Super": 2000.0, "Cardamom FTEC": 1000.0, "Black Tea Base": 300.0})
+    assert gates["opaque_preblends"].status == "FAIL"
+    assert gates["opaque_preblends"].data["materials"] == ["Cardamom FTEC"]
+    assert "Black Tea Base" in gates["opaque_preblends"].data["partly_declared_bases"]
+
+
+def test_partly_declared_bases_load_with_their_undeclared_part():
+    from engine.ifra_standards import load_partly_declared_bases, partly_declared_base
+
+    names = {b.name for b in load_partly_declared_bases()}
+    assert names == {"Black Tea Base", "Palm Dates Base", "Sandalwood Base X3"}
+    assert partly_declared_base(["Sandalwood Base 3X"]).sku == "6WX24054"
+    assert partly_declared_base(["Black Tea Base (neat / as supplied)"]).allergens_pct["Linalool"] == 0.2189
+    assert partly_declared_base(["Suederal"]) is None
+    assert "undeclared part" in partly_declared_base(["Palm Dates Base"]).warning()

@@ -18,6 +18,7 @@ from engine.calibration.hashing import (
     stable_file_hash,
     stable_json_hash,
 )
+from engine.ifra_standards import partly_declared_base
 from engine.inventory_completions import (
     completion_clears_execution_hold,
     describe_authority_disagreement,
@@ -1471,8 +1472,20 @@ def _state_sanity_check(state: FormulaState) -> PreflightCheck:
         for material in state.materials
         if material.odt_air_ppm is None and material.has_odt_authority
     )
+    # A partly declared supplier base has no threshold for its undeclared part; the gates
+    # name it in a warning instead (Kenny, 2026-10-28: "Warn, don't block").
+    partly_declared = sorted(
+        material.name
+        for material in state.materials
+        if not material.has_odt_authority
+        and partly_declared_base(
+            [material.name, material.canonical_name, material.profile_name, material.registry_name]
+        )
+    )
     missing_odt = sorted(
-        material.name for material in state.materials if not material.has_odt_authority
+        material.name
+        for material in state.materials
+        if not material.has_odt_authority and material.name not in partly_declared
     )
     missing_physics = {
         material.name: sorted(material.missing_fields)
@@ -1504,6 +1517,7 @@ def _state_sanity_check(state: FormulaState) -> PreflightCheck:
             {
                 "missing_fields": missing_physics,
                 "natural_composite_odt_authority": composite_odt_authority,
+                "partly_declared_bases": partly_declared,
             },
         )
     return PreflightCheck(

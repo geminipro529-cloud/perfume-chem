@@ -78,7 +78,8 @@ def test_received_kephalis_supersedes_absence_without_rewriting_history() -> Non
     # 2026-10-15: eleven PerfumersWorld dilutions were re-recorded w/w in the v26 record.
     # 2026-10-25: fifteen fruit bottles left their intake hold ("All neat", v26 STK-149 to STK-163).
     # 2026-10-28: Cedryl Acetate (receipt line 34) left its intake hold ("Liquid", v26 STK-190).
-    assert len(admitted) == 15
+    # 2026-10-28: C-12 Lauric (receipt line 15) left its intake hold ("1 g", v26 STK-195).
+    assert len(admitted) == 14
     assert all(stock.execution_ready is False for stock in admitted)
 
 

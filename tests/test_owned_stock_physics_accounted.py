@@ -38,7 +38,6 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # ethanol or usage-level number is not an air threshold).
     "Acetoin": (("odt",), _NO_AIR_ODT),
     "Buccoxime": (("odt",), _NO_AIR_ODT),
-    "Caryophyllene Acetate": (("odt",), _NO_AIR_ODT),
     "Cis-3 Hexenyl Hexanoate": (("odt",), _NO_AIR_ODT),
     "Diethyl Malonate": (("odt",), _NO_AIR_ODT),
     "Ethyl Linalyl Acetate": (("odt",), _NO_AIR_ODT),
@@ -54,8 +53,6 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # Merged 2026-10-23 into the older entry, whose VP is a labelled TGSC estimate.
     "Aldehyde C16 EMPG": (("odt",), _NO_AIR_ODT_1023),
     "Canthoxal": (("odt",), _NO_AIR_ODT_1023),
-    "Dimethyl Benzyl Carbinol": (("odt",), _NO_AIR_ODT_1023),
-    "Para-Acetanisole": (("odt",), _NO_AIR_ODT_1023),
     "Para-Cresyl Phenyl Acetate": (("odt",), _NO_AIR_ODT_1023),
     "Peach Ketone": (("odt",), _NO_AIR_ODT_1023),
     # CAS confirmed on PubChem 2026-10-23; labelled Crippen log P added, still no air threshold.
@@ -75,11 +72,10 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Black Tea Base": (_ALL, "PerfumersWorld blend, not a pure chemical; no composition published"),
     "Costus Olifac": (("logp", "mw", "vp"), "IFF proprietary base with no CAS; the old MW and VP were placeholders"),
     "Tuberose Base": (_ALL, "maker and composition of this base are not recorded"),
-    "Hindinol": (
-        ("odt",),
-        "CAS 28219-60-5 confirmed on PubChem 2026-10-23 (RDKit MW, Crippen log P); VP from the Takasago Hindinol sheet (master's 2026-10-23 data pass); "
-        + _NO_AIR_ODT_1023,
-    ),
+    # Caryophyllene Acetate, Dimethyl Benzyl Carbinol, Para-Acetanisole and Hindinol left
+    # this list on 2026-10-28: labelled UNVERIFIED analogue air ODTs (Kenny's card choice).
+    "Sandalwood Base 3X": (_ALL, "PerfumersWorld 6WX24054, a partly declared base (Javanol and Sandalore 1-10% each); the invented 2026-08-07 values were removed 2026-10-28"),
+    "Sandalwood Base X3": (_ALL, "PerfumersWorld 6WX24054, a partly declared base (Javanol and Sandalore 1-10% each); the invented 2026-08-07 values were removed 2026-10-28"),
     "Rum Ether": (
         _ALL,
         "CAS 8030-89-5 is a reaction-product mixture with no single MW or VP; the MSR COA's "

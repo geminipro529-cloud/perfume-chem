@@ -99,10 +99,10 @@ def test_tonka_is_the_perfumersworld_dilution_and_ready():
 
 
 def test_rows_left_out_of_the_rule_stay_held():
-    # Aldehyde C16 EMPG and Apritone are held for identity, not basis; Aldehyde C11 10%
-    # and Birch Tar 1% are not in inventory.txt.
+    # Apritone is held for identity, not basis; Aldehyde C11 10% and Birch Tar 1% are not
+    # in inventory.txt. Aldehyde C16 EMPG 10% left on 2026-10-28 ("hye", v26 STK-194).
     names = _by_name()
-    for name in ("Aldehyde C16 EMPG 10%", "Apritone 10%", "Aldehyde C11 10%", "Birch Tar 1%"):
+    for name in ("Apritone 10%", "Aldehyde C11 10%", "Birch Tar 1%"):
         assert names[name].fraction_basis == "unspecified"
         assert names[name].execution_ready is False
 

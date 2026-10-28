@@ -1358,7 +1358,7 @@
   families:
   - spice / aromatic
   character: 'Melonal offers a powerful and unique note ... natural smelling marine and fruity-melon notes. (Olfactive Note: Green, Melon, Cucumber, Powerful)'
-  notes:
+  notes: 'Kenny also has his usual 10% solution, recorded as Melonal 10% w/w in DPG (overlay STK-192; ''Fix gaps in unused materials'' thread, 28 Oct 2026: ''I have a solution'', ''It''s usual one''). Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
   provenance:
     character: 'Melonal | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/melonal: Olfactive Note Green Melon Cucumber Powerful. Melonal offers a powerful and unique note. It is effective in all types of fragrances and is invaluable in the creation of natural smelling marine and fruity-melon notes. (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     logp: 'RIFM, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/106-72-9.pdf: "log Pow = 3.4 (RIFM, 2000a), 3.04 (EPI Suite 4.0)", measured. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
@@ -1946,7 +1946,7 @@
   dhvap_kj_mol: 67.0
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 5.5
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -1964,8 +1964,9 @@
   families:
   - spice / aromatic
   character: 'citrus, fatty, rue-like'
-  notes:
+  notes: 'The engine''s air ODT is the measured 2-nonanone value (5.5 ppb, Cometto-Muniz & Abraham 2009, https://pmc.ncbi.nlm.nih.gov/articles/PMC2709282/), carried to 2-undecanone as an UNVERIFIED analogue estimate; 2-undecanone itself was not measured. It was labelled ''Lotsch et al. 2009, Tier A'' before. Kenny owns it neat only, no 1% made (''Fix gaps in unused materials'' thread, 28 Oct 2026: ''Neat''). Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
     dhvap_kj_mol: 'NIST Chemistry WebBook, 2-Undecanone, Phase change data (https://webbook.nist.gov/cgi/cbook.cgi?ID=C112129&Mask=4): ''Δ vap H | 67.0 ± 0.4 | kJ/mol | C | Sunner, Svensson, et al., 1979''; printed 67.0 ± 0.4 kJ/mol; calorimetry at 298.15 K (Sunner, Svensson & Zelepuga, J. Chem. Thermodyn. 1979, 11, 491); also 67. (Majer & Svoboda 1985) and 69.7 ± 0.5 (GCC, Saluja 1979); grade A_measured. Second reader: Calorimetric ΔvapH at 298.15 K (from the reference title). The page also gives 67.0 ± 0.41 (ALS), 67. (Majer & Svoboda 1985) and 69.7 ± 0.5 (GCC, Saluja 1979). Identity is from the NIST ID C112129 (2-undecanone =... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: '2-Undecanone | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/2-Undecanone: colourless to pale yellow liquid with a citrus, fatty, rue-like odour (grade A_regulatory; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 8163, 2-undecanone (https://pubchem.ncbi.nlm.nih.gov/compound/8163#section=Vapor-Pressure): "4.1X10-2 mm Hg", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 5.47 Pa. The record does not state the temperature.'

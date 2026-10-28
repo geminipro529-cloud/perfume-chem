@@ -3708,7 +3708,7 @@
   - p-acetanisole
   cas: '100-06-1'
   smiles: 'COc1ccc(C(C)=O)cc1'
-  inchikey:
+  inchikey: NTPLXRHDUXRPNE-UHFFFAOYSA-N
   mw_g_mol: 150.17
   density_25c_g_ml:
   logp: 1.79
@@ -3720,7 +3720,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 30.0
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -3733,8 +3733,10 @@
   families: []
   character: 'Floral, Mimosa, Lilac, Heliotrope, Tonka'
   odour_family: 'floral'
-  notes: 'MySkinRecipes 2199302 Para-Acetanisole, a solid: dosed by weight or as a dilution Kenny has made.'
+  notes: 'MySkinRecipes 2199302 Para-Acetanisole, a solid: dosed by weight or as a dilution Kenny has made. Kenny also has a 10:90 solution, recorded as Para-Acetanisole 10% w/w in DPG (overlay STK-193; ''Fix gaps in unused materials'' thread, 28 Oct 2026). TGSC: mp 37-40 C, odour strength medium. No measured air ODT exists; the engine carries a labelled UNVERIFIED analogue estimate. The vapour pressure stays the measured Jones (1960) 0.86 Pa: RIFM''s 0.71 Pa (RIFM, 2017b) could not be re-opened from the cloud. Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
+    inchikey: 'NIST Chemistry WebBook, 4-Acetylanisole (https://webbook.nist.gov/cgi/cbook.cgi?ID=C100061): ''IUPAC Standard InChIKey: NTPLXRHDUXRPNE-UHFFFAOYSA-N''. Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
     character: 'Acetanisole Cryst. (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Acetanisole_Cryst.pdf: › Floral, Mimosa, Lilac, Heliotrope, Tonka (grade A_producer; ). Second reader: CAS 100-06-1 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "floral" from ''floral'': Acetanisole Cryst. (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Acetanisole_Cryst.pdf: Chemical Structure floral acetanisole cryst. › cas 100-06-1 (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'PubChem CID 7476 (4''-methoxyacetophenone)'

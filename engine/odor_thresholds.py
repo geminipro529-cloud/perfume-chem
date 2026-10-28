@@ -3609,7 +3609,7 @@ _VERIFIED_ODT = {
     "helional": 0.1,
     "iso e super": 0.05,
     "javanol": 0.0016,
-    "methyl nonyl ketone": 5.0,
+    "methyl nonyl ketone": 5.0,  # 2-nonanone analogue; replaced 2026-10-28 (5.5 ppb, UNVERIFIED)
     "romandolide": 4.9,
     "indole": 0.14,
     "hydroxycitronellal": 15.0,
@@ -5626,7 +5626,9 @@ LITERATURE_ODT_BATCH_2026_10_25 = True
 # Impact + VP fit (leave-one-out on 20 measured materials: median error about 5x, one in
 # three over 10x); /mnt/project-files/unused-gaps-20261028/PW_IMPACT_RESULT.md. ScenTree's
 # unsourced air figures were not used. Glycolierral and Fructone B have no measured
-# analogue, so they stay without a value.
+# analogue, so they stay without a value. Group 2 (same day) adds five more on the same
+# rule; Diethyl Malonate and Aldehyde C16 have only the PW fit, no measured analogue, so
+# they stay without a value too.
 _ANALOGUE_ODT_ESTIMATES_2026_10_28 = {
     "cedroxyde": (8.0, [
         "Analogue estimate 10 ppb: geometric mean of the engine's woody-amber air values "
@@ -5649,6 +5651,43 @@ _ANALOGUE_ODT_ESTIMATES_2026_10_28 = {
         "PW Relative Odor Impact 80 fit without VP: 4.3 ppb (3LN00043; "
         "https://www.perfumersworld.com/view.php?pro_id=3LN00043).",
         "Geometric mean 9.3 -> 9 ppb.",
+    ]),
+    "dimethyl benzyl carbinol": (12.0, [
+        "Analogue estimate 26 ppb: phenethyl alcohol 26 ppb (PEER_SINGLE), the closest "
+        "measured aryl alkanol.",
+        "PW Relative Odor Impact 90 + VP fit: 6.2 ppb (3LL00156; "
+        "https://www.perfumersworld.com/view.php?pro_id=3LL00156).",
+        "Geometric mean 12.7 -> 12 ppb.",
+    ]),
+    "caryophyllene acetate": (6.0, [
+        "Analogue estimate 6.3 ppb: Vertofix Coeur (acetyl cedrene) 6.3 ppb (PEER_SINGLE), "
+        "the closest measured sesquiterpene ester/ketone. Vetiveryl acetate (UNVERIFIED) and "
+        "cedryl acetate (itself an estimate) were not used.",
+        "PW Relative Odor Impact 100 fit: 5.3 ppb (3WI03465; "
+        "https://www.perfumersworld.com/view.php?pro_id=3WI03465).",
+        "Geometric mean 5.8 -> 6 ppb.",
+    ]),
+    "hindinol": (7.0, [
+        "Analogue estimate 10 ppb: Sandalore 10 ppb (PEER_SINGLE, van Gemert 2011), the "
+        "closest measured campholenic sandalwood alcohol.",
+        "PW Relative Odor Impact 100 fit: 5.3 ppb (4WX24656; "
+        "https://www.perfumersworld.com/view.php?pro_id=4WX24656).",
+        "Geometric mean 7.3 -> 7 ppb. Not used: Takasago patent US 5,994,291 gives 51e-12 mol/L "
+        "for the (R) form with the medium unstated; Kenny's PW bottle is probably racemic.",
+    ]),
+    "para-acetanisole": (30.0, [
+        "Analogue bracket: anisaldehyde 5 ppb (PEER_SINGLE) and acetophenone 170 ppb "
+        "(PubChem / Haz-Map odor threshold low 0.17 ppm, high 0.6 ppm), the p-methoxy and "
+        "aryl-ketone parents.",
+        "PerfumersWorld does not sell it, so there is no PW Relative Odor Impact fit.",
+        "Geometric mean 29 -> 30 ppb; the two parents span 34x.",
+    ]),
+    "methyl nonyl ketone": (5.5, [
+        "Analogue estimate 5.5 ppb: 2-nonanone 5.5 ppb, measured (Cometto-Muniz & Abraham "
+        "2009, Table 2; https://pmc.ncbi.nlm.nih.gov/articles/PMC2709282/). 2-Undecanone "
+        "itself was not tested.",
+        "Replaces 5.0 ppb labelled 'Lotsch et al. 2009, Tier A', which was this 2-ketone "
+        "series value, not a measurement of methyl nonyl ketone.",
     ]),
 }
 _refresh_normalized_odt_index()
@@ -5673,6 +5712,26 @@ ODT_VERIFICATION["cabreuva eo"] = {
     **ODT_VERIFICATION["cabreuva eo"],
     "vfy": "DERIVED",
     "note": "Constituent-derived (nerolidol, 50-100% of the oil per the Madar SDS); relabelled 2026-10-28 from MULTI_SOURCE_LITERATURE.",
+}
+# Sandalwood Base X3 (PW 6WX24054) is a mixture: the 100 ppb / 0.5 ppm of the 2026-08-07
+# intake batch were invented for it and PW publishes no threshold, so it carries none.
+ODT_DATA["sandalwood base x3"] = {
+    **ODT_DATA["sandalwood base x3"],
+    "odt_air": None,
+    "odt_eth": None,
+}
+ODT_VERIFICATION["sandalwood base x3"] = {
+    "vfy": "UNAVAILABLE",
+    "sources": [],
+    "note": "Removed 2026-10-28: the 2026-08-07 values were invented for a mixture; PW publishes no threshold.",
+    "superseded": dict(ODT_VERIFICATION["sandalwood base x3"]),
+}
+# Himalayan Cedarwood EO: the 15 ppb is the generic cedarwood row, copied; nothing measured.
+ODT_VERIFICATION["himalayan cedarwood eo"] = {
+    **ODT_VERIFICATION.get("himalayan cedarwood eo", {}),
+    "vfy": "UNVERIFIED",
+    "sources": ["Copied from the generic 'cedarwood' row (15 ppb); no measured value for Cedrus deodara oil."],
+    "note": "Labelled 2026-10-28: not a measurement of this oil.",
 }
 ANALOGUE_ODT_BATCH_2026_10_28 = True
 

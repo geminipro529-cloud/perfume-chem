@@ -3331,14 +3331,14 @@
   cas: None
   smiles: null
   inchikey: null
-  mw_g_mol: 220.0
+  mw_g_mol: null
   density_25c_g_ml: null
-  logp: 3.5
-  vp_25c_pa: 0.1
-  vp_source: "est/literature"
-  odt_air_ppb: 100.0
-  odt_eth_ppm: 0.5
+  logp: null
+  vp_25c_pa: null
+  vp_source: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
   user_stock_dilution: 1.0
   user_in_inventory: true
   character: 'creamy-warm sandalwood pre-blend (product basis)'
-  notes: "material intake batch 2026-08-07"
+  notes: 'PerfumersWorld 6WX24054, a mixture (SDS CAS Mixture). The MW 220, logP 3.5, VP 0.1 Pa and ODT 100 ppb / 0.5 ppm from the 2026-08-07 intake batch were invented for a mixture and were removed on 2026-10-28; PW publishes no threshold. PW strip data: Relative Odor Impact 75, odour life 300 h, SG 0.94 (https://www.perfumersworld.com/view.php?pro_id=6WX24054).'

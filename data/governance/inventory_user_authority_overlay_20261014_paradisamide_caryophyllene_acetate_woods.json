@@ -367,6 +367,61 @@
         "message_timestamp_utc": "2026-10-28T08:48:26Z",
         "text": "ye",
         "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'should the engine dose [the Kenyan Myrrh tincture] at its starting charge, the same as your Benzoin 40% and Frankincense 33% tinctures?'. Recorded as STK-191, retiring INV-USER-20260915-STOCK-015."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:28:24Z",
+        "text": "hye",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'is your Aldehyde C16 EMPG 10% a separate bottle from Apritone?'. Recorded as STK-194, clearing the V5 row 15 identity hold."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:28:57Z",
+        "text": "hopee",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'who sold you the Himalayan Cedarwood EO?' (Shopee; his keyboard drops s). Seller and lot unknown; recorded in the spine notes, the stock (V5 row 63) is unchanged."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:29:40Z",
+        "text": "If I have it’s 10:90",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'have you made a Para-Acetanisole 10% solution yet? If so, what weights did you use?'."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:30:01Z",
+        "text": "I have a solution",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'is your Melonal neat only, or do you also have a dilution?'."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:30:19Z",
+        "text": "It’s usual one",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'what strength is the Melonal solution? Is it 10%, 1%, or something else?'. Recorded as STK-192, Melonal 10% w/w in DPG."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:30:50Z",
+        "text": "PW",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'where did your Hindinol come from? Is it Takasago-labelled, PW, or another seller?'. Recorded in the spine notes; the stock (STK-006) is unchanged."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:31:56Z",
+        "text": "32214-91-8",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'what CAS number is printed on your Caryophyllene Acetate label?'. Matches the spine CAS; the stock (STK-003) is unchanged."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:32:15Z",
+        "text": "Yes",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'do you actually have a Para-Acetanisole 10% solution made?'. Recorded as STK-193, 10% w/w in DPG."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:32:36Z",
+        "text": "1 g",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'how much of your C-12 Lauric (neat, 1 g bought) is left?'. Recorded as STK-195, retiring INV-USER-20261007-PW-015."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:32:52Z",
+        "text": "Neat",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'do you have a Methyl Nonyl Ketone 1% made, or only the neat bottle?'. Recorded as STK-196 (the 1% is not owned)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T09:33:11Z",
+        "text": "More than 2 grams",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'roughly how much Hindinol do you have left?'. Recorded in the spine notes; the stock (STK-006) is unchanged."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -439,7 +494,8 @@
     "msr_orders_2200410_2200413_stocked_20261027": true,
     "pw_orders_20261025_stocked_20261028": true,
     "pc_only_stock_20261020_ported_20261028": true,
-    "unused_materials_bottle_answers_20261028": true
+    "unused_materials_bottle_answers_20261028": true,
+    "unused_materials_group2_bottle_answers_20261028": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -492,7 +548,8 @@
     "INV-USER-20260924-R5-016",
     "INV-USER-20260908-AHSEE-001",
     "INV-USER-20261007-PW-034",
-    "INV-USER-20260915-STOCK-015"
+    "INV-USER-20260915-STOCK-015",
+    "INV-USER-20261007-PW-015"
   ],
   "records": [
     {
@@ -9553,6 +9610,208 @@
         "release_authorized": false
       },
       "note": "Asked in the 'Fix gaps in unused materials' thread 'for your Kenyan Myrrh tincture, should the engine dose it at its starting charge, the same as your Benzoin 40% and Frankincense 33% tinctures?'. Kenny: 'ye' (yes; 28 Oct 2026 08:48:26 UTC). The 20% w/w starting charge (approximate, as recorded on 15 Sep) is now the dosing strength. The final filtrate was never assayed, so this is his dosing decision, not a measurement; the USP limit for myrrh (40-70% alcohol-soluble extractives) says only part of the resin dissolves. Retires INV-USER-20260915-STOCK-015."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-192",
+      "canonical_name": "Melonal 10%",
+      "aliases": [
+        "Melonal 10% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "marine / fruity",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "USER_STATED_SOLUTION_USUAL_STRENGTH_DEFAULT_BASIS_AND_CARRIER",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ANSWER_20261028_MELONAL_SOLUTION_USUAL_STRENGTH"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have a solution",
+      "source_message_timestamp_utc": "2026-10-28T09:30:01Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "solution_existence_from_user_message": true,
+        "strength_inferred_from_usual_strength": true,
+        "fraction_basis_from_user_default_rule": true,
+        "carrier_from_user_default_rule": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'is your Melonal neat only, or do you also have a dilution?', Kenny answered 'I have a solution' (28 Oct 2026 09:30:01 UTC); asked 'what strength is the Melonal solution? Is it 10%, 1%, or something else?', he answered 'It's usual one' (09:30:19 UTC). His usual Melonal dilution is 10% in DPG (his R8.1 card used 'Melonal 10% DPG (fresh)'), so the strength is that inference; basis and carrier follow his standing rule for his own dilutions (DPG, w/w unless he says otherwise). The neat Melonal (V5 row 168) is unchanged."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-193",
+      "canonical_name": "Para-Acetanisole 10%",
+      "aliases": [
+        "Para-Acetanisole 10% in DPG",
+        "p-Acetanisole 10%"
+      ],
+      "state": "OWNED",
+      "category": "sweet / balsamic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "USER_STATED_RATIO_DEFAULT_BASIS_AND_CARRIER",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ANSWER_20261028_PARA_ACETANISOLE_10_90"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "Yes",
+      "source_message_timestamp_utc": "2026-10-28T09:32:15Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "ratio_from_user_message": true,
+        "fraction_basis_from_user_default_rule": true,
+        "carrier_from_user_default_rule": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'have you made a Para-Acetanisole 10% solution yet? If so, what weights did you use?', Kenny answered 'If I have it's 10:90' (28 Oct 2026 09:29:40 UTC); asked again 'do you actually have a Para-Acetanisole 10% solution made?', he answered 'Yes' (09:32:15 UTC). 10:90 is recorded as 10% w/w in DPG by his standing rule for his own dilutions (DPG, w/w unless he says otherwise). The solid (STK-111, weighed) is unchanged. No density is asserted; dosing by volume uses the engine's density model."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-194",
+      "canonical_name": "Aldehyde C16 EMPG 10%",
+      "aliases": [
+        "Aldehyde C-16 EMPG 10% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "green fruit",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_IDENTITY_DEFAULT_BASIS_AND_CARRIER",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "V5_ROW_15_IDENTITY_HOLD_CLEARED_BY_USER_ANSWER_20261028"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 15,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "hye",
+      "source_message_timestamp_utc": "2026-10-28T09:28:24Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_from_v5_stock_row": true,
+        "identity_from_user_message": true,
+        "fraction_basis_from_user_default_rule": true,
+        "carrier_from_user_default_rule": true,
+        "supplier_sku_inferred": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'is your Aldehyde C16 EMPG 10% a separate bottle from Apritone?', Kenny answered 'hye' (yes; 28 Oct 2026 09:28:24 UTC). V5 row 15 held it 'IDENTITY KEPT SEPARATE' because his 7 Aug message named C16 EMPG and Apritone together; it is its own bottle, so the identity hold is cleared. The 10% strength is the V5 row's; basis and carrier follow his standing rule for his own dilutions (DPG, w/w unless he says otherwise). PerfumersWorld sells 'Aldehyde C-16 EMPG 10% in DPG' (5FC07539), probably the source, which is an inference. Apritone 10% (V5 row 35) is unchanged and keeps its own hold."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-195",
+      "canonical_name": "Aldehyde C-12 Lauric Dodecanal",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-015_INTAKE_HOLD_CLEARED_BY_USER_QUANTITY_ANSWER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Aldehyde C-12 Lauric Dodecanal",
+        "sku": "4AA00021"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 15,
+      "remaining_quantity_g": "1",
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "1 g",
+      "source_message_timestamp_utc": "2026-10-28T09:32:36Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": true,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "remaining_quantity_from_user_message": true,
+        "fraction_from_supplier_label": true,
+        "stock_intake_hold_cleared_by_user_message": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'how much of your C-12 Lauric (neat, 1 g bought) is left?', Kenny answered '1 g' (28 Oct 2026 09:32:36 UTC). The neat 1 g PerfumersWorld bottle (4AA00021, receipt line 15 of the 2026-10-07 order) was held at intake (INV-USER-20261007-PW-015, superseded, STOCK_INTAKE_IDENTITY_ONLY); with the form confirmed and 1 g left it is ready for raw-stock volume transfer. No purity assay is asserted."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-196",
+      "canonical_name": "Methyl Nonyl Ketone 1%",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "green_fruit",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 172,
+          "fraction": 0.01
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Neat",
+      "source_message_timestamp_utc": "2026-10-28T09:32:52Z",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'do you have a Methyl Nonyl Ketone 1% made, or only the neat bottle?', Kenny answered 'Neat' (28 Oct 2026 09:32:52 UTC). The 1% working stock that V5 row 172 lists is not owned, so it leaves the stock. The neat bottle (rows 172-173) is unchanged, and row 173's 'prepare 1%' requirement stays: a 1% can still be made from the neat."
     }
   ]
 }

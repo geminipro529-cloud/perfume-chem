@@ -50,6 +50,8 @@ CONSTITUENTS_SCHEMA_VERSION = "ifra_annex1_constituents/1"
 DEFAULT_CONSTITUENTS_PATH = DEFAULT_TABLE_PATH.parent / "ifra_annex1_constituents.json"
 UNDISCLOSED_BASES_SCHEMA_VERSION = "ifra_undisclosed_bases/1"
 DEFAULT_UNDISCLOSED_BASES_PATH = DEFAULT_TABLE_PATH.parent / "ifra_undisclosed_bases.json"
+PARTLY_DECLARED_BASES_SCHEMA_VERSION = "partly_declared_bases/1"
+DEFAULT_PARTLY_DECLARED_BASES_PATH = DEFAULT_TABLE_PATH.parent / "partly_declared_bases.json"
 
 _TOLERANCE = 1e-12
 _PERCENT_NUMBER = re.compile(r"(\d+(?:[.,]\d+)?)\s*%")
@@ -266,6 +268,26 @@ class UndisclosedBase:
 
 
 @dataclass(frozen=True)
+class PartlyDeclaredBase:
+    """A supplier base with a recorded SDS and IFRA certificate: its declared part is
+    counted, its undeclared part is named in a warning (Kenny, 2026-10-28)."""
+
+    name: str
+    aliases: tuple[str, ...]
+    sku: str
+    allergens_pct: Mapping[str, float]
+    undeclared_pct: tuple[float, float]
+    undeclared_note: str
+
+    def warning(self) -> str:
+        low, high = self.undeclared_pct
+        return (
+            f"{self.name} (PW {self.sku}): {low:g}-{high:g}% of it is an undeclared part "
+            f"({self.undeclared_note}) with no physics or threshold"
+        )
+
+
+@dataclass(frozen=True)
 class NaturalConstituents:
     """IFRA Annex I levels of restricted substances in owned naturals, per stock.
 
@@ -459,6 +481,41 @@ def undisclosed_base(
 ) -> UndisclosedBase | None:
     """The undisclosed base a row names, by any of its names with stock suffixes stripped."""
     return _match_by_name({b.name: b for b in bases}, names)
+
+
+@lru_cache(maxsize=1)
+def load_partly_declared_bases() -> tuple[PartlyDeclaredBase, ...]:
+    """The supplier bases whose declared part is counted (data/regulatory/partly_declared_bases.json)."""
+    path = DEFAULT_PARTLY_DECLARED_BASES_PATH
+    raw = json.loads(path.read_text(encoding="utf-8"))
+    if raw.get("schema_version") != PARTLY_DECLARED_BASES_SCHEMA_VERSION:
+        raise ValueError(
+            f"{path}: schema_version {raw.get('schema_version')!r} is not "
+            f"{PARTLY_DECLARED_BASES_SCHEMA_VERSION!r}"
+        )
+    bases = []
+    for b in raw.get("bases", ()):
+        low, high = (float(v) for v in b["undeclared_pct"])
+        if not 0 <= low <= high <= 100:
+            raise ValueError(f"{path}: base {b['name']!r} undeclared_pct {b['undeclared_pct']!r}")
+        bases.append(PartlyDeclaredBase(
+            name=b["name"],
+            aliases=tuple(b.get("aliases", ())),
+            sku=b["sku"],
+            allergens_pct={k: float(v) for k, v in b.get("allergens_pct", {}).items()},
+            undeclared_pct=(low, high),
+            undeclared_note=b.get("undeclared_note", ""),
+        ))
+    return tuple(bases)
+
+
+def partly_declared_base(names: Sequence[str | None]) -> PartlyDeclaredBase | None:
+    """The partly declared base a row names, by its name or an alias, stock suffixes stripped."""
+    entries = {}
+    for base in load_partly_declared_bases():
+        for name in (base.name, *base.aliases):
+            entries[name] = base
+    return _match_by_name(entries, names)
 
 
 def _match_by_name(entries: Mapping[str, _T], names: Sequence[str | None]) -> _T | None:

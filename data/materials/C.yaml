@@ -74,8 +74,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cabbage Rose Extract
   aliases:
-  - rosa centifolia extract
   - MySkinRecipes Cabbage Rose Rosa Centifolia cosmetic extract
+  - MSR 10550 cabbage rose PG scent extract
   cas:
   smiles:
   inchikey:
@@ -103,8 +103,9 @@
   supplier:
   families: []
   character:
-  notes: MySkinRecipes order 2199505 extract (Rosa centifolia expected) diluted by mass to 1% in DPG by the user; extraction solvent and strength of the supplied extract not asserted.
+  notes: 'MySkinRecipes 10550. Its page gives INCI ''Propylene Glycol + Fragrance'': no rose extract is declared, so this is an undisclosed fragrance in PG, not a Rosa centifolia extract (CAS 84604-12-6) and not rose absolute. Kenny''s stock is 1% of it by mass in DPG, so it is almost all solvent. Never link it to rose absolute, otto or centifolia data. Alias ''rosa centifolia extract'' removed 2026-10-28 for that reason.'
   provenance:
+    notes: 'MySkinRecipes product page read on Kenny''s PC, 21 Oct 2026 (/mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md section 4): ''INCI: Propylene Glycol + Fragrance. No rose extract is listed''. Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Cabreuva Essential Oil
   aliases:
@@ -1134,15 +1135,15 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 6.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: '20% w/w in DEP'
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 3WI03465
     perfumersworld_price_usd_per_g: 0.1
@@ -1152,8 +1153,10 @@
   families: []
   character: 'Mild fruity-woody odor fresh-green sap-like quite tenacious'
   odour_family: 'woody'
-  notes: 'MW, logP and VP left null (2026-10-08). MW conflict: TGSC "Molecular Weight: 262.39262000" (C17H26O2) vs PerfumersWorld SDS 264.41 (matches C17H28O2); unresolved. logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 5.366 (est)"; "Vapor Pressure: 0.000240 mmHg @ 25.00 C. (est)" = 0.0320 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1023611.html). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): mw_g_mol null -> 262.4.'
+  notes: 'MW, logP and VP left null (2026-10-08). MW conflict: TGSC "Molecular Weight: 262.39262000" (C17H26O2) vs PerfumersWorld SDS 264.41 (matches C17H28O2); unresolved. logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 5.366 (est)"; "Vapor Pressure: 0.000240 mmHg @ 25.00 C. (est)" = 0.0320 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1023611.html). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): mw_g_mol null -> 262.4. Kenny''s label reads CAS 32214-91-8 (''Fix gaps in unused materials'' thread, 28 Oct 2026: ''32214-91-8''), the TGSC/PW identity, so MW 262.4 (C17H26O2) stays. The commercial tricyclic grade sold as caryophyllene acetate (Vetynal Extra type) is CAS 57082-24-3, C17H28O2, 264.4: not his bottle. No IFRA Standard; PW''s certificate figure is its blanket ceiling. No measured air ODT exists; the engine carries a labelled UNVERIFIED analogue estimate. Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-003 (owned, 20% w/w in DEP)'
     odour_family: 'odour family "woody" from ''Woody'': Caryophyllene Acetate | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=3WI03465: derived from "fresh sharp cedar woody spicy" and PW note groups heart Wood, base Wood (grade supplier; derived from the quoted description (the source gives no family)). Second reader: Family ''Woody'' supported by ''cedar woody'' and heart/base Wood. Note the Odour=> line reads ''Mild fruity-woody odor fresh-green sap-like'', not ''fresh sharp cedar woody spicy'' (that is the summary sentence). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Caryophyllene Acetate | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=3WI03465: "Caryophyllene Acetate is fresh sharp cedar woody spicy." "Odour=> Mild fruity-woody odor fresh-green sap-like quite tenacious". Notes: top Fruity, Green; heart Wood; base Wood (grade supplier; producer/primary text, quoted). Second reader: Supplier (PerfumersWorld) text; neat material, Kenny''s stock is 20% w/w. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md

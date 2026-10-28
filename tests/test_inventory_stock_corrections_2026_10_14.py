@@ -205,6 +205,18 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "I have both neat and 1%",
         "Liquid. Also, always use good scents as a perfumery source",
         "ye",
+        # 28 Oct 09:28-09:33 UTC, same thread: the group 2 bottle answers (STK-192 to STK-196).
+        "hye",
+        "hopee",
+        "If I have it\u2019s 10:90",
+        "I have a solution",
+        "It\u2019s usual one",
+        "PW",
+        "32214-91-8",
+        "Yes",
+        "1 g",
+        "Neat",
+        "More than 2 grams",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -243,6 +255,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         # 2026-10-28: Cedryl Acetate leaves its intake hold (STK-190); Kenyan Myrrh tincture (STK-191).
         "INV-USER-20261007-PW-034",
         "INV-USER-20260915-STOCK-015",
+        # 2026-10-28: C-12 Lauric leaves its intake hold, 1 g left (STK-195).
+        "INV-USER-20261007-PW-015",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -251,7 +265,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 192)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 197)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

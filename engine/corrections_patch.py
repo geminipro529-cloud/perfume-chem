@@ -92,7 +92,7 @@ ODT_PATCH = {
     "ambrox super":     0.3,      # van Gemert 2011, Neuner-Jehle & Etzweiler 1991
     "macrolide":        3.2,      # ScenTree Exaltolide pentadecanolide: published 3.2 ppb
     "helional":         0.1,      # Lotsch et al. 2010 PubMed: 0.097 ppb published
-    "methyl nonyl ketone":5.0,    # Lotsch et al. 2009 PubMed: homologous 2-ketone series
+    "methyl nonyl ketone":5.0,    # NOT measured: 2-nonanone analogue (Cometto-Muniz & Abraham 2009); engine now 5.5 UNVERIFIED (2026-10-28)
     "benzyl benzoate":  810.0,    # Arctander, RIFM, Nagata 2003: published near-odorless
 
     # REGULATORY (Tier B) — from RIFM/SCCS/manufacturer data

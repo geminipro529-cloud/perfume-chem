@@ -139,10 +139,11 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # 2026-10-25 naturals batch: labelled partial profiles made Cabreuva EO, Pine EO,
     # Sandalwood EO and Tuberlia Base OAV-available (258 -> 262).
     # 2026-10-28: a labelled UNVERIFIED analogue air threshold (Kenny's card choice) made
-    # Cedryl Acetate OAV-available (262 -> 263).
-    assert audit["oav_available_count"] == 263
-    assert audit["oav_unknown_count"] == 27
-    assert audit["oav_coverage_pct"] == 90.69
+    # Cedryl Acetate OAV-available (262 -> 263). Group 2 the same day did the same for
+    # Caryophyllene Acetate (263 -> 264).
+    assert audit["oav_available_count"] == 264
+    assert audit["oav_unknown_count"] == 26
+    assert audit["oav_coverage_pct"] == 91.034
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"
