@@ -78,13 +78,15 @@ def test_pedmc_acetate_is_separate_from_the_carbinol(stocks):
     assert stocks["Phenyl Ethyl Dimethyl Carbinyl Acetate"].stock_id != stocks["Phenyl Ethyl Dimethyl Carbinol"].stock_id
 
 
-def test_vetiveryl_acetate_is_used_up(stocks, overlay):
-    assert not [n for n, s in stocks.items() if "vetiveryl" in n.casefold() and s.status == "owned"]
+def test_vetiveryl_acetate_was_used_up_then_restocked(stocks, overlay):
     live = {r["record_id"] for r in overlay["records"]}
     assert "INV-USER-20260924-R5-002" not in live
-    (record,) = [r for r in overlay["delta_records"] if r["canonical_name"] == "Vetiveryl Acetate"]
-    assert record["state"] == "NOT_OWNED" and record["stock"] is None
-    assert record["source_quote"] == "i am out of vetiveryl acetate"
+    used_up, restock = [r for r in overlay["delta_records"] if r["canonical_name"] == "Vetiveryl Acetate"]
+    assert used_up["state"] == "NOT_OWNED" and used_up["stock"] is None
+    assert used_up["source_quote"] == "i am out of vetiveryl acetate"
+    # 28 Oct 2026: the PerfumersWorld restock (order 261024-211206f41) is the later record.
+    assert (restock["record_id"], restock["state"]) == ("INV-USER-20261014-STK-182", "OWNED")
+    assert [n for n, s in stocks.items() if "vetiveryl" in n.casefold() and s.status == "owned"] == ["Vetiveryl Acetate"]
 
 
 def test_his_dilutions_of_the_fruit_bottles_are_unchanged(stocks):

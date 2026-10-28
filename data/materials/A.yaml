@@ -3164,8 +3164,8 @@
   logp: 5.1
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.08
-  vp_source: RIFM_measured_20C_converted
+  vp_25c_pa: 0.066
+  vp_source: measured_25C
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -3201,7 +3201,7 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6790-58-5.pdf: 0.054 Pa at 20 C measured (RIFM 1998d) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa; replaces the unsourced 0.066; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    vp_25c_pa: 'ECHA registration dossier, [3aR-(3a alpha,5a beta,9a alpha,9b beta)]-dodecahydro-3a,6,6,9a-tetramethylnaphtho[2,1-b]furan, EC 229-861-2, CAS 6790-58-5, vapour pressure key study (https://echa.europa.eu/registration-dossier/-/registered-dossier/11951/4/7): ''Vapour pressure: 0.066 Pa'' at ''25 °C'', OECD Guideline 104, gas saturation method, GLP ''yes (incl. QA statement)''; results ''66.1 mPa at 25°C'', ''221 mPa at 35°C'', ''688 mPa at 45°C''; measured, no conversion; grade A_regulatory. Replaces 0.08 Pa (RIFM''s measured 0.054 Pa at 20 C x 1.51 from an assumed 60 kJ/mol). Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct and MSR identities; source re-opened).'
     cas: 'ambroxide CAS 6790-58-5 (Givaudan Ambrofix is this molecule; RIFM assessment above); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
 - canonical_name: Ambrox Super
   aliases:
@@ -3215,8 +3215,8 @@
   logp: 5.1
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.08
-  vp_source: RIFM_measured_20C_converted
+  vp_25c_pa: 0.066
+  vp_source: measured_25C
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0003
@@ -3252,7 +3252,7 @@
   provenance:
     character: 'AMBROX® SUPER (909158) | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/ambroxr-super-pe-909158: Olfactive family Ambery. Technical Descriptors Ambery, Woody. Olfactive description "Extremely powerful and elegant ambery odor with musky and woody tonalities. Sparklingly sensual, AMBROX® SUPER offers musky and woody tonalities to amber ingredients. Compared to CETALOX®, this profile is more natural, animalic, and closer to the original ambregris." (grade A_producer; producer/primary text, quoted). Second reader: Same product (AMBROX SUPER 909158). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: 'RIFM fragrance ingredient safety assessment https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6790-58-5.pdf: 0.054 Pa at 20 C measured (RIFM 1998d) x 1.51 (20 to 25 C, Clausius-Clapeyron with the repo working dHvap 60 kJ/mol) = 0.08 Pa; replaces engine.diffusion_model 0.05; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    vp_25c_pa: 'ECHA registration dossier, [3aR-(3a alpha,5a beta,9a alpha,9b beta)]-dodecahydro-3a,6,6,9a-tetramethylnaphtho[2,1-b]furan, EC 229-861-2, CAS 6790-58-5, vapour pressure key study (https://echa.europa.eu/registration-dossier/-/registered-dossier/11951/4/7): ''Vapour pressure: 0.066 Pa'' at ''25 °C'', OECD Guideline 104, gas saturation method, GLP ''yes (incl. QA statement)''; results ''66.1 mPa at 25°C'', ''221 mPa at 35°C'', ''688 mPa at 45°C''; measured, no conversion; grade A_regulatory. Replaces 0.08 Pa (RIFM''s measured 0.054 Pa at 20 C x 1.51 from an assumed 60 kJ/mol). Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct and MSR identities; source re-opened).'
     kaw_eff: engine.diffusion_model
     odt_air_ppb: 'Givaudan Ambrofix SDS (Sales No. 127737), the same molecule ((-)-ambroxide, CAS 6790-58-5). Replaces 0.3, an audit correction with no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds

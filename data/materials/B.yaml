@@ -1503,7 +1503,7 @@
   hedonic_valence: null
   ifra_max_pct_edp: null
   user_stock_dilution: null
-  user_in_inventory: false
+  user_in_inventory: true  # Kenny 28 Oct 2026: 'PW orders have arrived' (overlay STK-185)
   supplier:
     perfumersworld_sku: 3WS00089
     perfumersworld_price_usd_per_g: 0.14
@@ -1511,9 +1511,11 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Spicy, terpenic'
   notes: null
   provenance:
+    character: 'Robertet, Caryophyllene nat 00051051 (https://matieres-premieres.robertet.com/caryophyllene-nat): ''Olfactive description Spicy, terpenic'' (grade A_producer; producer text, quoted; a natural grade, not this bottle). Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'RIFM fragrance ingredient safety assessment, beta-caryophyllene, CAS Registry Number 87-44-5 (Api et al., Food Chem Toxicol 159 (2022) 112707) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/87-44-5.pdf): ''CAS Registry Number: 87-44-5''; Chemical Name beta-Caryophyllene. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, beta-caryophyllene, CAS Registry Number 87-44-5 (Api et al., Food Chem Toxicol 159 (2022) 112707) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/87-44-5.pdf): ''Molecular Weight: 204.35'' (C15H24). Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'

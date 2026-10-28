@@ -342,6 +342,11 @@
         "message_timestamp_utc": "2026-10-27T11:02:01Z",
         "text": "Stock data from msr emails and find all of the properties.",
         "context": "Stock data thread; the MySkinRecipes mail in k3nnyw@gmail.com holds two paid 25 Oct orders, #2200410 (ten lines, sent by Lalamove 27 Oct) and #2200413 (three lines, picked up 27 Oct), each with COA and MSDS PDFs. Twelve fragrance lines are recorded (STK-170 to STK-181); L-Arginine HCl, a cosmetic amino acid, is not a perfume stock and is left out."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T07:24:05Z",
+        "text": "PW orders have arrived",
+        "context": "Stock data thread; the PerfumersWorld mail in k3nnyw@gmail.com holds three paid 25 Oct orders (261024-211206f41, 261024-21230599a, 261024-23332424a), all shipped 26 Oct by Thai EMS EQ291309744TH. Six lines are recorded (STK-182 to STK-187). Three lines are second bottles of stocks he already owns at the same strength, so no record is added: Ambrox Super 5 g (1UW00035, neat; INV-USER-20260924-R5-001), Isobutyl Quinoline 10% in DPG 5 g (5UP07523; IBQ 10%, STK-059) and Orange Flower Absolute 10% in DPG 2 g (5NC07544; STK-148)."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -411,7 +416,8 @@
     "vetiveryl_acetate_used_up_20261025": true,
     "pw_fruit_order_lines_five_stocks_added_20261025": true,
     "pw_fruit_bottles_fifteen_neat_20261025": true,
-    "msr_orders_2200410_2200413_stocked_20261027": true
+    "msr_orders_2200410_2200413_stocked_20261027": true,
+    "pw_orders_20261025_stocked_20261028": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -9004,6 +9010,307 @@
         "delivery_email_seen": true
       },
       "note": "MySkinRecipes order #2200413 placed 25 Oct 2026 10:41 ICT, paid (payment received 25 Oct 03:45 UTC). Kenny: 'Stock data from msr emails and find all of the properties.' (27 Oct 2026 11:02:01 UTC, Stock data thread). Order 2200413 (pickup) was collected: MySkinRecipes chat message 27 Oct 2026 10:36 UTC, 'Your order has been picked up on 2026-10-27 17:21:15'. Listed as 'Farnesol', 5 g; neat as supplied, as MySkinRecipes lists it (no dilution in the name). A second bottle of a material he already had neat (V5 row 108, inventory.txt 'Farnesol'). This record supersedes that row as the one Farnesol stock (neat). Farnesol has its own IFRA standard."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-182",
+      "canonical_name": "Vetiveryl Acetate",
+      "aliases": [
+        "Vetiveryl Acetate neat"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261028_PW_261024_211206F41_VETIVERYL_ACETATE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Vetiveryl Acetate",
+        "sku": "3WY00468",
+        "order": "PW-261024-211206f41",
+        "pack": "2 g",
+        "tracking": "Thai EMS EQ291309744TH"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "PW orders have arrived",
+      "source_message_timestamp_utc": "2026-10-28T07:24:05Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "shipped_email_seen": true
+      },
+      "note": "PerfumersWorld order PW-261024-211206f41, THB 808.52, placed 25 Oct 2026 08:12 ICT, payment approved 08:17 ICT (pworders@perfumersworld.com, 25 Oct 01:27 UTC). Kenny: 'PW orders have arrived' (28 Oct 2026 07:24:05 UTC, Stock data thread). PerfumersWorld's 26 Oct 2026 03:40 UTC mails say all three orders shipped by Thai EMS under one tracking number, EQ291309744TH. Listed as 'Vetiveryl Acetate' (3WY00468), 2 g; neat as supplied, as PerfumersWorld lists it (no dilution in the name). PerfumersWorld's mails carry no lot, and the batch reference on its online CoA page is generated on the day the page is read, so no bottle lot is recorded. The restock after 'i am out of vetiveryl acetate' (25 Oct 2026, STK-169): this later record makes him own it again. IFRA restricts it under the Acetylated Vetiver oil standard."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-183",
+      "canonical_name": "Fixative 505",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "amber / ambergris base",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261028_PW_261024_211206F41_FIXATIVE_505",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Fixative 505",
+        "sku": "4UY07514",
+        "order": "PW-261024-211206f41",
+        "pack": "1 g",
+        "tracking": "Thai EMS EQ291309744TH"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "PW orders have arrived",
+      "source_message_timestamp_utc": "2026-10-28T07:24:05Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "shipped_email_seen": true,
+        "composition_published": false
+      },
+      "note": "PerfumersWorld order PW-261024-211206f41, THB 808.52, placed 25 Oct 2026 08:12 ICT, payment approved 08:17 ICT (pworders@perfumersworld.com, 25 Oct 01:27 UTC). Kenny: 'PW orders have arrived' (28 Oct 2026 07:24:05 UTC, Stock data thread). PerfumersWorld's 26 Oct 2026 03:40 UTC mails say all three orders shipped by Thai EMS under one tracking number, EQ291309744TH. Listed as 'Fixative 505' (4UY07514), 1 g; neat as supplied, as PerfumersWorld lists it (no dilution in the name). PerfumersWorld's mails carry no lot, and the batch reference on its online CoA page is generated on the day the page is read, so no bottle lot is recorded. A PerfumersWorld proprietary compound ('CAS: Mixture'; its SDS section 3 gives no composition). Its IFRA certificate names three restricted constituents, which the IFRA check counts; nothing else about its composition is known."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-184",
+      "canonical_name": "Davana Essential Oil",
+      "aliases": [
+        "Davana Essential Oil 10% in DPG",
+        "Davana EO 10%"
+      ],
+      "state": "OWNED",
+      "category": "fruity / herbal",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "SUPPLIER_LISTING_PREPARED_DILUTION_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261028_PW_261024_211206F41_DAVANA_ESSENTIAL_OIL",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Davana Essential Oil 10% in DPG",
+        "sku": "5HH12466",
+        "order": "PW-261024-211206f41",
+        "pack": "2 g",
+        "tracking": "Thai EMS EQ291309744TH"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 91,
+          "disposition": "OWNED",
+          "status": "HAVE - PERFUMERSWORLD DAVANA ESSENTIAL OIL 10% IN DPG (5HH12466), RECEIVED 2026-10-28",
+          "actual_stock_text": "Davana Essential Oil 10% in DPG, PerfumersWorld SKU 5HH12466",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "PW orders have arrived",
+      "source_message_timestamp_utc": "2026-10-28T07:24:05Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "shipped_email_seen": true
+      },
+      "note": "PerfumersWorld order PW-261024-211206f41, THB 808.52, placed 25 Oct 2026 08:12 ICT, payment approved 08:17 ICT (pworders@perfumersworld.com, 25 Oct 01:27 UTC). Kenny: 'PW orders have arrived' (28 Oct 2026 07:24:05 UTC, Stock data thread). PerfumersWorld's 26 Oct 2026 03:40 UTC mails say all three orders shipped by Thai EMS under one tracking number, EQ291309744TH. Listed as 'Davana Essential Oil 10% in DPG' (5HH12466), 2 g; PerfumersWorld's own dilution as named, 10% in DPG, basis the project default (w/w). PerfumersWorld's mails carry no lot, and the batch reference on its online CoA page is generated on the day the page is read, so no bottle lot is recorded. Artemisia pallens oil. It fills the V5 requirement row 91 'Davana EO 10%', which listed it as a gap. He has no neat davana oil on record."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-185",
+      "canonical_name": "Beta Caryophyllene",
+      "aliases": [
+        "Beta-Caryophyllene"
+      ],
+      "state": "OWNED",
+      "category": "spice / woody",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261028_PW_261024_21230599A_BETA_CARYOPHYLLENE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Beta Caryophyllene",
+        "sku": "3WS00089",
+        "order": "PW-261024-21230599a",
+        "pack": "3 g",
+        "tracking": "Thai EMS EQ291309744TH",
+        "cas_expected": "87-44-5"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "PW orders have arrived",
+      "source_message_timestamp_utc": "2026-10-28T07:24:05Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "shipped_email_seen": true
+      },
+      "note": "PerfumersWorld order PW-261024-21230599a, THB 118.32, placed 25 Oct 2026 08:24 ICT as in-store pickup, payment approved 08:27 ICT (pworders@perfumersworld.com, 25 Oct 01:37 UTC). Kenny: 'PW orders have arrived' (28 Oct 2026 07:24:05 UTC, Stock data thread). PerfumersWorld's 26 Oct 2026 03:40 UTC mails say all three orders shipped by Thai EMS under one tracking number, EQ291309744TH. Listed as 'Beta Caryophyllene' (3WS00089), 3 g; neat as supplied, as PerfumersWorld lists it (no dilution in the name). PerfumersWorld's mails carry no lot, and the batch reference on its online CoA page is generated on the day the page is read, so no bottle lot is recorded. His first plain caryophyllene; Caryophyllene Acetate 20% in DEP (STK-003) is a separate stock. It oxidises to caryophyllene oxide, so it needs an antioxidant (BHT) once opened."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-186",
+      "canonical_name": "Isolongifolanone",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261028_PW_261024_21230599A_ISOLONGIFOLANONE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Isolongifolanone",
+        "sku": "3WY14446",
+        "order": "PW-261024-21230599a",
+        "pack": "3 g",
+        "tracking": "Thai EMS EQ291309744TH",
+        "cas_on_supplier_certificate": "14727-47-0"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "PW orders have arrived",
+      "source_message_timestamp_utc": "2026-10-28T07:24:05Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "shipped_email_seen": true,
+        "cas_asserted": false
+      },
+      "note": "PerfumersWorld order PW-261024-21230599a, THB 118.32, placed 25 Oct 2026 08:24 ICT as in-store pickup, payment approved 08:27 ICT (pworders@perfumersworld.com, 25 Oct 01:37 UTC). Kenny: 'PW orders have arrived' (28 Oct 2026 07:24:05 UTC, Stock data thread). PerfumersWorld's 26 Oct 2026 03:40 UTC mails say all three orders shipped by Thai EMS under one tracking number, EQ291309744TH. Listed as 'Isolongifolanone' (3WY14446), 3 g; neat as supplied, as PerfumersWorld lists it (no dilution in the name). PerfumersWorld's mails carry no lot, and the batch reference on its online CoA page is generated on the day the page is read, so no bottle lot is recorded. PerfumersWorld's certificate for 3WY14446 prints CAS 14727-47-0 (EC 238-780-1), while producer literature for isolongifolanone gives 23787-90-8; the bottle's CAS is not asserted here."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-187",
+      "canonical_name": "Tuberose Absolute 10% in TEC",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "white floral",
+      "stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "tec",
+        "fraction_authority": "SUPPLIER_LISTING_PREPARED_DILUTION_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261028_PW_261024_23332424A_TUBEROSE_ABSOLUTE_10PCT_IN_TEC",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Tuberose Absolute 10% in TEC",
+        "sku": "5ND19125",
+        "order": "PW-261024-23332424a",
+        "pack": "2 g",
+        "tracking": "Thai EMS EQ291309744TH"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "PW orders have arrived",
+      "source_message_timestamp_utc": "2026-10-28T07:24:05Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "shipped_email_seen": true
+      },
+      "note": "PerfumersWorld order PW-261024-23332424a, THB 511.36, placed 25 Oct 2026 10:34 ICT as in-store pickup, payment approved 10:40 ICT (pworders@perfumersworld.com, 25 Oct 03:51 UTC). Kenny: 'PW orders have arrived' (28 Oct 2026 07:24:05 UTC, Stock data thread). PerfumersWorld's 26 Oct 2026 03:40 UTC mails say all three orders shipped by Thai EMS under one tracking number, EQ291309744TH. Listed as 'Tuberose Absolute 10% in TEC' (5ND19125), 2 g; PerfumersWorld's own dilution as named, 10% in TEC, basis the project default (w/w). PerfumersWorld's mails carry no lot, and the batch reference on its online CoA page is generated on the day the page is read, so no bottle lot is recorded. A separate stock from Tuberose Absolute 10% (STK-066), recorded in DPG by the project default; Tuberlia Base and the volume-grade tuberose EO are also separate. PerfumersWorld's SDS gives CAS '8024-05-3*10' (10 % tuberose absolute); its page's odour line says 'in DPG', a template slip for this TEC product."
     }
   ]
 }

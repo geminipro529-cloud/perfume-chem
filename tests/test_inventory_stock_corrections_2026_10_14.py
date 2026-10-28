@@ -196,6 +196,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "All neat",
         # 27 Oct 11:02 UTC: MySkinRecipes orders 2200410 and 2200413 from his mail (STK-170 to STK-181).
         "Stock data from msr emails and find all of the properties.",
+        # 28 Oct 07:24 UTC: the three PerfumersWorld orders of 25 Oct arrived (STK-182 to STK-187).
+        "PW orders have arrived",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -239,7 +241,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 182)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 188)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

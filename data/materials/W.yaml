@@ -300,7 +300,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9782
   logp: null
   functional_groups: []
   chirality: null
@@ -321,9 +321,11 @@
   user_in_inventory: true  # Kenny 27 Oct 2026: MySkinRecipes order in his mail (overlay STK-172)
   supplier:
   families: []
-  character: null
-  notes: 'MySkinRecipes lot W9F536 (order 2200410, STK-172): COA CAS 8024-35-9 (registered as Australian sandalwood oil, Santalum spicatum), RI(20 C) spec 1.4950-1.5050, SG(20/20 C) spec 0.9750-0.9850, ''Yellow to brown viscous liquid'', no measured values. The RI floor is below and the SG ceiling above every sandalwood and amyris standard (ISO 22769, ISO 3518, ISO 3525), the colour is outside both Santalum standards, and the price (53.27 THB per 5 g) is below MySkinRecipes'' own synthetic Sandela 803. It is probably a sandalwood-type compound (amyris and/or synthetic sandalwood chemicals) under a borrowed CAS, so the ISO 3518 sandalwood profile is not used and no physics or odour text is loaded. A GC or an optical-rotation reading would settle it.'
+  character: 'Characteristic, sweet, woody and persistent'
+  notes: 'MySkinRecipes lot W9F536 (order 2200410, STK-172): COA CAS 8024-35-9 (registered as Australian sandalwood oil, Santalum spicatum), RI(20 C) spec 1.4950-1.5050, SG(20/20 C) spec 0.9750-0.9850, ''Yellow to brown viscous liquid'', ''Sandalwood characteristic scent'', no measured values. Kenny 28 Oct 2026: ''select the one that is the closest''. Closest identity: Santalum album oil (ISO 3518) type. The name ''white sandalwood'' is a producer synonym of S. album, S. album is planted in China, and the COA''s nominal density 0.980 sits inside ISO 3518 (0.968-0.983); runner-up S. spicatum (its CAS; the nominal point sits on the corner of ISO 22769). Against both: the nominal RI 1.500 is below ISO 3518''s 1.503 and the price is far below genuine oil, so a cut or compounded oil is likely. The engine uses the ISO 3518 S. album midpoint profile as a labelled proxy. Bench checks that would settle it: RI at 20 C (below 1.503 fails S. album, below 1.500 fails S. spicatum too) and optical rotation (amyris +20 to +45).'
   provenance:
+    character: 'ISO 3518:2025, Essential oil of sandalwood (Santalum album L.) (https://cdn.standards.iteh.ai/sist-preview/88588/1b7516dd3de5489a8752a4f51f66838c/ISO-3518-2025.pdf): ''Odour Characteristic, sweet, woody and persistent'' (grade A_standard; the standard of the closest identity, not a reading of this bottle). The MySkinRecipes COA prints only ''Sandalwood characteristic scent''. Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct and MSR identities; source re-opened).'
+    density_25c_g_ml: 'MySkinRecipes COA lot W9F536 (Kenny''s mail, 27 Oct 2026): ''SG(20/20C) 0.9750-0.9850''; window midpoint 0.980 x 0.99820 g/mL (water at 20 C) = 0.9782 g/mL at 20 C, not 25 C; supplier nominal for this lot, not a measurement. Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct and MSR identities; source re-opened).'
     cas: 'MySkinRecipes COA and MSDS lot W9F536 print 8024-35-9 (''White Sandalwood Oil 100.0000000 8024-35-9''). AICIS, Essential oils, Australian sandalwood: Human health tier II assessment (https://www.industrialchemicals.gov.au/sites/default/files/Essential%20oils,%20Australian%20sandalwood_Human%20health%20tier%20II%20assessment.pdf): ''CAS Number: 8024-35-9'', synonyms ''Santalum spicatum sandalwood oil''. The CAS is the supplier''s; it is not evidence of the bottle''s contents. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
     notes: 'ISO 22769:2022 (S. spicatum) RI 1,500 to 1,517 and d20/20 0,945 to 0,980; ISO 3518:2025 (S. album) RI 1,503 to 1,509 and d20/20 0,968 to 0,983 (iTeh/SIST preview PDFs); ISO 3525:1979 amyris RI 1,5050-1,5100 and d20/20 0,946-0,978 (iso.org abstract). Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
     user_in_inventory: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json

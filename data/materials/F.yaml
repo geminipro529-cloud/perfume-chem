@@ -381,7 +381,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 1.082
   logp:
   functional_groups: []
   chirality:
@@ -398,8 +398,8 @@
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: 'neat'
+  user_in_inventory: true  # Kenny 28 Oct 2026: 'PW orders have arrived' (overlay STK-183)
   supplier:
     perfumersworld_sku: 4UY07514
     perfumersworld_price_usd_per_g: 2.3
@@ -414,9 +414,12 @@
         sku: 5UY07860
         price_usd_per_g: 0.26
   families: []
-  character:
-  notes:
+  character: 'Exceptionally powerful delicately dry woody-earthy-ambergris extremely tenacious odor.'
+  notes: 'PerfumersWorld 4UY07514 (STK-183, order PW-261024-211206f41, 1 g, neat). PW: CAS ''Mixture'', ''Replacement for Fixateur-404'', COA ''Proprietary Perfume Compound'', SDS with no composition; its ambroxide names, MW and formula are copied from Arctander''s Fixateur 404 entry and are not the base''s. Probably Firmenich FIXATEUR 000505 E sold under PW''s name: PW''s IFRA rows (benzyl benzoate 0.0131%, coumarin 0.0002%) are the figures Pell Wall prints for Firmenich''s base, and an archived PW page carries PW''s ''FIRM'' code. PW does not name Firmenich, so the identity is inferred. Firmenich''s US SDS (v10, 28 Jan 2021) gives 20-<30% hydrogenated rosin methyl esters (CAS 8050-15-5), 15-<20% ambroxide (CAS 3738-00-9, stereo not stated) and 0.1-<0.5% alpha-isomethyl ionone; bands only, so no composition profile is loaded. PW use levels 0.09/0.6/4%, odour life 67.2 h on a strip.'
   provenance:
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json'
+    character: 'PerfumersWorld 4UY07514 (https://www.perfumersworld.com/view.php?pro_id=4UY07514): ''Exceptionally powerful delicately dry woody-earthy-ambergris extremely tenacious odor.'' (supplier of the owned bottle, quoted). Firmenich FIXATEUR 000505 E (https://www.firmenich.com/product/fixateur-pe-000505-e): ''A very powerful odor of ambergris with a slightly woody-dry character.'' and ''An iconic dsm-firmenich base compounded around AMBROX®.'' Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
+    density_25c_g_ml: 'Firmenich SDS FIXATEUR 000505 E, US, v10 revised 28 January 2021 (https://perfumersupplyhouse.com/wp-content/uploads/2014/09/FIXATEUR-000505-E_SDS_US_EN.pdf, a Firmenich SDS hosted by a reseller): ''Relative density (d 20/20) 1.074 - 1.094''; midpoint 1.084 x 0.99820 g/mL (water at 20 C) = 1.082 g/mL at 20 C, not 25 C; producer specification for the base the PW product is inferred to be, not this bottle (PW prints SG 0.0000); grade A_producer, identity inferred. Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Fixetal
   aliases: []
