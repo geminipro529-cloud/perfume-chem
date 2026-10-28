@@ -2983,7 +2983,7 @@
   hedonic_valence: null
   ifra_max_pct_edp: null
   user_stock_dilution: null
-  user_in_inventory: false
+  user_in_inventory: true  # Kenny 27 Oct 2026: MySkinRecipes order in his mail (overlay STK-174)
   supplier:
     perfumersworld_sku: 3SQ00109
     perfumersworld_price_usd_per_g: 0.18

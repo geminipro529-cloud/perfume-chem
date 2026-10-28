@@ -109,6 +109,23 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Cabbage Rose Extract": (_ALL, _MSR_COSMETIC_EXTRACT),
     "Magnolia Flower Extract": (_ALL, _MSR_COSMETIC_EXTRACT),
     "Iris Florentina Root Extract": (_ALL, _MSR_COSMETIC_EXTRACT),
+    # MySkinRecipes orders 2200410 and 2200413, searched 2026-10-27.
+    "Cinnamyl Acetate": (
+        ("odt",),
+        "no published human detection threshold in air found; searched the Nagata 2003 table "
+        "(no entry), P&G patent threshold tables (computed classes only) and a 2026 CRFSFS "
+        "review; van Gemert 2011 could not be read (2026-10-27)",
+    ),
+    "Magnolia Absolute": (
+        _ALL,
+        "MySkinRecipes lot ZDHY6L prints no CAS or composition and its identity is not "
+        "established (probably a Michelia x alba flower oil), so no profile is loaded (2026-10-27)",
+    ),
+    "White Sandalwood Oil (China)": (
+        _ALL,
+        "MySkinRecipes lot W9F536 prints CAS 8024-35-9, but its RI and SG ranges fit no sandalwood "
+        "or amyris ISO standard; probably a compound, so the ISO 3518 profile is not used (2026-10-27)",
+    ),
 }
 
 

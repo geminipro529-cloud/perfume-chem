@@ -436,6 +436,39 @@
     density_25c_g_ml: 'SG 1.0850, supplier-reported (PerfumersWorld 3MN13569 "Magnolan"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 23 Oct 2026 third data pass: PerfumersWorld 3MN13569 "Specific Gravity 1.0850", https://www.perfumersworld.com/view.php?pro_id=3MN13569; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle); Ventos 1.086-1.090 at 20 C agrees'
     density_basis: supplier_sg_temperature_unstated
     smiles: 'PubChem CID 119674 structure for CAS 27606-09-3 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
+- canonical_name: Magnolia Absolute
+  aliases:
+  - magnolia absolute
+  cas: null
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  vp_source: null  # natural: no single VP; the engine uses the constituent profile when one exists
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true  # Kenny 27 Oct 2026: MySkinRecipes order in his mail (overlay STK-170)
+  supplier:
+  families: []
+  character: null
+  notes: 'MySkinRecipes lot ZDHY6L (order 2200410, STK-170): the COA prints no CAS and the MSDS composition is blank; ''Clear to yellowish'' liquid, which is unusual for a solvent absolute. MySkinRecipes lists it as ''Magnolia Officinalis Flower Extract''. Most likely a Chinese Michelia x alba (white champaca, bai lan) flower oil of the linalool type, but the identity is not established, so no composition profile, physics or odour text is loaded. Measuring its density and refractive index, or getting MySkinRecipes'' GC, would settle it.'
+  provenance:
+    notes: 'MySkinRecipes COA and MSDS for lot ZDHY6L (Kenny''s mail, 27 Oct 2026); MySkinRecipes product 7870 page title ''Magnolia Officinalis Flower Extract''; identity reading from Pensuk et al. (Michelia alba flower oil by steam distillation, hexane extraction and enfleurage) and Cheng et al., Molecules 2022, 27(11), 3450 (PMC9182571). Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    user_in_inventory: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Magnolia EO
   aliases:
   - magnolia eo

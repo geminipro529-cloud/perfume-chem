@@ -4988,6 +4988,55 @@
       ],
       "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=3RB07724",
       "verified_on": "2026-10-25"
+    },
+    "Fir Needle Oil (Canada)": {
+      "status": "specification",
+      "standard": "IFRA_STD_184",
+      "aliases": [
+        "Abies balsamea needle oil"
+      ],
+      "note": "Abies balsamea needle oil, Canada (MySkinRecipes lot ECPT07, COA CAS 85085-34-3; stock STK-175). Pinaceae oil: its peroxide value must stay below 10 mmol/L (STD_184); no Category 4 limit of its own. Longifolene (0.2 %) is counted from Annex I's 'Fir needle oil, Canadian' and 'Balsam fir oil' rows through ifra_annex1_constituents.json.",
+      "verified_on": "2026-10-27"
+    },
+    "Olibanum Oil": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Olibanum (Frankincense) Oil"
+      ],
+      "note": "Boswellia carterii gum oil, steam distilled (MySkinRecipes lot 3S74J8, COA CAS 89957-98-2; stock STK-173). No IFRA standard of its own. Thujone (0.5 %, alpha + beta, Annex I 'Olibanum oil') and carvone (0.3 %, 'Olibanum sacra oil') are counted through ifra_annex1_constituents.json.",
+      "verified_on": "2026-10-27"
+    },
+    "Galbanum Resinoid": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Ferula galbanum gum resinoid (MySkinRecipes lot QM0D25, COA CAS 9000-24-2; stock STK-176). No IFRA standard of its own. Cyclopentadecanolide (0.1 %, Annex I 'Galbanum resin') is counted through ifra_annex1_constituents.json. Not counted: alpha-bisabolol, about 0.3 % of the resinoid in the Canton et al. 2025 volatile fraction, for which Annex I has no galbanum row.",
+      "verified_on": "2026-10-27"
+    },
+    "Magnolia Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "MySkinRecipes lot ZDHY6L (stock STK-170): no CAS and no composition on the COA or MSDS. Michelia x alba is the most likely source, so geraniol (0.4 %) and methyl eugenol (2.8 %) are counted from Annex I's 'Michelia alba extract' rows, as for Magnolia EO.",
+      "identity_note": "Identity not established: MySkinRecipes lists it as 'Magnolia Officinalis Flower Extract'; the clear-to-yellowish colour fits a distilled Michelia alba flower oil better than a solvent absolute.",
+      "verified_on": "2026-10-27"
+    },
+    "White Sandalwood Oil (China)": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "White Sandalwood Oil"
+      ],
+      "note": "MySkinRecipes lot W9F536 (stock STK-172) prints CAS 8024-35-9 (Australian sandalwood oil), but its RI and SG ranges fit no sandalwood or amyris ISO standard, so it may be a compound. Species unknown, so the three Annex I sandalwood oil rows are candidates and the highest level per substance is counted (farnesol 11 %, alpha-bisabolol 0.6 %, cedrene 0.2 %). Synthetic sandalwood chemicals or benzyl benzoate in a compound would not be counted.",
+      "verified_on": "2026-10-27"
+    },
+    "Davana Essential Oil": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "Artemisia pallens oil, CAS 8016-03-3 (pink pepper thread's incoming bottle). No IFRA standard of its own in the 51st Amendment index. Benzaldehyde (0.2 %, Annex I 'Davana oil') is counted through ifra_annex1_constituents.json; the Thujone annex has no davana row.",
+      "verified_on": "2026-10-27"
     }
   },
   "group_rules": [

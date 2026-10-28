@@ -372,6 +372,41 @@
   notes:
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+- canonical_name: Olibanum Oil
+  aliases:
+  - olibanum oil
+  - Olibanum (Frankincense) Oil
+  cas: '89957-98-2'
+  smiles: null
+  inchikey: null
+  mw_g_mol: null
+  density_25c_g_ml: null
+  logp: null
+  functional_groups: []
+  chirality: null
+  vp_25c_pa: null
+  vp_source: null  # natural: no single VP; the engine uses the constituent profile when one exists
+  antoine: null
+  dhvap_kj_mol: null
+  kaw_eff: null
+  hsp: null
+  odt_air_ppb: null
+  odt_eth_ppm: null
+  stevens_n: null
+  or_targets: []
+  trp_targets: null
+  hedonic_valence: null
+  ifra_max_pct_edp: null
+  user_stock_dilution: null
+  user_in_inventory: true  # Kenny 27 Oct 2026: MySkinRecipes order in his mail (overlay STK-173)
+  supplier:
+  families: []
+  character: 'Ambery/vanillic, spicy, peppery, lemony, and terpenic'
+  notes: 'MySkinRecipes lot 3S74J8 (order 2200410, STK-173): COA CAS 89957-98-2 (the EINECS number for Boswellia carterii extractives), ''Clear to yellowish'' liquid, no measured values; MSDS ''BOSWELLIA CARTERII GUM OIL 100%''. The US/FEMA CAS is 8016-36-2. No producer density with a stated grade was found, so none is loaded. Chemotype unknown and commercial frankincense oils are often adulterated; the engine uses the Woolley 2012 Somali B. carterii average profile.'
+  provenance:
+    cas: 'MySkinRecipes COA lot 3S74J8 prints 89957-98-2. Robertet, Olibanum oil 99020112, Boswellia carterii gum, Somalia, steam distillation (https://matieres-premieres.robertet.com/olibanum-oil): CAS and TSCA 8016-36-2, EINECS 232-474-1, FEMA 2816. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    character: 'Robertet, Olibanum oil 99020112 (https://matieres-premieres.robertet.com/olibanum-oil): ''Olfactive description Ambery/vanillic, spicy, peppery, lemony, and terpenic'' (grade A_producer; producer text, quoted; flash point 43 C on the same page). Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
+    user_in_inventory: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Olibanum Resinoid
   aliases:
   - Olibanum Resinoid (Viscous)

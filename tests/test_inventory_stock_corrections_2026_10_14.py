@@ -194,6 +194,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         ),
         # 25 Oct 08:16 UTC: the card "Mark these 15 PerfumersWorld fruit bottles neat, as supplied?" (STK-149 to STK-163).
         "All neat",
+        # 27 Oct 11:02 UTC: MySkinRecipes orders 2200410 and 2200413 from his mail (STK-170 to STK-181).
+        "Stock data from msr emails and find all of the properties.",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -226,6 +228,9 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         *(f"INV-USER-20261007-PW-{n:03d}" for n in (40, 42, 28, 29, 43, 24, 46, 39, 45, 14, 13, 11, 32, 48, 35)),
         # 2026-10-25: Vetiveryl Acetate used up (STK-169).
         "INV-USER-20260924-R5-002",
+        # 2026-10-27: the MySkinRecipes Hedione HC (STK-178) and Carbinol Muguet (STK-180) bottles.
+        "INV-USER-20260924-R5-016",
+        "INV-USER-20260908-AHSEE-001",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -234,7 +239,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 170)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 182)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

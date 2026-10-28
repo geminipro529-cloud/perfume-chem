@@ -159,7 +159,7 @@ def test_every_stock_binds_to_one_pipettable_capability_of_the_solver_index():
 @pytest.mark.parametrize("stock", [
     specs.StockRef("Methyl Ionone Gamma Coeur", 1.0),  # depleted
     specs.StockRef("Javanol Super", 1.0),  # not owned
-    specs.StockRef("Hedione HC", 1.0),  # owned, not design-ready
+    specs.StockRef("Ethyl Linalool", 1.0),  # owned, not design-ready (lineage held)
     specs.StockRef("Hedione", .1),  # owned name, wrong strength
 ])
 def test_a_stock_that_is_not_one_owned_design_ready_bottle_is_rejected(stock):
