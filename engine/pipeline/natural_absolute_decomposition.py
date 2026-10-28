@@ -1078,18 +1078,6 @@ _ORRIS_CONCRETE_8PCT_IRONE_CONSTITUENTS = [
 # Same conventions as the block above: labelled literature or supplier proxies,
 # reused runtime tuples, unresolved constituents kept, nothing renormalized.
 
-# Michelia alba DC. (Magnolia x alba) flower, Zhu et al. (1993) Aromatic Plants
-# and Essential Constituents p.14, as tabulated by scent.vn ("Michelia alba
-# flower absolute (China)"; listed sum 92.03%). The page calls the sample an
-# absolute, but a 76% linalool profile matches the published distilled-oil
-# pattern (linalool-dominant), so the sample type is doubtful. The owner's
-# Magnolia EO is Michelia alba flower oil (owner-confirmed; Shopee shop "True
-# Industry"); no supplier composition exists. Phenylethyl alcohol uses its cited
-# data-spine VP (11.57 Pa, PubChem HSDB / Daubert & Danner 1989, which the
-# runtime would substitute anyway) and the ODT_DATA literature air ODT (26 ppb,
-# engine/odor_thresholds.py). Citral (0.10%) uses the module's 3.0 Pa / 0.5 ppb
-# citral row. Eleven minor constituents (6.17%) have no runtime input and stay
-# unresolved.
 # Magnolia officinalis flower bud essential oil, Liu, Wang, Cheng, Wang, Wu, Guo, Miao and Hu
 # (2025), J Oleo Sci 74(10):915-927, doi:10.5650/jos.ess25113, Table 3 column S1 (GC-MS peak-area
 # %; buds dried at 60 C and hydrodistilled by Chinese Pharmacopoeia Method A). Used for
@@ -1108,6 +1096,18 @@ _MAGNOLIA_OFFICINALIS_FLOS_LIU_2025_S1_CONSTITUENTS = [
     ("alpha terpineol", 0.0043, 154.25, 2.0, 10.0, 1.5),
 ]
 
+# Michelia alba DC. (Magnolia x alba) flower, Zhu et al. (1993) Aromatic Plants
+# and Essential Constituents p.14, as tabulated by scent.vn ("Michelia alba
+# flower absolute (China)"; listed sum 92.03%). The page calls the sample an
+# absolute, but a 76% linalool profile matches the published distilled-oil
+# pattern (linalool-dominant), so the sample type is doubtful. The owner's
+# Magnolia EO is Michelia alba flower oil (owner-confirmed; Shopee shop "True
+# Industry"); no supplier composition exists. Phenylethyl alcohol uses its cited
+# data-spine VP (11.57 Pa, PubChem HSDB / Daubert & Danner 1989, which the
+# runtime would substitute anyway) and the ODT_DATA literature air ODT (26 ppb,
+# engine/odor_thresholds.py). Citral (0.10%) uses the module's 3.0 Pa / 0.5 ppb
+# citral row. Eleven minor constituents (6.17%) have no runtime input and stay
+# unresolved.
 _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS = [
     ("linalool", 0.7629, 154.25, 21.3, 1.5, 2.0),
     ("phenylethyl alcohol", 0.0638, 122.16, 11.57, 26.0, 0.7),
@@ -1796,8 +1796,8 @@ _PROFILE_ALIASES = {
     # Owner stock "Magnolia EO (neat / as supplied)": Michelia alba flower oil
     # (owner-confirmed species; Shopee shop "True Industry").
     "magnolia eo": "michelia alba flower oil zhu 1993 literature profile",
-    # MySkinRecipes Magnolia Absolute, lot ZDHY6L (STK-170): closest identity Michelia x alba
-    # flower absolute (Kenny, 28 Oct 2026). Not the MSR Magnolia Flower Extract (PG, 7871).
+    # MySkinRecipes Magnolia Absolute, lot ZDHY6L (STK-170): its INCI, Magnolia officinalis
+    # flower (Kenny, 28 Oct 2026). Not the MSR Magnolia Flower Extract (PG, 7871).
     "magnolia absolute": "magnolia officinalis flos essential oil liu 2025 stage s1 profile",
     # Owner stock "Champaca Flower EO"; PerfumersWorld 7NJ07740 is assumed.
     "champaca flower eo": "champaca flower oil perfumersworld 7nj07740 ifra declaration profile",
