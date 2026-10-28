@@ -304,6 +304,23 @@ _ORANGE_PEEL_EO_CONSTITUENTS = [
     ("octanal", 0.003, 128.21, 300.0, 0.50, 2.5),
 ]
 
+# Sweet orange expressed oil (Citrus sinensis), Kenny's STK-112: limonene from his COA (95.28 %),
+# the other 10 rows at ISO 3140:2019 Table 2 midpoints scaled x0.8725 so the volatiles total 100 %.
+# A specification profile, not a lot GC. Valencene (0.18 %) and beta-sinensal have no runtime input.
+_SWEET_ORANGE_ISO3140_CONSTITUENTS = [
+    ("limonene", 0.9528, 136.24, 200.0, 38.0, 3.0),  # COA 95.28 %; Nagata 0.038 ppm
+    ("myrcene", 0.0218, 136.24, 279.0, 38.0, 3.0),  # VP CRC; no air ODT, limonene analogue
+    ("alpha pinene", 0.0052, 136.24, 633.0, 18.0, 3.0),  # Nagata 0.018 ppm
+    ("sabinene", 0.0052, 136.24, 400.0, 33.0, 3.0),  # VP estimate; beta-pinene analogue ODT
+    ("linalool", 0.0037, 154.25, 21.3, 0.51, 2.0),  # Elsharif 2015 3.2 ng/L
+    ("decanal", 0.0035, 156.27, 12.3, 0.4, 2.5),  # Nagata 0.00040 ppm
+    ("octanal", 0.0031, 128.21, 157.3, 0.17, 2.5),  # Cometto-Muniz 2010; Nagata 0.010 conflicts
+    ("geranial", 0.0011, 152.23, 14.1, 4.337, 1.5),
+    ("beta pinene", 0.0007, 136.24, 390.0, 33.0, 3.0),  # Nagata 0.033 ppm
+    ("neral", 0.0006, 152.23, 14.1, 4.337, 1.5),
+    ("nonanal", 0.0005, 142.24, 49.3, 0.34, 2.5),  # Nagata 0.00034 ppm
+]
+
 _LEMON_FCF_EO_CONSTITUENTS = [
     ("limonene", 0.5139, 136.24, 200.0, 20.0, 3.0),
     ("beta pinene", 0.1704, 136.24, 250.0, 30.0, 3.0),
@@ -1543,6 +1560,7 @@ _ABSOLUTE_CONSTITUENTS = {
     "petitgrain eo paraguay": _PETITGRAIN_EO_CONSTITUENTS,
     "lime distilled eo": _LIME_DISTILLED_EO_CONSTITUENTS,
     "orange peel eo": _ORANGE_PEEL_EO_CONSTITUENTS,
+    "citrus sinensis sweet orange iso 3140 2019 midpoint profile": _SWEET_ORANGE_ISO3140_CONSTITUENTS,
     "lemon fcf oil sicilian": _LEMON_FCF_EO_CONSTITUENTS,
     "neroli eo": _NEROLI_EO_CONSTITUENTS,
     "ginger eo": _GINGER_EO_CONSTITUENTS,
@@ -1732,13 +1750,14 @@ _PROFILE_ALIASES = {
     "coriander essential oil": "coriander essential oil",
     "coriander seed eo": "coriander essential oil",
     "bergamot eo": "citrus bergamia calabrian type iso 3520 midpoint profile",
+    # Kenny's sweet orange (STK-112, COA limonene 95.28 %): its own ISO 3140 profile since 28 Oct 2026.
+    "sweet orange essential oil": "citrus sinensis sweet orange iso 3140 2019 midpoint profile",
     "blood orange sicilian": "orange peel eo",
     # MySkinRecipes order 2199302 stocks (Kenny chose "Link them", 16 Oct 2026): labelled
     # proxies onto the existing whole-oil profiles, not lot data. Bourbon geranium uses the
-    # geranium EO profile, the sweet orange the orange peel EO profile, and Texas cedar
+    # geranium EO profile and Texas cedar
     # (Juniperus mexicana, thujopsene/cedrene/cedrol like Virginia) the cedarwood EO profile.
     "geranium bourbon essential oil": "geranium eo",
-    "sweet orange essential oil": "orange peel eo",
     "cedarwood texas eo": "cedarwood eo",
     # PerfumersWorld Patchouli Light (decolorized patchouli, 7WB13670): same molecules as patchouli oil.
     "patchouli light essential oil": "patchouli eo",
@@ -2130,6 +2149,11 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://webbook.nist.gov/cgi/cbook.cgi?ID=2216-51-5",
     ),
     "orange peel eo": ("https://pubmed.ncbi.nlm.nih.gov/12862384/",),
+    "citrus sinensis sweet orange iso 3140 2019 midpoint profile": (
+        "https://cdn.standards.iteh.ai/samples/74546/29e56c6708e14f9996fc5bda21efc05b/ISO-3140-2019.pdf",
+        "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf",
+        "https://thegoodscentscompany.com/data/es1030852.html",
+    ),
     "lemon fcf oil sicilian": ("https://pubmed.ncbi.nlm.nih.gov/28231199/",),
     "neroli eo": ("https://pubmed.ncbi.nlm.nih.gov/24163946/",),
     "ginger eo": ("https://pubmed.ncbi.nlm.nih.gov/21366054/",),
@@ -2623,6 +2647,42 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Irones use the module's alpha-irone-equivalent pool input; the cis/trans and alpha/gamma isomer split of the owned material is not modeled.",
             "Myristic acid is the 60-85% reference-range midpoint and is treated as a non-volatile mass row; the remaining aromatic fraction beyond irones is uncomputed, not odorless.",
             "Concrete/butter is non-equivalent to orris absolute and to the PerfumersWorld Orris Liquid 8IQ24653.",
+        ),
+    },
+    "citrus sinensis sweet orange iso 3140 2019 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://cdn.standards.iteh.ai/samples/74546/29e56c6708e14f9996fc5bda21efc05b/ISO-3140-2019.pdf",
+                "document": "ISO 3140:2019 Essential oil of sweet orange expressed [Citrus sinensis (L.)]",
+                "table": "Table 2, Chromatographic profile",
+                "published_botanical_name": "Citrus sinensis (L.)",
+                "published_type": "Expressed whole oil",
+                "standard_range_pct": {
+                    "alpha pinene": (0.4, 0.8), "beta pinene": (0.02, 0.15), "sabinene": (0.2, 1.0),
+                    "myrcene": (1.5, 3.5), "limonene": (93.0, 96.0), "octanal": (0.1, 0.6),
+                    "nonanal": (0.01, 0.1), "decanal": (0.1, 0.7), "linalool": (0.15, 0.7),
+                    "neral": (0.03, 0.1), "valencene": (0.01, 0.4), "geranial": (0.05, 0.2),
+                    "beta-sinensal": (0.01, 0.06),
+                },
+                "owned_lot_limonene_pct": 95.28,
+                "fraction_rule": "COA_LIMONENE_PLUS_STANDARD_MIDPOINTS_SCALED_0_8725",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "COA_LIMONENE_ONLY",
+                "owned_stock_label": "Sweet Orange Essential Oil (STK-112, label 'China, Sour')",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ('limonene', 'myrcene', 'alpha pinene', 'sabinene', 'linalool', 'decanal', 'octanal', 'geranial', 'beta pinene', 'neral', 'nonanal')},
+        },
+        "unresolved_constituents": (
+            {"name": "valencene", "reported_fraction": 0.0018, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "Only limonene comes from Kenny's COA; the ten minor rows are ISO 3140 range midpoints scaled to fill the volatiles, not an analysis of his lot.",
+            "The 23 ppb whole-oil threshold assumes additive odour units; octanal carries a third of it and its two measured air values differ 17x (0.17 and 0.010 ppb), so the threshold may be as low as 3.6 ppb.",
+            "99.8% is modeled; valencene (0.18%) and beta-sinensal have no runtime input and are uncomputed, not odorless. Nothing is renormalized.",
         ),
     },
     "citrus bergamia calabrian type iso 3520 midpoint profile": {

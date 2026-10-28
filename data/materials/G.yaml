@@ -931,11 +931,11 @@
 - canonical_name: Geosmin
   aliases:
   - geosmin
-  cas: '19700-21-1'
+  cas: '23333-91-7'
   smiles: null
   inchikey: null
   mw_g_mol: 182.3
-  density_25c_g_ml: 1.0205
+  density_25c_g_ml: 0.98
   logp: 3.5
   functional_groups: []
   chirality: null
@@ -976,8 +976,8 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    cas: 'TGSC: CAS Number: 19700-21-1 (https://www.thegoodscentscompany.com/data/rw1454691.html)'
-    density_25c_g_ml: '23 Oct 2026 second missing-data pass: supplier spec range midpoint; raw 1.018 to 1.023; https://www.thegoodscentscompany.com/data/rw1019861.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    cas: 'Trade (stereo-unspecified) geosmin, EINECS 245-590-2, FEMA 4682: TGSC (https://thegoodscentscompany.com/data/rw1019861.html) ''CAS Number: 23333-91-7''; Organica SDS (https://perfumersupplyhouse.com/wp-content/uploads/2015/01/GEOSMIN-SDS-1.pdf) ''Geosmin C13H20O 23333-91-7 245-590-2 4682''; PerfumersWorld uses the same number. 19700-21-1 is the natural (-) enantiomer and 16423-19-1 the racemate (Sigma). Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
+    density_25c_g_ml: 'Organica Aromatics SDS (https://perfumersupplyhouse.com/wp-content/uploads/2015/01/GEOSMIN-SDS-1.pdf): ''Relative Density (20ºC) : 0.970 – 0.990 at 25C'', neat; midpoint 0.98. Replaces 1.0205, a DPG-solution value (TGSC 1.018-1.023). Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
     vp_25c_pa: '23 Oct 2026 third data pass: TGSC EPI Suite page for geosmin 19700-21-1: "Subcooled liquid VP: 0.000907 mm Hg (25 deg C, Mod-Grain method)" = "0.121 Pa" (estimate; liquid-state value, EPI''s 0.076 Pa assumes its estimated melting point of 47 C; TGSC data page prints 0.001 mmHg = 0.133 Pa), http://www.thegoodscentscompany.com/episys/ep1454691.html; replaces the placeholder 0.1 Pa'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
     logp: '23 Oct 2026 third data pass: TGSC same page: "logP (o/w): 3.497 (est)" (estimate; PubChem XLogP3 3.3 agrees); fills an empty field'

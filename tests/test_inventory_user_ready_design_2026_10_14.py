@@ -1,6 +1,6 @@
 """The stocks Kenny marked ready on 24 Sep 2026 are design-ready (14 Oct 2026).
 
-Labdanum, Olibanum and Opoponax Resinoid have a
+Labdanum and Olibanum Resinoid (Opoponax until 28 Oct) have a
 confirmed strength, basis and carrier and wait only on bottle lot and
 preparation receipts. Kenny chose to let the composer design with them. Mixing
 still waits on those receipts: the release gate keeps flagging each one.
@@ -16,7 +16,8 @@ RECEIPTS_HOLD = "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING"
 USER_READY = {
     "Labdanum Resinoid": 0.1,
     "Olibanum Resinoid": 0.5,
-    "Opoponax Resinoid": 0.5,
+    # Opoponax Resinoid left on 2026-10-28: Kenny made the 50% in DEP himself from PW
+    # 2QC00337 (v26 STK-207), which clears its receipts hold under RULE 6.
     # Tonka Bean Absolute left on 2026-10-15: it is PerfumersWorld's own 10% in DPG,
     # so it has no preparation to receipt and is ready to mix.
 }

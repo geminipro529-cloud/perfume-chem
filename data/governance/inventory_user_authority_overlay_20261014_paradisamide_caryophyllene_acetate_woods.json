@@ -482,6 +482,21 @@
         "message_timestamp_utc": "2026-10-28T10:49:45Z",
         "text": "Ginger root, check on msr",
         "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Strip test of his Ginger Lily Oil: it reads as ginger root, so the engine models it as Hedychium spicatum rhizome oil (closest identity). The supplier stays PerfumersWorld 7NS25173 (his order email PW-261009-075613a0b); the stock row is unchanged."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T11:06:48Z",
+        "text": "Neat liquid",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'is your Methyl Diantilis (PW, 1 g) neat as supplied, and still a clear liquid?'. Clears the intake hold of INV-USER-20261007-PW-033 as STK-206."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T11:08:30Z",
+        "text": "I diluted it myself, from PW",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'your Opoponax Resinoid 50% in DEP, did you dilute it yourself, and whose resinoid was it?'. Clears the receipt hold of INV-USER-20260924-R5-010 as STK-207 (PW 2QC00337, 50% w/w in DEP)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T11:09:57Z",
+        "text": "Already made",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'is your Costus Olifac 10% PW's ready-made 10% in DPG, or your own dilution of the neat?'. STK-029 gains supplier PerfumersWorld 5UW11312; strength and carrier unchanged."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -616,7 +631,9 @@
     "INV-USER-20261007-PW-038",
     "INV-USER-20261007-PW-017",
     "INV-USER-20260915-STOCK-003",
-    "INV-USER-20261007-PW-047"
+    "INV-USER-20261007-PW-047",
+    "INV-USER-20261007-PW-033",
+    "INV-USER-20260924-R5-010"
   ],
   "records": [
     {
@@ -1853,7 +1870,12 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "Asked 'Costus Olifac: neat or 1% in DPG? (PerfumersWorld sells it at 1%)', Kenny answered '10%' (item 8 of his 15 Oct 15:33 reply), as the V5 row 84 '10% working dilution' had it. The V5 row gave no basis or solvent, so the gate could not dose it. The carrier is inventory.txt L318 'Costus Olifac (10% in DPG)' and the project default; the basis is the project default (w/w)."
+      "note": "Asked 'Costus Olifac: neat or 1% in DPG? (PerfumersWorld sells it at 1%)', Kenny answered '10%' (item 8 of his 15 Oct 15:33 reply), as the V5 row 84 '10% working dilution' had it. The V5 row gave no basis or solvent, so the gate could not dose it. The carrier is inventory.txt L318 'Costus Olifac (10% in DPG)' and the project default; the basis is the project default (w/w). 28 Oct 2026: asked whether the bottle is PW's ready-made 10% in DPG (5UW11312) or his own dilution of the neat PW 4UW09665, Kenny: 'Already made' (11:09:57 UTC), so it is PW's ready-made 10% in DPG.",
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Costus Olifac 10% in DPG",
+        "sku": "5UW11312"
+      }
     },
     {
       "record_id": "INV-USER-20261014-STK-030",
@@ -10286,6 +10308,113 @@
         "stock_intake_hold_cleared_by_user_message": true
       },
       "note": "Asked in the 'Fix gaps in unused materials' thread whether his Maltol (PW 1VE00283, 1 g) is still the neat powder as bought, with no dilution made. Kenny: 'Yes' (28 Oct 2026 10:49:17 UTC). PW's SDS gives CAS 118-71-8 at '>= 90.0 - <= 100.0' and 'White fine powder (yellowing on age)'; mp 159-162 C. Dose it by weight or as a solution he has made, never as neat microlitres; no dilution is recorded until he says one is made. Clears the intake hold of INV-USER-20261007-PW-047 (superseded)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-206",
+      "canonical_name": "Methyl Diantilis",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-033_INTAKE_HOLD_CLEARED_BY_USER_FORM_ANSWER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Methyl Diantilis",
+        "sku": "4SP16859"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 33,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Neat liquid",
+      "source_message_timestamp_utc": "2026-10-28T11:06:48Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "quantity_is_received_not_remaining": true,
+        "physical_form_from_user_message": true,
+        "stock_intake_hold_cleared_by_user_message": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread whether his Methyl Diantilis (PW 4SP16859, 1 g) is neat as supplied and still a clear liquid. Kenny: 'Neat liquid' (28 Oct 2026 11:06:48 UTC). Givaudan's SDS gives 'Physical state : liquid' and 'Melting point : 6 °C'. Clears the intake hold of INV-USER-20261007-PW-033 (superseded)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-207",
+      "canonical_name": "Opoponax Resinoid",
+      "aliases": [
+        "Opoponax Resinoid 50% in DEP"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dep",
+        "fraction_authority": "USER_PREPARATION_ANSWER_WITH_STANDING_W_W_RULE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260924-R5-010_RECEIPT_HOLD_CLEARED_BY_USER_PREPARATION_ANSWER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Opoponax Resinoid",
+        "sku": "2QC00337",
+        "orders": [
+          "260614-1211247e8",
+          "PW-260826-150850434"
+        ]
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 189,
+          "fraction": 0.5
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 189,
+          "disposition": "OWNED",
+          "status": "HAVE - 50% W/W IN DEP; MADE BY KENNY FROM PW 2QC00337",
+          "actual_stock_text": "Opoponax Resinoid 50% w/w in DEP, Kenny's own dilution of PerfumersWorld 2QC00337",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I diluted it myself, from PW",
+      "source_message_timestamp_utc": "2026-10-28T11:08:30Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_from_user_message": true,
+        "fraction_basis_from_standing_rule": true,
+        "preparation_record_asserted": false
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread whether he diluted his Opoponax Resinoid 50% in DEP himself and whose resinoid it was (PW sells no DEP version). Kenny: 'I diluted it myself, from PW' (28 Oct 2026 11:08:30 UTC). His PW orders show the neat Opoponax Resinoid 2QC00337 (260614-1211247e8, 1 g, 14 Jun 2026; PW-260826-150850434, 2 g, 26 Aug 2026). Basis w/w, his standing rule for dilutions. Under AGENTS.md RULE 6 the confirmed strength, basis and carrier replace the missing receipts, so this clears BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING on INV-USER-20260924-R5-010 (superseded). IFRA Standard 070 (0.43% Cat 4) counts the resinoid, half the stock."
     }
   ]
 }

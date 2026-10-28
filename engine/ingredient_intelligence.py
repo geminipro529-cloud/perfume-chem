@@ -2276,7 +2276,7 @@ _PROFILES: dict[str, dict] = {
         "role": "character",
         "texture": "cushion",
         "mw": 222.37,
-        "vp": 0.001,
+        "vp": 0.5,  # 2026-10-28 labelled class estimate (C15 sesquiterpenoids), was 0.001
         "clogp": 3.5,
         "synergies": ["Olibanum Resinoid", "Labdanum Absolute"],
     },

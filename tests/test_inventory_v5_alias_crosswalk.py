@@ -161,12 +161,12 @@ def test_old_opoponax_alias_does_not_infer_a_new_prepared_stock() -> None:
     assert old.status == "FAIL"
     assert old.data["issues"][0]["identity_crosswalk_contract_id"] == "IDCL-015"
     assert old.data["issues"][0]["reason"] == "not_in_inventory"
+    # 2026-10-28: the current stock is mixable since Kenny said he made it from PW 2QC00337
+    # (v26 STK-207); the old alias still infers nothing.
     current = _dilution_consistency_check(
         _formula("Opoponax Resinoid", 0.5, "dep", "mass_fraction")
     )
-    assert current.status == "FAIL"
-    assert current.data["issues"][0]["reason"] == "inventory_stock_non_executable"
-    assert "BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING" in current.data["issues"][0]["execution_holds"]
+    assert current.status == "PASS"
 
 
 def test_neat_and_one_percent_2_acetyl_pyrazine_bind_separately() -> None:

@@ -234,6 +234,11 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Dissolve crystals",
         "Yes",
         "Ginger root, check on msr",
+        # 28 Oct 11:06-11:09 UTC: Methyl Diantilis neat (STK-206); Opoponax 50% DEP made by him
+        # from PW 2QC00337 (STK-207); Costus Olifac 10% is PW's ready-made 5UW11312 (STK-029 note).
+        "Neat liquid",
+        "I diluted it myself, from PW",
+        "Already made",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -284,6 +289,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         # hold as a weighed solid (STK-205).
         "INV-USER-20260915-STOCK-003",
         "INV-USER-20261007-PW-047",
+        # 2026-10-28: Methyl Diantilis leaves its intake hold (STK-206); Opoponax its receipt hold
+        # (STK-207).
+        "INV-USER-20261007-PW-033",
+        "INV-USER-20260924-R5-010",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -292,7 +301,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 206)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 208)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

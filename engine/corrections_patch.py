@@ -160,7 +160,6 @@ ODT_PATCH = {
     "tobacco ftec":     1.0,      # BLEND_EST: tobacco reconstruction
     "tobacco fleuressence":1.0,   # BLEND_EST: same
     "jasmin abs f-tec": 1.0,      # BLEND_EST: indole + jasmine actives
-    "costus olifac":    5.0,      # BLEND_EST: costus reconstruction; costunolide ~20ppb
 }
 
 def apply_corrections(profiles_dict, odt_dict):

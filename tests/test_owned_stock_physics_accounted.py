@@ -42,7 +42,6 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Fructone B": (("odt",), _NO_AIR_ODT),
     "Gamma Octalactone": (("odt",), _NO_AIR_ODT + "; a 6.5 ug/L water threshold exists and is not usable"),
     "Glycolierral": (("odt",), _NO_AIR_ODT),
-    "Liffarome": (("odt",), _NO_AIR_ODT),
     "Linalool Oxide": (("odt",), _NO_AIR_ODT + " for any isomer"),
     "Rhubofix": (("odt",), _NO_AIR_ODT),
     "Veloutone": (("odt",), _NO_AIR_ODT),
@@ -67,7 +66,9 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Palm Dates Base": (_ALL, "PerfumersWorld compound base, not a pure chemical; no composition published"),
     # Proprietary bases: a mixture with no CAS has no single MW, VP or log P.
     "Black Tea Base": (_ALL, "PerfumersWorld blend, not a pure chemical; no composition published"),
-    "Costus Olifac": (("logp", "mw", "vp"), "IFF proprietary base with no CAS; the old MW and VP were placeholders"),
+    # 2026-10-28: its unsourced 5.0 ppb threshold was retired; it is a partly declared base
+    # (data/regulatory/partly_declared_bases.json), so the gate warns on the undeclared part.
+    "Costus Olifac": (("logp", "mw", "odt", "vp"), "IFF proprietary base with no CAS; IFF declares 69% (mostly TEC), not the costus odorants"),
     "Tuberose Base": (_ALL, "maker and composition of this base are not recorded"),
     # Caryophyllene Acetate, Dimethyl Benzyl Carbinol, Para-Acetanisole and Hindinol left
     # this list on 2026-10-28: labelled UNVERIFIED analogue air ODTs (Kenny's card choice).

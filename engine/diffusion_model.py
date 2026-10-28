@@ -152,7 +152,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     "Vetiver EO (India)": {"MW": 222.4, "VP_25": 0.04, "Kaw_eff": 0.0002},
     "Cedarwood EO": {"MW": 204.4, "VP_25": 0.25, "Kaw_eff": 0.001},
     "Labdanum Absolute": {"MW": 234.4, "VP_25": 0.03, "Kaw_eff": 0.0002},
-    "Myrrh EO": {"MW": 222.4, "VP_25": 0.04, "Kaw_eff": 0.0002},
+    "Myrrh EO": {"MW": 222.4, "VP_25": 0.5, "Kaw_eff": 0.0002},  # 2026-10-28 class estimate, was 0.04
     "Olibanum Resinoid": {"MW": 222.4, "VP_25": 0.08, "Kaw_eff": 0.0004},
     "Benzoin Resinoid": {"MW": 212.2, "VP_25": 0.02, "Kaw_eff": 0.0001},
     "Birch Tar Rectified": {"MW": 124.1, "VP_25": 13.3, "Kaw_eff": 0.003},

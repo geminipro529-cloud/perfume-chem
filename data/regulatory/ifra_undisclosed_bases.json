@@ -6,7 +6,7 @@
   "bases": [
     {"name": "Suederal", "reason": "Supplier suede/leather base; composition not published."},
     {"name": "Castoreum Synthetic", "reason": "PerfumersWorld proprietary non-animal castoreum compound; composition not published."},
-    {"name": "Costus Olifac", "reason": "Supplier costus reconstitution base; composition not published."},
+    {"name": "Costus Olifac", "reason": "IFF costus reconstitution base. IFF's 2020 FPIS declares 69.25% (triethyl citrate 65.935%, guaiacwood oil 3.158%, traces) but not the costus odorants; its restricted traces (styrax 0.011%, isoeugenol 0.004%, furfural 0.002%) are not counted, and would cap the neat base at 27.5% (isoeugenol), far above any use. Physics: data/regulatory/partly_declared_bases.json."},
     {"name": "Lilyreal ND", "reason": "Supplied product of opaque composition (inventory note); composition not published."},
     {"name": "Cabbage Rose Extract", "reason": "MySkinRecipes cosmetic rose extract in propylene glycol (Kenny's 1% in DPG); composition and IFRA document not published."},
     {"name": "Iris Florentina Root Extract", "reason": "MySkinRecipes cosmetic orris root 'smell extract' (Kenny's 5% in DPG); composition and IFRA document not published."},

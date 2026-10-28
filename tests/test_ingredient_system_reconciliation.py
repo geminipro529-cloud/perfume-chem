@@ -182,8 +182,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # and ethyl linalyl acetate 14.42 (Givaudan PROC). Group 2 alone gave d57c0a18….
     # Group 4 adds 2-acetyl pyrazine 0.3 -> 0.40, allyl ionone 1.0 -> 0.035, cade 3.0 -> 0.05
     # (UNVERIFIED analogues; maltol 1.0 relabelled) and methyl laitone 0.0303 (Givaudan SDS).
-    # Groups 1-3 alone gave 9b2c3880….
-    assert digest == "5531c14a6eb4e35c417902a086984f1809adc872b5ebde750d061d117799b554"
+    # Groups 1-3 alone gave 9b2c3880…. Group 5 adds sweet orange essential oil 23 (UNVERIFIED
+    # constituent estimate) and retires the unsourced costus olifac 5.0; groups 1-4 gave 5531c14a….
+    assert digest == "bdcd5e59eb263750b3a7cd0a8208cb3ef60ef963800ce413646b02d52ba7ae59"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

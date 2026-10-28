@@ -48,7 +48,8 @@ def test_v17_overlay_remains_pinned_to_its_historical_receipt_and_inventory() ->
         # Tonka Bean Absolute left this list on 2026-10-15: it is PerfumersWorld's own
         # 10% in DPG, so it has no preparation to receipt.
         ("Olibanum Resinoid", 0.5, "dpg"),
-        ("Opoponax Resinoid", 0.5, "dep"),
+        # Opoponax Resinoid left this list on 2026-10-28: Kenny made the 50% himself from PW
+        # 2QC00337 ("I diluted it myself, from PW"; v26 STK-207), so RULE 6 clears the receipts.
     ],
 )
 def test_percentage_stocks_are_mass_fraction_without_false_lineage_readiness(

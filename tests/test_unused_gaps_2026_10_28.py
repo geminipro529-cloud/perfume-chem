@@ -1,4 +1,4 @@
-"""Groups 1-4 of the least-used report (28 Oct 2026): sourced fixes, labelled threshold estimates and
+"""Groups 1-5 of the least-used report (28 Oct 2026): sourced fixes, labelled threshold estimates and
 Kenny's bottle answers from the "Fix gaps in unused materials" thread. Every source was re-opened
 before loading. These pin the data and its sources; they make no sensory claim."""
 
@@ -249,7 +249,7 @@ def test_partly_declared_bases_load_with_their_undeclared_part():
     from engine.ifra_standards import load_partly_declared_bases, partly_declared_base
 
     names = {b.name for b in load_partly_declared_bases()}
-    assert names == {"Black Tea Base", "Palm Dates Base", "Sandalwood Base X3"}
+    assert names == {"Black Tea Base", "Palm Dates Base", "Sandalwood Base X3", "Costus Olifac"}
     assert partly_declared_base(["Sandalwood Base 3X"]).sku == "6WX24054"
     assert partly_declared_base(["Black Tea Base (neat / as supplied)"]).allergens_pct["Linalool"] == 0.2189
     assert partly_declared_base(["Suederal"]) is None
@@ -498,3 +498,74 @@ def test_ginger_lily_is_modeled_as_ginger_root_oil():
     assert any("Ginger root, check on msr" in line for line in meta.limitations)
     spine = load_registry().get("Ginger Lily Oil")
     assert spine.cas is None and "Proprietary Perfume Compound" in spine.notes and "boilerplate" in spine.notes
+
+
+# ── Group 5 (28 Oct 2026, bottle answers 11:06-11:09 UTC) ────────────────────────────────
+
+
+def test_methyl_diantilis_leaves_its_intake_hold_as_a_neat_liquid(records, stocks):
+    record = records["INV-USER-20261014-STK-206"]
+    assert (record["source_quote"], record["source_message_timestamp_utc"]) == ("Neat liquid", "2026-10-28T11:06:48Z")
+    stock = _one(stocks, "Methyl Diantilis")
+    assert (stock.dilution, stock.fraction_basis, stock.execution_ready) == (1.0, "neat", True)
+    spine = load_registry().get("Methyl Diantilis")
+    assert spine.density_25c_g_ml == pytest.approx(1.109)
+    assert spine.odt_air_ppb == pytest.approx(0.2287)
+
+
+def test_opoponax_is_his_own_fifty_percent_dep_from_pw(records, stocks):
+    record = records["INV-USER-20261014-STK-207"]
+    assert record["source_quote"] == "I diluted it myself, from PW"
+    assert record["supplier_product"]["sku"] == "2QC00337"
+    stock = _one(stocks, "Opoponax Resinoid")
+    assert (stock.dilution, stock.fraction_basis, stock.carrier, stock.execution_ready) == (
+        0.5, "mass_fraction", "dep", True)
+    head = inventory.load_current_user_inventory_overlay(inventory.CURRENT_USER_INVENTORY_OVERLAY_PATH)
+    assert "INV-USER-20260924-R5-010" in head["superseded_record_ids"]
+
+
+def test_costus_olifac_is_pw_ready_made_and_a_partly_declared_base(records):
+    from engine.ifra_standards import partly_declared_base
+
+    record = records["INV-USER-20261014-STK-029"]
+    assert record["supplier_product"]["sku"] == "5UW11312" and "'Already made'" in record["note"]
+    base = partly_declared_base(["Costus Olifac 10%"])
+    assert base.undeclared_pct == (30.75, 30.75)
+    assert lookup_odt_raw_name("Costus Olifac") is None
+
+
+def test_liffarome_shares_the_leafovert_air_threshold():
+    assert lookup_odt_raw_name("Liffarome") == "leafovert"
+    assert ODT_DATA["leafovert"]["odt_air"] == pytest.approx(7.744)
+    assert load_registry().get("Liffarome").odt_air_ppb == pytest.approx(7.744)
+
+
+def test_sweet_orange_has_its_own_iso_3140_profile():
+    from engine.pipeline.natural_absolute_decomposition import get_composite_metadata, get_constituents
+
+    rows = {row[0]: row[1] for row in get_constituents("Sweet Orange Essential Oil")}
+    assert rows["limonene"] == pytest.approx(0.9528)
+    assert sum(rows.values()) == pytest.approx(0.9982)
+    meta = get_composite_metadata("Sweet Orange Essential Oil")
+    assert any("ISO-3140-2019" in source for source in meta.sources)
+    assert meta.input_authority["composition"]["owned_lot_limonene_pct"] == 95.28
+    key = lookup_odt_raw_name("Sweet Orange Essential Oil")
+    assert ODT_DATA[key]["odt_air"] == pytest.approx(23.0)
+    assert ODT_VERIFICATION[key]["vfy"] == "UNVERIFIED"
+    spine = load_registry().get("Sweet Orange Essential Oil")
+    assert (spine.vp_25c_pa, spine.vp_source) == (pytest.approx(203), "constituent_raoult_estimate")
+
+
+def test_geosmin_uses_the_trade_cas_and_neat_density():
+    spine = load_registry().get("Geosmin")
+    assert spine.cas == "23333-91-7"
+    assert spine.density_25c_g_ml == pytest.approx(0.98)
+
+
+def test_myrrh_eo_vp_is_one_labelled_estimate_everywhere():
+    from engine.diffusion_model import DIFFUSION_DATA
+    from engine.ingredient_intelligence import _PROFILES
+
+    assert load_registry().get("Myrrh EO").vp_25c_pa == pytest.approx(0.5)
+    assert _PROFILES["Myrrh EO"]["vp"] == pytest.approx(0.5)
+    assert DIFFUSION_DATA["Myrrh EO"]["VP_25"] == pytest.approx(0.5)

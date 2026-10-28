@@ -385,7 +385,7 @@ ODT_DATA: dict[str, dict] = {
     "leafovert": {
         "odt_air": 8.0,
         "odt_eth": 0.05,
-        "char": "cut grass, galbanum, sharp",
+        "char": "green, fruity, leafy-green, violet, pear",
     },
     "triplal": {"odt_air": 0.5, "odt_eth": 0.001, "char": "cyclamen, ozonic, metallic"},
     "allyl amyl glycolate": {
@@ -3237,6 +3237,9 @@ _ODT_QUERY_ALIASES = {
     "orris butter 50%": "orris concrete orris butter",
     # Data spine row "Beta Pinene" (CAS 127-91-3): the beta-pinene row.
     "beta pinene": "beta-pinene",
+    # IFF Liffarome and Symrise Leafovert are one molecule, (Z)-hex-3-en-1-yl methyl carbonate,
+    # CAS 67633-96-9 (RIFM synonyms list both): Liffarome shares the Leafovert air threshold.
+    "liffarome": "leafovert",
 }
 
 
@@ -5933,6 +5936,26 @@ ODT_VERIFICATION[_key] = {
     "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 4); source re-opened before loading.",
     **({"superseded": dict(ODT_VERIFICATION[_key])} if ODT_VERIFICATION.get(_key) else {}),
 }
+# Group 5 (28 Oct 2026). Inputs: /mnt/project-files/unused-gaps-20261028/group5/ (g5_*/VALUES.md).
+ODT_DATA["sweet orange essential oil"] = {"odt_air": 23.0, "odt_eth": None}
+ODT_VERIFICATION["sweet orange essential oil"] = {
+    "vfy": "UNVERIFIED",
+    "sources": [
+        "Constituent estimate, not a measurement: 1/ODT = sum of y_i/ODT_i over the Raoult headspace of "
+        "the sweet orange profile (COA limonene 95.28 % plus ISO 3140:2019 Table 2 midpoints, "
+        "engine/pipeline/natural_absolute_decomposition.py). Measured air thresholds: limonene 38 ppb "
+        "(Nagata 2003, Table 2 '0.038' ppm), alpha-pinene 18 ppb (Nagata), octanal 0.17 ppb "
+        "(Cometto-Muniz 2010), decanal 0.40 ppb (Nagata), linalool 0.51 ppb (Elsharif 2015).",
+        "Limonene carries 57 % and octanal 35 % of the odour units; range 3.6-24 ppb (octanal at "
+        "Nagata's 0.010 ppb gives 3.6). Replaces the borrowed Orange Peel EO row.",
+    ],
+    "note": "Constituent estimate 2026-10-28 (stock thread, unused-materials group 5); sources re-opened before loading.",
+}
+# Costus Olifac is a partly declared IFF base (data/regulatory/partly_declared_bases.json): its
+# 0.05 and 5.0 ppb rows had no source, so they are retired and the gate warns on the undeclared part.
+ODT_DATA.pop("costus olifac", None)
+ODT_VERIFICATION.pop("costus olifac", None)
+_refresh_normalized_odt_index()
 ANALOGUE_ODT_BATCH_2026_10_28 = True
 
 
