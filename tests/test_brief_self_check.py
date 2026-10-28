@@ -23,6 +23,7 @@ from engine.formulation_intelligence.material_capability_index import (
     build_material_capability_index,
 )
 from engine.formulation_intelligence.semantic_brief_adapter import SemanticRole
+from tests.reheld_overlay import use_overlay_without
 
 
 def _facets(result: dict) -> dict[str, str]:
@@ -67,10 +68,12 @@ def test_a_brief_whose_leads_carry_their_notes_keeps_its_first_solve() -> None:
     assert "identity_requirements" not in attempt
 
 
-def test_an_uncovered_note_names_the_owned_stocks_waiting_for_details() -> None:
-    # Lavandin: only the owned Lavandin Absolute carries it, and it waits for details.
+def test_an_uncovered_note_names_the_owned_stocks_waiting_for_details(monkeypatch, tmp_path) -> None:
+    # Lavandin: only the owned Lavandin Absolute carries it, re-held here as it was at intake
+    # (PW-051) before Kenny's 28 Oct 2026 "Clear on order evidence" card (v26 STK-218).
     # (Frangipani was the example until Benzyl Salicylate's reviewed description named it;
     # Opoponax until Kenny let the composer design with Opoponax Resinoid, 14 Oct 2026.)
+    use_overlay_without(monkeypatch, tmp_path, {"INV-USER-20261014-STK-218": "INV-USER-20261007-PW-051"})
     result = design_formula(idea="Lavandin on skin with a soft vanilla trail")
 
     check = _self_check(result)

@@ -421,8 +421,11 @@ def test_family_materials_get_roles_of_their_own() -> None:
     # Castoreum is a shadow nuance: an accent, not a layer.
     assert roles["family_castoreum_accent"]["provenance"] == "ACCENT_LAYER", roles["family_castoreum_accent"]
     # The leather family's peach word places a stock only when one is named for it:
-    # none was until Kenny's MySkinRecipes Peach Ketone arrived (20 Oct 2026).
-    assert "family_peach_layer" in roles and rows.get("family_peach_layer") == "Peach Ketone", rows
+    # none was until Kenny's MySkinRecipes Peach Ketone arrived (20 Oct 2026). Since its
+    # ECHA vapour pressure and threshold were loaded (28 Oct 2026) the solver may place it in
+    # the top-to-heart link instead, which leaves the family layer with no second peach stock.
+    assert "family_peach_layer" in roles, sorted(roles)
+    assert "Peach Ketone" in {rows.get("family_peach_layer"), rows.get("top_to_heart_link")}, rows
 
 
 def test_a_register_the_brief_names_keeps_its_own_notes_first() -> None:
