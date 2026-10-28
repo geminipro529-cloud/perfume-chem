@@ -140,10 +140,12 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # Sandalwood EO and Tuberlia Base OAV-available (258 -> 262).
     # 2026-10-28: a labelled UNVERIFIED analogue air threshold (Kenny's card choice) made
     # Cedryl Acetate OAV-available (262 -> 263). Group 2 the same day did the same for
-    # Caryophyllene Acetate (263 -> 264).
-    assert audit["oav_available_count"] == 264
-    assert audit["oav_unknown_count"] == 26
-    assert audit["oav_coverage_pct"] == 91.034
+    # Caryophyllene Acetate (263 -> 264). Group 3 made Acetoin and Ethyl Linalyl Acetate
+    # OAV-available (264 -> 266). Group 4 gave Methyl Laitone Givaudan's SDS air threshold
+    # (266 -> 267).
+    assert audit["oav_available_count"] == 267
+    assert audit["oav_unknown_count"] == 23
+    assert audit["oav_coverage_pct"] == 92.069
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"

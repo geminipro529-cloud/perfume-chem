@@ -58,7 +58,7 @@ def test_current_overlay_is_pinned_to_live_inventory_and_receipts() -> None:
     payload = inventory.load_current_user_inventory_overlay()
     # 2026-10-14: the stock-corrections record (v26, fifteen records) is the head.
     assert payload["schema_version"].endswith("_v26")
-    assert len(payload["delta_records"]) == 196
+    assert len(payload["delta_records"]) == 205
     assert payload["predecessor"]["normalized_text_sha256"] == (
         inventory.NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256
     )
@@ -88,8 +88,9 @@ def test_current_user_stock_forms_supersede_the_older_supplier_only_holds() -> N
     assert liffarome.user_stock_dilution == "10% w/w in DEP"
     assert "stock-solution density" in (liffarome.notes or "")
     assert methyl_laitone is not None
-    assert methyl_laitone.user_stock_dilution == "20% v/v in ethanol"
-    assert "separate current stock" in (methyl_laitone.notes or "")
+    # 2026-10-28: made by dissolving the neat crystals ("Dissolve crystals"), so w/w.
+    assert methyl_laitone.user_stock_dilution == "20% w/w in ethanol"
+    assert "Dissolve crystals" in (methyl_laitone.notes or "")
 
 
 def test_exact_coriander_supplier_product_and_haitian_registry_identity_exist() -> None:

@@ -152,17 +152,17 @@
   smiles: null
   inchikey: null
   mw_g_mol: 200.0
-  density_25c_g_ml: 0.96
+  density_25c_g_ml: 0.95
   logp: 3.5
   functional_groups: [phenol, ether, alkene]
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 5.4
+  vp_source: constituent_raoult_estimate
   antoine: null
   dhvap_kj_mol: 65.0
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 3.0
+  odt_air_ppb: 0.05
   odt_eth_ppm: 0.5
   stevens_n: 0.45
   or_targets: []
@@ -183,8 +183,11 @@
         price_usd_per_g: 0.2
   families: [leather, smoky, phenolic, woody]
   character: 'Cade Essential Oil is a powerful, smoky, birch tar-like oil. It is a little less sharp than Birch Tar Oil but they share a very similar scent profile. Odour=> Like Birch Tar Oil, Cade Oil Rectified is resinous and smokey, but has a finer smoke smell and less of the petrol aroma than Birch Tar.'
-  notes: Rectified juniper wood tar (Juniperus oxycedrus). Destructive distillation then vacuum rectification to remove PAHs. IFRA Standard 119 — crude oil prohibited.
+  notes: 'Rectified juniper wood tar (Juniperus oxycedrus). Destructive distillation then vacuum rectification to remove PAHs. IFRA Standard 119 — crude oil prohibited. Kenny made his 1% w/w in DPG himself from PW 7TW00076 neat (''Fix gaps in unused materials'' thread, 28 Oct 2026: ''dilute''), so the 7TW00076 IFRA certificate (51st Amendment) applies: 0.83 % of the neat oil in Category 4. ifra_max_pct_edp stays at the lower 0.1 (unsourced) until the p-cresol check: if the oil holds 1-10 % p-cresol (Madar SDS), IFRA Standard 260 (0.005 % in Category 4) would cap it at 0.05-0.5 %. He still has the neat oil (''Yes'', 28 Oct 2026 10:44:15 UTC; stock STK-201). VP 5.4 Pa and threshold 0.05 ppb are labelled estimates from a constituent model, valid as a pair. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: vapour-weighted guaiacol, p-cresol and phenol thresholds (Nagata 2003; engine guaiacol row), 0.05 ppb of total cade vapour, range 0.05-0.34; valid only with the 5.4 Pa VP; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 4). Not a measurement. Loaded 2026-10-28 (unused-materials group 4 fixes; source re-opened).'
+    vp_25c_pa: 'ESTIMATE (grade C, UNVERIFIED): Raoult''s law over a constituent model of rectified cade (guaiacol 7.1, creosol + 4-ethylguaiacol 5.9, phenol, p- and o-cresol 2, sesquiterpenes; total phenols 17 %, Bellakhdar), constituent VPs at 25 C; range 0.5 Pa (phenols gone, late dry-down) to 7.4 Pa (26 % phenols). /mnt/project-files/unused-gaps-20261028/group3/g3_05_c9_cade/VALUES.md section 2.2. Replaces 0.01, a placeholder. Loaded now that Kenny owns the neat oil (''Yes'', 28 Oct 2026 10:44:15 UTC). Loaded 2026-10-28 (unused-materials group 4 fixes; source re-opened).'
+    density_25c_g_ml: 'PerfumersWorld 7TW00076 (https://www.perfumersworld.com/view.php?pro_id=7TW00076): SG 0.9500 (neat oil; lots vary, Madar 1.030 at 20 C). Kenny''s 1% in DPG is almost all DPG. Replaces 0.96, unsourced. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     character: 'Cade Oil Rectified | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=7TW00076: Cade Essential Oil is a powerful, smoky, birch tar-like oil. It is a little less sharp than Birch Tar Oil but they share a very similar scent profile ... Odour=> Like Birch Tar Oil, Cade Oil Rectified is resinous and smokey, but has a finer smoke smell and less of the petrol aroma than Birch Tar. (grade A_producer; supplier description (PerfumersWorld 7TW00076; registry match, not a receipt)). Replaces unsourced text ''dry ashy smoke, juniper-woody, campfire, leathery undertone''. Second reader: CAS No. 8013-10-3 on page; describes the neat oil, Kenny''s stock is 1% in DPG. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     integrated: 2026-07-05 manual
@@ -566,7 +569,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 1.4
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -582,13 +585,14 @@
   odour_family: 'herbal'
   notes: MySkinRecipes order 2199458 'Para-anisyl Propanal (Canthoxal)', neat as supplied; CAS and purity not asserted.
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: Helional 0.14 ppb (Cometto-Muniz & Abraham 2010) x 8.57 and Cyclamen aldehyde 0.3237 ppb (Givaudan SDS) x 5.14, ratios from one human panel (Larsson 2010); geometric mean 1.41; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 3). Not a measurement. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     odour_family: 'odour family "herbal" from ''Herbal'': Canthoxal | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/canthoxal/: family label shown with icon: "Herbal" (grade A_producer; producer/primary text, quoted). Second reader: Family label ''Herbal'' shown with the icon; CAS 5462-06-6 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Canthoxal | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/canthoxal/: Olfactive Description: "Licorice, basil, fennel, anise notes with a slight fruity, watery modification." (grade A_producer; producer/primary text, quoted). Second reader: WebFetch got client_error twice; read with Parallel web_fetch. CAS field was empty in the fetched excerpt. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1023691.html; ECHA EC 226-749-5'
     density_25c_g_ml: 'ECHA 1.065 g/cm3 at 20 C (20 C value); TGSC range was 1.038-1.046. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.3 Pa at 24 C; EPI estimate was 1.33 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026) Kept on 2026-10-25 over RIFM''s FMA figure (0.006 mm Hg at 20 C, one significant figure, method not stated, 4x higher): a measured ECHA key study outranks it.'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
-    logp: '22 Oct 2026 missing-data pass: stated; raw 2.5; https://www.perflavory.com/docs/doc1023691.html'
+    logp: 'RIFM fragrance ingredient safety assessment, CAS 5462-06-6 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5462-06-6.pdf): ''Log KOW: 1.74 (RIFM, 2007), 2.5 at 25 C (RIFM, 1996), 2.53 (EPI Suite)''. 2.5 kept (measured at 25 C); the 2007 measurement gives 1.74. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     smiles: 'PubChem structure resolved from CAS 5462-06-6 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Caramel Furanone 0.003%
   aliases: []
@@ -2982,7 +2986,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 3.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2998,9 +3002,11 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Spicy sweet balsamic cinnamon, mild-balsamic floral-fruity: lilac, hyacinth, rose, honey (PerfumersWorld).'
   notes: null
   provenance:
+    character: 'PerfumersWorld 3SQ00109 (https://www.perfumersworld.com/view.php?pro_id=3SQ00109): ''Cinnamyl Acetate is spicy sweet balsamic cinnamon mild-balsamic floral-fruity lilac hyacinth rose honey ...''. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
+    odt_air_ppb: 'UNVERIFIED analogue estimate: 2-phenylethyl acetate 2.0 ppb (measured) and cinnamyl alcohol 3.0 ppb with a PW Relative Odor Impact fit 4.8 ppb; geometric mean 3.07; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 3). Not a measurement. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'RIFM fragrance ingredient safety assessment, cinnamyl acetate, CAS Registry Number 103-54-8 (Api et al., Food Chem Toxicol 159 (2022) 112692) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-54-8.pdf): ''CAS Registry Number: 103-54-8''; Chemical Name Cinnamyl acetate. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, cinnamyl acetate, CAS Registry Number 103-54-8 (Api et al., Food Chem Toxicol 159 (2022) 112692) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-54-8.pdf): ''Molecular Weight: 176.21'' (C11H12O2). Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
@@ -6525,7 +6531,7 @@
   smiles:
   inchikey:
   mw_g_mol: 135.0
-  density_25c_g_ml: 1.05
+  density_25c_g_ml: 1.051
   logp: 2.0
   functional_groups:
   - aldehyde
@@ -6537,7 +6543,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.008
   hsp:
-  odt_air_ppb: 1.5
+  odt_air_ppb: 78.0
   odt_eth_ppm: 0.2
   stevens_n:
   or_targets: []
@@ -6553,13 +6559,13 @@
   - spice / aromatic
   - natural
   character: "Warm sweet-spicy cinnamaldehyde-dominant EO. Rich cinnamon aroma. Powerful skin sensitizer."
-  notes: "Steam-distilled Cinnamomum cassia bark India. ~80% cinnamaldehyde. Spicy oriental use. IFRA restricted — highly dilute for skin."
+  notes: 'Steam-distilled Cinnamomum cassia bark India. ~80% cinnamaldehyde. Spicy oriental use. IFRA restricted — highly dilute for skin. Composition for the constituent model: PhytoChemia GC report for Plant Therapy lot CA0101 (https://funyu-store.b-cdn.net/report/Cinnamon-Cassia-CA0101.pdf): cinnamaldehyde 79.05, o-methoxycinnamaldehyde 8.77, cinnamyl acetate 3.30, coumarin 2.04, benzaldehyde 0.89 %. Which part Kenny''s oil is from (bark or leaf) and its seller are not recorded. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
   provenance:
     mw_g_mol: manual:2026-06-15 cinnamaldehyde-dominated mixture
-    density_25c_g_ml: manual:2026-06-15 typical cassia oil density
+    density_25c_g_ml: 'TGSC cassia oil (https://www.thegoodscentscompany.com/data/es1068412.html): ''Specific Gravity: 1.04500 to 1.06300 @ 25.00 C''; midpoint 1.054 x 0.99705 = 1.051 g/mL. Replaces 1.05 (manual). Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     logp: manual:2026-06-15 cinnamaldehyde-dominated approximation
     vp_25c_pa: manual:2026-06-15 cinnamaldehyde-dominated mixture VP
-    odt_air_ppb: manual:2026-06-15 estimated from cinnamaldehyde ODT
+    odt_air_ppb: 'UNVERIFIED headspace estimate from the oil''s composition (Plant Therapy lot CA0101): 1 / (0.605/62 + 0.374/140.5) = 78 ppb; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 3). Replaces 1.5, a cinnamaldehyde value measured in water. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     odt_eth_ppm: manual:2026-06-15 estimated from cinnamaldehyde ODT
     hedonic_valence: manual:2026-06-15 polarizing character
     ifra_max_pct_edp: IFRA STD_018 cinnamal 0.25 % / Annex I Cassia oil 80 % cinnamal = 0.3125 % (2026-10-15)

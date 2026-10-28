@@ -209,21 +209,19 @@ def test_tincture_above_its_starting_charge_fails_and_at_or_below_holds():
     assert _stock_gate(no_fraction).status == "FAIL"
 
 
-def test_live_storax_tincture_above_its_charge_fails_and_at_or_below_it_holds():
-    # Turkish Storax Tincture is held with a 20% starting charge.
+def test_live_storax_tincture_passes_only_at_its_charge():
+    # Since 28 Oct 2026 Kenny doses Turkish Storax at its 20% starting charge ("Storax yes
+    # continue to 4"), so it is a ready stock: its own strength passes and any other fails.
+    # The held-tincture rule is covered with synthetic stocks above.
     def gate(fraction: float):
         check = resolve_inventory_stock_contract(
             {"ingredients_ul": {"Turkish Storax Tincture": 100.0}, "dilutions": {"Turkish Storax Tincture": fraction}}
         )
         return _gate_preflight_contract({"checks": [check.as_dict()]}, "inventory_stock_contract")
 
+    assert gate(0.2).status == "PASS"
     assert gate(0.4).status == "FAIL"
-    held = gate(0.2)
-    assert held.status == "HOLD"
-    assert "measure the final dissolved fraction" in held.detail
-    # Below the charge the unmeasured final strength could still match, so the
-    # live contract must carry the charge through for the gate to hold it.
-    assert gate(0.1).status == "HOLD"
+    assert gate(0.1).status == "FAIL"
 
 
 def test_approximate_stock_used_at_another_strength_fails_and_at_its_nominal_strength_holds():

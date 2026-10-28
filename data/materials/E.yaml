@@ -403,7 +403,7 @@
   inchikey:
   mw_g_mol: 130.143
   density_25c_g_ml: 1.024
-  logp: 0.53
+  logp: 0.25
   functional_groups: []
   chirality:
   vp_25c_pa: 105.4
@@ -435,7 +435,7 @@
     odour_family: 'odour family "fruity" from ''Fruity'': Symrise product sheet: Ethyl Acetoacetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Acetoacetate.pdf: family word printed with the name: "fruity ethyl acetoacetate" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Symrise product sheet: Ethyl Acetoacetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Acetoacetate.pdf: "› Fruity, Apple, Green, Plum › recommended use level: up to 5 %" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCOC(=O)CC(C)=O (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
+    logp: 'OECD SIDS initial assessment, ethyl acetoacetate (2001) (https://hpvchemicals.oecd.org/UI/handler.axd?id=5c8bc789-b36c-48e4-a082-5d0b19d12d0c): ''a vapor pressure of 1 hPa and a log Kow of 0.25''. Measured; ICSC 1024 prints 0.27. Replaces 0.53 (RDKit). Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     logp_source: 'rdkit-crippen-estimate'
     smiles: 'PubChem structure resolved from CAS 141-97-9 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES CCOC(=O)CC(C)=O (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
@@ -778,7 +778,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 14.42
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -796,10 +796,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Softer, more floral, more bergamot and less lavender than Linalyl Acetate (Givaudan).'
   odour_family: 'citrus'
   notes: 'Density left null (2026-10-08). VP is the RIFM-quoted EPI Suite estimate, "Vapor Pressure: 0.0319 mm Hg (EPI Suite v4.11)" = 4.25 Pa at 133.322 Pa/mmHg; the quote states no temperature, but EPI Suite reports vapour pressure at 25 C. Other values: Givaudan 0.0487 hPa = 4.87 Pa (20 C per Perfumer''s Apprentice); TGSC rw1022781 0.026 mmHg at 25 C (est) = 3.47 Pa. The values agree within 1.4x. Givaudan log Pow "4,7" (garbled scrape); TGSC logP 4.416 (est). Density 0.898-0.901 g/mL at 20 C (Ventos), 20 C, not used. No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    character: 'Givaudan product page (https://www.givaudan.com/print/1314291): ''softer, more floral, more bergamot and less lavender than Linalyl Acetate. It has an elegant, refreshing effect in floral bouquets.'' Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
+    odt_air_ppb: 'PEER_EST: Givaudan US 2018/0185808 PROC 5526 and log Kcaps -1.1 give an odour value of 2,908; saturated vapour at this row''s VP 4.25 Pa / 2,908 = 14.42 ppb; engine/odor_thresholds.py (_SOURCED_ODT_2026_10_28). Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     odour_family: 'odour family "citrus" from ''Citrus'': Ethyl Linalyl Acetate | Givaudan (print page), https://www.givaudan.com/print/1314291: Olfactive Family Citrus | Olfactive Note Citrus Bergamot Fruity Pear Fresh (grade A_producer; producer/primary text, quoted). Second reader: CAS 61931-80-4 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'RIFM fragrance ingredient safety assessment, ethyl linalyl acetate, CAS 61931-80-4, Food Chem. Toxicol. 192 Suppl 1 (2024) 114873, doi:10.1016/j.fct.2024.114873; PerfumersWorld SDS 3LC19147 (local snapshot, batch ETH19147/26280) (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'

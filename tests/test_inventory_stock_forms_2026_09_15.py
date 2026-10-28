@@ -58,7 +58,8 @@ def _preflight(name: str, fraction: float, basis: str, carrier: str):
     [
         ("Romandolide", 1.0, "neat", ""),
         ("Liffarome", 0.1, "mass_fraction", "dep"),
-        ("Methyl Laitone", 0.2, "volume_fraction", "ethanol"),
+        # Methyl Laitone moved to the v26 record on 2026-10-28 (20% w/w from crystals, STK-202;
+        # tests/test_unused_gaps_2026_10_28.py).
         ("Castoreum Synthetic", 0.1, "mass_fraction", "dep"),
         ("Siam Benzoin", 0.5, "mass_fraction", "dpg"),
         ("Peru Balsam Resinoid", 0.5, "mass_fraction", "dep"),
@@ -112,36 +113,16 @@ def test_carrier_only_clarifications_take_kennys_ww_rule(
 
 
 # 2026-10-15: Kenny said benzoin 40% and frankincense 33% may be dosed at the
-# strengths they were built at; 2026-10-28 the same for myrrh ("ye"). Storax was not
-# asked and stays held.
-@pytest.mark.parametrize(
-    "name,fraction",
-    [
-        ("Turkish Storax Tincture", 0.2),
-    ],
-)
-def test_tincture_starting_charge_is_nominal_model_authority_only(
-    name: str,
-    fraction: float,
-) -> None:
-    stock = _stock(name, fraction)
-    assert stock.fraction_basis == "mass_fraction_starting_charge"
-    assert stock.carrier == "ethanol"
-    assert stock.approximate is True
-    assert stock.execution_ready is False
-    assert stock.execution_hold_reason == "FINAL_DISSOLVED_FRACTION_UNMEASURED"
-    assert stock.nominal_property_model_ready is True
-    assert stock.nominal_property_model_limit == (
-        "STARTING_CHARGE_FRACTION_IS_NOT_A_FINAL_FILTRATE_ASSAY"
-    )
-
-
+# strengths they were built at; 2026-10-28 the same for myrrh ("ye") and storax ("Storax
+# yes continue to 4"). No tincture is held for its final fraction now; the rule itself is
+# tested in tests/test_inventory_completions.py.
 @pytest.mark.parametrize(
     "name,fraction",
     [
         ("Vietnamese Benzoin Tincture", 0.4),
         ("Oman Frankincense Ethanol Tincture", 0.33),
         ("Kenyan Myrrh Ethanol Tincture", 0.2),
+        ("Turkish Storax Tincture", 0.2),
     ],
 )
 def test_user_authorized_tinctures_dose_at_their_built_strength(

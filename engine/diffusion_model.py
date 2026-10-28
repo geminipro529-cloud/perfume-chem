@@ -83,7 +83,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     "Lavender EO (BONTAUX SAS)": {"MW": 154.3, "VP_25": 22.0, "Kaw_eff": 0.013},
     "Dynascone": {"MW": 192.3, "VP_25": 4.5, "Kaw_eff": 0.005},
     "Leafovert": {"MW": 154.3, "VP_25": 15.0, "Kaw_eff": 0.010},
-    "Parmavert": {"MW": 154.3, "VP_25": 12.0, "Kaw_eff": 0.009},
+    "Parmavert": {"MW": 184.28, "VP_25": 6.7, "Kaw_eff": 0.009},  # Bedoukian MW; FMA VP scaled to 25 C (28 Oct 2026)
     # ── Heart notes: moderate MW, moderate VP ──
     "Hedione": {"MW": 226.3, "VP_25": 0.5, "Kaw_eff": 0.003},
     "DBCA": {"MW": 204.3, "VP_25": 0.8, "Kaw_eff": 0.003},
@@ -173,7 +173,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     "Ethyl Maltol": {"MW": 140.1, "VP_25": 0.02, "Kaw_eff": 0.0001},
     # Romandolide: RIFM measured value converted to 25 C, synced with data/materials/R.yaml
     "Romandolide": {"MW": 270.36, "VP_25": 0.0914, "Kaw_eff": 0.00005},
-    "Azarbre": {"MW": 234.4, "VP_25": 0.001, "Kaw_eff": 0.0002},
+    "Azarbre": {"MW": 180.29, "VP_25": 4.0, "Kaw_eff": 0.0002},  # Givaudan SDS, OECD 104 (28 Oct 2026)
     # Cedarwood oil Virginia: alias "cedarwood oil virginia" → "cedarwood virginia" in name_utils
     "Cedarwood oil Virginia": {"MW": 204.4, "VP_25": 0.15, "Kaw_eff": 0.001},
     # ── Added 2026-04-28: active formula materials missing from DIFFUSION_DATA ──

@@ -4013,6 +4013,19 @@
         "101-48-4"
       ]
     },
+    "Beta Pinene": {
+      "status": "specification",
+      "standard": "IFRA_STD_184",
+      "aliases": [
+        "Beta-Pinene",
+        "beta-Pinene",
+        "beta-pinene"
+      ],
+      "cas": [
+        "127-91-3"
+      ],
+      "note": "Pinaceae (turpentine) isolate: peroxide value below 10 mmol/L (STD_184: 'Essential oils (e.g. Turpentine oil) and isolates (e.g. delta-3-Carene) derived from the Pinacea family'), no Category 4 limit. Keep it cold, dark and with an antioxidant. Loaded 28 Oct 2026 (unused-materials group 3)."
+    },
     "Pine EO": {
       "status": "specification",
       "standard": "IFRA_STD_184",
@@ -4904,7 +4917,7 @@
       "note": "PerfumersWorld 7NS25173 'Ginger Lily Oil'. No IFRA standard names it or its CAS: all 11 IFRA Standards Library listing pages (263 standards, IFRA_STD_001 to IFRA_STD_267) were read on 2026-10-25 and re-read by a second reader. PerfumersWorld publishes no IFRA certificate for this SKU.",
       "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=7NS25173",
       "verified_on": "2026-10-25",
-      "identity_note": "PerfumersWorld gives no species, CAS, composition or IFRA certificate, so it may be a reconstitution; nothing in it is counted."
+      "identity_note": "PerfumersWorld gives no species, CAS, composition or IFRA certificate (its MSDS 'compound' wording is PW boilerplate). Kenny's strip test reads ginger root (28 Oct 2026), so it is modeled as Hedychium spicatum rhizome oil, the closest identity; that profile has no IFRA-restricted constituent (linalool is a specification only), so nothing in it is counted."
     },
     "Lavandin Absolute": {
       "status": "natural_no_own_standard",

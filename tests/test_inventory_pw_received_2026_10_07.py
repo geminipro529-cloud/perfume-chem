@@ -79,7 +79,10 @@ def test_received_kephalis_supersedes_absence_without_rewriting_history() -> Non
     # 2026-10-25: fifteen fruit bottles left their intake hold ("All neat", v26 STK-149 to STK-163).
     # 2026-10-28: Cedryl Acetate (receipt line 34) left its intake hold ("Liquid", v26 STK-190).
     # 2026-10-28: C-12 Lauric (receipt line 15) left its intake hold ("1 g", v26 STK-195).
-    assert len(admitted) == 14
+    # 2026-10-28: Acetoin (line 18), Ethyl Linalyl Acetate (line 38) and C-9 (line 17) left
+    # their intake holds ("liquid", "ye", "ye"; v26 STK-198 to STK-200).
+    # 2026-10-28: Maltol (line 47) left its intake hold ("Yes", v26 STK-205, weighed solid).
+    assert len(admitted) == 10
     assert all(stock.execution_ready is False for stock in admitted)
 
 

@@ -656,18 +656,18 @@
 - canonical_name: Vetikon
   aliases:
   - vetikon
-  - methyl cedryl ketone
   - Vetikon (7403-42-1)
+  - 4-methyl-4-phenylpentan-2-one
   cas: 7403-42-1
-  smiles: CC1(C)C2CCC1(C)C(C)(C)C2C(=O)C
+  smiles: CC(=O)CC(C)(C)c1ccccc1
   inchikey:
   mw_g_mol: 176.25
   density_25c_g_ml: 0.9722
   logp: 2.77
-  functional_groups: []
+  functional_groups: [ketone, aromatic]
   chirality:
-  vp_25c_pa: 4.16
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 3.72
+  vp_source: EPI
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.0012
@@ -685,11 +685,12 @@
   families:
   - woods / amber / structure
   character: 'Woody, Vetiver, Grapefruit, Gardenia; adds a fresh woody, vetiver-like accent'
-  notes: Vetikon (methyl cedryl ketone) — woody-vetiver volume material, diffusive, fills space between Iso E Super and Vertofix
+  notes: 'Symrise Vetikon is 4-methyl-4-phenylpentan-2-one (CAS 7403-42-1, C12H16O, MW 176.25): an aryl ketone, not methyl cedryl ketone (that is Vertofix). The alias ''methyl cedryl ketone'' and the cedrane SMILES were removed 2026-10-28. Woody-vetiver volume material, diffusive, fills space between Iso E Super and Vertofix. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened). Kenny''s bottle is from Simple Scents DIY and its label just says ''Vetikon'' (Kenny, 28 Oct 2026 10:45:10 UTC: ''It just says Vetikon, check on ssdiy''). Producer inferred as Symrise: Vetikon is Symrise''s trade name (product 131014, CAS 7403-42-1); the SSDIY product page could not be opened from the cloud.'
   provenance:
+    smiles: 'Symrise Vetikon datasheet (https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetikon.pdf): ''4-Methyl-4-phenylpentan-2-one''; SMILES written from that name. Replaces CC1(C)C2CCC1(C)C(C)(C)C2C(=O)C, a cedrane ketone. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     character: 'Vetikon (Symrise Perfumery Ingredients datasheet), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Vetikon.pdf: › Woody, Vetiver, Grapefruit, Gardenia ... › adds a fresh woody, vetiver-like accent (grade A_producer; ). Replaces unsourced text ''woody:7, freshness:3, green:2, powdery:2''. Second reader: CAS 7403-42-1 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     mw_g_mol: engine.ingredient_intelligence
-    vp_25c_pa: engine.ingredient_intelligence
+    vp_25c_pa: 'EPI Suite on TGSC (https://thegoodscentscompany.com/episys/ep1047261.html): ''VP (Pa, 25 deg C) : 3.72 (Modified Grain method)''. An estimate; no measured VP found. Replaces 4.16, unsourced. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     logp: 'RIFM fragrance ingredient safety assessment, 4-methyl-4-phenyl-2-pentanone, CAS Registry Number 7403-42-1, Food Chem Toxicol 183 (2024) 114388 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2023.114388): ''Log K OW : 2.84 (EPI Suite), 2.77 (RIFM, 2017c)''; printed ; RIFM 2017c study; grade A_measured. Second reader: The page calls 2.77 a measured value. No temperature printed. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_air_ppb: 'Symrise datasheet for its own product; number bound to ''threshold in air'' by layout. Replaces 5.0, which had no source. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds

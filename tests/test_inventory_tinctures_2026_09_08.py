@@ -8,22 +8,16 @@ import pytest
 import engine.inventory_parser as inventory
 
 
-# Benzoin and frankincense became dosable at their built strength on 2026-10-15 and
-# myrrh on 2026-10-28 (tests/test_inventory_stock_forms_2026_09_15.py); storax stays held.
-@pytest.mark.parametrize("name,fraction", [
-    ("Turkish Storax Tincture", 0.20),
-])
-def test_owned_tinctures_keep_nominal_model_and_unknown_final_strength(name, fraction):
-    stocks = [s for s in inventory.materialize_current_inventory().stocks if s.name == name]
-    assert len(stocks) == 1
-    stock = stocks[0]
-    assert stock.dilution == fraction
-    assert stock.fraction_basis == "mass_fraction_starting_charge"
-    assert stock.carrier == "ethanol"
-    assert not stock.execution_ready
-    assert stock.execution_hold_reason == "FINAL_DISSOLVED_FRACTION_UNMEASURED"
-    assert stock.approximate is True
-    assert stock.nominal_property_model_ready is True
+# Benzoin and frankincense became dosable at their built strength on 2026-10-15, myrrh and
+# storax on 2026-10-28 (tests/test_inventory_stock_forms_2026_09_15.py). The starting charge
+# stays recorded as approximate.
+def test_owned_tinctures_keep_their_approximate_starting_charge():
+    for name, fraction in (("Turkish Storax Tincture", 0.20), ("Kenyan Myrrh Ethanol Tincture", 0.20)):
+        stocks = [s for s in inventory.materialize_current_inventory().stocks if s.name == name]
+        assert len(stocks) == 1
+        stock = stocks[0]
+        assert (stock.dilution, stock.carrier, stock.approximate) == (fraction, "ethanol", True)
+        assert stock.execution_ready is True
 
 
 def test_high_altitude_lavender_is_removed_without_removing_other_lavenders():

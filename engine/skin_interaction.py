@@ -111,7 +111,7 @@ SKIN_PHYSCHEM: dict[str, dict[str, float]] = {
     "cis-3-Hexenol": {"logP": 1.6, "MW": 100.2, "substantivity": 0.10},
     "Dynascone": {"logP": 2.5, "MW": 166.3, "substantivity": 0.30},
     "Allyl Amyl Glycolate": {"logP": 1.0, "MW": 172.2, "substantivity": 0.15},
-    "Parmavert": {"logP": 2.5, "MW": 166.3, "substantivity": 0.30},
+    "Parmavert": {"logP": 3.6, "MW": 184.28, "substantivity": 0.30},  # RIFM measured logP; Bedoukian MW (28 Oct 2026)
     "Leafovert": {"logP": 2.0, "MW": 156.3, "substantivity": 0.20},
     # ── Citrus (volatile — low skin absorption) ──
     "D-Limonene": {"logP": 4.6, "MW": 136.2, "substantivity": 0.10},

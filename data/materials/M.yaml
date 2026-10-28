@@ -779,7 +779,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 1.0
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -809,7 +809,7 @@
   notes: 'ChemicalBook log P 2.3 at 25 C disagrees with the measured 0.09 and is not used. VP not set: EPI Modified Grain estimate 0.00571 Pa at 25 C vs ChemicalBook 0.15 Pa at 24 C (26x apart, neither measured at 25 C). No air ODT found (Leffingwell 35000 ppb has no stated medium). Source batch: material-data-firecrawl/allgaps/S1_aldehydes.md'
   provenance:
     odour_family: 'odour family "gourmand" from ''gourmand / caramellic (derived from the quoted description)'': Maltol | PubChem (JECFA specification), https://pubchem.ncbi.nlm.nih.gov/compound/Maltol: Caramel-butterscotch aroma (grade A_regulatory; derived from the quoted description (no producer family found)). Second reader: Family ''gourmand / caramellic'' supported by the quoted JECFA description. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'UNVERIFIED analogue estimate, value unchanged: ethyl maltol 0.0059 ppb (Park 2012) divided by its 4-6x potency over maltol (TGSC ethyl maltol page), scaled for Park''s 28-44x low reading against olfactometer values; range 0.3-1.3; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 4). Not a measurement. Loaded 2026-10-28 (unused-materials group 4 fixes; source re-opened).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -3032,21 +3032,22 @@
   mw_g_mol: 168.23
   cas: '94201-19-1'
   smiles: 'CC1CCC2(CC1)CCC(=O)O2'
-  vp_25c_pa: 2.4
+  vp_25c_pa: 0.6
   vp_source: supplier
   logp: 2.0
-  odt_air_ppb: null
+  odt_air_ppb: 0.0303
   odt_eth_ppm: null
-  user_stock_dilution: "20% v/v in ethanol"
+  user_stock_dilution: "20% w/w in ethanol"
   user_in_inventory: true
   families: [lactonic, floral]
   character: Creamy lactonic fruity modifier; white-flower body and sandalwood milkiness.
-  notes: 'The exact PerfumersWorld product is SKU 5VD10871, Methyl Laitone 10% DPG, active CAS 94201-19-1. The user''s separate current stock is user-confirmed 20% v/v in ethanol. logP, VP and density left null (2026-10-08). logP only TGSC "1.882 (est)"; Givaudan gives none. VP conflict: Givaudan "0.0240 hPa / 0.0060 hPa" (temperature and isomer not captured) vs TGSC "0.024000 mmHg @ 20.00 C." = 3.20 Pa (possible unit slip). Specific gravity 1.025 at 20 C (scent.vn), 20 C, not used. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Identity 2026-10-23: CAS 94201-19-1 (PubChem CID 175596); not 25265-71-8, which is the DPG diluent.'
+  notes: 'The exact PerfumersWorld product is SKU 5VD10871, Methyl Laitone 10% DPG, active CAS 94201-19-1. Kenny''s own stock is 20% in ethanol, made by dissolving the neat crystals (''Dissolve crystals'', 28 Oct 2026 10:47:40 UTC); neat Methyl Laitone is a white solid (Givaudan), so the 15 Sep ''v/v'' is read as w/w, his default (STK-202, approximate). logP, VP and density left null (2026-10-08). logP only TGSC "1.882 (est)"; Givaudan gives none. VP conflict: Givaudan "0.0240 hPa / 0.0060 hPa" (temperature and isomer not captured) vs TGSC "0.024000 mmHg @ 20.00 C." = 3.20 Pa (possible unit slip). Specific gravity 1.025 at 20 C (scent.vn), 20 C, not used. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Identity 2026-10-23: CAS 94201-19-1 (PubChem CID 175596); not 25265-71-8, which is the DPG diluent.'
   provenance:
+    odt_air_ppb: 'Givaudan SDS METHYL LAITONE 10%/DPG, Sales No. 6978468, v4.1 (2024) and v3.7 (2015) (https://perfumiarz.com/cdn/shop/files/6978468_METHYL_LAITONE_10DPG_SDS_EN.pdf): ''Odour Threshold : 0,2085 ng/l''; x 24.45 / 168.23 = 0.0303 ppb, read as the pure lactone; engine/odor_thresholds.py (_SOURCED_ODT_2026_10_28). Loaded 2026-10-28 (unused-materials group 4 fixes; source re-opened).'
     mw_g_mol: https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg
     supplier_product_comparison: https://www.perfumersworld.com/view.php?pro_id=5VD10871
-    user_stock_dilution: data/governance/inventory_user_authority_overlay_20260915_stock_forms_and_tincture_model.json
+    user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-202
     cas: 'https://www.givaudan.com/print/1314651 (Givaudan, producer); "94201-19-1, 91069-37-3/25265-71-8" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     logp: 'Update to RIFM fragrance ingredient safety assessment, 1-oxaspiro[4.5]decan-2-one, 8-methyl-, CAS Registry number 94201-19-1, Food Chem Toxicol (2024) 114990 (ScienceDirect page via DOI) (https://doi.org/10.1016/j.fct.2024.114990): ''Log K ow : 2.0 (RIFM, 2013b), 2.34 (EPI Suite v4.11)''; printed ; RIFM 2013b study; grade A_measured. Second reader: The page calls 2.0 a measured value. No temperature printed. CAS matches the stock record. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    vp_25c_pa: 'SUPPLIER, temperature unstated (2026-10-14): Givaudan 10% in DPG sheet "0.0240 hPa" = 2.4 Pa (the sheet also prints 0.0060 hPa, unexplained); TGSC 0.024 mmHg @20C = 3.2 Pa. Range 0.6-3.2 Pa. No measured value found. Source: material-data-gaps-2026-10-14/W3_vp_logp.md'
+    vp_25c_pa: 'Givaudan product pages: Methyl Laitone 10%/TEC (https://www.givaudan.com/print/1314656) prints only ''0.0060 hPa'' with the lactone CAS; 10%/DPG (https://www.givaudan.com/print/1314651) prints ''0.0240 hPa / 0.0060 hPa'' against ''94201-19-1, 91069-37-3/25265-71-8''. 0.0240 hPa is read as the DPG column (the SDS mixture VP ''0,0247 hPa at 20 C Calculated'' fits DPG 0.024 + lactone 0.006), so the lactone is 0.60 Pa. Temperature not printed (the SDS uses 20 C). Replaces 2.4 Pa, the DPG figure. Loaded 2026-10-28 (unused-materials group 4 fixes; source re-opened).'
     smiles: 'PubChem CID 175596 structure for CAS 94201-19-1 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'

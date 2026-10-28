@@ -217,6 +217,23 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "1 g",
         "Neat",
         "More than 2 grams",
+        # 28 Oct 10:15-10:21 UTC: the group 3 bottle answers (Storax STK-197, Acetoin STK-198,
+        # Ethyl Linalyl Acetate STK-199, C-9 STK-200; Azarbre and Cade go to the spine notes).
+        "Storax yes continue to 4",
+        "liquid",
+        "ye",
+        "ye",
+        "both but it i i cedar amber  mell",
+        "dilute",
+        # 28 Oct 10:44-10:49 UTC: neat Cade still owned (STK-201); Vetikon from Simple Scents DIY
+        # (spine note); Cassia supplier unknown (STK-203); Methyl Laitone 20% made from crystals
+        # (STK-202); Maltol still neat powder (STK-205); Ginger Lily reads as ginger root (profile).
+        "Yes",
+        "It just says Vetikon, check on ssdiy",
+        "I have no idea",
+        "Dissolve crystals",
+        "Yes",
+        "Ginger root, check on msr",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -257,6 +274,16 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260915-STOCK-015",
         # 2026-10-28: C-12 Lauric leaves its intake hold, 1 g left (STK-195).
         "INV-USER-20261007-PW-015",
+        # 2026-10-28: Turkish Storax tincture at its 20% starting charge (STK-197); Acetoin,
+        # Ethyl Linalyl Acetate and C-9 leave their intake holds (STK-198 to STK-200).
+        "INV-USER-20260915-STOCK-013",
+        "INV-USER-20261007-PW-018",
+        "INV-USER-20261007-PW-038",
+        "INV-USER-20261007-PW-017",
+        # 2026-10-28: Methyl Laitone 20% w/w from crystals (STK-202); Maltol leaves its intake
+        # hold as a weighed solid (STK-205).
+        "INV-USER-20260915-STOCK-003",
+        "INV-USER-20261007-PW-047",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -265,7 +292,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 197)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 206)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

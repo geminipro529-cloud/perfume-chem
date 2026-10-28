@@ -2,7 +2,8 @@
 
 Lemon Terpeneless Oil Sicilian gets a labelled partial profile (citral at the British
 Pharmacopoeia grade midpoint). Rum Ether takes its density from the owned lot's COA.
-Ginger Lily Oil gets the identity record the gate was missing, with its physics still held.
+Ginger Lily Oil gets the identity record the gate was missing; since 28 Oct 2026 it is modeled as
+Hedychium spicatum rhizome oil, the closest identity (Kenny's strip test: ginger root).
 Mate Absolute stays held, with what was checked written down. These pin the data and its
 sources; they make no sensory claim.
 """
@@ -75,19 +76,22 @@ def test_rum_ether_density_is_the_owned_lot_coa_midpoint_and_composition_stays_h
     assert gates._gate_data_coverage(state).status == "FAIL"
 
 
-def test_ginger_lily_has_an_identity_record_and_its_physics_stay_held():
+def test_ginger_lily_has_an_identity_record_and_a_closest_identity_profile():
     identity = resolve_material("Ginger Lily Oil")
     assert identity.registry_name == "Ginger Lily Oil"
     registry = identity.registry_material
     assert registry.supplier.perfumersworld_sku == "7NS25173"
     assert registry.cas is None and registry.mw_g_mol is None and registry.vp_25c_pa is None
-    assert "Proprietary Perfume Compound" in registry.notes
-    assert get_composite_metadata("Ginger Lily Oil") is None
+    assert "Proprietary Perfume Compound" in registry.notes and "boilerplate" in registry.notes
+    # 2026-10-28: Kenny's strip test reads ginger root ("Ginger root, check on msr"), so the
+    # whole-oil physics come from H. spicatum rhizome oil constituents (Gangwar 2024).
+    metadata = get_composite_metadata("Ginger Lily Oil")
+    assert metadata.profile_key == "hedychium spicatum rhizome oil gangwar 2024 shade-dried profile"
     state = build_formula_state({"Ginger Lily Oil": 1000.0})
     assert gates._gate_material_coverage(state).status == "PASS"
-    assert gates._gate_data_coverage(state).status == "FAIL"
-    # Since the 25 Oct IFRA batch the stock has a row that counts nothing in it (PerfumersWorld
-    # gives no species, CAS, composition or certificate), so the gate warns instead of holding.
+    assert gates._gate_data_coverage(state).status == "PASS"
+    # No IFRA standard names it and the proxy profile has no restricted constituent, so the
+    # gate warns that nothing in it is counted.
     mixed = build_formula_state({"Ginger Lily Oil": 80.0, "Hedione": 920.0})
     result = gates._gate_safety(mixed, gates.ReleaseGateConfig())
     assert result.status == "WARN"

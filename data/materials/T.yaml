@@ -4189,12 +4189,12 @@
   logp: 2.0
   vp_25c_pa: 1.0
   vp_source: "est/literature"
-  odt_air_ppb: 20.0
+  odt_air_ppb: 35.0
   odt_eth_ppm: 0.05
   user_stock_dilution: 0.2
   user_in_inventory: true
   character: 'balsamic-cinnamic resin tincture (Liquidambar orientalis)'
-  notes: "Current tincture is a 20% w/w starting-charge preparation. User authorizes 20% as a nominal property-model fraction after complete extraction and funnel draining; final dissolved-solids fraction remains unassayed."
+  notes: 'Current tincture is a 20% w/w starting-charge preparation. User authorizes 20% as a nominal property-model fraction after complete extraction and funnel draining; final dissolved-solids fraction remains unassayed. Kenny confirmed dosing at the 20% starting charge (''Fix gaps in unused materials'' thread, 28 Oct 2026: ''Storax yes''; overlay STK-197). odt_air_ppb 35.0 is an UNVERIFIED analogue estimate: styrene 35 ppb (Nagata 2003), about 99 % of the odorant vapour above the tincture; range 20-35; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 3). It replaces 20 ppb labelled multi-source literature, which no cited source gives. The constituent model now carries styrene 0.5 % (Hafizoglu 1982). Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
 - canonical_name: 'Tuberose EO (volume level grade)'
   aliases: ['tuberose eo']
   cas: None

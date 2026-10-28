@@ -162,9 +162,16 @@ _ROSE_EO_CONSTITUENTS = [
 ]
 
 _CASSIA_EO_CONSTITUENTS = [
-    ("cinnamaldehyde", 0.80, 132.16, 3.0, 0.5, 2.0),
-    ("coumarin", 0.02, 146.14, 0.05, 2.0, 0.5),
-    ("linalool", 0.02, 154.25, 21.3, 1.5, 2.0),
+    # PhytoChemia GC report for Plant Therapy cassia lot CA0101 (26 Feb 2016;
+    # https://funyu-store.b-cdn.net/report/Cinnamon-Cassia-CA0101.pdf): cinnamaldehyde
+    # 79.05, o-methoxycinnamaldehyde 8.77, cinnamyl acetate 3.30, coumarin 2.04,
+    # benzaldehyde 0.89 %. One lot, not Kenny's; o-methoxycinnamaldehyde and cinnamyl
+    # acetate are left out (no air-ODT input here). VPs and air ODTs are the engine's
+    # rows (cinnamaldehyde 3.85 Pa HSDB / 62 ppb; coumarin 0.0876 Pa EPI / 0.7 ppb;
+    # benzaldehyde 169 Pa / 140.5 ppb). The 2 % linalool of the old profile had no source.
+    ("cinnamaldehyde", 0.7905, 132.16, 3.85, 62.0, 2.0),
+    ("coumarin", 0.0204, 146.14, 0.0876, 0.7, 0.5),
+    ("benzaldehyde", 0.0089, 106.12, 169.0, 140.5, 1.5),
 ]
 
 _YLANG_YLANG_CONSTITUENTS = [
@@ -706,6 +713,11 @@ _TURKISH_STORAX_TINCTURE_GENERIC_CONSTITUENTS = [
     ("cinnamyl alcohol", 0.1117, 134.18, 0.03, 3.0, 0.8),
     ("beta caryophyllene", 0.0247, 204.35, 1.0, 10.0, 1.2),
     ("cinnamaldehyde", 0.0202, 132.16, 3.0, 62.0, 2.0),
+    # Styrene 0.5 % of Turkish storax (Hafizoglu 1982, as quoted by Askun et al. 2021,
+    # Turk J Bot; a different source from Wang 2023); VP 853 Pa (Chao 1983); air ODT
+    # 35 ppb (Nagata 2003, Table 2); gamma 3.0, this module's hydrocarbon-in-ethanol value.
+    # Added 2026-10-28: it carries most of the odorant vapour above the tincture.
+    ("styrene", 0.005, 104.15, 853.0, 35.0, 3.0),
 ]
 
 _VIETNAMESE_BENZOIN_TINCTURE_GENERIC_CONSTITUENTS = list(
@@ -770,6 +782,19 @@ _COFFEE_ABSOLUTE_GRASSE_CONSTITUENTS = [
     ("5-methylfurfural", 0.00021703, 110.11, 15.0, 0.1, 1.2),
     ("furfuryl acetate", 0.00016063, 140.14, 0.50, 0.1, 1.0),
     ("furfural", 0.00007546, 96.08, 100.0, 1.0, 1.5),
+    # Added 2026-10-28, only where every input exists. 4-Vinylguaiacol: 203.05 mg/kg
+    # measured in the same oil (Foods 2023, 12, 2515, Table 6). 2-Furfurylthiol and
+    # guaiacol: Semmelroch 1995 Arabica (1.08 and 4.2 mg/kg; FFJ 10:1) scaled x3.13, the
+    # oil/bean ratio of 4-vinylguaiacol, the only odorant both papers measured
+    # (estimate; different beans). 2-Furfurylthiol was not detected in the Foods 2023 oil
+    # and oxidises, so its row is an upper bound. Air ODTs: 4-vinylguaiacol 0.4-0.8 ng/L
+    # and 2-furfurylthiol 10-20 pg/L (van Gemert 2011 as cited in Molecules 2021, PMC8346979;
+    # geometric means); guaiacol the engine row. VPs: TGSC estimates (0.019 and 3.98 mmHg
+    # at 25 C) and HSDB 13.7 Pa. Gamma 1.0 (none measured). Pyrazines are left out: no
+    # sourced VP or air ODT here.
+    ("4-vinylguaiacol", 0.00020305, 150.17, 2.53, 0.092, 1.0),
+    ("2-furfurylthiol", 0.00000338, 114.17, 531.0, 0.0030, 1.0),
+    ("guaiacol", 0.0000132, 124.14, 13.7, 0.01654, 1.0),
 ]
 
 _CORIANDER_EO_CONSTITUENTS = [
@@ -1109,6 +1134,26 @@ _MICHELIA_ALBA_FLOWER_PUNJEE_2009_STEAM_CONSTITUENTS = [
     ("methyl eugenol", 0.0136, 178.23, 2.0, 0.5, 1.5),
     ("beta caryophyllene", 0.0100, 204.35, 1.0, 10.0, 1.2),
     ("germacrene d", 0.0082, 204.35, 1.00, 5.00, 1.2),
+]
+
+# Hedychium spicatum rhizome essential oil, Gangwar et al. (2024) Sci Rep 14:28568,
+# doi:10.1038/s41598-024-79712-5, Table 1 column HSSH (rhizomes shade-dried 13 days, Clevenger
+# hydrodistilled 5 h, Uttarakhand; GC-FID/GC-MS area %, RXi-5). Used for PerfumersWorld
+# 7NS25173 "Ginger Lily Oil", which PW leaves unidentified: Kenny's strip test reads ginger root
+# (28 Oct 2026: "Ginger root, check on msr"), the commercial "ginger lily oil" (TGSC es1067151). Closest identity,
+# not this lot. Nine constituents (63.25%) carry runtime inputs; the sesquiterpene alcohols
+# (alpha-cadinol, elemol, germacren-4-ol, alpha-muurolol, eudesmols) have none and stay
+# unresolved; nothing is renormalized.
+_HEDYCHIUM_SPICATUM_RHIZOME_GANGWAR_2024_HSSH_CONSTITUENTS = [
+    ("1,8-cineole", 0.5387, 154.25, 200.0, 50.0, 2.0),
+    ("linalool", 0.0341, 154.25, 21.3, 1.5, 2.0),
+    ("alpha terpineol", 0.0199, 154.25, 2.0, 10.0, 1.5),
+    ("beta pinene", 0.0179, 136.24, 390.0, 33.0, 3.0),
+    ("terpinen-4-ol", 0.0098, 154.25, 10.0, 50.0, 1.5),
+    ("alpha pinene", 0.0054, 136.24, 400.0, 20.0, 3.0),
+    ("sabinene", 0.0039, 136.24, 300.0, 30.0, 3.0),
+    ("beta caryophyllene", 0.0019, 204.35, 1.0, 10.0, 1.2),
+    ("germacrene d", 0.0009, 204.35, 1.00, 5.00, 1.2),
 ]
 
 # PerfumersWorld IFRA certificate for "Champaca Flower Essential Oil", SKU
@@ -1611,6 +1656,7 @@ _ABSOLUTE_CONSTITUENTS = {
     ),
     "michelia alba flower oil punjee 2009 steam distillation profile": _MICHELIA_ALBA_FLOWER_PUNJEE_2009_STEAM_CONSTITUENTS,
     "magnolia officinalis flos essential oil liu 2025 stage s1 profile": _MAGNOLIA_OFFICINALIS_FLOS_LIU_2025_S1_CONSTITUENTS,
+    "hedychium spicatum rhizome oil gangwar 2024 shade-dried profile": _HEDYCHIUM_SPICATUM_RHIZOME_GANGWAR_2024_HSSH_CONSTITUENTS,
     "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
         _CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS
     ),
@@ -1789,6 +1835,12 @@ _PROFILE_ALIASES = {
     # Owner stock "Magnolia EO (neat / as supplied)": Michelia alba flower oil
     # (owner-confirmed species; Shopee shop "True Industry").
     "magnolia eo": "michelia alba flower oil punjee 2009 steam distillation profile",
+    # PerfumersWorld 7NS25173 Ginger Lily Oil: H. spicatum rhizome oil, the closest identity
+    # (Kenny's strip test, 28 Oct 2026: "Ginger root, check on msr").
+    "ginger lily oil": "hedychium spicatum rhizome oil gangwar 2024 shade-dried profile",
+    "ginger lily": "hedychium spicatum rhizome oil gangwar 2024 shade-dried profile",
+    "ginger lily eo": "hedychium spicatum rhizome oil gangwar 2024 shade-dried profile",
+    "ginger lily essential oil": "hedychium spicatum rhizome oil gangwar 2024 shade-dried profile",
     # MySkinRecipes Magnolia Absolute, lot ZDHY6L (STK-170): its INCI, Magnolia officinalis
     # flower (Kenny, 28 Oct 2026). Not the MSR Magnolia Flower Extract (PG, 7871).
     "magnolia absolute": "magnolia officinalis flos essential oil liu 2025 stage s1 profile",
@@ -1960,6 +2012,18 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "No Schinus-specific GC-O/AEDA profile was located; phellandrene, p-cymene, and methyl-octanoate VP/ODT inputs are modeled by class.",
         "Plant part, origin, extraction, oxidation state, density, and current leave-on IFRA conformity for the user's bottle remain unverified.",
     ),
+    "ginger lily oil": (
+        "The owned Ginger Lily Oil (PerfumersWorld 7NS25173, 1 g) is modeled as Hedychium spicatum rhizome oil, the closest identity: PW gives no species, CAS or composition, and Kenny's strip test reads ginger root (28 Oct 2026: 'Ginger root, check on msr'). The candidates it rules out are H. coronarium flower absolute and flower oil.",
+    ),
+    "ginger lily": (
+        "The owned Ginger Lily Oil (PerfumersWorld 7NS25173, 1 g) is modeled as Hedychium spicatum rhizome oil, the closest identity: PW gives no species, CAS or composition, and Kenny's strip test reads ginger root (28 Oct 2026: 'Ginger root, check on msr'). The candidates it rules out are H. coronarium flower absolute and flower oil.",
+    ),
+    "ginger lily eo": (
+        "The owned Ginger Lily Oil (PerfumersWorld 7NS25173, 1 g) is modeled as Hedychium spicatum rhizome oil, the closest identity: PW gives no species, CAS or composition, and Kenny's strip test reads ginger root (28 Oct 2026: 'Ginger root, check on msr'). The candidates it rules out are H. coronarium flower absolute and flower oil.",
+    ),
+    "ginger lily essential oil": (
+        "The owned Ginger Lily Oil (PerfumersWorld 7NS25173, 1 g) is modeled as Hedychium spicatum rhizome oil, the closest identity: PW gives no species, CAS or composition, and Kenny's strip test reads ginger root (28 Oct 2026: 'Ginger root, check on msr'). The candidates it rules out are H. coronarium flower absolute and flower oil.",
+    ),
     "magnolia absolute": (
         "The owned Magnolia Absolute (MySkinRecipes #7870, lot ZDHY6L) is modeled as Magnolia officinalis flower, the identity the INCI on its MySkinRecipes page names (Kenny, 28 Oct 2026: 'magnolia abolute takje the INCI on the mykinrecipe page'); MySkinRecipes prints no CAS, origin, extraction solvent, composition or density.",
         "No GC of a Magnolia officinalis flower absolute or solvent extract was found; the only quantified composition is the pharmacopoeial hydrodistilled oil of dried buds, which is caryophyllene-rich. The same INCI is on MySkinRecipes' cosmetic extract 7871, so if the bottle smells sweet-floral the name may be carried over and Michelia x alba would fit better.",
@@ -2083,6 +2147,7 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     ),
     "roasted coffee oil literature profile": (
         "https://doi.org/10.3390/foods12132515",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8346979/",
     ),
     "coriander essential oil": (
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC3512302/",
@@ -2148,6 +2213,11 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://doi.org/10.5650/jos.ess25113",
         "https://www.jstage.jst.go.jp/article/jos/74/10/74_ess25113/_pdf",
         "https://www.myskinrecipes.com/shop/en/absolute-solvent-extract/7870-magnolia-officinalis-flower-extract.html",
+    ),
+    "hedychium spicatum rhizome oil gangwar 2024 shade-dried profile": (
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC11576735/",
+        "https://doi.org/10.1038/s41598-024-79712-5",
+        "https://www.thegoodscentscompany.com/data/es1067151.html",
     ),
     "michelia alba flower oil punjee 2009 steam distillation profile": (
         "https://li01.tci-thaijo.org/index.php/anres/article/view/244814",
@@ -3277,6 +3347,64 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Only nine peaks were reported, so trace odorants are missing and the percentages are shares of the identified peaks. 94.92% is modeled; five constituents (5.09%, including the fruity methyl and ethyl 2-methylbutyrate) are uncomputed, not odorless. Nothing is renormalized.",
             "The same paper's water distillation gives more methyl eugenol (3.59%); IFRA uses that higher value.",
             "Michelia alba flower oil is non-equivalent to Michelia champaca absolute, to Michelia alba absolutes (indole and phenylethyl alcohol rich in the same paper) and to Magnolia leaf oils.",
+        ),
+    },
+    "hedychium spicatum rhizome oil gangwar 2024 shade-dried profile": {
+        "analytical_method": "PUBLISHED_GC_FID_GC_MS_HYDRODISTILLED_OIL",
+        "composition_basis": "GC_FID_AREA_NOMINAL_MODEL_PROXY_NOT_MASS_FRACTION",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11576735/",
+                "document": "Gangwar A. et al. (2024) Effect of drying conditions on the chemical compositions, molecular docking interactions and antioxidant activity of Hedychium spicatum Buch.-Ham. rhizome essential oil. Sci Rep 14:28568, Table 1, column HSSH",
+                "published_botanical_name": "Hedychium spicatum Buch.-Ham.",
+                "published_type": "Hydrodistilled essential oil of shade-dried rhizomes (Uttarakhand, India)",
+                "reported_pct": {
+                    "1,8-cineole": 53.87, "alpha-cadinol": 12.15, "elemol": 6.78, "germacrene-4-ol": 3.73,
+                    "alpha-muurolol": 3.68, "linalool": 3.41, "alpha-terpineol": 1.99, "gamma-eudesmol": 1.84,
+                    "beta-pinene": 1.79, "delta-cadinene": 1.67, "terpinene-4-ol": 0.98,
+                    "10-epi-gamma-eudesmol": 0.86, "epi-cubebol": 0.64, "alpha-pinene": 0.54,
+                    "humulene epoxide II": 0.53, "sabinene": 0.39, "delta-terpineol": 0.38,
+                    "(E)-nerolidol": 0.23, "(E)-caryophyllene": 0.19, "alpha-humulene": 0.18,
+                    "thujanol": 0.16, "gamma-cadinene": 0.16, "humulene epoxide I": 0.12,
+                },
+                "reported_total_pct": 96.85,
+                "rows_below_0_10_pct_not_listed": True,
+                "other_columns_same_table": {
+                    "sun-dried HSS": {"1,8-cineole": 23.68, "alpha-cadinol": 25.06, "elemol": 15.00},
+                    "fresh HSF": {"1,8-cineole": 14.62, "alpha-cadinol": 20.33, "elemol": 20.03},
+                },
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "PROXY_IDENTITY_UNCONFIRMED",
+                "owned_stock_label": "Ginger Lily Oil (PerfumersWorld 7NS25173, neat as supplied)",
+                "owned_species": "unconfirmed; H. spicatum rhizome from Kenny's strip test (28 Oct 2026: 'Ginger root, check on msr')",
+                "owned_plant_part_recorded": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ('1,8-cineole', 'linalool', 'alpha terpineol', 'beta pinene', 'terpinen-4-ol', 'alpha pinene', 'sabinene', 'beta caryophyllene', 'germacrene d')},
+        },
+        "unresolved_constituents": (
+            {"name": "alpha-cadinol", "reported_fraction": 0.1215, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "elemol", "reported_fraction": 0.0678, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "germacren-4-ol", "reported_fraction": 0.0373, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-muurolol", "reported_fraction": 0.0368, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "gamma-eudesmol", "reported_fraction": 0.0184, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "delta-cadinene", "reported_fraction": 0.0167, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "10-epi-gamma-eudesmol", "reported_fraction": 0.0086, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "epi-cubebol", "reported_fraction": 0.0064, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "humulene epoxide II", "reported_fraction": 0.0053, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "delta-terpineol", "reported_fraction": 0.0038, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "(E)-nerolidol", "reported_fraction": 0.0023, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-humulene", "reported_fraction": 0.0018, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "thujanol", "reported_fraction": 0.0016, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "gamma-cadinene", "reported_fraction": 0.0016, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "humulene epoxide I", "reported_fraction": 0.0012, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "The composition is one published Indian rhizome distillation (Gangwar et al. 2024, shade-dried), not an analysis of the owned PerfumersWorld bottle, whose species and part PW does not state; Kenny's strip test (ginger root) is the only identity evidence.",
+            "1,8-Cineole runs 15-54% across drying methods in the same table and in other lots (Thomas & Mani 2023: alpha-cadinol 18.6, cineole 17.9), so the top note can be weaker and the woody alcohols stronger than modeled.",
+            "63.25% is modeled; 33.11% (mostly the woody sesquiterpene alcohols) is printed but has no runtime input and is uncomputed, not odorless; nine rows under 0.10% (0.52% together) carry no value. Nothing is renormalized.",
         ),
     },
     "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": {

@@ -463,9 +463,11 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "character",
         "texture": "lift",
-        "mw": 192.30,
-        "vp": 0.1,
-        "clogp": 3.5,
+        # Bedoukian BRI 310, CAS 13257-44-8 (28 Oct 2026): MW 184.28; VP 6.7 Pa (FMA 0.03 mmHg
+        # at 20 C via RIFM 2019, scaled to 25 C); logP 3.6 measured (RIFM 2013a).
+        "mw": 184.28,
+        "vp": 6.7,
+        "clogp": 3.6,
         "synergies": ["Alpha Ionone", "Beta Ionone", "cis-3-Hexenol"],
     },
     "Leafovert": {
@@ -958,9 +960,11 @@ _PROFILES: dict[str, dict] = {
         "note": "base",
         "role": "modifier",
         "texture": "cocoon",
-        "mw": 220.0,
-        "vp": 4.3,
-        "clogp": 4.8,
+        # Givaudan SDS (28 Oct 2026): VP 0,04 hPa at 25 C (OECD 104), log Pow 3,1 (OECD 117);
+        # MW 180.29 (TGSC). Was MW 220 and logP 4.8, unsourced.
+        "mw": 180.29,
+        "vp": 4.0,
+        "clogp": 3.1,
         "synergies": ["Cedarwood EO", "Iso E Super", "Ambermax"],
     },
     # Geosmin — petrichor / rain-on-earth, extreme trace (ODT ~6 ppt)
@@ -1651,8 +1655,8 @@ _PROFILES: dict[str, dict] = {
         "role": "modifier",
         "texture": "lift",
         "mw": 136.24,
-        "vp": 320.0,
-        "clogp": 3.1,
+        "vp": 390.0,  # NIST Antoine (data spine); was 320, unsourced
+        "clogp": 4.16,  # TGSC logP (o/w) 4.160; RIFM 4.37
         "synergies": [
             "Lavender EO",
             "Dihydromyrcenol",
@@ -2960,8 +2964,8 @@ _PROFILES: dict[str, dict] = {
         "role": "volume",
         "texture": "diffusion",
         "mw": 176.25,
-        "vp": 4.16,
-        "clogp": 2.7,
+        "vp": 3.72,  # EPI Suite estimate (TGSC ep1047261, Modified Grain); no measured VP found
+        "clogp": 2.77,  # RIFM 2017c, measured
         "cas": "7403-42-1",
         "synergies": ["Iso E Super", "Vertofix", "Vetiver EO", "Clearwood"],
     },

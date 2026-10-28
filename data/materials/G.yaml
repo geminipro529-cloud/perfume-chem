@@ -1551,15 +1551,8 @@
     other:
       order: PW-261009-075613a0b (9 Oct 2026, 1 g, THB 40.80/g)
   families: []
-  character: null
-  notes: 'Identity record only (25 Oct 2026). PerfumersWorld 7NS25173 lists it under
-    essential oils as an "Authentic Perfumery Material", but every field is blank or a
-    placeholder: CAS and FEMA "TBA", SG and RI 0.0000, no species, odour or usage, no
-    IFRA certificate or CoA, an allergen declaration with no rows, and an MSDS that
-    reads "Proprietary Perfume Compound. Complex mixture of essential oils, aroma chemical,
-    natural extracts and isolates". Whether it is Hedychium flower oil or a reconstitution
-    is unknown, so no composition, MW, VP or threshold is modeled and the physics and IFRA
-    holds stay. Kenny (13 Oct 2026): "it is an oil".'
+  character: 'Camphoraceous-fresh, eucalyptus-cineole top over dry woody-spicy ginger root (H. spicatum rhizome oil, the closest identity). TGSC: ''woody, fresh, spicy, camphoreous, ginger, minty, eucalyptus''.'
+  notes: 'Identity record (25 Oct 2026), modeled since 28 Oct 2026 as Hedychium spicatum rhizome oil, the closest identity. PerfumersWorld 7NS25173 lists it under essential oils as an "Authentic Perfumery Material" but gives no species, part, CAS ("TBA"), SG or RI (0.0000), odour, IFRA certificate or CoA. Its MSDS line "Proprietary Perfume Compound. Complex mixture of essential oils, aroma chemical, natural extracts and isolates" is PW boilerplate (the same text is on PW Ginger EO 7SC00209 and Pomelo EO 7CN23708, single naturals with CAS), so it shows neither a compound nor a natural. Kenny (13 Oct 2026): "it is an oil". His strip test (28 Oct 2026 10:49:45 UTC): "Ginger root, check on msr", the dry-ginger-root, camphor-eucalyptus reading of the rhizome oil, not the jasmine-honey flower absolute. Composition: Gangwar et al. 2024, Sci Rep 14:28568, shade-dried HSSH (https://pmc.ncbi.nlm.nih.gov/articles/PMC11576735/), in engine/pipeline/natural_absolute_decomposition.py; 1,8-cineole 15-54% between lots. CAS 93455-95-9 is not set: the species is inferred, not printed by PW. The supplier stays PerfumersWorld: his order email PW-261009-075613a0b lists 7NS25173, and no MySkinRecipes ginger lily was bought. Density, VP, MW and threshold of the whole oil are not applicable (modeled through constituents). Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
   provenance:
     supplier.perfumersworld: 'https://www.perfumersworld.com/view.php?pro_id=7NS25173 and https://www.perfumersworld.com/document-list.php?pro_id=7NS25173,
       read 25 Oct 2026; SKU and price from the PW order confirmation for PW-261009-075613a0b'
