@@ -5037,6 +5037,27 @@
       "aliases": [],
       "note": "Artemisia pallens oil, CAS 8016-03-3 (pink pepper thread's incoming bottle). No IFRA standard of its own in the 51st Amendment index. Benzaldehyde (0.2 %, Annex I 'Davana oil') is counted through ifra_annex1_constituents.json; the Thujone annex has no davana row.",
       "verified_on": "2026-10-27"
+    },
+    "Fixative 505": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [],
+      "note": "PerfumersWorld 4UY07514 'Fixative 505', a proprietary compound ('CAS No. Mixture'; SDS section 3: 'No composition data available for this product'). No IFRA standard names a supplier compound. Its IFRA conformity certificate (51st Amendment; the page is dated the day it is read) lists three restricted constituents, methyl ionone 0.3333 %, benzyl benzoate 0.0131 % and coumarin 0.0002 %, counted through ifra_annex1_constituents.json. Nothing else in it is known, so other restricted substances would not be counted. PerfumersWorld prints 25 % for Fine Fragrance when no constituent limits the product; that is its own ceiling, not an IFRA limit.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=4UY07514",
+      "verified_on": "2026-10-28"
+    },
+    "Isolongifolanone": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Isolongifolene ketone"
+      ],
+      "note": "Isolongifolanone (isolongifolene ketone), CAS 23787-90-8 (PerfumersWorld 3WY14446). RIFM's safety assessment (Food Chem Toxicol 2017, CAS 23787-90-8 with stereoisomers 29461-13-0 and 29461-14-1) states 'IFRA standard: None.' PerfumersWorld's SDS prints CAS 14727-47-0, a different isomer that no IFRA standard names either; the bottle is taken as the commercial 23787-90-8 material because PW's odour text is Givaudan's for that CAS.",
+      "cas": [
+        "23787-90-8"
+      ],
+      "source_url": "https://www.sciencedirect.com/science/article/pii/S0278691517300807",
+      "verified_on": "2026-10-28"
     }
   },
   "group_rules": [

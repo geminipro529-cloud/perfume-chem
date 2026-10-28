@@ -318,12 +318,15 @@
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
 - canonical_name: Davana Essential Oil
-  aliases: []
-  cas:
+  aliases: 
+  - Davana Essential Oil 10% in DPG
+  - Davana EO 10%
+  - davana oil
+  cas: '8016-03-3'
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml:
+  density_25c_g_ml: 0.9586
   logp:
   functional_groups: []
   chirality:
@@ -340,8 +343,8 @@
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: '10% w/w in DPG'
+  user_in_inventory: true  # Kenny 28 Oct 2026: 'PW orders have arrived' (overlay STK-184)
   supplier:
     perfumersworld_sku: 7HH00895
     perfumersworld_price_usd_per_g: 5.1
@@ -353,9 +356,13 @@
         sku: 5HH12466
         price_usd_per_g: 0.52
   families: []
-  character:
-  notes:
+  character: 'Fruity, apricot-quince, sirupy'
+  notes: 'PerfumersWorld 5HH12466 ''Davana Essential Oil 10% in DPG'' (STK-184, order PW-261024-211206f41, 2 g); the neat oil is 7HH00895. PW lists CAS 8016-03-3 at 10% and publishes no composition, lot or measured value (SG and RI print 0.0000). Davana oil (Artemisia pallens) is about 45-54% cis-davanone, which Bail et al. 2008 call practically odorless; the odour is credited to the davana ethers and ethyl cinnamates. The engine uses the Pappas 2025 Revive lot 8F GC/MS profile, of which only 3.13% has runtime inputs. Density and odour are for the neat oil; the stock''s 10% is applied separately.'
   provenance:
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json'
+    character: 'Robertet, Davana oil 00020675, flowering top, India, steam distillation (https://matieres-premieres.robertet.com/davana-oil): ''Fruity, apricot-quince, sirupy'' (grade A_producer; producer text, quoted). Givaudan, Davana Oil India: ''Fruity, Animal-like, Liqueur-like, Floral'' and ''As it dries, leathery notes develop to nuance its fragrance.'' Ventos 1387: ''Fruity, persistent''. Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
+    density_25c_g_ml: 'Measured: R. S. Pappas GC/MS report, Revive Davana Oil India lot 8F, analysed 1/29/2025 (https://www.revive-eo.com/wp-content/uploads/2025/01/REVIVE-GCMS-Report-Davana-Oil-India-8F.pdf): specific gravity 0.96034 at 20 C; x 0.99820 g/mL (water at 20 C, SG read as 20/20) = 0.9586 g/mL at 20 C, not 25 C; a commercial lot, not the owned bottle; grade A_lab (named analyst, not peer reviewed). Cross-checks: Pappas lot 4K 0.95917; Ventos DAVANA OIL (HIGH DAVANONE) 1387 (https://www.ventos.com/index.php/en/producto/1387) ''Density at 20°c (g/ml)) 0,950 - 0,970'', ''Refractive index nd20 1,4800 - 1,4900''; Pappas RI 1.48852 and optical rotation +50.64 at 20 C. Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
+    cas: 'PerfumersWorld 5HH12466 lists ''8016-03-3*10%''. Givaudan, Davana Oil India (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/davana-oil-india): ''Artemisia pallens'', CAS ''8016-03-3'', steam distillation. Ventos 1387 prints ''91844-86-9 ; 8016-03-3''. Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: DBCA
   aliases:

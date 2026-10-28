@@ -497,7 +497,7 @@ _VETIVER_EO_CONSTITUENTS = [
     ("khusimone", 0.005, 204.31, 0.002, 0.005, 0.4),
     ("alpha-vetivone", 0.04, 218.33, 0.005, 0.01, 0.5),
     ("beta-vetivone", 0.025, 218.33, 0.005, 0.01, 0.5),
-    ("isovalencenol", 0.13, 222.37, 0.01, 2.00, 0.5),
+    ("isovalencenol", 0.13, 220.35, 0.01, 2.00, 0.5),
     ("eudesmol", 0.10, 222.37, 0.01, 2.00, 0.5),
     ("nootkatone", 0.01, 218.33, 0.05, 0.01, 1.5),
     ("cedrene", 0.08, 204.35, 3.00, 10.0, 1.2),
@@ -1090,6 +1090,22 @@ _ORRIS_CONCRETE_8PCT_IRONE_CONSTITUENTS = [
 # engine/odor_thresholds.py). Citral (0.10%) uses the module's 3.0 Pa / 0.5 ppb
 # citral row. Eleven minor constituents (6.17%) have no runtime input and stay
 # unresolved.
+# Michelia x alba flower concrete oil, Ueyama, Hashimoto, Nii and Furukawa (1992), J Essent
+# Oil Res 4:15-23, GC/MS with retention indices, abstract values (about 100 compounds; linalool
+# (R):(S) 75:25). Used for MySkinRecipes "Magnolia Absolute" (STK-170), whose closest identity
+# is a Michelia x alba flower absolute (Kenny, 28 Oct 2026: "select the one that is the
+# closest"). The concrete oil is the volatile part of the solvent product; the absolute's
+# non-volatile share is unknown, so nothing is scaled or renormalized. Methyl 2-methylbutyrate
+# (1.46%) has no runtime input and stays unresolved.
+_MICHELIA_ALBA_FLOWER_CONCRETE_OIL_UEYAMA_1992_CONSTITUENTS = [
+    ("linalool", 0.728, 154.25, 21.3, 1.5, 2.0),
+    ("alpha terpineol", 0.0604, 154.25, 2.0, 10.0, 1.5),
+    ("phenylethyl alcohol", 0.0258, 122.16, 11.57, 26.0, 0.7),
+    ("beta pinene", 0.0239, 136.24, 250.0, 30.0, 3.0),
+    ("geraniol", 0.0123, 154.25, 4.00, 2.00, 1.5),
+    ("1,8-cineole", 0.0103, 154.25, 200.0, 50.0, 2.0),
+]
+
 _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS = [
     ("linalool", 0.7629, 154.25, 21.3, 1.5, 2.0),
     ("phenylethyl alcohol", 0.0638, 122.16, 11.57, 26.0, 0.7),
@@ -1226,7 +1242,7 @@ _ROSE_OTTO_BULGARIA_ISO_9842_MIDPOINT_CONSTITUENTS = [
 # khusimone are not listed, so the characteristic vetiver note is not modeled.
 _VETIVER_HAITI_AMRITA_5101_LCAA_COA_CONSTITUENTS = [
     ("khusimol", 0.1980, 220.35, 0.001, 0.50, 0.4),
-    ("isovalencenol", 0.1488, 222.37, 0.01, 2.00, 0.5),
+    ("isovalencenol", 0.1488, 220.35, 0.01, 2.00, 0.5),
 ]
 
 # Hay absolute. PerfumersWorld allergen declaration for SKU 8NY00523 (neat):
@@ -1350,6 +1366,22 @@ _GALBANUM_RESINOID_CANTON_2025_VF_CONSTITUENTS = [
     ("myrcene", 0.00414, 136.24, 400.0, 10.0, 3.0),
     ("alpha-bisabolol", 0.003105, 222.37, 0.01, 5.0, 0.7),
     ("beta caryophyllene", 0.00138, 204.35, 1.00, 10.0, 1.2),
+]
+
+# Davana oil (Artemisia pallens), PerfumersWorld 5HH12466 "Davana Essential Oil 10%
+# in DPG" (STK-184, 28 Oct 2026; PW lists CAS 8016-03-3 at 10%). PW publishes no
+# composition. GC/MS report by R. S. Pappas on a commercial Indian oil (Revive lot 8F,
+# made February 2024, analysed 29 Jan 2025), Conc. % as printed; its majors match the
+# peer-reviewed Singh et al. (2021) abstract (cis-davanone 53.0, bicyclogermacrene 6.9,
+# trans-ethyl cinnamate 4.9). Fractions are of the neat oil; the bottle's 10% is applied
+# by the stock. Only rows with inputs in this module are modeled (3.13%): davanone
+# 53.55, bicyclogermacrene 8.11, the davana ethers 9.41 and the ethyl cinnamates 5.42
+# have no runtime input and are uncomputed, not odorless. Nothing is renormalized.
+_DAVANA_PAPPAS_2025_REVIVE_8F_CONSTITUENTS = [
+    ("germacrene d", 0.0104, 204.35, 1.00, 5.00, 1.2),
+    ("alpha eudesmol", 0.0081, 222.37, 0.01, 2.00, 0.5),
+    ("geranyl acetate", 0.0076, 196.29, 2.00, 10.0, 1.5),
+    ("linalool", 0.0052, 154.25, 21.30, 1.50, 2.0),
 ]
 
 # Lemon oil, terpeneless, PerfumersWorld 7CC24027 ("Lemon Terpeneless oil
@@ -1583,6 +1615,7 @@ _ABSOLUTE_CONSTITUENTS = {
         _HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS
     ),
     "michelia alba flower oil zhu 1993 literature profile": _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS,
+    "michelia x alba flower concrete oil ueyama 1992 profile": _MICHELIA_ALBA_FLOWER_CONCRETE_OIL_UEYAMA_1992_CONSTITUENTS,
     "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
         _CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS
     ),
@@ -1615,6 +1648,9 @@ _ABSOLUTE_CONSTITUENTS = {
     ),
     "ferula galbaniflua resinoid canton 2025 volatile fraction profile": (
         _GALBANUM_RESINOID_CANTON_2025_VF_CONSTITUENTS
+    ),
+    "artemisia pallens oil pappas 2025 revive lot 8f gc-ms profile": (
+        _DAVANA_PAPPAS_2025_REVIVE_8F_CONSTITUENTS
     ),
     "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile": (
         _LEMON_TERPENELESS_PW_7CC24027_BP_CITRAL_MIDPOINT_CONSTITUENTS
@@ -1758,6 +1794,9 @@ _PROFILE_ALIASES = {
     # Owner stock "Magnolia EO (neat / as supplied)": Michelia alba flower oil
     # (owner-confirmed species; Shopee shop "True Industry").
     "magnolia eo": "michelia alba flower oil zhu 1993 literature profile",
+    # MySkinRecipes Magnolia Absolute, lot ZDHY6L (STK-170): closest identity Michelia x alba
+    # flower absolute (Kenny, 28 Oct 2026). Not the MSR Magnolia Flower Extract (PG, 7871).
+    "magnolia absolute": "michelia x alba flower concrete oil ueyama 1992 profile",
     # Owner stock "Champaca Flower EO"; PerfumersWorld 7NJ07740 is assumed.
     "champaca flower eo": "champaca flower oil perfumersworld 7nj07740 ifra declaration profile",
     # Owner stock "Peru Balsam Resinoid (50% w/w in DEP)" and the V5 requirement
@@ -1819,6 +1858,12 @@ _PROFILE_ALIASES = {
     "fir needle oil canada": "abies balsamea needle oil canadian commercial swor 2022 range midpoint profile",
     "olibanum oil": "boswellia carterii oil woolley 2012 somali average profile",
     "olibanum (frankincense) oil": "boswellia carterii oil woolley 2012 somali average profile",
+    # PerfumersWorld stock of 28 Oct 2026 (order PW-261024-211206f41): STK-184 Davana
+    # Essential Oil, 10% in DPG, SKU 5HH12466.
+    "davana essential oil": "artemisia pallens oil pappas 2025 revive lot 8f gc-ms profile",
+    "davana essential oil 10% in dpg": "artemisia pallens oil pappas 2025 revive lot 8f gc-ms profile",
+    "davana eo 10%": "artemisia pallens oil pappas 2025 revive lot 8f gc-ms profile",
+    "davana oil": "artemisia pallens oil pappas 2025 revive lot 8f gc-ms profile",
     # Owner stock inventory.txt "Lemon Terpeneless Oil Sicilian (neat / as
     # supplied)", PerfumersWorld 7CC24027 (order 261004-055451ce1).
     "lemon terpeneless oil sicilian": "lemon oil terpeneless perfumersworld 7cc24027 bp citral midpoint profile",
@@ -1832,6 +1877,10 @@ _PROFILE_ALIASES = {
     "sandalwood eo": "santalum album oil iso 3518 midpoint profile",
     "sandalwood eo (10% in dpg)": "santalum album oil iso 3518 midpoint profile",
     "sandalwood essential oil": "santalum album oil iso 3518 midpoint profile",
+    # MySkinRecipes White Sandalwood Oil (China), lot W9F536 (STK-172): Kenny 28 Oct 2026,
+    # "select the one that is the closest"; S. album is the closest identity.
+    "white sandalwood oil (china)": "santalum album oil iso 3518 midpoint profile",
+    "white sandalwood oil china": "santalum album oil iso 3518 midpoint profile",
     "tuberlia base": "tuberalia base perfumersworld 6nd09663 declaration profile",
     "tuberalia base": "tuberalia base perfumersworld 6nd09663 declaration profile",
 }
@@ -1900,6 +1949,10 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "The owned Olibanum Oil (MySkinRecipes lot 3S74J8, Boswellia carterii per its MSDS) is modeled from Woolley et al. (2012) Somali B. carterii averages, not from an analysis of the owned lot; its chemotype is unknown.",
         "Johnson et al. (2019) found a B. occulta marker (1-methoxydecane) in 9 of 13 commercial 'carteri' oils, so the owned oil may not match an authentic profile.",
     ),
+    "davana essential oil": (
+        "The owned Davana Essential Oil (PerfumersWorld 5HH12466, 10% in DPG, no lot published) is modeled from one GC/MS report on a commercial Indian oil (Pappas, Revive lot 8F), not from an analysis of the owned bottle.",
+        "The report is a named analyst's lot report, not peer reviewed; its main rows agree with the Singh et al. (2021) abstract, while Bail et al. (2008, GC-FID) found cis-davanone 45.8% and trans-ethyl cinnamate only 0.9% in a 2008 lot.",
+    ),
     "tonka bean absolute": (
         "Composition source is a published solvent-extract range, not a supplier-batch assay of the in-stock absolute.",
     ),
@@ -1911,6 +1964,14 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "Composition is the midpoint of published Peruvian Schinus molle fruit-EO ranges, not an Aroma&More lot GC-MS or GC-O assay.",
         "No Schinus-specific GC-O/AEDA profile was located; phellandrene, p-cymene, and methyl-octanoate VP/ODT inputs are modeled by class.",
         "Plant part, origin, extraction, oxidation state, density, and current leave-on IFRA conformity for the user's bottle remain unverified.",
+    ),
+    "magnolia absolute": (
+        "The owned Magnolia Absolute (MySkinRecipes #7870, lot ZDHY6L) is modeled as Michelia x alba flower absolute, the closest identity Kenny asked for on 28 Oct 2026; MySkinRecipes prints no CAS, origin, extraction, composition or density, and its INCI (Magnolia officinalis flower extract) matches its cosmetic PG extract 7871.",
+        "No GC of a commercial Michelia x alba absolute was found. A lab hexane extract (Pensuk et al. 2007) had 2-methylbutanoic acid 33.01% and linalool 28.92%, so a real absolute may carry far less linalool than this concrete-oil profile.",
+    ),
+    "white sandalwood oil (china)": (
+        "The owned White Sandalwood Oil (China) (MySkinRecipes lot W9F536) is modeled as Santalum album oil, the closest identity Kenny asked for on 28 Oct 2026: its name and the COA's nominal density (0.980, inside ISO 3518) point to S. album. MySkinRecipes prints no GC.",
+        "Runner-up is S. spicatum, whose CAS 8024-35-9 the COA prints; that oil has about 21% (Z)-alpha-santalol and 10% farnesol instead of 48% and trace, so the santalol rows would be too high. The COA's nominal RI 1.500 is below ISO 3518's 1.503 and the price is far below genuine oil, so the bottle may be cut or compounded.",
     ),
     "guaiacwood eo": (
         "The owned Guaiacwood EO has no supplier SKU, origin or lot record; the reused composition is one published Argentine wood-oil GC-MS, not an analysis of that bottle.",
@@ -1940,6 +2001,17 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
 
 
 _PROFILE_KEY_LIMITATIONS: dict[str, tuple[str, ...]] = {
+    "tuberose absolute": (
+        "The Eden Botanicals lot 966 COA these rows cite could not be found online (2026-10-28 "
+        "search). The only other quantitative list for a commercial absolute, Petrzilka and Ehret "
+        "(1991) as reproduced by Lawrence (Perfumer & Flavorist 29, 2004), gives methyl palmitate "
+        "14.5, methyl benzoate 12.2, benzyl benzoate 10.4, ethyl oleate 5.3, alpha-terpineol 4.0, "
+        "1,8-cineole 3.8, methyl salicylate 3.6, farnesol 3.5, methyl anthranilate 2.4 and methyl "
+        "eugenol 2.2%, with no method printed. Methyl benzoate, alpha-terpineol, cineole and methyl "
+        "anthranilate are missing here, jasmolactone (7.3%) and delta-decalactone (4.4%) are above "
+        "that source's 0.1-1.0%, and methyl isoeugenol (23.4%) is not among its majors, so these "
+        "rows stay a legacy lot reading until a current analysis is found.",
+    ),
     "labdanum absolute": (
         "No published analysis of a labdanum absolute supports these rows: the 12% alpha-pinene "
         "and 6% labdanolic acid follow Weyerstahl 1998, an oil study. A 2026-10-27 search found "
@@ -2077,6 +2149,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.cir-safety.org/sites/default/files/cpeelo092014FR.pdf",
         "https://www.oand3.com/product/pomelo-essential-oil/",
     ),
+    "michelia x alba flower concrete oil ueyama 1992 profile": (
+        "https://www.tandfonline.com/doi/abs/10.1080/10412905.1992.9698004",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9182571/",
+    ),
     "michelia alba flower oil zhu 1993 literature profile": (
         "https://scent.vn/pages/oil/michelia-alba-flower-absolute-china-1874",
         "https://thegoodscentscompany.com/data/es1068501.html",
@@ -2131,6 +2207,11 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "boswellia carterii oil woolley 2012 somali average profile": (
         "https://doi.org/10.1016/j.chroma.2012.06.073",
         "https://www.mdpi.com/2223-7747/8/4/88",
+    ),
+    "artemisia pallens oil pappas 2025 revive lot 8f gc-ms profile": (
+        "https://www.revive-eo.com/wp-content/uploads/2025/01/REVIVE-GCMS-Report-Davana-Oil-India-8F.pdf",
+        "https://doi.org/10.1002/cbdv.202100531",
+        "https://journals.sagepub.com/doi/10.1177/1934578X0800300705",
     ),
     "ferula galbaniflua resinoid canton 2025 volatile fraction profile": (
         "https://doi.org/10.1002/cbdv.202501442",
@@ -3053,6 +3134,51 @@ _PARTIAL_PROFILE_EVIDENCE = {
             },
         },
     },
+    "michelia x alba flower concrete oil ueyama 1992 profile": {
+        "analytical_method": "PUBLISHED_GC_MS_ABSTRACT_VALUES",
+        "composition_basis": "PUBLISHED_PERCENT_OF_CONCRETE_OIL_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "Ueyama Y, Hashimoto S, Nii H, Furukawa K. The Chemical Composition of the Flower Oil and the Leaf Oil of Michelia alba D.C. J Essent Oil Res 1992;4(1):15-23, doi:10.1080/10412905.1992.9698004 (abstract)",
+                "reported_pct": {
+                    "linalool": 72.8,
+                    "alpha terpineol": 6.04,
+                    "phenylethyl alcohol": 2.58,
+                    "beta pinene": 2.39,
+                    "methyl 2-methylbutyrate": 1.46,
+                    "geraniol": 1.23,
+                    "1,8-cineole": 1.03,
+                },
+                "sample": "flower concrete oil, the volatile part of the solvent concrete",
+                "species": "Michelia x alba, the closest identity chosen on Kenny's 28 Oct 2026 instruction; MySkinRecipes names Magnolia officinalis flower extract (INCI) and prints no CAS",
+                "species_asserted_by_supplier": False,
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Magnolia Absolute (STK-170, neat as supplied)",
+                "owned_bottle_sku_verified": True,
+                "owned_sku": "MySkinRecipes #7870, order 2200410, lot ZDHY6L, 5 g",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("linalool", "alpha terpineol", "beta pinene", "geraniol", "1,8-cineole")},
+            "phenylethyl alcohol": {
+                "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
+                "vp_status": "CITED_DATA_SPINE_VP",
+                "vp_source": "PubChem CID 6054 HSDB, Daubert & Danner (1989): 8.68e-2 mm Hg at 25 C = 11.57 Pa",
+                "odt_status": "ODT_DATA_MULTI_SOURCE_LITERATURE",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {"name": "methyl 2-methylbutyrate", "reported_fraction": 0.0146, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "Composition is a published flower concrete oil (abstract values), not an analysis of the owned lot and not a commercial absolute.",
+            "Only the seven constituents the abstract prints are known (87.53%); 86.07% is modeled and the rest is uncomputed, not odorless. The absolute's non-volatile share is unknown, so nothing is scaled or renormalized.",
+        ),
+    },
     "michelia alba flower oil zhu 1993 literature profile": {
         "analytical_method": "LITERATURE_GC_MS_SECONDARY_COMPILATION",
         "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
@@ -3974,6 +4100,63 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Composition is one published commercial resinoid, not an analysis of the owned lot.",
             "Only 13.66% of the resinoid is modeled: the volatile rows with inputs in this module. The other volatile rows, including the undecatrienes behind galbanum's green note, and the 65.5% non-volatile fraction are uncomputed, not odorless. Nothing is renormalized.",
             "Both eudesmols take one eudesmol input; limonene coelutes with beta-phellandrene.",
+        ),
+    },
+    "artemisia pallens oil pappas 2025 revive lot 8f gc-ms profile": {
+        "analytical_method": "GC_MS_LOT_REPORT_COMMERCIAL_OIL",
+        "composition_basis": "GC_MS_CONC_PERCENT_AS_PRINTED_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "Pappas RS, GC/MS report 'Davana Oil, India', Revive lot 8F (Shimadzu GCMS-QP2010Ultra, ZB-5), analysed 1/29/2025, https://www.revive-eo.com/wp-content/uploads/2025/01/REVIVE-GCMS-Report-Davana-Oil-India-8F.pdf",
+                "printed_pct": {
+                    "davanone": 53.55,
+                    "bicyclogermacrene": 8.11,
+                    "davana ether II": 4.45,
+                    "trans-ethyl cinnamate": 4.3,
+                    "davana ether IV": 2.52,
+                    "davana ether I": 1.45,
+                    "tau-cadinol": 1.41,
+                    "beta-selinene": 1.31,
+                    "cis-ethyl cinnamate": 1.12,
+                    "germacrene d": 1.04,
+                    "davana ether III": 0.99,
+                    "alpha eudesmol": 0.81,
+                    "geranyl acetate": 0.76,
+                    "linalool": 0.52,
+                },
+                "total_identified_pct": 92.78,
+                "cross_check": "Singh S et al. Chem Biodivers 2021;18(11):e2100531, doi:10.1002/cbdv.202100531 (abstract: cis-davanone 53.0, bicyclogermacrene 6.9, trans-ethyl cinnamate 4.9, davana ether isomer 3.4, spathulenol 2.8%); Bail S et al. Nat Prod Commun 2008;3(7):1057-1062, doi:10.1177/1934578X0800300705 (Kurt Kitzing commercial oil, GC-FID: cis-davanone 45.8, bicyclogermacrene 9.6%)",
+                "species": "Artemisia pallens (davana), inferred from PerfumersWorld's CAS 8016-03-3; PW names no species or origin",
+                "species_asserted_by_supplier": False,
+                "fraction_rule": "PRINTED_GC_MS_CONC_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Davana Essential Oil (STK-184, 10% w/w in DPG)",
+                "owned_bottle_sku_verified": True,
+                "owned_sku": "5HH12466 (PW order PW-261024-211206f41, 2 g; no lot published)",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("germacrene d", "alpha eudesmol", "geranyl acetate", "linalool")},
+        },
+        "unresolved_constituents": (
+            {"name": "davanone", "reported_fraction": 0.5355, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "bicyclogermacrene", "reported_fraction": 0.0811, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "davana ether II", "reported_fraction": 0.0445, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "(E)-ethyl cinnamate", "reported_fraction": 0.043, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "davana ether IV", "reported_fraction": 0.0252, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "davana ether I", "reported_fraction": 0.0145, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "tau-cadinol", "reported_fraction": 0.0141, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "beta-selinene", "reported_fraction": 0.0131, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "davanone analogue (RI 1542)", "reported_fraction": 0.0127, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "unidentified (RI 1654)", "reported_fraction": 0.0118, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "(Z)-ethyl cinnamate", "reported_fraction": 0.0112, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "davana ether III", "reported_fraction": 0.0099, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "(E)-methyl cinnamate", "reported_fraction": 0.0075, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "Composition is one GC/MS report on a commercial Indian oil, not an analysis of the owned bottle; the GC/MS percentages are not FID response-corrected.",
+            "Only 3.13% of the oil is modeled. Davanone (53.55%), which Bail et al. (2008) call practically odorless, and the davana ethers and ethyl cinnamates the same paper credits with the odour, have no runtime input, so the fruity-liqueur character is uncomputed, not absent. Nothing is renormalized.",
         ),
     },
     "abies balsamea needle oil perfumersworld 7kg07758 biolandes midpoint profile": {

@@ -4300,6 +4300,36 @@
       "max_pct_as_printed": "0.1",
       "source_url": "https://d3t14p1xronwr0.cloudfront.net/docs/Standards-Documentation/Previous-amendments/50/standards-compiled.pdf",
       "note": "'0.1 106-02-5 Galbanum resin Ferula spp. 8023-91-4 K2.13', page 198 of IFRA's compiled 50th Amendment PDF, which prints the Amendment 49 standard; PerfumersWorld has no copy of this standard. Read 2026-10-27 and re-read by a second reader."
+    },
+    {
+      "substance": "Methyl ionone, mixed isomers",
+      "standard": "IFRA_STD_063",
+      "ncs_name": "Fixative 505, PerfumersWorld 4UY07514 certificate",
+      "max_pct": 0.3333,
+      "max_pct_as_printed": "0.3333",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=4UY07514",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA conformity certificate (51st Amendment) for Fixative 505 4UY07514, the SKU of Kenny's stock; read live 2026-10-28 (a cached copy of the page showed the 50th Amendment and rounded values). Certificate row 'METHYL IONONE 1335-46-2 0.3333'."
+    },
+    {
+      "substance": "Benzyl benzoate",
+      "standard": "IFRA_STD_009",
+      "ncs_name": "Fixative 505, PerfumersWorld 4UY07514 certificate",
+      "max_pct": 0.0131,
+      "max_pct_as_printed": "0.0131",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=4UY07514",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA conformity certificate (51st Amendment) for Fixative 505 4UY07514, the SKU of Kenny's stock; read live 2026-10-28 (a cached copy of the page showed the 50th Amendment and rounded values). Certificate row 'BENZYL BENZOATE 120-51-4 0.0131'; the allergen declaration prints the same."
+    },
+    {
+      "substance": "Coumarin",
+      "standard": "IFRA_STD_023",
+      "ncs_name": "Fixative 505, PerfumersWorld 4UY07514 certificate",
+      "max_pct": 0.0002,
+      "max_pct_as_printed": "0.0002",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=4UY07514",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA conformity certificate (51st Amendment) for Fixative 505 4UY07514, the SKU of Kenny's stock; read live 2026-10-28 (a cached copy of the page showed the 50th Amendment and rounded values). Certificate row 'COUMARIN 91-64-5 0.0002'; the allergen declaration prints the same."
     }
   ],
   "stocks": {
@@ -4931,6 +4961,12 @@
         "Davana oil"
       ],
       "note": "Artemisia pallens oil (CAS 8016-03-3); the only Annex I davana row read is benzaldehyde 0.2 %."
+    },
+    "Fixative 505": {
+      "ncs_names": [
+        "Fixative 505, PerfumersWorld 4UY07514 certificate"
+      ],
+      "note": "A PerfumersWorld compound with no Annex I row; its IFRA certificate is counted."
     }
   },
   "schiff_bases": {

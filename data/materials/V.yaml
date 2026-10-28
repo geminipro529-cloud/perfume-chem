@@ -944,7 +944,7 @@
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml: 0.997
+  density_25c_g_ml: 1.0025
   logp:
   functional_groups: []
   chirality:
@@ -961,8 +961,8 @@
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution: "10% w/w in DEP"
-  user_in_inventory: false  # Kenny 25 Oct 2026: out of it (overlay STK-169)
+  user_stock_dilution: 'neat'
+  user_in_inventory: true  # Kenny 28 Oct 2026: 'PW orders have arrived' (overlay STK-182)
   supplier:
     perfumersworld_sku: 3WY00468
     perfumersworld_price_usd_per_g: 2.72
@@ -970,14 +970,16 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'Sweet and dry, fresh-woody'
   notes:
   provenance:
+    character: 'Ernesto Ventos 5477 (https://www.ventos.com/en/producto/5477): ''Odor: Sweet and dry, fresh-woody'' (grade A_producer; producer text, quoted). Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json'
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: supplier spec range midpoint; raw 0.979 to 1.015; https://www.thegoodscentscompany.com/data/rw1051731.html; temperature as printed by source (often 20 C), not corrected to 25 C'
+    density_25c_g_ml: 'Ernesto Ventos, VETIVERYL ACETATE (EX VETIVER HAITI) 5477 (https://www.ventos.com/en/producto/5477): ''Density at 20 C (g/ml) 0,990 - 1,015'', ''Refractive index nD20 1,5050 - 1,5200''; specification midpoint 1.0025 g/mL at 20 C (printed in g/mL, so no water correction), not 25 C; producer specification, not this lot (PW prints SG 1.0000, no temperature); grade A_producer. Replaces the 0.997 TGSC range midpoint of 22 Oct. Loaded 2026-10-28 (PerfumersWorld orders of 25 Oct 2026; source re-opened).'
     cas: '23 Oct 2026 deep-research pass (3-0 verified): IFRA_STD_002 ''Acetylated Vetiver oil'' lists CAS 84082-84-8, 68917-34-0, 73246-97-6 and 62563-80-8 and names ''Vetyveryl acetate'' as a commercial synonym; 62563-80-8 is also on the supplier page. 117-98-6 names a single chemical, not the acetylated oil (SCCS/1599/18), and was dropped after the 44th Amendment; https://IFRAfragrance.org/standards/IFRA_STD_002.pdf'
 - canonical_name: Violet F-TEC
   aliases:

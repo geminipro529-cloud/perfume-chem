@@ -63,8 +63,10 @@ def test_ambrox_crystals_are_separate_from_the_existing_solution():
 def test_vetiveryl_is_neat_and_the_old_ten_percent_record_is_retired():
     # 2026-09-24 made Vetiveryl Acetate neat (R5-002) and retired the old 10% record.
     # 2026-10-25: Kenny is out of it ("i am out of vetiveryl acetate", overlay STK-169),
-    # so both records are retired and no Vetiveryl Acetate stock remains.
-    assert _stocks("Vetiveryl Acetate") == []
+    # so both records are retired. 2026-10-28: his new PerfumersWorld bottle (STK-182) is
+    # the one Vetiveryl Acetate stock, neat.
+    (stock,) = _stocks("Vetiveryl Acetate")
+    assert stock.source_ref.endswith("#INV-USER-20261014-STK-182")
     payload = inventory.load_current_user_inventory_overlay()
     retired = {record["record_id"]: record for record in payload["retired_records"]}
     assert "INV-USER-20260907-002" in retired

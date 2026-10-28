@@ -116,15 +116,24 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
         "(no entry), P&G patent threshold tables (computed classes only) and a 2026 CRFSFS "
         "review; van Gemert 2011 could not be read (2026-10-27)",
     ),
-    "Magnolia Absolute": (
-        _ALL,
-        "MySkinRecipes lot ZDHY6L prints no CAS or composition and its identity is not "
-        "established (probably a Michelia x alba flower oil), so no profile is loaded (2026-10-27)",
+    # (Magnolia Absolute and White Sandalwood Oil (China) left this list on 2026-10-28, when Kenny
+    # asked for the closest identity: they took the Michelia x alba concrete-oil and Santalum album
+    # ISO 3518 profiles as labelled proxies.)
+    # PerfumersWorld orders of 25 Oct 2026, arrived and searched 2026-10-28.
+    "Beta Caryophyllene": (
+        ("odt",),
+        "no primary human detection threshold in air found; the only figure (0.535 mg/m3, Ruth "
+        "1986) is second-hand via UBA 54/2024 'without further details' and is not loaded (2026-10-28)",
     ),
-    "White Sandalwood Oil (China)": (
+    "Isolongifolanone": (
+        ("odt",),
+        "no published human detection threshold in air found; Givaudan rates it 'Impactful' from "
+        "its own measured threshold but prints no number (2026-10-28)",
+    ),
+    "Fixative 505": (
         _ALL,
-        "MySkinRecipes lot W9F536 prints CAS 8024-35-9, but its RI and SG ranges fit no sandalwood "
-        "or amyris ISO standard; probably a compound, so the ISO 3518 profile is not used (2026-10-27)",
+        "PerfumersWorld proprietary base, probably Firmenich Fixateur 505 E; Firmenich's SDS gives "
+        "ambroxide and rosin esters only as bands (15-<20%, 20-<30%), so no profile (2026-10-28)",
     ),
 }
 
