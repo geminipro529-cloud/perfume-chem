@@ -1,6 +1,7 @@
 """IFRA batch, 25 Oct 2026 (stock thread). Kenny: "parse all the information that is
 missing into the engine". Every owned stock the Category 4 table could not recognise got a
-row, except Orange Flower Absolute (Kenny: "Keep the hold") and the bases and extracts whose
+row, except Orange Flower Absolute (Kenny: "Keep the hold"; lifted 28 Oct, "Use orange flower
+absolute freely") and the bases and extracts whose
 composition is not published (flagged, never blocked). Values come from the IFRA standards
 and Annex I, from PerfumersWorld's certificates for Kenny's own SKUs, from SDS section 3
 bands where a certificate leaves a restricted substance out, and, for bottles with no
@@ -104,6 +105,8 @@ def test_diluted_product_certificates_are_scaled_to_the_neat_material():
     assert dilution == {
         "Ambrette seed absolute": 10.0, "Frangipani absolute": 10.0, "Tobacco absolute": 10.0,
         "Vanilla absolute": 10.0, "Siam benzoin resinoid": 50.0,
+        # 2026-10-28: Kenny's Orange Flower Absolute 10% in DPG (5NC07544), hold lifted.
+        "Orange flower absolute": 10.0,
     }
     for row in rows:
         factor = 100.0 / row["printed_for_dilution_pct"]
@@ -131,7 +134,7 @@ def test_other_lot_and_sds_rows_say_where_they_come_from():
 def test_bases_without_a_composition_stay_flagged_and_castoreum_is_unchanged():
     names = {b.name for b in load_undisclosed_bases()}
     assert names == {
-        "Suederal", "Castoreum Synthetic", "Costus Olifac", "Lilyreal ND",
+        "Castoreum Synthetic", "Costus Olifac", "Lilyreal ND",
         "Cabbage Rose Extract", "Iris Florentina Root Extract", "Magnolia Flower Extract",
     }
     # Kenny: "Keep warning". Castoreum Synthetic keeps no table row and no certificate rows.
@@ -139,10 +142,15 @@ def test_bases_without_a_composition_stay_flagged_and_castoreum_is_unchanged():
     assert "Castoreum Synthetic" not in RAW["stocks"]
 
 
-def test_orange_flower_absolute_keeps_its_hold():
-    assert TABLE.lookup("Orange Flower Absolute") is None
-    assert "Orange Flower Absolute" not in RAW["stocks"]
-    assert "Kenny's decision" in RAW["unmapped_owned_naturals"]["Orange Flower Absolute"]
+def test_orange_flower_absolute_warns_with_its_prohibited_traces():
+    # Kenny, 28 Oct 2026 12:37 UTC: "Use orange flower absolute freely" (his 25 Oct hold lifted).
+    material = TABLE.lookup("Orange Flower Absolute 10% in DPG")
+    assert material is not None and material.status == "natural_no_own_standard"
+    assert "benzyl cyanide" in material.identity_note and "7-methoxycoumarin" in material.identity_note
+    assert RAW["unmapped_owned_naturals"] == {}
+    [row] = evaluate_ifra({"Orange Flower Absolute 10% in DPG": 1.0}).checks
+    assert row.verdict == "warn"
+    assert "Farnesol up to 8 %" in row.message and "not a block" in row.message
 
 
 def test_kenyan_myrrh_names_the_opoponax_limit_without_applying_it():

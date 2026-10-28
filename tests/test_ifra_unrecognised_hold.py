@@ -67,18 +67,21 @@ def test_word_order_variant_is_checked_against_its_limit_and_group():
 # --------------------------------------------------------------------------- the gate
 
 
+UNLISTED = "Unlisted Supplier Base"  # no owned stock is unrecognised any more
+
+
 def test_unrecognised_row_holds_the_gate():
-    # Kenny chose to keep Orange Flower Absolute held ("Keep the hold"), so it stays
-    # unrecognised. (Supplier bases with no published composition are flagged instead;
-    # see test_ifra_undisclosed_bases.py.)
-    assert TABLE.lookup("Orange Flower Absolute") is None
-    gate = _gate({"Evernyl": 240.0, "Orange Flower Absolute": 20.0})
+    # Orange Flower Absolute was the example until Kenny lifted its hold on 2026-10-28 ("Use
+    # orange flower absolute freely"). (Supplier bases with no published composition are
+    # flagged instead; see test_ifra_undisclosed_bases.py.)
+    assert TABLE.lookup(UNLISTED) is None
+    gate = _gate({"Evernyl": 240.0, UNLISTED: 20.0})
 
     assert gate.status == "HOLD"
-    assert "Orange Flower Absolute" in gate.detail
+    assert UNLISTED in gate.detail
     assert "To clear" in gate.detail
-    assert gate.data["unchecked"] == ["Orange Flower Absolute"]
-    hold = next(h for h in gate.data["holds"] if h["material"] == "Orange Flower Absolute")
+    assert gate.data["unchecked"] == [UNLISTED]
+    hold = next(h for h in gate.data["holds"] if h["material"] == UNLISTED)
     assert "not recognised by the IFRA Category 4 table" in hold["message"]
     assert "supplier's IFRA certificate" in hold["message"]
 
@@ -130,7 +133,6 @@ FLAGGED_BASES = {
     "Iris Florentina Root Extract",
     "Lilyreal ND",
     "Magnolia Flower Extract",
-    "Suederal",  # stock name since the 2026-10-14 DPG record
 }
 # Both Aurantiol stocks carry Kenny's word since 2026-10-15, so their display
 # names say which bottle each is.
@@ -138,10 +140,8 @@ SCHIFF_BASES = {
     "Aurantiol (neat)",
     "Aurantiol 10%",
 }
-STILL_HELD = FLAGGED_BASES | SCHIFF_BASES | {
-    # Kenny's PW Orange Flower Absolute 10% in DPG (2026-10-23): "Keep the hold".
-    "Orange Flower Absolute",
-}
+# Orange Flower Absolute left on 2026-10-28: Kenny, "Use orange flower absolute freely".
+STILL_HELD = FLAGGED_BASES | SCHIFF_BASES
 
 
 def test_every_owned_stock_is_matched_or_holds_by_name():
@@ -154,7 +154,8 @@ def test_every_owned_stock_is_matched_or_holds_by_name():
     assert set(unmatched) == STILL_HELD
 
     gate = _gate({name: 10.0 for name in unmatched})
-    assert gate.status == "HOLD"
+    # Only flagged bases (warned) and Schiff bases (counted) are left, so nothing holds.
+    assert gate.status == "WARN"
     assert sorted(gate.data["unchecked"]) == sorted(set(unmatched) - SCHIFF_BASES)
     held = {h["material"] for h in gate.data["holds"]}
     assert set(unmatched) - FLAGGED_BASES - SCHIFF_BASES <= held

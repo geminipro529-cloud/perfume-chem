@@ -46,17 +46,20 @@ def test_an_undisclosed_base_warns_by_name_and_without_it_the_verdict_is_unchang
 
 
 def test_a_diluted_stock_name_is_flagged_as_its_base():
-    gate = _gate({"Evernyl": 240.0, "Suederal 10%": 10.0})
+    # Suederal was the example here until 28 Oct 2026, when its IFRA certificate and IFF's
+    # composition were recorded (test_ifra_batch_2026_10_25.py).
+    gate = _gate({"Evernyl": 240.0, "Costus Olifac 10%": 10.0})
     assert gate.status == "WARN"
-    assert [u["base"] for u in gate.data["undisclosed_bases"]] == ["Suederal"]
-    assert "Suederal 10%" in gate.detail
+    assert [u["base"] for u in gate.data["undisclosed_bases"]] == ["Costus Olifac"]
+    assert "Costus Olifac 10%" in gate.detail
 
 
 def test_a_base_never_lowers_a_hold_or_a_fail():
-    # Orange Flower Absolute stays unrecognised by Kenny's decision ("Keep the hold").
-    held = _gate({"Evernyl": 240.0, "Orange Flower Absolute": 20.0, "Castoreum Synthetic": 10.0})
+    # A name the table does not know holds (Orange Flower Absolute until Kenny lifted its hold
+    # on 2026-10-28).
+    held = _gate({"Evernyl": 240.0, "Unlisted Supplier Base": 20.0, "Castoreum Synthetic": 10.0})
     assert held.status == "HOLD"
-    assert "Orange Flower Absolute" in held.detail and "Castoreum Synthetic" in held.detail
+    assert "Unlisted Supplier Base" in held.detail and "Castoreum Synthetic" in held.detail
 
     failed = _gate({"Hydroxycitronellal": 2000.0, "Castoreum Synthetic": 10.0})
     assert failed.status == "FAIL"
@@ -68,6 +71,7 @@ def test_a_base_never_lowers_a_hold_or_a_fail():
     [
         {"Evernyl": 240.0},
         {"Evernyl": 240.0, "Orange Flower Absolute": 20.0},
+        {"Evernyl": 240.0, "Unlisted Supplier Base": 20.0},
         {"Hydroxycitronellal": 2000.0},
         {"Hydroxycitronellal": 450.0, "Evernyl": 240.0},
     ],

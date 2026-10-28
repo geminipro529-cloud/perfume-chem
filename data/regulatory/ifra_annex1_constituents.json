@@ -7,9 +7,7 @@
   "source": "IFRA Standards, Amendment 49 (2020), Annex I 'Contributions from other sources' tables, as copied by PerfumersWorld; one PDF per restricted substance (source_url on every row). Each value is the highest concentration of that substance reported in that natural.",
   "scope": "Only the 47 restricted substances with a Category 4 limit in ifra_cat4_51.json, and only rows for naturals Kenny owns and their close variants. Safrole (IFRA_STD_179) has no per-natural table, only its 0.01 % notebox total, so the safrole in nutmeg is not counted. Annexes of other restricted substances were not read. Cyclopentadecanolide (IFRA_STD_026) was added on 2026-10-27 for the galbanum rows, read from IFRA's compiled 50th Amendment PDF.",
   "stock_rule": "A stock maps to the NCS rows that are that natural, not its part or species variants. Where the species, part or extraction is uncertain, every candidate is listed and the highest value per substance is used. Rows that print one substance under several CAS numbers (cedrene) also take the highest value, never the sum.",
-  "unmapped_owned_naturals": {
-    "Orange Flower Absolute": "Kept unrecognised by Kenny's decision (its hold stands); Annex rows: Orange blossoms absolute (farnesol 8 %, geraniol 1 %)."
-  },
+  "unmapped_owned_naturals": {},
   "rows": [
     {
       "substance": "Eugenol",
@@ -4350,6 +4348,55 @@
       "source_url": "https://li01.tci-thaijo.org/index.php/anres/article/view/244814",
       "source_kind": "published_gc_ms_literature",
       "note": "Not an Annex I row. Punjee et al. 2009, Kasetsart J. (Nat. Sci.) 43(5):197-203, Table 2: methyl eugenol 3.59% (water distillation), 2.04% (water-steam), 1.36% (steam; the profile the engine uses for Magnolia EO). The highest of the three is counted because the owned oil's process is not recorded (safety first), and it is above the Annex I Michelia alba extract row (2.8%), which stays listed. No geraniol is reported."
+    },
+    {
+      "substance": "Farnesol",
+      "standard": "IFRA_STD_036",
+      "ncs_name": "Orange blossoms absolute",
+      "max_pct": 8.0,
+      "max_pct_as_printed": "8",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Farnesol.pdf"
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Orange blossoms absolute",
+      "max_pct": 1.0,
+      "max_pct_as_printed": "1",
+      "source_url": "https://www.perfumersworld.com/documents/Project-Templates/IFRA-Standards/Geraniol.pdf"
+    },
+    {
+      "substance": "Benzaldehyde",
+      "standard": "IFRA_STD_007",
+      "ncs_name": "Orange flower absolute, PerfumersWorld 5NC07544 certificate",
+      "max_pct": 0.006,
+      "max_pct_as_printed": "0.0006",
+      "printed_for_dilution_pct": 10.0,
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5NC07544",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Orange Flower Absolute 10% in DPG 5NC07544, the SKU of Kenny's stock, read 2026-10-28; it prints percentages of the 10%, held here per gram of absolute (x10)."
+    },
+    {
+      "substance": "Geraniol",
+      "standard": "IFRA_STD_037",
+      "ncs_name": "Orange flower absolute, PerfumersWorld 5NC07544 certificate",
+      "max_pct": 0.738,
+      "max_pct_as_printed": "0.0738",
+      "printed_for_dilution_pct": 10.0,
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5NC07544",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Orange Flower Absolute 10% in DPG 5NC07544, the SKU of Kenny's stock, read 2026-10-28; it prints percentages of the 10%, held here per gram of absolute (x10)."
+    },
+    {
+      "substance": "Methyl N-methylanthranilate",
+      "standard": "IFRA_STD_094",
+      "ncs_name": "Orange flower absolute, PerfumersWorld 5NC07544 certificate",
+      "max_pct": 0.003,
+      "max_pct_as_printed": "0.0003",
+      "printed_for_dilution_pct": 10.0,
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5NC07544",
+      "source_kind": "supplier_ifra_certificate",
+      "note": "Not an Annex I row. PerfumersWorld's IFRA certificate (51st Amendment) for Orange Flower Absolute 10% in DPG 5NC07544, the SKU of Kenny's stock, read 2026-10-28; it prints percentages of the 10%, held here per gram of absolute (x10)."
     }
   ],
   "stocks": {
@@ -4989,6 +5036,13 @@
         "Fixative 505, PerfumersWorld 4UY07514 certificate"
       ],
       "note": "A PerfumersWorld compound with no Annex I row; its IFRA certificate is counted."
+    },
+    "Orange Flower Absolute": {
+      "ncs_names": [
+        "Orange blossoms absolute",
+        "Orange flower absolute, PerfumersWorld 5NC07544 certificate"
+      ],
+      "note": "Bitter orange flower absolute; the Annex I row and Kenny's PW certificate. Kenny, 2026-10-28: 'Use orange flower absolute freely'."
     }
   },
   "schiff_bases": {

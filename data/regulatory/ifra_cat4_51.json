@@ -4860,6 +4860,19 @@
       "verified_on": "2026-10-25",
       "identity_note": "Its certificate declares no restricted constituents, but its composition is not published, so none are counted."
     },
+    "Suederal": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Suederal 10%",
+        "Suederal 10% in DPG",
+        "Suederal LT"
+      ],
+      "note": "PerfumersWorld 3UP14351 'Suederal' (Kenny's bottle; his stock is his own 10% in DPG). Its IFRA certificate (51st Amendment) reads 'No restricted materials found for this product.' and 'This fragrance compound does not contain any substances prohibited by IFRA standards.', and prints 25 % for Fine Fragrance (10 % EdT). PerfumersWorld prints 25 % when no constituent limits the product; that is its own ceiling, not an IFRA limit. Of the constituents IFF declares for Suederal LT (FPIS document 3255950, 31 Jan 2024), only limonene (0.002 %, IFRA_STD_186, a peroxide specification) has an IFRA standard in this table.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=3UP14351",
+      "verified_on": "2026-10-28",
+      "identity_note": "Its certificate declares no restricted constituents; IFF's published composition for Suederal LT is counted as a closest-identity proxy (partly_declared_bases.json), about 16 % of it undeclared."
+    },
     "Pamzest": {
       "status": "no_standard",
       "standard": null,
@@ -5074,6 +5087,18 @@
         "23787-90-8"
       ],
       "source_url": "https://www.sciencedirect.com/science/article/pii/S0278691517300807",
+      "verified_on": "2026-10-28"
+    },
+    "Orange Flower Absolute": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Orange Flower Absolute 10% in DPG"
+      ],
+      "cas": "8016-38-4",
+      "note": "Citrus aurantium amara flower absolute (Annex I 'Orange blossoms absolute', CAS 8016-38-4). No IFRA standard of its own. Kenny's stock is PerfumersWorld's Orange Flower Absolute 10% in DPG 5NC07544; its IFRA certificate (51st Amendment, read 2026-10-28) prints Fine Fragrance 20.15 % of the 10% and lists benzaldehyde 0.0006 %, geraniol 0.0738 % and methyl N-methylanthranilate 0.0003 % of the 10%, counted here per gram of absolute (x10) through ifra_annex1_constituents.json with the Annex I orange blossoms absolute rows (farnesol 8 %, geraniol 1 %). Kenny lifted his 25 Oct hold on 2026-10-28 12:37 UTC: 'Use orange flower absolute freely'.",
+      "identity_note": "Its own PerfumersWorld certificate (5NC07544) also lists benzyl cyanide (CAS 140-29-4) 0.0496 % and 7-methoxycoumarin (CAS 531-59-9) 0.0002 % of the 10% under 'IFRA prohibited materials' (PW: each 'is Prohibited by IFRA for use in Fragrance'); the neat 8NC00338 certificate gives ten times each. Kenny chose to use it anyway, so this is a warning, not a block.",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5NC07544",
       "verified_on": "2026-10-28"
     }
   },

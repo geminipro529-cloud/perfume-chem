@@ -154,6 +154,31 @@
         30.75
       ],
       "undeclared_note": "the costus, animalic and leathery odorants; IFF's 2020 formula, PerfumersWorld's lot version not verified (closest-identity proxy). Percentages are of the neat base; Kenny's stock is PW's ready-made 10% in DPG"
+    },
+    {
+      "name": "Suederal",
+      "aliases": ["Suederal 10%", "Suederal LT"],
+      "supplier": "PerfumersWorld (IFF Suederal LT, closest-identity proxy)",
+      "sku": "3UP14351",
+      "source_url": "https://perfumersupplyhouse.com/wp-content/uploads/2020/01/SUEDERAL-LT-2010-2020_FPIS.pdf",
+      "declaration_document": "IFF Fragrance Product Information Sheet, SUEDERAL LT 2010 /2020, Sales No. 30809720, Document ID 3255950, 31 Jan 2024",
+      "ifra_certificate": {"amendment": 51, "cat4_fine_fragrance_max_pct": 25.0, "cat4_edt_max_pct": 10.0},
+      "declared_constituents": [
+        {"name": "Hercolyn D (methyl hydrogenated rosinate)", "cas": "8050-15-5", "range_pct": [76.0, 76.0]},
+        {"name": "Methyl abietate (unintentional)", "cas": "127-25-3", "range_pct": [5.166, 5.166]},
+        {"name": "Methyl myristate", "cas": "124-10-7", "range_pct": [1.15, 1.15]},
+        {"name": "Methyl palmitate", "cas": "112-39-0", "range_pct": [1.15, 1.15]},
+        {"name": "1,2,4-Trimethylbenzene", "cas": "95-63-6", "range_pct": [0.046, 0.046]},
+        {"name": "2,6-Di-tert-butylphenol (antioxidant)", "cas": "128-39-2", "range_pct": [0.026, 0.026]},
+        {"name": "Triethyl citrate", "cas": "77-93-0", "range_pct": [0.014, 0.014]},
+        {"name": "Methanol (unintentional)", "cas": "67-56-1", "range_pct": [0.005, 0.005]},
+        {"name": "Ethylbenzene (unintentional)", "cas": "100-41-4", "range_pct": [0.002, 0.002]}
+      ],
+      "allergens_pct": {"Limonene": 0.002},
+      "other_listed_pct": {"Vanillin (FPIS section 5, under 0.001)": 0.0},
+      "declared_pct": [83.559, 83.559],
+      "undeclared_pct": [16.441, 16.441],
+      "undeclared_note": "the suede and leather odorants; IFF does not publish them. PROXY_IDENTITY_UNCONFIRMED: PerfumersWorld never names the maker of 3UP14351; it lists 'Suederal LT' among its synonyms and its MSDS density band (0.94-0.99 at 25 C) meets IFF's, so IFF Suederal LT is the closest published identity (Kenny's closest-identity rule), not a confirmed one. Allergens: IFF FPIS section 14 and IFF's EU allergen sheet for Suederal LT 2010/2015 (https://cdn.shopify.com/s/files/1/0682/1448/9400/files/EU_Fragrance_Allergens_SUEDERAL_IFF.PDF) both give limonene 0.002 % and every other allergen under 10 ppm; PerfumersWorld's declaration lists none. Percentages are of the neat base; Kenny's stock is his own 10% in DPG"
     }
   ]
 }
