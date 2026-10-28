@@ -1670,8 +1670,8 @@
   smiles: CC1(C2CCC(=C)C1C2)C
   inchikey: WTARULDDTDQWMU-UHFFFAOYSA-N
   mw_g_mol: 136.23
-  density_25c_g_ml: null
-  logp: 3.1
+  density_25c_g_ml: 0.866
+  logp: 4.16
   functional_groups:
   - monoterpene
   - alkene
@@ -1682,7 +1682,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 25.0
+  odt_air_ppb: 33.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1702,17 +1702,17 @@
   - aromatic
   - top
   character: Pine-green, woody-fresh terpene lift; oxidation-sensitive.
-  notes: PubChem-backed beta-pinene identity; current inventory addition should resolve
-    to this canonical entry.
+  notes: 'PubChem-backed beta-pinene identity; current inventory addition should resolve to this canonical entry. IFRA: a Pinaceae (turpentine) isolate, so STD_184''s peroxide value below 10 mmol/L applies (data/regulatory/ifra_cat4_51.json ''Beta Pinene''); no Category 4 limit. Keep it cold, dark and with an antioxidant. The second spine row ''beta-pinene'' is the same material. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
   provenance:
+    density_25c_g_ml: 'TGSC (https://www.thegoodscentscompany.com/data/rw1344431.html): ''Specific Gravity: 0.86700 to 0.87100 @ 25.00 C''; midpoint 0.869 x 0.99705 = 0.866 g/mL. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     aliases: inventory.txt
     cas: pubchem:Beta-Pinene
     smiles: pubchem:Beta-Pinene
     inchikey: pubchem:Beta-Pinene
     mw_g_mol: pubchem:Beta-Pinene
-    logp: pubchem:Beta-Pinene
+    logp: 'TGSC (https://www.thegoodscentscompany.com/data/rw1344431.html): ''logP (o/w): 4.160'' (not marked est; RIFM gives 4.37). Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     vp_25c_pa: manual:2026-04-29 optimizer physics override
-    odt_air_ppb: manual:2026-04-29 optimizer ODT override
+    odt_air_ppb: 'Nagata (2003), triangle odour bag, Table 2 (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf): ''beta-Pinene 0.033'' ppm = 33 ppb; engine/odor_thresholds.py (_SOURCED_ODT_2026_10_28). Replaces 3.0 and 25, neither traceable. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     user_stock_dilution: inventory.txt
     user_in_inventory: inventory.txt
     character: docs/dosing_reference.md
@@ -3004,18 +3004,18 @@
   cas: null
   smiles: null
   inchikey: null
-  mw_g_mol: 136.2
-  density_25c_g_ml: 0.867
-  logp: 4.2
+  mw_g_mol: 136.23
+  density_25c_g_ml: 0.866
+  logp: 4.16
   functional_groups: []
   chirality: null
-  vp_25c_pa: 400.0
+  vp_25c_pa: 390.0
   vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 3.0
+  odt_air_ppb: 33.0
   odt_eth_ppm: 0.5
   stevens_n: null
   or_targets: []
@@ -3024,8 +3024,10 @@
   user_in_inventory: true
 
   provenance:
-    density_25c_g_ml: 'SG 0.8670, supplier-reported (PerfumersWorld 3KC00386 "Beta Pinene"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
-    density_basis: supplier_sg_temperature_unstated
+    odt_air_ppb: 'Nagata (2003), triangle odour bag, Table 2 (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf): ''beta-Pinene 0.033'' ppm = 33 ppb; engine/odor_thresholds.py (_SOURCED_ODT_2026_10_28). Replaces 3.0 and 25, neither traceable. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
+    logp: 'TGSC (https://www.thegoodscentscompany.com/data/rw1344431.html): ''logP (o/w): 4.160'' (not marked est; RIFM gives 4.37). Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
+    density_25c_g_ml: 'TGSC (https://www.thegoodscentscompany.com/data/rw1344431.html): ''Specific Gravity: 0.86700 to 0.87100 @ 25.00 C''; midpoint 0.869 x 0.99705 = 0.866 g/mL. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
+    vp_25c_pa: 'Same value as the ''Beta Pinene'' row (390 Pa, the same material); was 400, unsourced. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
 - canonical_name: Blue Chamomile EO
   aliases:
   - blue chamomile eo

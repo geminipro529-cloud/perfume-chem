@@ -1,0 +1,72 @@
+{
+  "schema_version": "partly_declared_bases/1",
+  "decided_on": "2026-10-28",
+  "decision": "Kenny chose 'Warn, don't block' on a decision card in the 'Fix gaps in unused materials' thread (28 Oct 2026 09:28 UTC): 'The gate counts the declared allergens and IFRA items and passes the base with a named \"undeclared part\" warning'.",
+  "scope": "PerfumersWorld bases Kenny owns whose SDS section 3 and IFRA certificate (51st Amendment) are recorded. The declared part is counted (IFRA items through ifra_annex1_constituents.json, the allergens below toward the EU declaration); the undeclared part has no physics or threshold and is named in a warning instead of failing the gate. A base whose page publishes nothing stays in ifra_undisclosed_bases.json.",
+  "source_note": "Values re-read on PerfumersWorld product and document pages, 28 Oct 2026 (/mnt/project-files/unused-gaps-20261028/group2/g2_08_bases/VALUES.md). Grade B: producer documents, not the IFRA Standards text. Percentages are of the base as supplied.",
+  "bases": [
+    {
+      "name": "Black Tea Base",
+      "aliases": [],
+      "supplier": "PerfumersWorld",
+      "sku": "6HE09224",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=6HE09224",
+      "ifra_certificate": {"amendment": 51, "cat4_fine_fragrance_max_pct": 25.0, "cat4_edt_max_pct": 10.0},
+      "declared_constituents": [
+        {"name": "Phenyl ethyl alcohol", "cas": "60-12-8", "range_pct": [1.0, 10.0]},
+        {"name": "alpha-Terpineol", "cas": "98-55-5", "range_pct": [0.1, 1.0]},
+        {"name": "Dihydrojasmone", "cas": "1128-08-1", "range_pct": [0.1, 1.0]},
+        {"name": "Linalool oxide", "cas": "5989-33-3", "range_pct": [0.1, 1.0]},
+        {"name": "Linalool", "cas": "78-70-6", "range_pct": [0.1, 1.0]},
+        {"name": "Terpinyl acetate", "cas": "80-26-2", "range_pct": [0.1, 1.0]},
+        {"name": "Nine minor components (2,3-dimethylpyrazine, anisaldehyde, benzyl benzoate, beta-ionone, cis-3-hexenol, beta-damascenone, methyl benzoate, nerolidol, terpineol)", "cas": null, "range_pct": [0.0, 0.9]}
+      ],
+      "allergens_pct": {"Linalool": 0.2189, "Benzyl Benzoate": 0.076},
+      "other_listed_pct": {"Terpineol (allergen declaration)": 0.1123, "Anisaldehyde (IFRA list)": 0.0361, "Rose ketones (IFRA list)": 0.0335},
+      "declared_pct": [1.5, 15.9],
+      "undeclared_pct": [84.1, 98.5],
+      "undeclared_note": "tea-leaf-derived material and components the SDS does not classify"
+    },
+    {
+      "name": "Palm Dates Base",
+      "aliases": [],
+      "supplier": "PerfumersWorld",
+      "sku": "6FQ21068",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=6FQ21068",
+      "ifra_certificate": {"amendment": 51, "cat4_fine_fragrance_max_pct": 25.0, "cat4_edt_max_pct": 10.0},
+      "declared_constituents": [
+        {"name": "Diethyl malonate", "cas": "105-53-3", "range_pct": [10.0, 20.0]},
+        {"name": "BHT", "cas": "128-37-0", "range_pct": [1.0, 10.0]},
+        {"name": "Iso E Super", "cas": "54464-57-2", "range_pct": [1.0, 10.0]},
+        {"name": "Allyl amyl glycolate 10% in DPG", "cas": "67634-00-8", "range_pct": [1.0, 10.0]},
+        {"name": "Exaltolide 10% in DPG", "cas": "106-02-5", "range_pct": [1.0, 10.0]},
+        {"name": "Hexanoic acid 10% in TEC", "cas": "142-62-1", "range_pct": [1.0, 10.0]},
+        {"name": "Isobutyric acid 10% in TEC", "cas": "79-31-2", "range_pct": [1.0, 10.0]},
+        {"name": "Five minor components (beta-damascone 10%, beta-ionone, cis-3-hexenol 10%, dimethyl benzyl carbinyl acetate, ethyl acetoacetate)", "cas": null, "range_pct": [0.0, 0.5]}
+      ],
+      "allergens_pct": {},
+      "other_listed_pct": {},
+      "declared_pct": [12.4, 44.0],
+      "declared_pct_note": "pure active: the rows PerfumersWorld lists as 10% dilutions count one tenth",
+      "undeclared_pct": [56.0, 88.0],
+      "undeclared_note": "the dried-fruit and balsamic character; the certificate lists no restricted materials"
+    },
+    {
+      "name": "Sandalwood Base X3",
+      "aliases": ["Sandalwood Base 3X"],
+      "supplier": "PerfumersWorld",
+      "sku": "6WX24054",
+      "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=6WX24054",
+      "ifra_certificate": {"amendment": 51, "cat4_fine_fragrance_max_pct": 25.0, "cat4_edt_max_pct": 10.0},
+      "declared_constituents": [
+        {"name": "Javanol (sandal cyclopropane)", "cas": "198404-98-7", "range_pct": [1.0, 10.0]},
+        {"name": "Sandalore", "cas": "65113-99-7", "range_pct": [1.0, 10.0]}
+      ],
+      "allergens_pct": {"Limonene": 0.001},
+      "other_listed_pct": {"Rose ketones (IFRA list)": 0.0037, "Citral, linalool, carvone (each under 1 ppm)": 0.0},
+      "declared_pct": [2.0, 20.0],
+      "undeclared_pct": [80.0, 98.0],
+      "undeclared_note": "including the 'over 10% natural essential oils' the product page states"
+    }
+  ]
+}

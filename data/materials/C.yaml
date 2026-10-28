@@ -74,8 +74,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Cabbage Rose Extract
   aliases:
-  - rosa centifolia extract
   - MySkinRecipes Cabbage Rose Rosa Centifolia cosmetic extract
+  - MSR 10550 cabbage rose PG scent extract
   cas:
   smiles:
   inchikey:
@@ -103,8 +103,9 @@
   supplier:
   families: []
   character:
-  notes: MySkinRecipes order 2199505 extract (Rosa centifolia expected) diluted by mass to 1% in DPG by the user; extraction solvent and strength of the supplied extract not asserted.
+  notes: 'MySkinRecipes 10550. Its page gives INCI ''Propylene Glycol + Fragrance'': no rose extract is declared, so this is an undisclosed fragrance in PG, not a Rosa centifolia extract (CAS 84604-12-6) and not rose absolute. Kenny''s stock is 1% of it by mass in DPG, so it is almost all solvent. Never link it to rose absolute, otto or centifolia data. Alias ''rosa centifolia extract'' removed 2026-10-28 for that reason.'
   provenance:
+    notes: 'MySkinRecipes product page read on Kenny''s PC, 21 Oct 2026 (/mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md section 4): ''INCI: Propylene Glycol + Fragrance. No rose extract is listed''. Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
 - canonical_name: Cabreuva Essential Oil
   aliases:
@@ -151,17 +152,17 @@
   smiles: null
   inchikey: null
   mw_g_mol: 200.0
-  density_25c_g_ml: 0.96
+  density_25c_g_ml: 0.95
   logp: 3.5
   functional_groups: [phenol, ether, alkene]
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 5.4
+  vp_source: constituent_raoult_estimate
   antoine: null
   dhvap_kj_mol: 65.0
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 3.0
+  odt_air_ppb: 0.05
   odt_eth_ppm: 0.5
   stevens_n: 0.45
   or_targets: []
@@ -182,8 +183,11 @@
         price_usd_per_g: 0.2
   families: [leather, smoky, phenolic, woody]
   character: 'Cade Essential Oil is a powerful, smoky, birch tar-like oil. It is a little less sharp than Birch Tar Oil but they share a very similar scent profile. Odour=> Like Birch Tar Oil, Cade Oil Rectified is resinous and smokey, but has a finer smoke smell and less of the petrol aroma than Birch Tar.'
-  notes: Rectified juniper wood tar (Juniperus oxycedrus). Destructive distillation then vacuum rectification to remove PAHs. IFRA Standard 119 — crude oil prohibited.
+  notes: 'Rectified juniper wood tar (Juniperus oxycedrus). Destructive distillation then vacuum rectification to remove PAHs. IFRA Standard 119 — crude oil prohibited. Kenny made his 1% w/w in DPG himself from PW 7TW00076 neat (''Fix gaps in unused materials'' thread, 28 Oct 2026: ''dilute''), so the 7TW00076 IFRA certificate (51st Amendment) applies: 0.83 % of the neat oil in Category 4. ifra_max_pct_edp stays at the lower 0.1 (unsourced) until the p-cresol check: if the oil holds 1-10 % p-cresol (Madar SDS), IFRA Standard 260 (0.005 % in Category 4) would cap it at 0.05-0.5 %. He still has the neat oil (''Yes'', 28 Oct 2026 10:44:15 UTC; stock STK-201). VP 5.4 Pa and threshold 0.05 ppb are labelled estimates from a constituent model, valid as a pair. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: vapour-weighted guaiacol, p-cresol and phenol thresholds (Nagata 2003; engine guaiacol row), 0.05 ppb of total cade vapour, range 0.05-0.34; valid only with the 5.4 Pa VP; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 4). Not a measurement. Loaded 2026-10-28 (unused-materials group 4 fixes; source re-opened).'
+    vp_25c_pa: 'ESTIMATE (grade C, UNVERIFIED): Raoult''s law over a constituent model of rectified cade (guaiacol 7.1, creosol + 4-ethylguaiacol 5.9, phenol, p- and o-cresol 2, sesquiterpenes; total phenols 17 %, Bellakhdar), constituent VPs at 25 C; range 0.5 Pa (phenols gone, late dry-down) to 7.4 Pa (26 % phenols). /mnt/project-files/unused-gaps-20261028/group3/g3_05_c9_cade/VALUES.md section 2.2. Replaces 0.01, a placeholder. Loaded now that Kenny owns the neat oil (''Yes'', 28 Oct 2026 10:44:15 UTC). Loaded 2026-10-28 (unused-materials group 4 fixes; source re-opened).'
+    density_25c_g_ml: 'PerfumersWorld 7TW00076 (https://www.perfumersworld.com/view.php?pro_id=7TW00076): SG 0.9500 (neat oil; lots vary, Madar 1.030 at 20 C). Kenny''s 1% in DPG is almost all DPG. Replaces 0.96, unsourced. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     character: 'Cade Oil Rectified | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=7TW00076: Cade Essential Oil is a powerful, smoky, birch tar-like oil. It is a little less sharp than Birch Tar Oil but they share a very similar scent profile ... Odour=> Like Birch Tar Oil, Cade Oil Rectified is resinous and smokey, but has a finer smoke smell and less of the petrol aroma than Birch Tar. (grade A_producer; supplier description (PerfumersWorld 7TW00076; registry match, not a receipt)). Replaces unsourced text ''dry ashy smoke, juniper-woody, campfire, leathery undertone''. Second reader: CAS No. 8013-10-3 on page; describes the neat oil, Kenny''s stock is 1% in DPG. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     integrated: 2026-07-05 manual
@@ -565,7 +569,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 1.4
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -581,13 +585,14 @@
   odour_family: 'herbal'
   notes: MySkinRecipes order 2199458 'Para-anisyl Propanal (Canthoxal)', neat as supplied; CAS and purity not asserted.
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: Helional 0.14 ppb (Cometto-Muniz & Abraham 2010) x 8.57 and Cyclamen aldehyde 0.3237 ppb (Givaudan SDS) x 5.14, ratios from one human panel (Larsson 2010); geometric mean 1.41; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 3). Not a measurement. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     odour_family: 'odour family "herbal" from ''Herbal'': Canthoxal | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/canthoxal/: family label shown with icon: "Herbal" (grade A_producer; producer/primary text, quoted). Second reader: Family label ''Herbal'' shown with the icon; CAS 5462-06-6 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Canthoxal | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/canthoxal/: Olfactive Description: "Licorice, basil, fennel, anise notes with a slight fruity, watery modification." (grade A_producer; producer/primary text, quoted). Second reader: WebFetch got client_error twice; read with Parallel web_fetch. CAS field was empty in the fetched excerpt. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1023691.html; ECHA EC 226-749-5'
     density_25c_g_ml: 'ECHA 1.065 g/cm3 at 20 C (20 C value); TGSC range was 1.038-1.046. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
     vp_25c_pa: 'MEASURED: ECHA key study 0.3 Pa at 24 C; EPI estimate was 1.33 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026) Kept on 2026-10-25 over RIFM''s FMA figure (0.006 mm Hg at 20 C, one significant figure, method not stated, 4x higher): a measured ECHA key study outranks it.'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
-    logp: '22 Oct 2026 missing-data pass: stated; raw 2.5; https://www.perflavory.com/docs/doc1023691.html'
+    logp: 'RIFM fragrance ingredient safety assessment, CAS 5462-06-6 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5462-06-6.pdf): ''Log KOW: 1.74 (RIFM, 2007), 2.5 at 25 C (RIFM, 1996), 2.53 (EPI Suite)''. 2.5 kept (measured at 25 C); the 2007 measurement gives 1.74. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     smiles: 'PubChem structure resolved from CAS 5462-06-6 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
 - canonical_name: Caramel Furanone 0.003%
   aliases: []
@@ -1134,15 +1139,15 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 6.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: '20% w/w in DEP'
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 3WI03465
     perfumersworld_price_usd_per_g: 0.1
@@ -1152,8 +1157,10 @@
   families: []
   character: 'Mild fruity-woody odor fresh-green sap-like quite tenacious'
   odour_family: 'woody'
-  notes: 'MW, logP and VP left null (2026-10-08). MW conflict: TGSC "Molecular Weight: 262.39262000" (C17H26O2) vs PerfumersWorld SDS 264.41 (matches C17H28O2); unresolved. logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 5.366 (est)"; "Vapor Pressure: 0.000240 mmHg @ 25.00 C. (est)" = 0.0320 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1023611.html). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): mw_g_mol null -> 262.4.'
+  notes: 'MW, logP and VP left null (2026-10-08). MW conflict: TGSC "Molecular Weight: 262.39262000" (C17H26O2) vs PerfumersWorld SDS 264.41 (matches C17H28O2); unresolved. logP and VP exist only as TGSC estimates, not RIFM-quoted: "logP (o/w): 5.366 (est)"; "Vapor Pressure: 0.000240 mmHg @ 25.00 C. (est)" = 0.0320 Pa at 133.322 Pa/mmHg (https://www.thegoodscentscompany.com/data/rw1023611.html). Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): mw_g_mol null -> 262.4. Kenny''s label reads CAS 32214-91-8 (''Fix gaps in unused materials'' thread, 28 Oct 2026: ''32214-91-8''), the TGSC/PW identity, so MW 262.4 (C17H26O2) stays. The commercial tricyclic grade sold as caryophyllene acetate (Vetynal Extra type) is CAS 57082-24-3, C17H28O2, 264.4: not his bottle. No IFRA Standard; PW''s certificate figure is its blanket ceiling. No measured air ODT exists; the engine carries a labelled UNVERIFIED analogue estimate. Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-003 (owned, 20% w/w in DEP)'
     odour_family: 'odour family "woody" from ''Woody'': Caryophyllene Acetate | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=3WI03465: derived from "fresh sharp cedar woody spicy" and PW note groups heart Wood, base Wood (grade supplier; derived from the quoted description (the source gives no family)). Second reader: Family ''Woody'' supported by ''cedar woody'' and heart/base Wood. Note the Odour=> line reads ''Mild fruity-woody odor fresh-green sap-like'', not ''fresh sharp cedar woody spicy'' (that is the summary sentence). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Caryophyllene Acetate | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=3WI03465: "Caryophyllene Acetate is fresh sharp cedar woody spicy." "Odour=> Mild fruity-woody odor fresh-green sap-like quite tenacious". Notes: top Fruity, Green; heart Wood; base Wood (grade supplier; producer/primary text, quoted). Second reader: Supplier (PerfumersWorld) text; neat material, Kenny''s stock is 20% w/w. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
@@ -2017,7 +2024,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.0004
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 8.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2035,8 +2042,10 @@
   families: []
   character: 'A powerful and complex dry woody note, featuring vertical woody notes like cedarwood or patchouli, complemented by subtle ambery undertones.'
   odour_family: 'woody'
-  notes: 'Identity 2026-10-23: PubChem CID 6436727 (CAS 13786-79-3, synonym "Cedroxyde") is C15H24O, MW 220.35, but this entry''s MW is 238.4 (engine.diffusion_model, unsourced), so the CAS was NOT set (spec: only when MW matches within 0.1). PerfumersWorld SKU 3WI00098 lists 71735-79-0, a different isomer (CID 6441804). Resolve the MW before setting the CAS.'
+  notes: 'CAS 71735-79-0 (PerfumersWorld 3WI00098, Firmenich 922470), MW 220.35 (C15H24O). The 1,5,9-trimethyl isomer CAS 13786-79-3 (PubChem CID 6436727) is a different compound. Firmenich purity spec min 80%. The ''0.08 Pa'' in an earlier audit belongs to another Firmenich Compendium entry (MW 208), not Cedroxyde.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
+    notes: 'Firmenich 922470 sheet (https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CEDROXYDE_922470.pdf), re-opened 28 Oct 2026: ''LOG P (MEASURED) 4.88'', ''VAPOUR PRESSURE 0.19 Pa at 20 C'', ''MOLECULAR WEIGHT 221''. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     character: 'CEDROXYDE® (922470) | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/cedroxyder-pe-922470: Olfactive family Woody. Technical Descriptors Cedarwood, Ambery, Dry Woods. Olfactive description "A powerful and complex dry woody note, featuring vertical woody notes like cedarwood or patchouli, complemented by subtle ambery undertones." (grade A_producer; producer/primary text, quoted). Second reader: CAS 71735-79-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "woody" from ''Woody'': CEDROXYDE® (922470) | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/cedroxyder-pe-922470: Olfactive family Woody | Technical Descriptors Cedarwood, Ambery, Dry Woods (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'Firmenich, CEDROXYDE® 922470 marketing sheet (2020) (https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CEDROXYDE_922470.pdf): ''VAPOUR PRESSURE 0.19 Pa at 20 C''; printed 0.19 Pa at 20 C; producer sheet; method not stated; grade A_producer. Converted from 0.19 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 74.4 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: CAS 0071735-79-0 = 71735-79-0, which matches the stock record. Method not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
@@ -2063,7 +2072,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 20.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2081,14 +2090,16 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Light cedar, vetivert odor, sweet woody and long lasting (IFF).'
   odour_family: 'woody'
   notes: 'MW, VP and density left null (2026-10-08). Formula C17H28O2 per IFF; no source states the MW. IFF VP "0.000489 mm Hg @ 23 C" = 0.0652 Pa at 23 C, not 25 C. Specific gravity 1.0014 at 20 C (measured lot), spec 0.986-1.016 (https://scent.vn/en/products/cedryl-acetate-aroma-chemical); 20 C, not used. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): mw_g_mol null -> 264.41. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
+    character: 'IFF, Cedryl Acetate (https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/): ''Olfactive Description: Light cedar, vetivert odor, sweet woody and long lasting.'' (grade A_producer). Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     odour_family: 'odour family "woody" from ''Woody'': Cedryl Acetate | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/: family label shown with a tree icon: "Woody" (grade A_producer; producer/primary text, quoted). Second reader: CAS 77-54-3 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); "77-54-3" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
-    logp: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); log P "6.2", method not stated (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
+    logp: 'IFF (https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/): ''Log P: 6.2'', method not stated; the IFF SDS prints 6.210. Not a measurement: PubChem XLogP3 4.5 (computed) disagrees. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     mw_g_mol: 'formula weight of C17H28O2 per IFF (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
     vp_25c_pa: 'IFF Ingredients Compendium, Cedryl Acetate (IPC 00C00180) (https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/): ''Vapor Pressure: 0.000489 mm Hg @ 23 C''; printed 0.000489 mm Hg @ 23 C; producer compendium figure; method not stated; grade A_producer. Converted from 0.0652 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 79.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: IFF Ingredients Compendium, Cedryl Acetate. CAS 77-54-3 matches. 0.000489 x 133.322 = 0.0652 Pa at 23 C. CONVERSION GAP: the item stores this 23 C figure unchanged as vp_25c_pa = 0.0652 with... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'SG 0.9770, supplier-reported (PerfumersWorld 2WW00099 "Cedryl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 23 Oct 2026 third data pass: PerfumersWorld 2WW00099 "Specific Gravity 0.9770", https://www.perfumersworld.com/view.php?pro_id=2WW00099; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle)'
@@ -2975,7 +2986,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 3.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2991,9 +3002,11 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Spicy sweet balsamic cinnamon, mild-balsamic floral-fruity: lilac, hyacinth, rose, honey (PerfumersWorld).'
   notes: null
   provenance:
+    character: 'PerfumersWorld 3SQ00109 (https://www.perfumersworld.com/view.php?pro_id=3SQ00109): ''Cinnamyl Acetate is spicy sweet balsamic cinnamon mild-balsamic floral-fruity lilac hyacinth rose honey ...''. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
+    odt_air_ppb: 'UNVERIFIED analogue estimate: 2-phenylethyl acetate 2.0 ppb (measured) and cinnamyl alcohol 3.0 ppb with a PW Relative Odor Impact fit 4.8 ppb; geometric mean 3.07; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 3). Not a measurement. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'RIFM fragrance ingredient safety assessment, cinnamyl acetate, CAS Registry Number 103-54-8 (Api et al., Food Chem Toxicol 159 (2022) 112692) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-54-8.pdf): ''CAS Registry Number: 103-54-8''; Chemical Name Cinnamyl acetate. Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
     mw_g_mol: 'RIFM fragrance ingredient safety assessment, cinnamyl acetate, CAS Registry Number 103-54-8 (Api et al., Food Chem Toxicol 159 (2022) 112692) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/103-54-8.pdf): ''Molecular Weight: 176.21'' (C11H12O2). Loaded 2026-10-27 (incoming-bottle data from the pink pepper thread; source re-opened by a second reader).'
@@ -6518,7 +6531,7 @@
   smiles:
   inchikey:
   mw_g_mol: 135.0
-  density_25c_g_ml: 1.05
+  density_25c_g_ml: 1.051
   logp: 2.0
   functional_groups:
   - aldehyde
@@ -6530,7 +6543,7 @@
   dhvap_kj_mol:
   kaw_eff: 0.008
   hsp:
-  odt_air_ppb: 1.5
+  odt_air_ppb: 78.0
   odt_eth_ppm: 0.2
   stevens_n:
   or_targets: []
@@ -6546,13 +6559,13 @@
   - spice / aromatic
   - natural
   character: "Warm sweet-spicy cinnamaldehyde-dominant EO. Rich cinnamon aroma. Powerful skin sensitizer."
-  notes: "Steam-distilled Cinnamomum cassia bark India. ~80% cinnamaldehyde. Spicy oriental use. IFRA restricted — highly dilute for skin."
+  notes: 'Steam-distilled Cinnamomum cassia bark India. ~80% cinnamaldehyde. Spicy oriental use. IFRA restricted — highly dilute for skin. Composition for the constituent model: PhytoChemia GC report for Plant Therapy lot CA0101 (https://funyu-store.b-cdn.net/report/Cinnamon-Cassia-CA0101.pdf): cinnamaldehyde 79.05, o-methoxycinnamaldehyde 8.77, cinnamyl acetate 3.30, coumarin 2.04, benzaldehyde 0.89 %. Which part Kenny''s oil is from (bark or leaf) and its seller are not recorded. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
   provenance:
     mw_g_mol: manual:2026-06-15 cinnamaldehyde-dominated mixture
-    density_25c_g_ml: manual:2026-06-15 typical cassia oil density
+    density_25c_g_ml: 'TGSC cassia oil (https://www.thegoodscentscompany.com/data/es1068412.html): ''Specific Gravity: 1.04500 to 1.06300 @ 25.00 C''; midpoint 1.054 x 0.99705 = 1.051 g/mL. Replaces 1.05 (manual). Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     logp: manual:2026-06-15 cinnamaldehyde-dominated approximation
     vp_25c_pa: manual:2026-06-15 cinnamaldehyde-dominated mixture VP
-    odt_air_ppb: manual:2026-06-15 estimated from cinnamaldehyde ODT
+    odt_air_ppb: 'UNVERIFIED headspace estimate from the oil''s composition (Plant Therapy lot CA0101): 1 / (0.605/62 + 0.374/140.5) = 78 ppb; engine/odor_thresholds.py (_ANALOGUE_ODT_ESTIMATES_2026_10_28, group 3). Replaces 1.5, a cinnamaldehyde value measured in water. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
     odt_eth_ppm: manual:2026-06-15 estimated from cinnamaldehyde ODT
     hedonic_valence: manual:2026-06-15 polarizing character
     ifra_max_pct_edp: IFRA STD_018 cinnamal 0.25 % / Annex I Cassia oil 80 % cinnamal = 0.3125 % (2026-10-15)

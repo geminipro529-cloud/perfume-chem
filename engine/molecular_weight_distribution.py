@@ -126,7 +126,7 @@ MW_DATA: dict[str, dict] = {
     "orivone": {"mw": 168.28, "logp": 2.9, "tags": ["iris", "orris", "heart"]},
     "scentenal": {"mw": 140.2, "logp": 2.5, "tags": ["ozone", "mineral", "top"]},
     "dynascone": {"mw": 192.3, "logp": 3.7, "tags": ["green", "galbanum", "top"]},
-    "parmavert": {"mw": 154.2, "logp": 2.4, "tags": ["green", "violet", "top"]},
+    "parmavert": {"mw": 184.3, "logp": 3.6, "tags": ["green", "violet", "top"]},
     "leafovert": {"mw": 140.2, "logp": 2.6, "tags": ["green", "fresh", "top"]},
     "cyclamen aldehyde": {
         "mw": 188.3,

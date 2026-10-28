@@ -126,7 +126,8 @@ def test_researched_identity_and_physics_are_loaded(name, cas, mw, vp_source):
         ("Phenoxy Ethyl Isobutyrate", 1.05, 0.77),
         ("Dupical", 1.008, 0.11),
         ("Cyclogalbanate", 1.02, 0.4),
-        ("Dimethyl Benzyl Carbinol", 0.979, 8.17),
+        # 2026-10-28: 0.972 g/mL at 25 C (TGSC); the PC lookup's 0.979 was the ECHA 20 C value.
+        ("Dimethyl Benzyl Carbinol", 0.972, 8.17),
         ("Pear Valerate", 0.8564, 13.9),
     ),
 )

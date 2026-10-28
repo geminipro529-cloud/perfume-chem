@@ -248,7 +248,7 @@
     density_25c_g_ml: '22 Oct 2026 missing-data pass: spec range midpoint; raw 0.8495; https://thegoodscentscompany.com/data/es1008011.html; temperature as printed by source (often 20 C), not corrected to 25 C'
 - canonical_name: Red Saffron Infusion
   aliases: []
-  cas: null
+  cas: '8022-19-3'
   smiles: null
   inchikey: null
   mw_g_mol: null
@@ -282,6 +282,7 @@
   odour_family: 'spice'
   notes: null
   provenance:
+    cas: 'PerfumersWorld 5ES18560 SDS section 3 (https://www.perfumersworld.com/document-list.php?pro_id=5ES18560), read 28 Oct 2026: ''CAS No 8022-19-3''. Its IFRA certificate lists safranal 0.0519 %, already counted through ifra_annex1_constituents.json. Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
     odour_family: 'odour family "spice" from ''Spicy-herbal (saffron)'': Red Saffron Infusion | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=5ES18560: Odour is herbal saffron fresh strong calyx, edible spicy-herbal-coumarin woody ... Top Notes Edible, Herb, Citrus, Vanilla, Phenolic (grade A_producer; derived from the quoted description (PW gives no family; ''herbal saffron ... edible spicy-herbal-coumarin woody''; PW Top ''Edible, Herb, Citrus, Vanilla, Phenolic'', Heart ''Herb, Narcotic, Citrus'')). Second reader: Family derived from the description: ''herbal saffron'', ''spicy-herbal'' support ''Spicy-herbal (saffron)''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Red Saffron Infusion | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=5ES18560: The finest red Saffron extracted with dipropylene glycol to give a deep red infusion. ... The red infusion has a very rich oriental bouquet. It captures the full Saffron character giving it a more classic appeal than Saffron oil light ... Odour is herbal saffron fresh strong calyx, edible spicy-herbal-coumarin woody, honey, phenolic, medicinal, camphor, green-narcotic-floral, tobacco, hay, narcissus narcisse neroli violet : (grade A_producer; supplier/producer description (PerfumersWorld makes this infusion; usage clauses left out)). Second reader: Rest of the Odour sentence on page verbatim: ''...phenolic, medicinal, camphor, green-narcotic-floral, tobacco, hay, narcissus narcisse neroli violet :'' Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md

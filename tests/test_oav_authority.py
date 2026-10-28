@@ -452,7 +452,8 @@ def test_resin_tinctures_use_generic_literature_composites_for_screening_only():
     )
     rows = {row.name: row for row in state.materials}
     expected_coverage = {
-        "Turkish Storax Liquidambar orientalis resin ethanol tincture": 0.1566,
+        # 2026-10-28: styrene 0.5% added (Hafizoglu 1982 via Askun 2021).
+        "Turkish Storax Liquidambar orientalis resin ethanol tincture": 0.1616,
         "Vietnamese Benzoin Styrax tonkinensis resin ethanol tincture": 0.6,
         "Kenyan Myrrh resin ethanol tincture": 0.0013,
         "Oman Frankincense resin ethanol tincture": 0.021485,

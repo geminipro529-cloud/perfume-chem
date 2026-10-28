@@ -151,7 +151,8 @@ _TEN_PERCENT_DPG = {
 }
 
 
-@pytest.mark.parametrize("identity", ["Apritone", "Aldehyde C16 EMPG"])
+# Aldehyde C16 EMPG left this list on 2026-10-28: Kenny confirmed it is its own bottle (v26 STK-194).
+@pytest.mark.parametrize("identity", ["Apritone"])
 def test_identity_kept_separate_row_stays_held_after_a_complete_entry(completion_log, identity) -> None:
     # Their V5 rows read "IDENTITY KEPT SEPARATE": the carrier is missing too,
     # but the form's strength, basis and carrier do not settle which product it is.

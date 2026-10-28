@@ -1297,7 +1297,6 @@ ODT_DATA: dict[str, dict] = {
     },
     # odt_eth backported from material_properties.json 2026-05-30
     "apritone": {"odt_air": 3.5, "odt_eth": 0.52, "char": "apricot-peach lactonic"},
-    "azhrbre": {"odt_air": 2.0, "odt_eth": 0.5, "char": "cedar-amber, warm-smooth"},
     "bacdanol": {
         "vfy": "PEER_SINGLE",
         "sources": ["van Gemert (2011)"],
@@ -1417,7 +1416,7 @@ ODT_DATA: dict[str, dict] = {
         "char": "tobacco blend — BLEND_ESTIMATE (multi-component blend, no valid molecular ODT)",
     },
     "vetikon": {
-        "odt_air": 5.0,
+        "odt_air": None,  # 5.0 had no source; runtime 87.53 ppb (Symrise), _LITERATURE_ODT_2026_10_25
         "odt_eth": 1.0,
         "char": "woody, vetiver-type, dry, earthy, slightly green",
     },
@@ -1838,11 +1837,6 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Auto-tagged by audit 2026-05-11",
     },
     "azarbre": {
-        "vfy": "UNVERIFIED",
-        "sources": ["No peer-reviewed air-phase ODT found in indexed literature"],
-        "note": "Auto-tagged by audit 2026-05-11",
-    },
-    "azhrbre": {
         "vfy": "UNVERIFIED",
         "sources": ["No peer-reviewed air-phase ODT found in indexed literature"],
         "note": "Auto-tagged by audit 2026-05-11",
@@ -2950,11 +2944,6 @@ ODT_VERIFICATION: dict[str, dict] = {
         "sources": ["No peer-reviewed air-phase ODT found in indexed literature"],
         "note": "Auto-tagged by audit 2026-05-11",
     },
-    "vetikon": {
-        "vfy": "UNVERIFIED",
-        "sources": ["No peer-reviewed air-phase ODT found in indexed literature"],
-        "note": "Auto-tagged by audit 2026-05-11",
-    },
     "vetiver": {
         "vfy": "UNVERIFIED",
         "sources": ["No peer-reviewed air-phase ODT found in indexed literature"],
@@ -3246,6 +3235,8 @@ _ODT_QUERY_ALIASES = {
     # Kenny's Orris Butter 50% w/w in ethanol (2026-10-20): the orris butter row.
     "orris butter 50% in etoh": "orris concrete orris butter",
     "orris butter 50%": "orris concrete orris butter",
+    # Data spine row "Beta Pinene" (CAS 127-91-3): the beta-pinene row.
+    "beta pinene": "beta-pinene",
 }
 
 
@@ -3609,7 +3600,7 @@ _VERIFIED_ODT = {
     "helional": 0.1,
     "iso e super": 0.05,
     "javanol": 0.0016,
-    "methyl nonyl ketone": 5.0,
+    "methyl nonyl ketone": 5.0,  # 2-nonanone analogue; replaced 2026-10-28 (5.5 ppb, UNVERIFIED)
     "romandolide": 4.9,
     "indole": 0.14,
     "hydroxycitronellal": 15.0,
@@ -5618,6 +5609,331 @@ for _name, (_odt_air, _vfy, _sources) in _LITERATURE_ODT_2026_10_25.items():
             _meta["odt_eth"] = _prior["odt_eth"]
     ODT_VERIFICATION[_key] = _meta
 LITERATURE_ODT_BATCH_2026_10_25 = True
+
+# Labelled analogue estimates, 28 Oct 2026 (stock thread). Kenny chose, on a card in the
+# "Fix gaps in unused materials" thread (28 Oct 08:39 UTC): where no measured air ODT
+# exists, load an estimate from the closest measured analogue, tagged UNVERIFIED. Each
+# value is the geometric mean of the analogue estimate and a PerfumersWorld Relative Odor
+# Impact + VP fit (leave-one-out on 20 measured materials: median error about 5x, one in
+# three over 10x); /mnt/project-files/unused-gaps-20261028/PW_IMPACT_RESULT.md. ScenTree's
+# unsourced air figures were not used. Glycolierral and Fructone B have no measured
+# analogue, so they stay without a value. Group 2 (same day) adds five more on the same
+# rule; Diethyl Malonate and Aldehyde C16 have only the PW fit, no measured analogue, so
+# they stay without a value too.
+_ANALOGUE_ODT_ESTIMATES_2026_10_28 = {
+    "cedroxyde": (8.0, [
+        "Analogue estimate 10 ppb: geometric mean of the engine's woody-amber air values "
+        "Vertofix Coeur 6.3 (PEER_SINGLE), Timberol 13.6 (PEER_SINGLE) and Koavone 5 "
+        "(UNVERIFIED); weak analogues (ketones, not a macrocyclic epoxide).",
+        "PW Relative Odor Impact 80 + VP fit: 6.2 ppb (3WI00098; "
+        "https://www.perfumersworld.com/view.php?pro_id=3WI00098).",
+        "Geometric mean 7.9 -> 8 ppb. No published air ODT found (ScenTree prints none).",
+    ]),
+    "cedryl acetate": (20.0, [
+        "Analogue estimate 40 ppb: geometric mean of Vertofix Coeur (acetyl cedrene) 6.3 "
+        "(PEER_SINGLE) and Cedramber (cedryl methyl ether) 240 (UNVERIFIED).",
+        "PW Relative Odor Impact 60 + VP fit: 11.6 ppb (2WW00099; "
+        "https://www.perfumersworld.com/view.php?pro_id=2WW00099).",
+        "Geometric mean 21.5 -> 20 ppb. The two inputs disagree about 3x.",
+    ]),
+    "anisyl acetate": (9.0, [
+        "Analogue estimate 20 ppb: benzyl acetate 20 ppb (PEER_SINGLE, Nagata 2003), the "
+        "parent ester; anisaldehyde 5 ppb (PEER_SINGLE) shows the p-methoxy group can lower it.",
+        "PW Relative Odor Impact 80 fit without VP: 4.3 ppb (3LN00043; "
+        "https://www.perfumersworld.com/view.php?pro_id=3LN00043).",
+        "Geometric mean 9.3 -> 9 ppb.",
+    ]),
+    "dimethyl benzyl carbinol": (12.0, [
+        "Analogue estimate 26 ppb: phenethyl alcohol 26 ppb (PEER_SINGLE), the closest "
+        "measured aryl alkanol.",
+        "PW Relative Odor Impact 90 + VP fit: 6.2 ppb (3LL00156; "
+        "https://www.perfumersworld.com/view.php?pro_id=3LL00156).",
+        "Geometric mean 12.7 -> 12 ppb.",
+    ]),
+    "caryophyllene acetate": (6.0, [
+        "Analogue estimate 6.3 ppb: Vertofix Coeur (acetyl cedrene) 6.3 ppb (PEER_SINGLE), "
+        "the closest measured sesquiterpene ester/ketone. Vetiveryl acetate (UNVERIFIED) and "
+        "cedryl acetate (itself an estimate) were not used.",
+        "PW Relative Odor Impact 100 fit: 5.3 ppb (3WI03465; "
+        "https://www.perfumersworld.com/view.php?pro_id=3WI03465).",
+        "Geometric mean 5.8 -> 6 ppb.",
+    ]),
+    "hindinol": (7.0, [
+        "Analogue estimate 10 ppb: Sandalore 10 ppb (PEER_SINGLE, van Gemert 2011), the "
+        "closest measured campholenic sandalwood alcohol.",
+        "PW Relative Odor Impact 100 fit: 5.3 ppb (4WX24656; "
+        "https://www.perfumersworld.com/view.php?pro_id=4WX24656).",
+        "Geometric mean 7.3 -> 7 ppb. Not used: Takasago patent US 5,994,291 gives 51e-12 mol/L "
+        "for the (R) form with the medium unstated; Kenny's PW bottle is probably racemic.",
+    ]),
+    "para-acetanisole": (30.0, [
+        "Analogue bracket: anisaldehyde 5 ppb (PEER_SINGLE) and acetophenone 170 ppb "
+        "(PubChem / Haz-Map odor threshold low 0.17 ppm, high 0.6 ppm), the p-methoxy and "
+        "aryl-ketone parents.",
+        "PerfumersWorld does not sell it, so there is no PW Relative Odor Impact fit.",
+        "Geometric mean 29 -> 30 ppb; the two parents span 34x.",
+    ]),
+    "methyl nonyl ketone": (5.5, [
+        "Analogue estimate 5.5 ppb: 2-nonanone 5.5 ppb, measured (Cometto-Muniz & Abraham "
+        "2009, Table 2; https://pmc.ncbi.nlm.nih.gov/articles/PMC2709282/). 2-Undecanone "
+        "itself was not tested.",
+        "Replaces 5.0 ppb labelled 'Lotsch et al. 2009, Tier A', which was this 2-ketone "
+        "series value, not a measurement of methyl nonyl ketone.",
+    ]),
+}
+_refresh_normalized_odt_index()
+for _name, (_odt_air, _sources) in _ANALOGUE_ODT_ESTIMATES_2026_10_28.items():
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": "UNVERIFIED",
+        "sources": list(_sources),
+        "note": "Analogue estimate 2026-10-28 (Kenny's card choice, 28 Oct 08:39 UTC); not a measurement.",
+    }
+    if ODT_VERIFICATION.get(_key):
+        _meta["superseded"] = dict(ODT_VERIFICATION[_key])
+    ODT_VERIFICATION[_key] = _meta
+
+# Cabreuva: the 150 ppb is nerolidol's air value carried to the oil, not a measurement of the oil.
+ODT_VERIFICATION["cabreuva eo"] = {
+    **ODT_VERIFICATION["cabreuva eo"],
+    "vfy": "DERIVED",
+    "note": "Constituent-derived (nerolidol, 50-100% of the oil per the Madar SDS); relabelled 2026-10-28 from MULTI_SOURCE_LITERATURE.",
+}
+# Sandalwood Base X3 (PW 6WX24054) is a mixture: the 100 ppb / 0.5 ppm of the 2026-08-07
+# intake batch were invented for it and PW publishes no threshold, so it carries none.
+ODT_DATA["sandalwood base x3"] = {
+    **ODT_DATA["sandalwood base x3"],
+    "odt_air": None,
+    "odt_eth": None,
+}
+ODT_VERIFICATION["sandalwood base x3"] = {
+    "vfy": "UNAVAILABLE",
+    "sources": [],
+    "note": "Removed 2026-10-28: the 2026-08-07 values were invented for a mixture; PW publishes no threshold.",
+    "superseded": dict(ODT_VERIFICATION["sandalwood base x3"]),
+}
+# Himalayan Cedarwood EO: the 15 ppb is the generic cedarwood row, copied; nothing measured.
+ODT_VERIFICATION["himalayan cedarwood eo"] = {
+    **ODT_VERIFICATION.get("himalayan cedarwood eo", {}),
+    "vfy": "UNVERIFIED",
+    "sources": ["Copied from the generic 'cedarwood' row (15 ppb); no measured value for Cedrus deodara oil."],
+    "note": "Labelled 2026-10-28: not a measurement of this oil.",
+}
+# Group 3 (28 Oct 2026, same rule). Inputs: /mnt/project-files/unused-gaps-20261028/group3/
+# (g3_*/VALUES.md); each source was re-opened before loading.
+_ANALOGUE_ODT_ESTIMATES_2026_10_28.update({
+    "canthoxal": (1.4, [
+        "Measured anchors: Helional 0.14 ppb (Cometto-Muniz & Abraham 2010, Table 2; "
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC2912639/) and Cyclamen aldehyde 0.3237 ppb "
+        "(Givaudan SDS, engine row).",
+        "Ratios from one human panel (Larsson 2010, Linkoping master project, 20 subjects, "
+        "'Laska, unpublished data'; https://www.ifm.liu.se/edu/biology/master_projects/2010/"
+        "student-presentation-of-t/linda-larsson/downloads-2/Linda-Larsson.pdf): 'helional, "
+        "cyclamal and canthoxal ... 2.1e12, 3.5e12 and 1.8e13 molecules/cm3', so canthoxal is "
+        "8.57x helional (1.2 ppb) and 5.14x cyclamal (1.66 ppb).",
+        "Geometric mean 1.41 -> 1.4 ppb (range 1.2-1.7). The panel's own absolute values are "
+        "unpublished, so only its ratios are used.",
+    ]),
+    "cinnamyl acetate": (3.0, [
+        "Analogue estimate: 2-phenylethyl acetate 2.0 ppb (measured, Schieberle 1998 via van "
+        "Gemert 2011; engine row) and cinnamyl alcohol 3.0 ppb (engine row), its ester and "
+        "alcohol parents.",
+        "PW Relative Odor Impact 120 fit: 4.8 ppb (3SQ00109; "
+        "https://www.perfumersworld.com/view.php?pro_id=3SQ00109).",
+        "Geometric mean of the three 3.07 -> 3.0 ppb (range 1-10). Not in Nagata 2003 or van "
+        "Gemert's air list.",
+    ]),
+    "phenyl ethyl dimethyl carbinyl acetate": (2.7, [
+        "Analogue bracket: 2-phenylethyl acetate 2.0 ppb (measured, engine row), same "
+        "Ph-CH2CH2-O chain, and dimethyl benzyl carbinyl acetate 3.75 ppb, same tertiary "
+        "acetate head, back-calculated from Givaudan's measured odour value (" + _GIVAUDAN_PROC
+        + ": PROC 7061, log Kcaps -2.4, OV 11,768; headspace 301-400 ug/L bin, US 10,982,173, "
+        "https://patents.justia.com/patent/10982173).",
+        "Geometric mean 2.74 -> 2.7 ppb (range 2.0-3.75).",
+    ]),
+    "acetoin": (3.0, [
+        "Analogue bracket: diacetyl 0.050 ppb and methyl ethyl ketone 440 ppb (Nagata 2003, "
+        "Table 2, measured air; https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf), its "
+        "oxidised and reduced C4 neighbours; geometric mean 4.7 ppb.",
+        "PW Relative Odor Impact 190 fit: 2.1 ppb (4DV02664; "
+        "https://www.perfumersworld.com/view.php?pro_id=4DV02664).",
+        "Geometric mean 3.1 -> 3 ppb (range 0.5-20). Its published thresholds are in water, "
+        "which are not used for air (RULE 1).",
+    ]),
+    "parmavert": (7.7, [
+        "Analogue bracket: PADMA (phenylacetaldehyde dimethyl acetal) 200 ppb (engine row, van "
+        "Gemert 2011), the same dimethyl acetal head, and Undecavertol 0.293 ppb (Givaudan SDS "
+        "2.0435 ng/l, engine row), the same violet-leaf green family.",
+        "Geometric midpoint 7.7 ppb (range 0.3-200). PW Relative Odor Impact does not track "
+        "threshold for acetals (PADMA ROI 500 at 200 ppb), so it is not used. Replaces 15, "
+        "which had no source.",
+    ]),
+    "cassia essential oil": (78.0, [
+        "Headspace estimate from the oil's composition (PhytoChemia GC report for Plant "
+        "Therapy lot CA0101, 26 Feb 2016; https://funyu-store.b-cdn.net/report/"
+        "Cinnamon-Cassia-CA0101.pdf: cinnamaldehyde 79.1, coumarin 2.0, benzaldehyde 0.9 %): "
+        "Raoult vapour is 60.5 % cinnamaldehyde and 37.4 % benzaldehyde.",
+        "1 / (0.605/62 + 0.374/140.5) = 78 ppb, with cinnamaldehyde 62 ppb (engine row, no "
+        "primary source quoted: the weak link) and benzaldehyde 140.5 ppb (measured, von "
+        "Ranson & Belitz 1992 via AIHA 2013, engine row). Range 60-140.",
+        "Replaces 1.5 ppb, which was taken from a cinnamaldehyde value measured in water "
+        "(Czerny 2008).",
+    ]),
+    "turkish storax": (35.0, [
+        "Styrene 35 ppb (Nagata 2003, Table 2, triangle odour bag: 'Styrene 0.035' ppm; "
+        "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf), the constituent that makes up "
+        "about 99 % of the odorant vapour above the tincture (styrene 0.5 % of the balsam, "
+        "Hafizoglu 1982 as quoted by Askun et al. 2021, Turk J Bot; "
+        "https://journals.tubitak.gov.tr/cgi/viewcontent.cgi?article=1049&context=botany).",
+        "Range 20-35 ppb (lower if styrene has been lost from an aged balsam). Replaces 20 ppb "
+        "labelled multi-source literature; none of the cited sources gives a storax threshold.",
+    ]),
+})
+for _name in ("canthoxal", "cinnamyl acetate", "phenyl ethyl dimethyl carbinyl acetate",
+              "acetoin", "parmavert", "cassia essential oil", "turkish storax"):
+    _odt_air, _sources = _ANALOGUE_ODT_ESTIMATES_2026_10_28[_name]
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": "UNVERIFIED",
+        "sources": list(_sources),
+        "note": "Analogue estimate 2026-10-28 (Kenny's card choice, 28 Oct 08:39 UTC); not a measurement.",
+    }
+    if ODT_VERIFICATION.get(_key):
+        _meta["superseded"] = dict(ODT_VERIFICATION[_key])
+    ODT_VERIFICATION[_key] = _meta
+
+# Sourced values, group 3: a producer measurement, a measured air value and a back-calculated
+# producer odour value.
+_SOURCED_ODT_2026_10_28 = {
+    "azarbre": (1.569, "PEER_SINGLE", [
+        "Givaudan Suisse SA, Azarbre Safety Data Sheet (2022), section 9 "
+        "(https://www.de-kruiderie.nl/wp-content/uploads/2025/03/SDS-AZARBRE-EN.pdf): "
+        "'Odour Threshold : 11,5686 ng/l'; 11.5686 x 24.45 / 180.29 = 1.569 ppb. Producer SDS "
+        "figure, medium and method not printed (ng/l is Givaudan's air-threshold unit, as for "
+        "the Nympheal SDS); grade A_producer. Replaces 2.0, which had no source.",
+    ]),
+    "beta-pinene": (33.0, "PEER_SINGLE", [
+        "Nagata Y. (2003), Measurement of odor threshold by triangle odor bag method, Table 2 "
+        "(https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf): 'beta-Pinene 0.033' ppm v/v = "
+        "33 ppb. Replaces 3.0 ppb labelled 'van Gemert (2011)', which could not be traced to a "
+        "printed value.",
+    ]),
+    "ethyl linalyl acetate": (14.42, "PEER_EST", [
+        _GIVAUDAN_PROC + ": 'ETHYL LINALYL ACETATE ((Z)-3,7-dimethylnona-1,6-dien-3-yl "
+        "acetate) | 5526' (PROC) and '| 1783 | -1.1' (log Kcaps), so OV = 5526 / 1.9 = 2,908; "
+        "saturated vapour at the engine VP 4.25 Pa (RIFM-quoted EPI Suite) = 41,944 ppb; "
+        "41,944 / 2,908 = 14.42 ppb. With Givaudan's own 4.87 Pa it is 16.5 ppb.",
+        "Check: on the same scale linalyl acetate is 66 ppb, so ethyl linalyl acetate is about "
+        "0.22x linalyl acetate; against Elsharif's measured 13.8 ppb for linalyl acetate that "
+        "gives about 3 ppb, so 14.42 is the weaker end of a 3-15 ppb window.",
+    ]),
+}
+_refresh_normalized_odt_index()
+for _name, (_odt_air, _vfy, _sources) in _SOURCED_ODT_2026_10_28.items():
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": _vfy,
+        "sources": list(_sources),
+        "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 3); source re-opened before loading.",
+    }
+    if ODT_VERIFICATION.get(_key):
+        _meta["superseded"] = dict(ODT_VERIFICATION[_key])
+    ODT_VERIFICATION[_key] = _meta
+# Group 4 (28 Oct 2026, same rules). Inputs: /mnt/project-files/unused-gaps-20261028/group4/
+# (g4_*/VALUES.md); each source was re-opened before loading.
+_ANALOGUE_ODT_ESTIMATES_2026_10_28.update({
+    "2-acetyl pyrazine": (0.40, [
+        "Analogue: 2-acetyl-1-pyrroline 0.02 ng/L in air (PMC9351765: '0.1 ug/L in water and "
+        "0.02 ng/L in air', next to Adams & De Kimpe, Chem Rev 2006).",
+        "Ratio from one lab, one method, one medium: Chetschik et al. 2010, Table 7, thresholds "
+        "in sunflower oil: '2-acetylpyrazine 10' and '2-acetyl-1-pyrroline 0.1' ug/kg, so 100x. "
+        "0.02 x 100 = 2.0 ng/L x 24.45 / 122.12 = 0.40 ppb.",
+        "Range 0.4-2.5 ppb (a water-threshold ratio gives the upper end). Replaces 0.3, which "
+        "had no source.",
+    ]),
+    "allyl ionone": (0.035, [
+        "Analogue: alpha-n-methylionone (the methyl-ketone homologue on the same alpha-ionone "
+        "skeleton), measured air thresholds (R) 0.53 and (S) 0.24 ng/L (Abate et al., "
+        "Tetrahedron: Asymmetry 18 (2007) 1145, as quoted by Leffingwell, "
+        "https://www.leffingwell.com/chirality/n_methylionone.htm).",
+        "Commercial allyl ionone is racemic: harmonic mean 0.33 ng/L x 24.45 / 232.37 = 0.035 "
+        "ppb (range 0.025-0.084). Replaces 1.0, which had no source.",
+    ]),
+    "maltol": (1.0, [
+        "Analogue: ethyl maltol 0.0059 ppb (Park 2012, engine row), the same 3-hydroxy-4-pyranone "
+        "one CH2 longer. TGSC's ethyl maltol page "
+        "(https://www.thegoodscentscompany.com/data/rw1004172.html): '4-6 x potency of "
+        "3-Hydroxy-2-methyl-4H-pyran-4-one' (maltol; flavour use, medium not stated), so "
+        "maltol is about 0.024-0.035 ppb on Park's scale.",
+        "Park's thesis reads 28-44x below olfactometer values for Galaxolide and Ambroxan; "
+        "scaled, 0.8-1.3 ppb. The engine's 1.0 is kept, range 0.3-1.3. Maltol's published "
+        "threshold (2500 ug/L) is in water and is not used (RULE 1).",
+    ]),
+    "cade oil rectified": (0.05, [
+        "Analogue: cade's measured odour-active phenols weighted by their share of its vapour "
+        "(Raoult model, central case, same as its 5.4 Pa VP): guaiacol 0.01654 ppb (engine row), "
+        "p-cresol 0.054 ppb and phenol 5.6 ppb (Nagata 2003, Table 2); additive odour units, "
+        "1/ODT = 0.29/0.01654 + 0.10/0.054 + 0.37/5.6, so 0.05 ppb of total cade vapour.",
+        "Range 0.05-0.34 ppb (guaiacol at Yang 2008's 0.295 ppb). Creosol has no measured air "
+        "value and is left out. Valid only with the 5.4 Pa constituent VP. Replaces 3.0, which "
+        "had no source.",
+    ]),
+})
+_SOURCED_ODT_2026_10_28["methyl laitone"] = (0.0303, "PEER_SINGLE", [
+    "Givaudan Safety Data Sheet METHYL LAITONE 10%/DPG, Sales No. 6978468, Version 4.1 (14 JUN "
+    "2024; https://perfumiarz.com/cdn/shop/files/6978468_METHYL_LAITONE_10DPG_SDS_EN.pdf) and "
+    "Version 3.7 (07 JUN 2015): 'Odour Threshold : 0,2085 ng/l'; 0.2085 x 24.45 / 168.23 = "
+    "0.0303 ppb. Read as the pure lactone: the same section prints the vapour pressure as "
+    "'Calculated (100,0 %)', and Givaudan's product pages say 'Dilutions: evaluated as pure "
+    "material'. The SDS odour field ('woody, Ambery, Powerful, Persistent') is Givaudan's "
+    "descriptor, not a coconut description. Grade A_producer; method not printed.",
+])
+for _name in ("2-acetyl pyrazine", "allyl ionone", "maltol", "cade oil rectified"):
+    _odt_air, _sources = _ANALOGUE_ODT_ESTIMATES_2026_10_28[_name]
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": "UNVERIFIED",
+        "sources": list(_sources),
+        "note": "Analogue estimate 2026-10-28 (Kenny's card choice, 28 Oct 08:39 UTC); not a measurement.",
+    }
+    if ODT_VERIFICATION.get(_key):
+        _meta["superseded"] = dict(ODT_VERIFICATION[_key])
+    ODT_VERIFICATION[_key] = _meta
+_refresh_normalized_odt_index()
+_odt_air, _vfy, _sources = _SOURCED_ODT_2026_10_28["methyl laitone"]
+_key = lookup_odt_raw_name("methyl laitone") or "methyl laitone"
+_entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+_entry["odt_air"] = _odt_air
+for _field in ("vfy", "sources", "note"):
+    _entry.pop(_field, None)
+ODT_DATA[_key] = _entry
+ODT_VERIFICATION[_key] = {
+    "vfy": _vfy,
+    "sources": list(_sources),
+    "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 4); source re-opened before loading.",
+    **({"superseded": dict(ODT_VERIFICATION[_key])} if ODT_VERIFICATION.get(_key) else {}),
+}
+ANALOGUE_ODT_BATCH_2026_10_28 = True
 
 
 # (auditor CRITICAL C1: without this, batch ODT_DATA entries are unreachable via runtime lookup)

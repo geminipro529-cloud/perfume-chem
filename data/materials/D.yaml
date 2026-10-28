@@ -1336,7 +1336,7 @@
   smiles: 'CC(C)(O)Cc1ccccc1'
   inchikey:
   mw_g_mol: 150.22
-  density_25c_g_ml: 0.979
+  density_25c_g_ml: 0.972
   logp: 1.7
   functional_groups: []
   chirality:
@@ -1346,15 +1346,15 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 12.0
   odt_eth_ppm:
   stevens_n:
   or_targets: []
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: 'neat / as supplied'
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 3LL00156
     perfumersworld_price_usd_per_g: 0.27
@@ -1364,12 +1364,14 @@
   families: []
   character: 'Warm, herbaceous, floral aroma'
   odour_family: 'floral'
-  notes:
+  notes: 'Melting point 23-24 C (TGSC https://www.thegoodscentscompany.com/data/rw1004411.html; JECFA 23.7-24.5 C): solid below room temperature in a cool room; warm gently or weigh. TGSC odour strength ''low'', substantivity 6 h at 100%. No measured air ODT exists; the engine carries a labelled UNVERIFIED analogue estimate (engine/odor_thresholds.py). Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json#INV-USER-20261014-STK-123 (owned, neat)'
     odour_family: 'odour family "floral" from ''Floral'': alpha,alpha-Dimethylphenethyl alcohol (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/1642: Physical form/odour: "Warm, herbaceous, floral aroma" (grade A_regulatory; derived from the quoted description (the source gives no family)). Second reader: Family ''Floral'' supported by ''Warm, herbaceous, floral aroma''. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'alpha,alpha-Dimethylphenethyl alcohol (JECFA specification, FAO), https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/1642: Physical form/odour: "Colourless to pale yellow viscous liquid or white crystalline solid; Warm, herbaceous, floral aroma" (grade A_regulatory; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     cas: 'Perflavory https://www.perflavory.com/docs/doc1004412.html'
-    density_25c_g_ml: 'ECHA about 0.979 g/cm3 at 20 C (20 C value); JECFA 0.972-0.977; mp 24 C. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    density_25c_g_ml: 'TGSC, dimethyl benzyl carbinol (https://www.thegoodscentscompany.com/data/rw1004411.html): ''Specific Gravity: 0.97300 to 0.97600 @ 25.00 C''; midpoint 0.9745 x 0.99705 (water at 25 C) = 0.972 g/mL. Replaces 0.979, which was the ECHA 20 C value under a 25 C label. JECFA 0.972-0.977 agrees. Loaded 2026-10-28 (unused-materials group 2 fixes; source re-opened).'
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, α,α-dimethylphenethyl alcohol, CAS 100-86-7 (Api et al., Food Chem Toxicol 189 (2024) 114695) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/100-86-7.pdf): ''Vapor Pressure: 0.018 mm Hg at 20 C (EPI Suite v4.0), 0.04 mm Hg at 20 C (FMA), 0.0296 mm Hg at 25 C (EPI Suite v4.11)''; printed 0.04 mm Hg at 20 C; 0.04 x 133.322 = 5.33 Pa; FMA value quoted by RIFM (method not stated); grade A_producer. Converted from 5.333 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 62.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: RIFM a,a-dimethylphenethyl alcohol, CAS 100-86-7 (FCT 189 (2024) 114695). 0.04 mm Hg x 133.322 = 5.33 Pa at 20 C. FMA value, not labelled calculated; A_producer is acceptable. FMA is ~2.2x the EPI v4.0 estimate at... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     logp: 'RIFM fragrance ingredient safety assessment, α,α-dimethylphenethyl alcohol, CAS 100-86-7 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/100-86-7.pdf): ''Log KOW: 1.7 at 35 C (RIFM, 2000b), 2.44 (EPI Suite v4.11)''; printed 1.7 at 35 C (RIFM, 2000b); EPI 2.44; RIFM study (RIFM 2000b), measured; grade A_measured. Second reader: Same RIFM page, CAS 100-86-7. Measured at 35 C; RIFM also uses 1.7 in its environmental assessment. EPI estimate 2.44 is 0.7 log units higher. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'

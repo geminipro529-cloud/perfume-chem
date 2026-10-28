@@ -64,7 +64,8 @@ SKIN_PHYSCHEM: dict[str, dict[str, float]] = {
     "Kephalis": {"logP": 4.5, "MW": 234.4, "substantivity": 0.85},
     "Koavone": {"logP": 3.5, "MW": 192.3, "substantivity": 0.75},
     "Amberwood F": {"logP": 3.8, "MW": 234.4, "substantivity": 0.80},
-    "Cedroxyde": {"logP": 3.5, "MW": 238.4, "substantivity": 0.78},
+    # Cedroxyde: Firmenich 922470 sheet "LOG P (MEASURED) 4.88"; MW of C15H24O (28 Oct 2026).
+    "Cedroxyde": {"logP": 4.88, "MW": 220.35, "substantivity": 0.78},
     "Vetival": {"logP": 3.0, "MW": 206.3, "substantivity": 0.72},
     # ── Sandalwoods ──
     "Javanol": {"logP": 3.6, "MW": 210.4, "substantivity": 0.82},
@@ -110,7 +111,7 @@ SKIN_PHYSCHEM: dict[str, dict[str, float]] = {
     "cis-3-Hexenol": {"logP": 1.6, "MW": 100.2, "substantivity": 0.10},
     "Dynascone": {"logP": 2.5, "MW": 166.3, "substantivity": 0.30},
     "Allyl Amyl Glycolate": {"logP": 1.0, "MW": 172.2, "substantivity": 0.15},
-    "Parmavert": {"logP": 2.5, "MW": 166.3, "substantivity": 0.30},
+    "Parmavert": {"logP": 3.6, "MW": 184.28, "substantivity": 0.30},  # RIFM measured logP; Bedoukian MW (28 Oct 2026)
     "Leafovert": {"logP": 2.0, "MW": 156.3, "substantivity": 0.20},
     # ── Citrus (volatile — low skin absorption) ──
     "D-Limonene": {"logP": 4.6, "MW": 136.2, "substantivity": 0.10},

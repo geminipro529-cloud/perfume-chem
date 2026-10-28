@@ -73,7 +73,7 @@ LEFFINGWELL_GRAS_1991: dict[str, tuple[float, str, str]] = {
     "112-31-2": (6.2, "Decanal", "6.2 ppb from Nagata 2003"),
     "112-44-7": (5.0, "Undecanal", "5.0 ppb from Nagata 2003"),
     "110-41-8": (11.0, "C12 MNA", "11 ppb from Nagata 2003"),
-    "127-91-3": (3.0, "Beta-Pinene", "3 ppb from van Gemert 2011"),
+    "127-91-3": (33.0, "Beta-Pinene", "33 ppb from Nagata 2003 (0.033 ppm); the 3 ppb credited to van Gemert 2011 could not be traced"),
     "104-54-1": (4.0, "Cinnamyl Alcohol", "4 ppb from van Gemert 2011"),
     "6790-58-5": (0.3, "Ambrox Super", "0.3 ppb from van Gemert 2011"),
     "19700-21-1": (0.006, "Geosmin", "6 ppt from Polak & Provasi 1992"),

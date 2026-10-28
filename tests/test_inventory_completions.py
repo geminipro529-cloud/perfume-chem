@@ -1,9 +1,11 @@
+import dataclasses
 import json
 
 import pytest
 
 from engine.inventory_completions import (
     InventoryCompletionConflictError,
+    _effective_design_readiness,
     effective_design_ready,
     inventory_completion_requirements,
     load_inventory_completion_events,
@@ -81,51 +83,36 @@ def test_completion_is_idempotent_and_rejects_key_reuse(tmp_path, monkeypatch) -
         record_inventory_completion(**{**command, "physical_form": "oil"})
 
 
-def test_tincture_starting_charge_remains_withheld_until_final_fraction_is_known(
-    tmp_path, monkeypatch
-) -> None:
-    path = tmp_path / "inventory-completions.jsonl"
-    monkeypatch.setenv("PERFUME_INVENTORY_COMPLETION_PATH", str(path))
-    baseline = materialize_current_inventory()
-    stock = _stock(baseline, "Kenyan Myrrh Ethanol Tincture")
-
-    _receipt, incomplete = record_inventory_completion(
-        stock_id=stock.stock_id,
-        expected_effective_inventory_sha256=baseline.effective_inventory_sha256,
-        idempotency_key="myrrh-starting-recipe",
-        fraction_decimal="0.2",
-        fraction_basis="mass_fraction",
-        carrier="ethanol",
-        physical_form="solution",
-        possession_confirmed=True,
-        homogeneity="HOMOGENEOUS",
-        final_fraction_known=False,
-        source_kind="USER_LABEL_OR_RECIPE",
-        user_note="Starting recipe only.",
+def test_tincture_starting_charge_remains_withheld_until_final_fraction_is_known() -> None:
+    # Every owned tincture is dosed at its starting charge since 28 Oct 2026 (myrrh "ye", storax
+    # "Storax yes continue to 4"), so the live storax stock is ready and the held state is rebuilt
+    # from it to keep the rule tested.
+    live = _stock(materialize_current_inventory(), "Turkish Storax Tincture")
+    assert live.execution_ready is True and live.fraction_basis == "mass_fraction"
+    held = dataclasses.replace(
+        live,
+        fraction_basis="mass_fraction_starting_charge",
+        execution_ready=False,
+        execution_hold_reason="FINAL_DISSOLVED_FRACTION_UNMEASURED",
     )
-    unresolved = _stock(incomplete, "Kenyan Myrrh Ethanol Tincture")
-    assert effective_design_ready(unresolved) is False
-    assert "final_usable_fraction_confirmation" in inventory_completion_requirements(
-        unresolved
+    assert "final_usable_fraction_confirmation" in inventory_completion_requirements(held)
+    values = {
+        "fraction_decimal": "0.2",
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol",
+        "physical_form": "solution",
+        "possession_confirmed": True,
+        "homogeneity": "HOMOGENEOUS",
+        "final_fraction_known": False,
+        "source_kind": "USER_LABEL_OR_RECIPE",
+    }
+    ready, missing = _effective_design_readiness(held, values)
+    assert ready is False
+    assert "final_usable_fraction_confirmation" in missing
+    ready, missing = _effective_design_readiness(
+        held, {**values, "final_fraction_known": True, "source_kind": "USER_MEASUREMENT"}
     )
-
-    _receipt, complete = record_inventory_completion(
-        stock_id=stock.stock_id,
-        expected_effective_inventory_sha256=incomplete.effective_inventory_sha256,
-        idempotency_key="myrrh-final-measurement",
-        fraction_decimal="0.2",
-        fraction_basis="mass_fraction",
-        carrier="ethanol",
-        physical_form="solution",
-        possession_confirmed=True,
-        homogeneity="HOMOGENEOUS",
-        final_fraction_known=True,
-        source_kind="USER_MEASUREMENT",
-        user_note="Final usable concentration confirmed.",
-    )
-    resolved = _stock(complete, "Kenyan Myrrh Ethanol Tincture")
-    assert effective_design_ready(resolved) is True
-    assert resolved.execution_ready is True
+    assert (ready, missing) == (True, ())
 
 
 def test_completion_log_hash_chain_detects_tampering(tmp_path) -> None:

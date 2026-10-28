@@ -32,7 +32,7 @@ from engine.families.registry import (
     novelty_assessment,
 )
 from engine.fuckups.pre_mix_guard import evaluate_pre_mix_guard
-from engine.ifra_safety import score_ifra_compliance
+from engine.ifra_safety import eu_allergen_rows, score_ifra_compliance
 from engine.ifra_standards import (
     FinishedProductEstimate,
     FinishedProductRow,
@@ -43,6 +43,7 @@ from engine.ifra_standards import (
     load_ifra_table,
     load_natural_constituents,
     load_undisclosed_bases,
+    partly_declared_base,
     undisclosed_base,
 )
 from engine.inventory_completions import COMPLETION_CLEARABLE_HOLDS, STOCK_PAGE_ENTRY_INCOMPLETE
@@ -924,8 +925,20 @@ def _gate_material_coverage(state: FormulaState) -> GateResult:
     return _result("material_spine_coverage", "PASS")
 
 
+def _partly_declared(material):
+    """The partly declared supplier base a row is, or None (data/regulatory/partly_declared_bases.json)."""
+    return partly_declared_base([material.name, *_ifra_alt_names(material)])
+
+
+def _partly_declared_warnings(materials) -> dict[str, str]:
+    return {m.name: base.warning() for m in materials if (base := _partly_declared(m))}
+
+
 def _gate_data_coverage(state: FormulaState) -> GateResult:
     required = ("mw", "logp", "vp", "odt_air_ppm")
+    # Kenny, 2026-10-28 ("Warn, don't block"): a partly declared base passes with its
+    # undeclared part named, instead of failing for the physics a mixture cannot have.
+    partly = _partly_declared_warnings(state.materials)
     composite_authority = {
         m.name: [field for field in required if field in m.missing_fields]
         for m in state.materials
@@ -936,6 +949,7 @@ def _gate_data_coverage(state: FormulaState) -> GateResult:
         m.name: [field for field in required if field in m.missing_fields]
         for m in state.materials
         if m.sources.get("oav_model") != "modeled:natural_constituent_composite"
+        if m.name not in partly
         if any(field in m.missing_fields for field in required)
     }
     if missing:
@@ -944,6 +958,13 @@ def _gate_data_coverage(state: FormulaState) -> GateResult:
             "FAIL",
             json.dumps(missing, sort_keys=True),
             missing,
+        )
+    if partly:
+        return _result(
+            "physics_data_coverage",
+            "WARN",
+            "partly declared base(s): " + "; ".join(partly[name] for name in sorted(partly)),
+            {"partly_declared_bases": partly, "natural_composite_exemptions": composite_authority},
         )
     return _result(
         "physics_data_coverage",
@@ -954,13 +975,17 @@ def _gate_data_coverage(state: FormulaState) -> GateResult:
 
 
 def _gate_odt_coverage(state: FormulaState) -> GateResult:
+    partly = _partly_declared_warnings(state.materials)
     missing = sorted(
         m.name
         for m in state.materials
-        if not m.has_odt_authority
+        if not m.has_odt_authority and m.name not in partly
     )
     if missing:
         return _result("odt_coverage", "FAIL", ", ".join(missing), {"missing": missing})
+    partly_missing = {
+        m.name: partly[m.name] for m in state.materials if m.name in partly and not m.has_odt_authority
+    }
 
     low_authority_rows = []
     total_oav = sum(float(m.oav or 0.0) for m in state.materials) or 1.0
@@ -1000,6 +1025,14 @@ def _gate_odt_coverage(state: FormulaState) -> GateResult:
         "low_authority_materials": low_authority_rows,
         "low_authority_oav_share": round(low_authority_share, 6),
     }
+    if partly_missing:
+        data["partly_declared_bases"] = partly_missing
+        return _result(
+            "odt_coverage",
+            "WARN",
+            "no threshold for the undeclared part of: " + ", ".join(sorted(partly_missing)),
+            data,
+        )
     if low_authority_rows and (
         low_authority_share >= 0.25
         or any(row["material"] in top_oav_names for row in low_authority_rows)
@@ -1341,15 +1374,29 @@ def _gate_phase_compatibility(state: FormulaState) -> GateResult:
 
 
 def _gate_preblends(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
-    opaque = sorted(m.name for m in state.materials if m.is_opaque_preblend)
+    partly = _partly_declared_warnings(m for m in state.materials if m.is_opaque_preblend)
+    opaque = sorted(m.name for m in state.materials if m.is_opaque_preblend and m.name not in partly)
     if not opaque:
+        if partly:
+            # Kenny, 2026-10-28: "Warn, don't block" for a base whose SDS and IFRA
+            # certificate are recorded; the undeclared part is named.
+            return _result(
+                "opaque_preblends",
+                "WARN",
+                "partly declared base(s), undeclared part: "
+                + "; ".join(partly[name] for name in sorted(partly)),
+                {"materials": [], "partly_declared_bases": partly},
+            )
         return _result("opaque_preblends", "PASS")
     status = "WARN" if config.allow_preblends and not config.commercial_mode else "FAIL"
     if config.commercial_mode:
         detail = "blocked in commercial mode: "
     else:
         detail = "allowed by config: " if config.allow_preblends else "not allowed: "
-    return _result("opaque_preblends", status, detail + ", ".join(opaque), {"materials": opaque})
+    data = {"materials": opaque}
+    if partly:
+        data["partly_declared_bases"] = partly
+    return _result("opaque_preblends", status, detail + ", ".join(opaque), data)
 
 
 def _gate_blocked(state: FormulaState) -> GateResult:
@@ -1592,6 +1639,29 @@ def _gate_safety(
         finished_pct_w_w=pct_w_w,
         alt_names=alt_names,
     )
+    # Allergens a partly declared base declares count toward the EU declaration (Kenny,
+    # 2026-10-28); score_ifra_compliance sees only the row names.
+    allergen_declarations = list(report.allergen_declarations)
+    base_allergens = []
+    for m in state.materials:
+        base = _partly_declared(m)
+        if base is None or not pct_w_w.get(m.name):
+            continue
+        for allergen, share in base.allergens_pct.items():
+            base_allergens.append({
+                "material": m.name,
+                "base": base.name,
+                "allergen": allergen,
+                "allergen_pct_in_base": share,
+                "pct": pct_w_w[m.name] * share / 100.0,
+            })
+    if base_allergens:
+        merged = dict(pct_w_w)
+        for row in base_allergens:
+            merged[row["allergen"]] = merged.get(row["allergen"], 0.0) + row["pct"]
+        carried = {row["allergen"] for row in base_allergens}
+        declared = {r["allergen"] for r in eu_allergen_rows(merged, leave_on=True)} & carried
+        allergen_declarations = sorted(set(allergen_declarations) | declared)
     table = load_ifra_table()
     evaluation = evaluate_ifra(
         pct_w_w,
@@ -1663,13 +1733,14 @@ def _gate_safety(
         "diagnostics": report.diagnostics,
         "edge_dosing": edge_dosing,
         "banned": banned,
-        "allergen_declarations": report.allergen_declarations,
+        "allergen_declarations": allergen_declarations,
         "dermal_exposure": report.dermal_exposure,
         "uptake_weighted_sensitizers": report.uptake_weighted_sensitizers,
         "missing_ifra_limit": unchecked,
         "unchecked": unchecked,
         "holds": holds,
         "undisclosed_bases": undisclosed,
+        "partly_declared_base_allergens": base_allergens,
         "specification_notes": [_ifra_row_dict(c, headroom) for c in evaluation.notes],
         "rows": [_ifra_row_dict(c, headroom) for c in evaluation.checks],
         "groups": [_ifra_group_dict(g, headroom) for g in evaluation.group_checks],
@@ -1773,8 +1844,8 @@ def _gate_safety(
         detail.append(
             f"bottle size not found; default {config.batch_volume_ml:g} mL assumed"
         )
-    if report.allergen_declarations:
-        detail.append(f"{len(report.allergen_declarations)} EU allergen declarations")
+    if allergen_declarations:
+        detail.append(f"{len(allergen_declarations)} EU allergen declarations")
     if detail:
         return _result("safety_ifra_allergen", "WARN", "; ".join(detail) + f"; {basis_note}", data)
     return _result(
@@ -3036,13 +3107,18 @@ def _gate_osmotheque_archivability(state: FormulaState, config: ReleaseGateConfi
     opaque_count = 0
     unknown_count = 0
     total = state.material_count or 1
+    partly_count = 0
     for m in state.materials:
-        if m.is_opaque_preblend:
+        if m.is_opaque_preblend and _partly_declared(m):
+            partly_count += 1
+        elif m.is_opaque_preblend:
             opaque_count += 1
         if not m.is_known:
             unknown_count += 1
 
     issues = []
+    if partly_count:
+        issues.append(f"{partly_count} partly declared base(s)")
     if opaque_count > 0:
         opaque_pct = opaque_count / total * 100.0
         if opaque_pct > 20.0:
@@ -6328,7 +6404,9 @@ def _gate_master_perfumer(state: FormulaState, config: ReleaseGateConfig) -> Gat
     note = state.note_distribution()
     active = state.active_percentages()
     max_material = max(active.items(), key=lambda kv: kv[1]) if active else ("", 0.0)
-    preblend_count = sum(1 for m in state.materials if m.is_opaque_preblend)
+    preblend_count = sum(
+        1 for m in state.materials if m.is_opaque_preblend and not _partly_declared(m)
+    )
     issues: list[str] = []
     if state.material_count < 6:
         issues.append("too few materials for a finished fine-fragrance structure")

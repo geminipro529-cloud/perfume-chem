@@ -97,8 +97,12 @@ def test_new_coriander_and_coffee_naturals_have_evidence_bounded_profiles() -> N
     assert coffee is not None
     assert coffee.resolution == "literature_proxy"
     assert coffee.profile_key == "roasted coffee oil literature profile"
-    assert coffee.characterized_fraction == pytest.approx(0.00281614)
-    assert coffee.sources == ("https://doi.org/10.3390/foods12132515",)
+    # 2026-10-28: 4-vinylguaiacol, 2-furfurylthiol and guaiacol were added (unused-materials group 3).
+    assert coffee.characterized_fraction == pytest.approx(0.00303577)
+    assert coffee.sources == (
+        "https://doi.org/10.3390/foods12132515",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8346979/",
+    )
     assert any("supplier-batch" in item for item in coffee.limitations)
 
 

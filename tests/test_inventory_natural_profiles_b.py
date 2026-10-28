@@ -7,12 +7,12 @@ from engine.pipeline.natural_absolute_decomposition import (
     get_constituents,
 )
 
-_MAG = "michelia alba flower oil zhu 1993 literature profile"
+_MAG = "michelia alba flower oil punjee 2009 steam distillation profile"
 _CHA = "champaca flower oil perfumersworld 7nj07740 ifra declaration profile"
 _PERU = "myroxylon balsamum peru balsam perfumersworld 2qv00363 allergen declaration profile"
 
 _NEW_PROXIES = {
-    "Magnolia EO": (_MAG, 0.8586),
+    "Magnolia EO": (_MAG, 0.9492),
     "Champaca Flower EO": (_CHA, 0.56954),
     "Peru Balsam Resinoid": (_PERU, 0.268851),
     "Peru Balsam Resinoid (50% w/w in DEP)": (_PERU, 0.268851),
@@ -36,17 +36,19 @@ def test_stock_label_resolves_to_a_partial_labelled_proxy(label):
     assert all(s.startswith("https://") for s in meta.sources)
 
 
-def test_magnolia_is_michelia_alba_with_doubtful_sample_type_and_minors_unresolved():
+def test_magnolia_eo_is_michelia_alba_oil_from_a_primary_paper_with_minors_unresolved():
+    # Kenny, 28 Oct 2026: "there i anotheer magnlia eo but it micahelia alba eo".
     meta = get_composite_metadata("Magnolia EO")
     rows = {row[0]: row for row in get_constituents("Magnolia EO")}
-    assert rows["linalool"][1] == pytest.approx(0.7629)
-    assert rows["phenylethyl alcohol"][3] == pytest.approx(11.57)
-    assert meta.input_authority["composition"]["sample_type_status"].startswith("DOUBTFUL")
+    assert rows["linalool"][1] == pytest.approx(0.9174)
+    assert rows["methyl eugenol"][1] == pytest.approx(0.0136)
+    assert meta.sources[0] == "https://li01.tci-thaijo.org/index.php/anres/article/view/244814"
+    assert not any("scent.vn" in source for source in meta.sources)
     unresolved = {u["name"]: u["reported_fraction"] for u in meta.unresolved_constituents}
-    assert len(unresolved) == 11
-    assert sum(unresolved.values()) == pytest.approx(0.0617)
+    assert len(unresolved) == 5
+    assert unresolved["ethyl 2-methylbutyrate"] == pytest.approx(0.0147)
+    assert sum(unresolved.values()) == pytest.approx(0.0509)
     assert all(u["odor_contribution"] == "UNCOMPUTED" for u in meta.unresolved_constituents)
-
 
 def test_champaca_is_a_declaration_not_a_true_champaca_absolute():
     meta = get_composite_metadata("Champaca Flower EO")

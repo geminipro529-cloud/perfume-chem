@@ -36,55 +36,45 @@ _MSR_COSMETIC_EXTRACT = (
 HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # Synthetics with MW, VP and log P but no air threshold (Rule 1: a water,
     # ethanol or usage-level number is not an air threshold).
-    "Acetoin": (("odt",), _NO_AIR_ODT),
     "Buccoxime": (("odt",), _NO_AIR_ODT),
-    "Caryophyllene Acetate": (("odt",), _NO_AIR_ODT),
-    "Cedryl Acetate": (("odt",), _NO_AIR_ODT + "; IFF gives a qualitative impact only"),
     "Cis-3 Hexenyl Hexanoate": (("odt",), _NO_AIR_ODT),
     "Diethyl Malonate": (("odt",), _NO_AIR_ODT),
-    "Ethyl Linalyl Acetate": (("odt",), _NO_AIR_ODT),
     "Fructone B": (("odt",), _NO_AIR_ODT),
     "Gamma Octalactone": (("odt",), _NO_AIR_ODT + "; a 6.5 ug/L water threshold exists and is not usable"),
     "Glycolierral": (("odt",), _NO_AIR_ODT),
     "Liffarome": (("odt",), _NO_AIR_ODT),
     "Linalool Oxide": (("odt",), _NO_AIR_ODT + " for any isomer"),
-    "Methyl Laitone": (("odt",), _NO_AIR_ODT + "; Givaudan gives a qualitative impact only"),
     "Rhubofix": (("odt",), _NO_AIR_ODT),
     "Veloutone": (("odt",), _NO_AIR_ODT),
     # Filled 2026-10-23 with RDKit MW and a labelled Crippen log P; still no air threshold.
     # Merged 2026-10-23 into the older entry, whose VP is a labelled TGSC estimate.
     "Aldehyde C16 EMPG": (("odt",), _NO_AIR_ODT_1023),
-    "Canthoxal": (("odt",), _NO_AIR_ODT_1023),
-    "Cedroxyde": (("odt",), _NO_AIR_ODT_1023),
-    "Dimethyl Benzyl Carbinol": (("odt",), _NO_AIR_ODT_1023),
-    "Para-Acetanisole": (("odt",), _NO_AIR_ODT_1023),
     "Para-Cresyl Phenyl Acetate": (("odt",), _NO_AIR_ODT_1023),
     "Peach Ketone": (("odt",), _NO_AIR_ODT_1023),
     # CAS confirmed on PubChem 2026-10-23; labelled Crippen log P added, still no air threshold.
     "Pear Valerate": (("odt",), _NO_AIR_ODT_1023),
+    # (Methyl Laitone left this list on 2026-10-28 with the Givaudan SDS threshold; Ginger Lily
+    # Oil the same day as H. spicatum rhizome oil, the closest identity.)
     # (Berry Hexanoate, Citronellyl Acetate, Cyclogalbanate, Decatone, Dupical, Magnolan,
     # Methyl Diantilis, Neryl Acetate and Velvione left this list on 2026-10-25, when the
     # literature batch loaded producer or Givaudan PROC air thresholds.)
     # Added 2026-10-25 from Kenny's PerfumersWorld order lines; their data has not been searched yet.
     # (Cis-3 Hexenyl Acetate, Manzanate and Phenoxy Ethyl Isobutyrate left this list the same day,
     # when the fruit batch loaded Givaudan US 12,340,876 air thresholds.)
-    # Searched in the 2026-10-25 literature fill.
-    "Anisyl Acetate": (
-        ("odt", "vp"),
-        _NO_AIR_ODT_1025 + "; ECHA's 12 Pa at 20 C looks too high for this molecule and is not loaded",
-    ),
+    # Searched in the 2026-10-25 literature fill. (Anisyl Acetate, Cedroxyde and Cedryl Acetate left
+    # this list on 2026-10-28: Givaudan VP and labelled analogue air ODTs.)
     "Ethyl Acetoacetate": (("odt",), _NO_AIR_ODT_1025),
-    "Phenyl Ethyl Dimethyl Carbinyl Acetate": (("odt",), _NO_AIR_ODT_1025 + "; VP from RIFM (FMA) since then"),
     "Palm Dates Base": (_ALL, "PerfumersWorld compound base, not a pure chemical; no composition published"),
     # Proprietary bases: a mixture with no CAS has no single MW, VP or log P.
     "Black Tea Base": (_ALL, "PerfumersWorld blend, not a pure chemical; no composition published"),
     "Costus Olifac": (("logp", "mw", "vp"), "IFF proprietary base with no CAS; the old MW and VP were placeholders"),
     "Tuberose Base": (_ALL, "maker and composition of this base are not recorded"),
-    "Hindinol": (
-        ("odt",),
-        "CAS 28219-60-5 confirmed on PubChem 2026-10-23 (RDKit MW, Crippen log P); VP from the Takasago Hindinol sheet (master's 2026-10-23 data pass); "
-        + _NO_AIR_ODT_1023,
-    ),
+    # Caryophyllene Acetate, Dimethyl Benzyl Carbinol, Para-Acetanisole and Hindinol left
+    # this list on 2026-10-28: labelled UNVERIFIED analogue air ODTs (Kenny's card choice).
+    # Group 3 the same day: Acetoin, Canthoxal and Phenyl Ethyl Dimethyl Carbinyl Acetate
+    # (UNVERIFIED analogue air ODTs) and Ethyl Linalyl Acetate (Givaudan PROC, PEER_EST) left too.
+    "Sandalwood Base 3X": (_ALL, "PerfumersWorld 6WX24054, a partly declared base (Javanol and Sandalore 1-10% each); the invented 2026-08-07 values were removed 2026-10-28"),
+    "Sandalwood Base X3": (_ALL, "PerfumersWorld 6WX24054, a partly declared base (Javanol and Sandalore 1-10% each); the invented 2026-08-07 values were removed 2026-10-28"),
     "Rum Ether": (
         _ALL,
         "CAS 8030-89-5 is a reaction-product mixture with no single MW or VP; the MSR COA's "
@@ -97,11 +87,6 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
         "PW declares only methyl heptadienone 0.23%; US 9434908 Table 5 (read 2026-10-25) is a "
         "dimethyl-carbonate leaf extract, 58.9% caffeine by GC area, not an absolute",
     ),
-    "Ginger Lily Oil": (
-        _ALL,
-        "PerfumersWorld 7NS25173 record is empty (SG 0.0000, CAS TBA, MSDS 'Proprietary Perfume "
-        "Compound'); identity record only since 2026-10-25",
-    ),
     "Red Saffron Infusion": (
         _ALL,
         "PerfumersWorld: saffron stigmas extracted in DPG; strength unpublished",
@@ -110,12 +95,7 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Magnolia Flower Extract": (_ALL, _MSR_COSMETIC_EXTRACT),
     "Iris Florentina Root Extract": (_ALL, _MSR_COSMETIC_EXTRACT),
     # MySkinRecipes orders 2200410 and 2200413, searched 2026-10-27.
-    "Cinnamyl Acetate": (
-        ("odt",),
-        "no published human detection threshold in air found; searched the Nagata 2003 table "
-        "(no entry), P&G patent threshold tables (computed classes only) and a 2026 CRFSFS "
-        "review; van Gemert 2011 could not be read (2026-10-27)",
-    ),
+    # (Cinnamyl Acetate left this list on 2026-10-28: labelled UNVERIFIED analogue air ODT.)
     # (Magnolia Absolute and White Sandalwood Oil (China) left this list on 2026-10-28, when Kenny
     # asked for the closest identity: they took the Michelia x alba concrete-oil and Santalum album
     # ISO 3518 profiles as labelled proxies.)

@@ -52,7 +52,7 @@ def test_successor_preserves_unaffected_stock_bytes_and_all_requirement_rows():
         # 2026-10-25: Kenny is out of Vetiveryl Acetate (overlay STK-169), so its neat row
         # is replaced by Manzanate, neat since his "All neat" card answer (STK-154).
         ("Manzanate", 1, "neat", "", True),
-        ("Methyl Laitone", 0.2, "volume_fraction", "ethanol", True),
+        ("Methyl Laitone", 0.2, "mass_fraction", "ethanol", True),
         # 2026-10-14: Kenny put the Guaiacwood EO stock in DPG.
         ("Guaiacwood EO", 1 / 3, "mass_fraction", "dpg", True),
         ("Bacdanol", 1, "neat", "", True),
@@ -171,7 +171,19 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # estimates, each re-opened by a second reader (list and sources in that block and in
     # tests/test_literature_odt_batch_2026_10_25.py); odt_eth unchanged. Without those 55
     # the digest is 5c7d84b5….
-    assert digest == "1be5f1c5af329ffa8b1b53fefa0a627be1189776c6268b2892397a5eb5f80857"
+    # 2026-10-28 analogue estimates (engine/odor_thresholds.py ANALOGUE_ODT_BATCH_2026_10_28):
+    # UNVERIFIED air ODTs for cedroxyde 8, cedryl acetate 20 and anisyl acetate 9 ppb (Kenny's
+    # card choice, 28 Oct 08:39 UTC); odt_eth unchanged. Without those three the digest is 1be5f1c5….
+    # Groups 2 and 3 the same day add more on the same rule (DMBC 12, caryophyllene acetate 6,
+    # hindinol 7, para-acetanisole 30, methyl nonyl ketone 5.5; canthoxal 1.4, cinnamyl acetate
+    # 3, PEDMC acetate 2.7, acetoin 3, parmavert 15 -> 7.7, cassia 1.5 -> 78, turkish storax
+    # 20 -> 35), drop the invented sandalwood base x3 value and the typo key "azhrbre", and load
+    # sourced values for azarbre 2.0 -> 1.569 (Givaudan SDS), beta-pinene 3 -> 33 (Nagata 2003)
+    # and ethyl linalyl acetate 14.42 (Givaudan PROC). Group 2 alone gave d57c0a18….
+    # Group 4 adds 2-acetyl pyrazine 0.3 -> 0.40, allyl ionone 1.0 -> 0.035, cade 3.0 -> 0.05
+    # (UNVERIFIED analogues; maltol 1.0 relabelled) and methyl laitone 0.0303 (Givaudan SDS).
+    # Groups 1-3 alone gave 9b2c3880….
+    assert digest == "5531c14a6eb4e35c417902a086984f1809adc872b5ebde750d061d117799b554"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

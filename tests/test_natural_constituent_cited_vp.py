@@ -67,7 +67,6 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     # Citral: RIFM-quoted EPI Suite 0.0913 mm Hg at 25 C (FMA 0.07 mm Hg at 20 C).
     ("cedrat fcf oil sicilian", "citral", 3.0, 14.1),
     ("cedrat fcf sicilian", "citral", 3.0, 14.1),
-    ("michelia alba flower oil zhu 1993 literature profile", "citral", 3.0, 14.1),
     # Evernyl: TGSC estimate 0.00001 mm Hg at 25 C for the solid (mp 143 C).
     ("oakmoss absolute", "evernyl", 0.05, 0.00227),
     ("oakmoss absolute (10% in dpg)", "evernyl", 0.05, 0.00227),
