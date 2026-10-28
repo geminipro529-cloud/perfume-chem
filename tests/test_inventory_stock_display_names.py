@@ -8,6 +8,7 @@ from collections import Counter
 from engine.inventory_parser import materialize_current_inventory
 from engine.personal_inventory import materialize_personal_inventory
 from engine.research.composition_planner import _load_candidates
+from tests.reheld_overlay import use_overlay_without
 
 _PERCENT = re.compile(r"(?<![\d.,])(\d+(?:[.,]\d+)?)\s*%")
 _TWO_STRENGTH_BIRCH_LABEL = "Birch Tar 1% and Birch Tar 10%"
@@ -78,7 +79,12 @@ def test_ethyl_maltol_one_and_ten_percent_are_separate_stocks() -> None:
     assert ten.execution_ready is True
 
 
-def test_composer_refuses_a_stock_whose_label_names_two_strengths() -> None:
+def test_composer_refuses_a_stock_whose_label_names_two_strengths(monkeypatch, tmp_path) -> None:
+    # Kenny confirmed both older Birch Tar bottles on 28 Oct 2026 ("ye", STK-230/231); the V5 row
+    # is re-held here as the example of a label that names two strengths.
+    use_overlay_without(
+        monkeypatch, tmp_path, {"INV-USER-20261014-STK-230": None, "INV-USER-20261014-STK-231": None}
+    )
     personal = materialize_personal_inventory()
     assert any(
         stock.raw_name.startswith(_TWO_STRENGTH_BIRCH_LABEL) for stock in personal.stocks
