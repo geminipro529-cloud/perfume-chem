@@ -27,6 +27,7 @@ from engine.pipeline.preflight import (
     resolve_inventory_stock_contract,
     run_release_preflight,
 )
+from tests.reheld_overlay import use_overlay_without
 
 
 @pytest.fixture
@@ -34,6 +35,26 @@ def completion_log(tmp_path, monkeypatch):
     path = tmp_path / "inventory-completions.jsonl"
     monkeypatch.setenv("PERFUME_INVENTORY_COMPLETION_PATH", str(path))
     return path
+
+
+@pytest.fixture
+def held_examples(monkeypatch, tmp_path):
+    """Re-hold the bottles Kenny's 28 Oct 2026 answers cleared, as live examples of each hold class.
+
+    Glycolierral and Aldehyde C-8 Octanal were intake-held (PW-030, PW-016) until his "neat"
+    (STK-221, STK-220); Aldehyde C10 10% and Apritone 10% were V5 rows with no basis or carrier
+    until "I have both" and his w/w-in-DPG rule (STK-224, STK-226).
+    """
+    use_overlay_without(
+        monkeypatch,
+        tmp_path,
+        {
+            "INV-USER-20261014-STK-220": "INV-USER-20261007-PW-016",
+            "INV-USER-20261014-STK-221": "INV-USER-20261007-PW-030",
+            "INV-USER-20261014-STK-224": None,
+            "INV-USER-20261014-STK-226": None,
+        },
+    )
 
 
 def _stock(materialized, identity: str, stock_id: str = ""):
@@ -78,9 +99,9 @@ def _stock_issue_reasons(material: str, fraction: float) -> list[str]:
     return [issue["reason"] for issue in check.data["issues"]]
 
 
-def test_identity_only_intake_completed_on_stock_page_passes_preflight(completion_log) -> None:
-    # Glycolierral is still held at intake (STOCK_INTAKE_IDENTITY_ONLY). Manzanate, the earlier
-    # example, left its hold on 25 Oct 2026 with Kenny's "All neat" (overlay STK-154).
+def test_identity_only_intake_completed_on_stock_page_passes_preflight(completion_log, held_examples) -> None:
+    # Glycolierral as it was held at intake (STOCK_INTAKE_IDENTITY_ONLY) before Kenny's "neat" on
+    # 28 Oct 2026 (see held_examples). Manzanate, the earlier example, left its hold on 25 Oct 2026.
     assert _stock_issue_reasons("Glycolierral", 1.0) == ["inventory_stock_non_executable"]
 
     receipt, stock = _complete("Glycolierral", "glycolierral-neat")
@@ -97,7 +118,7 @@ def test_identity_only_intake_completed_on_stock_page_passes_preflight(completio
     assert matched["stock_facts_source"]["event_sha256"] == receipt["event_sha256"]
 
 
-def test_completion_with_unspecified_basis_leaves_stock_held(completion_log) -> None:
+def test_completion_with_unspecified_basis_leaves_stock_held(completion_log, held_examples) -> None:
     _receipt, stock = _complete(
         "Glycolierral",
         "glycolierral-unspecified",
@@ -114,20 +135,23 @@ def test_completion_with_unspecified_basis_leaves_stock_held(completion_log) -> 
     assert _stock_issue_reasons("Glycolierral", 0.1) == ["inventory_stock_non_executable"]
 
 
-def test_lot_receipt_hold_clears_with_a_complete_stock_page_entry(completion_log) -> None:
+def test_lot_receipt_hold_clears_with_a_complete_stock_page_entry(completion_log, held_examples) -> None:
     # AGENTS.md RULE 6: a lot or label receipt is not needed to compute a formula.
-    # Cedrat FCF was the example until Kenny cleared its hold on 2026-10-15.
-    assert _stock_issue_reasons("Ethyl Linalool", 1.0) == ["inventory_stock_non_executable"]
+    # Cedrat FCF was the example until Kenny cleared its hold on 2026-10-15, then Ethyl Linalool
+    # until his "Clear on order evidence" card on 2026-10-28 cleared every lot/receipt hold.
+    # Aldehyde C-8 Octanal's intake-only hold (re-held here) is the same kind of paperwork hold.
+    assert _stock_issue_reasons("Ethyl Linalool", 1.0) == []
+    assert _stock_issue_reasons("Aldehyde C-8 Octanal", 1.0) == ["inventory_stock_non_executable"]
 
-    _receipt, stock = _complete("Ethyl Linalool", "ethyl-linalool-neat")
+    _receipt, stock = _complete("Aldehyde C-8 Octanal", "octanal-neat")
 
     assert stock.design_ready is True
     assert stock.execution_ready is True
     assert stock.execution_hold_reason == ""
-    assert _stock_issue_reasons("Ethyl Linalool", 1.0) == []
+    assert _stock_issue_reasons("Aldehyde C-8 Octanal", 1.0) == []
 
 
-def test_unnamed_hold_clears_only_when_basis_or_carrier_was_missing(completion_log) -> None:
+def test_unnamed_hold_clears_only_when_basis_or_carrier_was_missing(completion_log, held_examples) -> None:
     # Cedarwood EO (China) already had neat facts; its hold is the unresolved species.
     _receipt, cedarwood = _complete(
         "Cedarwood EO (China; species unspecified)", "cedarwood-china-neat"
@@ -153,7 +177,7 @@ _TEN_PERCENT_DPG = {
 
 # Aldehyde C16 EMPG left this list on 2026-10-28: Kenny confirmed it is its own bottle (v26 STK-194).
 @pytest.mark.parametrize("identity", ["Apritone"])
-def test_identity_kept_separate_row_stays_held_after_a_complete_entry(completion_log, identity) -> None:
+def test_identity_kept_separate_row_stays_held_after_a_complete_entry(completion_log, held_examples, identity) -> None:
     # Their V5 rows read "IDENTITY KEPT SEPARATE": the carrier is missing too,
     # but the form's strength, basis and carrier do not settle which product it is.
     _receipt, stock = _complete(identity, f"{identity}-10-dpg", held=True, **_TEN_PERCENT_DPG)
@@ -209,7 +233,7 @@ def test_complete_entry_that_changes_the_strength_wins_and_shows_the_authority(c
     }
 
 
-def test_complete_entry_that_only_fills_gaps_reports_no_disagreement(completion_log) -> None:
+def test_complete_entry_that_only_fills_gaps_reports_no_disagreement(completion_log, held_examples) -> None:
     _receipt, c10 = _complete("Aldehyde C10", "aldehyde-c10-gap-fill", held=True, **_TEN_PERCENT_DPG)
     assert c10.authority_facts_differ == ()
 

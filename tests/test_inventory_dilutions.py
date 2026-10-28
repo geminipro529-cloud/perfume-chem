@@ -24,6 +24,7 @@ from engine.inventory_dilutions import (
 from engine.inventory_parser import materialize_current_inventory
 from engine.personal_inventory import materialize_personal_inventory
 from engine.pipeline.preflight import resolve_inventory_stock_contract
+from tests.reheld_overlay import use_overlay_without
 
 MATERIAL = "Alpha Damascone"
 
@@ -205,7 +206,9 @@ def _prepared(materialized):
     return [s for s in materialized.stocks if s.authority == PREPARED_DILUTION_AUTHORITY]
 
 
-def test_completed_but_gate_held_parent_cannot_be_diluted(dilution_log) -> None:
+def test_completed_but_gate_held_parent_cannot_be_diluted(dilution_log, monkeypatch, tmp_path) -> None:
+    # Apritone 10% as it was before Kenny's w/w-in-DPG rule cleared it on 28 Oct 2026 (STK-226).
+    use_overlay_without(monkeypatch, tmp_path, {"INV-USER-20261014-STK-226": None})
     apritone = _stock("Apritone", 0.1)
     assert "IDENTITY KEPT SEPARATE" in apritone.row_unresolved_tokens
     _complete(apritone, "apritone-10", "0.1", "DPG")
@@ -217,8 +220,9 @@ def test_completed_but_gate_held_parent_cannot_be_diluted(dilution_log) -> None:
     assert not dilution_log.exists()
 
 
-def test_execution_held_parent_without_a_completion_cannot_be_diluted(dilution_log) -> None:
-    # Glycolierral is still held at intake; Manzanate, the earlier example, left its hold on 25 Oct 2026.
+def test_execution_held_parent_without_a_completion_cannot_be_diluted(dilution_log, monkeypatch, tmp_path) -> None:
+    # Glycolierral as it was held at intake before Kenny's "neat" on 28 Oct 2026 (STK-221 over PW-030).
+    use_overlay_without(monkeypatch, tmp_path, {"INV-USER-20261014-STK-221": "INV-USER-20261007-PW-030"})
     glycolierral = _stock("Glycolierral", 1.0)
     assert glycolierral.execution_ready is False
     with pytest.raises(PreparedDilutionError, match="held at the release gate"):

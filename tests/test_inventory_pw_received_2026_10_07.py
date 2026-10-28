@@ -83,8 +83,10 @@ def test_received_kephalis_supersedes_absence_without_rewriting_history() -> Non
     # their intake holds ("liquid", "ye", "ye"; v26 STK-198 to STK-200).
     # 2026-10-28: Maltol (line 47) left its intake hold ("Yes", v26 STK-205, weighed solid).
     # 2026-10-28: Methyl Diantilis (line 33) left its intake hold ("Neat liquid", v26 STK-206).
-    assert len(admitted) == 9
-    assert all(stock.execution_ready is False for stock in admitted)
+    # 2026-10-28: the last nine left their holds: Helvetolide, Coumarin, Magnolan, Lavandin and Lemon
+    # Terpeneless on the "Clear on order evidence" card (v26 STK-208, 217-219), Octanal, Glycolierral,
+    # Black Tea Base and Buccoxime on his bottle answers (v26 STK-220 to STK-223).
+    assert admitted == []
 
 
 def test_successor_rejects_changed_dose_or_authority() -> None:

@@ -145,7 +145,8 @@ def test_v5_current_inventory_master_is_the_pinned_physical_authority() -> None:
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260915",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20260924",
         AIMI_IDENTITY_USER_INVENTORY_AUTHORITY,
-        "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261007",
+        # 20261007 (PerfumersWorld intake) has no live stock since 28 Oct 2026: every held
+        # bottle in it was re-recorded in the v26 overlay (STK-208 to STK-223).
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261008",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261009",
         "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261013",

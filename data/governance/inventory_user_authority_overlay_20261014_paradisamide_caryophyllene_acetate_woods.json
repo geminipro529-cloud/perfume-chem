@@ -507,6 +507,56 @@
         "message_timestamp_utc": "2026-10-28T11:21:31Z",
         "text": "Only 10%",
         "context": "Kenny's own words in the 'Fix gaps in unused materials' thread, answering 'do you still have a neat Damascol bottle, or only the 10%?'. STK-025 (10% in DPG) now retires the V5 neat row 277."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T11:27:02Z",
+        "text": "Clear on order evidence",
+        "context": "Kenny's choice on the decision card 'Clear the 12 receipt holds on order evidence, without lot numbers?' in the 'Fix gaps in unused materials' thread (consequence: holds lift with the order number recorded and lot marked 'not recorded'). STK-208..219 replace the 12 held records."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T11:27:51Z",
+        "text": "I have two right now, one is that one from PW another is from MSR",
+        "context": "Kenny's own words, answering 'your \"Labdanum Resinoid\", is it really PW's Labdanum Absolute 10% in DPG?'. STK-209 records the 10% bottle as PW Labdanum Absolute 10% in DPG; no resinoid is owned."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T11:28:19Z",
+        "text": "Yes",
+        "context": "Kenny's own words, answering 'is your Hay Absolute PW's ready-made 10% in DPG?'. STK-215 records PW 5NY12745, supplier-made."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T11:28:39Z",
+        "text": "Chemipan",
+        "context": "Kenny's own words, answering 'where did you buy your Spike Lavender EO?'. STK-216 supplier Chemipan."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T12:18:00Z",
+        "text": "neat",
+        "context": "Kenny's own words in the 'Fix gaps in unused materials' thread, answering whether his Aldehyde C-8 Octanal is neat as supplied (STK-220)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T12:18:09Z",
+        "text": "neat",
+        "context": "Kenny's own words in the 'Fix gaps in unused materials' thread, answering whether his Glycolierral is neat as supplied (STK-221)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T12:18:18Z",
+        "text": "ye",
+        "context": "Kenny's own words in the 'Fix gaps in unused materials' thread ('ye' = yes), answering whether his Black Tea Base is PW 6HE09224 as supplied (STK-222)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T12:19:34Z",
+        "text": "I got 2 versions, yes",
+        "context": "Kenny's own words in the 'Fix gaps in unused materials' thread, answering whether his neat Buccoxime is still white crystals; he owns the neat and the 10% (STK-223)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T12:20:51Z",
+        "text": "I have both",
+        "context": "Kenny's own words in the 'Fix gaps in unused materials' thread: Aldehyde C10 1% in ethanol and 10% (STK-224)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T12:21:08Z",
+        "text": "I have both",
+        "context": "Kenny's own words in the 'Fix gaps in unused materials' thread: Cyclamen Aldehyde neat and 10% (STK-225)."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -581,7 +631,10 @@
     "pc_only_stock_20261020_ported_20261028": true,
     "unused_materials_bottle_answers_20261028": true,
     "unused_materials_group2_bottle_answers_20261028": true,
-    "unused_materials_group3_bottle_answers_20261028": true
+    "unused_materials_group3_bottle_answers_20261028": true,
+    "receipt_holds_cleared_on_order_evidence_20261028": true,
+    "labdanum_10pct_is_pw_absolute_not_resinoid": true,
+    "held_stock_answers_20261028_1217": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -643,7 +696,23 @@
     "INV-USER-20260915-STOCK-003",
     "INV-USER-20261007-PW-047",
     "INV-USER-20261007-PW-033",
-    "INV-USER-20260924-R5-010"
+    "INV-USER-20260924-R5-010",
+    "INV-USER-20261007-PW-003",
+    "INV-USER-20260924-R5-008",
+    "INV-USER-20260924-R5-012",
+    "INV-USER-20260924-R5-009",
+    "INV-USER-20261007-PW-031",
+    "INV-USER-20260924-R5-005",
+    "INV-USER-20260924-R5-015",
+    "INV-USER-20260924-R5-006",
+    "INV-USER-20260924-R5-014",
+    "INV-USER-20261007-PW-019",
+    "INV-USER-20261007-PW-051",
+    "INV-USER-20261007-PW-037",
+    "INV-USER-20261007-PW-016",
+    "INV-USER-20261007-PW-030",
+    "INV-USER-20261007-PW-050",
+    "INV-USER-20261007-PW-041"
   ],
   "records": [
     {
@@ -2164,6 +2233,10 @@
         {
           "source_row": 11,
           "fraction": 0.01
+        },
+        {
+          "source_row": 12,
+          "fraction": 0.1
         }
       ],
       "requirement_overrides": [],
@@ -2187,7 +2260,7 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "V5 row 11 had 'Aldehyde C11 1%' at 1% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept. It is the inventory.txt L41 'Aldehyde C11 undecylenic (1%)' bottle: asked whether his Aldehyde C11 undecylenic is neat or a 1% dilution, Kenny answered 'I have both' (19:34:20 UTC); the neat bottle is V5 row 268."
+      "note": "V5 row 11 had 'Aldehyde C11 1%' at 1% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept. It is the inventory.txt L41 'Aldehyde C11 undecylenic (1%)' bottle: asked whether his Aldehyde C11 undecylenic is neat or a 1% dilution, Kenny answered 'I have both' (19:34:20 UTC); the neat bottle is V5 row 268. 28 Oct 2026: Kenny's stock forms (21 Oct 2026, 'Aldehyde C11 neat + 1%') and inventory.txt L41 ('Aldehyde C11 undecylenic (1%)') have no 10%, so this record also retires V5 row 12's 10% ('10% working dilution'). The neat stock (row 268) is unchanged."
     },
     {
       "record_id": "INV-USER-20261014-STK-037",
@@ -3339,11 +3412,15 @@
         "fraction_basis": "mass_fraction",
         "carrier": "dpg",
         "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
-        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_147",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROWS_146_147",
         "execution_ready": true,
         "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
       },
       "supersedes_parent_stocks": [
+        {
+          "source_row": 146,
+          "fraction": 0.1
+        },
         {
           "source_row": 147,
           "fraction": 0.1
@@ -3370,7 +3447,7 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "V5 row 147 had 'Jasmine Sambac Absolute 10% in DPG' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+      "note": "V5 row 147 had 'Jasmine Sambac Absolute 10% in DPG' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept. 28 Oct 2026: V5 row 146 ('10% working stock', no carrier) is the same bottle as row 147; inventory.txt L367 lists one 'Jasmine Sambac (10% in DPG)', so this record now retires both rows, as the Jasmine Absolute record does for rows 144-145."
     },
     {
       "record_id": "INV-USER-20261014-STK-063",
@@ -10437,6 +10514,948 @@
         "preparation_record_asserted": false
       },
       "note": "Asked in the 'Fix gaps in unused materials' thread whether he diluted his Opoponax Resinoid 50% in DEP himself and whose resinoid it was (PW sells no DEP version). Kenny: 'I diluted it myself, from PW' (28 Oct 2026 11:08:30 UTC). His PW orders show the neat Opoponax Resinoid 2QC00337 (260614-1211247e8, 1 g, 14 Jun 2026; PW-260826-150850434, 2 g, 26 Aug 2026). Basis w/w, his standing rule for dilutions. Under AGENTS.md RULE 6 the confirmed strength, basis and carrier replace the missing receipts, so this clears BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING on INV-USER-20260924-R5-010 (superseded). IFRA Standard 070 (0.43% Cat 4) counts the resinoid, half the stock."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-208",
+      "canonical_name": "Helvetolide",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "musks",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-003_STOCK_INTAKE_IDENTITY_ONLY_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Helvetolide",
+        "sku": "3XD17215",
+        "order": "261004-055451ce1",
+        "order_date": "2026-10-04",
+        "receipt": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json",
+        "lot": "not recorded"
+      },
+      "received_quantity_g": "5",
+      "receipt_line": 3,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Clear on order evidence",
+      "source_message_timestamp_utc": "2026-10-28T11:27:02Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). The bottle was held (INV-USER-20261007-PW-003, STOCK_INTAKE_IDENTITY_ONLY, superseded) and is now ready for raw-stock transfer: received in PerfumersWorld order 261004-055451ce1 (receipt line 3, 5 g; 'All arrived', 7 Oct 2026); payment mail not in k3nnyw. An earlier 1 g (PW-260817-03422462b, paid 17 Aug 2026) is not part of this record. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-209",
+      "canonical_name": "Labdanum Absolute",
+      "aliases": [
+        "Labdanum 10%",
+        "Labdanum Absolute 10% in DPG"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "user_reported_ready": true,
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260924-R5-008_IDENTITY_CORRECTED_AND_RECEIPT_HOLD_CLEARED_BY_USER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Labdanum Absolute 10% in DPG",
+        "sku": "5UQ07791",
+        "order": "260106-1854557a1",
+        "order_date": "2026-01-06",
+        "pack": "3 g",
+        "lot": "not recorded"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 155,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I have two right now, one is that one from PW another is from MSR",
+      "source_message_timestamp_utc": "2026-10-28T11:27:51Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true,
+        "identity_corrected_by_user_message": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'your \"Labdanum Resinoid\", is it really PW's Labdanum Absolute 10% in DPG (that's the only labdanum in your orders)?', Kenny: 'I have two right now, one is that one from PW another is from MSR' (28 Oct 2026 11:27:51 UTC). So there is no resinoid: this 10% w/w in DPG bottle is PerfumersWorld's ready-made Labdanum Absolute 10% in DPG (5UQ07791, 3 g, order 260106-1854557a1, paid 7 Jan 2026), next to the neat MySkinRecipes absolute (STK-171). It replaces the 'Labdanum Resinoid' record INV-USER-20260924-R5-008 (BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING, superseded) and keeps its V5 row 155 ('Labdanum 10%'). Supplier-made, so no preparation receipt applies. Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). Lot not recorded. Formula files that name 'Labdanum Resinoid' are history and are not rewritten; inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-210",
+      "canonical_name": "Ethyl Linalool",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260924-R5-012_BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ethyl Linalool",
+        "sku": "4LL11499",
+        "orders": [
+          "PW-260413-200236857 (6 g, paid)",
+          "PW-260815-120153391 (3 g, paid)"
+        ],
+        "lot": "not recorded"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Clear on order evidence",
+      "source_message_timestamp_utc": "2026-10-28T11:27:02Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). The bottle was held (INV-USER-20260924-R5-012, BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING, superseded) and is now ready for raw-stock transfer: PerfumersWorld 4LL11499, paid orders PW-260413-200236857 (6 g) and PW-260815-120153391 (3 g); which bottle is current is not recorded. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-211",
+      "canonical_name": "Olibanum Resinoid",
+      "aliases": [
+        "Olibanum 50%",
+        "Olibanum Resinoid 50% w/w in DPG"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.5,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_AND_CARRIER_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260924-R5-009_BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Olibanum Resinoid (Viscous)",
+        "sku": "2QK21856",
+        "orders": [
+          "PW-260710-162432d2d (2QK21856 viscous, 3 g, shipped)",
+          "260113-13501543d (2QK00334 solid, 1 g, paid)"
+        ],
+        "lot": "not recorded"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 188,
+          "fraction": 0.5
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Clear on order evidence",
+      "source_message_timestamp_utc": "2026-10-28T11:27:02Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). The bottle was held (INV-USER-20260924-R5-009, BOTTLE_LOT_AND_PREPARATION_RECEIPTS_MISSING, superseded) and is now ready for raw-stock transfer: Kenny's own 50% w/w in DPG of neat PerfumersWorld olibanum resinoid (PW-260710-162432d2d, 2QK21856 viscous, 3 g, shipped; or 260113-13501543d, 2QK00334 solid, 1 g, paid). Preparation weights and date are not recorded. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-212",
+      "canonical_name": "Magnolan",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-031_STOCK_INTAKE_IDENTITY_ONLY_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Magnolan",
+        "sku": "3MN13569",
+        "order": "261004-055451ce1",
+        "order_date": "2026-10-04",
+        "receipt": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json",
+        "lot": "not recorded"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 31,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Clear on order evidence",
+      "source_message_timestamp_utc": "2026-10-28T11:27:02Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). The bottle was held (INV-USER-20261007-PW-031, STOCK_INTAKE_IDENTITY_ONLY, superseded) and is now ready for raw-stock transfer: received in PerfumersWorld order 261004-055451ce1 (receipt line 31, 2 g; 'All arrived', 7 Oct 2026); payment mail not in k3nnyw. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-213",
+      "canonical_name": "Norlimbanol Dextro",
+      "aliases": [
+        "Norlimbanol Dextro 10% w/w in DPG"
+      ],
+      "state": "OWNED",
+      "category": "woods_amber",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "homogeneous": true,
+        "fraction_authority": "DIRECT_USER_CURRENT_STOCK_BASIS_CARRIER_HOMOGENEITY_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260924-R5-005_PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Norlimbanol Dextro",
+        "sku": "4WU22432",
+        "orders": [
+          "PW-260201-16305879c (2 g, paid)",
+          "PW-260328-170326414 (1 g, paid)"
+        ],
+        "lot": "not recorded"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 183,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 183,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% W/W IN DPG; HOMOGENEOUS; HOME PREPARATION FROM PW 4WU22432; HOLD CLEARED ON ORDER EVIDENCE 2026-10-28, LOT NOT RECORDED",
+          "actual_stock_text": "Norlimbanol Dextro 10% w/w in DPG; homogeneous; exact preparation quantities/date and lots not recorded",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Clear on order evidence",
+      "source_message_timestamp_utc": "2026-10-28T11:27:02Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). The bottle was held (INV-USER-20260924-R5-005, PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING, superseded) and is now ready for raw-stock transfer: Kenny's own 10% w/w in DPG of neat PerfumersWorld 4WU22432 (paid orders PW-260201-16305879c, 2 g, and PW-260328-170326414, 1 g). Preparation weights, date and which bottle was used are not recorded. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-214",
+      "canonical_name": "Linalool Oxide",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied_product",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_PRODUCT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260924-R5-015_BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Linalool Oxide",
+        "sku": "4LL00277",
+        "order": "PW-260910-051700a45",
+        "order_date": "2026-09-10",
+        "lot": "not recorded"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Clear on order evidence",
+      "source_message_timestamp_utc": "2026-10-28T11:27:02Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). The bottle was held (INV-USER-20260924-R5-015, BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING, superseded) and is now ready for raw-stock transfer: PerfumersWorld 4LL00277, 1 g, order PW-260910-051700a45, paid (approved 10 Sep 2026). Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-215",
+      "canonical_name": "Hay Absolute",
+      "aliases": [
+        "Hay Absolute 10% w/w in DPG"
+      ],
+      "state": "OWNED",
+      "category": "sweet_balsamic",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "homogeneous": true,
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260924-R5-006_SUPPLIER_MADE_AND_RECEIPT_HOLD_CLEARED_BY_USER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Hay Absolute 10% in DPG",
+        "sku": "5NY12745",
+        "order": "260725-050746287 (cart; payment mail not found in k3nnyw)",
+        "order_date": "2026-07-25",
+        "pack": "2 g",
+        "lot": "not recorded"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 127,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 127,
+          "disposition": "OWNED",
+          "status": "HAVE - PERFUMERSWORLD READY-MADE 10% IN DPG (5NY12745); HOLD CLEARED 2026-10-28, LOT NOT RECORDED",
+          "actual_stock_text": "Hay Absolute 10% in DPG, PerfumersWorld 5NY12745, supplier-made",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Yes",
+      "source_message_timestamp_utc": "2026-10-28T11:28:19Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Asked 'is your Hay Absolute PW's ready-made 10% in DPG?', Kenny: 'Yes' (28 Oct 2026 11:28:19 UTC). So it is PerfumersWorld 5NY12745 Hay Absolute 10% in DPG (2 g, cart 260725-050746287), bought ready-made: the PREPARATION_QUANTITIES_DATE_AND_LOTS_MISSING hold (INV-USER-20260924-R5-006, superseded) assumed a home preparation that does not exist. Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). Lot not recorded. No neat Hay Absolute is owned."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-216",
+      "canonical_name": "Spike Lavender EO",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice_aromatic",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "user_reported_ready": true,
+        "fraction_authority": "DIRECT_USER_CORRECT_FORM_AND_READINESS_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20260924-R5-014_BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "Chemipan (Bangkok)",
+        "product_name": "Spike Lavender EO",
+        "order": "not recorded",
+        "lot": "not recorded"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Chemipan",
+      "source_message_timestamp_utc": "2026-10-28T11:28:39Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Asked 'where did you buy your Spike Lavender EO? It isn't in your PW, MSR or Shopee emails.', Kenny: 'Chemipan' (28 Oct 2026 11:28:39 UTC). Neat as supplied; the hold (INV-USER-20260924-R5-014, BOTTLE_LOT_AND_LABEL_RECEIPT_MISSING, superseded) is cleared on his card. Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). Supplier Chemipan; order number and lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-217",
+      "canonical_name": "Coumarin",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "sweet / gourmand / balsamic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "solid_as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-019_STOCK_INTAKE_IDENTITY_ONLY_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Coumarin",
+        "sku": "1VD00129",
+        "order": "261004-055451ce1",
+        "order_date": "2026-10-04",
+        "receipt": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json",
+        "lot": "not recorded"
+      },
+      "received_quantity_g": "10",
+      "receipt_line": 19,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Clear on order evidence",
+      "source_message_timestamp_utc": "2026-10-28T11:27:02Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). The bottle was held (INV-USER-20261007-PW-019, STOCK_INTAKE_IDENTITY_ONLY, superseded) and is now ready for raw-stock transfer: received in PerfumersWorld order 261004-055451ce1 (receipt line 19, 10 g; 'All arrived', 7 Oct 2026); payment mail not in k3nnyw. Weighed as a powder. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-218",
+      "canonical_name": "Lavandin Absolute",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-051_STOCK_INTAKE_IDENTITY_ONLY_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Lavandin Absolute",
+        "sku": "8HY00554",
+        "order": "261004-055451ce1",
+        "order_date": "2026-10-04",
+        "receipt": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json",
+        "lot": "not recorded"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 51,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Clear on order evidence",
+      "source_message_timestamp_utc": "2026-10-28T11:27:02Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). The bottle was held (INV-USER-20261007-PW-051, STOCK_INTAKE_IDENTITY_ONLY, superseded) and is now ready for raw-stock transfer: received in PerfumersWorld order 261004-055451ce1 (receipt line 51, 1 g; 'All arrived', 7 Oct 2026); payment mail not in k3nnyw. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-219",
+      "canonical_name": "Lemon Terpeneless Oil Sicilian",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-037_STOCK_INTAKE_IDENTITY_ONLY_CLEARED_BY_USER_CARD_CHOICE_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Lemon Terpeneless oil Sicilian",
+        "sku": "7CC24027",
+        "order": "261004-055451ce1",
+        "order_date": "2026-10-04",
+        "receipt": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json",
+        "lot": "not recorded"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 37,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Clear on order evidence",
+      "source_message_timestamp_utc": "2026-10-28T11:27:02Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "order_evidence_recorded": true,
+        "user_lot_asserted": false,
+        "lot": "not recorded",
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "receipt_hold_cleared_by_user_card_choice": true
+      },
+      "note": "Kenny's decision card in the 'Fix gaps in unused materials' thread, 'Clear the 12 receipt holds on order evidence, without lot numbers?', option 'Clear on order evidence' (chosen 28 Oct 2026 11:27:02 UTC; consequence he read: 'Holds lift with the order number recorded and lot marked 'not recorded''). Order evidence: /mnt/project-files/unused-gaps-20261028/group7/RECEIPTS_G7.md (read-only sweep of his k3nnyw Gmail). The bottle was held (INV-USER-20261007-PW-037, STOCK_INTAKE_IDENTITY_ONLY, superseded) and is now ready for raw-stock transfer: received in PerfumersWorld order 261004-055451ce1 (receipt line 37, 2 g; 'All arrived', 7 Oct 2026); payment mail not in k3nnyw. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-220",
+      "canonical_name": "Aldehyde C-8 Octanal",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-016_INTAKE_HOLD_CLEARED_BY_USER_FORM_ANSWER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Aldehyde C-8 Octanal",
+        "sku": "4AC00026",
+        "order": "261004-055451ce1"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 16,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "neat",
+      "source_message_timestamp_utc": "2026-10-28T12:18:00Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "user_lot_asserted": false,
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "quantity_is_received_not_remaining": true,
+        "physical_form_from_user_message": true,
+        "stock_intake_hold_cleared_by_user_message": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread '1 of 12: your Aldehyde C-8 Octanal (PW, 1 g), is it neat as supplied and still clear?', Kenny: 'neat' (12:18:00 UTC, 28 Oct 2026). The bottle (SKU 4AC00026, receipt line 16 of order 261004-055451ce1) was held at intake (INV-USER-20261007-PW-016, superseded). Neat as supplied. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-221",
+      "canonical_name": "Glycolierral",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-030_INTAKE_HOLD_CLEARED_BY_USER_FORM_ANSWER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Glycolierral",
+        "sku": "3MW11714",
+        "order": "261004-055451ce1"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 30,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "neat",
+      "source_message_timestamp_utc": "2026-10-28T12:18:09Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "user_lot_asserted": false,
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "quantity_is_received_not_remaining": true,
+        "physical_form_from_user_message": true,
+        "stock_intake_hold_cleared_by_user_message": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread '2 of 12: your Glycolierral (PW, 1 g), neat as supplied?', Kenny: 'neat' (12:18:09 UTC, 28 Oct 2026). The bottle (SKU 3MW11714, receipt line 30 of order 261004-055451ce1) was held at intake (INV-USER-20261007-PW-030, superseded). Neat as supplied. It still has no loadable air threshold, so the gate keeps flagging its physics. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-222",
+      "canonical_name": "Black Tea Base",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "accord bases / other",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-050_INTAKE_HOLD_CLEARED_BY_USER_FORM_ANSWER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Black Tea Base",
+        "sku": "6HE09224",
+        "order": "261004-055451ce1"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 50,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-28T12:18:18Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "user_lot_asserted": false,
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "quantity_is_received_not_remaining": true,
+        "physical_form_from_user_message": true,
+        "stock_intake_hold_cleared_by_user_message": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread '3 of 12: your Black Tea Base, is it PW 6HE09224 as supplied (not diluted)?', Kenny: 'ye' (12:18:18 UTC, 28 Oct 2026). The bottle (SKU 6HE09224, receipt line 50 of order 261004-055451ce1) was held at intake (INV-USER-20261007-PW-050, superseded). PerfumersWorld 6HE09224 as supplied, not diluted; a blend, not a pure chemical. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-223",
+      "canonical_name": "Buccoxime",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "physical_form": "solid_as_supplied",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-041_INTAKE_HOLD_CLEARED_BY_USER_FORM_ANSWER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Buccoxime",
+        "sku": "1FB00071",
+        "order": "261004-055451ce1"
+      },
+      "received_quantity_g": "1",
+      "receipt_line": 41,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I got 2 versions, yes",
+      "source_message_timestamp_utc": "2026-10-28T12:19:34Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "user_lot_asserted": false,
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "quantity_is_received_not_remaining": true,
+        "physical_form_from_user_message": true,
+        "stock_intake_hold_cleared_by_user_message": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread '4 of 12: your neat Buccoxime, still white crystals (a solid you weigh)?', Kenny: 'I got 2 versions, yes' (12:19:34 UTC, 28 Oct 2026). The bottle (SKU 1FB00071, receipt line 41 of order 261004-055451ce1) was held at intake (INV-USER-20261007-PW-041, superseded). Still white crystals, weighed as a solid; he also owns the 10% in DPG (STK-074, 5FB07818), so both bottles stay. Lot not recorded. He first wrote 'ye, i got  verion' (12:18:31 UTC) and '2' (12:18:33 UTC)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-224",
+      "canonical_name": "Aldehyde C10 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "citrus top",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_10",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 10,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I have both",
+      "source_message_timestamp_utc": "2026-10-28T12:20:51Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "user_lot_asserted": false,
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "supplier_asserted": false
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'your Aldehyde C10. inventory.txt says it's a 1% in ethanol, but the engine holds it as a 10%. Which one is it?', Kenny: 'I have both' (12:20:51 UTC, 28 Oct 2026). The 1% v/v in ethanol (inventory.txt L40) is unchanged; V5 row 10 ('10% working dilution', no basis or carrier) becomes this record. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is 10% w/w in DPG. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-225",
+      "canonical_name": "Cyclamen Aldehyde 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "marine_green",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_87",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 87,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I have both",
+      "source_message_timestamp_utc": "2026-10-28T12:21:08Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "user_lot_asserted": false,
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "supplier_asserted": false
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'your Cyclamen Aldehyde. inventory.txt gives no strength, but the engine holds a 10%. Is it neat, 10%, or both?', Kenny: 'I have both' (12:21:08 UTC, 28 Oct 2026). The neat stock from V5 row 87 is unchanged; its 10% ('carrier not restated') becomes this record. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is 10% w/w in DPG. Lot not recorded."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-226",
+      "canonical_name": "Apritone 10%",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "green / fruit",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_35",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 35,
+          "fraction": 0.1
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Load the rule",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "user_lot_asserted": false,
+        "purity_assay_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_from_v5_stock_row": true,
+        "basis_from_user_ww_rule_20261015": true,
+        "carrier_from_user_ww_dpg_rule_20261015": true,
+        "supplier_asserted": false
+      },
+      "note": "V5 row 35 'Apritone 10% working stock' and inventory.txt L38 'Apritone (10%)' record 10% with no basis or carrier. It stays a separate bottle from Aldehyde C16 EMPG 10% (Kenny 'hye', 28 Oct 09:28 UTC). Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is 10% w/w in DPG. Lot not recorded."
     }
   ]
 }

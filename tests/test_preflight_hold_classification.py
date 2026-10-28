@@ -2,6 +2,7 @@
 
 from engine.pipeline.gates import _gate_pipeline_preflight, _gate_preflight_contract
 from engine.pipeline.preflight import resolve_inventory_stock_contract
+from tests.reheld_overlay import use_overlay_without
 
 
 def _stock_check(*issues: dict) -> dict:
@@ -122,9 +123,11 @@ def test_unknown_strength_holds_even_when_the_recorded_strength_differs():
     assert gate.status == "HOLD"
 
 
-def test_live_inventory_metadata_gap_holds_but_wrong_strength_fails():
-    # Cyclamen Aldehyde is owned at 10% with no recorded basis or carrier. (Geraniol 10%
-    # was the example until Kenny's 2026-10-15 w/w-in-DPG rule completed it.)
+def test_live_inventory_metadata_gap_holds_but_wrong_strength_fails(monkeypatch, tmp_path):
+    # Cyclamen Aldehyde 10% as it stood before Kenny's "I have both" bound it w/w in DPG on
+    # 2026-10-28 (v26 STK-225): owned at 10% with no recorded basis or carrier. (Geraniol 10%
+    # was the example until his 2026-10-15 w/w-in-DPG rule completed it.)
+    use_overlay_without(monkeypatch, tmp_path, {"INV-USER-20261014-STK-225": None})
     held = resolve_inventory_stock_contract(
         {"ingredients_ul": {"Cyclamen Aldehyde": 100.0}, "dilutions": {"Cyclamen Aldehyde": 0.1}}
     )

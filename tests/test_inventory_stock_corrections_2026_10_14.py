@@ -243,6 +243,21 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         # retires the V5 neat row 277.
         "Neat",
         "Only 10%",
+        # 28 Oct 11:27-11:28 UTC: the "Clear on order evidence" card (STK-208 to STK-219); his
+        # Labdanum 10% is PW's absolute (STK-209); Hay Absolute is PW's 10% (STK-215); Spike
+        # Lavender is from Chemipan (STK-216).
+        "Clear on order evidence",
+        "I have two right now, one is that one from PW another is from MSR",
+        "Yes",
+        "Chemipan",
+        # 28 Oct 12:18-12:21 UTC: Octanal, Glycolierral, Black Tea Base and Buccoxime leave their
+        # intake holds (STK-220 to STK-223); Aldehyde C10 and Cyclamen Aldehyde 10% (STK-224, STK-225).
+        "neat",
+        "neat",
+        "ye",
+        "I got 2 versions, yes",
+        "I have both",
+        "I have both",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -297,6 +312,24 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         # (STK-207).
         "INV-USER-20261007-PW-033",
         "INV-USER-20260924-R5-010",
+        # 2026-10-28: the twelve receipt holds cleared on order evidence (STK-208 to STK-219).
+        "INV-USER-20261007-PW-003",
+        "INV-USER-20260924-R5-008",
+        "INV-USER-20260924-R5-012",
+        "INV-USER-20260924-R5-009",
+        "INV-USER-20261007-PW-031",
+        "INV-USER-20260924-R5-005",
+        "INV-USER-20260924-R5-015",
+        "INV-USER-20260924-R5-006",
+        "INV-USER-20260924-R5-014",
+        "INV-USER-20261007-PW-019",
+        "INV-USER-20261007-PW-051",
+        "INV-USER-20261007-PW-037",
+        # 2026-10-28: the last four PW intake holds (STK-220 to STK-223).
+        "INV-USER-20261007-PW-016",
+        "INV-USER-20261007-PW-030",
+        "INV-USER-20261007-PW-050",
+        "INV-USER-20261007-PW-041",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -305,7 +338,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 208)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 227)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

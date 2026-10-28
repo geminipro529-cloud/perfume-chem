@@ -696,3 +696,61 @@ def test_echa_measured_vapour_pressures_are_loaded(name, vp, logp):
     assert (spine.vp_25c_pa, spine.logp) == (pytest.approx(vp), pytest.approx(logp))
     assert spine.vp_source.startswith("ECHA_measured")
     assert "ECHA_QUOTES_20261028.md" in spine.provenance["vp_25c_pa"]
+
+
+@pytest.mark.parametrize(
+    ("record_id", "quote", "superseded"),
+    [
+        ("INV-USER-20261014-STK-208", "Clear on order evidence", "INV-USER-20261007-PW-003"),
+        (
+            "INV-USER-20261014-STK-209",
+            "I have two right now, one is that one from PW another is from MSR",
+            "INV-USER-20260924-R5-008",
+        ),
+        ("INV-USER-20261014-STK-215", "Yes", "INV-USER-20260924-R5-006"),
+        ("INV-USER-20261014-STK-216", "Chemipan", "INV-USER-20260924-R5-014"),
+        ("INV-USER-20261014-STK-220", "neat", "INV-USER-20261007-PW-016"),
+        ("INV-USER-20261014-STK-221", "neat", "INV-USER-20261007-PW-030"),
+        ("INV-USER-20261014-STK-222", "ye", "INV-USER-20261007-PW-050"),
+        ("INV-USER-20261014-STK-223", "I got 2 versions, yes", "INV-USER-20261007-PW-041"),
+    ],
+)
+def test_group7_holds_clear_on_kennys_words_with_no_lot_claimed(records, record_id, quote, superseded):
+    record = records[record_id]
+    assert record["source_quote"] == quote
+    assert record["authority_limits"]["user_lot_asserted"] is False
+    overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+    assert superseded in {r["record_id"] for r in overlay["retired_records"]}
+
+
+def test_only_birch_tar_and_china_cedarwood_stay_held():
+    # Kenny's card "Clear on order evidence" and his bottle answers (28 Oct 2026) cleared every other
+    # hold. The V5 Birch Tar rows are not in inventory.txt (only PW Birch Tar Rectified 10% is), and
+    # the China cedarwood species is unknown.
+    held = sorted(
+        stock.name
+        for stock in inventory.materialize_current_inventory().stocks
+        if stock.status.casefold() == "owned" and not stock.execution_ready
+    )
+    assert held == ["Birch Tar 1%", "Birch Tar 10%", "Cedarwood EO (China; species unspecified)"]
+
+
+@pytest.mark.parametrize(
+    ("name", "row", "quote"),
+    [
+        ("Aldehyde C10 10%", 10, "I have both"),
+        ("Cyclamen Aldehyde 10%", 87, "I have both"),
+        ("Apritone 10%", 35, "Load the rule"),
+    ],
+)
+def test_v5_ten_percent_rows_are_bound_ww_in_dpg(records, stocks, name, row, quote):
+    (record,) = [r for r in records.values() if r["canonical_name"] == name]
+    assert record["source_quote"] == quote
+    assert record["supersedes_parent_stocks"] == [{"source_row": row, "fraction": 0.1}]
+    (stock,) = [s for s in stocks if s.name == name]
+    assert (stock.dilution, stock.fraction_basis, stock.carrier, stock.execution_ready) == (
+        0.1,
+        "mass_fraction",
+        "dpg",
+        True,
+    )
