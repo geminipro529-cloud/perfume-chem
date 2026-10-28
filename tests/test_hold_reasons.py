@@ -20,6 +20,7 @@ from engine.inventory_completions import (
 from engine.inventory_parser import materialize_current_inventory
 from engine.name_utils import normalize_name
 from engine.personal_inventory import materialize_personal_inventory
+from tests.reheld_overlay import use_overlay_without
 
 
 @pytest.fixture(scope="module")
@@ -51,7 +52,13 @@ def _items_for(result, material):
     return [item for item in result["items"] if item["material"] == material]
 
 
-def test_a_stock_with_missing_details_names_them_and_opens_its_stock_page_entry(projection):
+def test_a_stock_with_missing_details_names_them_and_opens_its_stock_page_entry(monkeypatch, tmp_path):
+    # Every owned stock had its details on 28 Oct 2026; the older Birch Tar 1% and 10% (no basis or
+    # carrier until Kenny's "ye", STK-230/231) are re-held here as the example.
+    use_overlay_without(
+        monkeypatch, tmp_path, {"INV-USER-20261014-STK-230": None, "INV-USER-20261014-STK-231": None}
+    )
+    projection = materialize_personal_inventory()
     stock = next(
         s for s in _owned(projection)
         if s.stock_id in projection.canonical_stock_ids

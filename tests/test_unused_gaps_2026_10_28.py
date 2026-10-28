@@ -724,16 +724,16 @@ def test_group7_holds_clear_on_kennys_words_with_no_lot_claimed(records, record_
     assert superseded in {r["record_id"] for r in overlay["retired_records"]}
 
 
-def test_only_birch_tar_and_china_cedarwood_stay_held():
+def test_no_owned_stock_stays_held():
     # Kenny's card "Clear on order evidence" and his bottle answers (28 Oct 2026) cleared every other
-    # hold. The V5 Birch Tar rows are not in inventory.txt (only PW Birch Tar Rectified 10% is), and
-    # the China cedarwood species is unknown.
+    # hold, his closest-identity rule cleared the China cedarwood (STK-229), and his "ye" kept the older
+    # Birch Tar 1% and 10% next to PW Birch Tar Rectified 10% (STK-230, STK-231).
     held = sorted(
         stock.name
         for stock in inventory.materialize_current_inventory().stocks
         if stock.status.casefold() == "owned" and not stock.execution_ready
     )
-    assert held == ["Birch Tar 1%", "Birch Tar 10%", "Cedarwood EO (China; species unspecified)"]
+    assert held == []
 
 
 @pytest.mark.parametrize(
@@ -801,3 +801,39 @@ def test_suederal_physics_come_from_its_documents_and_say_what_is_a_placeholder(
     assert "0,0004 kPa CALCULATED" in material.provenance["vp_25c_pa"]
     assert material.provenance["mw_g_mol"].startswith("PLACEHOLDER")
     assert material.provenance["logp"].startswith("PLACEHOLDER")
+
+
+def test_china_cedarwood_is_a_labelled_cupressus_funebris_proxy(records, stocks):
+    record = records["INV-USER-20261014-STK-229"]
+    assert record["source_quote"] == "select the one that is the closest"
+    assert record["stock"]["identity_status"] == "PROXY_IDENTITY_UNCONFIRMED"
+    assert record["supersedes_parent_stocks"] == [{"source_row": 62, "fraction": 1.0}]
+    (stock,) = [s for s in stocks if s.name == "Cedarwood Chinese Essential Oil"]
+    assert (stock.dilution, stock.execution_ready) == (1.0, True)
+    assert load_registry().get("Cedarwood Chinese Essential Oil").cas == "85085-29-6"
+
+
+@pytest.mark.parametrize(("record_id", "name", "fraction"), [
+    ("INV-USER-20261014-STK-230", "Birch Tar 1%", 0.01),
+    ("INV-USER-20261014-STK-231", "Birch Tar 10%", 0.1),
+])
+def test_older_birch_tar_bottles_are_kept_ww_in_dpg(records, stocks, record_id, name, fraction):
+    record = records[record_id]
+    assert (record["source_quote"], record["source_message_timestamp_utc"]) == ("ye", "2026-10-28T16:30:50Z")
+    assert record["supersedes_parent_stocks"] == [{"source_row": 46, "fraction": fraction}]
+    (stock,) = [s for s in stocks if s.name == name]
+    assert (stock.dilution, stock.fraction_basis, stock.carrier, stock.execution_ready) == (
+        fraction, "mass_fraction", "dpg", True
+    )
+    assert [s.name for s in stocks if s.name == "Birch Tar Rectified"] == ["Birch Tar Rectified"]
+
+
+def test_china_cedarwood_uses_the_cupressus_funebris_typical_gc():
+    from engine.pipeline import natural_absolute_decomposition as nad
+
+    key = nad._PROFILE_ALIASES["cedarwood chinese essential oil"]
+    rows = {name: share for name, share, *_ in nad._ABSOLUTE_CONSTITUENTS[key]}
+    assert (rows["thujopsene"], rows["alpha cedrene"], rows["cedrol"]) == (0.299, 0.264, 0.096)
+    assert round(sum(rows.values()), 3) == 0.88
+    assert nad._PROFILE_SOURCES[key][0] == "https://www.thegoodscentscompany.com/gca/gc1007241.html"
+    assert "closest-identity proxy" in nad._PARTIAL_PROFILE_EVIDENCE[key]["limitations"][0]

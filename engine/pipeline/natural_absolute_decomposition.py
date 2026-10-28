@@ -556,6 +556,20 @@ _CEDARWOOD_EO_CONSTITUENTS = [
 ]
 # Total identified: 82.7% — excellent coverage (APRC 56-sample mean)
 
+# Chinese cedarwood oil (Cupressus funebris wood oil, CAS 85085-29-6): The Good Scents Company
+# typical GC (https://www.thegoodscentscompany.com/gca/gc1007241.html), citing R. P. Adams, "Cedarwood oil - analyses and properties"
+# (Modern Methods of Plant Analysis NS 12) and P&F 23(5):55 (1998). Same sesquiterpenes as the
+# Virginia profile above (molecular inputs reused), thujopsene-led instead of cedrene-led.
+_CUPRESSUS_FUNEBRIS_TGSC_CONSTITUENTS = [
+    ("thujopsene", 0.299, 204.35, 2.00, 5.00, 1.2),  # 29.90%
+    ("alpha cedrene", 0.264, 204.35, 3.00, 10.0, 1.2),  # 26.40%
+    ("cedrol", 0.096, 222.37, 0.001, 2.00, 0.5),  # 9.60%
+    ("widdrol", 0.095, 222.37, 0.005, 1.00, 0.5),  # 9.50%
+    ("beta cedrene", 0.092, 204.35, 2.00, 10.0, 1.2),  # 9.20%
+    ("cuparene", 0.034, 202.34, 0.50, 3.00, 1.0),  # 3.40%
+]
+# Modeled: 88.0% of the typical GC.
+
 _LAVENDER_EO_CONSTITUENTS = [
     ("linalool", 0.30, 154.25, 21.30, 1.50, 2.0),
     ("linalyl acetate", 0.35, 196.29, 17.50, 2.70, 2.0),
@@ -1648,6 +1662,7 @@ _ABSOLUTE_CONSTITUENTS = {
     "coriander essential oil": _CORIANDER_EO_CONSTITUENTS,
     # Literature-only proxy identities (not supplier-batch identities).
     "cupressus sempervirens leaf oil literature profile": _CYPRESS_LEAF_LITERATURE_CONSTITUENTS,
+    "cupressus funebris wood oil tgsc typical gc profile": _CUPRESSUS_FUNEBRIS_TGSC_CONSTITUENTS,
     "mentha piperita lk literature profile": _PEPPERMINT_LK_LITERATURE_CONSTITUENTS,
     "lavandula latifolia spanish type iso 4719 midpoint profile": (
         _SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS
@@ -1781,6 +1796,10 @@ _PROFILE_ALIASES = {
     # (Juniperus mexicana, thujopsene/cedrene/cedrol like Virginia) the cedarwood EO profile.
     "geranium bourbon essential oil": "geranium eo",
     "cedarwood texas eo": "cedarwood eo",
+    # Kenny's China cedarwood (V5 row 62, STK-229): Cupressus funebris as the closest identity,
+    # by his 28 Oct 2026 rule for unidentified bottles ("select the one that is the closest").
+    "cedarwood chinese essential oil": "cupressus funebris wood oil tgsc typical gc profile",
+    "cedarwood eo (china; species unspecified)": "cupressus funebris wood oil tgsc typical gc profile",
     # PerfumersWorld Patchouli Light (decolorized patchouli, 7WB13670): same molecules as patchouli oil.
     "patchouli light essential oil": "patchouli eo",
     "patchouli light eo": "patchouli eo",
@@ -2070,6 +2089,9 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "The owned Magnolia Absolute (MySkinRecipes #7870, lot ZDHY6L) is modeled as Magnolia officinalis flower, the identity the INCI on its MySkinRecipes page names (Kenny, 28 Oct 2026: 'magnolia abolute takje the INCI on the mykinrecipe page'); MySkinRecipes prints no CAS, origin, extraction solvent, composition or density.",
         "No GC of a Magnolia officinalis flower absolute or solvent extract was found; the only quantified composition is the pharmacopoeial hydrodistilled oil of dried buds, which is caryophyllene-rich. The same INCI is on MySkinRecipes' cosmetic extract 7871, so if the bottle smells sweet-floral the name may be carried over and Michelia x alba would fit better.",
     ),
+    "cedarwood chinese essential oil": (
+        "The owned China cedarwood (V5 row 62, species never stated) is modeled as Chinese cedarwood oil, Cupressus funebris wood oil, the closest identity under Kenny's 28 Oct 2026 rule ('select the one that is the closest'). Robertet sells 'Cedarwood China oil' as Cupressus funebris (https://matieres-premieres.robertet.com/cedarwood-china-oil); The Good Scents Company lists 'cedarwood oil china' as cupressus funebris wood oil, CAS 85085-29-6 (https://www.thegoodscentscompany.com/data/es1007241.html). Supplier and lot are not recorded.",
+    ),
     "white sandalwood oil (china)": (
         "The owned White Sandalwood Oil (China) (MySkinRecipes lot W9F536) is modeled as Santalum album oil, the closest identity Kenny asked for on 28 Oct 2026: its name and the COA's nominal density (0.980, inside ISO 3518) point to S. album. MySkinRecipes prints no GC.",
         "Runner-up is S. spicatum, whose CAS 8024-35-9 the COA prints; that oil has about 21% (Z)-alpha-santalol and 10% farnesol instead of 48% and trace, so the santalol rows would be too high. The COA's nominal RI 1.500 is below ISO 3518's 1.503 and the price is far below genuine oil, so the bottle may be cut or compounded.",
@@ -2159,6 +2181,11 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "oman boswellia resin ethanol tincture generic profile": (
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC8881160/",
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC10603989/",
+    ),
+    "cupressus funebris wood oil tgsc typical gc profile": (
+        "https://www.thegoodscentscompany.com/gca/gc1007241.html",
+        "https://www.thegoodscentscompany.com/data/es1007241.html",
+        "https://matieres-premieres.robertet.com/cedarwood-china-oil",
     ),
     "cupressus sempervirens leaf oil literature profile": (
         "https://doi.org/10.3390/plants12051097",
@@ -3173,6 +3200,29 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Only 72.25% of nominal composition is modeled; myristicin, safrole and unlisted constituents remain uncomputed, not odorless.",
             "Safrole is restricted by IFRA Standard 179 (safrole, isosafrole and dihydrosafrole together at most 0.01% of the finished product); this composition scenario does not feed the IFRA screen.",
             "Mace (aril) oil and West Indian nutmeg oil are not covered by this profile.",
+        ),
+    },
+    "cupressus funebris wood oil tgsc typical gc profile": {
+        "input_authority": {
+            "composition": {
+                "source": "https://www.thegoodscentscompany.com/gca/gc1007241.html",
+                "table": "Typical G.C. analysis, cedarwood oil china",
+                "published_botanical_name": "Cupressus funebris",
+                "published_plant_part": "wood",
+                "quantitation": "TYPICAL_GC_AREA_PERCENT",
+                "identification": "AS_PUBLISHED_BY_TGSC_CITING_ADAMS",
+                "response_factor_correction": "UNSPECIFIED_IN_SOURCE",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CLOSEST_IDENTITY_PROXY",
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("thujopsene", "alpha cedrene", "cedrol", "widdrol", "beta cedrene", "cuparene")},
+        },
+        "limitations": (
+            "A typical analysis compiled by The Good Scents Company (citing Adams), not an analysis of the owned bottle; the bottle's species was never stated and Cupressus funebris is the closest-identity proxy.",
+            "GC area percent with unspecified response factors; only 88.0% of the typical composition is modeled (alaskene, chamigrenes, selinenes, himachalenes, methyl chavicol and traces are not).",
+            "Constituent vapour pressures and thresholds are the legacy runtime estimates shared with the Virginia cedarwood profile.",
         ),
     },
     "cupressus sempervirens leaf oil literature profile": {

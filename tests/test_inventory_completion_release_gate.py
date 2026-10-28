@@ -43,7 +43,8 @@ def held_examples(monkeypatch, tmp_path):
 
     Glycolierral and Aldehyde C-8 Octanal were intake-held (PW-030, PW-016) until his "neat"
     (STK-221, STK-220); Aldehyde C10 10% and Apritone 10% were V5 rows with no basis or carrier
-    until "I have both" and his w/w-in-DPG rule (STK-224, STK-226).
+    until "I have both" and his w/w-in-DPG rule (STK-224, STK-226). Cedarwood EO (China) held on its
+    unresolved species until his closest-identity rule (STK-229).
     """
     use_overlay_without(
         monkeypatch,
@@ -53,6 +54,7 @@ def held_examples(monkeypatch, tmp_path):
             "INV-USER-20261014-STK-221": "INV-USER-20261007-PW-030",
             "INV-USER-20261014-STK-224": None,
             "INV-USER-20261014-STK-226": None,
+            "INV-USER-20261014-STK-229": None,
         },
     )
 
@@ -346,7 +348,9 @@ def test_hold_text_for_clearable_reasons_points_to_the_stock_page() -> None:
     assert kept.endswith("record the tincture percentage basis and extracted solids")
 
 
-def test_hold_text_for_an_unclearable_unnamed_hold_does_not_name_the_stock_page(completion_log) -> None:
+def test_hold_text_for_an_unclearable_unnamed_hold_does_not_name_the_stock_page(
+    completion_log, held_examples
+) -> None:
     # Cedarwood EO (China)'s hold is its unresolved species, not a form field.
     check = resolve_inventory_stock_contract(
         {

@@ -262,6 +262,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "PW",
         "It’s piperonal",
         "Use orange flower absolute freely , do suederal research, maple lactone 20% is maple laitone",
+        # 2026-10-28 07:38 UTC: his closest-identity rule, applied to the China cedarwood (STK-229).
+        "select the one that is the closest",
+        # 2026-10-28 16:30 UTC: the older Birch Tar 1% and 10% are kept (STK-230, STK-231).
+        "ye",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -344,7 +348,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 229)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 232)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
