@@ -2774,12 +2774,12 @@
   smiles: null
   inchikey: null
   mw_g_mol: 168.28
-  density_25c_g_ml: 0.94
+  density_25c_g_ml: 0.99
   logp: 3.5
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.01
-  vp_source: placeholder  # unsourced round value; gate reports it as estimated
+  vp_25c_pa: 0.4
+  vp_source: supplier_calculated_est  # IFF SDS whole-product estimate; gate reports it as estimated
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: 0.0003
@@ -2795,22 +2795,24 @@
   user_in_inventory: true
   supplier: null
   families:
-  - woods / amber / structure
-  character: null
+  - leather / smoky / phenolic
+  character: 'Animalic, phenolic, tar and smoke (PerfumersWorld profile 74 / 21 / 5 %): sweet, woody, slightly smoky suede; lasts 168 h on a strip (PerfumersWorld).'
   notes: null
   provenance:
-    mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    character: 'PerfumersWorld 3UP14351 page (https://www.perfumersworld.com/view.php?pro_id=3UP14351). Loaded 2026-10-28 (Suederal research, ''Fix gaps in unused materials'' thread; sources re-opened).'
+    families: 'PerfumersWorld 3UP14351 page: synonym ''suederal leather replacer''; profile animalic 74 %, phenolic 21 %, tar/smoke 5 %. Was ''woods / amber / structure'' (unsourced). Loaded 2026-10-28 (Suederal research, ''Fix gaps in unused materials'' thread; sources re-opened).'
+    mw_g_mol: 'PLACEHOLDER: unsourced engine default. A rosin-ester base has no single molecular weight (IFF FPIS: Hercolyn D 76 %, methyl abietate 5.2 %, about 16 % undeclared). Loaded 2026-10-28 (Suederal research, ''Fix gaps in unused materials'' thread; sources re-opened).'
+    vp_25c_pa: 'IFF Suederal LT SDS v4.2 (25 Sep 2024, https://cdn.shopify.com/s/files/1/0682/1448/9400/files/SDS_SUEDERAL_IFF.pdf): vapour pressure ''0,0004 kPa CALCULATED'' = 0.4 Pa, a whole-product supplier estimate (mostly the odour part; Hercolyn D, 76 %, is near 0.00001 Pa). IFF''s FPIS gives ''<0.01'' mmHg at 20 C (under 1.3 Pa). Replaces the unsourced 0.01 Pa. PROXY_IDENTITY_UNCONFIRMED: PerfumersWorld never names the maker of 3UP14351; it lists ''Suederal LT'' among its synonyms and its MSDS density band (0.94-0.99 at 25 C) meets IFF''s, so IFF Suederal LT is the closest published identity (Kenny''s closest-identity rule), not a confirmed one. Loaded 2026-10-28 (Suederal research, ''Fix gaps in unused materials'' thread; sources re-opened).'
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'No published air threshold or GC-O for Suederal; PerfumersWorld''s ROI 250 is not a threshold. Left null.'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
-    logp: engine.skin_interaction
+    logp: 'PLACEHOLDER: unsourced engine default; no published log P for the base. Loaded 2026-10-28 (Suederal research, ''Fix gaps in unused materials'' thread; sources re-opened).'
     hedonic_valence: engine.hedonic_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
-    density_25c_g_ml: 'SG 0.9400, supplier-reported (PerfumersWorld 3UP14351 "Suederal"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
-    density_basis: supplier_sg_temperature_unstated
+    density_25c_g_ml: 'PerfumersWorld 3UP14351 MSDS (https://www.perfumersworld.com/document-list.php?pro_id=3UP14351): specific gravity ''0.94 TO 0.99'' at 25 C; the top of PW''s own band, where it meets IFF''s Suederal LT (IFF SDS v4.2, 25 Sep 2024: relative density 1.009-1.019 at 20 C, https://cdn.shopify.com/s/files/1/0682/1448/9400/files/SDS_SUEDERAL_IFF.pdf). PW''s single value 0.94 is the bottom of its band. PROXY_IDENTITY_UNCONFIRMED: PerfumersWorld never names the maker of 3UP14351; it lists ''Suederal LT'' among its synonyms and its MSDS density band (0.94-0.99 at 25 C) meets IFF''s, so IFF Suederal LT is the closest published identity (Kenny''s closest-identity rule), not a confirmed one. Loaded 2026-10-28 (Suederal research, ''Fix gaps in unused materials'' thread; sources re-opened).'
+    density_basis: 'supplier_sds_band_25c_closest_identity'
 - canonical_name: Sugandha Kokila Essential Oil
   aliases: []
   cas: null

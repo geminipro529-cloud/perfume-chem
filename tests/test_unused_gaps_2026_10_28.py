@@ -249,10 +249,11 @@ def test_partly_declared_bases_load_with_their_undeclared_part():
     from engine.ifra_standards import load_partly_declared_bases, partly_declared_base
 
     names = {b.name for b in load_partly_declared_bases()}
-    assert names == {"Black Tea Base", "Palm Dates Base", "Sandalwood Base X3", "Costus Olifac"}
+    # Suederal joined on 28 Oct 2026 (IFF's FPIS as a closest-identity proxy, below).
+    assert names == {"Black Tea Base", "Palm Dates Base", "Sandalwood Base X3", "Costus Olifac", "Suederal"}
     assert partly_declared_base(["Sandalwood Base 3X"]).sku == "6WX24054"
     assert partly_declared_base(["Black Tea Base (neat / as supplied)"]).allergens_pct["Linalool"] == 0.2189
-    assert partly_declared_base(["Suederal"]) is None
+    assert partly_declared_base(["Lilyreal ND"]) is None
     assert "undeclared part" in partly_declared_base(["Palm Dates Base"]).warning()
 
 
@@ -754,3 +755,49 @@ def test_v5_ten_percent_rows_are_bound_ww_in_dpg(records, stocks, name, row, quo
         "dpg",
         True,
     )
+
+
+def test_heliotropin_is_pw_piperonal_weighed_as_a_solid(records, stocks):
+    record = records["INV-USER-20261014-STK-227"]
+    assert record["source_quote"] == "It’s piperonal"
+    assert record["aliases"] == ["Piperonal"]
+    assert record["requirement_overrides"][0]["source_row"] == 262
+    (stock,) = [s for s in stocks if s.name == "Heliotropin"]
+    assert (stock.dilution, stock.physical_form, stock.execution_ready) == (1.0, "solid_as_supplied", True)
+    assert load_registry().get("Heliotropin").cas == "120-57-0"
+
+
+def test_maple_lactone_twenty_percent_row_was_methyl_laitone(records, stocks):
+    record = records["INV-USER-20261014-STK-228"]
+    assert record["source_quote"] == "maple lactone 20% is maple laitone"
+    assert record["state"] == "NOT_OWNED"
+    assert "INV-USER-20260915-STOCK-007" in inventory.load_current_user_inventory_overlay(
+        require_live_inventory_binding=True
+    )["superseded_record_ids"]
+    by_name = {s.name: s for s in stocks}
+    assert by_name["Maple Lactone 20%"].status == "gap"
+    assert (by_name["Maple Lactone"].dilution, by_name["Maple Lactone"].execution_ready) == (1.0, True)
+    assert by_name["Methyl Laitone"].dilution == 0.2
+
+
+def test_suederal_takes_its_certificate_and_iffs_composition_as_a_proxy():
+    from engine.ifra_standards import evaluate_ifra, load_undisclosed_bases, partly_declared_base
+
+    assert "Suederal" not in {b.name for b in load_undisclosed_bases()}
+    [row] = evaluate_ifra({"Suederal 10%": 1.0}).checks
+    assert (row.status, row.verdict) == ("no_standard", "pass")
+    base = partly_declared_base(["Suederal 10%"])
+    assert base is not None and base.sku == "3UP14351"
+    assert base.undeclared_pct == (16.441, 16.441)
+    assert base.allergens_pct == {"Limonene": 0.002}
+    assert "PROXY_IDENTITY_UNCONFIRMED" in base.undeclared_note
+
+
+def test_suederal_physics_come_from_its_documents_and_say_what_is_a_placeholder():
+    material = load_registry().get("Suederal")
+    assert (material.density_25c_g_ml, material.vp_25c_pa) == (0.99, 0.4)
+    assert material.families == ["leather / smoky / phenolic"]
+    assert material.odt_air_ppb is None
+    assert "0,0004 kPa CALCULATED" in material.provenance["vp_25c_pa"]
+    assert material.provenance["mw_g_mol"].startswith("PLACEHOLDER")
+    assert material.provenance["logp"].startswith("PLACEHOLDER")

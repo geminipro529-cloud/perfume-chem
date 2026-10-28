@@ -4,7 +4,6 @@
   "decision": "Kenny: flag them. A formula using a supplier base whose composition is not published gets a named warning in the IFRA safety gate, never a block. Restricted substances inside these bases are not counted toward any IFRA total.",
   "scope": "Owned supplier bases and supplier extracts only, by their stock names in inventory.txt. A base leaves this list when its composition (an IFRA certificate or a published constituent list) is recorded.",
   "bases": [
-    {"name": "Suederal", "reason": "Supplier suede/leather base; composition not published."},
     {"name": "Castoreum Synthetic", "reason": "PerfumersWorld proprietary non-animal castoreum compound; composition not published."},
     {"name": "Costus Olifac", "reason": "IFF costus reconstitution base. IFF's 2020 FPIS declares 69.25% (triethyl citrate 65.935%, guaiacwood oil 3.158%, traces) but not the costus odorants; its restricted traces (styrax 0.011%, isoeugenol 0.004%, furfural 0.002%) are not counted, and would cap the neat base at 27.5% (isoeugenol), far above any use. Physics: data/regulatory/partly_declared_bases.json."},
     {"name": "Lilyreal ND", "reason": "PerfumersWorld proprietary compound sold to replace HMPCC (Lyral); SDS: 'No composition data available for this product.'; its IFRA certificate and allergen declaration list no restricted materials."},
