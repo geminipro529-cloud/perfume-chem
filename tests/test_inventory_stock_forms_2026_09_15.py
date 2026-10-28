@@ -112,12 +112,12 @@ def test_carrier_only_clarifications_take_kennys_ww_rule(
 
 
 # 2026-10-15: Kenny said benzoin 40% and frankincense 33% may be dosed at the
-# strengths they were built at; storax and myrrh were not asked and stay held.
+# strengths they were built at; 2026-10-28 the same for myrrh ("ye"). Storax was not
+# asked and stays held.
 @pytest.mark.parametrize(
     "name,fraction",
     [
         ("Turkish Storax Tincture", 0.2),
-        ("Kenyan Myrrh Ethanol Tincture", 0.2),
     ],
 )
 def test_tincture_starting_charge_is_nominal_model_authority_only(
@@ -141,6 +141,7 @@ def test_tincture_starting_charge_is_nominal_model_authority_only(
     [
         ("Vietnamese Benzoin Tincture", 0.4),
         ("Oman Frankincense Ethanol Tincture", 0.33),
+        ("Kenyan Myrrh Ethanol Tincture", 0.2),
     ],
 )
 def test_user_authorized_tinctures_dose_at_their_built_strength(

@@ -5619,6 +5619,63 @@ for _name, (_odt_air, _vfy, _sources) in _LITERATURE_ODT_2026_10_25.items():
     ODT_VERIFICATION[_key] = _meta
 LITERATURE_ODT_BATCH_2026_10_25 = True
 
+# Labelled analogue estimates, 28 Oct 2026 (stock thread). Kenny chose, on a card in the
+# "Fix gaps in unused materials" thread (28 Oct 08:39 UTC): where no measured air ODT
+# exists, load an estimate from the closest measured analogue, tagged UNVERIFIED. Each
+# value is the geometric mean of the analogue estimate and a PerfumersWorld Relative Odor
+# Impact + VP fit (leave-one-out on 20 measured materials: median error about 5x, one in
+# three over 10x); /mnt/project-files/unused-gaps-20261028/PW_IMPACT_RESULT.md. ScenTree's
+# unsourced air figures were not used. Glycolierral and Fructone B have no measured
+# analogue, so they stay without a value.
+_ANALOGUE_ODT_ESTIMATES_2026_10_28 = {
+    "cedroxyde": (8.0, [
+        "Analogue estimate 10 ppb: geometric mean of the engine's woody-amber air values "
+        "Vertofix Coeur 6.3 (PEER_SINGLE), Timberol 13.6 (PEER_SINGLE) and Koavone 5 "
+        "(UNVERIFIED); weak analogues (ketones, not a macrocyclic epoxide).",
+        "PW Relative Odor Impact 80 + VP fit: 6.2 ppb (3WI00098; "
+        "https://www.perfumersworld.com/view.php?pro_id=3WI00098).",
+        "Geometric mean 7.9 -> 8 ppb. No published air ODT found (ScenTree prints none).",
+    ]),
+    "cedryl acetate": (20.0, [
+        "Analogue estimate 40 ppb: geometric mean of Vertofix Coeur (acetyl cedrene) 6.3 "
+        "(PEER_SINGLE) and Cedramber (cedryl methyl ether) 240 (UNVERIFIED).",
+        "PW Relative Odor Impact 60 + VP fit: 11.6 ppb (2WW00099; "
+        "https://www.perfumersworld.com/view.php?pro_id=2WW00099).",
+        "Geometric mean 21.5 -> 20 ppb. The two inputs disagree about 3x.",
+    ]),
+    "anisyl acetate": (9.0, [
+        "Analogue estimate 20 ppb: benzyl acetate 20 ppb (PEER_SINGLE, Nagata 2003), the "
+        "parent ester; anisaldehyde 5 ppb (PEER_SINGLE) shows the p-methoxy group can lower it.",
+        "PW Relative Odor Impact 80 fit without VP: 4.3 ppb (3LN00043; "
+        "https://www.perfumersworld.com/view.php?pro_id=3LN00043).",
+        "Geometric mean 9.3 -> 9 ppb.",
+    ]),
+}
+_refresh_normalized_odt_index()
+for _name, (_odt_air, _sources) in _ANALOGUE_ODT_ESTIMATES_2026_10_28.items():
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": "UNVERIFIED",
+        "sources": list(_sources),
+        "note": "Analogue estimate 2026-10-28 (Kenny's card choice, 28 Oct 08:39 UTC); not a measurement.",
+    }
+    if ODT_VERIFICATION.get(_key):
+        _meta["superseded"] = dict(ODT_VERIFICATION[_key])
+    ODT_VERIFICATION[_key] = _meta
+
+# Cabreuva: the 150 ppb is nerolidol's air value carried to the oil, not a measurement of the oil.
+ODT_VERIFICATION["cabreuva eo"] = {
+    **ODT_VERIFICATION["cabreuva eo"],
+    "vfy": "DERIVED",
+    "note": "Constituent-derived (nerolidol, 50-100% of the oil per the Madar SDS); relabelled 2026-10-28 from MULTI_SOURCE_LITERATURE.",
+}
+ANALOGUE_ODT_BATCH_2026_10_28 = True
+
 
 # (auditor CRITICAL C1: without this, batch ODT_DATA entries are unreachable via runtime lookup)
 MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True

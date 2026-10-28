@@ -8,11 +8,10 @@ import pytest
 import engine.inventory_parser as inventory
 
 
-# Benzoin and frankincense became dosable at their built strength on 2026-10-15
-# (tests/test_inventory_stock_forms_2026_09_15.py); these two stay held.
+# Benzoin and frankincense became dosable at their built strength on 2026-10-15 and
+# myrrh on 2026-10-28 (tests/test_inventory_stock_forms_2026_09_15.py); storax stays held.
 @pytest.mark.parametrize("name,fraction", [
     ("Turkish Storax Tincture", 0.20),
-    ("Kenyan Myrrh Ethanol Tincture", 0.20),
 ])
 def test_owned_tinctures_keep_nominal_model_and_unknown_final_strength(name, fraction):
     stocks = [s for s in inventory.materialize_current_inventory().stocks if s.name == name]

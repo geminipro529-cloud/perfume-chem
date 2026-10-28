@@ -2017,7 +2017,7 @@
   dhvap_kj_mol: null
   kaw_eff: 0.0004
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 8.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2035,8 +2035,10 @@
   families: []
   character: 'A powerful and complex dry woody note, featuring vertical woody notes like cedarwood or patchouli, complemented by subtle ambery undertones.'
   odour_family: 'woody'
-  notes: 'Identity 2026-10-23: PubChem CID 6436727 (CAS 13786-79-3, synonym "Cedroxyde") is C15H24O, MW 220.35, but this entry''s MW is 238.4 (engine.diffusion_model, unsourced), so the CAS was NOT set (spec: only when MW matches within 0.1). PerfumersWorld SKU 3WI00098 lists 71735-79-0, a different isomer (CID 6441804). Resolve the MW before setting the CAS.'
+  notes: 'CAS 71735-79-0 (PerfumersWorld 3WI00098, Firmenich 922470), MW 220.35 (C15H24O). The 1,5,9-trimethyl isomer CAS 13786-79-3 (PubChem CID 6436727) is a different compound. Firmenich purity spec min 80%. The ''0.08 Pa'' in an earlier audit belongs to another Firmenich Compendium entry (MW 208), not Cedroxyde.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
+    notes: 'Firmenich 922470 sheet (https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CEDROXYDE_922470.pdf), re-opened 28 Oct 2026: ''LOG P (MEASURED) 4.88'', ''VAPOUR PRESSURE 0.19 Pa at 20 C'', ''MOLECULAR WEIGHT 221''. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     character: 'CEDROXYDE® (922470) | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/cedroxyder-pe-922470: Olfactive family Woody. Technical Descriptors Cedarwood, Ambery, Dry Woods. Olfactive description "A powerful and complex dry woody note, featuring vertical woody notes like cedarwood or patchouli, complemented by subtle ambery undertones." (grade A_producer; producer/primary text, quoted). Second reader: CAS 71735-79-0 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "woody" from ''Woody'': CEDROXYDE® (922470) | dsm-firmenich studio, https://studio.dsm-firmenich.com/product/cedroxyder-pe-922470: Olfactive family Woody | Technical Descriptors Cedarwood, Ambery, Dry Woods (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_25c_pa: 'Firmenich, CEDROXYDE® 922470 marketing sheet (2020) (https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CEDROXYDE_922470.pdf): ''VAPOUR PRESSURE 0.19 Pa at 20 C''; printed 0.19 Pa at 20 C; producer sheet; method not stated; grade A_producer. Converted from 0.19 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 74.4 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: CAS 0071735-79-0 = 71735-79-0, which matches the stock record. Method not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
@@ -2063,7 +2065,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 20.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2081,14 +2083,16 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Light cedar, vetivert odor, sweet woody and long lasting (IFF).'
   odour_family: 'woody'
   notes: 'MW, VP and density left null (2026-10-08). Formula C17H28O2 per IFF; no source states the MW. IFF VP "0.000489 mm Hg @ 23 C" = 0.0652 Pa at 23 C, not 25 C. Specific gravity 1.0014 at 20 C (measured lot), spec 0.986-1.016 (https://scent.vn/en/products/cedryl-acetate-aroma-chemical); 20 C, not used. Source: material-data-firecrawl/allgaps/S4_woody_musk_captives.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): mw_g_mol null -> 264.41. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
+    character: 'IFF, Cedryl Acetate (https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/): ''Olfactive Description: Light cedar, vetivert odor, sweet woody and long lasting.'' (grade A_producer). Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     odour_family: 'odour family "woody" from ''Woody'': Cedryl Acetate | Fragrance Ingredients | IFF, https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/: family label shown with a tree icon: "Woody" (grade A_producer; producer/primary text, quoted). Second reader: CAS 77-54-3 on page. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); "77-54-3" (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
-    logp: 'https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/ (IFF, producer); log P "6.2", method not stated (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
+    logp: 'IFF (https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/): ''Log P: 6.2'', method not stated; the IFF SDS prints 6.210. Not a measurement: PubChem XLogP3 4.5 (computed) disagrees. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     mw_g_mol: 'formula weight of C17H28O2 per IFF (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
     vp_25c_pa: 'IFF Ingredients Compendium, Cedryl Acetate (IPC 00C00180) (https://www.iff.com/scent/ingredients-compendium/cedryl-acetate/): ''Vapor Pressure: 0.000489 mm Hg @ 23 C''; printed 0.000489 mm Hg @ 23 C; producer compendium figure; method not stated; grade A_producer. Converted from 0.0652 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 79.6 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: IFF Ingredients Compendium, Cedryl Acetate. CAS 77-54-3 matches. 0.000489 x 133.322 = 0.0652 Pa at 23 C. CONVERSION GAP: the item stores this 23 C figure unchanged as vp_25c_pa = 0.0652 with... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     density_25c_g_ml: 'SG 0.9770, supplier-reported (PerfumersWorld 2WW00099 "Cedryl Acetate"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 23 Oct 2026 third data pass: PerfumersWorld 2WW00099 "Specific Gravity 0.9770", https://www.perfumersworld.com/view.php?pro_id=2WW00099; temperature not printed by PerfumersWorld (Kenny''s supplier for this bottle)'

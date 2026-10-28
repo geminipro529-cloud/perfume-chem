@@ -4,27 +4,27 @@
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
     "engine/ingredient_intelligence.py": "3eccb20df9dcc858929b5fc2346a0f2c60765df0283a2753cec6471b0e3d9f68",
-    "engine/inventory_parser.py": "a37a7c31d0f8cf58ef0b9f24b4a8666847258227c10a2dd53a320a883453eb1f",
-    "engine/odor_thresholds.py": "02f4ba3137d0e4241e5f126cbad48f61de8cd6d8e63de04a27e156680b119fd8",
+    "engine/inventory_parser.py": "02674ba1628e4a40884aa3362ee37d1b3c94e1e62d5814249044e2e20e49ac46",
+    "engine/odor_thresholds.py": "c6d5e8a37ff016a1f7f78a844c9ee4001bde5cf97c4feb5121997261e45c7153",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
     "engine/data_spine/loader.py": "cd09b0877de31b1fb334811f875dd7305923e9d454efac6ba7cd065f1e6c016f",
     "engine/data_spine/material.py": "de1f522ae2a22ebff9fd52d225c44a3de643da4efb8969b3201f3aaed7ae60e8",
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
     "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
-    "data/materials/A.yaml": "853725d3e4e4b10f2a8e2bd7c01a07796af884d9b2c88fe55afeba0127923af4",
+    "data/materials/A.yaml": "4aab435a51742ea616d9465a9f26399089d1bf87839523e5baeb95cd345c5b89",
     "data/materials/B.yaml": "1bc1bd1e988e153897681ba7dc74cce29cc04a5f5a57dc8f78d9aa5f5bf3b5a3",
-    "data/materials/C.yaml": "ef290d2d3f5f017b843af9870ea128bb0714e8e9b20c3dc88657a35b64d9b442",
+    "data/materials/C.yaml": "bfb4469682f3834d3c9e080f6cdad44b64a72121fff8f8519ce93e21a57bae0c",
     "data/materials/D.yaml": "4583b2f5ea09cf6c29b9d3ef401519db2ca64058a26a8cd482216d72525ba1f9",
     "data/materials/E.yaml": "3fe041759a0f66ffef942b4db6a8ed032a5578e0703c92e8bd2ac806f0a60a54",
-    "data/materials/F.yaml": "7ec36e7ce69a8e9a9e61bc75f0c6562d46ced790e097405b0ac64cd914398ca7",
-    "data/materials/G.yaml": "2b81539fe7914261d1fb409f9b8878b0ec30bd90167803959c3555aaee812907",
+    "data/materials/F.yaml": "1df1460d283faab0cb419010d8eba90219969be73db454f0df2354d8d24d6e01",
+    "data/materials/G.yaml": "1310f427dfb675a553df43da4c89e5181cbdbe36c67117fa99fd42adee7c3eb8",
     "data/materials/H.yaml": "deac5d531b285ed038b1f137acc67d92a7f97bf0d32b30101006027d63a917eb",
     "data/materials/I.yaml": "b853b5c26083de4ba38ae0deb2c6da52d8ef50ccbe72b8c1a69367071306e9f6",
     "data/materials/J.yaml": "f2344da7fdbd77331e7bfdfc7a2f326c5b760b9c53eebb3f358ad1b8f9aeb76d",
     "data/materials/K.yaml": "19796fb49bec7b078fce62bc6bccbac3f5447057fbc9970c46685705c8bff32b",
     "data/materials/L.yaml": "6cf06ad07afb464b4b5f775000dc19eaa01ad4f20263e636f1e4d5b07264ca13",
-    "data/materials/M.yaml": "8bafac116e18c228a3554cc6b7b3b3e06663a08ab6679f541662dcf1e3640c85",
+    "data/materials/M.yaml": "897f5682e6054c966e6f2c61208b95d1fb9db1691fcd5aa510e35db59e19fbaa",
     "data/materials/N.yaml": "bc473ed6dc298e8374842afbcdc91a666933678baea998177aa2fca18a071538",
     "data/materials/O.yaml": "387b00773e6c31eee6fda2f38d201cc391a0c042075542c265fd6f5fc4605fef",
     "data/materials/P.yaml": "c788c324a9a3a7ab6d39ac2fa3d61dca872a5db55ba96b09a48ed5a11ae0f3ad",
@@ -32,14 +32,14 @@
     "data/materials/R.yaml": "f07adeb1e79b86328b647491d106c101bd2bc60ceaef0d8eef218ad9d0c06cd9",
     "data/materials/S.yaml": "173e4186a502b9944133c1958c5f7d09b1370cb313c4515b50006dc267f8ddcb",
     "data/materials/T.yaml": "293ba746f70db00adee1a77ae7b3a19275db98c2cb805329be876b6b12d47e70",
-    "data/materials/U.yaml": "fb7fd20ff302e2edfb6494afa9d5deed082692a60a6e814b64edefb3f9402ddd",
+    "data/materials/U.yaml": "a5a73c06b4eaee65521e32e96d02bdbf0531052989004b7faea32d4c79f2c8be",
     "data/materials/V.yaml": "6ae76a8ac29c389deccf86d6ecbe056681b0fe923acb2180ab7f5fcc515c6a02",
     "data/materials/W.yaml": "1ffe9a8e8086a298a82e50c55ff0ba3cc0a8ffbf62ef2f22777b7dd70a6a8a6a",
     "data/materials/X.yaml": "7dd03fb6ab168e5a2cd90d1d938a00f79b641f63b676dab39a436e21ad795ea1",
     "data/materials/Y.yaml": "2a2bfccbf97561f2803d7725457331809250a1c00b298618ad6a360dd47d9138",
     "data/materials/Z.yaml": "3e3ef362823ad6cdc6b8b28bf0bcbe3d20695c43c1752eca870c33dc99fd160a"
   },
-  "inventory_overlay_sha256": "67cd3e785fcf6806585b2582f4907e9931b7ddb42456d8aa91e288e737dc83be",
+  "inventory_overlay_sha256": "e8af1ee279f0377afa4b7f229977983484c9d9aba0aeb79d77f67cd292b2ab07",
   "inventory_snapshot_sha256": "f81c7b277bb1b56d4b2045c98355754449be11fc9d6f121ce4e8de4539e35d99",
   "inventory_workbook_sha256": "e36287aca26f34354b3244f07618cb4c12750dfb85db5584dca39d5130025331",
   "counts": {
@@ -48,7 +48,7 @@
     "all_original_names_preserved": true,
     "inventory_text_rows": 333,
     "historical_requirement_rows": 280,
-    "current_physical_stocks": 376,
+    "current_physical_stocks": 377,
     "registry_records": 1287,
     "rows_with_profile": 296,
     "rows_with_registry": 324,
@@ -150,7 +150,7 @@
       "registry_name": "Hexyl Acetate",
       "profile_name": "Hexyl Acetate",
       "current_stock_ids": [
-        "inventory:user-20261014:c7bfa5ec108264e53463",
+        "inventory:user-20261014:83fb6e52f0a23c85dfc3",
         "inventory:v5:641e69da5dfc5f127fc1",
         "inventory:user-20260910:f15d662d4e7f6ef7a623"
       ],
@@ -352,7 +352,7 @@
       "registry_name": "Hexyl Acetate",
       "profile_name": "Hexyl Acetate",
       "current_stock_ids": [
-        "inventory:user-20261014:c7bfa5ec108264e53463",
+        "inventory:user-20261014:83fb6e52f0a23c85dfc3",
         "inventory:v5:641e69da5dfc5f127fc1",
         "inventory:user-20260910:f15d662d4e7f6ef7a623"
       ],
@@ -429,7 +429,7 @@
       "profile_name": "Aldehyde C12 MNA",
       "current_stock_ids": [
         "inventory:user-20260908:05bed5aef426e45b4f3b",
-        "inventory:user-20261014:eafb1cf681a23d660ef9"
+        "inventory:user-20261014:a0fb6618a149272004ea"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -451,7 +451,7 @@
       "profile_name": "Aldehyde C12 MNA",
       "current_stock_ids": [
         "inventory:user-20260908:05bed5aef426e45b4f3b",
-        "inventory:user-20261014:eafb1cf681a23d660ef9"
+        "inventory:user-20261014:a0fb6618a149272004ea"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -592,7 +592,7 @@
       "current_stock_ids": [
         "inventory:user-20261008:2bcc70eb0b06bb2aed0e",
         "inventory:user-20261008:3f8bba0229c5a352c7f4",
-        "inventory:user-20261014:11fcb6e1b3fccf964c89",
+        "inventory:user-20261014:8abbedcf966ab19e9984",
         "inventory:user-20261008:12a4cd79d0e24fd07d6e"
       ],
       "odt_present": true,
@@ -614,7 +614,7 @@
       "registry_name": "Lemonile",
       "profile_name": "Lemonile",
       "current_stock_ids": [
-        "inventory:user-20261014:d1f8b4d7a1a36c7ac97a",
+        "inventory:user-20261014:01181fc02e12957ae270",
         "inventory:v5:f0925dde6ea28e1746e9"
       ],
       "odt_present": true,
@@ -636,7 +636,7 @@
       "registry_name": "Lemonile",
       "profile_name": "Lemonile",
       "current_stock_ids": [
-        "inventory:user-20261014:d1f8b4d7a1a36c7ac97a",
+        "inventory:user-20261014:01181fc02e12957ae270",
         "inventory:v5:f0925dde6ea28e1746e9"
       ],
       "odt_present": true,
@@ -674,7 +674,7 @@
       "registry_name": "Pamzest",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:f96c19d59bd7728ea219"
+        "inventory:user-20261014:e4e380b1dd2faf3c5620"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -725,7 +725,7 @@
       "registry_name": "Neroli EO",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:bc7dcfee6f51beaa3157"
+        "inventory:user-20261014:6152f7c648691e875424"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -741,7 +741,7 @@
       "registry_name": "Neroli EO",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:bc7dcfee6f51beaa3157"
+        "inventory:user-20261014:6152f7c648691e875424"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -811,7 +811,7 @@
       "registry_name": "Manzanate",
       "profile_name": "Manzanate",
       "current_stock_ids": [
-        "inventory:user-20261014:7a6421f1d9b4fe23843b"
+        "inventory:user-20261014:366369e7afcec20e6768"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -872,7 +872,7 @@
       "current_stock_ids": [
         "inventory:user-20261008:2bcc70eb0b06bb2aed0e",
         "inventory:user-20261008:3f8bba0229c5a352c7f4",
-        "inventory:user-20261014:11fcb6e1b3fccf964c89",
+        "inventory:user-20261014:8abbedcf966ab19e9984",
         "inventory:user-20261008:12a4cd79d0e24fd07d6e"
       ],
       "odt_present": true,
@@ -894,7 +894,7 @@
       "registry_name": "cis-3-Hexenol",
       "profile_name": "cis-3-Hexenol",
       "current_stock_ids": [
-        "inventory:user-20261014:4ee30381828f604ea2bb"
+        "inventory:user-20261014:9b447d9fbf9631e12b60"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -939,7 +939,7 @@
       "registry_name": "Adoxal",
       "profile_name": "Adoxal",
       "current_stock_ids": [
-        "inventory:user-20261014:b5a56043e89bc7c1b462"
+        "inventory:user-20261014:1c37bc9f718a7477709a"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -960,7 +960,7 @@
       "registry_name": "Blackcurrant Absolute",
       "profile_name": "Blackcurrant Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:e2e869d5990a68ca49cb"
+        "inventory:user-20261014:d609efa4326da0559bf6"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1062,7 +1062,7 @@
       "registry_name": "Scentenal",
       "profile_name": "Scentenal",
       "current_stock_ids": [
-        "inventory:user-20261014:9161cf1ef5ac4ae009ad"
+        "inventory:user-20261014:e30348e6a84f3ed6ef9e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1091,7 +1091,7 @@
       "registry_name": "Calone",
       "profile_name": "Calone",
       "current_stock_ids": [
-        "inventory:user-20261014:443660b6b7634eab1a3d"
+        "inventory:user-20261014:393f5248d0fdf185ff57"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1112,7 +1112,7 @@
       "registry_name": "Floralozone",
       "profile_name": "Floralozone",
       "current_stock_ids": [
-        "inventory:user-20261014:834da8877f7712e7db6a"
+        "inventory:user-20261014:6e00b892875f742142c8"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1137,7 +1137,8 @@
       "registry_name": "Undecavertol",
       "profile_name": "Undecavertol",
       "current_stock_ids": [
-        "inventory:user-20261014:2c867f0fd0dafab15be5"
+        "inventory:user-20261014:07d1fdd93127e24f9cfc",
+        "inventory:user-20261014:facd016750320c3c9c5e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1247,8 +1248,8 @@
       "registry_name": "Geosmin",
       "profile_name": "Geosmin",
       "current_stock_ids": [
-        "inventory:user-20261014:221e24e73e532abc5ba9",
-        "inventory:user-20261014:41d49d8433a5b3c9fd33"
+        "inventory:user-20261014:9647b2be950bce550dd1",
+        "inventory:user-20261014:fc20bdd4a7f2e2f89957"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1273,8 +1274,8 @@
       "registry_name": "Geosmin",
       "profile_name": "Geosmin",
       "current_stock_ids": [
-        "inventory:user-20261014:221e24e73e532abc5ba9",
-        "inventory:user-20261014:41d49d8433a5b3c9fd33"
+        "inventory:user-20261014:9647b2be950bce550dd1",
+        "inventory:user-20261014:fc20bdd4a7f2e2f89957"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1344,7 +1345,7 @@
       "registry_name": "Tagetes EO",
       "profile_name": "Tagetes EO",
       "current_stock_ids": [
-        "inventory:user-20261014:0dcd45f3018e1674d668"
+        "inventory:user-20261014:c48e9a6424272b9e8ab1"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1380,7 +1381,7 @@
       "profile_name": "Buccoxime",
       "current_stock_ids": [
         "inventory:user-20261007:bd7c4572708cb70cec00",
-        "inventory:user-20261014:834ad5df77c9cc4039ce"
+        "inventory:user-20261014:3f42875d2411f51cdced"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -1399,7 +1400,7 @@
       "registry_name": "Cis-3 Hexenyl Acetate",
       "profile_name": "Cis-3 Hexenyl Acetate",
       "current_stock_ids": [
-        "inventory:user-20261014:90183ab66ea950a0030f"
+        "inventory:user-20261014:4accf43d0fb11fe65380"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -1417,7 +1418,7 @@
       "registry_name": "Cis-3 Hexenyl Hexanoate",
       "profile_name": "Cis-3 Hexenyl Hexanoate",
       "current_stock_ids": [
-        "inventory:user-20261014:c995ac3cc22c7432d884"
+        "inventory:user-20261014:9bb6476590d57ff68b46"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -1455,7 +1456,7 @@
       "registry_name": "Rhubofix",
       "profile_name": "Rhubofix",
       "current_stock_ids": [
-        "inventory:user-20261014:7a67edcde61e388b1683"
+        "inventory:user-20261014:20a4fb43246f8f830af5"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -1475,7 +1476,7 @@
       "profile_name": "Buccoxime",
       "current_stock_ids": [
         "inventory:user-20261007:bd7c4572708cb70cec00",
-        "inventory:user-20261014:834ad5df77c9cc4039ce"
+        "inventory:user-20261014:3f42875d2411f51cdced"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -1592,7 +1593,7 @@
       "registry_name": "Tuberlia Base",
       "profile_name": "tuberlia base",
       "current_stock_ids": [
-        "inventory:user-20261014:f3099350408fadf53e08"
+        "inventory:user-20261014:f3ffcf5e59322fa1137d"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1687,8 +1688,8 @@
       "registry_name": "Dihydrojasmone",
       "profile_name": "Dihydrojasmone",
       "current_stock_ids": [
-        "inventory:user-20261014:e1680e7b49da25f69e89",
-        "inventory:user-20261014:169deb77e1d32258c2c8"
+        "inventory:user-20261014:3c6273cce0623bb35542",
+        "inventory:user-20261014:08905bc9ad950059eb84"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1874,8 +1875,8 @@
       "registry_name": "Aurantiol",
       "profile_name": "Aurantiol",
       "current_stock_ids": [
-        "inventory:user-20261014:b3d52e1e5789b4decd39",
-        "inventory:user-20261014:86e757b5e06bbce1607e"
+        "inventory:user-20261014:dd595ec0de3235706f5f",
+        "inventory:user-20261014:2c2dfbc103612c7e0cc9"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -1896,7 +1897,7 @@
       "registry_name": "Geraniol",
       "profile_name": "Geraniol",
       "current_stock_ids": [
-        "inventory:user-20261014:7fdb13e7be731a5235c9",
+        "inventory:user-20261014:d6751a0326601fe2b8ec",
         "inventory:v5:9f15dbde3a15be439cf4"
       ],
       "odt_present": true,
@@ -1922,7 +1923,7 @@
       "registry_name": "Geraniol",
       "profile_name": "Geraniol",
       "current_stock_ids": [
-        "inventory:user-20261014:7fdb13e7be731a5235c9",
+        "inventory:user-20261014:d6751a0326601fe2b8ec",
         "inventory:v5:9f15dbde3a15be439cf4"
       ],
       "odt_present": true,
@@ -1969,7 +1970,7 @@
       "registry_name": "Rhodinol Ex Citronella",
       "profile_name": "Rhodinol ex Citronella",
       "current_stock_ids": [
-        "inventory:user-20261014:4feeca631980b55459bb"
+        "inventory:user-20261014:093b5c4fd56fbc0ce2fd"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2005,8 +2006,8 @@
       "registry_name": "Rose Oxide",
       "profile_name": "Rose Oxide",
       "current_stock_ids": [
-        "inventory:user-20261014:d33873cf646ceb0a87d7",
-        "inventory:user-20261014:8b0dd8f1cfa67d835420"
+        "inventory:user-20261014:4bc4650f6c44a8dbb725",
+        "inventory:user-20261014:00e2e1e5d1d6a0d1d509"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2031,8 +2032,8 @@
       "registry_name": "Rose Oxide",
       "profile_name": "Rose Oxide",
       "current_stock_ids": [
-        "inventory:user-20261014:d33873cf646ceb0a87d7",
-        "inventory:user-20261014:8b0dd8f1cfa67d835420"
+        "inventory:user-20261014:4bc4650f6c44a8dbb725",
+        "inventory:user-20261014:00e2e1e5d1d6a0d1d509"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2126,7 +2127,7 @@
       "registry_name": "Benzyl Alcohol",
       "profile_name": "Benzyl Alcohol",
       "current_stock_ids": [
-        "inventory:user-20261014:da8e2d6952a6bef28cd2"
+        "inventory:user-20261014:aee9de85e7ddca7cf15e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2151,7 +2152,7 @@
       "registry_name": "Benzaldehyde",
       "profile_name": "Benzaldehyde",
       "current_stock_ids": [
-        "inventory:user-20261014:5a4b1ffac49aff2e291a",
+        "inventory:user-20261014:755cc8992e75ed81939a",
         "inventory:v5:6af61e82ddb08943db6b"
       ],
       "odt_present": true,
@@ -2177,7 +2178,7 @@
       "registry_name": "Benzaldehyde",
       "profile_name": "Benzaldehyde",
       "current_stock_ids": [
-        "inventory:user-20261014:5a4b1ffac49aff2e291a",
+        "inventory:user-20261014:755cc8992e75ed81939a",
         "inventory:v5:6af61e82ddb08943db6b"
       ],
       "odt_present": true,
@@ -2224,7 +2225,7 @@
       "registry_name": "Indole",
       "profile_name": "Indole",
       "current_stock_ids": [
-        "inventory:user-20261014:94423bc657131fe81ce4"
+        "inventory:user-20261014:0c1df6fe2393f7b25c6b"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2270,7 +2271,7 @@
       "registry_name": "Freesia HDI",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:e283f86cb1b864477673"
+        "inventory:user-20261014:7e42aa0850e958cc21aa"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -2495,7 +2496,7 @@
       "registry_name": "Paradisamide",
       "profile_name": "Paradisamide",
       "current_stock_ids": [
-        "inventory:user-20261014:fb5750afa464523a6c9f"
+        "inventory:user-20261014:fc437ec145bb3b1cc72f"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2555,7 +2556,7 @@
       "registry_name": "Methyl Anthranilate",
       "profile_name": "Methyl Anthranilate",
       "current_stock_ids": [
-        "inventory:user-20261014:fe60a649a3a9f3836f3d"
+        "inventory:user-20261014:6c09a311aba0d2d8fb61"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2576,7 +2577,7 @@
       "registry_name": "Alpha Damascone",
       "profile_name": "Alpha Damascone",
       "current_stock_ids": [
-        "inventory:user-20261014:0530d5f316485345ef9f",
+        "inventory:user-20261014:584930d5cf55d4e675d4",
         "inventory:v5:9ba563c19007b9f0eca5"
       ],
       "odt_present": true,
@@ -2616,7 +2617,7 @@
       "registry_name": "Damascenone",
       "profile_name": "Damascenone",
       "current_stock_ids": [
-        "inventory:user-20261014:f1cb3bc22ea4bdff598e"
+        "inventory:user-20261014:fdf59b064fa285377bbc"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2641,7 +2642,7 @@
       "registry_name": "Damascol",
       "profile_name": "Damascol",
       "current_stock_ids": [
-        "inventory:user-20261014:f2b4009d363b1f962964",
+        "inventory:user-20261014:07815eda5c4e75fc8aea",
         "inventory:v5:2750ea89816512c22dfa"
       ],
       "odt_present": true,
@@ -2723,7 +2724,7 @@
       "registry_name": "Geranyl Acetate",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:d4249548f9bd56d79ea5"
+        "inventory:user-20261014:f2b78b094b6c5d64eee0"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -2760,7 +2761,7 @@
       "registry_name": "Hedione HC",
       "profile_name": "Hedione",
       "current_stock_ids": [
-        "inventory:user-20261014:be81e3212c80511e4636"
+        "inventory:user-20261014:5e5b9480246049f43eb1"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2833,7 +2834,7 @@
       "registry_name": "Farnesol",
       "profile_name": "Farnesol",
       "current_stock_ids": [
-        "inventory:user-20261014:e48089ee47cd3a4ae54c"
+        "inventory:user-20261014:ea912f992ca64f1cc3ae"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2879,7 +2880,7 @@
       "registry_name": "Oranger Crystals",
       "profile_name": "Oranger Crystals",
       "current_stock_ids": [
-        "inventory:user-20261014:58fcd81ac4bd39d4ba1a"
+        "inventory:user-20261014:4dec4a27dc4d9f7bcb97"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2925,7 +2926,7 @@
       "registry_name": "Nerolin Bromelia",
       "profile_name": "Nerolin Bromelia",
       "current_stock_ids": [
-        "inventory:user-20261014:31a9214eb7a3fbe8a250"
+        "inventory:user-20261014:0d5350286e1e61f8d5fe"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2957,7 +2958,7 @@
       "registry_name": "rose de mai absolute",
       "profile_name": "Rose de Mai Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:431ffc4ff36de1ec5844"
+        "inventory:user-20261014:3d9f61acef224ffa3006"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -2993,8 +2994,8 @@
       "registry_name": "tuberose absolute",
       "profile_name": "Tuberose Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:c0b04d50c7f3e05e7bf8",
-        "inventory:user-20261014:a471c2bd0e9520706fd0"
+        "inventory:user-20261014:56713d7bb1b62f8710ff",
+        "inventory:user-20261014:e2d5d4f89d4739ff69ca"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3033,7 +3034,7 @@
       "registry_name": "immortelle absolute",
       "profile_name": "Immortelle Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:6f6c0b9c05eb2943d055"
+        "inventory:user-20261014:68d6f6bc1c9f5915e4bf"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3160,7 +3161,7 @@
       "registry_name": "Allyl Cyclohexyl Propionate",
       "profile_name": "Allyl Cyclohexyl Propionate",
       "current_stock_ids": [
-        "inventory:user-20261014:a90c492bc23b13e8ffd1"
+        "inventory:user-20261014:473db732cfa1fc8fd3f3"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3185,7 +3186,7 @@
       "registry_name": "Cis-3-Hexenyl Salicylate",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:3af379be063da9da2b79"
+        "inventory:user-20261014:d01d7a5b4a6997bc9404"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -3204,7 +3205,7 @@
       "registry_name": "Alpha Damascone",
       "profile_name": "Alpha Damascone",
       "current_stock_ids": [
-        "inventory:user-20261014:0530d5f316485345ef9f",
+        "inventory:user-20261014:584930d5cf55d4e675d4",
         "inventory:v5:9ba563c19007b9f0eca5"
       ],
       "odt_present": true,
@@ -3230,7 +3231,7 @@
       "registry_name": "Frangipani Absolute",
       "profile_name": "Frangipani Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:bd8153807d21d78e45d2"
+        "inventory:user-20261014:52650afe847a19a04aed"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -3252,7 +3253,7 @@
       "registry_name": "Rose Otto Bulgarian",
       "profile_name": "Rose Otto Bulgarian",
       "current_stock_ids": [
-        "inventory:user-20261014:88c65387e621aef5de7e"
+        "inventory:user-20261014:dcd627b2628692a98ac6"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -3292,7 +3293,7 @@
       "registry_name": "Veloutone",
       "profile_name": "Veloutone",
       "current_stock_ids": [
-        "inventory:user-20261014:f9d90dd1146fa8564b2d"
+        "inventory:user-20261014:187455f32c25a76d6f23"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -3311,7 +3312,7 @@
       "registry_name": "Phenyl Acetaldehyde",
       "profile_name": "Phenyl Acetaldehyde",
       "current_stock_ids": [
-        "inventory:user-20261014:90770caaf49e74b112d4"
+        "inventory:user-20261014:bb6345d0379ee85cb87c"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -3330,7 +3331,7 @@
       "registry_name": "Berry Hexanoate (berryflor)",
       "profile_name": "Berry Hexanoate (BerryFlor)",
       "current_stock_ids": [
-        "inventory:user-20261014:df73c131347713f49dd2"
+        "inventory:user-20261014:d75df3d847e638ba73db"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -3348,7 +3349,7 @@
       "registry_name": "Violet Leaf Absolute",
       "profile_name": "Violet Leaf Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:4606842080e3315074ae"
+        "inventory:user-20261014:fc2529b45dec04bca0f2"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3390,7 +3391,7 @@
       "profile_name": "Beta Ionone",
       "current_stock_ids": [
         "inventory:v5:f3291fcd7c33ce1abab8",
-        "inventory:user-20261014:f3ac57572e811d9610f4"
+        "inventory:user-20261014:3b72e65b05364801d74f"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3416,7 +3417,7 @@
       "profile_name": "Beta Ionone",
       "current_stock_ids": [
         "inventory:v5:f3291fcd7c33ce1abab8",
-        "inventory:user-20261014:f3ac57572e811d9610f4"
+        "inventory:user-20261014:3b72e65b05364801d74f"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3505,8 +3506,8 @@
       "registry_name": "Alpha Irone",
       "profile_name": "Alpha Irone",
       "current_stock_ids": [
-        "inventory:user-20261014:8ac3bd9283e0a8d86175",
-        "inventory:user-20261014:8f608e4c5e8a0f9ccd87"
+        "inventory:user-20261014:d709c8f899faa7e6ce73",
+        "inventory:user-20261014:b8105b41415cfc933597"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3527,7 +3528,7 @@
       "registry_name": "Orris Liquid",
       "profile_name": "Orris Liquid",
       "current_stock_ids": [
-        "inventory:user-20261014:57eedfb98e45cdb63a84"
+        "inventory:user-20261014:16037ddd32a3e3491559"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3564,7 +3565,7 @@
       "registry_name": "Dihydro Beta Ionone",
       "profile_name": "Dihydro Beta Ionone",
       "current_stock_ids": [
-        "inventory:user-20261014:eed2462369d94e5893ba"
+        "inventory:user-20261014:5693d8f1709eef221681"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3651,7 +3652,7 @@
       "registry_name": "Orris Concrete Orris Butter",
       "profile_name": "Orris Concrete Orris Butter",
       "current_stock_ids": [
-        "inventory:user-20261014:a4a7128caf58910e7a89"
+        "inventory:user-20261014:19895a67db719c8ad9f0"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -3687,7 +3688,7 @@
       "registry_name": "Sandalwood EO",
       "profile_name": "Sandalwood EO",
       "current_stock_ids": [
-        "inventory:user-20261014:2335684fd8a760c3e9b6"
+        "inventory:user-20261014:3227167e45f03fdde44b"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3767,7 +3768,7 @@
       "registry_name": "Iso E Super",
       "profile_name": "Iso E Super",
       "current_stock_ids": [
-        "inventory:user-20261014:7ad73af12f9b39896053"
+        "inventory:user-20261014:a3f214f341a4e531e0f0"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -3788,7 +3789,7 @@
       "registry_name": "Cashmeran",
       "profile_name": "Cashmeran",
       "current_stock_ids": [
-        "inventory:user-20261014:ff8d528b1fb4772aea8d",
+        "inventory:user-20261014:cc09a75c281f15583e4b",
         "inventory:v5:0b5d75dffb251876ec11"
       ],
       "odt_present": true,
@@ -3810,7 +3811,7 @@
       "registry_name": "Cashmeran",
       "profile_name": "Cashmeran",
       "current_stock_ids": [
-        "inventory:user-20261014:ff8d528b1fb4772aea8d",
+        "inventory:user-20261014:cc09a75c281f15583e4b",
         "inventory:v5:0b5d75dffb251876ec11"
       ],
       "odt_present": true,
@@ -3871,7 +3872,7 @@
       "registry_name": "Ambermax",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:605e311562f8c947e635"
+        "inventory:user-20261014:6c75b9be11cbd650dac2"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -4019,7 +4020,7 @@
       "registry_name": "Suederal",
       "profile_name": "Suederal",
       "current_stock_ids": [
-        "inventory:user-20261014:2bb16ce8a7f052ee89ec"
+        "inventory:user-20261014:7d13a0cc636c6be90252"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4040,7 +4041,7 @@
       "registry_name": "Suederal",
       "profile_name": "Suederal",
       "current_stock_ids": [
-        "inventory:user-20261014:2bb16ce8a7f052ee89ec"
+        "inventory:user-20261014:7d13a0cc636c6be90252"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4061,7 +4062,7 @@
       "registry_name": "Javanol",
       "profile_name": "Javanol",
       "current_stock_ids": [
-        "inventory:user-20261014:77ad1f97775c5b5ccbf7",
+        "inventory:user-20261014:b821e52c8494efca849a",
         "inventory:v5:0f9059da6115d3fddcc3"
       ],
       "odt_present": true,
@@ -4117,7 +4118,7 @@
       "profile_name": "Ambrox Super",
       "current_stock_ids": [
         "inventory:user-20260924:36e0e28366f34673a242",
-        "inventory:user-20261014:ca0279daee7812458908",
+        "inventory:user-20261014:04676aec0f265912c4c0",
         "inventory:user-20260902:9e69f9db20c45cfe37e6"
       ],
       "odt_present": true,
@@ -4273,7 +4274,7 @@
       "registry_name": "Guaiacwood EO",
       "profile_name": "Guaiacwood EO",
       "current_stock_ids": [
-        "inventory:user-20261014:32ef6ee2424d4837cedc"
+        "inventory:user-20261014:18967ea2cf13aeb91c21"
       ],
       "odt_present": false,
       "missing_numeric_fields": [
@@ -4337,7 +4338,7 @@
       "registry_name": "nagarmortha oil",
       "profile_name": "Cypriol EO",
       "current_stock_ids": [
-        "inventory:user-20261014:ff7c413fd4b73c31ff66"
+        "inventory:user-20261014:fa6637ccb2f0b60ea8af"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4424,7 +4425,7 @@
       "registry_name": "Kephalis",
       "profile_name": "Kephalis",
       "current_stock_ids": [
-        "inventory:user-20261014:22f66a2a5e928dbd1ca3"
+        "inventory:user-20261014:ca82d7c270780aadc9f1"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4449,7 +4450,7 @@
       "registry_name": "Vetiveryl Acetate",
       "profile_name": "Vetiveryl Acetate",
       "current_stock_ids": [
-        "inventory:user-20261014:9f2925481e6c230536f1"
+        "inventory:user-20261014:e8e1a60b000002beebf7"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4515,11 +4516,10 @@
       "registry_name": "Cedryl Acetate",
       "profile_name": "Cedryl Acetate",
       "current_stock_ids": [
-        "inventory:user-20261007:d4293313daf4004ee4f0"
+        "inventory:user-20261014:b0a2d507342c2c4dc60f"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "odt",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -4534,7 +4534,7 @@
       "registry_name": "Ambrocenide",
       "profile_name": "Ambrocenide",
       "current_stock_ids": [
-        "inventory:user-20261014:1f0aaa3d55f46d2e9e61"
+        "inventory:user-20261014:c3aecfd3c5a06816c9dd"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -4578,7 +4578,7 @@
       "registry_name": "Galaxolide",
       "profile_name": "Galaxolide",
       "current_stock_ids": [
-        "inventory:user-20261014:f9ebd9eebf051d2f3ed1"
+        "inventory:user-20261014:072dc08dd898b984b017"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4676,7 +4676,7 @@
       "profile_name": "Exaltolide",
       "current_stock_ids": [
         "inventory:user-20261013:2c094c40e95367526c62",
-        "inventory:user-20261014:32f6a6c119491595dff0"
+        "inventory:user-20261014:2c19b98991a376be2ae1"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4775,7 +4775,7 @@
       "registry_name": "Ambrette Seed Absolute",
       "profile_name": "Ambrette Seed Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:742500ff3af5c73dff50"
+        "inventory:user-20261014:43d4393e53f149f8ac2e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -4831,7 +4831,7 @@
       "registry_name": "Anisaldehyde",
       "profile_name": "Anisaldehyde",
       "current_stock_ids": [
-        "inventory:user-20261014:e7722afcf8bf5e94305a",
+        "inventory:user-20261014:4cdb8fcdde1488c36f0a",
         "inventory:user-20260910:2c5b56eea4a137d247bf"
       ],
       "odt_present": true,
@@ -4854,7 +4854,7 @@
       "profile_name": "Ethyl Maltol",
       "current_stock_ids": [
         "inventory:user-20260910:f84e2dca4eb21dba87bc",
-        "inventory:user-20261014:1d02faac014d756de32d"
+        "inventory:user-20261014:1e09df0a8d1d7aeab335"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4978,7 +4978,7 @@
       "registry_name": "Coffee Absolute Grasse",
       "profile_name": "Coffee Absolute Grasse",
       "current_stock_ids": [
-        "inventory:user-20261014:5e9a623a60129da26cb2"
+        "inventory:user-20261014:29fa92b082ce1a4697a8"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -4994,7 +4994,7 @@
       "registry_name": "2-Acetyl Pyrazine",
       "profile_name": "2-Acetyl Pyrazine",
       "current_stock_ids": [
-        "inventory:user-20261014:75fdf002dd934ca1c589",
+        "inventory:user-20261014:07c64ee523982b161c58",
         "inventory:v5:b140794ec92b53f83cdc"
       ],
       "odt_present": true,
@@ -5021,7 +5021,7 @@
       "profile_name": "Ethyl Maltol",
       "current_stock_ids": [
         "inventory:user-20260910:f84e2dca4eb21dba87bc",
-        "inventory:user-20261014:1d02faac014d756de32d"
+        "inventory:user-20261014:1e09df0a8d1d7aeab335"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5092,7 +5092,7 @@
       "registry_name": "Ethyl Vanillin",
       "profile_name": "Ethyl Vanillin",
       "current_stock_ids": [
-        "inventory:user-20261014:5a8091af233a0a04b069",
+        "inventory:user-20261014:8f583d7397337f5dc8c0",
         "inventory:v5:b86a9179d94cce1a072a"
       ],
       "odt_present": true,
@@ -5114,7 +5114,7 @@
       "registry_name": "Maple Lactone",
       "profile_name": "Maple Lactone",
       "current_stock_ids": [
-        "inventory:user-20261014:666fc4ac848981239434"
+        "inventory:user-20261014:b666ba40dfd3cbafd0d0"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5199,7 +5199,7 @@
       "registry_name": "Benzoin Sumatra Resinoid",
       "profile_name": "Benzoin Sumatra Resinoid",
       "current_stock_ids": [
-        "inventory:user-20261014:a69c828ba8d8ea130e56"
+        "inventory:user-20261014:14b6e5c9c778f5d62b49"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5215,7 +5215,7 @@
       "registry_name": "Anisaldehyde",
       "profile_name": "Anisaldehyde",
       "current_stock_ids": [
-        "inventory:user-20261014:e7722afcf8bf5e94305a",
+        "inventory:user-20261014:4cdb8fcdde1488c36f0a",
         "inventory:user-20260910:2c5b56eea4a137d247bf"
       ],
       "odt_present": true,
@@ -5237,7 +5237,7 @@
       "registry_name": "Gamma Decalactone",
       "profile_name": "Gamma Decalactone",
       "current_stock_ids": [
-        "inventory:user-20261014:f070a2b620f22b7022eb"
+        "inventory:user-20261014:2bba42a4ca12bed287c3"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5346,8 +5346,8 @@
       "registry_name": "Allyl Amyl Glycolate",
       "profile_name": "Allyl Amyl Glycolate",
       "current_stock_ids": [
-        "inventory:user-20261014:2dcf88f99857f5d24b91",
-        "inventory:user-20261014:9501204d166e62ac6212"
+        "inventory:user-20261014:5af348c1a2fe54b2aed9",
+        "inventory:user-20261014:9f59d3a084b5405d1d2e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5404,7 +5404,7 @@
       "registry_name": "Cocoa Absolute",
       "profile_name": "Cocoa Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:6a5943c5959ad469562a"
+        "inventory:user-20261014:a6cdf833c8b1e2c77e48"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5420,7 +5420,7 @@
       "registry_name": "Tonka Bean Absolute",
       "profile_name": "Tonka Bean Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:d83c741cebfe15c35891"
+        "inventory:user-20261014:b19298fee1c22341b2a7"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5436,7 +5436,7 @@
       "registry_name": "Cocoa CO2 Extract",
       "profile_name": "Cocoa CO2 Extract",
       "current_stock_ids": [
-        "inventory:user-20261014:3e3f044c9991cb8247cb"
+        "inventory:user-20261014:e2d9af232004475468f5"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5484,7 +5484,7 @@
       "registry_name": "Myrrh EO",
       "profile_name": "Myrrh EO",
       "current_stock_ids": [
-        "inventory:user-20261014:fc8af2dbaf24d67f2609"
+        "inventory:user-20261014:9221f16dc4b33d4683be"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5500,7 +5500,7 @@
       "registry_name": "Gamma Octalactone",
       "profile_name": "Gamma Octalactone",
       "current_stock_ids": [
-        "inventory:user-20261014:ae4c2be88265e4d6e6f7"
+        "inventory:user-20261014:085fe9bd0cb6ed356b66"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -5538,7 +5538,7 @@
       "registry_name": "Diethyl Malonate",
       "profile_name": "Diethyl Malonate",
       "current_stock_ids": [
-        "inventory:user-20261014:66e4de37f609772b9ecf"
+        "inventory:user-20261014:c92cdf4f91bd6bb7ca30"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -5557,7 +5557,7 @@
       "registry_name": "Butyl Butyrate",
       "profile_name": "Butyl Butyrate",
       "current_stock_ids": [
-        "inventory:user-20261014:c376a712496e364a3f3b"
+        "inventory:user-20261014:ce6bc688af8f565135e4"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -5575,8 +5575,8 @@
       "registry_name": "Allyl Amyl Glycolate",
       "profile_name": "Allyl Amyl Glycolate",
       "current_stock_ids": [
-        "inventory:user-20261014:2dcf88f99857f5d24b91",
-        "inventory:user-20261014:9501204d166e62ac6212"
+        "inventory:user-20261014:5af348c1a2fe54b2aed9",
+        "inventory:user-20261014:9f59d3a084b5405d1d2e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5601,7 +5601,7 @@
       "registry_name": "Fructone B",
       "profile_name": "Fructone B",
       "current_stock_ids": [
-        "inventory:user-20261014:0d7f229cc3e4fd49a9c9"
+        "inventory:user-20261014:9021feb81b5578dac2be"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -5639,7 +5639,7 @@
       "registry_name": "Maple Lactone",
       "profile_name": "Maple Lactone",
       "current_stock_ids": [
-        "inventory:user-20261014:666fc4ac848981239434"
+        "inventory:user-20261014:b666ba40dfd3cbafd0d0"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5668,7 +5668,7 @@
       "registry_name": "Vanilla Absolute",
       "profile_name": "Vanilla Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:52ba1201ae12e64af348"
+        "inventory:user-20261014:6d438dd030bd0e664703"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -5722,7 +5722,7 @@
       "registry_name": "Isobutyl Quinoline",
       "profile_name": "Isobutyl Quinoline",
       "current_stock_ids": [
-        "inventory:user-20261014:939269f1f05626c67dfa"
+        "inventory:user-20261014:cf5713494a8a9d86d745"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5743,7 +5743,7 @@
       "registry_name": "Birch Tar Rectified",
       "profile_name": "Birch Tar Rectified",
       "current_stock_ids": [
-        "inventory:user-20261014:f180400644da410ebc69"
+        "inventory:user-20261014:1b4e33327acf2aee4c50"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5764,7 +5764,7 @@
       "registry_name": "Costus Olifac",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:39ddfd831167980103fd"
+        "inventory:user-20261014:cd462dadbb634c24c318"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -5786,7 +5786,7 @@
       "registry_name": "Cade Oil Rectified",
       "profile_name": "Cade Oil Rectified",
       "current_stock_ids": [
-        "inventory:user-20261014:d6c101d0740140d9f4c9"
+        "inventory:user-20261014:4691868edd88202129d5"
       ],
       "odt_present": false,
       "missing_numeric_fields": [],
@@ -5802,7 +5802,7 @@
       "registry_name": "Guaiacol",
       "profile_name": "Guaiacol",
       "current_stock_ids": [
-        "inventory:user-20261014:8a5fe9ac4034a92529ad",
+        "inventory:user-20261014:02fa1599644ae3b4fb0e",
         "inventory:v5:628824df8d17bc68d6f0"
       ],
       "odt_present": true,
@@ -5897,7 +5897,7 @@
       "registry_name": "Skatole",
       "profile_name": "Skatole",
       "current_stock_ids": [
-        "inventory:user-20261014:94ab27677b34a27b5291"
+        "inventory:user-20261014:43284fbe327021b04129"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -5913,7 +5913,7 @@
       "registry_name": "oakmoss absolute",
       "profile_name": "Oakmoss Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:e85caadbddda3fad3baf"
+        "inventory:user-20261014:37d670c549beda82c657"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -6082,7 +6082,7 @@
       "registry_name": "Ethyl Safranate",
       "profile_name": "Ethyl Safranate",
       "current_stock_ids": [
-        "inventory:user-20261014:7fad70f83bd5ce810af3"
+        "inventory:user-20261014:deed31aea8236c1acfc3"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -6103,8 +6103,8 @@
       "registry_name": "Eugenol",
       "profile_name": "Eugenol",
       "current_stock_ids": [
-        "inventory:user-20261014:9cccb1f87a793c5ada40",
-        "inventory:user-20261014:1c195d2dd1fb9f5e2f0f"
+        "inventory:user-20261014:b6763cd222d70778e89b",
+        "inventory:user-20261014:551a2f6aab6874cc021a"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -6125,8 +6125,8 @@
       "registry_name": "Eugenol",
       "profile_name": "Eugenol",
       "current_stock_ids": [
-        "inventory:user-20261014:9cccb1f87a793c5ada40",
-        "inventory:user-20261014:1c195d2dd1fb9f5e2f0f"
+        "inventory:user-20261014:b6763cd222d70778e89b",
+        "inventory:user-20261014:551a2f6aab6874cc021a"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -6168,7 +6168,7 @@
       "registry_name": "Clove EO (India)",
       "profile_name": "Clove EO (India)",
       "current_stock_ids": [
-        "inventory:user-20261014:18f3f77487a3a08eac6c"
+        "inventory:user-20261014:2bd11fbf1893a1469f25"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -6198,7 +6198,7 @@
       "registry_name": "Cinnamaldehyde",
       "profile_name": "Cinnamaldehyde",
       "current_stock_ids": [
-        "inventory:user-20261014:d055ccc3b1f012294ded"
+        "inventory:user-20261014:039cce45c367673d9714"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -6256,7 +6256,7 @@
       "registry_name": "Lavender EO",
       "profile_name": "Lavender EO",
       "current_stock_ids": [
-        "inventory:user-20261014:4b0a48d0240d1393332d"
+        "inventory:user-20261014:b1cd48be6e9e08419547"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -6309,7 +6309,7 @@
       "registry_name": "Lavender 40/42, Aroma&More",
       "profile_name": "Lavender 40/42, Aroma&More",
       "current_stock_ids": [
-        "inventory:user-20261014:124cf15b9dfc66d75adc"
+        "inventory:user-20261014:f52495470de25ae00766"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -6509,7 +6509,7 @@
       "registry_name": "Caryophyllene Acetate",
       "profile_name": null,
       "current_stock_ids": [
-        "inventory:user-20261014:b9c2ef4e7a2bd3940a83"
+        "inventory:user-20261014:ff2d7413fd827540d522"
       ],
       "odt_present": false,
       "missing_numeric_fields": [
@@ -6528,7 +6528,7 @@
       "registry_name": "Mate Absolute",
       "profile_name": "Mate Absolute",
       "current_stock_ids": [
-        "inventory:user-20261014:cab55ad0119e61b8211b"
+        "inventory:user-20261014:7a6ceac8af1b51a077ce"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -6590,7 +6590,7 @@
       "registry_name": "Safranal",
       "profile_name": "Saffranal",
       "current_stock_ids": [
-        "inventory:user-20261014:be71cd3b38591aa466a7"
+        "inventory:user-20261014:8c51ac778a12a7449b9e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -6609,7 +6609,7 @@
       "registry_name": "Champignol",
       "profile_name": "Champignol",
       "current_stock_ids": [
-        "inventory:user-20261014:0312cb82612bf82f0742"
+        "inventory:user-20261014:865462ea80d8f650f27e"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -6733,7 +6733,7 @@
       "registry_name": "Cassis Base 345B",
       "profile_name": "Cassis Base 345B",
       "current_stock_ids": [
-        "inventory:user-20261014:9b58a23be29008111a6e"
+        "inventory:user-20261014:e38704b84c5a6b7860a0"
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
@@ -6767,6 +6767,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "1411cbefeb4bac98fac7383195862c255ed7b267a8bf465ad43037f5e15f38f7",
+  "output_sha256": "ca4f5d77dc5ef0cb7e70474005c1de15eb6a3075a3bc323e6d844e4f6151d570",
   "input_cache_sha256": "1411cbefeb4bac98fac7383195862c255ed7b267a8bf465ad43037f5e15f38f7"
 }

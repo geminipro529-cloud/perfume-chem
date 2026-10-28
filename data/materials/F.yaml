@@ -1517,7 +1517,7 @@
   smiles:
   inchikey:
   mw_g_mol: 188.22
-  density_25c_g_ml: 1.048
+  density_25c_g_ml: 1.039
   logp: 1.72
   functional_groups: []
   chirality:
@@ -1545,16 +1545,18 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character:
+  character: 'A tart, fresh, anisic, fruity note reminiscent of apple, plum and strawberry (IFF Fraistone).'
   odour_family: 'fruity'
   notes: 'Fructone B is ethyl 2,4-dimethyl-1,3-dioxolane-2-acetate (the propylene glycol ketal, Fraistone, CAS 6290-17-1), not IFF Fructone (6413-10-1). Corrected 23 Oct 2026 from the PW product page and the RIFM assessment; the earlier values were Fructone data. RIFM: IFRA standard None.'
   provenance:
+    density_basis: 'supplier_sg_temperature_unstated'
+    character: 'IFF, Fraistone (https://www.iff.com/scent/ingredients-compendium/fraistone/): ''A tart, fresh, anisic, fruity note reminiscent of apple, plum and strawberry.'' (grade A_producer). Takasago ''FRUITY APPLE STRAWBERRY SWEET'' agrees. IFF prints VP ''0.058911 mm Hg @ 23 C'' and ''Log P: 1.5'', also calculated, not measured. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     odour_family: 'odour family "fruity" from ''FRUITY (Takasago; descriptor words Fruity, Apple, Strawberry, Sweet)'': Dimethyl Dioxolan | Takasago International Corporation, https://www.takasago.com/en/node/671: Dimethyl Dioxolan Fruity CAS NO.6290-17-1 ... FRUITY APPLE STRAWBERRY SWEET FRUITY ... Ethyl 2-(2,4-dimethyl-1,3-dioxolan-2-yl)acetate (grade A_producer; ). Second reader: CAS 6290-17-1 matches data/materials/F.yaml ''Fructone B''. The ethyl 2-(2,4-dimethyl-1,3-dioxolan-2-yl)acetate name from the quote was not in the excerpt read. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: '23 Oct 2026 source check: Kenny''s bottle (PW 3FG00196) is the propylene glycol ketal, not Fructone; PW page: ''CAS No. 6290-17-1'', ''Ethyl acetoacetate propyleneglycol ketal : Dimethyldioxolan : Fraistone''; https://www.perfumersworld.com/view.php?pro_id=3FG00196; RIFM assessment ''CAS Registry Number: 6290-17-1'' https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
     mw_g_mol: 'RIFM assessment 6290-17-1: ''Molecular Weight: 188.22'' (C9H16O4); https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
     logp: 'ESTIMATE (labelled; Kenny chose Fill estimates, 13 Oct): RIFM assessment 6290-17-1 ''Log KOW: 1.72 (US EPA, 2012a)'' = EPI Suite KOWWIN; no measured value found; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
-    density_25c_g_ml: 'RIFM assessment 6290-17-1: ''Specific Gravity: 1.04800 to 1.05400 @ 25.00 °C''; midpoint 1.051 x 0.99705 (water at 25 C) = 1.048 g/mL; PW page SG 1.0390 (temperature not printed); https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
+    density_25c_g_ml: 'PerfumersWorld 3FG00196 (his bottle) ''Specific Gravity 1.0390'', temperature not printed; RIFM assessment (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf) prints ''Specific Gravity: 1.04800 to 1.05400 @ 25.00 C*; 1.03900 to 1.04700 @ 20.00 C*'', both starred to TGSC, and the 25 C range is higher than the 20 C range, which cannot be right for one liquid. 1.039 (PW, the bottle''s own supplier, inside RIFM''s 20 C range) replaces 1.048 (RIFM 25 C midpoint). Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     vp_25c_pa: 'ESTIMATE (labelled): RIFM assessment 6290-17-1 ''Vapor Pressure: 0.0596 mm Hg @ 25 °C (US EPA, 2012a)'' = 7.95 Pa (EPI Suite); no measured value found; https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6290-17-1.pdf'
 - canonical_name: Fruity Ionone F-TEC
   aliases:

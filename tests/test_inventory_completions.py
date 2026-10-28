@@ -84,10 +84,12 @@ def test_completion_is_idempotent_and_rejects_key_reuse(tmp_path, monkeypatch) -
 def test_tincture_starting_charge_remains_withheld_until_final_fraction_is_known(
     tmp_path, monkeypatch
 ) -> None:
+    # Kenyan Myrrh is dosed at its starting charge since 28 Oct 2026 (Kenny: "ye"); Turkish Storax
+    # is the tincture still held for an unmeasured final fraction.
     path = tmp_path / "inventory-completions.jsonl"
     monkeypatch.setenv("PERFUME_INVENTORY_COMPLETION_PATH", str(path))
     baseline = materialize_current_inventory()
-    stock = _stock(baseline, "Kenyan Myrrh Ethanol Tincture")
+    stock = _stock(baseline, "Turkish Storax Tincture")
 
     _receipt, incomplete = record_inventory_completion(
         stock_id=stock.stock_id,
@@ -103,7 +105,7 @@ def test_tincture_starting_charge_remains_withheld_until_final_fraction_is_known
         source_kind="USER_LABEL_OR_RECIPE",
         user_note="Starting recipe only.",
     )
-    unresolved = _stock(incomplete, "Kenyan Myrrh Ethanol Tincture")
+    unresolved = _stock(incomplete, "Turkish Storax Tincture")
     assert effective_design_ready(unresolved) is False
     assert "final_usable_fraction_confirmation" in inventory_completion_requirements(
         unresolved
@@ -123,7 +125,7 @@ def test_tincture_starting_charge_remains_withheld_until_final_fraction_is_known
         source_kind="USER_MEASUREMENT",
         user_note="Final usable concentration confirmed.",
     )
-    resolved = _stock(complete, "Kenyan Myrrh Ethanol Tincture")
+    resolved = _stock(complete, "Turkish Storax Tincture")
     assert effective_design_ready(resolved) is True
     assert resolved.execution_ready is True
 

@@ -352,6 +352,21 @@
         "message_timestamp_utc": "2026-10-28T07:51:33Z",
         "text": "After this PR",
         "context": "Stock data thread, card tap on 'Bring the 20-21 Oct stock that exists only on your PC into master?'. Scope he chose: the three fragrance items only. Iso E Super Anthamber (MySkinRecipes 2845, lot 42V557) is recorded as STK-188, superseding V5 row 140; Magnolia Flower Extract (STK-126) gets product 7871, lot D5924C and its SDS; Orris Butter 50% in EtOH (STK-119) gets its source butter, MySkinRecipes 3261 lot VFD29V. Receipts read on his PC by the Remote Control session."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T08:43:24Z",
+        "text": "I have both neat and 1%",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'is your Undecavertol neat, or a 1% dilution?'. Neat bottle recorded as STK-189; the 1% (STK-067) is unchanged."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T08:46:55Z",
+        "text": "Liquid. Also, always use good scents as a perfumery source",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'is your Cedryl Acetate crystals or a liquid?'. Clears the intake hold of INV-USER-20261007-PW-034 as STK-190 (neat liquid)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-28T08:48:26Z",
+        "text": "ye",
+        "context": "Relayed by the 'Fix gaps in unused materials' thread; Kenny's own words in that thread. Answer to 'should the engine dose [the Kenyan Myrrh tincture] at its starting charge, the same as your Benzoin 40% and Frankincense 33% tinctures?'. Recorded as STK-191, retiring INV-USER-20260915-STOCK-015."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -423,7 +438,8 @@
     "pw_fruit_bottles_fifteen_neat_20261025": true,
     "msr_orders_2200410_2200413_stocked_20261027": true,
     "pw_orders_20261025_stocked_20261028": true,
-    "pc_only_stock_20261020_ported_20261028": true
+    "pc_only_stock_20261020_ported_20261028": true,
+    "unused_materials_bottle_answers_20261028": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -474,7 +490,9 @@
     "INV-USER-20261007-PW-035",
     "INV-USER-20260924-R5-002",
     "INV-USER-20260924-R5-016",
-    "INV-USER-20260908-AHSEE-001"
+    "INV-USER-20260908-AHSEE-001",
+    "INV-USER-20261007-PW-034",
+    "INV-USER-20260915-STOCK-015"
   ],
   "records": [
     {
@@ -9408,6 +9426,133 @@
         "release_authorized": false
       },
       "note": "MySkinRecipes order #2199458 line 3, ordered 16 Oct 2026, paid and dispatched 19 Oct ('Order 2199458 is being dispatched with Lalamove', 19 Oct 14:23 UTC). Kenny confirmed it arrived on 20 Oct ('Yes they have arrived', recorded on his PC). Kenny: 'After this PR' (28 Oct 2026 07:51:33 UTC), his tap on the card 'Bring the 20-21 Oct stock that exists only on your PC into master?' (Stock data thread), after the PerfumersWorld PR #158 merged. Listed as 'Iso E Super, Anthamber' (code 2845), 15 g; neat as supplied. A second bottle of a material he already had neat (V5 row 140, inventory.txt 'Iso E Super', the PerfumersWorld 3WY00244 listing). This record supersedes that row as the one Iso E Super stock (neat). Anthamber is a trade name for the same OTNE isomer mixture (CAS 54464-57-2, as the COA prints)."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-189",
+      "canonical_name": "Undecavertol",
+      "aliases": [
+        "Undecavertol neat"
+      ],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_ANSWER_20261028_UNDECAVERTOL_NEAT_AND_1PCT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Undecavertol",
+        "sku": "4IG07330"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have both neat and 1%",
+      "source_message_timestamp_utc": "2026-10-28T08:43:24Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_from_user_message": true,
+        "supplier_sku_asserted": false
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread whether his Undecavertol is neat or a 1% dilution (the stock list said 1%, his 20 Oct email sweep said it was ordered neat). Kenny: 'I have both neat and 1%' (28 Oct 2026 08:43:24 UTC). This is the neat bottle, as supplied. The 1% stays its own record (STK-067, 1% w/w in DPG) and is unchanged. Supplier and SKU are the PerfumersWorld listing the spine already carries (4IG07330); the order, pack size and lot are not recorded here."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-190",
+      "canonical_name": "Cedryl Acetate",
+      "aliases": [],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-034_INTAKE_HOLD_CLEARED_BY_USER_FORM_ANSWER_20261028"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Cedryl Acetate",
+        "sku": "2WW00099"
+      },
+      "received_quantity_g": "2",
+      "receipt_line": 34,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "Liquid",
+      "source_message_timestamp_utc": "2026-10-28T08:46:55Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "quantity_is_received_not_remaining": true,
+        "fraction_from_supplier_label": true,
+        "physical_form_from_user_message": true,
+        "stock_intake_hold_cleared_by_user_message": true
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'is your Cedryl Acetate crystals or a liquid?' (PerfumersWorld's papers say both 'oily liquid or crystals' and 'solid mass'). Kenny: 'Liquid' (28 Oct 2026 08:46:55 UTC). The 2 g bottle (SKU 2WW00099, receipt line 34 of the 2026-10-07 order) was held at intake (INV-USER-20261007-PW-034, superseded) and is now neat as supplied, a liquid, ready for raw-stock volume transfer. PW's SDS gives only a 90-100% band, so no purity is asserted."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-191",
+      "canonical_name": "Kenyan Myrrh Ethanol Tincture",
+      "aliases": [
+        "Kenyan Myrrh resin ethanol tincture"
+      ],
+      "state": "OWNED",
+      "category": "resin_incense",
+      "stock": {
+        "fraction": 0.2,
+        "fraction_basis": "mass_fraction",
+        "carrier": "ethanol",
+        "fraction_authority": "DIRECT_USER_DOSING_AUTHORIZATION_AT_STARTING_CHARGE",
+        "approximate": true,
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "USER_ANSWER_20261028_DOSE_TINCTURE_AT_BUILT_STRENGTH",
+        "dosing_fraction_limit": "STARTING_CHARGE_FRACTION_IS_NOT_A_FINAL_FILTRATE_ASSAY"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-28",
+      "source_kind": "DIRECT_USER_TINCTURE_DOSING_AUTHORIZATION",
+      "source_quote": "ye",
+      "source_message_timestamp_utc": "2026-10-28T08:48:26Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "dosing_at_starting_charge_user_authorized": true,
+        "final_filtrate_assayed": false,
+        "density_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Asked in the 'Fix gaps in unused materials' thread 'for your Kenyan Myrrh tincture, should the engine dose it at its starting charge, the same as your Benzoin 40% and Frankincense 33% tinctures?'. Kenny: 'ye' (yes; 28 Oct 2026 08:48:26 UTC). The 20% w/w starting charge (approximate, as recorded on 15 Sep) is now the dosing strength. The final filtrate was never assayed, so this is his dosing decision, not a measurement; the USP limit for myrrh (40-70% alcohol-soluble extractives) says only part of the resin dissolves. Retires INV-USER-20260915-STOCK-015."
     }
   ]
 }

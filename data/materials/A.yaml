@@ -3746,16 +3746,16 @@
   inchikey: null
   mw_g_mol: 180.203
   density_25c_g_ml: 1.104
-  logp: 1.76
+  logp: 1.9
   functional_groups: []
   chirality: null
-  vp_25c_pa: null
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 1.33
+  vp_source: producer_T_unstated
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 9.0
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -3775,11 +3775,13 @@
   odour_family: 'floral'
   notes: null
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate (Kenny''s card choice, 28 Oct 2026 08:39 UTC: a labelled estimate from the closest measured analogue where no measured air ODT exists), ppb v/v air; inputs and method in engine/odor_thresholds.py _ANALOGUE_ODT_ESTIMATES_2026_10_28. Not a measurement. Loaded 2026-10-28.'
+    vp_25c_pa: 'Givaudan, Anisyl Acetate (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/anisyl-acetate): ''Vapour pressure 0.0133 hPa'' = 1.33 Pa, temperature not printed on the Givaudan page (Perfumer''s Apprentice copies it as 20 C); producer figure, method not stated. TGSC 0.021 mmHg (2.80 Pa) at 25 C is an estimate. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     character: 'Symrise product sheet: Anisyl Acetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Anisyl_Acetate.pdf: "› Floral, Lilac, Mimosa, Heliotrope › recommended use level: up to 15 %" (grade A_producer; producer/primary text, quoted). Second reader: CAS 104-21-2 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     odour_family: 'odour family "floral" from ''Floral'': Symrise product sheet: Anisyl Acetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Anisyl_Acetate.pdf: family word printed with the name: "floral anisyl acetate" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
-    logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured. No measured log Kow found in a quick search (RIFM/TGSC, 2026-10-23)'
-    logp_source: 'rdkit-crippen-estimate'
+    logp: 'RIFM 2024, anisyl acetate (isomer unspecified) incl. p-anisyl acetate 104-21-2, Food Chem Toxicol 183:114366 (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/1331-83-5.pdf): ''Log KOW: 2.16 (EPI suite v4.11); 1.9 (RIFM, 2004)''; Givaudan (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/anisyl-acetate) ''Log Pow 1,9'' agrees. Replaces the RDKit Crippen estimate 1.76. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
+    logp_source: 'RIFM 2004 study, cited by RIFM 2024'
     smiles: 'PubChem structure resolved from CAS 104-21-2 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     mw_g_mol: 'RDKit exact from SMILES COc1ccc(COC(C)=O)cc1 (PubChem-resolved structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23'
     cas: 'PubChem record for CAS 104-21-2 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'

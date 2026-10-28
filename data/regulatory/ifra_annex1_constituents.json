@@ -4340,6 +4340,16 @@
       "source_url": "https://doi.org/10.5650/jos.ess25113",
       "source_kind": "published_gc_ms_literature",
       "note": "Not an Annex I row. Annex I has no Magnolia officinalis row, so the restricted constituents of the profile the engine uses for Magnolia Absolute are counted: geraniol 1.45% (peak area, Table 3 column S1); no methyl eugenol is reported. The Michelia alba extract rows stay listed for the same stock because the identity rests on a supplier INCI (safety first: highest value per substance)."
+    },
+    {
+      "substance": "Methyl eugenol",
+      "standard": "IFRA_STD_100",
+      "ncs_name": "Michelia alba flower essential oil, Punjee et al. 2009 GC-MS (water distillation)",
+      "max_pct": 3.59,
+      "max_pct_as_printed": "3.59",
+      "source_url": "https://li01.tci-thaijo.org/index.php/anres/article/view/244814",
+      "source_kind": "published_gc_ms_literature",
+      "note": "Not an Annex I row. Punjee et al. 2009, Kasetsart J. (Nat. Sci.) 43(5):197-203, Table 2: methyl eugenol 3.59% (water distillation), 2.04% (water-steam), 1.36% (steam; the profile the engine uses for Magnolia EO). The highest of the three is counted because the owned oil's process is not recorded (safety first), and it is above the Annex I Michelia alba extract row (2.8%), which stays listed. No geraniol is reported."
     }
   ],
   "stocks": {
@@ -4507,9 +4517,10 @@
     },
     "Magnolia EO": {
       "ncs_names": [
-        "Michelia alba extract"
+        "Michelia alba extract",
+        "Michelia alba flower essential oil, Punjee et al. 2009 GC-MS (water distillation)"
       ],
-      "note": "Kenny identifies the stock as Michelia alba; its extraction is not recorded. Michelia alba extract is the only Michelia alba row, so it is used as the only candidate."
+      "note": "Kenny identifies the stock as Michelia alba flower oil (28 Oct 2026: 'there i anotheer magnlia eo but it micahelia alba eo'); its extraction is not recorded. Two candidates, highest value per substance: Annex I Michelia alba extract (geraniol 0.4 %, methyl eugenol 2.8 %) and the Punjee et al. 2009 distilled oil (methyl eugenol 3.59 %)."
     },
     "Mimosa Absolute": {
       "ncs_names": [

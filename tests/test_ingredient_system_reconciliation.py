@@ -171,7 +171,10 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # estimates, each re-opened by a second reader (list and sources in that block and in
     # tests/test_literature_odt_batch_2026_10_25.py); odt_eth unchanged. Without those 55
     # the digest is 5c7d84b5….
-    assert digest == "1be5f1c5af329ffa8b1b53fefa0a627be1189776c6268b2892397a5eb5f80857"
+    # 2026-10-28 analogue estimates (engine/odor_thresholds.py ANALOGUE_ODT_BATCH_2026_10_28):
+    # UNVERIFIED air ODTs for cedroxyde 8, cedryl acetate 20 and anisyl acetate 9 ppb (Kenny's
+    # card choice, 28 Oct 08:39 UTC); odt_eth unchanged. Without those three the digest is 1be5f1c5….
+    assert digest == "9fa6b0590d30ba87668820c3e269c9142ac771604153b23d0a07a13609ca338c"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

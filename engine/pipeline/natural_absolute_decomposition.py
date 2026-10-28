@@ -1096,26 +1096,19 @@ _MAGNOLIA_OFFICINALIS_FLOS_LIU_2025_S1_CONSTITUENTS = [
     ("alpha terpineol", 0.0043, 154.25, 2.0, 10.0, 1.5),
 ]
 
-# Michelia alba DC. (Magnolia x alba) flower, Zhu et al. (1993) Aromatic Plants
-# and Essential Constituents p.14, as tabulated by scent.vn ("Michelia alba
-# flower absolute (China)"; listed sum 92.03%). The page calls the sample an
-# absolute, but a 76% linalool profile matches the published distilled-oil
-# pattern (linalool-dominant), so the sample type is doubtful. The owner's
-# Magnolia EO is Michelia alba flower oil (owner-confirmed; Shopee shop "True
-# Industry"); no supplier composition exists. Phenylethyl alcohol uses its cited
-# data-spine VP (11.57 Pa, PubChem HSDB / Daubert & Danner 1989, which the
-# runtime would substitute anyway) and the ODT_DATA literature air ODT (26 ppb,
-# engine/odor_thresholds.py). Citral (0.10%) uses the module's 3.0 Pa / 0.5 ppb
-# citral row. Eleven minor constituents (6.17%) have no runtime input and stay
-# unresolved.
-_MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS = [
-    ("linalool", 0.7629, 154.25, 21.3, 1.5, 2.0),
-    ("phenylethyl alcohol", 0.0638, 122.16, 11.57, 26.0, 0.7),
-    ("methyl eugenol", 0.0232, 178.23, 2.0, 0.5, 1.5),
-    ("benzyl acetate", 0.0033, 150.17, 20.0, 2.0, 2.0),
-    ("1,8-cineole", 0.0030, 154.25, 200.0, 50.0, 2.0),
-    ("neral", 0.0014, 152.23, 3.0, 0.5, 1.5),
-    ("citral", 0.0010, 152.23, 3.0, 0.5, 1.5),
+# Michelia alba D.C. flower essential oil, Punjee, Dilokkunanant, Sukkatta, Vajrodaya,
+# Haruethaitanasan, Pitpiangchan and Rakthaworn (2009) Kasetsart J. (Nat. Sci.) 43(5):197-203,
+# Table 2, steam distillation (fresh Thai flowers, 500 g, 4 h; GC-MS relative peak area, DB-5).
+# Used for the owner's Magnolia EO, which is Michelia alba flower oil (owner-confirmed; Shopee
+# shop "True Industry"; Kenny, 28 Oct 2026: "there i anotheer magnlia eo but it micahelia alba
+# eo"). Replaces the Zhu (1993) table, which was read from scent.vn (not an accepted source).
+# Only nine peaks were reported, so the percentages are shares of the identified peaks. Five
+# constituents (5.09%) have no runtime input and stay unresolved; nothing is renormalized.
+_MICHELIA_ALBA_FLOWER_PUNJEE_2009_STEAM_CONSTITUENTS = [
+    ("linalool", 0.9174, 154.25, 21.3, 1.5, 2.0),
+    ("methyl eugenol", 0.0136, 178.23, 2.0, 0.5, 1.5),
+    ("beta caryophyllene", 0.0100, 204.35, 1.0, 10.0, 1.2),
+    ("germacrene d", 0.0082, 204.35, 1.00, 5.00, 1.2),
 ]
 
 # PerfumersWorld IFRA certificate for "Champaca Flower Essential Oil", SKU
@@ -1616,7 +1609,7 @@ _ABSOLUTE_CONSTITUENTS = {
     "helichrysum italicum oil corsica bianchini 2001 profile": (
         _HELICHRYSUM_CORSICA_BIANCHINI_2001_CONSTITUENTS
     ),
-    "michelia alba flower oil zhu 1993 literature profile": _MICHELIA_ALBA_FLOWER_ZHU_1993_CONSTITUENTS,
+    "michelia alba flower oil punjee 2009 steam distillation profile": _MICHELIA_ALBA_FLOWER_PUNJEE_2009_STEAM_CONSTITUENTS,
     "magnolia officinalis flos essential oil liu 2025 stage s1 profile": _MAGNOLIA_OFFICINALIS_FLOS_LIU_2025_S1_CONSTITUENTS,
     "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
         _CHAMPACA_PW_7NJ07740_IFRA_DECLARATION_CONSTITUENTS
@@ -1795,7 +1788,7 @@ _PROFILE_ALIASES = {
     ),
     # Owner stock "Magnolia EO (neat / as supplied)": Michelia alba flower oil
     # (owner-confirmed species; Shopee shop "True Industry").
-    "magnolia eo": "michelia alba flower oil zhu 1993 literature profile",
+    "magnolia eo": "michelia alba flower oil punjee 2009 steam distillation profile",
     # MySkinRecipes Magnolia Absolute, lot ZDHY6L (STK-170): its INCI, Magnolia officinalis
     # flower (Kenny, 28 Oct 2026). Not the MSR Magnolia Flower Extract (PG, 7871).
     "magnolia absolute": "magnolia officinalis flos essential oil liu 2025 stage s1 profile",
@@ -2156,10 +2149,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.jstage.jst.go.jp/article/jos/74/10/74_ess25113/_pdf",
         "https://www.myskinrecipes.com/shop/en/absolute-solvent-extract/7870-magnolia-officinalis-flower-extract.html",
     ),
-    "michelia alba flower oil zhu 1993 literature profile": (
-        "https://scent.vn/pages/oil/michelia-alba-flower-absolute-china-1874",
-        "https://thegoodscentscompany.com/data/es1068501.html",
+    "michelia alba flower oil punjee 2009 steam distillation profile": (
         "https://li01.tci-thaijo.org/index.php/anres/article/view/244814",
+        "https://li01.tci-thaijo.org/index.php/anres/article/download/244814/167282",
+        "https://thegoodscentscompany.com/data/es1068501.html",
     ),
     "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": (
         "https://www.perfumersworld.com/ifra/IFRA/IFRA_7NJ07740.pdf",
@@ -3210,131 +3203,80 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "57.34% is modeled; 30.73% is printed but has no runtime input, 0.74% is not itemized and four trace rows (<0.20%) carry no value. Later stages shift beta-caryophyllene (30.07 to 17.31%) to its oxide (18.72 to 33.81%).",
         ),
     },
-    "michelia alba flower oil zhu 1993 literature profile": {
-        "analytical_method": "LITERATURE_GC_MS_SECONDARY_COMPILATION",
-        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+    "michelia alba flower oil punjee 2009 steam distillation profile": {
+        "analytical_method": "PUBLISHED_GC_MS_STEAM_DISTILLED_OIL",
+        "composition_basis": "GC_MS_AREA_NOMINAL_MODEL_PROXY",
         "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
         "input_authority": {
             "composition": {
-                "source": "https://scent.vn/pages/oil/michelia-alba-flower-absolute-china-1874",
-                "document": "Zhu L. et al. (1993) Aromatic Plants and Essential Constituents, p.14, as tabulated by scent.vn",
-                "published_botanical_name": "Michelia alba DC. (Magnolia x alba)",
-                "published_type": "Flower 'absolute' (China) per the compilation; linalool-dominant profile is oil-like",
-                "sample_type_status": "DOUBTFUL_ABSOLUTE_LABEL_OIL_LIKE_PROFILE",
+                "source": "https://li01.tci-thaijo.org/index.php/anres/article/view/244814",
+                "document": "Punjee P. et al. (2009) Scented extracts and essential oil extraction from Michelia alba D.C. Kasetsart J. (Nat. Sci.) 43(5):197-203, Table 2, steam distillation",
+                "published_botanical_name": "Michelia alba D.C.",
+                "published_type": "Steam-distilled essential oil of fresh flowers (Thailand)",
                 "reported_pct": {
-                    "linalool": 76.29,
-                    "phenylethyl alcohol": 6.38,
-                    "octadecadienal": 2.34,
-                    "methyl eugenol": 2.32,
-                    "methyl hexanoate": 1.03,
-                    "cis-linalool oxide": 0.78,
-                    "(3Z)-hex-3-enyl butyrate": 0.54,
-                    "phenethyl isovalerate": 0.37,
-                    "benzyl acetate": 0.33,
-                    "methyl 7-methyloctanoate": 0.33,
-                    "eucalyptol (1,8-cineole)": 0.30,
-                    "trans-linalool oxide": 0.23,
-                    "geranyl isobutyrate": 0.18,
-                    "myrcenol": 0.15,
-                    "neral": 0.14,
-                    "2-phenylethyl propionate": 0.12,
-                    "citral": 0.10,
-                    "isomethyleugenol": 0.10,
+                    "methyl 2-methylbutyrate": 1.31,
+                    "ethyl 2-methylbutyrate": 1.47,
+                    "linalool": 91.74,
+                    "beta-elemene": 1.42,
+                    "methyl eugenol": 1.36,
+                    "beta-caryophyllene": 1.00,
+                    "alpha-humulene": 0.30,
+                    "germacrene D": 0.82,
+                    "beta-selinene": 0.59,
                 },
-                "reported_sum_pct": 92.03,
+                "reported_sum_pct": 100.01,
+                "other_distillations_in_same_table": {
+                    "water distillation": {"linalool": 85.78, "methyl eugenol": 3.59},
+                    "water-steam distillation": {"linalool": 83.38, "methyl eugenol": 2.04},
+                },
                 "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
                 "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
                 "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
                 "owned_stock_label": "Magnolia EO (neat / as supplied)",
-                "owned_species": "Michelia alba (owner-confirmed)",
+                "owned_species": "Michelia alba (owner-confirmed; Kenny 28 Oct 2026)",
                 "owned_supplier_reference": "Shopee shop True Industry",
                 "owned_plant_part_recorded": False,
             },
             **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
-               for name in ("linalool", "methyl eugenol", "benzyl acetate", "1,8-cineole",
-                            "neral", "citral")},
-            "phenylethyl alcohol": {
-                "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
-                "vp_status": "CITED_DATA_SPINE_VP",
-                "vp_source": "PubChem CID 6054 HSDB, Daubert & Danner (1989): 8.68e-2 mm Hg at 25 C = 11.57 Pa",
-                "odt_status": "ODT_DATA_MULTI_SOURCE_LITERATURE",
-                "gamma_status": "HEURISTIC_CLASS_INPUT",
-                "owned_oil_activity_measured": False,
-            },
+               for name in ("linalool", "methyl eugenol", "beta caryophyllene", "germacrene d")},
         },
         "unresolved_constituents": (
             {
-                "name": "octadecadienal",
-                "reported_fraction": 0.0234,
+                "name": "methyl 2-methylbutyrate",
+                "reported_fraction": 0.0131,
                 "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
                 "odor_contribution": "UNCOMPUTED",
             },
             {
-                "name": "methyl hexanoate",
-                "reported_fraction": 0.0103,
+                "name": "ethyl 2-methylbutyrate",
+                "reported_fraction": 0.0147,
                 "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
                 "odor_contribution": "UNCOMPUTED",
             },
             {
-                "name": "cis-linalool oxide",
-                "reported_fraction": 0.0078,
+                "name": "beta-elemene",
+                "reported_fraction": 0.0142,
                 "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
                 "odor_contribution": "UNCOMPUTED",
             },
             {
-                "name": "(3Z)-hex-3-enyl butyrate",
-                "reported_fraction": 0.0054,
+                "name": "alpha-humulene",
+                "reported_fraction": 0.003,
                 "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
                 "odor_contribution": "UNCOMPUTED",
             },
             {
-                "name": "phenethyl isovalerate",
-                "reported_fraction": 0.0037,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "methyl 7-methyloctanoate",
-                "reported_fraction": 0.0033,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "trans-linalool oxide",
-                "reported_fraction": 0.0023,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "geranyl isobutyrate",
-                "reported_fraction": 0.0018,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "myrcenol",
-                "reported_fraction": 0.0015,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "2-phenylethyl propionate",
-                "reported_fraction": 0.0012,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "isomethyleugenol",
-                "reported_fraction": 0.001,
+                "name": "beta-selinene",
+                "reported_fraction": 0.0059,
                 "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
                 "odor_contribution": "UNCOMPUTED",
             },
         ),
         "limitations": (
-            "The composition is one 1993 literature sample from a secondary compilation, not an analysis of the owned Shopee True Industry bottle; plant part and process of the owned oil are not recorded (flower oil is assumed).",
-            "The compilation calls the sample an absolute, but its 76% linalool profile matches published Michelia alba distilled oils; the sample type is doubtful.",
-            "Only 85.86% of the listed composition is modeled; eleven minor constituents (6.17%) and the 7.97% unidentified remainder are uncomputed, not odorless. Nothing is renormalized.",
-            "Michelia alba flower oil is non-equivalent to Michelia champaca absolute and to Magnolia leaf oils.",
+            "The composition is one published Thai flower distillation (Punjee et al. 2009), not an analysis of the owned Shopee True Industry bottle; plant part and process of the owned oil are not recorded (steam-distilled flower oil is assumed).",
+            "Only nine peaks were reported, so trace odorants are missing and the percentages are shares of the identified peaks. 94.92% is modeled; five constituents (5.09%, including the fruity methyl and ethyl 2-methylbutyrate) are uncomputed, not odorless. Nothing is renormalized.",
+            "The same paper's water distillation gives more methyl eugenol (3.59%); IFRA uses that higher value.",
+            "Michelia alba flower oil is non-equivalent to Michelia champaca absolute, to Michelia alba absolutes (indole and phenylethyl alcohol rich in the same paper) and to Magnolia leaf oils.",
         ),
     },
     "champaca flower oil perfumersworld 7nj07740 ifra declaration profile": {

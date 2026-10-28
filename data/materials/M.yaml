@@ -499,9 +499,9 @@
   families:
   - floral materials
   character: null
-  notes: Observed inventory label only; species, plant part, supplier, stock strength,
-    and amount are unrecorded.
+  notes: 'Michelia alba flower oil sold as Magnolia EO (Kenny, 28 Oct 2026: "there i anotheer magnlia eo but it micahelia alba eo"; earlier owner note: Shopee shop True Industry). Composition: Punjee et al. 2009 steam-distilled Thai flower oil (linalool 91.7%), see engine/pipeline/natural_absolute_decomposition.py. Plant part, stock strength and amount are unrecorded; the CAS 8006-76-6 and density come from earlier passes and are not specific to Michelia alba.'
   provenance:
+    notes: 'Kenny''s message in the Stock data thread, 28 Oct 2026 08:58 UTC; Punjee P. et al. (2009) Kasetsart J. (Nat. Sci.) 43(5):197-203, https://li01.tci-thaijo.org/index.php/anres/article/view/244814. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     user_in_inventory: inventory.txt
     density_25c_g_ml: '22 Oct 2026 missing-data pass: measured; raw 0.88522; https://www.lgbotanicals.com/assets/images/Certificate%20of%20Analysis%20MAGNOLIA%20BLOSSOM%20MGL1118EO572.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
     cas: '22 Oct 2026 missing-data pass: stated; raw 8006-76-6; '

@@ -1605,12 +1605,12 @@
   smiles: 'CC1=CC2CC(C1CC2C(C)C)C3OCCO3'
   inchikey: null
   mw_g_mol: 236.35
-  density_25c_g_ml: 1.0089
+  density_25c_g_ml: 1.007
   logp: 3.8
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.242
-  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.24
+  vp_source: producer_25C
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -1633,18 +1633,19 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'Soft floral, green, ivy leaves, woody; a soft, green, milky top-note modifier (Givaudan).'
   odour_family: 'floral'
-  notes: 'Second CAS for the isomer mixture: 94087-23-7. logP and VP left null (2026-10-08), no measured value: logP 4.007 (TGSC est) vs "Log Pow: 3.8" (scentspiracy, method not stated); VP "0.001000 mmHg @ 25.00 C. (est)" = 0.133 Pa (TGSC) vs "0.0024 hPa at 25C" = 0.24 Pa (scentspiracy, method not stated). Producer is Givaudan per TGSC. Density not found. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa 0.133 -> 0.242.'
+  notes: 'Second CAS for the isomer mixture: 94087-23-7. logP and VP left null (2026-10-08), no measured value: logP 4.007 (TGSC est) vs "Log Pow: 3.8" (scentspiracy, method not stated); VP "0.001000 mmHg @ 25.00 C. (est)" = 0.133 Pa (TGSC) vs "0.0024 hPa at 25C" = 0.24 Pa (scentspiracy, method not stated). Producer is Givaudan per TGSC. Density not found. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa 0.133 -> 0.242. Update 2026-10-28: VP is now Givaudan''s printed 0.24 Pa at 25 C, logP Givaudan''s 3.8 (Vigon SDS 5.3 conflicts), density the 25 C value from the Vigon SDS; see provenance.'
   provenance:
+    character: 'Givaudan, Glycolierral (https://www.givaudan.com/print/1314361): ''Olfactive Note Floral Green Ivy leaves Woody''; ''Glycolierral offers a soft, green, milky nuance when used as a green top note modifier.'' (grade A_producer). TGSC carries Moellhausen ''fresh, herbaceous, soft floral-green, reminiscent of ivy leaves, woody'', which agrees. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     odour_family: 'odour family "floral" from ''Floral (Olfactive Note: Floral, Green, Ivy leaves, Woody)'': Print Page | Givaudan: Glycolierral, https://www.givaudan.com/print/1314361: Glycolierral Giv Code 5631203 Olfactive Family Floral | Olfactive Note Floral Green Ivy leaves Woody (grade A_producer; ). Second reader: CAS 68901-32-6 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1492991.html; "CAS Number: 68901-32-6"; the isomer mixture also carries "94087-23-7 (isomeric mixture)" (https://www.scentspiracy.com/fragrance-ingredients/p/glycolierral) (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1492991.html; "Molecular Weight: 236.35468000", calculated from C15H24O2 (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00181 mm Hg @ 25 C = 0.242 Pa (https://www.thegoodscentscompany.com/episys/ep1492991.html); scentspiracy 0.24 Pa @ 25 C agrees; TGSC datasheet 0.133 Pa (est) is low (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    vp_25c_pa: 'Givaudan, Glycolierral (https://www.givaudan.com/print/1314361): ''Vapour pressure ... 0.0024 hPa (25 C)'' = 0.24 Pa; producer figure, method not stated. Vigon SDS prints ''0.002 hPa at 25 C'' (probably the same figure rounded); EPI MPBPWIN 0.242 Pa agrees. Replaces the EPI estimate as the value of record. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     smiles: 'PubChem CID 111418 structure for CAS 68901-32-6 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
-    density_25c_g_ml: '22 Oct 2026 missing-data pass: stated; raw 1.00886; https://perfumersupplyhouse.com/wp-content/uploads/2020/10/MSDS-GLYCOLIERRAL-1.pdf; temperature as printed by source (often 20 C), not corrected to 25 C'
-    logp: '23 Oct 2026 source check: Givaudan product page ''Log Pow 3,8''; replaces the TGSC estimate 4.007; https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/glycolierral'
+    density_25c_g_ml: 'Vigon SDS 500894 (2018) (https://perfumersupplyhouse.com/wp-content/uploads/2020/10/MSDS-GLYCOLIERRAL-1.pdf): ''Density 1008.86 kg/m3 at 20 C'' and ''Specific gravity 1.01 at 25 C''; the 25 C SG x 0.99705 (water at 25 C) = 1.007 g/mL. Replaces 1.0089, which was the 20 C value labelled as 25 C. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
+    logp: 'Givaudan product page and print page (https://www.givaudan.com/print/1314361): ''Log Pow 3,8'', method not stated. Conflict kept on record: Vigon SDS (https://perfumersupplyhouse.com/wp-content/uploads/2020/10/MSDS-GLYCOLIERRAL-1.pdf) prints ''log Pow: 5.3'', no method; TGSC 4.007 is an estimate. Unresolved without the ECHA dossier. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
 - canonical_name: Gourmande F-TEC
   aliases:
   - GOURMANDE F-TEC

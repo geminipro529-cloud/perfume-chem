@@ -90,7 +90,7 @@ def test_rose_otto_bulgarian_is_recognised_and_counts_rose_oil_methyl_eugenol():
     [
         ("Elemi EO", "IFRA_STD_100", 0.4),
         ("Nutmeg EO", "IFRA_STD_100", 1.2),
-        ("Magnolia EO", "IFRA_STD_100", 2.8),
+        ("Magnolia EO", "IFRA_STD_100", 3.59),  # Punjee et al. 2009 water-distilled oil, 28 Oct 2026
         ("Rose de Mai Absolute", "IFRA_STD_100", 0.709),  # PerfumersWorld 8RM00395, above Annex I 0.5
         ("Tuberose Absolute", "IFRA_STD_100", 1.8),
         ("Anise EO", "IFRA_STD_099", 15.3291),  # PerfumersWorld 7SB00041, above Annex I 3.3

@@ -39,7 +39,6 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Acetoin": (("odt",), _NO_AIR_ODT),
     "Buccoxime": (("odt",), _NO_AIR_ODT),
     "Caryophyllene Acetate": (("odt",), _NO_AIR_ODT),
-    "Cedryl Acetate": (("odt",), _NO_AIR_ODT + "; IFF gives a qualitative impact only"),
     "Cis-3 Hexenyl Hexanoate": (("odt",), _NO_AIR_ODT),
     "Diethyl Malonate": (("odt",), _NO_AIR_ODT),
     "Ethyl Linalyl Acetate": (("odt",), _NO_AIR_ODT),
@@ -55,7 +54,6 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # Merged 2026-10-23 into the older entry, whose VP is a labelled TGSC estimate.
     "Aldehyde C16 EMPG": (("odt",), _NO_AIR_ODT_1023),
     "Canthoxal": (("odt",), _NO_AIR_ODT_1023),
-    "Cedroxyde": (("odt",), _NO_AIR_ODT_1023),
     "Dimethyl Benzyl Carbinol": (("odt",), _NO_AIR_ODT_1023),
     "Para-Acetanisole": (("odt",), _NO_AIR_ODT_1023),
     "Para-Cresyl Phenyl Acetate": (("odt",), _NO_AIR_ODT_1023),
@@ -68,11 +66,8 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # Added 2026-10-25 from Kenny's PerfumersWorld order lines; their data has not been searched yet.
     # (Cis-3 Hexenyl Acetate, Manzanate and Phenoxy Ethyl Isobutyrate left this list the same day,
     # when the fruit batch loaded Givaudan US 12,340,876 air thresholds.)
-    # Searched in the 2026-10-25 literature fill.
-    "Anisyl Acetate": (
-        ("odt", "vp"),
-        _NO_AIR_ODT_1025 + "; ECHA's 12 Pa at 20 C looks too high for this molecule and is not loaded",
-    ),
+    # Searched in the 2026-10-25 literature fill. (Anisyl Acetate, Cedroxyde and Cedryl Acetate left
+    # this list on 2026-10-28: Givaudan VP and labelled analogue air ODTs.)
     "Ethyl Acetoacetate": (("odt",), _NO_AIR_ODT_1025),
     "Phenyl Ethyl Dimethyl Carbinyl Acetate": (("odt",), _NO_AIR_ODT_1025 + "; VP from RIFM (FMA) since then"),
     "Palm Dates Base": (_ALL, "PerfumersWorld compound base, not a pure chemical; no composition published"),
