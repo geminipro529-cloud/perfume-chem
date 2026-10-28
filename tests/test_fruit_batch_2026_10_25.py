@@ -68,7 +68,7 @@ PHYSICS = [
     ("Hexyl Acetate", "vp_25c_pa", 176.0),
     ("Styralyl Acetate", "logp", 2.5),
     ("Styralyl Acetate", "density_25c_g_ml", 1.0215),
-    ("Damascol", "logp", 3.215),
+    # (Damascol logp left this list on 2026-10-28: ECHA OECD 117 3.5 replaced the IFF SDS 3.215.)
 ]
 
 

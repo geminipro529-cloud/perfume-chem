@@ -579,8 +579,8 @@ _PROFILES: dict[str, dict] = {
         "role": "modifier",
         "texture": "diffusion",
         "mw": 190.3,
-        "vp": 2.0,
-        "clogp": 3.8,
+        "vp": 1.06,  # 2026-10-28 ECHA OECD 104 0.65 Pa at 20 C, converted; was Givaudan's page 2.0
+        "clogp": 3.1,  # 2026-10-28 ECHA OECD 117; was Givaudan's page 3.8
         "cas": "125109-85-5",
         "material_kind": "CHEMICAL_ENTITY",
         "formulation_roles": ("muguet_green_heart", "citrus_floral_bridge"),
@@ -594,12 +594,12 @@ _PROFILES: dict[str, dict] = {
                 "sources": ["https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm"],
             },
             "vp": {
-                "status": "OFFICIAL_MANUFACTURER_PRODUCT_DATA_0.0200_HPA_CONVERTED_TO_2.0_PA",
-                "sources": ["https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm"],
+                "status": "ECHA_REGISTRATION_OECD104_0.65_PA_AT_20C_CONVERTED_TO_1.06_PA",
+                "sources": ["ECHA lead dossier 01-0000015936-60-0001 (" + "/mnt/project-files/unused-gaps-20261028/ECHA_QUOTES_20261028.md" + ")"],
             },
             "clogp": {
-                "status": "OFFICIAL_MANUFACTURER_PRODUCT_DATA",
-                "sources": ["https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm"],
+                "status": "ECHA_REGISTRATION_OECD117",
+                "sources": ["ECHA lead dossier 01-0000015936-60-0001 (" + "/mnt/project-files/unused-gaps-20261028/ECHA_QUOTES_20261028.md" + ")"],
             },
             "character": {
                 "status": "OFFICIAL_MANUFACTURER_QUALITATIVE_DESCRIPTION",
@@ -939,8 +939,8 @@ _PROFILES: dict[str, dict] = {
         "role": "character",
         "texture": "diffusion",
         "mw": 190.28,
-        "vp": 1.2,  # 2026-10-28 RIFM 2024 (EPI 1.22 Pa at 25 C), was 0.6
-        "clogp": 3.215,  # IFF SDS log Pow
+        "vp": 2.17,  # 2026-10-28 ECHA OECD 104 1.98 Pa at 24 C, converted (was RIFM's EPI 1.2, then 0.6)
+        "clogp": 3.5,  # 2026-10-28 ECHA OECD 117 (IFF SDS prints 3.215)
         "synergies": ["Alpha Damascone", "Rose Absolute", "Hedione"],
     },
     # PEDMC — iris-rose harmonic, magnolia-soft

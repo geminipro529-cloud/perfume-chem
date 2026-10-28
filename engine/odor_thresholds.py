@@ -5980,18 +5980,19 @@ _refresh_normalized_odt_index()
 # Kenny 11:11 UTC: "Also put chemicals that are never used or cannot be used here". The PEER_EST rows
 # are Givaudan odour values divided into the engine's own saturated vapour, so each is tied to its VP.
 _SOURCED_ODT_2026_10_28.update({
-    "peach ketone": (0.0117, "PEER_EST", [
+    "peach ketone": (0.0140, "PEER_EST", [
         _GIVAUDAN_PROC + ": 'NECTARYL (2-(2-(4-methylcyclohex-3-en-1-yl)propyl)cyclopentanone) 13091' "
         "(PROC) and log Kcaps -1.9, so OV = 13091 / 1.1 = 11,901; saturated vapour at the engine VP "
-        "0.0141 Pa (ECHA 0.009 Pa at 20 C, converted) = 139.2 ppb; 139.2 / 11,901 = 0.0117 ppb.",
+        "0.0169 Pa (ECHA OECD 104, 0.0092 Pa at 20 C and 0.27 Pa at 50 C, interpolated) = 167.2 ppb; "
+        "167.2 / 11,901 = 0.0140 ppb.",
         "Cross-check: Brenna et al., Tetrahedron: Asymmetry 19 (2008) 800, per-isomer air thresholds "
         "0.094, 0.112, 11.2 and 14.9 ng/L (https://www.leffingwell.com/chirality/nectaryl.htm); a "
         "1:1:1:1 mix is 0.0225 ppb (1.9x).",
     ]),
-    "veloutone": (1.62, "PEER_EST", [
+    "veloutone": (6.85, "PEER_EST", [
         _GIVAUDAN_PROC + ": 'VELOUTONE (2,2,5-trimethyl-5-pentylcyclopentanone) 14571' (PROC) and log "
-        "Kcaps -1.9, so OV = 14571 / 1.1 = 13,246; saturated vapour at the engine VP 2.17 Pa = 21,416 "
-        "ppb; 21,416 / 13,246 = 1.62 ppb. Replaces an empty row.",
+        "Kcaps -1.9, so OV = 14571 / 1.1 = 13,246; saturated vapour at the ECHA VP 9.2 Pa (OECD 104 gas "
+        "saturation, 25 C) = 90,797 ppb; 90,797 / 13,246 = 6.85 ppb. Replaces an empty row.",
     ]),
     "beta caryophyllene": (49.0, "PEER_EST", [
         _GIVAUDAN_PROC + ": 'CARYOPHYLLENE ((Z)-4,11,11-trimethyl-8-methylenebicyclo[7.2.0]undec-4-ene) "

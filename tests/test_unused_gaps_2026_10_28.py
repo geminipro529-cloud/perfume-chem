@@ -608,11 +608,12 @@ def test_ethyl_butyrate_is_fruity_and_its_density_is_at_25c(records):
     assert load_registry().get("Ethyl Butyrate").provenance["density_basis"] == "supplier_sg_25c"
 
 
-def test_florhydral_keeps_givaudans_physics_and_takes_an_sds_density():
-    # Givaudan's page (2.0 Pa, logP 3.8) outranks a reseller SDS (0.65 Pa at 20 C, 3.1) until ECHA is read.
+def test_florhydral_takes_echas_physics_and_an_sds_density():
+    # ECHA's OECD 104/117 studies (0.65 Pa at 20 C, log Pow 3.1) outrank Givaudan's page (2.0 Pa, 3.8).
     spine = load_registry().get("Florhydral")
     assert (spine.vp_25c_pa, spine.logp, spine.density_25c_g_ml) == (
-        pytest.approx(2.0), pytest.approx(3.8), pytest.approx(0.9505))
+        pytest.approx(1.06), pytest.approx(3.1), pytest.approx(0.9505))
+    assert "01-0000015936-60-0001" in spine.provenance["vp_25c_pa"]
     assert ODT_DATA["florhydral"]["odt_air"] == pytest.approx(0.008995)
 
 
@@ -620,11 +621,13 @@ def test_damascol_is_one_aryl_ketone_everywhere():
     from engine.diffusion_model import DIFFUSION_DATA
     from engine.ingredient_intelligence import _PROFILES
 
-    assert load_registry().get("Damascol").vp_25c_pa == pytest.approx(1.2)
+    # 2026-10-28: ECHA OECD 104 (1.98 Pa at 24 C, converted) and OECD 117 (3.5) replace EPI 1.2 / IFF 3.215.
+    spine = load_registry().get("Damascol")
+    assert (spine.vp_25c_pa, spine.logp) == (pytest.approx(2.17), pytest.approx(3.5))
     assert (_PROFILES["Damascol"]["mw"], _PROFILES["Damascol"]["vp"], _PROFILES["Damascol"]["clogp"]) == (
-        pytest.approx(190.28), pytest.approx(1.2), pytest.approx(3.215))
+        pytest.approx(190.28), pytest.approx(2.17), pytest.approx(3.5))
     assert (DIFFUSION_DATA["Damascol"]["MW"], DIFFUSION_DATA["Damascol"]["VP_25"]) == (
-        pytest.approx(190.28), pytest.approx(1.2))
+        pytest.approx(190.28), pytest.approx(2.17))
 
 
 def test_lilyreal_vp_is_one_labelled_surrogate():
@@ -641,8 +644,8 @@ def test_lilyreal_vp_is_one_labelled_surrogate():
 @pytest.mark.parametrize(
     ("name", "odt", "vfy"),
     (
-        ("Peach Ketone", 0.0117, "PEER_EST"),
-        ("Veloutone", 1.62, "PEER_EST"),
+        ("Peach Ketone", 0.0140, "PEER_EST"),
+        ("Veloutone", 6.85, "PEER_EST"),
         ("Beta Caryophyllene", 49.0, "PEER_EST"),
         ("Buccoxime", 5.818, "PEER_SINGLE"),
         ("Pear Valerate", 2.1, "UNVERIFIED"),
@@ -672,6 +675,24 @@ def test_givaudan_odour_values_are_reproduced_over_the_engine_vp(name, proc, log
 
 def test_peach_ketone_and_pear_valerate_vps_are_25c_values():
     peach, pear = load_registry().get("Peach Ketone"), load_registry().get("Pear Valerate")
-    assert (peach.vp_25c_pa, peach.vp_source) == (pytest.approx(0.0141), "ECHA_measured_20C_converted")
+    assert (peach.vp_25c_pa, peach.vp_source) == (pytest.approx(0.0169), "ECHA_measured_20C_50C_interpolated")
     assert (pear.vp_25c_pa, pear.vp_source) == (pytest.approx(9.3), "Givaudan_HS_band_25C")
     assert "10,982,173" in pear.provenance["vp_25c_pa"]
+    assert (peach.logp, pear.logp) == (pytest.approx(4.8), pytest.approx(5.7))
+
+
+@pytest.mark.parametrize(
+    ("name", "vp", "logp"),
+    (
+        ("Veloutone", 9.2, 4.7),
+        ("Buccoxime", 0.16, 2.94),
+        ("Florhydral", 1.06, 3.1),
+        ("Damascol", 2.17, 3.5),
+        ("Methyl Diantilis", 0.0057, 1.1),
+    ),
+)
+def test_echa_measured_vapour_pressures_are_loaded(name, vp, logp):
+    spine = load_registry().get(name)
+    assert (spine.vp_25c_pa, spine.logp) == (pytest.approx(vp), pytest.approx(logp))
+    assert spine.vp_source.startswith("ECHA_measured")
+    assert "ECHA_QUOTES_20261028.md" in spine.provenance["vp_25c_pa"]

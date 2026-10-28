@@ -108,7 +108,7 @@ DIFFUSION_DATA: dict[str, dict[str, float]] = {
     "Alpha Damascone": {"MW": 192.3, "VP_25": 2.0, "Kaw_eff": 0.003},
     "Damascone Beta": {"MW": 192.3, "VP_25": 1.5, "Kaw_eff": 0.003},
     "Damascenone": {"MW": 190.3, "VP_25": 1.0, "Kaw_eff": 0.002},
-    "Damascol": {"MW": 190.28, "VP_25": 1.2, "Kaw_eff": 0.001},  # 2026-10-28 RIFM 2024 (EPI 1.22 Pa), was 194.3 / 0.6
+    "Damascol": {"MW": 190.28, "VP_25": 2.17, "Kaw_eff": 0.001},  # 2026-10-28 ECHA 1.98 Pa at 24 C, converted (EPI 1.2, was 194.3 / 0.6)
     # ── Muguet heart (additions) ──
     "Mayol": {"MW": 166.3, "VP_25": 1.5, "Kaw_eff": 0.002},
     "Farnesol": {"MW": 222.4, "VP_25": 0.08, "Kaw_eff": 0.0004},

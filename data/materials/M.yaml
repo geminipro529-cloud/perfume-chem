@@ -1711,8 +1711,8 @@
   logp: 1.1
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.07946
-  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0057
+  vp_source: ECHA_measured_20C_converted
   antoine:
   dhvap_kj_mol:
   kaw_eff:
@@ -1747,7 +1747,7 @@
     cas: 'https://thegoodscentscompany.com/data/rw1009761.html; "CAS Number: 5595-79-9", synonyms "dianthus ethone", "methyl diantilis (Givaudan)"; check digit valid (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1009761.html; "Molecular Weight: 182.21918000", calculated from C10H14O3 (2-ethoxy-4-(methoxymethyl)phenol) (via material-data-firecrawl/allgaps/S4_woody_musk_captives.md)'
     logp: 'Givaudan, Methyl Diantilis product page (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-diantilistm): ''Log Pow 1,1''; printed ; RIFM lists only EPI 1.61; engine 1.571 unsourced; grade A_producer. Second reader: Opened the page directly (the worker had only a search excerpt). CAS 5595-79-9. Log Pow 1,1; no method or temperature stated, so A_producer only. Same page prints VP ''<0.0001 hPa'' (<0.01 Pa) with bp 258 C, which... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    vp_25c_pa: 'ESTIMATE (EPI Suite v4.11 (0.000596 x 133.322 = 0.0795 Pa)): RIFM fragrance ingredient safety assessment, 2-ethoxy-4-(methoxymethyl)phenol (Food Chem Toxicol 197 (2025) 115260) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/5595-79-9.pdf): ''7. Vapor Pressure: 0.000596 mm Hg (EPI Suite v4.11); read-across table: Vapor Pressure (Pa @ 25 C, EPI Suite) 7.95E-02''; printed 0.000596 mm Hg; EPI Suite v4.11 (0.000596 x 133.322 = 0.0795 Pa); grade EST. Second reader: Quote verbatim. The physical-data line prints no temperature, but the read-across table prints the same figure as 7.95E-02 Pa @ 25 C, so 25 C is supported. 0.000596 x 133.322 = 0.0795 Pa. EPI estimate, graded EST:... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    vp_25c_pa: 'MEASURED at 20 C, converted: ECHA lead dossier 01-0000018892-61-0001, key study OECD 104 static method: ''Temp. 20 °C  Vapour pressure 0.003 Pa''; converted to 25 C with Clausius-Clapeyron, dHvap = 70 - 3.82 ln(VP20) kJ/mol (the engine''s 20 C convention): 0.0057 Pa. Supporting records disagree (dynamic 0.3 Pa at 20 C; calculated 2.25 Pa at 25 C); the key value fits Givaudan''s ''< 0.0001 hPa''. Replaces the EPI estimate 0.0795 Pa. Its air ODT (Givaudan SDS) does not depend on VP. ECHA CHEM registration dossier, read on Kenny''s PC 28 Oct 2026 after his ''ok'' to the legal notice (verbatim quotes: /mnt/project-files/unused-gaps-20261028/ECHA_QUOTES_20261028.md). Loaded 2026-10-28 (unused-materials group 7).'
     density_25c_g_ml: 'Givaudan SDS METHYL DIANTILIS, Sales No. 6906203 (https://perfumiarz.com/cdn/shop/files/6906203_METHYL_DIANTILIS_SDS_EN.pdf): ''Density : 1 108,96 kg/m3 at 20 °C''; 20 C as printed, not corrected to 25 C. Replaces 1.1105, a reseller range midpoint. Loaded 2026-10-28 (unused-materials group 5; source re-opened).'
 - canonical_name: Methyl Eugenol
   aliases: []

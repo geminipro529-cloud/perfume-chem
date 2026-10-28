@@ -78,8 +78,9 @@ def test_florhydral_scientific_paths_are_populated() -> None:
     assert material.user_stock_dilution == pytest.approx(1.0)
     assert material.cas == "125109-85-5"
     assert material.mw_g_mol == pytest.approx(190.3)
-    assert material.logp == pytest.approx(3.8)
-    assert material.vp_25c_pa == pytest.approx(2.0)
+    # 2026-10-28: ECHA OECD 117 / OECD 104 (0.65 Pa at 20 C, converted) replace Givaudan's page (3.8 / 2.0).
+    assert material.logp == pytest.approx(3.1)
+    assert material.vp_25c_pa == pytest.approx(1.06)
     # 0.3 -> 0.008995 ppb on 2026-10-25 (Givaudan figures, literature ODT batch).
     assert material.odt_air_ppb == pytest.approx(0.008995)
     assert material.odt_eth_ppm == pytest.approx(0.2)
@@ -88,7 +89,7 @@ def test_florhydral_scientific_paths_are_populated() -> None:
     assert profile is not None
     assert profile.cas == "125109-85-5"
     assert profile.mw == pytest.approx(190.3)
-    assert profile.vp == pytest.approx(2.0)
+    assert profile.vp == pytest.approx(1.06)
     assert profile.or_family == "muguet"
     assert profile.activity_coef == pytest.approx(1.5)
     assert lookup_odt_entry("Florhydral") is not None

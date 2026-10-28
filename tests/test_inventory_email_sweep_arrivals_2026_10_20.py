@@ -96,8 +96,9 @@ def test_the_statements_are_on_record(records):
 @pytest.mark.parametrize(
     ("name", "cas", "mw", "vp_source"),
     (
-        # 2026-10-28: Peach Ketone's 20 C value converted to 25 C; Pear Valerate takes Givaudan's 25 C band.
-        ("Peach Ketone", "95962-14-4", 220.36, "ECHA_measured_20C_converted"),
+        # 2026-10-28: Peach Ketone's ECHA 20 C and 50 C values interpolated to 25 C; Pear Valerate takes
+        # Givaudan's 25 C headspace band.
+        ("Peach Ketone", "95962-14-4", 220.36, "ECHA_measured_20C_50C_interpolated"),
         ("Pear Valerate", "90397-38-9", 200.32, "Givaudan_HS_band_25C"),
         ("Decatone", "34131-98-1", 194.32, "EPI"),
         ("Velvione", "37609-25-9", 236.40, "ECHA_measured_20C_not_corrected"),
@@ -123,7 +124,7 @@ def test_researched_identity_and_physics_are_loaded(name, cas, mw, vp_source):
     (
         ("Velvione", 0.93, 0.02),
         ("Canthoxal", 1.065, 0.3),
-        ("Peach Ketone", 0.963, 0.0141),
+        ("Peach Ketone", 0.963, 0.0169),
         ("Phenoxy Ethyl Isobutyrate", 1.05, 0.77),
         ("Dupical", 1.008, 0.11),
         ("Cyclogalbanate", 1.02, 0.4),

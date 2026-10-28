@@ -2773,8 +2773,8 @@
   logp: 2.94
   functional_groups: []
   chirality: null
-  vp_25c_pa: 0.0813
-  vp_source: EPI_est  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.16
+  vp_source: ECHA_measured
   antoine: null
   dhvap_kj_mol: null
   kaw_eff: null
@@ -2811,7 +2811,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://thegoodscentscompany.com/data/rw1004001.html; "CAS Number: 75147-23-8" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
     mw_g_mol: 'https://thegoodscentscompany.com/data/rw1004001.html; "Molecular Weight:167.25169000", calculated from C10H17NO (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'
-    vp_25c_pa: 'ESTIMATE, literature common ground: EPI Suite MPBPWIN 0.00061 mm Hg @ 25 C = 0.0813 Pa (solid; subcooled liquid 0.173 Pa, https://thegoodscentscompany.com/episys/ep1004001.html); ChemicalBook 0.095 Pa @ 20 C (method not stated) agrees; TGSC datasheet 0.80 Pa (est) is a 10x outlier (via material-data-consensus/COMMON_GROUND.md); set 2026-10-13 from the literature common-ground review'
+    vp_25c_pa: 'MEASURED: ECHA lead dossier 01-2120138209-57-0000, OECD 104 Knudsen effusion, reliability 1: ''The test item has a vapour pressure of 0.095 Pa at 20°C and 0.16 Pa at 25°C.'' Replaces the EPI estimate 0.0813 Pa. The solid''s density (ca. 1.087 at 20 C) is not used: the neat bottle is weighed. ECHA CHEM registration dossier, read on Kenny''s PC 28 Oct 2026 after his ''ok'' to the legal notice (verbatim quotes: /mnt/project-files/unused-gaps-20261028/ECHA_QUOTES_20261028.md). Loaded 2026-10-28 (unused-materials group 7).'
     logp: 'Symrise AG SDS, BUCCOXIME 195583 - E02160, version 11.1 (31/03/2025) (hosted by parfclub.shop) (https://parfclub.shop/wp-content/uploads/2025/07/buccoxime_sds.pdf): ''Partition coefficient: n-octanol/water : log Pow: 2,94''; printed log Pow: 2,94; producer SDS; method not stated; grade A_producer. Second reader: No temperature or method printed. The SDS is hosted on a reseller site (parfclub.shop), distributed by BLH. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
 - canonical_name: Butyl Butyrate
   aliases: []

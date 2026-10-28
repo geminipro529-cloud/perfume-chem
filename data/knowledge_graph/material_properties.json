@@ -17567,8 +17567,8 @@
     "formula_str": null,
     "mw": 190.28,
     "bp": null,
-    "vp": 1.2,
-    "clp": 3.215,
+    "vp": 2.17,
+    "clp": 3.5,
     "odt": 0.5,
     "odt_ethanol_ppm": 0.005,
     "oav_typical": null,
@@ -17659,6 +17659,13 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "vp": 0.6
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 1.2,
+          "clp": 3.215
         }
       }
     ],
@@ -73230,8 +73237,8 @@
       }
     ],
     "mw": 190.3,
-    "vp": 2.0,
-    "clp": 3.8,
+    "vp": 1.06,
+    "clp": 3.1,
     "note": "heart",
     "role": "modifier",
     "texture": "diffusion",
@@ -73257,15 +73264,15 @@
         ]
       },
       "vp": {
-        "status": "OFFICIAL_MANUFACTURER_PRODUCT_DATA_0.0200_HPA_CONVERTED_TO_2.0_PA",
+        "status": "ECHA_REGISTRATION_OECD104_0.65_PA_AT_20C_CONVERTED_TO_1.06_PA",
         "sources": [
-          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm"
+          "ECHA lead dossier 01-0000015936-60-0001 (/mnt/project-files/unused-gaps-20261028/ECHA_QUOTES_20261028.md)"
         ]
       },
       "clogp": {
-        "status": "OFFICIAL_MANUFACTURER_PRODUCT_DATA",
+        "status": "ECHA_REGISTRATION_OECD117",
         "sources": [
-          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/florhydraltm"
+          "ECHA lead dossier 01-0000015936-60-0001 (/mnt/project-files/unused-gaps-20261028/ECHA_QUOTES_20261028.md)"
         ]
       },
       "character": {
@@ -76091,10 +76098,16 @@
         "fields": {
           "clp": 2.2
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.0813
+        }
       }
     ],
     "mw": 167.25,
-    "vp": 0.0813,
+    "vp": 0.16,
     "clp": 2.94,
     "note": "unassigned",
     "role": "unassigned",
@@ -80297,10 +80310,16 @@
           "vp": 0.4,
           "clp": 1.571
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.07946
+        }
       }
     ],
     "mw": 182.22,
-    "vp": 0.07946,
+    "vp": 0.0057,
     "clp": 1.1,
     "note": "unassigned",
     "role": "unassigned",
@@ -81639,11 +81658,18 @@
         "fields": {
           "vp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 2.17,
+          "clp": 4.34
+        }
       }
     ],
     "mw": 196.33,
-    "vp": 2.17,
-    "clp": 4.34,
+    "vp": 9.2,
+    "clp": 4.7,
     "note": "unassigned",
     "role": "unassigned",
     "texture": "",
@@ -81708,12 +81734,12 @@
     },
     "synergies": [],
     "odor_profile": "fresh floral slightly fruity herbal woody",
-    "odt": 1.62,
+    "odt": 6.85,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
       "vfy": "PEER_EST",
       "sources": [
-        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'VELOUTONE (2,2,5-trimethyl-5-pentylcyclopentanone) 14571' (PROC) and log Kcaps -1.9, so OV = 14571 / 1.1 = 13,246; saturated vapour at the engine VP 2.17 Pa = 21,416 ppb; 21,416 / 13,246 = 1.62 ppb. Replaces an empty row."
+        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'VELOUTONE (2,2,5-trimethyl-5-pentylcyclopentanone) 14571' (PROC) and log Kcaps -1.9, so OV = 14571 / 1.1 = 13,246; saturated vapour at the ECHA VP 9.2 Pa (OECD 104 gas saturation, 25 C) = 90,797 ppb; 90,797 / 13,246 = 6.85 ppb. Replaces an empty row."
       ],
       "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 7); source re-opened before loading.",
       "superseded": {
@@ -85618,12 +85644,12 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": 0.0117,
+    "odt": 0.014,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
       "vfy": "PEER_EST",
       "sources": [
-        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'NECTARYL (2-(2-(4-methylcyclohex-3-en-1-yl)propyl)cyclopentanone) 13091' (PROC) and log Kcaps -1.9, so OV = 13091 / 1.1 = 11,901; saturated vapour at the engine VP 0.0141 Pa (ECHA 0.009 Pa at 20 C, converted) = 139.2 ppb; 139.2 / 11,901 = 0.0117 ppb.",
+        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'NECTARYL (2-(2-(4-methylcyclohex-3-en-1-yl)propyl)cyclopentanone) 13091' (PROC) and log Kcaps -1.9, so OV = 13091 / 1.1 = 11,901; saturated vapour at the engine VP 0.0169 Pa (ECHA OECD 104, 0.0092 Pa at 20 C and 0.27 Pa at 50 C, interpolated) = 167.2 ppb; 167.2 / 11,901 = 0.0140 ppb.",
         "Cross-check: Brenna et al., Tetrahedron: Asymmetry 19 (2008) 800, per-isomer air thresholds 0.094, 0.112, 11.2 and 14.9 ng/L (https://www.leffingwell.com/chirality/nectaryl.htm); a 1:1:1:1 mix is 0.0225 ppb (1.9x)."
       ],
       "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 7); source re-opened before loading.",
@@ -85709,11 +85735,18 @@
         "fields": {
           "vp": 0.009
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 0.0141,
+          "clp": 5.3
+        }
       }
     ],
     "mw": 220.36,
-    "vp": 0.0141,
-    "clp": 5.3
+    "vp": 0.0169,
+    "clp": 4.8
   },
   {
     "name": "Pear Valerate",
@@ -85818,11 +85851,17 @@
         "fields": {
           "vp": 13.9
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "clp": 3.4
+        }
       }
     ],
     "mw": 200.32,
     "vp": 9.3,
-    "clp": 3.4
+    "clp": 5.7
   },
   {
     "name": "Phenoxy Ethyl Isobutyrate",
