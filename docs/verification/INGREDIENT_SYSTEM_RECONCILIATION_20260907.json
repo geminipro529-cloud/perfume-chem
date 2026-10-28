@@ -5,7 +5,7 @@
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
     "engine/ingredient_intelligence.py": "8e49a73e90a597f8cb13d4b7f220331984abc3df64dc33296c5880730c3ef062",
     "engine/inventory_parser.py": "4ef2e2d4b39afaf2a02ab13a01dd5c5bb6e7acb01cd5bd5e2b1a32ce628dc61f",
-    "engine/odor_thresholds.py": "95616a5ba99b52db0aa7965f9b476ed6b330d20ed295b3b23de850a2a9d68378",
+    "engine/odor_thresholds.py": "c9ac7123455469c7d952ffd100e2b9facc756d0af330ed6c848935afe6e03caa",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
     "engine/material_identity.py": "3dbb20055f9794450b25a21123852dc9b355493af4b653fdd48fb341347d5e5d",
     "engine/data_spine/loader.py": "cd09b0877de31b1fb334811f875dd7305923e9d454efac6ba7cd065f1e6c016f",
@@ -13,27 +13,27 @@
     "data/governance/ingredient_reconciliation_20260907.json": "3038fbf22ab98df93e92a7c23db0e6696c140d9ef00e9cf20415f2dae99b7413",
     "engine/data_spine/reconciliation.py": "ad1403e02b4296ed9bebcc892df28b25d24b637dfbdad361b301fc37f9a21cdc",
     "data/materials/A.yaml": "f86ab69e9a9583a17eaff487a656b49a2faa6797cc7e416f0cbd8bb8c011e883",
-    "data/materials/B.yaml": "cc196819d644c8da0f10adb1ed98b152e1edebc3a3b57932e4ac0d6b65a26fce",
-    "data/materials/C.yaml": "62c98162d0304f3ba688bc400ee9a412762706e19851686423b2d9687af8bf0a",
+    "data/materials/B.yaml": "a5ef66d46cb9f78dd6c567ca8fe61ded9828f7abee138b4e289e6408334f4e59",
+    "data/materials/C.yaml": "aeea90f87b9cb2e53861eb02f0491e8cbfc2fc4a6b6f487cc084fed5d450782d",
     "data/materials/D.yaml": "d29fd8719516a9e48ab9d9ffe941dbb8074637e752369d3cb174c5f57aad2cfb",
     "data/materials/E.yaml": "f66635239d9908234e6ea94e0764118a0c302e5010f535b88ddd2f6a43f36a9a",
     "data/materials/F.yaml": "aa73d52ce54ef1e2863acd164774984cb0104d5e6b281b0fee34e9f4e8c569fe",
     "data/materials/G.yaml": "aa4fa451625efdaa5d874ac8967a593596987a7cf9099dd943be040f559ed4b4",
     "data/materials/H.yaml": "647bf2c24eab81eacb43a017f2bd32a5fa02ab42ee8cc3a7e937d6dcaad9146f",
-    "data/materials/I.yaml": "b853b5c26083de4ba38ae0deb2c6da52d8ef50ccbe72b8c1a69367071306e9f6",
+    "data/materials/I.yaml": "3ff81594dcb3e25dd30d448c90b6054912122319dcb0a75b72aebf020d801468",
     "data/materials/J.yaml": "f2344da7fdbd77331e7bfdfc7a2f326c5b760b9c53eebb3f358ad1b8f9aeb76d",
     "data/materials/K.yaml": "19796fb49bec7b078fce62bc6bccbac3f5447057fbc9970c46685705c8bff32b",
-    "data/materials/L.yaml": "fc8573d11fd84a084d3d8060161a9be744e3bfd82b23822903b88f8eabcfab31",
+    "data/materials/L.yaml": "3a30487474ef2da06498c03b51c9f7ae68ece0e752846d7fe072d3bd64098d88",
     "data/materials/M.yaml": "833d396658eb957c432b0c3d1d1309b20da6cad7fd59135bc96955ae42c4dd19",
     "data/materials/N.yaml": "bc473ed6dc298e8374842afbcdc91a666933678baea998177aa2fca18a071538",
     "data/materials/O.yaml": "b6722f6f15ce3860f5b1050d2d5c17e5b4257039a62de865b17e63895a133a00",
-    "data/materials/P.yaml": "39f70b4844ad59e6eefa770e81a94cf62ef11158d90786d73c8787119b2dc57a",
+    "data/materials/P.yaml": "5f568a2c3befd0b751457a96dc6ca261023be72699236d124a6f1f6b351b5d76",
     "data/materials/Q.yaml": "9256e634f899593f1e3848cb0d5683c4ed1259c00fdd5df56888f89fa84aa6c6",
-    "data/materials/R.yaml": "466f7c017b197d7ba82c134d9d847a42fa3ab47d03bfc2ba7ed1a5fb0b5eeb06",
+    "data/materials/R.yaml": "3038f4170e756eceff458ad8818e38748c2dc8d7201ce0eff93800ad54a36b91",
     "data/materials/S.yaml": "a903f6b1acb04b65b8b41fb1bfef347f13338b8ab77fb6022011c288eafc2fe9",
     "data/materials/T.yaml": "ec137c855bfaf89dd5efc1cb13a3d717ff5009472433f4f412836b21217d1284",
     "data/materials/U.yaml": "a5a73c06b4eaee65521e32e96d02bdbf0531052989004b7faea32d4c79f2c8be",
-    "data/materials/V.yaml": "18568defcb06c6450d01b491237b6216dfcae22a2fc3e32b2014a272ea2657d2",
+    "data/materials/V.yaml": "0e0fcec25175539121f7093bc36de7874fc1eb08f4ebf5a439264ae7dadaa1e3",
     "data/materials/W.yaml": "1ffe9a8e8086a298a82e50c55ff0ba3cc0a8ffbf62ef2f22777b7dd70a6a8a6a",
     "data/materials/X.yaml": "7dd03fb6ab168e5a2cd90d1d938a00f79b641f63b676dab39a436e21ad795ea1",
     "data/materials/Y.yaml": "2a2bfccbf97561f2803d7725457331809250a1c00b298618ad6a360dd47d9138",
@@ -52,7 +52,7 @@
     "registry_records": 1287,
     "rows_with_profile": 296,
     "rows_with_registry": 324,
-    "rows_with_odt": 306,
+    "rows_with_odt": 307,
     "rows_with_unresolved_scalar_disagreements": 155
   },
   "rows": [
@@ -1378,7 +1378,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "odt",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -1415,7 +1414,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "odt",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -1453,7 +1451,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "odt",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -1473,7 +1470,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "odt",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -2732,9 +2728,8 @@
       "current_stock_ids": [
         "inventory:user-20260924:e4d0b22ca86b86be0c02"
       ],
-      "odt_present": false,
+      "odt_present": true,
       "missing_numeric_fields": [
-        "odt",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -3285,7 +3280,6 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [
-        "odt",
         "odt_ppm"
       ],
       "unresolved_scalar_disagreements": {}
@@ -6752,6 +6746,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "461fbda397a81c05c659ff84aec0f7f9d0efffaf2d7d92d9f32c5a6d3e53e083",
-  "input_cache_sha256": "d7a250d1c2f63b9016ceafdacddf21d77df01fc563137ab31680a96f6bf1a13c"
+  "output_sha256": "f6eae2de83dd02b9b072491bf1842e17a41e1d14ffdbf4cf04f1b78bf3dd746f",
+  "input_cache_sha256": "461fbda397a81c05c659ff84aec0f7f9d0efffaf2d7d92d9f32c5a6d3e53e083"
 }

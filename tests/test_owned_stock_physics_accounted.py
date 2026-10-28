@@ -36,22 +36,17 @@ _MSR_COSMETIC_EXTRACT = (
 HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # Synthetics with MW, VP and log P but no air threshold (Rule 1: a water,
     # ethanol or usage-level number is not an air threshold).
-    "Buccoxime": (("odt",), _NO_AIR_ODT),
-    "Cis-3 Hexenyl Hexanoate": (("odt",), _NO_AIR_ODT),
     "Diethyl Malonate": (("odt",), _NO_AIR_ODT),
     "Fructone B": (("odt",), _NO_AIR_ODT),
     "Gamma Octalactone": (("odt",), _NO_AIR_ODT + "; a 6.5 ug/L water threshold exists and is not usable"),
     "Glycolierral": (("odt",), _NO_AIR_ODT),
-    "Linalool Oxide": (("odt",), _NO_AIR_ODT + " for any isomer"),
-    "Rhubofix": (("odt",), _NO_AIR_ODT),
-    "Veloutone": (("odt",), _NO_AIR_ODT),
+    # (Buccoxime, Cis-3 Hexenyl Hexanoate, Linalool Oxide, Rhubofix and Veloutone left this list on
+    # 2026-10-28, group 7: a Symrise air threshold, Givaudan PROC values and labelled analogue estimates.)
     # Filled 2026-10-23 with RDKit MW and a labelled Crippen log P; still no air threshold.
     # Merged 2026-10-23 into the older entry, whose VP is a labelled TGSC estimate.
     "Aldehyde C16 EMPG": (("odt",), _NO_AIR_ODT_1023),
     "Para-Cresyl Phenyl Acetate": (("odt",), _NO_AIR_ODT_1023),
-    "Peach Ketone": (("odt",), _NO_AIR_ODT_1023),
-    # CAS confirmed on PubChem 2026-10-23; labelled Crippen log P added, still no air threshold.
-    "Pear Valerate": (("odt",), _NO_AIR_ODT_1023),
+    # (Peach Ketone and Pear Valerate left this list on 2026-10-28, group 7.)
     # (Methyl Laitone left this list on 2026-10-28 with the Givaudan SDS threshold; Ginger Lily
     # Oil the same day as H. spicatum rhizome oil, the closest identity.)
     # (Berry Hexanoate, Citronellyl Acetate, Cyclogalbanate, Decatone, Dupical, Magnolan,
@@ -97,16 +92,8 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # asked for the closest identity: they took the Michelia x alba concrete-oil and Santalum album
     # ISO 3518 profiles as labelled proxies.)
     # PerfumersWorld orders of 25 Oct 2026, arrived and searched 2026-10-28.
-    "Beta Caryophyllene": (
-        ("odt",),
-        "no primary human detection threshold in air found; the only figure (0.535 mg/m3, Ruth "
-        "1986) is second-hand via UBA 54/2024 'without further details' and is not loaded (2026-10-28)",
-    ),
-    "Isolongifolanone": (
-        ("odt",),
-        "no published human detection threshold in air found; Givaudan rates it 'Impactful' from "
-        "its own measured threshold but prints no number (2026-10-28)",
-    ),
+    # (Beta Caryophyllene and Isolongifolanone left this list on 2026-10-28, group 7: Givaudan PROC
+    # odour value over the engine VP, and a labelled Vertofix-analogue estimate.)
     "Fixative 505": (
         _ALL,
         "PerfumersWorld proprietary base, probably Firmenich Fixateur 505 E; Firmenich's SDS gives "

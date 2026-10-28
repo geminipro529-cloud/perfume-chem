@@ -415,7 +415,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 6
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -437,6 +437,7 @@
   odour_family: 'woody'
   notes: 'VP and density left null (2026-10-08). VP: dsm-firmenich "0.00735 Pa at 20C" (https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880) and Hekserij "Vapor pressure: 0.007 Pa" with no stated temperature (https://eng.hekserij.nl/shop/fragrance-raw-material/search-by-type/aroma-chemicals/rhubofix-fir); no 25 C value. Hekserij "Density: 1.03" has no stated temperature. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 23 Oct 2026: density now filled from a cited source; see provenance.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: methyl cedryl ketone (Vertofix) 6.3 ppb in air (van Gemert 2011 / Devos 1990, engine row), the closest measured polycyclic woody oxygenate (no epoxide has a measured air threshold), geometric mean with a PerfumersWorld ROI regression for ROI 100 (5.25 ppb) = 6 ppb (range 5-6.3). Givaudan lists only log Kcaps -1.2, no PROC. Paired with the low-confidence 0.98 Pa VP. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     odour_family: 'odour family "woody" from ''Woody (Technical Descriptors: Woody, Rhubarb, Grapefruit)'': RHUBOFIX® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880: Olfactive family Woody ... Technical Descriptors Woody, Rhubarb, Grapefruit (grade A_producer; ). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880 (dsm-firmenich, producer); "CAS# 0041816-03-9" (via material-data-firecrawl/allgaps/S3_fruity_captives.md)'

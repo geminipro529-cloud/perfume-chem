@@ -5976,6 +5976,92 @@ ODT_VERIFICATION["rum ether"] = {
     "note": "Constituent estimate 2026-10-28 (stock thread, unused-materials group 6); sources re-opened before loading.",
 }
 _refresh_normalized_odt_index()
+# Group 7 (28 Oct 2026). Inputs: /mnt/project-files/unused-gaps-20261028/group7/ (g7_*/VALUES.md);
+# Kenny 11:11 UTC: "Also put chemicals that are never used or cannot be used here". The PEER_EST rows
+# are Givaudan odour values divided into the engine's own saturated vapour, so each is tied to its VP.
+_SOURCED_ODT_2026_10_28.update({
+    "peach ketone": (0.0117, "PEER_EST", [
+        _GIVAUDAN_PROC + ": 'NECTARYL (2-(2-(4-methylcyclohex-3-en-1-yl)propyl)cyclopentanone) 13091' "
+        "(PROC) and log Kcaps -1.9, so OV = 13091 / 1.1 = 11,901; saturated vapour at the engine VP "
+        "0.0141 Pa (ECHA 0.009 Pa at 20 C, converted) = 139.2 ppb; 139.2 / 11,901 = 0.0117 ppb.",
+        "Cross-check: Brenna et al., Tetrahedron: Asymmetry 19 (2008) 800, per-isomer air thresholds "
+        "0.094, 0.112, 11.2 and 14.9 ng/L (https://www.leffingwell.com/chirality/nectaryl.htm); a "
+        "1:1:1:1 mix is 0.0225 ppb (1.9x).",
+    ]),
+    "veloutone": (1.62, "PEER_EST", [
+        _GIVAUDAN_PROC + ": 'VELOUTONE (2,2,5-trimethyl-5-pentylcyclopentanone) 14571' (PROC) and log "
+        "Kcaps -1.9, so OV = 14571 / 1.1 = 13,246; saturated vapour at the engine VP 2.17 Pa = 21,416 "
+        "ppb; 21,416 / 13,246 = 1.62 ppb. Replaces an empty row.",
+    ]),
+    "beta caryophyllene": (49.0, "PEER_EST", [
+        _GIVAUDAN_PROC + ": 'CARYOPHYLLENE ((Z)-4,11,11-trimethyl-8-methylenebicyclo[7.2.0]undec-4-ene) "
+        "| 609' (PROC) and log Kcaps -1.0, so OV = 609 / 2.0 = 304.5; saturated vapour at the engine VP "
+        "1.513 Pa = 14,932 ppb; 14,932 / 304.5 = 49.0 ppb.",
+        "Cross-check: Ruth 1986 0.535 mg/m3 = 64 ppb (quoted by UBA 54/2024), within 1.3x.",
+    ]),
+    "buccoxime": (5.818, "PEER_SINGLE", [
+        "Symrise Buccoxime product sheet "
+        "(https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/"
+        "Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Buccoxime.pdf), 'Threshold in Air': "
+        "'Buccoxime 0.0398 ug/l'; 39.8 x 24.45 / 167.25 = 5.818 ppb. Grade A_producer.",
+    ]),
+})
+_ANALOGUE_ODT_ESTIMATES_2026_10_28.update({
+    "pear valerate": (2.1, [
+        "Analogue: hexyl acetate 2.9 ppb in air (Cometto-Muniz 2008, engine row) = 17.1 ng/L, held at "
+        "the same mass threshold: 17.1 x 24.45 / 200.32 = 2.1 ppb. Manzanate (same acid) 0.30 ng/L is "
+        "the strong bound; order-of-magnitude only.",
+    ]),
+    "cis-3 hexenyl hexanoate": (3.1, [
+        "Analogues: cis-3-hexenyl acetate 15.52 ng/L (Givaudan US 12,340,876 Table 1) and "
+        "cis-3-hexenyl butyrate about 40 ng/L (" + _GIVAUDAN_PROC + ": OV 97634 / 1.8 with an "
+        "estimated VP 25-39 Pa); geometric mean 25 ng/L x 24.45 / 198.31 = 3.1 ppb (range 1.9-6.0).",
+    ]),
+    "isolongifolanone": (9.0, [
+        "Analogue: methyl cedryl ketone (Vertofix) 6.3 ppb (van Gemert 2011 / Devos 1990, engine row), "
+        "geometric mean with a PerfumersWorld ROI regression for ROI 50 (14 ppb) = 9 ppb (range 6-14).",
+    ]),
+    "rhubofix": (6.0, [
+        "Analogue: methyl cedryl ketone (Vertofix) 6.3 ppb (engine row), geometric mean with a "
+        "PerfumersWorld ROI regression for ROI 100 (5.25 ppb) = 6 ppb (range 5-6.3).",
+    ]),
+    "linalool oxide": (2.3, [
+        "Analogues from one panel and method (Elsharif, Banerjee & Buettner, Front. Chem. 3:57 (2015), "
+        "Table 3): linalool 3.2 ng/L; every oxygenated derivative at least 2x weaker (floor 6.4 ng/L); "
+        "8-oxolinalool 38.1 ng/L. Geometric mean 16 ng/L x 24.45 / 170.25 = 2.3 ppb (range 0.92-23). "
+        "No isomer has a measured air threshold.",
+    ]),
+})
+_refresh_normalized_odt_index()
+for _name in ("peach ketone", "veloutone", "beta caryophyllene", "buccoxime"):
+    _odt_air, _vfy, _sources = _SOURCED_ODT_2026_10_28[_name]
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    ODT_VERIFICATION[_key] = {
+        "vfy": _vfy,
+        "sources": list(_sources),
+        "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 7); source re-opened before loading.",
+        **({"superseded": dict(ODT_VERIFICATION[_key])} if ODT_VERIFICATION.get(_key) else {}),
+    }
+for _name in ("pear valerate", "cis-3 hexenyl hexanoate", "isolongifolanone", "rhubofix", "linalool oxide"):
+    _odt_air, _sources = _ANALOGUE_ODT_ESTIMATES_2026_10_28[_name]
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    ODT_VERIFICATION[_key] = {
+        "vfy": "UNVERIFIED",
+        "sources": list(_sources),
+        "note": "Analogue estimate 2026-10-28 (unused-materials group 7); not a measurement.",
+        **({"superseded": dict(ODT_VERIFICATION[_key])} if ODT_VERIFICATION.get(_key) else {}),
+    }
+_refresh_normalized_odt_index()
 ANALOGUE_ODT_BATCH_2026_10_28 = True
 
 

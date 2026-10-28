@@ -1,4 +1,4 @@
-"""Groups 1-6 of the least-used report (28 Oct 2026): sourced fixes, labelled threshold estimates and
+"""Groups 1-7 of the least-used report (28 Oct 2026): sourced fixes, labelled threshold estimates and
 Kenny's bottle answers from the "Fix gaps in unused materials" thread. Every source was re-opened
 before loading. These pin the data and its sources; they make no sensory claim."""
 
@@ -633,3 +633,45 @@ def test_lilyreal_vp_is_one_labelled_surrogate():
     spine = load_registry().get("Lilyreal ND")
     assert spine.vp_25c_pa == pytest.approx(0.02) and "UNVERIFIED" in spine.provenance["vp_25c_pa"]
     assert DIFFUSION_DATA["Lilyreal ND"]["VP_25"] == pytest.approx(0.02)
+
+
+# ── Group 7 (28 Oct 2026) ──────────────────────────────────────────────────────────────────
+
+
+@pytest.mark.parametrize(
+    ("name", "odt", "vfy"),
+    (
+        ("Peach Ketone", 0.0117, "PEER_EST"),
+        ("Veloutone", 1.62, "PEER_EST"),
+        ("Beta Caryophyllene", 49.0, "PEER_EST"),
+        ("Buccoxime", 5.818, "PEER_SINGLE"),
+        ("Pear Valerate", 2.1, "UNVERIFIED"),
+        ("Cis-3 Hexenyl Hexanoate", 3.1, "UNVERIFIED"),
+        ("Isolongifolanone", 9.0, "UNVERIFIED"),
+        ("Rhubofix", 6.0, "UNVERIFIED"),
+        ("Linalool Oxide", 2.3, "UNVERIFIED"),
+    ),
+)
+def test_group_7_air_thresholds_match_in_the_engine_and_the_spine(name, odt, vfy):
+    key = lookup_odt_raw_name(name)
+    assert ODT_DATA[key]["odt_air"] == pytest.approx(odt)
+    assert ODT_VERIFICATION[key]["vfy"] == vfy
+    assert load_registry().get(name).odt_air_ppb == pytest.approx(odt)
+
+
+@pytest.mark.parametrize(
+    ("name", "proc", "log_kcaps"),
+    (("Peach Ketone", 13091, -1.9), ("Veloutone", 14571, -1.9), ("Beta Caryophyllene", 609, -1.0)),
+)
+def test_givaudan_odour_values_are_reproduced_over_the_engine_vp(name, proc, log_kcaps):
+    # ODT = saturated vapour / OV, so the pair must stay tied to the spine VP it was computed on.
+    spine = load_registry().get(name)
+    saturated_ppb = spine.vp_25c_pa / 101325 * 1e9
+    assert saturated_ppb / spine.odt_air_ppb == pytest.approx(proc / (log_kcaps + 3), rel=0.01)
+
+
+def test_peach_ketone_and_pear_valerate_vps_are_25c_values():
+    peach, pear = load_registry().get("Peach Ketone"), load_registry().get("Pear Valerate")
+    assert (peach.vp_25c_pa, peach.vp_source) == (pytest.approx(0.0141), "ECHA_measured_20C_converted")
+    assert (pear.vp_25c_pa, pear.vp_source) == (pytest.approx(9.3), "Givaudan_HS_band_25C")
+    assert "10,982,173" in pear.provenance["vp_25c_pa"]

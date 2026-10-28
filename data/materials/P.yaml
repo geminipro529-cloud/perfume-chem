@@ -983,13 +983,13 @@
   logp: 5.3
   functional_groups: []
   chirality:
-  vp_25c_pa: 0.009
-  vp_source: ECHA_measured_20C_not_corrected  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 0.0141
+  vp_source: ECHA_measured_20C_converted
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.0117
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -1005,11 +1005,12 @@
   odour_family: 'fruity'
   notes: MySkinRecipes order 2199458 'Peach Cyclopentanone, Peach Ketone', neat as supplied; CAS and purity not asserted.
   provenance:
+    odt_air_ppb: 'PEER_EST: Givaudan SA, US 2018/0185808 A1 (https://www.freepatentsonline.com/y2018/0185808.html): ''NECTARYL ... 13091'' (PROC) and log Kcaps -1.9, so Givaudan''s odour value OV = 13091 / 1.1 = 11,901; saturated vapour at the engine VP 0.0141 Pa = 139.2 ppb; 139.2 / 11,901 = 0.0117 ppb (0.105 ng/L). Tied to that VP: the pair reproduces Givaudan''s OV. Cross-check: Brenna et al., Tetrahedron: Asymmetry 19 (2008) 800, per-isomer air thresholds 0.094, 0.112, 11.2 and 14.9 ng/L (via https://www.leffingwell.com/chirality/nectaryl.htm); a 1:1:1:1 mix gives 0.0225 ppb (1.9x). Assumes the MSR bottle is Nectaryl (95962-14-4). Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     odour_family: 'odour family "fruity" from ''Fruity (Olfactive Note: Fruity, Peach, Apricot, Lactonic)'': Print Page | Givaudan: Nectaryl, https://www.givaudan.com/print/1314696: Nectaryl Giv Code 7446003 Olfactive Family Fruity | Olfactive Note Fruity Peach Apricot Lactonic (grade A_producer; ). Second reader: Page is Givaudan Nectaryl; its CAS 95962-14-4 equals the inventory CAS for ''Peach Ketone'', so same molecule. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Givaudan Nectaryl page (CAS 95962-14-4), https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/nectaryl: "Nectaryl has the smell of a natural nectarine." "Olfactive notes: Fruity, Peach, Apricot, Lactonic". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     cas: 'MySkinRecipes 2571 ''Peach Cyclopentanone'' = Nectaryl (Givaudan), 2-[2-(4-methyl-3-cyclohexen-1-yl)propyl]cyclopentanone (https://www.thegoodscentscompany.com/data/rw1052381.html); not 2-heptylcyclopentanone (137-03-1)'
     density_25c_g_ml: 'ECHA 0.963 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
-    vp_25c_pa: 'MEASURED: ECHA key study (Nectaryl, 95962-14-4) 0.009 Pa at 20 C; EPI estimate was 0.049 Pa. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'MEASURED at 20 C, converted: ECHA key study (Nectaryl, 95962-14-4) 0.009 Pa at 20 C (/mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md) x 1.564 (Clausius-Clapeyron, dHvap 65 kJ/mol) = 0.0141 Pa at 25 C. Givaudan''s page prints 0.0001 hPa (0.01 Pa, temperature not printed). The air ODT is paired with this VP. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
     logp: 'RIFM safety assessment, Nectaryl (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/95962-14-4.pdf): ''3 Log Kow: Log Pow = 5.3 1. (RIFM, 2000b), log Pow = 4.8 (RIFM, 2010), 5.05 (EPI Suite)''; printed ; RIFM 2000b study (Givaudan page also 5,3); RIFM 2010 gave 4.8; engine 4.344 is a TGSC estimate; grade A_measured. RIFM''s environmental section uses 4.8. Second reader: Page identity: 2-(p-Menth-1-ene-10-yl)cyclopentanone, CAS 95962-14-4; synonym Nectaryl. CAS 95962-14-4 equals the inventory CAS for Peach Ketone. No temperature printed. The page''s environmental section uses log Kow... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     smiles: 'PubChem structure resolved from CAS 95962-14-4 by D:\agent-cache\tools\chemprops.py, run 2026-10-23'
@@ -1025,13 +1026,13 @@
   logp: 3.4
   functional_groups: []
   chirality:
-  vp_25c_pa: 13.9
-  vp_source: EPI  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  vp_25c_pa: 9.3
+  vp_source: Givaudan_HS_band_25C
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 2.1
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -1045,13 +1046,14 @@
   families: []
   character: 'Fruity, pear-like, natural'
   odour_family: 'citrus'
-  notes: 'MySkinRecipes order 2199458 ''Pear Valerate, Peranat'', neat as supplied; CAS and purity not asserted. Identity 2026-10-23: CAS 90397-38-9 (2-methylpentyl 2-methylpentanoate, PubChem CID 163588) confirmed on PubChem; the link from the MySkinRecipes "Peranat" product to this CAS is unverified.'
+  notes: 'MySkinRecipes order 2199458 ''Pear Valerate, Peranat'', neat as supplied; CAS and purity not asserted. Identity 2026-10-23: CAS 90397-38-9 (2-methylpentyl 2-methylpentanoate, PubChem CID 163588) confirmed on PubChem; the link from the MySkinRecipes "Peranat" product to this CAS is unverified. 2026-10-28: VP now Givaudan''s measured 25 C headspace band (9.3 Pa) and a labelled analogue air ODT (2.1 ppb).'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: hexyl acetate 2.9 ppb in air (Cometto-Muniz et al., Physiol. Behav. 2008, engine row) = 17.1 ng/L, held at the same mass threshold for this C6-alcohol ester: 17.1 x 24.45 / 200.32 = 2.1 ppb. Bounds: Manzanate (same 2-methylpentanoate acid) 0.30 ng/L; branched hexyl esters can be much weaker. Order-of-magnitude only. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     odour_family: 'odour family "citrus" from ''Citrus, Fruity'': PERANAT | Kao Chemicals store on Knowde, https://www.knowde.com/stores/kao-chemicals/products/peranat: Fragrance Family: Citrus, Fruity (grade A_producer; ). Second reader: Kao''s Peranat; data/materials/P.yaml records Pear Valerate as ''Peranat'', CAS 90397-38-9 (its link to the MySkinRecipes product is marked unverified there). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Kao PERANAT data sheet (2-methylpentyl 2-methylvalerate, CAS 90397-38-9), https://chemical.kao.com/content/dam/sites/kao/chemical-kao-com/en/products/catalog_usen_B0010631.pdf: "Odor ... Fruity, pear-like, natural". Usage sentences left out. Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     cas: 'Kao PERANAT https://chemical.kao.com/en/products/B0010631_en/; 2-methylpentyl 2-methylpentanoate'
     density_25c_g_ml: 'ECHA 0.8564 g/cm3 at 20 C (20 C value). /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
-    vp_25c_pa: 'ESTIMATE kept: EPI Suite 13.9 Pa via TGSC. ECHA value DISPUTED: "ca. 8.7 kPa at 20 C" (reliability 2) is not credible for a C12 ester; not loaded. /mnt/project-files/missing-data-20261021/PC_LOOKUPS_RESULTS.md (PC lookups, 21 Oct 2026)'
+    vp_25c_pa: 'Producer measurement band: Givaudan SA, US 10,982,173 B2 (https://patents.justia.com/patent/10982173): ''equilibrium headspace concentration from 601 ug/l to 900 ug/l, such as ... 2-methylpentyl 2-methylpentanoate (for example PERANAT)'', measured at 25 C. Band midpoint 750 ug/L x 8.314 x 298.15 / 200.32 = 9.3 Pa (band 7.4-11.1 Pa). Replaces the EPI estimate 13.9 Pa. ECHA''s ''ca. 8.7 kPa at 20 C'' fits the band only if the unit is Pa, so it is still not loaded as printed. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     user_stock_dilution: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
     smiles: 'PubChem CID 163588 structure for CAS 90397-38-9 (PUG REST property lookup by CAS, fetched 2026-10-23); chemprops does not query NCBI for a CAS, so the structure was passed to D:\agent-cache\tools\chemprops.py as smiles:, run 2026-10-23'
     logp: 'rdkit-crippen-estimate: CALCULATED RDKit Crippen MolLogP from SMILES CCCC(C)COC(=O)C(C)CCC (PubChem CID 163588 structure), D:\agent-cache\tools\chemprops.py, run 2026-10-23; not measured'

@@ -76161,15 +76161,22 @@
     },
     "synergies": [],
     "odor_profile": "Supplier-labelled Buccoxime; detailed odor profile not reviewed in this stock intake.",
-    "odt": null,
+    "odt": 5.818,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_SINGLE",
       "sources": [
-        "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "Symrise Buccoxime product sheet (https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Buccoxime.pdf), 'Threshold in Air': 'Buccoxime 0.0398 ug/l'; 39.8 x 24.45 / 167.25 = 5.818 ppb. Grade A_producer."
       ],
-      "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied.",
-      "declared_vfy": "UNAVAILABLE"
+      "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 7); source re-opened before loading.",
+      "superseded": {
+        "vfy": "UNAVAILABLE",
+        "sources": [
+          "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        ],
+        "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied."
+      },
+      "declared_vfy": "PEER_SINGLE"
     },
     "current_stocks": [
       {
@@ -77130,15 +77137,22 @@
     },
     "synergies": [],
     "odor_profile": "cis-3 Hexenyl Hexanoate has a green vegetable and pear-like odor",
-    "odt": null,
+    "odt": 3.1,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
       "sources": [
-        "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "Analogues: cis-3-hexenyl acetate 15.52 ng/L (Givaudan US 12,340,876 Table 1) and cis-3-hexenyl butyrate about 40 ng/L (Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): OV 97634 / 1.8 with an estimated VP 25-39 Pa); geometric mean 25 ng/L x 24.45 / 198.31 = 3.1 ppb (range 1.9-6.0)."
       ],
-      "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied.",
-      "declared_vfy": "UNAVAILABLE"
+      "note": "Analogue estimate 2026-10-28 (unused-materials group 7); not a measurement.",
+      "superseded": {
+        "vfy": "UNAVAILABLE",
+        "sources": [
+          "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        ],
+        "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied."
+      },
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {
@@ -79412,11 +79426,15 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": null,
+    "odt": 2.3,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "sources": [
+        "Analogues from one panel and method (Elsharif, Banerjee & Buettner, Front. Chem. 3:57 (2015), Table 3): linalool 3.2 ng/L; every oxygenated derivative at least 2x weaker (floor 6.4 ng/L); 8-oxolinalool 38.1 ng/L. Geometric mean 16 ng/L x 24.45 / 170.25 = 2.3 ppb (range 0.92-23). No isomer has a measured air threshold."
+      ],
+      "note": "Analogue estimate 2026-10-28 (unused-materials group 7); not a measurement.",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {
@@ -80972,15 +80990,22 @@
     },
     "synergies": [],
     "odor_profile": "Rhubofix is woody, spicy, floral and fruity note. It has a zesty freshness and unique green rhubarb",
-    "odt": null,
+    "odt": 6.0,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
       "sources": [
-        "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "Analogue: methyl cedryl ketone (Vertofix) 6.3 ppb (engine row), geometric mean with a PerfumersWorld ROI regression for ROI 100 (5.25 ppb) = 6 ppb (range 5-6.3)."
       ],
-      "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied.",
-      "declared_vfy": "UNAVAILABLE"
+      "note": "Analogue estimate 2026-10-28 (unused-materials group 7); not a measurement.",
+      "superseded": {
+        "vfy": "UNAVAILABLE",
+        "sources": [
+          "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        ],
+        "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied."
+      },
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {
@@ -81683,15 +81708,22 @@
     },
     "synergies": [],
     "odor_profile": "fresh floral slightly fruity herbal woody",
-    "odt": null,
+    "odt": 1.62,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_EST",
       "sources": [
-        "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'VELOUTONE (2,2,5-trimethyl-5-pentylcyclopentanone) 14571' (PROC) and log Kcaps -1.9, so OV = 14571 / 1.1 = 13,246; saturated vapour at the engine VP 2.17 Pa = 21,416 ppb; 21,416 / 13,246 = 1.62 ppb. Replaces an empty row."
       ],
-      "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied.",
-      "declared_vfy": "UNAVAILABLE"
+      "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 7); source re-opened before loading.",
+      "superseded": {
+        "vfy": "UNAVAILABLE",
+        "sources": [
+          "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        ],
+        "note": "Inventory receipt establishes product and stock ownership only; no compatible measured threshold is supplied."
+      },
+      "declared_vfy": "PEER_EST"
     },
     "current_stocks": [
       {
@@ -85586,11 +85618,16 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": null,
+    "odt": 0.0117,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "vfy": "PEER_EST",
+      "sources": [
+        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'NECTARYL (2-(2-(4-methylcyclohex-3-en-1-yl)propyl)cyclopentanone) 13091' (PROC) and log Kcaps -1.9, so OV = 13091 / 1.1 = 11,901; saturated vapour at the engine VP 0.0141 Pa (ECHA 0.009 Pa at 20 C, converted) = 139.2 ppb; 139.2 / 11,901 = 0.0117 ppb.",
+        "Cross-check: Brenna et al., Tetrahedron: Asymmetry 19 (2008) 800, per-isomer air thresholds 0.094, 0.112, 11.2 and 14.9 ng/L (https://www.leffingwell.com/chirality/nectaryl.htm); a 1:1:1:1 mix is 0.0225 ppb (1.9x)."
+      ],
+      "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 7); source re-opened before loading.",
+      "declared_vfy": "PEER_EST"
     },
     "current_stocks": [
       {
@@ -85666,10 +85703,16 @@
         "fields": {
           "clp": 4.344
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 0.009
+        }
       }
     ],
     "mw": 220.36,
-    "vp": 0.009,
+    "vp": 0.0141,
     "clp": 5.3
   },
   {
@@ -85697,11 +85740,15 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": null,
+    "odt": 2.1,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "sources": [
+        "Analogue: hexyl acetate 2.9 ppb in air (Cometto-Muniz 2008, engine row) = 17.1 ng/L, held at the same mass threshold: 17.1 x 24.45 / 200.32 = 2.1 ppb. Manzanate (same acid) 0.30 ng/L is the strong bound; order-of-magnitude only."
+      ],
+      "note": "Analogue estimate 2026-10-28 (unused-materials group 7); not a measurement.",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {
@@ -85765,10 +85812,16 @@
         "fields": {
           "clp": null
         }
+      },
+      {
+        "reason": "GATE_PHYSICS_SYNCHRONIZATION_20261009",
+        "fields": {
+          "vp": 13.9
+        }
       }
     ],
     "mw": 200.32,
-    "vp": 13.9,
+    "vp": 9.3,
     "clp": 3.4
   },
   {
@@ -87011,11 +87064,16 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": null,
+    "odt": 49.0,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "vfy": "PEER_EST",
+      "sources": [
+        "Givaudan SA, US 2018/0185808 (microcapsules): 'PROC_i = OV_i [log10 Kcaps_i + 3]', with PROC and calculated log Kcaps tables (https://www.freepatentsonline.com/y2018/0185808.html): 'CARYOPHYLLENE ((Z)-4,11,11-trimethyl-8-methylenebicyclo[7.2.0]undec-4-ene) | 609' (PROC) and log Kcaps -1.0, so OV = 609 / 2.0 = 304.5; saturated vapour at the engine VP 1.513 Pa = 14,932 ppb; 14,932 / 304.5 = 49.0 ppb.",
+        "Cross-check: Ruth 1986 0.535 mg/m3 = 64 ppb (quoted by UBA 54/2024), within 1.3x."
+      ],
+      "note": "Sourced threshold 2026-10-28 (stock thread, unused-materials group 7); source re-opened before loading.",
+      "declared_vfy": "PEER_EST"
     },
     "current_stocks": [
       {
@@ -87261,11 +87319,15 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "odt": null,
+    "odt": 9.0,
     "odt_ethanol_ppm": null,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "sources": [
+        "Analogue: methyl cedryl ketone (Vertofix) 6.3 ppb (van Gemert 2011 / Devos 1990, engine row), geometric mean with a PerfumersWorld ROI regression for ROI 50 (14 ppb) = 9 ppb (range 6-14)."
+      ],
+      "note": "Analogue estimate 2026-10-28 (unused-materials group 7); not a measurement.",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {

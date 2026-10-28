@@ -2414,7 +2414,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 2.3
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -2432,8 +2432,9 @@
   families: []
   character: 'Herbal, Pine, Floral, Fresh; a fresh, sweet material with a fresh earthy quality'
   odour_family: 'herbal'
-  notes: 'Air ODT not set: no compatible published air threshold was verified (2026-10-08). FMA lists 0.01 mm Hg at 20 C, higher than the 25 C EPI estimate; the measured boiling point (196.3 C) also suggests EPI underestimates VP.'
+  notes: 'Air ODT not set: no compatible published air threshold was verified (2026-10-08). FMA lists 0.01 mm Hg at 20 C, higher than the 25 C EPI estimate; the measured boiling point (196.3 C) also suggests EPI underestimates VP. 2026-10-28: air ODT now a labelled analogue estimate (2.3 ppb, see provenance); searched van Gemert-type compilations, Givaudan and Elsharif 2015, no isomer has a measured air value. PW 4LL00277 labels CAS 5989-33-3.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate: Elsharif, Banerjee & Buettner, Front. Chem. 3:57 (2015), Table 3 (doi:10.3389/fchem.2015.00057), one panel and one GC-O method: linalool 3.2 ng/L air; ''All other compounds investigated within this study exhibited an odor threshold of at least a factor of 2 higher than the threshold of linalool'' (floor 6.4 ng/L); 8-oxolinalool 38.1 ng/L. Geometric mean of the floor and 8-oxolinalool = 16 ng/L x 24.45 / 170.25 = 2.3 ppb (range 0.92-23). Commercial furanoid cis/trans grade (FEMA 3746). No measured air threshold exists for any isomer. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     odour_family: 'odour family "herbal" from ''Herbal - Agrestic'': Linalool Oxide | Givaudan fragrance molecules, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/linalool-oxide: Olfactive Family Herbal - Agrestic | Olfactive Note Herbal Pine Floral Fresh (grade A_producer; ). Second reader: CAS 1365-19-1 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Linalool Oxide | Givaudan fragrance molecules, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/linalool-oxide: Olfactive Note Herbal Pine Floral Fresh ... Linalool Oxide is a fresh, sweet material which is very useful for its ability to give additional lift to floral accords. It also has a fresh earthy quality ... (grade A_producer; ). Second reader: Value is an abridgement of verbatim page pieces. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md

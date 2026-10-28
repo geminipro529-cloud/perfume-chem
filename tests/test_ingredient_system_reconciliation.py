@@ -186,7 +186,10 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # constituent estimate) and retires the unsourced costus olifac 5.0; groups 1-4 gave 5531c14a….
     # 2026-10-28 group 6: rum ether 160 ppb (UNVERIFIED constituent estimate) and the stale static rows
     # triplal 0.5 -> 0.582 and florhydral 0.3 -> 0.008995 aligned to their literature values; group 5 gave bdcd5e59….
-    assert digest == "ed3945b005030fd261a9b3e59ba4322d0fb2f893bc602ae8f5a61d675f1527ad"
+    # Group 7: Givaudan PROC values for peach ketone 0.0117, veloutone 1.62 and beta caryophyllene 49.0,
+    # Symrise buccoxime 5.818, and UNVERIFIED analogues pear valerate 2.1, cis-3 hexenyl hexanoate 3.1,
+    # isolongifolanone 9, rhubofix 6 and linalool oxide 2.3; group 6 gave ed3945b0….
+    assert digest == "ffecc9dbae726544d61c70f88cee395063763b80286701120657152cf9f4637e"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

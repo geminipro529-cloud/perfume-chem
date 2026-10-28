@@ -242,7 +242,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 1.62
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -264,6 +264,7 @@
   odour_family: 'fruity'
   notes: 'VP left null (2026-10-08): 40x conflict and no 25 C measurement. RIFM 2017 quotes "0.00938 mm Hg @ 20 C (US EPA, 2012a), 0.4 mm Hg @20C [FMA Database], 0.0163 mm Hg @ 25 C (US EPA, 2012a)" = 1.25 Pa (20 C, est), 53.3 Pa (20 C, basis unstated), 2.17 Pa (25 C, est) at 133.322 Pa/mmHg; Vigon SDS 502847 also gives 0.4 mmHg at 20 C; TGSC rw1000241 0.026 mmHg at 25 C (est) = 3.47 Pa. TGSC logP 4.164 (est). No air ODT found. Source: material-data-firecrawl/BATCH1_FEMME_20261008.md. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa null -> 2.17.'
   provenance:
+    odt_air_ppb: 'PEER_EST: Givaudan SA, US 2018/0185808 A1 (https://www.freepatentsonline.com/y2018/0185808.html): ''VELOUTONE ... 14571'' (PROC) and log Kcaps -1.9, so OV = 14571 / 1.1 = 13,246; saturated vapour at the engine VP 2.17 Pa = 21,416 ppb; 21,416 / 13,246 = 1.62 ppb (12.97 ng/L). Paired with that VP. Cross-check: Delphone (2-pentylcyclopentanone), Givaudan OV 701,635 with HS 601-900 ug/L, is 0.86-1.28 ng/L, so Veloutone reads about 10x weaker. Loaded 2026-10-28 (unused-materials group 7; source re-opened).'
     odour_family: 'odour family "fruity" from ''Fruity (Technical Descriptors: Peach, Lactonic Fruits, Celery)'': VELOUTONE® | dsm-firmenich Perfumery Studio, https://studio.dsm-firmenich.com/product/veloutoner-pe-990257: Olfactive family Fruity ... Technical Descriptors Peach, Lactonic Fruits, Celery (grade A_producer; ). Second reader: CAS 65443-14-3 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'PerfumersWorld SDS 3LH00459 (local snapshot, batch VEL00459/26280); RIFM fragrance ingredient safety assessment, Veloutone, CAS 65443-14-3, Food Chem. Toxicol. 110 Suppl 1 (2017) S662-S669, doi:10.1016/j.fct.2017.10.009 (via material-data-firecrawl/BATCH1_FEMME_20261008.md)'
