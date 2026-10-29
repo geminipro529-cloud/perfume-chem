@@ -477,8 +477,10 @@ def test_the_floor_holds_describe_the_rows_the_detection_pass_delivers() -> None
     # delivered rows, not on the composer's rows before the pass. (The brief was
     # "vanilla tonka gourmand" until 25 Oct 2026, when a stock-record edit renewed
     # the overlay stock ids, the solver's stable tie picked Ethyl Maltol 1% over
-    # 10%, and the pass no longer raised a row there.)
-    result = design_inventory_formula(idea="coffee vanilla")
+    # 10%, and the pass no longer raised a row there. It was "coffee vanilla" until
+    # 29 Oct 2026, when the composer's stock-choice fixes left that brief's rows
+    # needing no raise.)
+    result = design_inventory_formula(idea="coffee")
     formula = result["optimized_formula"]
     assert formula["detection_check"]["adjustments"]
     long_per_ml, active_pct = _row_measures(formula["rows"])

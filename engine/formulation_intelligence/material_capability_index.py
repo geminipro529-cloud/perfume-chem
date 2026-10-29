@@ -57,6 +57,52 @@ def _usable_odor_description(description: str) -> str:
     return description
 
 
+# Producer prose about where a material goes ("the ingredient of choice in
+# many musky colognes") names other products' odours, not its own.
+_PRODUCT_USE = re.compile(
+    r"\b(?:ingredients? of choice|in many|widely used|ideal (?:for|in)|perfect (?:for|in)|"
+    r"recommended (?:for|in)|popular (?:in|for)|found in)\b",
+    re.I,
+)
+
+
+def _gate_scorable(identity: str) -> bool:
+    """The gate holds an own air threshold for it, so its dose can be judged."""
+    from engine.odor_thresholds import lookup_odt_entry
+
+    return lookup_odt_entry(identity) is not None
+
+
+def _registry_odor_text(*names: str) -> tuple[str, ...]:
+    """The material registry's own odour words for a stock the profile table lacks.
+
+    ``data/materials`` carries a character sentence and an odour family for
+    most owned stocks (many quoted from producer or supplier pages); the
+    profile table in ``engine.ingredient_intelligence`` covers fewer.  Without
+    this fallback a stock with no table profile has no own-odour words, so it
+    could never win a layer the brief did not name it for.  Only stocks the
+    gate can score (own air threshold) take it: an unscorable fill would turn
+    a named note the gate can see into one it cannot.  Negated and
+    application clauses are dropped; this is design vocabulary, not a sensory
+    measurement.
+    """
+    from engine.data_spine.loader import load_registry
+
+    registry = load_registry()
+    for name in names:
+        material = registry.get(name) if name else None
+        if material is None:
+            continue
+        text = tuple(
+            rules_v5.positive_description(_PRODUCT_USE.split(value, maxsplit=1)[0])
+            for value in (material.character or "", material.odour_family or "")
+            if value.strip()
+        )
+        if text:
+            return text
+    return ()
+
+
 # Conjunction across groups, alternatives within a group. Whole own-descriptor
 # tokens only: neither a product name nor generic freshness proves a facet.
 # These are eligibility heuristics, not sensory-recognition calibrations.
@@ -126,6 +172,9 @@ class MaterialCapability:
     knowledge_claim_ids: tuple[str, ...] = ()
     knowledge_role_slots: tuple[str, ...] = ()
     descriptor_vocabulary: frozenset[str] = frozenset()
+    # True when the own-odour words come from the material registry's
+    # sentence (``_registry_odor_text``), not from a profile-table entry.
+    registry_descriptors: bool = False
     architecture_v5_vocabulary: frozenset[str] = frozenset()
 
     @property
@@ -234,13 +283,17 @@ def _capability(candidate: Candidate) -> MaterialCapability:
         *(key for key, value in profile.character.items() if float(value) > 0),
     )
     descriptor_vocabulary = _tokens((*own_descriptors, *(reviewed["vocabulary"] if reviewed else ())))
+    registry_text: tuple[str, ...] = ()
+    if not descriptor_vocabulary and _gate_scorable(identity):
+        registry_text = _registry_odor_text(identity, stock.name)
+        descriptor_vocabulary = _tokens(registry_text)
     # v5 does not use role/application lists or numeric character dimensions as
     # own-odor evidence. Keep the historical vocabulary unchanged for replay.
     v5_descriptors = () if candidate.profile_source == "HEURISTIC_CATEGORY_PROXY" else (
         rules_v5.positive_description(_usable_odor_description(profile.odor_description)),
         rules_v5.positive_description(profile.texture),
     )
-    v5_vocabulary = _tokens((*v5_descriptors, *(reviewed["vocabulary"] if reviewed else ())))
+    v5_vocabulary = _tokens((*v5_descriptors, *registry_text, *(reviewed["vocabulary"] if reviewed else ())))
     if "fruit" in descriptor_vocabulary or "fruity" in descriptor_vocabulary:
         descriptor_vocabulary |= frozenset(("fruit", "fruity"))
     vocabulary = _tokens(
@@ -257,6 +310,7 @@ def _capability(candidate: Candidate) -> MaterialCapability:
             profile.or_family or "",
             *profile.formulation_roles,
             *profile.synergies,
+            *registry_text,
             *(reviewed["vocabulary"] if reviewed else ()),
         )
     )
@@ -287,6 +341,7 @@ def _capability(candidate: Candidate) -> MaterialCapability:
         knowledge_claim_ids=tuple(reviewed["claim_ids"]) if reviewed else (),
         knowledge_role_slots=tuple(reviewed["role_slots"]) if reviewed else (),
         descriptor_vocabulary=descriptor_vocabulary,
+        registry_descriptors=bool(registry_text) and bool(descriptor_vocabulary),
         architecture_v5_vocabulary=v5_vocabulary,
     )
 
