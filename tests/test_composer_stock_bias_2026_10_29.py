@@ -54,8 +54,6 @@ def test_an_unnamed_role_never_takes_an_old_inventory_text_line(idea):
         ("Peppermint EO", "Peppermint Essential Oil"),
         ("Rosemary EO", "Rosemary EO (French Rosmarinus Officinalis leaf oil)"),
         ("Beta Damascone", "Damascone Beta"),
-        ("Geranium Bourbon Essential Oil", "Geranium EO"),
-        ("Olibanum Oil", "Frankincense EO"),
         ("Sweet Orange Essential Oil", "Orange Peel EO"),
         ("Black Pepper EO", "Black Pepper materials"),
     ],

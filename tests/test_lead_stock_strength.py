@@ -171,7 +171,9 @@ def test_the_fougere_lavender_lead_carries_its_share(mode):
 
 @pytest.mark.parametrize("mode", ["FAST_SKETCH", "DEEP_COMPOSE"])
 def test_a_fruit_lead_on_hexyl_acetate_keeps_the_one_percent_grade(mode):
-    result = design_formula(idea="A pear and apple fruity floral over a warm balsamic base.",
+    # Since 29 Oct 2026 Pear Valerate (registry odour words) leads this brief;
+    # leaving it out keeps the Hexyl Acetate lead whose grade this pins.
+    result = design_formula(idea="A pear and apple fruity floral over a warm balsamic base, no Pear Valerate.",
                             liquid_concentrate_ul_decimal="6000", design_mode=mode)
     # The solved formula and the structural control; a stock-alternative
     # variant steps off the control's stocks and may take the 10% grade.

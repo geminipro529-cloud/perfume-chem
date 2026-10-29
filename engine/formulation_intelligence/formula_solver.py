@@ -740,6 +740,19 @@ def _key_constituents(identity_name: str) -> frozenset[str]:
 
 
 @lru_cache(maxsize=None)
+@lru_cache(maxsize=None)
+def _ifra_prohibited_name(*names: str) -> bool:
+    from engine.ifra_standards import load_ifra_table
+
+    material = load_ifra_table().lookup(*names)
+    return material is not None and material.status == "prohibited"
+
+
+def _ifra_prohibited(capability: MaterialCapability) -> bool:
+    stock = capability.candidate.stock
+    return _ifra_prohibited_name(capability.identity_name, stock.name or "")
+
+
 def _has_own_threshold(identity_name: str) -> bool:
     from engine.odor_thresholds import lookup_odt_entry
 
@@ -1187,7 +1200,7 @@ def _off_brief_penalty(
         # No own-odor annotation (e.g. a category proxy): nothing shows the
         # layer fits, so it must not outrank annotated materials by default.
         return _OFF_BRIEF_FAMILY_PENALTY
-    if capability.registry_descriptors:
+    if getattr(capability, "registry_descriptors", False):
         # A registry sentence ("sweet, woody and persistent") names fewer
         # families than a profile entry, so it would dodge the penalty its
         # fuller-described rivals pay and win every such layer.  It pays at
@@ -1286,6 +1299,11 @@ def _unary_rank_for_role(
             # the profile table's name ("Cedarwood EO"), so it outscored the
             # owned bottle and the gate then held the formula.  Only a brief
             # that names it takes it.
+            continue
+        if role.exact_material is None and _ifra_prohibited(capability):
+            # The gate fails any dose of it (Freesia HDI carries Lilial), so an
+            # unnamed role must not reach for it; a brief that names it still
+            # gets the gate's refusal and reason.
             continue
         if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
             continue
