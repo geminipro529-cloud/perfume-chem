@@ -1187,6 +1187,12 @@ def _off_brief_penalty(
         # No own-odor annotation (e.g. a category proxy): nothing shows the
         # layer fits, so it must not outrank annotated materials by default.
         return _OFF_BRIEF_FAMILY_PENALTY
+    if capability.registry_descriptors:
+        # A registry sentence ("sweet, woody and persistent") names fewer
+        # families than a profile entry, so it would dodge the penalty its
+        # fuller-described rivals pay and win every such layer.  It pays at
+        # least one family's worth.
+        return _OFF_BRIEF_FAMILY_PENALTY * max(1, len(extra))
     return _OFF_BRIEF_FAMILY_PENALTY * len(extra)
 
 
@@ -1274,6 +1280,12 @@ def _unary_rank_for_role(
         if _avoid_candidate(capability.candidate, avoid):
             continue
         if capability.candidate.solid and role.exact_material is None and not _weighed_amber_crystal(capability, role):
+            continue
+        if role.exact_material is None and capability.candidate.legacy_text_only and not capability.execution_ready:
+            # An old inventory.txt line with no current stock record carries
+            # the profile table's name ("Cedarwood EO"), so it outscored the
+            # owned bottle and the gate then held the formula.  Only a brief
+            # that names it takes it.
             continue
         if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
             continue
