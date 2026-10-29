@@ -8,6 +8,7 @@ import pytest
 from engine.data_spine.loader import load_registry
 from engine.inventory_parser import (
     AIMI_IDENTITY_USER_INVENTORY_AUTHORITY,
+    AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
     BASE_USER_INVENTORY_OVERLAY_PATH,
     BASE_USER_INVENTORY_TEXT_SHA256,
     BASE_USER_INVENTORY_TEXT_SIZE_BYTES,
@@ -16,9 +17,8 @@ from engine.inventory_parser import (
     CURRENT_INVENTORY_WORKBOOK_SHA256,
     CURRENT_USER_INVENTORY_AUTHORITY,
     CURRENT_USER_INVENTORY_OVERLAY_SHA256,
-    AIMI_IDENTITY_USER_INVENTORY_OVERLAY_SHA256,
-    PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
     NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256,
+    PW_RECEIVED_USER_INVENTORY_OVERLAY_SHA256,
     TOBACCO_DBCA_USER_INVENTORY_AUTHORITY,
     load_current_user_inventory_overlay,
     materialize_current_inventory,
@@ -28,6 +28,7 @@ from engine.inventory_parser import (
 from engine.name_utils import names_match
 from engine.optimizer.gate_aware import _inventory_stock_dilutions
 from engine.pipeline.preflight import _dilution_consistency_check
+from tests.reheld_overlay import neat_ambrettolide_still_owned  # noqa: F401 (fixture)
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 RECONCILIATION_PATH = (
@@ -220,6 +221,7 @@ def test_historical_base_overlay_keeps_its_original_source_binding() -> None:
     )
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 def test_dhi_w_w_stocks_are_unique_current_raw_volume_stocks() -> None:
     materialized = materialize_current_inventory()
     by_identity = {}
@@ -262,6 +264,7 @@ def test_dhi_w_w_stocks_are_unique_current_raw_volume_stocks() -> None:
     assert dispositions == {27: "OWNED", 28: "OWNED", 264: "OWNED"}
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 @pytest.mark.parametrize(
     ("material", "fraction", "basis", "carrier", "stock_prefix"),
     [

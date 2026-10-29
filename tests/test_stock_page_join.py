@@ -16,6 +16,7 @@ import engine.personal_inventory as personal_inventory
 from engine.inventory_parser import CurrentInventoryMaterialization, InventoryMaterial
 from engine.name_utils import normalize_name
 from engine.personal_inventory import LIVE_TEXT_AUTHORITY, materialize_personal_inventory
+from tests.reheld_overlay import neat_ambrettolide_still_owned  # noqa: F401 (fixture)
 
 V5 = "CURRENT_INVENTORY_MASTER_V5_EXTERNAL_SNAPSHOT"
 HIS_WORD = "USER_CURRENT_PHYSICAL_INVENTORY_AUTHORITY_20261015"
@@ -91,6 +92,7 @@ def test_lines_naming_two_solvents_for_one_bottle_fill_in_neither(join):
     )
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 def test_a_record_of_kennys_own_word_is_never_hidden_by_his_inventory_list(join):
     # His dated overlays are newer than the hand-kept list: a line in another solvent, a
     # line at another strength, or a label naming another strength never hides them.

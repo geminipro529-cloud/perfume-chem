@@ -28,13 +28,16 @@ def test_received_order_totals_and_all_stock_forms_are_visible() -> None:
     assert len(receipt["records"]) == 53
     assert sum(Decimal(row["received_quantity_g"]) for row in receipt["records"]) == 133
     stocks = materialize_personal_inventory().stocks
+    # Received bottles Kenny has since used up: Ambrofix Crystals on 2026-10-29 (STK-232).
+    used_up = {normalize_name("Ambrofix Crystals")}
     for row in receipt["records"]:
-        assert any(
+        visible = any(
             normalize_name(stock.identity_name or stock.name) == normalize_name(row["inventory_identity"])
             and stock.dilution == float(row["stock_fraction_decimal"])
             and stock.carrier.casefold() == row["carrier"].casefold()
             for stock in stocks
-        ), row["supplier_product_name"]
+        )
+        assert visible is (normalize_name(row["inventory_identity"]) not in used_up), row["supplier_product_name"]
 
 
 def test_v19_binds_live_inventory_and_preserves_v18_stock_identity() -> None:

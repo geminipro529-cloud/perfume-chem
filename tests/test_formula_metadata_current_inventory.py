@@ -11,6 +11,7 @@ import pytest
 from engine import formula_metadata as formula_metadata_module
 from engine.formula_metadata import _load_inventory_names, pipeline_preflight_guard
 from engine.name_utils import normalize_name
+from tests.reheld_overlay import neat_ambrettolide_still_owned  # noqa: F401 (fixture)
 
 ROOT = Path(__file__).resolve().parents[1]
 FORMULA = ROOT / "formulas" / "Gin_Vetiver_Cypress_Air_Haitian_Grapefruit100_AddOnly_20260910.md"
@@ -25,6 +26,7 @@ def test_default_inventory_names_come_from_current_authority_overlay() -> None:
     assert normalize_name("Cinnamyl Alcohol") in normalized
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 def test_current_gin_vetiver_candidate_has_no_false_inventory_warning() -> None:
     result = pipeline_preflight_guard(str(FORMULA), brief="vetiver_woody")
 

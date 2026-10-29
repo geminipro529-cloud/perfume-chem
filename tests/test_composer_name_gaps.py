@@ -24,6 +24,10 @@ from engine.research.request_interpretation import (
     RequestInterpretationInputV1,
     interpret_request,
 )
+from tests.reheld_overlay import (  # noqa: F401 (fixture)
+    neat_ambrettolide_owned,
+    neat_ambrettolide_still_owned,
+)
 
 
 def _rows(result: dict) -> list[dict]:
@@ -37,6 +41,7 @@ def _materials(result: dict) -> list[str]:
 # Finding 1: a skin scent dropped every note the brief named.
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 def test_a_skin_scent_keeps_the_notes_the_brief_names() -> None:
     result = design_formula(idea="a transparent oud and incense skin scent")
 
@@ -86,8 +91,9 @@ def test_a_skin_scent_keeps_the_stated_material_ceiling() -> None:
 
 
 @pytest.fixture(scope="module")
-def candidates_by_name() -> dict:
-    candidates, _inventory, _known = _load_candidates(())
+def candidates_by_name(tmp_path_factory: pytest.TempPathFactory) -> dict:
+    with neat_ambrettolide_owned(tmp_path_factory.mktemp("overlay")):
+        candidates, _inventory, _known = _load_candidates(())
     return {candidate.stock.name: candidate for candidate in candidates}
 
 

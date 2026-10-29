@@ -79,7 +79,8 @@ def test_retired_liquids_and_depleted_stocks_do_not_reappear():
     assert not names.intersection(
         {"Ambrofix", "Tonalide", "Musk Ketone", "Polysantol", "Nagamortha Oil"}
     )
-    assert "Ambrofix Crystals" in names
+    # Kenny used up the Ambrofix Crystals on 2026-10-29 ("ambrofi\ i5 out", STK-232).
+    assert "Ambrofix Crystals" not in names
     kephalis = next(s for s in inventory.materialize_current_inventory().stocks
                     if s.identity_name == "Kephalis")
     # Kenny released Kephalis from its intake hold on 2026-10-14 (neat).

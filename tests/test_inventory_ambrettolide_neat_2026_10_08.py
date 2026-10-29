@@ -10,6 +10,7 @@ import pytest
 
 import engine.inventory_parser as inventory
 from engine.pipeline.preflight import _dilution_consistency_check
+from tests.reheld_overlay import neat_ambrettolide_still_owned  # noqa: F401 (fixture)
 
 
 def _head() -> dict:
@@ -49,6 +50,7 @@ def test_v21_is_pinned_to_v20_and_live_inventory() -> None:
     assert previous["schema_version"].endswith("_v20")
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 def test_ambrettolide_has_one_neat_stock_and_the_ten_percent_record_is_retired() -> None:
     stocks = [
         stock for stock in inventory.materialize_current_inventory().stocks
@@ -75,6 +77,7 @@ def test_ambrettolide_has_one_neat_stock_and_the_ten_percent_record_is_retired()
     assert limits["density_asserted"] is False
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 def test_formula_declaring_the_old_ten_percent_stock_no_longer_resolves() -> None:
     old = _check(0.1, "mass_fraction", "dpg")
     assert old.status == "FAIL"
