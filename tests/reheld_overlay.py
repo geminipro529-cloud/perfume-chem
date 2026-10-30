@@ -74,3 +74,19 @@ def neat_ambrettolide_owned(tmp_path: Path) -> Iterator[None]:
 @pytest.fixture
 def neat_ambrettolide_still_owned(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
     use_neat_ambrettolide(monkeypatch, tmp_path)
+
+
+# Kenny has no Evernyl Crystals (30 Oct 2026, "No", STK-234). A solver test pinned on the stock as it stood
+# before replays the overlay with the crystals still owned.
+EVERNYL_CRYSTALS_GONE = {"INV-USER-20261014-STK-234": "INV-USER-20260907-005"}
+
+
+@pytest.fixture
+def evernyl_crystals_still_owned(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
+    use_overlay_without(monkeypatch, tmp_path, EVERNYL_CRYSTALS_GONE)
+    said_not_owned = stock_matching.not_owned_names
+    monkeypatch.setattr(
+        stock_matching,
+        "not_owned_names",
+        lambda directory=None: said_not_owned(directory) - {normalize_name("Evernyl Crystals")},
+    )
