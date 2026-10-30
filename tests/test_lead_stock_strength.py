@@ -15,6 +15,7 @@ import pytest
 
 from engine.formulation_intelligence import formula_solver as fs
 from engine.formulation_intelligence.formula_design_runtime import design_formula
+from tests.reheld_overlay import evernyl_crystals_still_owned  # noqa: F401 (fixture)
 
 
 def _cap(name, dilution, *, stock_id=None, design_ready=True, vp=None):
@@ -169,10 +170,13 @@ def test_the_fougere_lavender_lead_carries_its_share(mode):
         assert float(row["stock_fraction_decimal"]) >= .05, row["identity_name"]
 
 
+@pytest.mark.usefixtures("evernyl_crystals_still_owned")
 @pytest.mark.parametrize("mode", ["FAST_SKETCH", "DEEP_COMPOSE"])
 def test_a_fruit_lead_on_hexyl_acetate_keeps_the_one_percent_grade(mode):
     # Since 29 Oct 2026 Pear Valerate (registry odour words) leads this brief;
     # leaving it out keeps the Hexyl Acetate lead whose grade this pins.
+    # The pin holds on the stock as it stood with the Evernyl Crystals (gone 30 Oct 2026):
+    # on today's stock both formulas take the 10% grade though no Evernyl row is placed.
     result = design_formula(idea="A pear and apple fruity floral over a warm balsamic base, no Pear Valerate.",
                             liquid_concentrate_ul_decimal="6000", design_mode=mode)
     # The solved formula and the structural control; a stock-alternative

@@ -186,9 +186,10 @@ def test_maple_lactone_is_removed_from_current_physical_inventory() -> None:
 
 def test_unaffected_parallel_stocks_remain_available() -> None:
     pyrazine_neat = _stock("2-Acetyl Pyrazine", 1.0)
-    evernyl_neat = _stock("Evernyl Crystals", 1.0)
     assert pyrazine_neat.execution_ready is True
-    assert evernyl_neat.execution_ready is True
+    # Kenny has no Evernyl Crystals (30 Oct 2026, STK-234); his Evernyl is the 10% in DPG.
+    assert _stocks("Evernyl Crystals") == []
+    assert _stock("Evernyl", 0.1).execution_ready is True
 
 
 def test_current_successor_is_pinned_to_aimi_receipt_inventory_and_v17_predecessor() -> None:

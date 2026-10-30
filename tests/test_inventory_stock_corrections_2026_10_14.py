@@ -270,6 +270,9 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "ambrofi\\ i5 out",
         # 2026-10-29 12:27 UTC: his Ambrettolide is used up (STK-233).
         "I want it in, also ambrettolide is finished",
+        # 2026-10-30 08:16-08:19 UTC: his Evernyl is the 10% only; no Evernyl Crystals (STK-234).
+        "Remove Labdanum, my evernyl is 10%",
+        "No",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -348,6 +351,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "INV-USER-20260907-013",
         # 2026-10-29: the 8 Oct neat Ambrettolide record; he has used it up (STK-233).
         "INV-USER-20261008-AMBNEAT-001",
+        # 2026-10-30: the 7 Sep Evernyl Crystals record; he has no crystals (STK-234).
+        "INV-USER-20260907-005",
     ]
     assert head["superseded_record_ids"] == superseded
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
@@ -356,7 +361,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 234)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 235)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
