@@ -273,6 +273,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         # 2026-10-30 08:16-08:19 UTC: his Evernyl is the 10% only; no Evernyl Crystals (STK-234).
         "Remove Labdanum, my evernyl is 10%",
         "No",
+        # 2026-10-30 22:09 UTC: his three ylang oils (STK-235..237).
+        "I have 3 ylangs EO in my inventory",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -361,7 +363,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 235)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 238)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
