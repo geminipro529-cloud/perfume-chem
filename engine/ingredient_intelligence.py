@@ -3753,6 +3753,17 @@ _ALIASES = {
     "Citral Natural": "Citral",
     # Owner's Exaltolide bottle is Pentalide (Kenny 2026-10-08), CAS 106-02-5.
     "Pentalide": "Exaltolide",
+    # Owned stock names (engine stock, Oct 2026) whose profile sits under
+    # another spelling.  Without these the stock got a category guess with no
+    # odour words and lost every unnamed role.
+    "Cedarwood Virginia": "Cedarwood oil Virginia",
+    "Cedarwood Himalayan EO": "Himalayan Cedarwood EO",
+    "Coumarin Powder": "Coumarin",
+    "Peppermint EO": "Peppermint Essential Oil",
+    "Rosemary EO": "Rosemary EO (French Rosmarinus Officinalis leaf oil)",
+    "Beta Damascone": "Damascone Beta",
+    "Sweet Orange Essential Oil": "Orange Peel EO",
+    "Black Pepper EO": "Black Pepper materials",
 }
 
 
