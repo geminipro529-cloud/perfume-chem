@@ -19,7 +19,9 @@ _IRIS_NAME_WORDS = ("irone", "orris")
 # role_plan_signature of the "violet leaf" brief.  It was 5c157bea... on
 # origin/master 6f9b1a3a; Phase 3 step 4 changed it on purpose, since violet
 # leaf now reads as a GREEN family brief and takes that family's layers.
-_VIOLET_LEAF_SIGNATURE_ON_MASTER = "071be9f6cdefab5471290fe2da6fb45b85eea0acc902a0ead50be2ea2afc3a84"
+# It was 071be9f6... on origin/master 798f026; the 30 Oct 2026 fix changed it
+# on purpose, since coverage roles no longer query their function word.
+_VIOLET_LEAF_SIGNATURE_ON_MASTER = "b25b8f7058599e3fbfef7bc10df1ab431ddfcb8c47d2c975dc27704eac7fe7d1"
 
 
 def _clear_inventory_caches() -> None:

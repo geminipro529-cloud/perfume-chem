@@ -1149,6 +1149,10 @@ _OFF_BRIEF_FAMILY_PENALTY = 8.0
 # no family at all.  There only the distinctive shadow and watery families
 # are steered off-brief.
 _COVERAGE_STEERED_FAMILIES = frozenset({"base_shadow", "heart_watery"})
+# Profile texture words (ingredient_intelligence: skin-effect, diffusion,
+# cushion, lift, cocoon, veil, halo).
+_TEXTURE_WORDS = frozenset({"cocoon", "veil", "cushion", "lift", "halo", "diffusion"})
+_CHARACTER_ASK_WEIGHT = .3
 
 
 def _families(words: frozenset[str]) -> frozenset[str]:
@@ -1191,9 +1195,18 @@ def _off_brief_penalty(
     ):
         return 0.0
     own = _families(_single_words(role.query_terms))
+    # The layer's own character asks for these families too: a sandalwood
+    # layer weighted creamy must not count a creamy sandalwood off-brief.  A
+    # trace weight a qualifier spreads over every role (floral .15) is no ask.
+    own |= _families(frozenset(
+        dim.casefold() for dim, weight in role.character_weights if weight >= _CHARACTER_ASK_WEIGHT
+    ))
     if role.descriptor_requirement:
         own |= {role.descriptor_requirement}
-    extra = _families(capability.descriptor_vocabulary) - own - asked_families
+    # A texture word ("cocoon") says how a material sits on skin, not what it
+    # smells of, so it names no family here.  It counted as resin, which made
+    # every cedarwood pay a family that Clearwood's "veil" did not.
+    extra = _families(capability.descriptor_vocabulary - _TEXTURE_WORDS) - own - asked_families
     if role.provenance == "FUNCTIONAL_COVERAGE":
         return _OFF_BRIEF_FAMILY_PENALTY * len(extra & _COVERAGE_STEERED_FAMILIES)
     if not capability.descriptor_vocabulary:
