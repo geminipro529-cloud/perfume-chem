@@ -3,7 +3,7 @@
   "authority": "COMPUTATIONAL_DATA_RECONCILIATION_NOT_RELEASE",
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
-    "engine/ingredient_intelligence.py": "ccfffeb5d9fe4cc7368ff3569d9c6622522a1eb9fd9c256652415b24bbd5f8f0",
+    "engine/ingredient_intelligence.py": "4b4ebe6f0d9dc14b65c19a7aea8b07f326705ad2909f2c257560efbb74a8bc1d",
     "engine/inventory_parser.py": "10b457a8dd11cd4a9fed328b41976aee10e44f65de7e4cd45d58815c6c8aad29",
     "engine/odor_thresholds.py": "4ba7c31aabe21e8df723dec2402f43bd58672727134377de35c92c4d8dd37dd1",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
@@ -50,10 +50,10 @@
     "historical_requirement_rows": 280,
     "current_physical_stocks": 377,
     "registry_records": 1287,
-    "rows_with_profile": 296,
+    "rows_with_profile": 298,
     "rows_with_registry": 324,
     "rows_with_odt": 307,
-    "rows_with_unresolved_scalar_disagreements": 155
+    "rows_with_unresolved_scalar_disagreements": 156
   },
   "rows": [
     {
@@ -1306,7 +1306,7 @@
       "identity": "Peppermint EO",
       "text_status": "owned",
       "registry_name": "Peppermint Essential Oil",
-      "profile_name": null,
+      "profile_name": "Peppermint Essential Oil",
       "current_stock_ids": [
         "inventory:user-20260908:96359490457cb85b6473",
         "inventory:v5:e87a1d531870df29faa8"
@@ -6035,16 +6035,22 @@
       "identity": "Black Pepper EO",
       "text_status": "owned",
       "registry_name": "Black Pepper EO",
-      "profile_name": null,
+      "profile_name": "Black Pepper materials",
       "current_stock_ids": [
         "inventory:v5:4bb69da9b62fe8fbd8bb"
       ],
       "odt_present": true,
-      "missing_numeric_fields": [
-        "odt",
-        "odt_ppm"
-      ],
-      "unresolved_scalar_disagreements": {}
+      "missing_numeric_fields": [],
+      "unresolved_scalar_disagreements": {
+        "vp": {
+          "profile": 0.1,
+          "registry": 0.3
+        },
+        "clogp": {
+          "profile": 3.5,
+          "registry": 4.5
+        }
+      }
     },
     {
       "source_rows": [
@@ -6750,6 +6756,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "da0e8baa3abc2e8dec4dca99565f391fb86952d674aebb1d4c5f830518a30036",
-  "input_cache_sha256": "8fc326619fef82330244844a0cb53fcadf888a5fc45703617e6b52f2e45d2c58"
+  "output_sha256": "f914b83617326d015862634ec34e4c61a9faad7c52661564be09d573f574f1d4",
+  "input_cache_sha256": "da0e8baa3abc2e8dec4dca99565f391fb86952d674aebb1d4c5f830518a30036"
 }

@@ -8911,17 +8911,14 @@
     "smell_strength": null,
     "anosmic_risk": null,
     "note": "top",
-    "role": "character",
+    "role": "modifier",
     "texture": "lift",
     "synergies": [
-      "Bergamot FCF",
-      "Cardamom FTEC",
-      "Vetiver EO",
-      "Cedarwood EO"
+      "Black Pepper FTEC"
     ],
     "or_family": "spice",
     "activity_coef": 1.0,
-    "hedonic": 2.0,
+    "hedonic": 0.0,
     "ifra_cat4_limit_pct": null,
     "ifra_banned": false,
     "ifra_restricted": false,
@@ -8967,14 +8964,35 @@
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
+      "clogp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "CHARACTER_DERIVED_HEURISTIC"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -9071,6 +9089,13 @@
           "smell_strength": "moderate-strong",
           "anosmic_risk": "standard"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "role": "character",
+          "hedonic": 2.0
+        }
       }
     ],
     "oav_evidence": {
@@ -9081,7 +9106,9 @@
     "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
     "release_authority": "NOT_TESTED_HOLD",
     "stock_selection_status": "BOUND_CURRENT_STOCK",
-    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING"
+    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": []
   },
   {
     "name": "Blackcurrant Absolute",
@@ -44277,7 +44304,7 @@
       "Juniper Berry EO",
       "Coumarin"
     ],
-    "or_family": "unknown",
+    "or_family": "aromatic",
     "activity_coef": 1.0,
     "hedonic": 2.0,
     "ifra_cat4_limit_pct": 5.0,
@@ -44310,7 +44337,7 @@
     ],
     "avoid": null,
     "handle_as": null,
-    "odor_family": "unknown",
+    "odor_family": "aromatic",
     "odor_profile": "Camphoraceous rosemary",
     "audit_flags": [],
     "oav_effect": "dominant — note dominates blend, shapes the accord",
@@ -44325,14 +44352,35 @@
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
+      "clogp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "HEURISTIC_OVERRIDE"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "HEURISTIC_OVERRIDE"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -44403,6 +44451,18 @@
         "fields": {
           "clp": 3.2
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "or_family": "unknown"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": "unknown"
+        }
       }
     ],
     "oav_evidence": {
@@ -44413,7 +44473,9 @@
     "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
     "release_authority": "NOT_TESTED_HOLD",
     "stock_selection_status": "BOUND_CURRENT_STOCK",
-    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING"
+    "odor_family_evidence": "DESCRIPTIVE_MODEL_NOT_MEASURED_RECEPTOR_OR_LIKING",
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": []
   },
   {
     "name": "Safraleine",
@@ -63520,14 +63582,35 @@
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
+      "clogp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNKNOWN"
+        "status": "HEURISTIC_OVERRIDE"
       },
       "hedonic": {
-        "status": "UNKNOWN"
+        "status": "CHARACTER_DERIVED_HEURISTIC"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -63604,11 +63687,44 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": null
+        }
       }
     ],
     "mw": 204.4,
     "vp": 0.02,
-    "clp": 4.5
+    "clp": 4.5,
+    "note": "base",
+    "role": "character",
+    "texture": "cocoon",
+    "or_family": "woody",
+    "activity_coef": 2.0,
+    "hedonic": -0.1,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "synergies": [
+      "Cedarwood EO",
+      "Iso E Super",
+      "Sandalore",
+      "Vertofix"
+    ],
+    "odor_profile": "",
+    "odor_family": "woody"
   },
   {
     "name": "Cinnamon Bark EO (Telvada)",
@@ -64153,14 +64269,35 @@
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
+      "clogp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNKNOWN"
+        "status": "HEURISTIC_OVERRIDE"
       },
       "hedonic": {
-        "status": "UNKNOWN"
+        "status": "HEURISTIC_OVERRIDE"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -64169,7 +64306,7 @@
       }
     },
     "odt": 2.0,
-    "odt_ethanol_ppm": null,
+    "odt_ethanol_ppm": 0.5,
     "odt_evidence": {
       "vfy": "UNVERIFIED",
       "reason": "No identity-bound metadata"
@@ -64237,11 +64374,43 @@
         "fields": {
           "vp": 0.19
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": null
+        }
       }
     ],
     "mw": 146.2,
     "vp": 0.08759,
-    "clp": 1.4
+    "clp": 1.4,
+    "note": "base",
+    "role": "character",
+    "texture": "cushion",
+    "or_family": "gourmand",
+    "activity_coef": 1.2,
+    "hedonic": 2.5,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "synergies": [
+      "Vanillin",
+      "Lavender EO",
+      "Tonka Bean FO"
+    ],
+    "odor_profile": "",
+    "odor_family": "gourmand"
   },
   {
     "name": "Diethyl Phthalate (DEP)",
@@ -68945,6 +69114,23 @@
         "fields": {
           "mw": 190.3
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": null
+        }
       }
     ],
     "mw": 192.3,
@@ -68956,19 +69142,42 @@
     },
     "field_evidence": {
       "mw": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "MANUFACTURER_BOUND_ENTITY_MASS",
+        "source": "https://www.iff.com/scent/ingredients-compendium/damascone-beta/",
+        "scope": "Molecular identity, not measured bulk-stock physics"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
+      "clogp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNKNOWN"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNKNOWN"
+        "status": "HEURISTIC_OVERRIDE"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -69068,7 +69277,22 @@
     "hedonic_evidence": "HEURISTIC_NOT_MEASURED_LIKING",
     "release_authority": "NOT_TESTED_HOLD",
     "vp": 2.6,
-    "clp": 3.68
+    "clp": 3.68,
+    "note": "heart",
+    "role": "modifier",
+    "texture": "diffusion",
+    "or_family": "rose",
+    "activity_coef": 1.0,
+    "hedonic": 2.0,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "synergies": [
+      "Alpha Damascone",
+      "Geraniol",
+      "Rose Oxide"
+    ],
+    "odor_profile": "",
+    "odor_family": "rose"
   },
   {
     "name": "Caraway Seed EO",
@@ -69381,14 +69605,35 @@
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
+      "clogp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNKNOWN"
+        "status": "HEURISTIC_OVERRIDE"
       },
       "hedonic": {
-        "status": "UNKNOWN"
+        "status": "HEURISTIC_OVERRIDE"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -69464,11 +69709,42 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": null
+        }
       }
     ],
     "mw": 222.37,
     "vp": 0.005,
-    "clp": 5.0
+    "clp": 5.0,
+    "note": "base",
+    "role": "character",
+    "texture": "cocoon",
+    "or_family": "woody",
+    "activity_coef": 2.5,
+    "hedonic": 2.5,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "synergies": [
+      "Cedarwood EO",
+      "Iso E Super"
+    ],
+    "odor_profile": "",
+    "odor_family": "woody"
   },
   {
     "name": "Cedramber",
@@ -72316,14 +72592,35 @@
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
+      "clogp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNKNOWN"
+        "status": "HEURISTIC_OVERRIDE"
       },
       "hedonic": {
-        "status": "UNKNOWN"
+        "status": "CHARACTER_DERIVED_HEURISTIC"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -72455,11 +72752,44 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": null
+        }
       }
     ],
     "mw": 159.0,
     "vp": 12.0,
-    "clp": 3.1
+    "clp": 3.1,
+    "note": "top",
+    "role": "character",
+    "texture": "crisp",
+    "or_family": "herbal",
+    "activity_coef": 2.0,
+    "hedonic": 0.0,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "synergies": [
+      "Eucalyptus Essential Oil",
+      "Rosemary EO",
+      "Lavender EO",
+      "Pine EO"
+    ],
+    "odor_profile": "",
+    "odor_family": "herbal"
   },
   {
     "name": "Peppermint Essential Oil (Mentha piperita, India)",
@@ -84157,14 +84487,35 @@
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
+      "clogp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
+      "odt": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "odt_ppm": {
+        "status": "UNVERIFIED_LEGACY_VALUE"
+      },
+      "character": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNKNOWN"
+        "status": "HEURISTIC_OVERRIDE"
       },
       "hedonic": {
-        "status": "UNKNOWN"
+        "status": "CHARACTER_DERIVED_HEURISTIC"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -84240,11 +84591,43 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": null,
+          "role": null,
+          "texture": null,
+          "or_family": null,
+          "activity_coef": null,
+          "hedonic": null
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
+        "fields": {
+          "odor_family": null
+        }
       }
     ],
     "mw": 136.4,
     "vp": 203.0,
-    "clp": 4.38
+    "clp": 4.38,
+    "note": "top",
+    "role": "character",
+    "texture": "lift",
+    "or_family": "citrus",
+    "activity_coef": 3.0,
+    "hedonic": 0.0,
+    "material_kind": "UNRESOLVED",
+    "formulation_roles": [],
+    "synergies": [
+      "D-Limonene",
+      "Bergamot FCF",
+      "Petitgrain EO"
+    ],
+    "odor_profile": "",
+    "odor_family": "citrus"
   },
   {
     "name": "Patchouli Light Essential Oil",
