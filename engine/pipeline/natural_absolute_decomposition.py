@@ -1172,7 +1172,9 @@ _MAGNOLIA_OFFICINALIS_FLOS_LIU_2025_S1_CONSTITUENTS = [
 # Table 2, steam distillation (fresh Thai flowers, 500 g, 4 h; GC-MS relative peak area, DB-5).
 # Used for the owner's Magnolia EO, which is Michelia alba flower oil (owner-confirmed; Shopee
 # shop "True Industry"; Kenny, 28 Oct 2026: "there i anotheer magnlia eo but it micahelia alba
-# eo"). Replaces the Zhu (1993) table, which was read from scent.vn (not an accepted source).
+# eo"; plant part flower, Kenny 30 Oct 2026: "Flower, msr check"; not a MySkinRecipes bottle,
+# none of his MSR purchases is a Michelia or magnolia oil). Replaces the Zhu (1993) table,
+# which was read from scent.vn (not an accepted source).
 # Only nine peaks were reported, so the percentages are shares of the identified peaks. Five
 # constituents (5.09%) have no runtime input and stay unresolved; nothing is renormalized.
 _MICHELIA_ALBA_FLOWER_PUNJEE_2009_STEAM_CONSTITUENTS = [
@@ -1893,7 +1895,7 @@ _PROFILE_ALIASES = {
         "oman boswellia resin ethanol tincture generic profile"
     ),
     # Owner stock "Magnolia EO (neat / as supplied)": Michelia alba flower oil
-    # (owner-confirmed species; Shopee shop "True Industry").
+    # (owner-confirmed species and plant part; Shopee shop "True Industry").
     "magnolia eo": "michelia alba flower oil punjee 2009 steam distillation profile",
     # PerfumersWorld 7NS25173 Ginger Lily Oil: H. spicatum rhizome oil, the closest identity
     # (Kenny's strip test, 28 Oct 2026: "Ginger root, check on msr").
@@ -3481,7 +3483,8 @@ _PARTIAL_PROFILE_EVIDENCE = {
                 "owned_stock_label": "Magnolia EO (neat / as supplied)",
                 "owned_species": "Michelia alba (owner-confirmed; Kenny 28 Oct 2026)",
                 "owned_supplier_reference": "Shopee shop True Industry",
-                "owned_plant_part_recorded": False,
+                "owned_plant_part_recorded": True,
+                "owned_plant_part": "flower (owner-confirmed; Kenny 30 Oct 2026: 'Flower, msr check')",
             },
             **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
                for name in ("linalool", "methyl eugenol", "beta caryophyllene", "germacrene d")},
@@ -3519,7 +3522,7 @@ _PARTIAL_PROFILE_EVIDENCE = {
             },
         ),
         "limitations": (
-            "The composition is one published Thai flower distillation (Punjee et al. 2009), not an analysis of the owned Shopee True Industry bottle; plant part and process of the owned oil are not recorded (steam-distilled flower oil is assumed).",
+            "The composition is one published Thai flower distillation (Punjee et al. 2009), not an analysis of the owned Shopee True Industry bottle. The plant part is owner-confirmed flower (30 Oct 2026); the process is not recorded (steam distillation is assumed). The bottle is not from MySkinRecipes.",
             "Only nine peaks were reported, so trace odorants are missing and the percentages are shares of the identified peaks. 94.92% is modeled; five constituents (5.09%, including the fruity methyl and ethyl 2-methylbutyrate) are uncomputed, not odorless. Nothing is renormalized.",
             "The same paper's water distillation gives more methyl eugenol (3.59%); IFRA uses that higher value.",
             "Michelia alba flower oil is non-equivalent to Michelia champaca absolute, to Michelia alba absolutes (indole and phenylethyl alcohol rich in the same paper) and to Magnolia leaf oils.",
