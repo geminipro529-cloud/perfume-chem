@@ -14,8 +14,9 @@ AMBER = "warm amber with an iris heart and a smoky shadow"
 COLOGNE = "fresh citrus cologne with neroli and a soft musk"
 CHYPRE = "rose chypre with patchouli and oakmoss depth"
 OUD_ROSE = "a dark oud rose for evening, no vanilla"
+# Velvione (Givaudan's macrocyclic musk ketone) fills the second musk since his Ambrettolide ran out (29 Oct 2026).
 MUSKS = ("galaxolide", "habanolide", "zenolide", "romandolide", "exaltolide",
-         "ambrettolide", "helvetolide", "ethylene brassylate")
+         "ambrettolide", "helvetolide", "ethylene brassylate", "velvione")
 
 
 def _role(**overrides):

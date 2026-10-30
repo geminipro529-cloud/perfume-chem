@@ -5,6 +5,7 @@ import pytest
 import engine.inventory_parser as inventory_parser
 from engine.inventory_parser import materialize_current_inventory
 from engine.research.formula_design import design_inventory_formula
+from tests.reheld_overlay import neat_ambrettolide_still_owned  # noqa: F401 (fixture)
 
 
 def test_formula_design_is_deterministic_inventory_grounded_and_advisory() -> None:
@@ -463,6 +464,7 @@ def test_formula_design_withholds_impossible_and_unavailable_briefs() -> None:
     assert unavailable["optimized_formula"] is None
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 def test_formula_design_uses_exact_ambrettolide_stock_amount_and_only_one_musk() -> None:
     result = design_inventory_formula(
         idea=(

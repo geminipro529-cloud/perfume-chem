@@ -9,6 +9,7 @@ two-musk limit.  A brief that asks for one musk keeps one.
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from dataclasses import replace
 from functools import lru_cache
 
@@ -21,6 +22,14 @@ from engine.formulation_intelligence.material_capability_index import (
     build_material_capability_index,
 )
 from engine.pipeline import gates
+from tests.reheld_overlay import neat_ambrettolide_owned
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _neat_ambrettolide_owned(tmp_path_factory: pytest.TempPathFactory) -> Iterator[None]:
+    # The cached helpers below are built once, so the whole module sees the neat Ambrettolide.
+    with neat_ambrettolide_owned(tmp_path_factory.mktemp("overlay")):
+        yield
 
 IRIS_MUSK = (
     "A hedonic iris-orris-violet musk perfume, unmistakably violet-iris, luxurious, "

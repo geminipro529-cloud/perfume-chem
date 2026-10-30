@@ -13,6 +13,7 @@ amber base keeps its balance and Ambrox never moves alone.
 
 from __future__ import annotations
 
+from collections.abc import Iterator
 from dataclasses import replace
 from decimal import ROUND_HALF_UP, Decimal
 from functools import lru_cache
@@ -26,6 +27,14 @@ from engine.formulation_intelligence.material_capability_index import (
     build_material_capability_index,
 )
 from engine.formulation_intelligence.semantic_brief_adapter import compile_semantic_brief
+from tests.reheld_overlay import neat_ambrettolide_owned
+
+
+@pytest.fixture(scope="module", autouse=True)
+def _neat_ambrettolide_owned(tmp_path_factory: pytest.TempPathFactory) -> Iterator[None]:
+    # The cached helpers below are built once, so the whole module sees the neat Ambrettolide.
+    with neat_ambrettolide_owned(tmp_path_factory.mktemp("overlay")):
+        yield
 
 _CRYSTALS = "inventory:user-20260924:36e0e28366f34673a242"  # Ambrox Super Crystals, neat
 _AMBROX_25 = "inventory:user-20260902:9e69f9db20c45cfe37e6"  # Ambrox Super 25% solution

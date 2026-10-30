@@ -582,6 +582,16 @@
         "message_timestamp_utc": "2026-10-28T16:30:50Z",
         "text": "ye",
         "context": "Kenny's own words in the 'Fix gaps in unused materials' thread, answering 'Besides your PW Birch Tar Rectified 10%, do you still have the older Birch Tar 1% and 10% bottles?'. STK-230 and STK-231 record the older Birch Tar 1% and 10% as w/w in DPG."
+      },
+      {
+        "message_timestamp_utc": "2026-10-29T11:52:08Z",
+        "text": "ambrofi\\ i5 out",
+        "context": "Kenny's own words in the project chat. STK-232 records his Ambrofix Crystals as used up."
+      },
+      {
+        "message_timestamp_utc": "2026-10-29T12:27:21Z",
+        "text": "I want it in, also ambrettolide is finished",
+        "context": "Kenny's own words in another thread of the project. STK-233 records his Ambrettolide as used up."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -663,7 +673,9 @@
     "heliotropin_is_pw_piperonal_neat_solid_20261028": true,
     "maple_lactone_20pct_row_was_methyl_laitone_20261028": true,
     "cedarwood_china_closest_identity_proxy_20261028": true,
-    "birch_tar_older_1pct_10pct_kept_ww_dpg_20261028": true
+    "birch_tar_older_1pct_10pct_kept_ww_dpg_20261028": true,
+    "ambrofix_crystals_used_up_20261029": true,
+    "ambrettolide_used_up_20261029": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -742,7 +754,9 @@
     "INV-USER-20261007-PW-030",
     "INV-USER-20261007-PW-050",
     "INV-USER-20261007-PW-041",
-    "INV-USER-20260915-STOCK-007"
+    "INV-USER-20260915-STOCK-007",
+    "INV-USER-20260907-013",
+    "INV-USER-20261008-AMBNEAT-001"
   ],
   "records": [
     {
@@ -11712,6 +11726,65 @@
         "rectified_grade_asserted": false
       },
       "note": "Asked in the 'Fix gaps in unused materials' thread 'Besides your PW Birch Tar Rectified 10%, do you still have the older Birch Tar 1% and 10% bottles?', Kenny: 'ye' (28 Oct 2026 16:30:50 UTC). V5 row 46 ('Birch Tar 1% and Birch Tar 10%', user note 'Both 1% and 10% stocks are available.') records both older bottles with no basis or carrier; they are separate from PerfumersWorld Birch Tar Rectified 10% in DPG (5TP11094, STK-073). Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another; he also confirmed Birch Tar as w/w on 14 Oct. So it is 10% w/w in DPG. Supplier, grade (rectified or not) and lot not recorded; inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-232",
+      "canonical_name": "Ambrofix Crystals",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "woods_amber",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-29",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "ambrofi\\ i5 out",
+      "source_message_timestamp_utc": "2026-10-29T11:52:08Z",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny in the project chat: 'ambrofi\\ i5 out' (29 Oct 2026 11:52:08 UTC), read as 'Ambrofix is out' (his keyboard drops letters). His only owned Ambrofix was the neat PerfumersWorld crystals (SKU 1UW16861, 10 g received 7 Oct), recorded as INV-USER-20260907-013, which this record replaces. The liquid Ambrofix and the V5 30%/40% rows were already retired (INV-USER-20260907-012). Formula files that name Ambrofix are history and are not rewritten; inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-233",
+      "canonical_name": "Ambrettolide",
+      "aliases": [],
+      "state": "NOT_OWNED",
+      "category": "musk",
+      "stock": null,
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 27,
+          "disposition": "GAP",
+          "status": "NOT OWNED - USED UP (2026-10-29)",
+          "actual_stock_text": "User 29 Oct 2026: Ambrettolide is finished; none owned",
+          "can_prepare": ""
+        },
+        {
+          "source_row": 28,
+          "disposition": "GAP",
+          "status": "DUPLICATE REQUIREMENT ROW - NOT OWNED, USED UP (2026-10-29)",
+          "actual_stock_text": "User 29 Oct 2026: Ambrettolide is finished; none owned",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-29",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "I want it in, also ambrettolide is finished",
+      "source_message_timestamp_utc": "2026-10-29T12:27:21Z",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny: 'I want it in, also ambrettolide is finished' (29 Oct 2026 12:27:21 UTC). His only owned Ambrettolide was the neat bottle recorded on 8 Oct (INV-USER-20261008-AMBNEAT-001, V5 rows 27 and 28), which this record replaces. Formula files that name Ambrettolide are history and are not rewritten; inventory.txt is not edited."
     }
   ]
 }

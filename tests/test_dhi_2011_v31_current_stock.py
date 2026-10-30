@@ -8,6 +8,7 @@ import pytest
 from engine.pipeline.formula_state import build_formula_state
 from engine.pipeline.preflight import _dilution_consistency_check
 from scripts.verify_formula_workflow import parse_formula_markdown
+from tests.reheld_overlay import neat_ambrettolide_still_owned  # noqa: F401 (fixture)
 
 ROOT = Path(__file__).resolve().parents[1]
 FORMULA_PATH = ROOT / "formulas" / "DHI-11_Velours_d_Iris_05443A_30mL_20pct_V3_1_Current_Stock.md"
@@ -60,6 +61,7 @@ def test_v31_keeps_v3_smooth_doses_except_the_named_stock_swaps(formula):
     assert active == pytest.approx(4010.005)
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 def test_v31_preflight_resolves_every_stock_to_a_recorded_bottle(formula):
     # 2026-10-08 (v22 overlay): Osmanthus recorded as w/w, Mimosa kept as it is, and the
     # 1% / 0.1% / 0.01% E2MB solutions recorded at their nominal percentages.

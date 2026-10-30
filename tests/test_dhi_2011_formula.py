@@ -12,6 +12,7 @@ from engine.pipeline.natural_absolute_decomposition import get_composite_metadat
 from engine.pipeline.preflight import _dilution_consistency_check
 from engine.reference_contracts import evaluate_reference_contract
 from scripts.verify_formula_workflow import parse_formula_markdown
+from tests.reheld_overlay import neat_ambrettolide_still_owned  # noqa: F401 (fixture)
 
 ROOT = Path(__file__).resolve().parents[1]
 FORMULA_PATH = ROOT / "formulas" / "DHI-11_Velours_d_Iris_05443A_30mL_20pct_V3_Smooth.md"
@@ -101,6 +102,7 @@ def test_dilutions_and_nominal_active_ppm_are_arithmetically_closed(formula):
     assert active_ul / 6000.0 * 1_000_000.0 == pytest.approx(668341.6666667)
 
 
+@pytest.mark.usefixtures("neat_ambrettolide_still_owned")
 def test_historical_build_cannot_execute_against_superseded_current_stocks(formula):
     result = _dilution_consistency_check(formula)
     assert result.status == "FAIL"
