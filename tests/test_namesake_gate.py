@@ -223,7 +223,11 @@ def test_french_name_words_are_checked_not_dropped():
     result = _namesake("Osmanthus Tabac Fumé", {**_PLAIN_BASE, "Osmanthus Absolute": 150.0})
 
     assert result.status == "WARN"
-    assert result.data["missing"] == ["tabac", "fume"]
+    assert result.data["words"] == ["osmanthus", "tabac", "fume"]
+    # The sourced osmanthus profile carries a smoky facet (producer text: "smoky"),
+    # so "fumé" is checked and carried; "tabac" is not.
+    assert result.data["carried_by"]["fume"] == ["Osmanthus Absolute"]
+    assert result.data["missing"] == ["tabac"]
     assert "Every odour word" not in result.detail
 
 

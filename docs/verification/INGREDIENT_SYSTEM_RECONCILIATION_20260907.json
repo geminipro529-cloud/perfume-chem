@@ -3,7 +3,7 @@
   "authority": "COMPUTATIONAL_DATA_RECONCILIATION_NOT_RELEASE",
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
-    "engine/ingredient_intelligence.py": "9278b72e5c011672faa4e848ed1d4e0c1120a43e6cbcac12528f921eadc86bde",
+    "engine/ingredient_intelligence.py": "edff107fa0436013f1ceb8a50cbc2b8a9c259553caab579c6866daf0327b43e7",
     "engine/inventory_parser.py": "582b0fcc2e8929dedd4b271d690ec96831b7bdc8654423b51178a6fa348a6a03",
     "engine/odor_thresholds.py": "4ba7c31aabe21e8df723dec2402f43bd58672727134377de35c92c4d8dd37dd1",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
@@ -50,7 +50,7 @@
     "historical_requirement_rows": 280,
     "current_physical_stocks": 386,
     "registry_records": 1287,
-    "rows_with_profile": 298,
+    "rows_with_profile": 301,
     "rows_with_registry": 324,
     "rows_with_odt": 307,
     "rows_with_unresolved_scalar_disagreements": 156
@@ -5314,7 +5314,7 @@
       "identity": "Aldehyde C-18 (Gamma Nonalactone)",
       "text_status": "owned",
       "registry_name": "Aldehyde C-18 Gamma Nonalactone",
-      "profile_name": null,
+      "profile_name": "Aldehyde C-18",
       "current_stock_ids": [],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -5331,7 +5331,7 @@
       "identity": "Aldehyde C-18 (Gamma Nonalactone)",
       "text_status": "owned",
       "registry_name": "Aldehyde C-18 Gamma Nonalactone",
-      "profile_name": null,
+      "profile_name": "Aldehyde C-18",
       "current_stock_ids": [],
       "odt_present": true,
       "missing_numeric_fields": [
@@ -6338,7 +6338,7 @@
       "identity": "Spike Lavender EO",
       "text_status": "owned",
       "registry_name": "spike lavender eo",
-      "profile_name": null,
+      "profile_name": "Spike Lavender EO",
       "current_stock_ids": [
         "inventory:user-20261014:e676d8e9a536c0d892a4"
       ],
@@ -6776,6 +6776,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "8eceeb2a6f868c96525ae641c49c53fd39d6198167ad691285bc686df7388752",
-  "input_cache_sha256": "46310193a377a436965c38d29f54109049e7c6242d2f2223e537a8bef84703b9"
+  "output_sha256": "76fabc045579bd7912475dbd5c8ae6e2f3440d094a218f773422dc924317da11",
+  "input_cache_sha256": "659021b8b3982151ea9bc8090797cca304ce469358e2e99f31618c89798ca0e6"
 }

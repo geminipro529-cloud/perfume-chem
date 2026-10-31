@@ -6205,34 +6205,51 @@ _PROFILES.update(
 # only odour prose. Kenny, 31 Oct 2026: "Do literature research and fix this as
 # best as possible". The prose moves to odor_description; character and note take
 # the sourced rubric values. Role is left as it was.
-_LITERATURE_CHARACTER_PROFILES = (
-    Path(__file__).resolve().parents[1]
-    / "data"
-    / "knowledge_graph"
-    / "literature_character_profiles_20261031.json"
+_LITERATURE_PROFILE_DIR = Path(__file__).resolve().parents[1] / "data" / "knowledge_graph"
+# Round 1 (#169): owned stocks with prose-only profiles. Round 3: thin hand-written
+# profiles re-sourced, plus three owned stocks with no profile (new entries).
+_LITERATURE_CHARACTER_PROFILES = tuple(
+    _LITERATURE_PROFILE_DIR / name
+    for name in (
+        "literature_character_profiles_20261031.json",
+        "literature_character_profiles_20261031_round3.json",
+    )
 )
 
 
 def _apply_literature_character_profiles() -> None:
-    document = json.loads(_LITERATURE_CHARACTER_PROFILES.read_text(encoding="utf-8"))
-    for entry in document["profiles"]:
-        data = _PROFILES[entry["profile_key"]]
-        prose = data.get("character")
-        if isinstance(prose, str):
-            data["odor_description"] = prose
-        if data.get("note") not in {"top", "heart", "base"} and data.get("role") in {"top", "heart", "base"}:
-            data["role"] = "modifier"  # what get_profile already returned for this record
-        data["character"] = dict(entry["character"])
-        data["note"] = entry["note"]
-        if entry.get("cas") and not data.get("cas"):
-            data["cas"] = entry["cas"]
-        evidence = data.setdefault("evidence", {})
-        evidence["character"] = {
-            "status": document["character_evidence"]["status"],
-            "source": str(_LITERATURE_CHARACTER_PROFILES.relative_to(Path(__file__).resolve().parents[1])),
-            "sources": [source["url"] for source in entry["sources_ranked"]],
-        }
-        evidence["note"] = {"status": document["note_evidence"]["status"], "basis": entry["note_basis"]}
+    root = Path(__file__).resolve().parents[1]
+    for path in _LITERATURE_CHARACTER_PROFILES:
+        document = json.loads(path.read_text(encoding="utf-8"))
+        for entry in document["profiles"]:
+            data = _PROFILES.get(entry["profile_key"])
+            if data is None:
+                # A stock with no profile gets a sourced one; role is not researched.
+                assert entry.get("odor_description"), entry["profile_key"]
+                data = _PROFILES[entry["profile_key"]] = {"role": "modifier"}
+                for field_name in ("mw", "vp"):  # material_properties values, status kept in the file
+                    if entry.get(field_name) is not None:
+                        data[field_name] = entry[field_name]
+            prose = data.get("character")
+            if isinstance(prose, str):
+                data["odor_description"] = prose
+            if entry.get("odor_description"):
+                data["odor_description"] = entry["odor_description"]
+            if data.get("note") not in {"top", "heart", "base"} and data.get("role") in {"top", "heart", "base"}:
+                data["role"] = "modifier"  # what get_profile already returned for this record
+            data["character"] = dict(entry["character"])
+            data["note"] = entry["note"]
+            cas = entry.get("cas")
+            cas = cas.get("cas") if isinstance(cas, dict) else cas
+            if cas and not data.get("cas"):
+                data["cas"] = cas
+            evidence = data.setdefault("evidence", {})
+            evidence["character"] = {
+                "status": document["character_evidence"]["status"],
+                "source": str(path.relative_to(root)),
+                "sources": [source["url"] for source in entry["sources_ranked"]],
+            }
+            evidence["note"] = {"status": document["note_evidence"]["status"], "basis": entry["note_basis"]}
 
 
 _apply_literature_character_profiles()
