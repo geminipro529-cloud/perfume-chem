@@ -311,7 +311,7 @@ _PROFILES: dict[str, dict] = {
     },
     "Bergamot FCF oil Sicilian": {
         "character": {"freshness": 8, "floral": 4, "sweetness": 2, "green": 2},
-        "note": "heart",
+        "note": "top",
         "role": "character",
         "texture": "lift",
         "mw": 170.0,
