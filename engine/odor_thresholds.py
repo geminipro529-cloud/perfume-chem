@@ -46,7 +46,7 @@ Verification = Literal["PEER_CROSS", "PEER_SINGLE", "PEER_EST", "DERIVED", "UNVE
 #   Elsharif & Buettner (2016) J. Agric. Food Chem. — Geraniol
 #   Motooka et al. (2015) J. Oleo Sci. — Damascenone
 #   Porta et al. (2005) J. Org. Chem. — Hedione (specific isomer)
-#   Kraft (2008) Chem. Biodiv. — Iso E Super (Arborone component)
+#   Givaudan US 5,214,160 / Gautschi, Bajgrowicz & Kraft (2001) Chimia 55:379 — Iso E Super (Arborone component)
 #   Kraft & Eichenberger (2004) Eur. J. Org. Chem. — Romandolide
 #   Kraft (2005) Wiley — Ambrettolide
 #   Birkbeck et al. (2025) Helv. Chim. Acta — Javanol
@@ -85,12 +85,13 @@ ODT_DATA: dict[str, dict] = {
         "odt_eth": 0.01,
         "char": "jasmine, radiance",
     },
-    # Verified: Kraft (2008) Chem Biodiv 5:670 — pure Arborone = 0.0005 ppb
-    # Commercial Iso E Super mixture ~50-100x higher; estimated 0.05 ppb
+    # Estimate (PEER_EST, 2026-10-31): isomer G (Arborone) 5 pg/l over its 2-5 % share
+    # (P&F 'The Composition of Iso E Super'; Chimia 55 (2001) 379); range 0.0104-0.0261 ppb.
+    # The earlier "Kraft (2008) Chem. Biodiv. 5:670, mixture ~50-100x" citation was wrong.
     "iso e super": {
-        "vfy": "PEER_SINGLE",
-        "sources": ["Kraft (2008) Chem. Biodiv. 5:670"],
-        "odt_air": 0.05,
+        "vfy": "PEER_EST",
+        "sources": ["Isomer G threshold over its share (literature batch 2026-10-25, the runtime row; range 0.0104-0.0261 ppb, 2026-10-31)"],
+        "odt_air": 0.0184,
         "odt_eth": 0.01,
         "char": "cedar, abstract wood",
     },
@@ -420,7 +421,7 @@ ODT_DATA: dict[str, dict] = {
     # ── Aquatic / ozonic / Calone class ──
     "helional": {"odt_air": 0.1, "odt_eth": 0.1, "char": "ozone, marine-floral"},
     "scentenal": {"odt_air": 0.53, "odt_eth": 0.05, "char": "metallic-green ozone"},
-    "floralozone": {"odt_air": 1.0, "odt_eth": 0.1, "char": "ozone, airy-floral"},
+    "floralozone": {"odt_air": 6.44, "odt_eth": 0.1, "char": "ozone, airy-floral"},
     "dynascone": {"odt_air": 0.05, "odt_eth": 0.05, "char": "galbanum-ozone bomb"},
     "melonal": {"odt_air": 0.15, "odt_eth": 0.3, "char": "melon, cucumber"},
     # ── Muguet / watery-floral ──
@@ -2213,9 +2214,9 @@ ODT_VERIFICATION: dict[str, dict] = {
         "note": "Tier B — published compilation",
     },
     "floralozone": {
-        "vfy": "UNVERIFIED",
-        "sources": ["No peer-reviewed air-phase ODT found in indexed literature"],
-        "note": "Auto-tagged by audit 2026-05-11",
+        "vfy": "PEER_SINGLE",
+        "sources": ["Symrise Florazon data sheet 'Threshold in Air ... 0.0501 ug/l' (equivalent grade; sourced batch 2026-10-31, the runtime row)"],
+        "note": "Static row aligned to the sourced value 2026-10-31 (was 1.0 ppb, an unsourced adjustment).",
     },
     "florhydral": {
         "vfy": "PEER_CROSS",
@@ -3008,11 +3009,16 @@ ODT_VERIFICATION: dict[str, dict] = {
         "odt_eth": 0.01,
     },
     "iso e super": {
-        "vfy": "PEER_SINGLE",
+        "vfy": "PEER_EST",
         "sources": [
-            "Kraft (2008) Chem. Biodiv. 5:670 — pure Arborone impurity 0.005 ng/L (0.0005 ppb); commercial mixture ~0.05 ppb"
+            "Gautschi, Bajgrowicz & Kraft (Givaudan), Chimia 55 (2001) 379-387 and US 5,214,160: isomer G (Arborone) "
+            "5 pg/l (0.0005 ppb); commercial product estimated from G's 2-5 % share = 0.0104-0.0261 ppb, "
+            "geometric midpoint 0.0184 (literature batch 2026-10-25, the runtime row)"
         ],
-        "odt_air": 0.05,
+        "note": "Static row aligned to the literature value 2026-10-31. It used to cite 'Kraft (2008) Chem. Biodiv. 5:670' "
+                "with an unsourced 50-100x factor (0.05 ppb); that paper (5(6):970-999, 'Woody pretzels') prints no Iso E Super threshold. "
+                "The ethanol value was not re-researched and is left as it was.",
+        "odt_air": 0.0184,
         "odt_eth": 0.05,
     },
     "beta damascone": {
@@ -3605,7 +3611,7 @@ _VERIFIED_ODT = {
     "geraniol": 2.22,  # Elsharif & Buettner 2018 (doi:10.1021/acs.jafc.6b04534), 14 ng/L; was 0.04
     "hedione": 0.05,
     "helional": 0.1,
-    "iso e super": 0.05,
+    "iso e super": 0.0184,
     "javanol": 0.0016,
     "methyl nonyl ketone": 5.0,  # 2-nonanone analogue; replaced 2026-10-28 (5.5 ppb, UNVERIFIED)
     "romandolide": 4.9,
@@ -3618,7 +3624,7 @@ _VERIFIED_ODT = {
     "timberol": 0.6,
     "polysantol": 0.01,
     "scentenal": 0.02,
-    "floralozone": 1.0,
+    "floralozone": 6.44,
     "vetival": 7.0,
     "triplal": 0.582,
     "florhydral": 0.008995,
@@ -4408,6 +4414,13 @@ _LITERATURE_ODT_2026_10_25 = {
         'threshold / its 2-4 % share = 0.0130-0.0261 ppb; geometric midpoint 0.0184 '
         "(second reader's arithmetic). The single-isomer values (B about 52 ppb, G 0.0005"
         ' ppb) are not used alone.',
+        '2026-10-31 (Acqua di Gio Luxe research, R3/R10): Gautschi, Bajgrowicz & Kraft, Chimia 55 '
+        '(2001) 379-387 (https://www.chimia.ch/chimia/article/view/2001_379): \'the impurity 13 (ca. '
+        "5%) with a threshold of only 5 pg/l is responsible for the pleasant woody-ambery odor "
+        "characteristics of Iso E Super'; at 5 % the estimate is 0.10 ng/L = 0.0104 ppb, so the "
+        'range is 0.0104-0.0261 ppb (0.0035-0.0209 ppb if the 2.5-14.9 % isomer-G range that '
+        'AICIS EVA00028 quotes from Armanino et al. 2020 applies; secondary). Same Givaudan lab '
+        'behind every input; arborone patent US 5,214,160. Value kept at 0.0184 (PEER_EST).',
     ]),
     'undecavertol': (0.2934, 'PEER_SINGLE', [
         'Givaudan Suisse SA, Safety Data Sheet UNDECAVERTOL, Sales No. 9449903, Version '
@@ -6064,6 +6077,42 @@ for _name in ("pear valerate", "cis-3 hexenyl hexanoate", "isolongifolanone", "r
     }
 _refresh_normalized_odt_index()
 ANALOGUE_ODT_BATCH_2026_10_28 = True
+
+# Acqua di Gio Luxe research, 31 Oct 2026 (/mnt/project-files/studio/acqua-di-gio-luxe/
+# data-research-20261031/, HANDOFF.md section 1, R1.json; second reader R10 re-opened the sheet
+# and redid the conversion before loading).
+_SOURCED_ODT_2026_10_31 = {
+    "floralozone": (6.44, "PEER_SINGLE", [
+        "Symrise Perfumery Ingredients data sheet 'Florazon' (product 100360, page dated "
+        "2023-09-14) (https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/"
+        "Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Florazon.pdf): "
+        "'Threshold in Air ... Florazon aldehydic 0.0501 \u03bcg/l'; 50.1 ng/L x 24.45 / 190.3 = "
+        "6.437 ppb. Producer figure for an equivalent grade (Symrise Florazon, not IFF "
+        "Floralozone; same CAS pair 67634-15-5 / 67634-14-4 and REACH no. 01-2120758796-34); "
+        "medium, panel and method not stated; the figure-to-label mapping is read from the sheet "
+        "layout; single source; grade A_producer; second reader: CONFIRMED (quote and "
+        "arithmetic). Replaces 1.0 ppb, an unsourced adjustment (corrections_patch: 'Less potent "
+        "than calone').",
+    ]),
+}
+_refresh_normalized_odt_index()
+for _name, (_odt_air, _vfy, _sources) in _SOURCED_ODT_2026_10_31.items():
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": _vfy,
+        "sources": list(_sources),
+        "note": "Sourced threshold 2026-10-31 (stock thread, Acqua di Gio Luxe research); source re-opened before loading.",
+    }
+    if ODT_VERIFICATION.get(_key):
+        _meta["superseded"] = dict(ODT_VERIFICATION[_key])
+    ODT_VERIFICATION[_key] = _meta
+_refresh_normalized_odt_index()
+SOURCED_ODT_BATCH_2026_10_31 = True
 
 
 # (auditor CRITICAL C1: without this, batch ODT_DATA entries are unreachable via runtime lookup)

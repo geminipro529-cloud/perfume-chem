@@ -903,23 +903,21 @@ _BERGAMOT_EO_CONSTITUENTS = [
     ("bergaptene", 0.0035, 216.19, 0.001, 0.01, 0.5),  # PHOTOTOXIC furanocoumarin
 ]
 
-# Pogostemon cablin leaf oil: van Beek & Joulain (2018) Flavour Fragr. J., review,
-# Table 4, averages over more than 100 published oil analyses (GC area %).
-# Pogostone, a Chinese-chemotype marker, is left out as the review does for
-# patchoulol-type oils. 77.27% is modeled, not renormalized; the
-# sesquiterpenes without a runtime input stay unresolved.
+# Pogostemon cablin leaf oil: ISO 3757:2002 Table 1 chromatographic profile; fractions
+# are the midpoints of the standard's min-max ranges (31 Oct 2026, Acqua di Gio Luxe
+# research; the second reader re-read the table). This replaces van Beek & Joulain
+# (2018), whose literature-average patchoulol 39% is above the standard's 35% maximum
+# (the review averages lab-distilled oils too); van Beek and an Indonesian lot (Shay
+# and Company 13134, patchoulol 31.13%) are kept as cross-checks in the evidence.
+# beta-Patchoulene and nor-patchoulenol have no runtime input and copaene has an
+# upper bound only: they stay unresolved, as do rows the standard does not profile
+# (seychellene, alpha-patchoulene, aciphyllene). 66.75% is modeled, not renormalized.
 _PATCHOULI_EO_CONSTITUENTS = [
-    ("patchoulol", 0.39, 222.37, 0.005, 0.5, 0.5),
-    ("alpha-bulnesene", 0.14, 204.35, 1.0, 5.0, 1.2),
-    ("alpha-guaiene", 0.11, 204.35, 1.0, 5.0, 1.2),
-    ("seychellene", 0.066, 204.35, 1.0, 5.0, 1.2),
-    ("beta-caryophyllene", 0.031, 204.35, 1.5, 10.0, 1.2),
-    ("pogostol", 0.024, 222.37, 0.005, 1.0, 0.5),
-    ("caryophyllene oxide", 0.0073, 220.35, 0.1, 2.0, 0.6),
-    ("beta pinene", 0.002, 136.24, 250.0, 30.0, 3.0),
-    ("germacrene d", 0.0012, 204.35, 1.0, 5.0, 1.2),
-    ("alpha pinene", 0.0009, 136.24, 400.0, 20.0, 3.0),
-    ("limonene", 0.0003, 136.24, 200.0, 20.0, 3.0),
+    ("patchoulol", 0.31, 222.37, 0.005, 0.5, 0.5),
+    ("alpha-bulnesene", 0.17, 204.35, 1.0, 5.0, 1.2),
+    ("alpha-guaiene", 0.135, 204.35, 1.0, 5.0, 1.2),
+    ("beta-caryophyllene", 0.035, 204.35, 1.5, 10.0, 1.2),
+    ("pogostol", 0.0175, 222.37, 0.005, 1.0, 0.5),
 ]
 
 _GERANIUM_EO_CONSTITUENTS = [
@@ -1091,6 +1089,35 @@ _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS = [
     ("camphor", 0.000334, 152.23, 25.0, 20.0, 2.0),
     ("(R)-carvone", 0.00123, 150.22, 20.16, 5.534, 2.0),
     ("alpha-terpinene", 0.000545, 136.234, 96.6, 1418.0, 3.0),
+]
+
+# Elemi oil (Canarium luzonicum): per-constituent median of three full GC/MS lot
+# tables (Revive lot 8F, Philippines, 2025; Data Aromatics batch ELI-117, Philippines,
+# 2026; Laboratoire PhytoChemia EE0100 for Plant Therapy, 2016), area %. Each median is
+# taken on its own, so the column is not one real oil. Rows reported by one or two
+# tables only (beta-phellandrene, camphor; methyl eugenol, carvone) take the median of
+# those. Elemol and elemicin have no runtime headspace input and stay unresolved.
+# Inputs reuse this module's existing tuples (alpha-terpinene and carvone the 25 Oct
+# 2026 constituent inputs; the tables do not state carvone's enantiomer). Second
+# reader (Acqua di Gio Luxe research, 31 Oct 2026) re-added the tables and medians.
+# Nothing is renormalized.
+_ELEMI_LUZONICUM_THREE_LOT_MEDIAN_CONSTITUENTS = [
+    ("limonene", 0.5077, 136.23, 200.0, 20.0, 3.0),
+    ("alpha phellandrene", 0.1437, 136.24, 330.0, 20.0, 3.0),
+    ("sabinene", 0.0452, 136.24, 300.0, 30.0, 3.0),
+    ("alpha terpineol", 0.0207, 154.25, 2.0, 10.0, 1.5),
+    ("p cymene", 0.0162, 134.22, 240.0, 30.0, 3.0),
+    ("terpinolene", 0.0109, 136.23, 150.0, 30.0, 3.0),
+    ("beta phellandrene", 0.0083, 136.24, 300.0, 20.0, 3.0),
+    ("myrcene", 0.0056, 136.24, 400.0, 10.0, 3.0),
+    ("alpha-terpinene", 0.0045, 136.234, 96.6, 1418.0, 3.0),
+    ("alpha pinene", 0.0038, 136.24, 400.0, 20.0, 3.0),
+    ("methyl eugenol", 0.0028, 178.23, 2.0, 0.5, 1.5),
+    ("terpinen-4-ol", 0.0027, 154.25, 10.0, 50.0, 1.5),
+    ("beta pinene", 0.0026, 136.24, 250.0, 30.0, 3.0),
+    ("gamma terpinene", 0.0021, 136.24, 90.0, 50.0, 3.0),
+    ("(R)-carvone", 0.00035, 150.22, 20.16, 5.534, 2.0),
+    ("camphor", 0.0002, 152.23, 25.0, 20.0, 2.0),
 ]
 
 # ISO 3215:1998, Table 1 (normative chromatographic profile of oil of nutmeg,
@@ -1480,6 +1507,36 @@ _OLIBANUM_CARTERII_WOOLLEY_2012_AVERAGE_CONSTITUENTS = [
     ("camphene", 0.008, 136.24, 400.0, 50.0, 3.0),
 ]
 
+# Olibanum (frankincense) oil, Boswellia carterii from Somaliland: per-constituent
+# median of four GC/MS tables, two lab-distilled oils (Ojha et al. 2022, Plants 11,
+# 2134, Table 1, samples F22 and F23) and two commercial lots (Revive "Frankincense EO
+# Carterii P&N" lots 0A and 6D), area %. Rows that only the Revive lots report
+# (gamma-terpinene, terpinen-4-ol, linalool, bornyl acetate) take the median of those
+# two. Octyl acetate has no runtime headspace input and stays unresolved. alpha-Thujene
+# takes the sabinene inputs as a class input; the other rows reuse this module's
+# existing tuples. Replaces Woolley et al. (2012) as the Olibanum Oil profile on
+# 31 Oct 2026: its limonene (14.4, printed with beta-phellandrene) and myrcene (7.3) sit
+# above all four lots. The second reader re-checked alpha-pinene, limonene and myrcene.
+# Nothing is renormalized.
+_OLIBANUM_CARTERII_SOMALILAND_FOUR_LOT_MEDIAN_CONSTITUENTS = [
+    ("alpha pinene", 0.3642, 136.24, 400.0, 20.0, 3.0),
+    ("limonene", 0.09635, 136.24, 200.0, 20.0, 3.0),
+    ("alpha thujene", 0.09465, 136.24, 300.0, 30.0, 3.0),
+    ("sabinene", 0.045, 136.24, 300.0, 30.0, 3.0),
+    ("p cymene", 0.0432, 134.22, 240.0, 30.0, 3.0),
+    ("myrcene", 0.03255, 136.24, 400.0, 10.0, 3.0),
+    ("beta pinene", 0.03195, 136.24, 250.0, 30.0, 3.0),
+    ("beta-caryophyllene", 0.02275, 204.35, 1.5, 10.0, 1.2),
+    ("alpha phellandrene", 0.01395, 136.24, 330.0, 20.0, 3.0),
+    ("gamma terpinene", 0.0089, 136.24, 90.0, 50.0, 3.0),
+    ("delta-3-carene", 0.00885, 136.23, 200.0, 50.0, 3.0),
+    ("alpha terpineol", 0.00675, 154.25, 2.0, 10.0, 1.5),
+    ("camphene", 0.0064, 136.24, 400.0, 50.0, 3.0),
+    ("terpinen-4-ol", 0.00565, 154.25, 10.0, 50.0, 1.5),
+    ("bornyl acetate", 0.0017, 196.29, 3.0, 10.0, 1.5),
+    ("linalool", 0.00165, 154.25, 21.3, 1.5, 2.0),
+]
+
 # Galbanum resinoid, MySkinRecipes order 2200410, lot QM0D25 (STK-176; MSDS
 # "GALBANUM, RESIN (FERULA SPP.) 100%", CAS 9000-24-2). Canton et al. (2025), Chem
 # Biodivers e01442: a commercial galbanum resinoid supplied by RIFM, volatile
@@ -1725,6 +1782,9 @@ _ABSOLUTE_CONSTITUENTS = {
     "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
         _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS
     ),
+    "canarium luzonicum oil three-lot gc-ms median profile": (
+        _ELEMI_LUZONICUM_THREE_LOT_MEDIAN_CONSTITUENTS
+    ),
     "myristica fragrans indonesian type iso 3215 midpoint profile": (
         _NUTMEG_INDONESIAN_ISO_3215_MIDPOINT_CONSTITUENTS
     ),
@@ -1791,6 +1851,9 @@ _ABSOLUTE_CONSTITUENTS = {
     ),
     "boswellia carterii oil woolley 2012 somali average profile": (
         _OLIBANUM_CARTERII_WOOLLEY_2012_AVERAGE_CONSTITUENTS
+    ),
+    "boswellia carterii oil somaliland four-lot gc-ms median profile": (
+        _OLIBANUM_CARTERII_SOMALILAND_FOUR_LOT_MEDIAN_CONSTITUENTS
     ),
     "ferula galbaniflua resinoid canton 2025 volatile fraction profile": (
         _GALBANUM_RESINOID_CANTON_2025_VF_CONSTITUENTS
@@ -1883,8 +1946,10 @@ _PROFILE_ALIASES = {
     "peppermint essential oil": "mentha piperita lk literature profile",
     "spike lavender eo": "lavandula latifolia spanish type iso 4719 midpoint profile",
     "spike lavender": "lavandula latifolia spanish type iso 4719 midpoint profile",
-    "elemi eo": "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile",
-    "elemi essential oil": "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile",
+    # 31 Oct 2026: the three-lot median covers about 93.5% of the oil; the PerfumersWorld
+    # 7QC00902 allergen declaration (49.7%, allergens only) stays as its cross-check.
+    "elemi eo": "canarium luzonicum oil three-lot gc-ms median profile",
+    "elemi essential oil": "canarium luzonicum oil three-lot gc-ms median profile",
     # Aroma&More "Nutmeg Essential oil, Indonesia" (ref NutId0612B): seed oil,
     # East Indian type per the supplier. Mace (aril) oil is not mapped.
     "nutmeg eo": "myristica fragrans indonesian type iso 3215 midpoint profile",
@@ -2025,8 +2090,9 @@ _PROFILE_ALIASES = {
     # and STK-173 Olibanum Oil, each with its own published profile.
     "fir needle oil (canada)": "abies balsamea needle oil canadian commercial swor 2022 range midpoint profile",
     "fir needle oil canada": "abies balsamea needle oil canadian commercial swor 2022 range midpoint profile",
-    "olibanum oil": "boswellia carterii oil woolley 2012 somali average profile",
-    "olibanum (frankincense) oil": "boswellia carterii oil woolley 2012 somali average profile",
+    # 31 Oct 2026: four Somaliland lot tables replace the Woolley (2012) averages.
+    "olibanum oil": "boswellia carterii oil somaliland four-lot gc-ms median profile",
+    "olibanum (frankincense) oil": "boswellia carterii oil somaliland four-lot gc-ms median profile",
     # PerfumersWorld stock of 28 Oct 2026 (order PW-261024-211206f41): STK-184 Davana
     # Essential Oil, 10% in DPG, SKU 5HH12466.
     "davana essential oil": "artemisia pallens oil pappas 2025 revive lot 8f gc-ms profile",
@@ -2127,8 +2193,8 @@ _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
         "Producer bands differ: the Biolandes balsam fir SDS (B847) gives alpha-pinene, delta-3-carene and limonene each 10-20% and camphene 5-10%; delta-3-carene varies by chemotype.",
     ),
     "olibanum oil": (
-        "The owned Olibanum Oil (MySkinRecipes lot 3S74J8, Boswellia carterii per its MSDS) is modeled from Woolley et al. (2012) Somali B. carterii averages, not from an analysis of the owned lot; its chemotype is unknown.",
-        "Johnson et al. (2019) found a B. occulta marker (1-methoxydecane) in 9 of 13 commercial 'carteri' oils, so the owned oil may not match an authentic profile.",
+        "The owned Olibanum Oil (MySkinRecipes lot 3S74J8, Boswellia carterii per its MSDS) is modeled from medians of four Somaliland B. carterii GC/MS tables (Ojha et al. 2022; Revive lots 0A and 6D), not from an analysis of the owned lot; its chemotype is unknown.",
+        "Johnson et al. (2019) found a B. occulta marker (1-methoxydecane) in 9 of 13 commercial 'carteri' oils, and Revive lot 0A lists it at 0.23%, so commercial lots, and the owned oil, may not match an authentic profile.",
     ),
     "davana essential oil": (
         "The owned Davana Essential Oil (PerfumersWorld 5HH12466, 10% in DPG, no lot published) is modeled from one GC/MS report on a commercial Indian oil (Pappas, Revive lot 8F), not from an analysis of the owned bottle.",
@@ -2319,6 +2385,12 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
         "https://www.perfumersworld.com/view.php?pro_id=7QC00902",
     ),
+    "canarium luzonicum oil three-lot gc-ms median profile": (
+        "https://www.revive-eo.com/wp-content/uploads/2025/06/REVIVE-GCMS-Report-Elemi-Oil-Philippines-8F.pdf",
+        "https://data.aromatics.com/products/elemi-essential-oil",
+        "https://funyu-store.b-cdn.net/report/Elemi-EE0100.pdf",
+        "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
+    ),
     "myristica fragrans indonesian type iso 3215 midpoint profile": (
         "https://www.iso.org/standard/8418.html",
         "https://cdn.standards.iteh.ai/samples/8418/25f1579e1e374221b2ca9c0dfd38a3af/ISO-3215-1998.pdf",
@@ -2435,6 +2507,13 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://doi.org/10.1016/j.chroma.2012.06.073",
         "https://www.mdpi.com/2223-7747/8/4/88",
     ),
+    "boswellia carterii oil somaliland four-lot gc-ms median profile": (
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC9415502/",
+        "https://www.revive-eo.com/wp-content/uploads/2025/09/REVIVE-GCMS-Report-Frankincense-EO-Carterii-PN-0A.pdf",
+        "https://www.revive-eo.com/wp-content/uploads/2026/03/REVIVE-GCMS-Report-Frankincense-EO-Carterii-PN-6D.pdf",
+        "https://doi.org/10.1016/j.chroma.2012.06.073",
+        "https://www.mdpi.com/2223-7747/8/4/88",
+    ),
     "artemisia pallens oil pappas 2025 revive lot 8f gc-ms profile": (
         "https://www.revive-eo.com/wp-content/uploads/2025/01/REVIVE-GCMS-Report-Davana-Oil-India-8F.pdf",
         "https://doi.org/10.1002/cbdv.202100531",
@@ -2481,7 +2560,9 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.perfumersworld.com/document-list.php?pro_id=6ND09663",
     ),
     "patchouli eo": (
+        "https://cdn.standards.iteh.ai/samples/32035/01ce2b0f2fb947a5b31c02c63b4f3da3/ISO-3757-2002.pdf",
         "https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",
+        "https://shayandcompany.com/wp-content/uploads/2018/08/Patchouli-Essential-Oil-GCMS-Shay-and-Company-Lot13134.pdf",
     ),
     "styrax tonkinensis resin jecfa 2011 mean profile": (
         "https://www.fao.org/fileadmin/user_upload/agns/pdf/jecfa/cta/74/benzoe_tonkinensis.pdf",
@@ -2888,6 +2969,21 @@ _PARTIAL_PROFILE_EVIDENCE = {
                 "owned_stock_label": "Bergamot FCF oil Sicilian",
                 "owned_supplier_iso_conformity_claimed": False,
                 "owned_bottle_sku_verified": False,
+                "cross_check_lot": {
+                    "source": "https://www.planttherapy.com/cdn/shop/files/Bergamot_B30108.pdf",
+                    "document": "Laboratoire PhytoChemia certificate of analysis, GC profiling 19L18-PTH10, Bergamot (Bergapten Free) Italy, lot B3010893R (DB-5 preferred, smaller value when columns disagree; no correction factor)",
+                    "reported_pct": {
+                        "limonene": 36.69, "linalyl acetate": 30.16, "linalool": 14.34,
+                        "beta-pinene": 6.58, "gamma-terpinene": 5.71, "alpha-pinene": 1.03,
+                        "sabinene": 1.02, "myrcene": 0.81, "para-cymene": 0.58,
+                        "neryl acetate": 0.43, "geranyl acetate": 0.41, "geranial": 0.27,
+                        "neral": 0.22, "1,8-cineole": 0.17, "alpha-thujene": 0.14,
+                        "terpinolene": 0.13, "beta-caryophyllene": 0.13, "octyl acetate": 0.1,
+                        "trans-alpha-bergamotene": 0.06, "beta-bisabolene": 0.05,
+                    },
+                    "within_standard_ranges": False,
+                    "comparison": "one furocoumarin-free lot: gamma-terpinene 5.71 is below the ISO minimum 6.0, linalool 14.34 is near the ISO maximum 15 (midpoint 9.0) and beta-bisabolene 0.05 is below the whole-oil ISO 0.3-0.7; a single lot, not typical. Added 2026-10-31 (Acqua di Gio Luxe research, R7); the model is unchanged",
+                },
             },
             **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
                for name in ("limonene", "linalyl acetate", "linalool", "gamma terpinene",
@@ -3123,6 +3219,114 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Only 49.7% of the oil is modeled. Published Canarium oils report elemol, elemicin and alpha-phellandrene as major constituents (for example Galovičová et al. 2020, Potravinarstvo 14:1088-1096, doi:10.5219/1490: d-limonene 36.4, elemol 16.7, alpha-phellandrene 12.2, elemicin 9.59 TIC area %); these remain uncomputed, not odorless.",
             "PerfumersWorld labels the oil Canarium indicum while the owner's inventory says Canarium luzonicum; species identity is unresolved.",
             "The supplier SDS lists hexyl salicylate at 0.1-1%, which is not a known elemi constituent; supplier documents may follow a template.",
+        ),
+    },
+    "canarium luzonicum oil three-lot gc-ms median profile": {
+        "analytical_method": "PUBLISHED_LOT_GC_MS_TABLES_MEDIAN",
+        "composition_basis": "MEDIAN_OF_LOT_GC_AREA_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.revive-eo.com/wp-content/uploads/2025/06/REVIVE-GCMS-Report-Elemi-Oil-Philippines-8F.pdf",
+                "documents": (
+                    "REVIVE GC/MS report, Elemi Oil Philippines, lot 8F (analysed 2025-06-11, R. S. Pappas): limonene 58.42, alpha-phellandrene '14%', elemol 9.42, elemicin 3.11",
+                    "Data Aromatics, Elemi Essential Oil (Canarium luzonicum), batch ELI-117 (Philippines, distilled 04/02/2026), https://data.aromatics.com/products/elemi-essential-oil: limonene (d) 50.77, alpha-phellandrene 16.48, elemol 11.75, elemicin 4.04",
+                    "Laboratoire PhytoChemia, GC/MS batch EE0100, Elemi oil (Canarium luzonicum), report for Plant Therapy (2016), https://funyu-store.b-cdn.net/report/Elemi-EE0100.pdf: limonene 47.70 (WAX; BP5 51.91 coelutes), alpha-phellandrene 14.37, elemol 11.93, elemicin 5.52",
+                ),
+                "median_pct": {
+                    "limonene": 50.77, "alpha-phellandrene": 14.37, "elemol": 11.75,
+                    "sabinene": 4.52, "elemicin": 4.04, "alpha-terpineol": 2.07,
+                    "p-cymene": 1.62, "terpinolene": 1.09, "beta-phellandrene (1 table)": 0.83,
+                    "myrcene": 0.56, "alpha-terpinene": 0.45, "alpha-pinene": 0.38,
+                    "methyl eugenol (2 tables)": 0.28, "terpinen-4-ol": 0.27,
+                    "beta-pinene": 0.26, "gamma-terpinene": 0.21, "carvone (2 tables)": 0.035,
+                    "camphor (1 table)": 0.02,
+                },
+                "range_pct_three_tables": {
+                    "limonene": (47.7, 58.42), "alpha-phellandrene": (14.0, 16.48),
+                    "elemol": (9.42, 11.93), "sabinene": (3.88, 4.8), "elemicin": (3.11, 5.52),
+                    "alpha-terpineol": (1.53, 2.46), "p-cymene": (1.6, 1.66),
+                    "terpinolene": (0.86, 1.43), "beta-pinene": (0.2, 0.78),
+                    "myrcene": (0.47, 0.74), "alpha-terpinene": (0.33, 0.64),
+                    "alpha-pinene": (0.28, 0.43), "terpinen-4-ol": (0.25, 0.59),
+                    "gamma-terpinene": (0.21, 0.34), "methyl eugenol": (0.17, 0.39),
+                    "carvone": (0.02, 0.05),
+                },
+                "range_pct_all_sources": {
+                    "limonene": (36.38, 59.09), "alpha-phellandrene": (6.0, 16.48),
+                    "elemol": (8.18, 21.4), "elemicin": (3.11, 9.59),
+                },
+                "supplier_declaration_cross_check": {
+                    "source": "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
+                    "document": "PerfumersWorld Allergen Declaration, Elemi Essential Oil, SKU 7QC00902 (allergens only; profile 'canarium elemi oil perfumersworld 7qc00902 allergen declaration profile')",
+                    "declared_pct": {
+                        "limonene": 45.0869, "alpha-terpineol": 3.0843, "terpinolene": 0.5133,
+                        "alpha-pinene": 0.3888, "methyl eugenol": 0.3068, "carvone": 0.123,
+                        "alpha-terpinene": 0.0545, "gamma-terpinene": 0.0507, "geranial": 0.0359,
+                        "camphor": 0.0334,
+                    },
+                    "comparison": "PW limonene 45.09 is inside the all-source range but below all three tables; PW alpha-terpinene, gamma-terpinene and terpinolene are below the tables; PW alpha-terpineol and carvone are above them",
+                },
+                "species": "Canarium luzonicum (Manila elemi), as the three tables and the owner's inventory name it; PerfumersWorld labels its oil Canarium indicum",
+                "fraction_rule": "MEDIAN_OF_REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Elemi EO",
+                "owned_bottle_sku_verified": False,
+                "second_reader": "Acqua di Gio Luxe research R10, 31 Oct 2026: the three tables' major rows and the medians re-computed and CONFIRMED",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("limonene", "alpha phellandrene", "sabinene", "alpha terpineol",
+                            "p cymene", "terpinolene", "beta phellandrene", "myrcene",
+                            "alpha pinene", "methyl eugenol", "terpinen-4-ol", "beta pinene",
+                            "gamma terpinene", "camphor")},
+            "(R)-carvone": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "mw_source": "https://pubchem.ncbi.nlm.nih.gov/compound/439570",
+                "vp_status": "FMA_DATABASE_20C_VIA_RIFM_CONVERTED_TO_25C",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/6485-40-1.pdf",
+                "vp_conversion": "0.1 mm Hg at 20 C (FMA, l-carvone column) = 13.33 Pa; Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol (doi:10.1021/es980812j) = 20.16 Pa",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Amoore (1982) detection, (R)-(-)-carvone, as compiled in van Gemert (2011) AIR section",
+                "odt_conversion": "0.034 mg/m3 x 24450 / 150.22 = 5.534 ppb",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+                "enantiomer_note": "the elemi tables print 'carvone' without an enantiomer; the (R) inputs are reused",
+            },
+            "alpha-terpinene": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "mw_source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C99865",
+                "vp_status": "FMA_DATABASE_20C_VIA_RIFM_CONVERTED_TO_25C",
+                "vp_source": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/99-86-5.pdf",
+                "vp_conversion": "0.5 mm Hg at 20 C (FMA) = 66.66 Pa; Clausius-Clapeyron to 25 C with dHvap = 70.0 - 3.82 ln(VP/Pa) kJ/mol (doi:10.1021/es980812j) = 96.6 Pa",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Cometto-Muniz JE, Cain WS, Abraham MH, Kumarsingh R (1998) Pharmacol Biochem Behav 60:765-770, doi:10.1016/s0091-3057(98)00054-9, detection, as compiled in van Gemert (2011) AIR section",
+                "odt_conversion": "7.9 mg/m3 x 24450 / 136.234 = 1418 ppb",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "elemol",
+                "reported_fraction": 0.1175,
+                "reported_fraction_range": (0.0942, 0.1193),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "elemicin",
+                "reported_fraction": 0.0404,
+                "reported_fraction_range": (0.0311, 0.0552),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "Each constituent is the median of three commercial lot tables (Philippine and French-distilled C. luzonicum oils), taken one constituent at a time, so the column is not one real oil; it is not an analysis of the owned bottle.",
+            "77.735% of the oil is modeled; elemol (11.75%) and elemicin (4.04%) and the remainder (about 6.5%) are uncomputed, not odorless. Nothing is renormalized.",
+            "Elemol (8.2-21.4%) and elemicin (3.1-9.6%) vary widely between published oils; GC area percentages are used as nominal mass fractions.",
+            "PerfumersWorld labels the oil Canarium indicum while the owner's inventory says Canarium luzonicum; species identity is unresolved.",
         ),
     },
     "lavandula latifolia spanish type iso 4719 midpoint profile": {
@@ -4511,6 +4715,87 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Limonene is printed together with beta-phellandrene and is modeled with limonene inputs; alpha-thujene VP and ODT are monoterpene class inputs.",
         ),
     },
+    "boswellia carterii oil somaliland four-lot gc-ms median profile": {
+        "analytical_method": "PUBLISHED_LOT_GC_MS_TABLES_MEDIAN",
+        "composition_basis": "MEDIAN_OF_LOT_GC_AREA_PERCENT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC9415502/",
+                "documents": (
+                    "Ojha PK et al. Comparison of Volatile Constituents Present in Commercial and Lab-Distilled Frankincense (Boswellia carteri) Essential Oils for Authentication. Plants 2022;11(16):2134, Table 1, samples F22 and F23 (lab-distilled, Somaliland): alpha-pinene 31.8 / 33.3, limonene 10.1 / 10.1, myrcene 3.2 / 3.4",
+                    "REVIVE GC/MS report, Frankincense EO Carterii P&N, lot 0A (R. S. Pappas): alpha-pinene 45.91, limonene 9.17, myrcene 2.74; 1-methoxydecane 0.23 (B. occulta marker)",
+                    "REVIVE GC/MS report, Frankincense EO Carterii P&N, lot 6D (R. S. Pappas): alpha-pinene 39.54, limonene 8.71, myrcene 3.31",
+                ),
+                "median_pct": {
+                    "alpha-pinene": 36.42, "limonene": 9.635, "alpha-thujene": 9.465,
+                    "sabinene": 4.5, "p-cymene": 4.32, "myrcene": 3.255, "beta-pinene": 3.195,
+                    "beta-caryophyllene": 2.275, "octyl acetate": 2.105,
+                    "alpha-phellandrene": 1.395, "gamma-terpinene (2 lots)": 0.89,
+                    "delta-3-carene": 0.885, "alpha-terpineol": 0.675, "camphene": 0.64,
+                    "terpinen-4-ol (2 lots)": 0.565, "bornyl acetate (2 lots)": 0.17,
+                    "linalool (2 lots)": 0.165,
+                },
+                "range_pct_four_lots": {
+                    "alpha-pinene": (31.8, 45.91), "limonene": (8.71, 10.1),
+                    "alpha-thujene": (9.1, 10.0), "sabinene": (3.2, 6.14),
+                    "p-cymene": (2.99, 5.6), "myrcene": (2.74, 3.4), "beta-pinene": (2.1, 4.12),
+                    "beta-caryophyllene": (1.8, 4.14), "octyl acetate": (0.9, 3.44),
+                    "alpha-phellandrene": (1.1, 1.6), "delta-3-carene": (0.7, 1.83),
+                    "camphene": (0.52, 0.8), "alpha-terpineol": (0.44, 0.8),
+                },
+                "replaced_profile_cross_check": {
+                    "profile": "boswellia carterii oil woolley 2012 somali average profile",
+                    "woolley_2012_average_pct": {
+                        "alpha-pinene": 37.3, "limonene + beta-phellandrene": 14.4,
+                        "alpha-thujene": 7.9, "myrcene": 7.3, "sabinene": 4.9,
+                        "beta-pinene": 1.8, "camphene": 0.8,
+                    },
+                    "comparison": "Woolley limonene + beta-phellandrene 14.4 and myrcene 7.3 are above all four lots; alpha-thujene 7.9 and beta-pinene 1.8 are below their minima; alpha-pinene 37.3 is inside. Woolley averages unstated samples, so this is a difference between lots, not a proven error.",
+                },
+                "species": "Boswellia carterii, as the MySkinRecipes MSDS states ('BOSWELLIA CARTERII GUM OIL 100%'); the four lots are Somaliland B. carterii; Johnson chemotypes Ic and II are not averaged in",
+                "species_asserted_by_supplier": True,
+                "fraction_rule": "MEDIAN_OF_REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Olibanum Oil (STK-173, neat)",
+                "owned_bottle_sku_verified": True,
+                "owned_sku": "MySkinRecipes order 2200410, lot 3S74J8, 5 g",
+                "second_reader": "Acqua di Gio Luxe research R10, 31 Oct 2026: alpha-pinene, limonene and myrcene values and medians CONFIRMED; the other rows were not re-read",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("alpha pinene", "limonene", "sabinene", "p cymene", "myrcene",
+                            "beta pinene", "beta-caryophyllene", "alpha phellandrene",
+                            "gamma terpinene", "delta-3-carene", "alpha terpineol", "camphene",
+                            "terpinen-4-ol", "bornyl acetate", "linalool")},
+            "alpha thujene": {
+                "mw_status": "EXISTING_RUNTIME_MOLECULAR_MASS",
+                "vp_status": "MONOTERPENE_HYDROCARBON_CLASS_INPUT",
+                "odt_status": "MONOTERPENE_HYDROCARBON_CLASS_INPUT",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": (
+            {
+                "name": "octyl acetate",
+                "reported_fraction": 0.02105,
+                "reported_fraction_range": (0.009, 0.0344),
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "serratol, incensole, incensyl acetate and oxidised pinene alcohols",
+                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "Each constituent is the median of four Somaliland B. carterii tables (two lab-distilled, two commercial lots), taken one constituent at a time, so the column is not one real oil; it is not an analysis of the owned lot.",
+            "78.45% of the oil is modeled; octyl acetate, the sesquiterpenes and diterpenoids and the remainder are uncomputed, not odorless. Nothing is renormalized.",
+            "The Ojha tables list selected constituents (73.2% and 74.9%); the Revive lots list 97.2% and 96.2%. alpha-Thujene VP and ODT are monoterpene class inputs.",
+        ),
+    },
     "ferula galbaniflua resinoid canton 2025 volatile fraction profile": {
         "analytical_method": "PUBLISHED_GC_FID_VOLATILE_FRACTION_WITH_MEASURED_FRACTION_SHARE",
         "composition_basis": "GC_FID_AREA_OF_VOLATILE_FRACTION_TIMES_MEASURED_VOLATILE_SHARE",
@@ -5216,6 +5501,41 @@ _PARTIAL_PROFILE_EVIDENCE = {
                     "reported_pct": {
                         "cis-alpha-santalol": 45.24,
                         "cis-beta-santalol": 19.44,
+                        "cis-alpha-trans-bergamotol": 8.05,
+                        "cis-lanceol": 4.07,
+                        "cis-epi-beta-santalol": 3.53,
+                        "cis-nuciferol": 2.47,
+                        "beta-santalene": 1.93,
+                        "trans-beta-santalol": 1.36,
+                        "epi-beta-santalene": 1.18,
+                        "alpha-santalene": 1.16,
+                        "trans-nuciferol": 0.94,
+                        "khusilal": 0.78,
+                        "trans-alpha-santalal": 0.47,
+                        "trans-epi-beta-santalol": 0.47,
+                        "trans-alpha-santalol": 0.43,
+                    },
+                    "within_standard_ranges": True,
+                    "minor_rows_added": "2026-10-31 (Acqua di Gio Luxe research, R8); farnesol is not printed in this report",
+                },
+                "literature_typical_cross_check": {
+                    "source": "https://www.thegoodscentscompany.com/gca/gc1010871.html",
+                    "document": "TGSC typical GC analysis, sandalwood oil East Indian, from Brunke EJ, Hammerschmidt FJ, Dragoco Rept. (4) 107-113 (1988)",
+                    "reported_pct": {
+                        "(Z)-alpha-santalol": 50.0,
+                        "(Z)-beta-santalol": 20.9,
+                        "epi-beta-santalol": 4.1,
+                        "(Z)-(E)-alpha-bergamotol": 3.9,
+                        "alpha-santalal": 2.9,
+                        "(Z)-lanceol": 1.7,
+                        "(E)-beta-santalol": 1.5,
+                        "beta-santalene": 1.4,
+                        "spirosantalol": 1.2,
+                        "(Z)-nuciferol": 1.1,
+                        "epi-beta-santalene": 0.97,
+                        "alpha-santalene": 0.82,
+                        "(E)-alpha-santalol": 0.56,
+                        "beta-santalal": 0.56,
                     },
                     "within_standard_ranges": True,
                 },
@@ -5239,6 +5559,13 @@ _PARTIAL_PROFILE_EVIDENCE = {
                 "gamma_status": "HEURISTIC_CLASS_INPUT",
                 "owned_oil_activity_measured": False,
                 "odt_conversion": "0.00054 mg/m3 x 24450 / 220.35 = 0.05992 ppb",
+                "odt_cross_check": (
+                    "Gautschi M, Bajgrowicz JA, Kraft P (Givaudan), Fragrance Chemistry - Milestones and "
+                    "Perspectives, Chimia 55 (2001) 379-387 (https://www.chimia.ch/chimia/article/download/2001_379/2715/13400), "
+                    "scheme label '(-)-(Z)-beta-santalol (1935) 0.5 ng/l' (OCR text): 0.5 x 24.45 / 220.35 = 0.0555 ppb; "
+                    "the same Givaudan lab as the 0.54 ng/L (Bajgrowicz 1998) input, so not independent; detection or recognition not "
+                    "stated; second reader (R10, 31 Oct 2026): CONFIRMED. The 0.05992 ppb input is kept."
+                ),
             },
         },
         "unresolved_constituents": (
@@ -5254,8 +5581,48 @@ _PARTIAL_PROFILE_EVIDENCE = {
                 "missing_input": "UPPER_BOUND_ONLY_NO_NOMINAL_FRACTION",
                 "odor_contribution": "UNCOMPUTED",
             },
+            # Named 2026-10-31 from Brunke & Hammerschmidt 1988 (via TGSC) and Revive lot 6K;
+            # the standard does not profile them, so they stay unresolved (no value invented).
             {
-                "name": "other constituents (cis-alpha-trans-bergamotol, epi-beta-santalol, nuciferols, santalenes and others)",
+                "name": "(Z)-alpha-trans-bergamotol",
+                "reported_fraction_range": (0.039, 0.0805),
+                "missing_input": "NOT_IN_STANDARD_RANGES",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "epi-beta-santalol",
+                "reported_fraction_range": (0.0353, 0.041),
+                "missing_input": "NOT_IN_STANDARD_RANGES",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "(Z)-nuciferol",
+                "reported_fraction_range": (0.011, 0.0247),
+                "missing_input": "NOT_IN_STANDARD_RANGES",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "alpha-santalal",
+                "reported_fraction_range": (0.0047, 0.029),
+                "missing_input": "NOT_IN_STANDARD_RANGES",
+                "odor_contribution": "UNCOMPUTED",
+                "note": "Brunke 1988 prints alpha-santalal 2.9; Revive 6K prints trans-alpha-santalal 0.47 and cis-alpha-santalal 0.12",
+            },
+            {
+                "name": "(E)-beta-santalol",
+                "reported_fraction_range": (0.0136, 0.015),
+                "missing_input": "NOT_IN_STANDARD_RANGES",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "beta-santalene, epi-beta-santalene, alpha-santalene",
+                "reported_fraction_range": (0.0319, 0.0427),
+                "missing_input": "NOT_IN_STANDARD_RANGES",
+                "odor_contribution": "UNCOMPUTED",
+                "note": "beta 1.4 / 1.93, epi-beta 0.97 / 1.18, alpha 0.82 / 1.16 (Brunke 1988 / Revive 6K); summed range shown",
+            },
+            {
+                "name": "other constituents (spirosantalol, khusilal, bergamotenes, curcumenes and others)",
                 "missing_input": "NOT_IN_STANDARD_RANGES",
                 "odor_contribution": "UNCOMPUTED",
             },
@@ -5366,114 +5733,97 @@ _PARTIAL_PROFILE_EVIDENCE = {
         ),
     },
     "patchouli eo": {
-        "analytical_method": "PUBLISHED_GC_LITERATURE_AVERAGE",
-        "composition_basis": "LITERATURE_PERCENT_NOMINAL_MODEL_PROXY",
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
         "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
         "input_authority": {
             "composition": {
-                "source": "https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",
-                "document": "van Beek TA, Joulain D (2018) The essential oil of patchouli, Pogostemon cablin: A review. Flavour Fragr J, doi:10.1002/ffj.3418, Table 4 (literature averages)",
-                "reported_pct_average": {
-                    "patchoulol": 39,
-                    "alpha-bulnesene": 14,
-                    "alpha-guaiene": 11,
-                    "seychellene": 6.6,
-                    "alpha-patchoulene": 4.5,
-                    "(E)-beta-caryophyllene": 3.1,
-                    "beta-patchoulene": 3.0,
-                    "aciphyllene": 2.4,
-                    "pogostol": 2.4,
-                    "beta-elemene": 0.89,
-                    "norpatchoulenol": 0.86,
-                    "caryophyllene oxide": 0.73,
-                    "alpha-humulene": 0.69,
-                    "delta-elemene": 0.52,
-                    "cycloseychellene": 0.46,
-                    "beta-pinene": 0.2,
-                    "germacrene D": 0.12,
-                    "alpha-pinene": 0.09,
-                    "limonene": 0.03,
+                "source": "https://cdn.standards.iteh.ai/samples/32035/01ce2b0f2fb947a5b31c02c63b4f3da3/ISO-3757-2002.pdf",
+                "document": "ISO 3757:2002 Oil of patchouli [Pogostemon cablin (Blanco) Benth.], Table 1, Chromatographic profile (iTeh preview)",
+                "standard_range_pct": {
+                    "beta-patchoulene": "1.8-3.5",
+                    "copaene": "traces-1.0",
+                    "alpha-guaiene": "11.0-16.0",
+                    "beta-caryophyllene": "2.0-5.0",
+                    "alpha-bulnesene (bulnesene, delta-guaiene)": "13.0-21.0",
+                    "nor-patchoulenol": "0.35-1.0",
+                    "patchoulol": "27.0-35.0",
+                    "pogostol": "1.0-2.5",
                 },
-                "pogostone_excluded": "average 8.9%, range 0.1-27.7%, n = 24; Chinese-chemotype marker",
-                "fraction_rule": "REPORTED_AVERAGE_PERCENT_DIVIDED_BY_100",
+                "fraction_rule": "MIDPOINT_OF_STANDARD_MIN_MAX_RANGE",
+                "upper_bound_only_rule": "NO_VALUE_INVENTED_KEPT_UNRESOLVED",
                 "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
                 "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
                 "owned_stock_label": "Patchouli EO (Aroma&More, Indonesia, neat)",
                 "owned_supplier_documents_found": False,
-                "iso_3757_cross_check": {
-                    "source": "https://cdn.standards.iteh.ai/samples/32035/01ce2b0f2fb947a5b31c02c63b4f3da3/ISO-3757-2002.pdf",
-                    "patchoulol_pct": "27-35",
-                    "alpha_bulnesene_pct": "13-21",
-                    "alpha_guaiene_pct": "11-16",
+                "owned_supplier_iso_conformity_claimed": False,
+                "second_reader": "Acqua di Gio Luxe research R10, 31 Oct 2026: ISO 3757:2002 Table 1 ranges CONFIRMED as printed",
+                "literature_average_cross_check": {
+                    "source": "https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",
+                    "document": "van Beek TA, Joulain D (2018) The essential oil of patchouli, Pogostemon cablin: A review. Flavour Fragr J, doi:10.1002/ffj.3418, Table 4 (literature averages); the profile from 25 Oct to 31 Oct 2026",
+                    "reported_pct_average": {
+                        "patchoulol": 39, "alpha-bulnesene": 14, "alpha-guaiene": 11,
+                        "seychellene": 6.6, "alpha-patchoulene": 4.5, "(E)-beta-caryophyllene": 3.1,
+                        "beta-patchoulene": 3.0, "aciphyllene": 2.4, "pogostol": 2.4,
+                        "beta-elemene": 0.89, "norpatchoulenol": 0.86, "caryophyllene oxide": 0.73,
+                        "alpha-humulene": 0.69, "delta-elemene": 0.52, "cycloseychellene": 0.46,
+                        "beta-pinene": 0.2, "germacrene D": 0.12, "alpha-pinene": 0.09,
+                        "limonene": 0.03,
+                    },
+                    "pogostone_excluded": "average 8.9%, range 0.1-27.7%, n = 24; Chinese-chemotype marker",
+                    "comparison": "the review's patchoulol 39% (range 11-72%) is above the ISO 35% maximum; it averages lab-distilled oils too",
                 },
-                "replaces": "uncited six-row profile (patchoulol 0.30, alpha-bulnesene 0.15, alpha-guaiene 0.12, seychellene 0.06, pogostol 0.03, beta-caryophyllene 0.03)",
+                "cross_check_lot": {
+                    "source": "https://shayandcompany.com/wp-content/uploads/2018/08/Patchouli-Essential-Oil-GCMS-Shay-and-Company-Lot13134.pdf",
+                    "document": "Shay and Company GC/MS report, Patchouli Essential Oil lot 13134 (Pogostemon cablin, Indonesia, steam distilled; ZB-5, area %)",
+                    "reported_pct": {
+                        "patchoulol": 31.13, "alpha-bulnesene": 17.47, "alpha-guaiene": 14.29,
+                        "seychellene": 6.69, "alpha-patchoulene": 4.74, "beta-caryophyllene": 3.17,
+                        "aciphyllene": 2.77, "beta-patchoulene": 2.3, "pogostol": 2.28,
+                        "cycloseychellene": 0.63, "pogostone": 0.62, "norpatchoulenol": 0.51,
+                        "caryophyllene oxide": 0.33, "beta-pinene": 0.23, "alpha-pinene": 0.1,
+                    },
+                    "within_standard_ranges": True,
+                },
             },
             "patchoulol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
             "alpha-bulnesene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
             "alpha-guaiene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
-            "seychellene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
             "beta-caryophyllene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
             "pogostol": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
-            "caryophyllene oxide": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
-            "beta pinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
-            "germacrene d": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
-            "alpha pinene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
-            "limonene": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
         },
         "unresolved_constituents": (
             {
-                "name": "alpha-patchoulene",
-                "reported_fraction": 0.045,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
                 "name": "beta-patchoulene",
-                "reported_fraction": 0.03,
+                "reported_fraction": 0.0265,
+                "reported_fraction_range": (0.018, 0.035),
                 "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
                 "odor_contribution": "UNCOMPUTED",
             },
             {
-                "name": "aciphyllene",
-                "reported_fraction": 0.024,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "beta-elemene",
-                "reported_fraction": 0.0089,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "norpatchoulenol",
-                "reported_fraction": 0.0086,
+                "name": "nor-patchoulenol",
+                "reported_fraction": 0.00675,
+                "reported_fraction_range": (0.0035, 0.01),
                 "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
                 "odor_contribution": "UNCOMPUTED",
                 "note": "a key patchouli odorant at low level; no runtime headspace input in this module",
             },
             {
-                "name": "alpha-humulene",
-                "reported_fraction": 0.0069,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "name": "copaene",
+                "reported_fraction_range": (0.0, 0.01),
+                "missing_input": "UPPER_BOUND_ONLY_NO_NOMINAL_FRACTION",
                 "odor_contribution": "UNCOMPUTED",
             },
             {
-                "name": "delta-elemene",
-                "reported_fraction": 0.0052,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
+                "name": "seychellene, alpha-patchoulene, aciphyllene, caryophyllene oxide, beta-elemene, pogostone and others",
+                "missing_input": "NOT_IN_STANDARD_RANGES",
                 "odor_contribution": "UNCOMPUTED",
-            },
-            {
-                "name": "cycloseychellene",
-                "reported_fraction": 0.0046,
-                "missing_input": "NO_RUNTIME_HEADSPACE_INPUT",
-                "odor_contribution": "UNCOMPUTED",
+                "note": "seychellene 6.6% (van Beek) and 6.69% (Shay lot 13134); alpha-patchoulene 4.5 / 4.74; aciphyllene 2.4 / 2.77",
             },
         ),
         "limitations": (
-            "Literature average over oils of every origin; it is not an analysis of the owned Aroma&More Indonesian bottle, for which no supplier document was found.",
-            "Only 77.27% of the oil is modeled. alpha-Patchoulene, beta-patchoulene, aciphyllene, norpatchoulenol and the other unresolved sesquiterpenes are uncomputed, not odorless. Nothing is renormalized.",
+            "ISO 3757 ranges describe a conforming commercial patchouli oil, not the owned Aroma&More Indonesian bottle, for which no supplier document was found.",
+            "Only 66.75% of the oil is modeled. beta-Patchoulene, nor-patchoulenol and copaene, the sesquiterpenes the standard does not profile (seychellene, alpha-patchoulene, aciphyllene and others, about 15% in the Shay lot) and the remainder are uncomputed, not odorless. Nothing is renormalized.",
             "GC area percentages are used as nominal mass fractions.",
             "Patchouli Light Essential Oil, a lighter grade, reaches this whole-oil profile as a proxy.",
         ),

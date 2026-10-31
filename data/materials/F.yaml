@@ -551,7 +551,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 6.44
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -577,7 +577,7 @@
   notes:
   provenance:
     vp_25c_pa: 'Floralozone | Fragrance Ingredients | IFF (ingredients compendium page) (https://www.iff.com/scent/ingredients-compendium/floralozone): ''Molecular Weight: 190.1 Vapor Pressure: 0.003238 mm Hg @ 23 C ... CAS Number: 67634-15-5 / 67634-14-4''; printed 0.003238 mm Hg @ 23 C; producer figure, method not stated; grade A_producer. Converted from 0.4317 Pa at 23 C to 25 C by Clausius-Clapeyron with dHvap 72.5 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Page identity: IFF Ingredients Compendium, Floralozone. 0.003238 x 133.322 = 0.4317 Pa at 23 C (item value 0.526 Pa is the 25 C conversion). Method not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    odt_air_ppb: engine.odor_thresholds
+    odt_air_ppb: 'Symrise Perfumery Ingredients data sheet ''Florazon'' (product 100360, page dated 2023-09-14), https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Florazon.pdf: ''Threshold in Air ... Florazon aldehydic 0.0501 μg/l''; 50.1 ng/L x 24.45 / 190.3 = 6.437 ppb v/v at 25 C; producer figure for an equivalent grade (Symrise Florazon, not IFF Floralozone; same CAS pair 67634-15-5 / 67634-14-4, REACH 01-2120758796-34); medium, panel and method not stated; figure-to-label mapping read from the sheet layout; single source; grade A_producer. Second reader (R10): CONFIRMED, quote and arithmetic exact. Replaces 1.0 ppb (an unsourced adjustment). Full source in engine/odor_thresholds.py _SOURCED_ODT_2026_10_31. Loaded 2026-10-31 (Acqua di Gio Luxe research; source re-opened by a second reader).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     mw_g_mol: SOURCE_BACKED_ENTITY_MASS; docs/research/INGREDIENT_INTELLIGENCE_REPAIR_20260907.md

@@ -1,0 +1,1825 @@
+{
+ "schema": "literature_character_profiles_v1",
+ "created": "2026-10-31",
+ "requested_by": "Kenny, 31 Oct 2026 05:08 UTC: \"check other ingredient data to see if they are equally pickable as the ones just sourced. If not, resource them in order to get them to the same level.\" Pickability audit: 15 owned materials below the #169 floor on what the composer scores.",
+ "new_profile_entries": "only where profile_key has no _PROFILES entry (odor_description given)",
+ "character_evidence": {
+  "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+  "method": "Same rule as literature_character_profiles_20261031.json (#169), with the round-2 input clean-ups (Scribd-mirror quotes dropped; TGSC odor-description line first). Evidence: /mnt/project-files/pickability-audit-20261031/resource15/evidence1-3.json."
+ },
+ "note_evidence": {
+  "status": "LITERATURE_VOLATILITY_RULE",
+  "method": "TGSC substantivity at 100%: 12 h or less top, 200 h or less heart, else base."
+ },
+ "stock_ids_note": "stock_ids are the ids when the file was built; overlay stock ids rotate with every overlay change, so the loader joins on profile_key.",
+ "profiles": [
+  {
+   "profile_key": "2-Acetyl Pyrazine",
+   "identity": "2-Acetyl Pyrazine",
+   "stock_ids": [
+    "inventory:user-20261014:562055f1027e972ab7b8"
+   ],
+   "stock_names": [
+    "2-Acetyl Pyrazine 1%"
+   ],
+   "cas": {
+    "cas": "22047-25-2",
+    "source": "22047-25-2 (acetylpyrazine, 1-pyrazin-2-ylethanone, FEMA 3126): TGSC rw1012201 title '2-acetyl pyrazine, 22047-25-2'; Robinson Brothers PZ0011 'CAS Number 22047-25-2'; PW 1EN13109 'CAS No. 22047-25-2' and 5EN13769 'CAS No. 22047-25-2 *1%'; P&F 2010 '2-Acetyl pyrazine (FEMA# 3126; CAS# 22047-25-2)'; PubChem CID 30914."
+   },
+   "character": {
+    "smoky": 2.5,
+    "sweetness": 4.5,
+    "warmth": 6.0
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity 400 h at 100%",
+   "tgsc_odor_type": "popcorn",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "popcorn nutty corn chip bread crust chocolate hazelnut coffee",
+     "popcorn",
+     "nutty",
+     "corn chip",
+     "bread crust",
+     "chocolate",
+     "hazelnut",
+     "coffee",
+     "musty",
+     "roasted",
+     "roasted",
+     "nutty",
+     "bready"
+    ],
+    "supplier": [
+     "popcorn",
+     "nutty",
+     "bread crust",
+     "nutty",
+     "popcorn",
+     "sweet",
+     "caramellic",
+     "faint-buttery",
+     "oily popcorn",
+     "savory",
+     "sweet corn",
+     "vegetable",
+     "buttery biscuits",
+     "nutty",
+     "popcorn"
+    ],
+    "literature": [
+     "roasted + popcorn"
+    ],
+    "producer": [
+     "chocolate",
+     "coffee",
+     "popcorn"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "R C Treatt & Co, 2-Acetylpyrazine (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1012201.html",
+     "why": "Producer description carried by TGSC; Treatt's own chemicals page lists no per-product text in the excerpt"
+    },
+    {
+     "rank": 1,
+     "source": "Robinson Brothers, 2-Acetylpyrazine PZ0011",
+     "url": "https://www.robinsonbrothers.uk/our-products/high-impact-aroma-chemicals/2-acetylpyrazine",
+     "why": "UK manufacturer page; identity only (no odour words on the page)"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC 2-acetyl pyrazine (rw1012201)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1012201.html",
+     "why": "TGSC organoleptic block (Luebke 1996, sample Sigma-Aldrich; Mosciano 1992) and producer lines (Parallel web_fetch excerpt)"
+    },
+    {
+     "rank": 2,
+     "source": "JECFA specification (as carried by PubChem CID 30914)",
+     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/Acetylpyrazine",
+     "why": "Official flavour specification odour wording (Parallel search excerpt of PubChem)"
+    },
+    {
+     "rank": 4,
+     "source": "Perfumer & Flavorist 35(10) 2010, pp. 32-33, flavourist column on 2-acetyl pyrazine (author not shown in the excerpt)",
+     "url": "https://img.perfumerflavorist.com/files/base/allured/all/document/2010/10/pf.PF_35_10_032_02.pdf",
+     "why": "Trade-journal flavourist assessment with use levels; read via Parallel web_fetch excerpt (not peer-reviewed)"
+    },
+    {
+     "rank": 4,
+     "source": "RIFM safety assessment, acetylpyrazine (Api et al., Food Chem Toxicol 2019)",
+     "url": "https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/22047-25-2_0.pdf",
+     "why": "Cited in repo YAML for VP/logP; not re-read here for odour"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 30914",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 2-Acetyl Pyrazine 1EN13109 (neat) and 5EN13769 (1% in DPG)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=1EN13109",
+     "why": "Neat page read from repo archive data/external/perfumersworld/1EN13109/product.html (2026-08-30); 1% page live via WebFetch 2026-10-31"
+    }
+   ],
+   "identity_notes": "Kenny's stock is '2-Acetyl Pyrazine (1% in DPG) # added 2026-07-29; popcorn/bread-crust/roasted gourmand stock' (inventory.txt line 277). PW sells a matching 1% in DPG (5EN13769), whose page only says 'A dilution of 2-Acetyl Pyrazine 1% in DPG'; the census matched by registry SKU (1EN13109 neat / 5EN13769 1%), not by receipt. A discrete molecule, solid neat (TGSC 'Melting Point: 76.00 to 78.00 °C'). It is mainly a flavour material: almost every description is from flavour producers or flavourists, and the dose words are ppm in food. Producers: Robinson Brothers (UK manufacturer; its page gives code and CAS only) and Treatt (description quoted by TGSC). The engine's own text ('gourmand 8, nutty 5, warmth 4, sweetness 3', note 'base') is unsourced; the YAML character line 'nutty, popcorn, breadcrust odour' matches the JECFA wording carried by PubChem."
+  },
+  {
+   "profile_key": "Aldehyde C-18",
+   "identity": "Aldehyde C-18",
+   "stock_ids": [
+    "inventory:user-20261014:7710abdcbed26c10d828"
+   ],
+   "stock_names": [
+    "Aldehyde C-18 (neat)"
+   ],
+   "cas": {
+    "cas": "104-61-0",
+    "source": "104-61-0 (gamma-nonalactone, 5-pentyloxolan-2-one, 'aldehyde C-18 (so-called)'): TGSC rw1000531 title 'gamma-nonalactone (aldehyde C-18 (so-called)), 104-61-0'; PW 4DD00324 'CAS No. 104-61-0' (PW 10% dilutions print '104-61-0*10%'); US FDA Substances Added to Food lists 'ALDEHYDE C-18 (SO-CALLED)' and 'COCONUT ALDEHYDE' as other names of GAMMA-NONALACTONE, CAS 104-61-0, FEMA 2781; Dravnieks stimulus 'AldehydeC-18_high' is keyed to CAS 104-61-0."
+   },
+   "character": {
+    "creamy": 7.5,
+    "floral": 2.0,
+    "sweetness": 6.0
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity 309 h at 100%",
+   "tgsc_odor_type": "coconut",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "coconut",
+     "creamy",
+     "waxy",
+     "sweet",
+     "buttery",
+     "fatty"
+    ],
+    "producer": [
+     "creamy",
+     "resembling coconut",
+     "apricot",
+     "apricot",
+     "coconut",
+     "sweet",
+     "fatty",
+     "fruity",
+     "creamy",
+     "coconut",
+     "cocoa",
+     "fruity",
+     "powdery",
+     "fruity"
+    ],
+    "supplier": [
+     "lactonic",
+     "coconut",
+     "sweet",
+     "aromatic",
+     "heavy",
+     "fruity",
+     "coconut",
+     "coconut",
+     "fatty",
+     "sweet fruity coconut",
+     "tuberose",
+     "gardenia",
+     "vanilla",
+     "creamy coconut",
+     "fruity"
+    ],
+    "literature": [
+     "heavy floral"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise 'Aldehyde C18 so-called' (product 103866), producer odour text quoted by TGSC and by SpecialChem's Symrise datasheet listing",
+     "url": "https://www.specialchem.com/cosmetics/product/symrise-aldehyde-c18-so-called",
+     "why": "Producer description (the Symrise product-search page did not render; text read from TGSC's Symrise block and the SpecialChem Symrise listing, search excerpt)"
+    },
+    {
+     "rank": 1,
+     "source": "IFF gamma-Nonalactone (online compendium), quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000531.html",
+     "why": "Producer description, second-hand via TGSC"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC gamma-nonalactone (aldehyde C-18 (so-called))",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000531.html",
+     "why": "TGSC page for 104-61-0 (Parallel web_fetch excerpt of Organoleptic section; carries Bedoukian, Symrise, IFF, Moellhausen, Mane and an Arctander quotation)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969, quoted by Pell Wall Perfumes on the TGSC page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000531.html",
+     "why": "Arctander use paragraph, second-hand ('quoted by TGSC'); monograph not read directly"
+    },
+    {
+     "rank": 4,
+     "source": "Dravnieks 1985 atlas (pyrfume copy), AldehydeC-18_high, CAS 104-61-0",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/dravnieks_1985_behavior_1.csv",
+     "why": "Only real panel data; one concentration (high)"
+    },
+    {
+     "rank": 4,
+     "source": "Pea preparations GC-O study, ScienceDirect S2666833523000291 (2023), Table 6",
+     "url": "https://www.sciencedirect.com/science/article/pii/S2666833523000291",
+     "why": "Peer-reviewed GC-O odour descriptor (search snippet of table)"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 441574 '(s)-4-nonanolide'",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags for the (S)-enantiomer only; racemic CID 7710 not in the copy"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Aldehyde C-18 Gamma Nonalactone 4DD00324",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00324",
+     "why": "Kenny's actual neat bottle (Parallel web_fetch excerpt)"
+    },
+    {
+     "rank": 5,
+     "source": "Perfumer's Apprentice Aldehyde C-18 COCONUT (so-called)",
+     "url": "https://shop.perfumersapprentice.com/p-5996-aldehyde-c-18-coconut-so-called.aspx",
+     "why": "Reseller description and naming note (search excerpt)"
+    }
+   ],
+   "identity_notes": "'Aldehyde C-18' is a perfumery trade name for gamma-nonalactone (coconut lactone), NOT an 18-carbon aldehyde: it is the same molecule as Gamma Nonalactone. Perfumer's Apprentice: \"The common name of 'Aldehyde C-18' under which this product is sold is technically and chemically inaccurate, as this material is not an aldehyde.\" Evidence below is recorded under this identity; any engine entry for 'Gamma Nonalactone' should share it. Kenny holds two stocks of it: 'Aldehyde C-18 (Gamma Nonalactone, neat)' = PW 4DD00324 (inventory.txt line 293; 1 g, order 261004-055451ce1) and 'Aldehyde C-18 (Gamma Nonalactone, 10% in ethanol)' (line 292; carrier user-confirmed, percentage basis unstated). This batch entry names the neat stock. Descriptors are for the neat molecule. Commercial material is racemic; the Leffingwell copy only has the (S)-enantiomer.",
+   "odor_description": "Creamy, coconut, apricot, sweet, fatty, fruity, heavy."
+  },
+  {
+   "profile_key": "Alpha Damascone",
+   "identity": "Alpha Damascone",
+   "stock_ids": [
+    "inventory:v5:9ba563c19007b9f0eca5",
+    "inventory:user-20261014:bb35f42ace0cfa4314d7"
+   ],
+   "stock_names": [
+    "Alpha Damascone (neat)",
+    "Alpha Damascone 10%"
+   ],
+   "cas": {
+    "cas": "24720-09-0",
+    "source": "24720-09-0 ((E)-alpha-damascone): dsm-firmenich studio DAMASCONE ALPHA 937470 'CAS# 0024720-09-0'; TGSC rw1006041 'CAS Number: 24720-09-0'; IFF compendium Damascone Alpha '24720-09-0'. Kenny's neat bottle page (PW 9IF02656) instead prints 'CAS No. 43052-87-5' (alpha-damascone, double-bond geometry unspecified) with 'FEMA 3659'; Ernesto Ventos lists both, 'CAS: 24720-09-0 ; 43052-87-5' and 'Assay (% gc) Cis 4-10%; trans 87-94%; sum > 90%'."
+   },
+   "character": {
+    "floral": 6.5,
+    "freshness": 4.5,
+    "green": 2.0,
+    "radiance": 9.5,
+    "sweetness": 5.0,
+    "woody": 2.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity 64 h at 100%",
+   "tgsc_odor_type": "fruity",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "fruity",
+     "apple",
+     "rose",
+     "coniferous",
+     "floral",
+     "rose petal",
+     "plum",
+     "blackcurrant",
+     "mint",
+     "floral fruity",
+     "natural rose",
+     "green apple"
+    ],
+    "tgsc": [
+     "floral rose apple fruity black currant",
+     "sweet",
+     "woody",
+     "green berry"
+    ],
+    "supplier": [
+     "metallic",
+     "spicy",
+     "floral-fruity apple",
+     "rose",
+     "plum",
+     "iris",
+     "woody",
+     "clean-watery fresh"
+    ],
+    "literature": [
+     "rose-apple"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "dsm-firmenich studio, DAMASCONE ALPHA 937470 product page",
+     "url": "https://studio.dsm-firmenich.com/product/damascone-alpha-pe-937470",
+     "why": "Producer page (originator of the rose ketones); read via Parallel web_fetch excerpts"
+    },
+    {
+     "rank": 1,
+     "source": "Firmenich DAMASCONE ALPHA 937470 technical sheet (PDF re-hosted by a reseller on imimg.com)",
+     "url": "http://5.imimg.com/data5/SELLER/Doc/2022/1/FJ/WW/KD/17951240/alpha-damascone.pdf",
+     "why": "Producer sheet text (tenacity, VP, use level, top/heart label); read via search excerpt only, third-party host"
+    },
+    {
+     "rank": 1,
+     "source": "IFF Ingredients Compendium, Damascone Alpha",
+     "url": "https://www.iff.com/scent/ingredients-compendium/damascone-alpha",
+     "why": "Second producer; olfactive description and VP; Note Impact/substantivity fields not returned by the excerpt"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC (E)-alpha-damascone",
+     "url": "https://www.thegoodscentscompany.com/data/rw1006041.html",
+     "why": "TGSC page for 24720-09-0; Organoleptic block plus Firmenich, IFF, Bedoukian, Advanced Biotech, Pell Wall quotes (Parallel web_fetch excerpt; WebFetch truncated)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969",
+     "url": null,
+     "why": "Not used: alpha-damascone entered perfumers' palettes ~1969 (Williams 2002) and is not expected in Arctander 1969; not checked in a scan"
+    },
+    {
+     "rank": 4,
+     "source": "Williams A. (Firmenich), 'Rose Ketones: Celebrating 30 Years of Success', Perfumer & Flavorist 27(2) 2002",
+     "url": "https://img.perfumerflavorist.com/files/base/allured/all/document/2016/02/pf.PF_27_02_018_11.pdf",
+     "why": "Producer-authored trade-journal review with odour comparison and air thresholds (Parallel excerpt, not read in full)"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 5366077 alpha-damascone",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags"
+    },
+    {
+     "rank": 4,
+     "source": "TGSC descriptor list (pyrfume goodscents_behavior.csv), 24720-09-0",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/goodscents_behavior.csv",
+     "why": "Cross-check of TGSC tags"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 9IF02656 Alpha Damascone (Kenny's neat bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=9IF02656",
+     "why": "Actual bottle; odour line conflicts with producers (see identity_notes)"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 5IF07569 Alpha Damascone 10% in DPG",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=5IF07569",
+     "why": "Matches Kenny's 10% stock; no odour words of its own"
+    }
+   ],
+   "identity_notes": "Two stocks: 'Alpha Damascone (neat / as supplied)' = PW 9IF02656 (inventory.txt line 182, 1 g, user-confirmed 2026-10-07) and 'Alpha Damascone (10%)' in DPG (inventory.txt line 151; PW sells the same dilution as 5IF07569, whose page only says 'Dilution of Alpha Damascone 10% in DPG, refer to constituent materials'). Neither PW page names the manufacturer. WARNING: the PW 9IF02656 Odour=> line ('iris, woody, has a distinct and curious clean-watery fresh smell, expansive'; Synaesthesia 'ocean shore foamy waves, a clean swimming pool aroma') contradicts every producer and TGSC description (rose / apple / fruity / plum / blackcurrant); only the PW one-liner and Perfume-Uses ('Rose, Fruity-booster +ionones, Plum, Prune') agree with them. Treat the PW Odour=> text as unreliable. Commercial alpha-damascone is racemic: Williams (Firmenich, P&F 2002) says (S)-(-)-alpha-damascone 'is approximately 100 times stronger than its antipode' and the 'corky-earthy' note 'stems from the (R)-(+)-isomer'. Pell Wall (quoted by TGSC) cites Boix Camps that enantiomer balance, not purity, sets quality. Descriptors below are for the neat material; one stock is 10%."
+  },
+  {
+   "profile_key": "Benzaldehyde",
+   "identity": "Benzaldehyde",
+   "stock_ids": [
+    "inventory:v5:6af61e82ddb08943db6b",
+    "inventory:user-20261014:391047f5130d4e6996d3"
+   ],
+   "stock_names": [
+    "Benzaldehyde",
+    "Benzaldehyde 1% in DPG"
+   ],
+   "cas": {
+    "cas": "100-52-7",
+    "source": "100-52-7: Symrise Benzaldehyde DD datasheet 'cas 100-52-7 › 600194 › eu-reach 01-2119455540-44'; TGSC rw1001491 title 'benzaldehyde, 100-52-7'; PW 4FN00049 'CAS No. 100-52-7' (FEMA 2127); Dravnieks stimulus Benzaldehyde_high 'CAS 100-52-7'; PubChem CID 240."
+   },
+   "character": {
+    "freshness": 2.5,
+    "powdery": 2.5,
+    "spicy": 1.5,
+    "sweetness": 6.5
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity 4 h at 100%",
+   "tgsc_odor_type": "fruity",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "sharp sweet bitter almond cherry",
+     "sharp",
+     "powdery",
+     "nutty"
+    ],
+    "producer": [
+     "fruity",
+     "almond",
+     "cherry",
+     "apricot",
+     "peach",
+     "sweet",
+     "bitter almond",
+     "aromatic",
+     "spicy"
+    ],
+    "literature": [
+     "sweet"
+    ],
+    "supplier": [
+     "almond",
+     "aromatic",
+     "sweet",
+     "cherry",
+     "berry",
+     "sweet",
+     "almond",
+     "fruity",
+     "cherry",
+     "bitter almond",
+     "floral",
+     "sharp sweet bitter-almond cherry aromatic spicy",
+     "maraschino cherry",
+     "waxy-spicy",
+     "musky-animalic drydown",
+     "almond",
+     "fruity"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise, Benzaldehyde DD datasheet (product 600194, Ingredient Finder PDF)",
+     "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Benzaldehyde_DD.pdf",
+     "why": "Producer datasheet: odour family, odour words, bp, use level (Parallel web_search excerpt of the PDF)"
+    },
+    {
+     "rank": 1,
+     "source": "Symrise Benzaldehyde DD (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001491.html",
+     "why": "Second Symrise wording ('strong sweet, bitter almond-like') carried on TGSC"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC benzaldehyde (rw1001491)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001491.html",
+     "why": "TGSC organoleptic block (Luebke 1982, sample Givaudan; Mosciano 1994), producer lines and Arctander quote (Parallel web_fetch excerpt)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969, 'Benzaldehyde' monograph (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001491.html",
+     "why": "Monograph text not reached in the archive.org OCR excerpt; TGSC's quotation used and labelled"
+    },
+    {
+     "rank": 4,
+     "source": "Dravnieks 1985 atlas (pyrfume copy), Benzaldehyde_high",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/dravnieks_1985_behavior_1.csv",
+     "why": "Real panel data (high concentration only)"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 240",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags"
+    },
+    {
+     "rank": 4,
+     "source": "JECFA specification and FEMA flavour profile (as carried by PubChem CID 240)",
+     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/Benzaldehyde",
+     "why": "Official odour wording (Parallel search excerpt)"
+    },
+    {
+     "rank": 4,
+     "source": "Buttery et al. 1988 water threshold (as quoted on ScienceDirect Topics)",
+     "url": "https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/benzaldehyde",
+     "why": "Threshold; search-snippet level, primary paper not opened"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Benzaldehyde 4FN00049",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4FN00049",
+     "why": "Registry-SKU candidate bottle; repo archive data/external/perfumersworld/4FN00049/product.html (2026-08-30), same text on the live page (Parallel search excerpt)"
+    },
+    {
+     "rank": 5,
+     "source": "Fraterworks Benzaldehyde 50% DPG",
+     "url": "https://fraterworks.com/products/benzaldehyde-50-dpg",
+     "why": "Reseller description, note classification and strip life (Parallel search excerpt)"
+    }
+   ],
+   "identity_notes": "Kenny has 'Benzaldehyde (neat)' and 'Benzaldehyde (1% in DPG) # bitter almond/cherry; extremely potent, trace use only' (inventory.txt lines 130-131). The census matched PW 4FN00049 by registry SKU only; the bottle's maker is not recorded. Synthetic and natural benzaldehyde exist (TGSC lists natural grades ex bitter almond / cassia); the grade of Kenny's bottle is unknown, and descriptors below are for the molecule. The repo YAML 'character' line already quotes Symrise's words, re-found here in the Symrise datasheet. The engine profile ('almond 8, cherry 5, sweet 3', note top) is unsourced. Note for the main session: data/materials/B.yaml has user_in_inventory false and user_stock_dilution null, although inventory.txt lists both stocks (not changed)."
+  },
+  {
+   "profile_key": "Benzyl Alcohol",
+   "identity": "Benzyl Alcohol",
+   "stock_ids": [
+    "inventory:user-20261014:fa2e3a6fdd2b0aedac6b"
+   ],
+   "stock_names": [
+    "Benzyl Alcohol 50% in DPG"
+   ],
+   "cas": {
+    "cas": "100-51-6",
+    "source": "100-51-6 (phenylmethanol): TGSC rw1001651 'CAS Number: 100-51-6'; Symrise Benzyl Alcohol FG datasheet '› cas 100-51-6 › 160385'; PW 0ZN00053 'CAS No. 100-51-6' / 'FEMA 2137'."
+   },
+   "character": {
+    "floral": 6.5,
+    "freshness": 2.0,
+    "smoky": 2.0,
+    "sweetness": 6.5,
+    "warmth": 2.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity 35 h at 100%",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "fruity",
+     "almond",
+     "mild",
+     "almond",
+     "sweet",
+     "aromatic floral"
+    ],
+    "tgsc": [
+     "floral rose phenolic balsamic",
+     "sweet",
+     "floral",
+     "fruity"
+    ],
+    "supplier": [
+     "floral-rose",
+     "phenolic",
+     "balsamic",
+     "mild",
+     "almond",
+     "sweet",
+     "faint aromatic",
+     "fruity",
+     "faint aromatic",
+     "light floral rose",
+     "jasmin"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise Benzyl Alcohol FG perfumery datasheet (product 160385)",
+     "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Benzyl_Alcohol_FG.pdf",
+     "why": "Producer datasheet (Parallel excerpt): family, descriptors, use level, BP"
+    },
+    {
+     "rank": 1,
+     "source": "Symrise 'Benzyl alcohol DD' odour line, quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001651.html",
+     "why": "Producer sentence, read only as quoted by TGSC"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC benzyl alcohol",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001651.html",
+     "why": "TGSC page for 100-51-6 (Parallel excerpt)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969, quoted by Pell Wall Perfumes",
+     "url": "https://pellwall.com/products/benzyl-alcohol",
+     "why": "Arctander usage sentence only; odour sentence not reached"
+    },
+    {
+     "rank": 4,
+     "source": "Flavornet (Acree & Arn), GC-O percepts for 100-51-6",
+     "url": "http://www.flavornet.org/info/100-51-6.html",
+     "why": "GC-olfactometry compilation citing Blank, Fischer & Grosch 1989 and others"
+    },
+    {
+     "rank": 4,
+     "source": "JECFA / O'Neil (Merck Index) odour lines via PubChem CID 244",
+     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/Benzyl-Alcohol",
+     "why": "Regulatory/reference odour text and an odour threshold (search excerpt)"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 244",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 0ZN00053 Benzyl Alcohol (BA)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=0ZN00053",
+     "why": "PW neat material (Kenny's 50% stock's bottle not recorded)"
+    },
+    {
+     "rank": 5,
+     "source": "Pell Wall Perfumes, Benzyl alcohol",
+     "url": "https://pellwall.com/products/benzyl-alcohol",
+     "why": "Reseller description with Arctander and Calkin & Jellinek references"
+    }
+   ],
+   "identity_notes": "Kenny's stock is 'Benzyl Alcohol 50% in DPG' (inventory.txt line 129: 'Benzyl Alcohol (50% in DPG)  # mild balsamic-floral fixative; present naturally in tuberose/jasmine'). Which bottle it was made from is not recorded here; PW sells neat 'Benzyl Alcohol (BA)' 0ZN00053 (from knowledge/perfumersworld_stock.md line 513) and that page is used as the PW reference. Descriptors below are for the neat material; the stock is a 50% dilution in an odourless glycol. Sources agree it is weak: Symrise calls it 'very mild, nearly neutral', PW gives 'Relative Odor Impact 5', and several sources say its odour depends on purity (Pell Wall: an almond note means benzaldehyde has formed; PW: 'varies considerably with the quality of the alcohol')."
+  },
+  {
+   "profile_key": "cis-3-Hexenol",
+   "identity": "cis-3-Hexenol",
+   "stock_ids": [
+    "inventory:user-20261014:848941b8d6c91eb06af2"
+   ],
+   "stock_names": [
+    "cis-3-Hexenol 1%"
+   ],
+   "cas": {
+    "cas": "928-96-1",
+    "source": "928-96-1 ((Z)-3-hexen-1-ol, leaf alcohol): dsm-firmenich CIS-3-HEXENOL NAT 925001 'CAS# 0000928-96-1'; TGSC rw1005931 title '(Z)-3-hexen-1-ol, 928-96-1'; PW 4GL00225 'CAS No. 928-96-1'."
+   },
+   "character": {
+    "freshness": 5.5,
+    "green": 7.0,
+    "radiance": 4.0,
+    "transparency": 4.0
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity 4 h at 100%",
+   "tgsc_odor_type": "green",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "green",
+     "fresh",
+     "green",
+     "herbaceous",
+     "fresh green grass",
+     "fresh green grass"
+    ],
+    "supplier": [
+     "foliage green",
+     "green",
+     "grassy",
+     "grassy aeda fd 3-27",
+     "fresh",
+     "grassy",
+     "green",
+     "fresh natural-green cut-grass leafy"
+    ],
+    "tgsc": [
+     "vegetable",
+     "herbal",
+     "melon rind"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "dsm-firmenich CIS-3-HEXENOL NAT 925001 product page",
+     "url": "https://www.firmenich.com/product/cis-3-hexenol-nat-pe-925001",
+     "why": "Producer page (Parallel web_fetch excerpt)"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet raw-materials page, Cis-3-hexenol code 00043818",
+     "url": "https://matieres-premieres.robertet.com/cis-3-hexenol",
+     "why": "Producer page (Parallel web_fetch excerpt)"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC (Z)-3-hexen-1-ol",
+     "url": "https://www.thegoodscentscompany.com/data/rw1005931.html",
+     "why": "TGSC page for 928-96-1 (Parallel web_fetch excerpt of Organoleptic section; carries Bedoukian, Firmenich, Robertet, FCI, IFF and an Arctander quotation)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969, quoted by Pell Wall Perfumes on the TGSC page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1005931.html",
+     "why": "Arctander use sentence, second-hand ('quoted by TGSC' via Pell Wall); the monograph itself was not read"
+    },
+    {
+     "rank": 4,
+     "source": "Hattori et al. 2003, Food Sci Technol Res 9(4):350-352 (green tea GC/O, OASIS vs AEDA)",
+     "url": "https://www.jstage.jst.go.jp/article/fstr/9/4/9_4_350/_pdf",
+     "why": "Peer-reviewed GC-O odour quality (open-access PDF, read as search snippet)"
+    },
+    {
+     "rank": 4,
+     "source": "Dierkes et al. 2012 (olive oil, J Agric Food Chem) odorant table",
+     "url": "https://www.zhaw.ch/storage/lsfm/ueber-uns/oliveoil/publikationen/dierkes-quality-evaluation.pdf",
+     "why": "Peer-reviewed GC-O odour quality (search snippet of table)"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 5281167 'cis-3-hexen-1-ol'",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld cis-3 Hexenol 4GL00225",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4GL00225",
+     "why": "Closest PW product (neat); not confirmed as Kenny's bottle (search excerpt)"
+    }
+   ],
+   "identity_notes": "Kenny's stock is 'Cis-3-Hexenol (1%)' (inventory.txt line 68; census: stock_fraction 0.01, basis 'unspecified', perfumersworld_match_state NO_EXACT_PW_MATCH, so the bottle's supplier is not recorded). PW sells neat cis-3 Hexenol 4GL00225 and a 10% in DPG 5GG07890; neither is a 1% match. Descriptors below are for the neat molecule; at 1% the material is strongly attenuated. Same molecule as 'leaf alcohol'; PW's synonym line warns that 'Leaf Alcohol' is 'also used for trans-2-hexenol', so trade-name bottles can differ."
+  },
+  {
+   "profile_key": "Cocoa Absolute",
+   "identity": "Cocoa Absolute",
+   "stock_ids": [
+    "inventory:user-20261014:246ca96170590d988b57"
+   ],
+   "stock_names": [
+    "Cocoa Absolute"
+   ],
+   "cas": {
+    "cas": "84649-99-0",
+    "source": "84649-99-0 (EINECS-type CAS, Theobroma cacao extract) = batch CAS; the same material is also listed under TSCA CAS 8002-31-1. Biolandes COCOA absolute F9203: 'CAS TSCA 8002-31-1 | CAS EINECS 84649-99-0'; Robertet COCOA ABSOLUTE 00220078 TDS: 'CAS No 8002-31-1 | EINECS/ELINCS 283-480-6 | INCI Name Theobroma Cacao (Cocoa) Extract'; TGSC ab1092811 title 'cocoa absolute, 8002-31-1' (its RIFM link uses 84649-99-0); PW 8VT00635 'CAS No. 8002-31-1'. Note: 8002-31-1 is also used for cocoa butter, so the CAS alone does not distinguish an absolute from the fat."
+   },
+   "character": {
+    "creamy": 2.0,
+    "powdery": 4.5,
+    "smoky": 1.5,
+    "sweetness": 7.0,
+    "warmth": 6.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity > 200 h at 100%",
+   "tgsc_odor_type": "cocoa",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "dark chocolate",
+     "cocoa bitter",
+     "powdery",
+     "milky",
+     "cocoa powder effect",
+     "gourmand dark chocolate",
+     "roasted dark cocoa"
+    ],
+    "tgsc": [
+     "chocolate",
+     "dark chocolate",
+     "cocoa",
+     "powdery",
+     "milk chocolate"
+    ],
+    "supplier": [
+     "sweet",
+     "cocoa",
+     "honey",
+     "caramel",
+     "chocolate sweet heavy rich",
+     "drinking chocolate",
+     "coffee",
+     "cocoa bitter powdery milky",
+     "roasted",
+     "coffee",
+     "roasted chocolate"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Biolandes COCOA (absolute) F9203 product page",
+     "url": "https://biolandes.com/en/product/cocoa-2",
+     "why": "Producer page: species, part, origin, CAS pair, family, perfumery use (search excerpt)"
+    },
+    {
+     "rank": 1,
+     "source": "Biolandes cocoa absolute Ivory Coast, quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/ab1092811.html",
+     "why": "Producer odour line, second-hand via TGSC (same text appears on PW 8VT00635)"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet COCOA ABSOLUTE 00220078 Technical Data Sheet (2025)",
+     "url": "https://www.e-robertet.com/media/akeneo_connector/media_files/0/0/00220078_COCOA_SPECS_1e99.pdf",
+     "why": "Producer TDS: botanical, part, process, CAS; odour only 'Characteristic' (search excerpt)"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet Cocoa clear Clarextract 00201016 page",
+     "url": "https://matieres-premieres.robertet.com/cocoa-clear-clarextract",
+     "why": "Producer olfactive description for a Robertet cocoa extract (Parallel web_fetch); a carrier-based extract, not the absolute itself; same wording is attributed to Robertet's cocoa absolute by Perfumer Supply House"
+    },
+    {
+     "rank": 1,
+     "source": "dsm-firmenich COCOA DECOL PG 918805, quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/ab1092811.html",
+     "why": "Producer odour line for a decolourised PG cocoa extract (not an absolute), second-hand via TGSC"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC cocoa absolute",
+     "url": "https://www.thegoodscentscompany.com/data/ab1092811.html",
+     "why": "TGSC page (Parallel web_fetch excerpt of Organoleptic section)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960, cocoa / cacao monograph",
+     "url": "",
+     "why": "Not read: no reachable copy (archive.org copy is a lending item; no other permitted copy found)"
+    },
+    {
+     "rank": 4,
+     "source": "Frauendorfer & Schieberle 2006, J Agric Food Chem 54(15):5521-9, key aroma compounds in cocoa powder (PMID 16848541)",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/16848541",
+     "why": "Peer-reviewed AEDA/recombination of cocoa powder (abstract only); describes the raw material, not the absolute"
+    },
+    {
+     "rank": 4,
+     "source": "Frauendorfer & Schieberle 2019, Eur Food Res Technol, Forastero cocoa beans roasting (DOI 10.1007/s00217-019-03292-2)",
+     "url": "https://europepmc.org/article/AGR/IND606623872",
+     "why": "Peer-reviewed GC-O of fermented/roasted beans (abstract only)"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Cocoa Absolute 8VT00635",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=8VT00635",
+     "why": "Kenny's bottle per census (Parallel web_fetch excerpt)"
+    },
+    {
+     "rank": 5,
+     "source": "Perfumer Supply House, Cocoa Absolute (Robertet)",
+     "url": "https://perfumersupplyhouse.com/product/cocoa-absolute-robertet",
+     "why": "Reseller carrying Robertet's odour line for the absolute (search excerpt)"
+    }
+   ],
+   "identity_notes": "LABELLED PROXY IDENTITY for the natural. Kenny's stock is 'Cocoa Absolute' neat (inventory.txt line 297, user-confirmed 2026-07-18); census matches it to PerfumersWorld 8VT00635 (candidate SKUs 5VT07920, 5VT08034 also listed). Species/part per producers: Theobroma cacao L. (Malvaceae; older Sterculiaceae), BEANS (fermented, dried; the absolute is ethanol-extracted). Biolandes F9203: 'Plant Part Bean ... Origine : West Africa'; Robertet TDS: 'Part of Plant Used Beans ... Description Absolute: product obtained by extraction with ethanol from a concrete, a resinoid or a supercritical fluid extract'. PW's 8VT00635 odour/use text ('Pyrogenic/cocoa bitter, powdery, milky, liqueur like' + the cabosses paragraph) is word-for-word the Biolandes 'cocoa absolute Ivory Coast' text quoted by TGSC, so PW's bottle is probably Biolandes-type material (inference from shared wording, not confirmed by PW). Producer absolutes vary (dark vs colourless/decolorised grades; Robertet lists COCOA ABSOLUTE 00220078, on-PG 00220076, colourless 109281F and Cocoa clear Clarextract 00201016). Kenny also owns 'Cocoa CO2 Extract (7.7%)' (inventory line 299), a different extract; do not merge the evidence."
+  },
+  {
+   "profile_key": "Damascenone",
+   "identity": "Damascenone",
+   "stock_ids": [
+    "inventory:user-20261014:2cc82f486ab3fce7eb20"
+   ],
+   "stock_names": [
+    "Damascenone"
+   ],
+   "cas": {
+    "cas": "23696-85-7",
+    "source": "23696-85-7 (beta-damascenone; 2-buten-1-one, 1-(2,6,6-trimethyl-1,3-cyclohexadien-1-yl)-): dsm-firmenich DAMASCENONE 937450 page 'CAS# 0023696-85-7'; TGSC rw1021911 title 'beta-damascenone, 23696-85-7'; PW 9IF07120 'CAS 23696-85-7'. Note: 23726-93-4 is the (E)-beta-damascenone stereo-CAS used in many food papers (TGSC rw1441071 in the pyrfume copy); same odorant."
+   },
+   "character": {
+    "floral": 7.5,
+    "freshness": 3.0,
+    "green": 2.0,
+    "sweetness": 7.5,
+    "warmth": 2.0,
+    "woody": 3.0
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity 216 h at 100%",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "fruity",
+     "rose",
+     "plum",
+     "floral fruity",
+     "berry",
+     "tobacco",
+     "grape",
+     "floral rosy",
+     "fruity",
+     "strawberry",
+     "rose",
+     "tobacco"
+    ],
+    "tgsc": [
+     "sweet",
+     "raspberry",
+     "sugar",
+     "woody",
+     "earthy",
+     "green floral"
+    ],
+    "supplier": [
+     "apple",
+     "woody",
+     "herbaceous",
+     "nutty",
+     "citrus",
+     "rose",
+     "smoky",
+     "wine",
+     "cooked apple",
+     "fruity",
+     "rose",
+     "cooked apple",
+     "apple",
+     "plum",
+     "rose",
+     "tea",
+     "tobacco",
+     "floral",
+     "fruity",
+     "floral fruity",
+     "rose",
+     "fruity",
+     "floral",
+     "fresh",
+     "green",
+     "woody",
+     "rose"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "dsm-firmenich DAMASCENONE 937450 product page",
+     "url": "https://www.firmenich.com/product/damascenone-pe-937450",
+     "why": "Producer page (read as Parallel search excerpt; same text on studio.dsm-firmenich.com/product/damascenone-pe-937450)"
+    },
+    {
+     "rank": 1,
+     "source": "Firmenich DAMASCENONE 937450 marketing sheet PDF (2020)",
+     "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/DAMASCENONE_937450.pdf",
+     "why": "Producer technical sheet: olfactive description, tenacity on strip, vapour pressure, note position (read as Parallel search excerpt)"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC beta-damascenone",
+     "url": "https://www.thegoodscentscompany.com/data/rw1021911.html",
+     "why": "TGSC page for 23696-85-7 (Parallel web_fetch excerpt of the Organoleptic section; carries Firmenich, IFF, Moellhausen, Sigma-Aldrich producer quotes)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969",
+     "url": "",
+     "why": "Not used: damascenone was identified in 1965-70 (Firmenich: '1965 ... discovers DAMASCONE beta, DAMASCENONE, DAMASCONE alpha in rose') and was not a commercial perfumery material when Arctander compiled the 1969 monographs; no monograph located"
+    },
+    {
+     "rank": 4,
+     "source": "Ruisinger & Schieberle 2012, J Agric Food Chem 60(17):4186-94 (PMID 22489542)",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/22489542",
+     "why": "Peer-reviewed AEDA/GC-O odour quality (abstract only)"
+    },
+    {
+     "rank": 4,
+     "source": "Pineau et al. 2007, J Agric Food Chem, 'Which Impact for beta-Damascenone on Red Wines Aroma?'",
+     "url": "https://pubs.acs.org/doi/abs/10.1021/jf070120r",
+     "why": "Peer-reviewed threshold and enhancer effect (abstract only)"
+    },
+    {
+     "rank": 4,
+     "source": "Black et al. 2015, Aust J Grape Wine Res, 'Terpenoids and their role in wine flavour' Table 1",
+     "url": "https://onlinelibrary.wiley.com/doi/10.1111/ajgw.12186",
+     "why": "Review table of odour quality and thresholds (search snippet of table only)"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 5366074 'damascenone'",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Damascenone 9IF07120",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=9IF07120",
+     "why": "Kenny's bottle per inventory census (WebFetch)"
+    },
+    {
+     "rank": 5,
+     "source": "Fraterworks Damascenone (Firmenich quality)",
+     "url": "https://fraterworks.com/products/damascenone",
+     "why": "Reseller text on use effects (search excerpt)"
+    }
+   ],
+   "identity_notes": "Kenny's stock is 'Damascenone (1%)' (inventory.txt line 153; census stock_fraction 0.01, basis 'unspecified', carrier not recorded). Census matches it to PW 9IF07120 (neat Damascenone); the 1% is presumably Kenny's own working dilution, so descriptors below are for the neat molecule. Firmenich discovered and makes it (937450 DAMASCENONE; 937459 DAMASCENONE TOTAL is a near-identical grade). It is a rose ketone, not an ionone/orris material, although the engine category is 'orris_violet'. Extremely low threshold; producers and TGSC all say to work at traces / smell at 10% or less."
+  },
+  {
+   "profile_key": "Gamma Nonalactone",
+   "identity": "Gamma Nonalactone",
+   "stock_ids": [
+    "inventory:user-20261014:75b955f2471b61aad525"
+   ],
+   "stock_names": [
+    "Gamma Nonalactone"
+   ],
+   "cas": {
+    "cas": "104-61-0",
+    "source": "104-61-0 (gamma-nonalactone, 5-pentyloxolan-2-one, racemic): TGSC rw1000531 'CAS Number: 104-61-0'; Symrise Aldehyde C18 So-Called datasheet '› cas 104-61-0 › 103866'; PW 4DD00324 'CAS No. 104-61-0' / 'FEMA 2781'; Dravnieks stimulus 'AldehydeC-18_high' CAS 104-61-0."
+   },
+   "character": {
+    "creamy": 8.5,
+    "floral": 1.5,
+    "freshness": 1.5,
+    "sweetness": 8.0
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity 309 h at 100%",
+   "tgsc_odor_type": "coconut",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "fruity",
+     "coconut",
+     "lactonic",
+     "tuberose",
+     "creamy",
+     "coconut",
+     "apricot",
+     "coconut",
+     "sweet",
+     "fatty",
+     "fruity",
+     "creamy",
+     "coconut",
+     "cocoa",
+     "fruity"
+    ],
+    "tgsc": [
+     "coconut creamy waxy sweet buttery oily",
+     "sweet",
+     "creamy",
+     "coconut",
+     "fatty"
+    ],
+    "supplier": [
+     "coconut",
+     "sweet",
+     "aromatic",
+     "heavy",
+     "coconut",
+     "peach",
+     "coconut",
+     "creamy",
+     "lactonic",
+     "milky",
+     "waxy",
+     "fatty",
+     "peach",
+     "sweet fruity coconut tuberose gardenia vanilla cream milk"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise Aldehyde C18 So-Called perfumery datasheet (product 103866)",
+     "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Aldehyde_C18_So-Called.pdf",
+     "why": "Producer datasheet (Parallel excerpt)"
+    },
+    {
+     "rank": 1,
+     "source": "Symrise 'Aldehyde C18 so-called' odour sentence, quoted by TGSC (also on SpecialChem)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000531.html",
+     "why": "Producer sentence incl. 'extremely tenacious'"
+    },
+    {
+     "rank": 1,
+     "source": "IFF gamma-Nonalactone odour line, quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000532.html",
+     "why": "Second producer, read only as quoted by TGSC (IFF compendium URL guess 404)"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC gamma-nonalactone (aldehyde C-18 (so-called))",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000531.html",
+     "why": "TGSC page for 104-61-0 (Parallel excerpt)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969, quoted by Pell Wall via TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000531.html",
+     "why": "Usage paragraph only; Pell Wall page itself would not connect"
+    },
+    {
+     "rank": 4,
+     "source": "Dravnieks 1985 atlas (pyrfume copy), AldehydeC-18_high",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/dravnieks_1985_behavior_1.csv",
+     "why": "Only real panel data; high concentration only"
+    },
+    {
+     "rank": 4,
+     "source": "Flavornet (Acree & Arn), GC-O percepts for 104-61-0",
+     "url": "http://www.flavornet.org/info/104-61-0.html",
+     "why": "GC-olfactometry compilation citing Schieberle 1991 and Rychlik/Schieberle/Grosch 1998"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), (S)-4-nonanolide CID 441574",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Enantiomer proxy flags"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 4DD00324 Aldehyde C-18 Gamma Nonalactone (Kenny's neat bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00324",
+     "why": "Actual bottle"
+    },
+    {
+     "rank": 5,
+     "source": "Fraterworks Gamma Nonalactone",
+     "url": "https://fraterworks.com/products/nonalactone-gamma",
+     "why": "Reseller description and longevity (search excerpt)"
+    }
+   ],
+   "identity_notes": "Also sold as 'Aldehyde C-18' (so-called; a lactone, not an aldehyde). Another agent covers that alias; noted only. Kenny's inventory.txt lists it as 'Aldehyde C-18 (Gamma Nonalactone, neat)  # PerfumersWorld SKU 4DD00324' (line 293) and 'Aldehyde C-18 (Gamma Nonalactone, 10% in ethanol)' (line 292); batch2.json's stock is 'Gamma Nonalactone' (inventory:user-20261014). The PW Odour=> text is a compilation of TGSC, Bedoukian and Symrise lines, not PW's own words. Leffingwell has no row for the racemate; only (S)-4-nonanolide (CID 441574) is present and is given below as an enantiomer proxy.",
+   "odor_description": "Fruity, coconut, lactonic, tuberose, creamy, sweet, fatty, waxy."
+  },
+  {
+   "profile_key": "Geosmin",
+   "identity": "Geosmin",
+   "stock_ids": [
+    "inventory:user-20261014:54cdbdbb61bb30dc8116",
+    "inventory:user-20261014:0e99f1785a20cb5de9f2"
+   ],
+   "stock_names": [
+    "Geosmin 0.1%",
+    "Geosmin 1%"
+   ],
+   "cas": {
+    "cas": "23333-91-7",
+    "source": "23333-91-7 (trade geosmin, stereo-unspecified): TGSC rw1019861 title 'geosmin, 23333-91-7' and 'CAS Number: 23333-91-7'; PW 5YW18061 / 5YW13682 'CAS No. 23333-91-7' (FEMA 4682); Pell Wall and Fraterworks 'CAS No. 23333-91-7'. Related numbers (pyrfume TGSC stimuli): 19700-21-1 = (-)-geosmin (TGSC 1454691), 16423-19-1 = racemate (TGSC 1462671)."
+   },
+   "character": {
+    "freshness": 2.5,
+    "green": 2.0,
+    "radiance": 5.0,
+    "warmth": 2.5,
+    "woody": 5.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity 68 h at 100%",
+   "tgsc_odor_type": "earthy",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "freshly plowed soil earthy",
+     "earthy",
+     "earthy",
+     "humus",
+     "weedy",
+     "wet"
+    ],
+    "supplier": [
+     "fresh",
+     "earthy",
+     "wet",
+     "earthy",
+     "musty",
+     "fresh",
+     "earthy",
+     "earthy",
+     "fungal",
+     "humus",
+     "oakmoss",
+     "yeast mossy",
+     "wood",
+     "earthy",
+     "green",
+     "herbal",
+     "musty",
+     "earthy",
+     "fresh",
+     "humus"
+    ],
+    "producer": [
+     "warm earth",
+     "air after rain dry soil"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "IFF (manufacturer, per Pell Wall and Fraterworks); no IFF page found",
+     "url": "https://pellwall.com/products/geosmin-1-dpg",
+     "why": "Producer identity only; descriptions come from resellers of IFF material"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC geosmin (rw1019861)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1019861.html",
+     "why": "TGSC organoleptic block (Luebke 1995, sample from Bush Boake Allen) plus Pell Wall lines (Parallel web_fetch excerpt, cross-checked with WebFetch)"
+    },
+    {
+     "rank": 4,
+     "source": "J Agric Food Chem 2024, \"Geosmin, a Food- and Water-Deteriorating Sesquiterpenoid and Ambivalent Semiochemical, Activates Evolutionary Conserved Receptor OR11A1\" (PMC full text; authors not recorded here)",
+     "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC11261619/",
+     "why": "Peer-reviewed; odour quality, threshold, and the low-concentration perfume remark"
+    },
+    {
+     "rank": 4,
+     "source": "Ardoin et al. 2026, J Sensory Studies 41(2) e70120 (abstract)",
+     "url": "https://onlinelibrary.wiley.com/doi/abs/10.1111/joss.70120",
+     "why": "Peer-reviewed consumer panel on geosmin descriptors at 20/200/1000 ng/L in water; abstract only"
+    },
+    {
+     "rank": 4,
+     "source": "Polak & Provasi 1992, Chem Senses 17(1):23-26 (abstract)",
+     "url": "https://academic.oup.com/chemse/article-abstract/17/1/23/268382",
+     "why": "Peer-reviewed enantiomer threshold study; abstract only"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 29746",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Geosmin 1% in TEC (5YW18061); same text on 1% in DPG (5YW13682)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=5YW18061",
+     "why": "Matches Kenny's carrier; live page via WebFetch 2026-10-31; DPG page read from repo archive data/external/perfumersworld/5YW13682/product.html (2026-08-30)"
+    },
+    {
+     "rank": 5,
+     "source": "Pell Wall Geosmin 1% in DPG (IFF material)",
+     "url": "https://pellwall.com/products/geosmin-1-dpg",
+     "why": "Reseller of IFF geosmin; dilution advice and character (Parallel search excerpt)"
+    },
+    {
+     "rank": 5,
+     "source": "Fraterworks Geosmin (manufacturer IFF)",
+     "url": "https://fraterworks.com/products/geosmin",
+     "why": "Reseller; odour profile, longevity, use level (Parallel search excerpt)"
+    }
+   ],
+   "identity_notes": "Kenny has two stocks: 'Geosmin (0.1% in TEC) # diluted 2026-05-11 from original 1% stock' and 'Geosmin (1% in TEC)' (inventory.txt lines 84-85). The repo YAML lists PW 5YW13682 (1% in DPG) as the main SKU and 5YW18061 (1% in TEC) as an alternate; Kenny's TEC carrier matches 5YW18061, read live here. Both PW pages carry the same odour text. Producer: Pell Wall and Fraterworks both name IFF as manufacturer (Pell Wall: 'First isolated by Bush Boake Allen (now part of IFF)'; 'Manufacturer: IFF / Pell Wall'); IFF's own page was not found. Geosmin is a trace material: the neat odour is rarely smelled and every source quoted is of a 0.01-1% dilution or of ng/L water solutions. Natural (-)-geosmin has about an 11x lower threshold than (+) (Polak & Provasi 1992), so the stereo make-up of the trade material matters for strength but no source here states it. Engine text ('earthy 9, mineral 6, green 2', note 'heart') is unsourced; no source below uses 'mineral'."
+  },
+  {
+   "profile_key": "Leafovert",
+   "identity": "Leafovert",
+   "stock_ids": [
+    "inventory:v5:6ac8cfa8c2c547ff29b6"
+   ],
+   "stock_names": [
+    "Leafovert"
+   ],
+   "cas": {
+    "cas": "67633-96-9",
+    "source": "67633-96-9 ((Z)-hex-3-en-1-yl methyl carbonate, cis-3-hexenyl methyl carbonate): PW 4GI15439 'CAS No. 67633-96-9'; TGSC rw1028731 'CAS Number: 67633-96-9' with 'leafovert' in its synonym list; IFF Liffarome compendium '67633-96-9'; Symrise Leafovert datasheet 'C8H14O3', 'MW 158.2 g/mol'."
+   },
+   "character": {
+    "creamy": 1.5,
+    "floral": 5.0,
+    "freshness": 3.5,
+    "green": 6.0,
+    "powdery": 2.0,
+    "sweetness": 2.5,
+    "transparency": 4.5
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity 12 h at 100%",
+   "tgsc_odor_type": "green",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "green",
+     "fruity",
+     "leafy-green",
+     "fresh",
+     "floral",
+     "violet",
+     "violet green",
+     "pear",
+     "intense green fruity",
+     "apple",
+     "pear",
+     "peach",
+     "waxy"
+    ],
+    "tgsc": [
+     "floral absolute",
+     "green leaf",
+     "waxy",
+     "apple"
+    ],
+    "supplier": [
+     "leafy",
+     "transparent",
+     "iris",
+     "violet"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise Leafovert datasheet (SYM_PC-Leafovert.pdf)",
+     "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Leafovert.pdf",
+     "why": "Producer of the Leafovert trade name; read via Parallel web_fetch excerpts (bar charts for diffusivity/blooming/tenacity are graphics and did not come through as values)"
+    },
+    {
+     "rank": 1,
+     "source": "IFF Ingredients Compendium, Liffarome",
+     "url": "https://www.iff.com/scent/ingredients-compendium/liffarome",
+     "why": "Producer page for the same molecule; gives Note Impact and substantivity"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC (Z)-3-hexen-1-yl methyl carbonate",
+     "url": "https://www.thegoodscentscompany.com/data/rw1028731.html",
+     "why": "TGSC page for 67633-96-9 (Parallel excerpt); carries Symrise, IFF and Bedoukian descriptions"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969",
+     "url": null,
+     "why": "Not applicable: no Arctander monograph expected for this carbonate (not checked in a scan)"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 6437112",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags (SMILES caveat in identity_notes)"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 4GI15439 Leafovert (Kenny's bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4GI15439",
+     "why": "Actual bottle; identifies the product; odour text is compiled from other suppliers"
+    },
+    {
+     "rank": 5,
+     "source": "Perfumer's Apprentice, Liffarome (IFF)",
+     "url": "https://shop.perfumersapprentice.com/p-9272-liffarome-iff.aspx",
+     "why": "Reseller carrying IFF performance data (search excerpt)"
+    }
+   ],
+   "identity_notes": "Leafovert(R) is Symrise's trade name (TGSC lists it as Symrise '131380 Leafovert (R)') for a single molecule, cis-3-hexenyl methyl carbonate: the same molecule as IFF Liffarome(TM) (also sold as Vertelione, Vertocarb, Greenarome, Laniffarome, muguet carbonate, per TGSC synonyms). The PW page does NOT support 'PW base/specialty': PW 4GI15439 is badged 'Aroma Ingredients', gives one CAS (67633-96-9), says 'Not found in nature', and its Synonyms block lists the chemical names plus 'leafovert : liffarome : vertelione : vertocarb : PerfumersWorld Authentic Perfumery Material'. PW does not name the producer of its Leafovert. PW's one-line description repeats Bedoukian's text word for word and its Perfume-Uses repeats IFF's Liffarome text, and PW sells Liffarome separately (4GI24147) with the same Odour=> line, so the PW text is a compilation, not a Symrise text. Kenny's bottle is neat (inventory.txt line 82: 'Leafovert (neat)  # user-confirmed NEAT 2026-08-07'). Pyrfume Leffingwell row 'cis-hexenyl methyl carbonate' (CID 6437112) carries an (E) SMILES; its flags are taken as for the named material, with that caveat."
+  },
+  {
+   "profile_key": "Osmanthus Absolute",
+   "identity": "Osmanthus Absolute",
+   "stock_ids": [
+    "inventory:user-20261008:5ae4478e7c5dc1f502e4"
+   ],
+   "stock_names": [
+    "Osmanthus Absolute 10%"
+   ],
+   "cas": {
+    "cas": "68917-05-5",
+    "source": "68917-05-5 (Osmanthus fragrans flower absolute): Givaudan Osmanthus Absolute China 'CAS 68917-05-5'; Robertet osmanthus absolute table 'CAS 68917-05-5 | TCSA 68917-05-5'; Biolandes OSMANTHUS 'CAS TSCA 68917-05-5' (Biolandes also prints 'CAS EINECS 92347-21-2'); TGSC ab1000081 title 'osmanthus flower absolute, 68917-05-5'; PW 8ND00346 'CAS No. 68917-05-5' and 5ND10990 'CAS No. 68917-05-5*10%'."
+   },
+   "character": {
+    "animalic": 4.0,
+    "creamy": 4.0,
+    "floral": 4.0,
+    "freshness": 3.0,
+    "smoky": 3.0,
+    "sweetness": 7.5,
+    "warmth": 2.0,
+    "woody": 3.5
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity 400 h at 100%",
+   "tgsc_odor_type": "fruity",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "sweet fruity plum berry ripe fruit waxy leather honey woody",
+     "sweet",
+     "plum",
+     "berry",
+     "ripe fruit",
+     "waxy",
+     "honey",
+     "woody",
+     "spice nuances"
+    ],
+    "producer": [
+     "fruity",
+     "apricot",
+     "floral",
+     "leathery",
+     "animal",
+     "soft",
+     "creamy",
+     "smoky",
+     "tea",
+     "fruity",
+     "apricot",
+     "floral",
+     "green",
+     "dried apricot",
+     "leathery",
+     "floral fruity apricot",
+     "leathery",
+     "apricot jam",
+     "fruity",
+     "floral",
+     "apricot",
+     "freesia",
+     "jasmine",
+     "peach",
+     "apricot",
+     "floral",
+     "soft",
+     "animalic"
+    ],
+    "supplier": [
+     "woody",
+     "violet",
+     "fruity",
+     "rich floral sweet peach fruity leather plum berry ripe waxy",
+     "fresh fruity-citrus",
+     "sweet-floral",
+     "aromatic"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan, Osmanthus Absolute China (natural ingredients page)",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/osmanthus-absolute-china",
+     "why": "Producer page with olfactive family, facets, species, plant part, process and origin (read via Parallel web_search excerpt, page dated 2026-10-23)"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet, Osmanthus absolute (code 00030452)",
+     "url": "https://matieres-premieres.robertet.com/osmanthus-absolute",
+     "why": "Producer raw-material sheet: botanical name, part, origin, process, olfactive description (Parallel search excerpt)"
+    },
+    {
+     "rank": 1,
+     "source": "Biolandes, OSMANTHUS (code P00547745000)",
+     "url": "https://biolandes.com/en/product/osmanthus",
+     "why": "Producer page: species, part, origin, brining, perfumery use (Parallel search excerpt; technical data sheet needs a login, not opened)"
+    },
+    {
+     "rank": 1,
+     "source": "Firmenich OSMANTHUS ABS, Albert Vieille Osmanthus Absolute China, IFF Osmanthus Absolute (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1000081.html",
+     "why": "Producer descriptions as carried on TGSC's 'descriptions from others'; producers' own pages not opened"
+    },
+    {
+     "rank": 1,
+     "source": "Givaudan, Osmanthus Gold Absolute China",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/osmanthus-gold-absolute-china",
+     "why": "Alternative producer grade, recorded to show grade spread (Parallel search excerpt)"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC osmanthus flower absolute (ab1000081)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1000081.html",
+     "why": "TGSC organoleptic block, Luebke and Mosciano lines, producer quotes (Parallel web_fetch excerpt)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960, 'Osmanthus Fragrans' (p. 360, archive.org OCR)",
+     "url": "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+     "why": "Species, part and process only; Arctander states he has no personal experience, so there is no odour sentence"
+    },
+    {
+     "rank": 4,
+     "source": "Cai et al. 2014, J Zhejiang Univ Sci B 15(7):638-648, GC-O of three sweet osmanthus cultivars (abstract)",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/25001223",
+     "why": "Peer-reviewed GC-O, but on fresh flowers, not the absolute; abstract only"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Osmanthus Absolute 8ND00346 (neat) and 5ND10990 (10% in DPG)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=8ND00346",
+     "why": "Candidate bottles (name match only); live pages read via WebFetch 2026-10-31"
+    },
+    {
+     "rank": 5,
+     "source": "Perfumer's Apprentice, Osmanthus Absolute (manufacturer Biolandes)",
+     "url": "https://shop.perfumersapprentice.com/p-11263-osmanthus-absolute.aspx",
+     "why": "Reseller listing that names Biolandes as manufacturer; 'Most odor descriptions come from the manufacturer'"
+    }
+   ],
+   "identity_notes": "Kenny's stock is 'Osmanthus Absolute (10% in DPG)' (inventory.txt line 167), a 'premium' absolute he diluted himself by weight (overlay INV-USER-20261008-V22-001, Kenny: 'Osmanthus is made by w/w'). The supplier of the neat absolute is not recorded; the 2026-08-30 supplier census marks the PW match AMBIGUOUS_EXACT_NAME (8ND00346 neat / 5ND10990 10% in DPG). A separate neat 'Osmanthus Absolute (volume grade)' bottle exists (inventory.txt line 177, 'lower β-ionone content than premium'); it is a different stock and not covered here. LABELLED PROXY: the closest published identity is Osmanthus fragrans Lour. (Oleaceae) flower absolute from China, made by volatile-solvent extraction of brine-preserved flowers to a concrete, then ethanol purification to the absolute (Givaudan, Robertet, Biolandes agree; Arctander 1960: petroleum-ether concrete, then alcohol extraction). Givaudan says the leathery/animal facet comes from the brining step. Grades differ: Givaudan's 'Osmanthus Gold Absolute' is described as 'fresher and lighter than the classic Osmanthus Absolute', and IFF sells a less-coloured 'MD 50 PCT' grade; which grade 'premium' means is unknown. Descriptors are for the neat absolute; Kenny's bottle is 10% in DPG. The engine's own text ('floral 6, fruity 4, leather 3, sweet 2') is unsourced."
+  },
+  {
+   "profile_key": "Peppermint Essential Oil",
+   "identity": "Peppermint EO",
+   "stock_ids": [
+    "inventory:v5:e87a1d531870df29faa8",
+    "inventory:user-20260908:96359490457cb85b6473"
+   ],
+   "stock_names": [
+    "Peppermint EO (neat)",
+    "Peppermint EO 10%"
+   ],
+   "cas": {
+    "cas": "8006-90-4",
+    "source": "8006-90-4 (Mentha piperita / Mentha x piperita herb oil): Givaudan Peppermint Oil India 'CAS 8006-90-4'; Robertet peppermint fraction oil and Mint piperita USA oil 'CAS 8006-90-4'; TGSC es1618951 title 'peppermint oil india, 8006-90-4' and es1618961 'peppermint oil, 8006-90-4'; PW 7BB00360 'CAS No. 8006-90-4'. (84082-70-2 is TGSC's CAS for peppermint absolute, a different product.)"
+   },
+   "character": {
+    "freshness": 7.0,
+    "green": 3.5,
+    "sweetness": 3.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity 16 h at 100%",
+   "tgsc_odor_type": "minty",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "minty"
+    ],
+    "producer": [
+     "mint",
+     "aromatic",
+     "milky",
+     "fresh",
+     "aromatic",
+     "fresh",
+     "light",
+     "aromatic",
+     "fresh",
+     "sugary",
+     "green",
+     "peppery"
+    ],
+    "literature": [
+     "fresh",
+     "grassy-minty",
+     "balsamic-sweet",
+     "grassy topnote"
+    ],
+    "supplier": [
+     "fresh",
+     "sweet minty",
+     "grassy",
+     "minty",
+     "minty",
+     "sweet",
+     "cooling"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan, Peppermint Oil India (natural ingredients page)",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/peppermint-oil-india",
+     "why": "Producer page matching Kenny's label (Mentha piperita, India, steam distillation, flowering top); read via Parallel web_search excerpt, page dated 2026-10-23"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet, Peppermint fraction oil (code 00021101, India)",
+     "url": "https://matieres-premieres.robertet.com/peppermint-fraction-oil",
+     "why": "Producer sheet, India origin, but a fractionated product (pulegone lowered); Parallel search excerpt"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet, Mint piperita USA oil (code 00021040)",
+     "url": "https://matieres-premieres.robertet.com/mint-piperita-usa-oil",
+     "why": "Producer sheet for a whole steam-distilled Mentha piperita oil (USA origin); recorded for the species-level description"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC peppermint oil india (es1618951)",
+     "url": "https://www.thegoodscentscompany.com/data/es1618951.html",
+     "why": "TGSC page for the India oil (Parallel search excerpt)"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC peppermint oil (es1618961)",
+     "url": "https://thegoodscentscompany.com/data/es1618961.html",
+     "why": "Generic TGSC page; same organoleptic block plus supplier odour lines and use level (Parallel web_fetch excerpt)"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960, 'Peppermint Oil' (pp. 370-371, archive.org OCR)",
+     "url": "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+     "why": "Classic description of natural peppermint oil; read via Parallel web_fetch excerpt"
+    },
+    {
+     "rank": 4,
+     "source": "Pushpangadan & Tewari 2006, 'Peppermint', Handbook of Herbs and Spices vol. 3 (as excerpted on ScienceDirect Topics)",
+     "url": "https://www.sciencedirect.com/topics/agricultural-and-biological-sciences/peppermint-oil",
+     "why": "Book chapter, not a GC-O paper; search-snippet level"
+    },
+    {
+     "rank": 4,
+     "source": "Dravnieks 1985 atlas (pyrfume copy): SpearmintOil_high and Menthol-l_high (ANALOGUES, not peppermint oil)",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/dravnieks_1985_behavior_1.csv",
+     "why": "Only real panel data near this material; peppermint oil itself is not in the atlas"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Peppermint Essential Oil 7BB00360",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=7BB00360",
+     "why": "Name-match candidate bottle; read from the repo's archived copy data/external/perfumersworld/7BB00360/product.html (fetched 2026-08-30) and its COA/legacy MSDS PDFs"
+    }
+   ],
+   "identity_notes": "Engine profile key 'Peppermint Essential Oil'. Kenny's stocks: 'Peppermint Essential Oil (Mentha piperita, India) # added 2026-06-15 - steam-distilled; 100% pure; INCI: Mentha Piperita Oil; crisp herbal-fresh menthol cooling' (inventory.txt line 86, neat) and 'Peppermint EO (10% v/v in ethanol)' (line 87, a working dilution Kenny made 2026-09-08). The supplier is not named. The census matched PW 7BB00360 by name only ('EXACT_NAME_SKU'), but PW's page names no species or origin, while Kenny's label says India, so the PW match is unconfirmed. LABELLED PROXY: Mentha piperita (Mentha x piperita, Lamiaceae) essential oil, steam-distilled from the flowering tops / aerial parts, India origin: Givaudan 'Peppermint Oil India' and TGSC 'peppermint oil india' are the closest published identities. Robertet's India product is a column 'fraction', not a whole oil, so it is a weaker proxy. Arctander warns that outside the USA 'peppermint oil' is often adulterated with Mentha arvensis (cornmint) oil; nothing here can test Kenny's bottle for that. The Dravnieks atlas has Spearmint Oil and l-Menthol but no peppermint oil; they are listed as labelled analogues only. The engine's text ('herbal 8, fresh 5, sweet 3, green 2') is unsourced and has no 'minty' or 'cooling' word."
+  },
+  {
+   "profile_key": "Phenyl Ethyl Acetate",
+   "identity": "Phenethyl Acetate",
+   "stock_ids": [
+    "inventory:v5:247f98e7fa6f4a06cb75"
+   ],
+   "stock_names": [
+    "Phenethyl Acetate"
+   ],
+   "cas": {
+    "cas": "103-45-7",
+    "source": "103-45-7 (2-phenylethyl acetate): PW 3RP00371 'CAS No. 103-45-7' / 'FEMA 2857'; TGSC rw1010031 'CAS Number: 103-45-7'; Symrise Phenylethyl Acetate datasheet '› cas 103-45-7 › 103248'; Firmenich flavor compendium 2016 'CAS number 103-45-7'. (Engine profile_key is 'Phenyl Ethyl Acetate'; data/materials/P.yaml line 1614 carries cas: null for that canonical name, so this CAS fills a gap there.)"
+   },
+   "character": {
+    "animalic": 2.0,
+    "floral": 8.0,
+    "freshness": 3.0,
+    "sweetness": 8.0,
+    "transparency": 4.0,
+    "warmth": 5.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity 16 h at 100%",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "floral",
+     "fruity",
+     "rose",
+     "rose + honey vs phenylethanol",
+     "rose",
+     "honey",
+     "anisic twist",
+     "fresh",
+     "fruity",
+     "pear"
+    ],
+    "tgsc": [
+     "floral rose sweet honey fruity tropical",
+     "honey",
+     "cocoa",
+     "balsamic"
+    ],
+    "supplier": [
+     "gardenia",
+     "peach",
+     "green",
+     "honeyed rose than pea",
+     "rose",
+     "honey",
+     "tobacco",
+     "sweet",
+     "rosy-fruity honey",
+     "sweet floral fruity rose honey",
+     "light fruity-acetate",
+     "airy"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise Phenylethyl Acetate perfumery datasheet (product 103248)",
+     "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Phenylethyl_Acetate.pdf",
+     "why": "Producer datasheet (Parallel web_fetch excerpt): family, descriptors, BP"
+    },
+    {
+     "rank": 1,
+     "source": "Firmenich PHENYLETHYL ACETATE NAT 901965 (flavour grade), via Firmenich Flavor Ingredients Compendium 2016 and TGSC",
+     "url": "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/Compendium_Flavors_Ingredients_2016.pdf",
+     "why": "Producer text, but for flavour use (search excerpt)"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC phenethyl acetate",
+     "url": "https://www.thegoodscentscompany.com/data/rw1010031.html",
+     "why": "TGSC page for 103-45-7 (Parallel excerpt); carries Firmenich, Moellhausen, Blue Marble, Pell Wall (with Arctander) quotes"
+    },
+    {
+     "rank": 4,
+     "source": "Flavornet (Acree & Arn), GC-O percepts for 103-45-7",
+     "url": "http://www.flavornet.org/info/103-45-7.html",
+     "why": "GC-olfactometry compilation citing Schieberle 1991 and Rychlik/Schieberle/Grosch 1998"
+    },
+    {
+     "rank": 4,
+     "source": "JECFA specification odour line (via PubChem CID 7654)",
+     "url": "https://pubchem.ncbi.nlm.nih.gov/compound/2-Phenylethyl-Acetate",
+     "why": "Regulatory specification odour text (search excerpt)"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume copy), CID 7654",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+     "why": "Descriptor flags"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 3RP00371 Phenyl Ethyl Acetate (Kenny's bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3RP00371",
+     "why": "Actual bottle"
+    },
+    {
+     "rank": 5,
+     "source": "Perfumer's Apprentice; DirectPCW (PCW France) product page",
+     "url": "https://shop.perfumersapprentice.com/p-6196-phenethyl-acetate-aka-phenyl-ethyl-acetate.aspx",
+     "why": "Reseller descriptions (search excerpts); DirectPCW URL https://directpcw.com/en/products/pha-1"
+    }
+   ],
+   "identity_notes": "Single synthetic ester; Kenny's bottle is PW 3RP00371 neat (inventory.txt line 171 'Phenyl Ethyl Acetate'; supplier SKU from data/materials/P.yaml). PW Synonyms: '$RP : Phenethyl acetate : 2-Phenylethyl acetate : beta-Phenylethyl acetate : Rose P acetate PerfumersWorld Authentic Perfumery Material'; producer not named. Not to be confused with phenylethyl phenylacetate (102-20-5) or ethyl phenylacetate (101-97-3). The only Firmenich text found is for the flavour grade (PHENYLETHYL ACETATE NAT 901965); it is a taste/flavour description, labelled as such below. No dsm-firmenich or IFF fragrance-grade page was found (IFF compendium URL guess returned 404)."
+  },
+  {
+   "profile_key": "Spike Lavender EO",
+   "identity": "Spike Lavender EO",
+   "stock_ids": [
+    "inventory:user-20261014:8f378feca0fcf5e21770"
+   ],
+   "stock_names": [
+    "Spike Lavender EO"
+   ],
+   "cas": {
+    "cas": "8016-78-2",
+    "source": "8016-78-2 (TSCA; 'lavender, spike, oil'); EINECS-type CAS 84837-04-7 (Lavandula latifolia herb oil, EC 284-290-6). Sources: TGSC es1029951 title 'spike lavender oil, 8016-78-2' and 'Name: lavandula latifolia herb oil | CAS Number: 8016-78-2'; PW 7HB00269 'CAS No. 8016-78-2'; Landema producer page 'CAS EINECS : 84837-04-7 | CAS TSCA : 8016-78-2 | CE number : 284-290-6'. Batch CAS 8016-78-2 confirmed."
+   },
+   "character": {
+    "floral": 4.5,
+    "freshness": 7.5,
+    "green": 4.5,
+    "radiance": 4.5,
+    "woody": 2.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity 184 h at 100%",
+   "tgsc_odor_type": "herbal",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "herbal",
+     "camphor",
+     "eucalyptus",
+     "fresh",
+     "woody",
+     "floral",
+     "cooling",
+     "green"
+    ],
+    "producer": [
+     "earthy",
+     "herbaceous",
+     "camphor",
+     "herbal",
+     "eucalyptus",
+     "floral",
+     "lavender"
+    ],
+    "supplier": [
+     "fresh camphoraceous herbal cool-lavender",
+     "lavender",
+     "eucalyptus",
+     "minty",
+     "floral",
+     "herbaceous",
+     "camphor",
+     "diffusive than lavender",
+     "camphor nuances",
+     "fresh",
+     "herbal",
+     "floral",
+     "woody"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Robertet BIO Technical Data Sheet, ORGANIC SPIKE LAVENDER OIL / Lavandula latifolia (code HELEVASFR, 17/01/2024)",
+     "url": "https://www.e-robertet.com/media/akeneo_connector/media_files/e/_/e_Robertet_FT_UK_LAVANDE_ASPIC_ESPAGNE_BIO_5355.pdf",
+     "why": "Producer technical sheet: species, part, process, origin, odour line, constituent ranges (read as Parallel search excerpt)"
+    },
+    {
+     "rank": 1,
+     "source": "Takasago Spike lavender TICO 14, quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/es1029951.html",
+     "why": "Producer odour and use text, second-hand via TGSC"
+    },
+    {
+     "rank": 1,
+     "source": "Albert Vieille, Lavender spike Essential oil Spain, quoted by TGSC (es1584691)",
+     "url": "https://www.thegoodscentscompany.com/data/es1584691.html",
+     "why": "Producer odour text, second-hand via TGSC; albertvieille.com product URL now resolves to a domain-auction page (DropCatch), so the original could not be re-read"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC spike lavender oil",
+     "url": "https://www.thegoodscentscompany.com/data/es1029951.html",
+     "why": "TGSC page for 8016-78-2 (Parallel web_fetch excerpt of Organoleptic section)"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC spike lavender oil spain",
+     "url": "https://www.thegoodscentscompany.com/data/es1584691.html",
+     "why": "TGSC Spanish-origin page (Parallel web_fetch excerpt); same substantivity, odour line at 10% in DPG"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960 (Perfume and Flavor Materials of Natural Origin), 'Lavender, Spike' monograph",
+     "url": "https://archive.org/details/isbn_9781978241329",
+     "why": "Not read: the archive.org copy is a lending item (would need login) and the only other full-text hits were on a banned host and were not opened; no reliable quotation of the spike monograph located"
+    },
+    {
+     "rank": 4,
+     "source": "Carrasco et al. 2016, Planta Med 82(1-2):163-70, 'Lavandula angustifolia and Lavandula latifolia Essential Oils from Spain: Aromatic Profile and Bioactivities' (PMID 26441063)",
+     "url": "https://pubmed.ncbi.nlm.nih.gov/26441063",
+     "why": "Peer-reviewed composition of Spanish L. latifolia oil (abstract only; no odour words)"
+    },
+    {
+     "rank": 4,
+     "source": "Dravnieks 1985 atlas: constituent stimuli Linalool_high, Eucalyptol_high, Camphordl_high (pyrfume copy)",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/dravnieks_1985_behavior_1.csv",
+     "why": "The oil itself is not in the atlas; panel profiles of its three main constituents recorded as labelled constituent proxies only"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Lavender Spike Essential Oil 7HB00269",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=7HB00269",
+     "why": "PW's spike oil (Parallel web_fetch excerpt); not confirmed as Kenny's bottle"
+    },
+    {
+     "rank": 5,
+     "source": "Excellentia International, Spike Lavender Oil product sheet (2019)",
+     "url": "https://excellentiainternational.com/pdfs/Spike%20Lavender%20Oil.pdf",
+     "why": "Supplier technical sheet (search excerpt)"
+    }
+   ],
+   "identity_notes": "LABELLED PROXY IDENTITY. Kenny's bottle is 'Spike Lavender EO (neat / as supplied)' (inventory.txt line 349, added 2026-04-29; census perfumersworld_match_state NO_EXACT_PW_MATCH), so its supplier, origin and batch are unrecorded. Per Kenny's rule the closest published identity is used: Lavandula latifolia Medik. (syn. L. spica), Lamiaceae; part = flowering tops; process = steam (water-steam) distillation; main origin Spain (also S. France). Robertet BIO TDS: 'Used part : Flowering top ... Manufacturing method : By water-steam distillation of flowering tops ... Country of origin : Spain'. TGSC: 'essential oil distilled from the flowering herbs of the lavender, lavandula latifolia (syn: lavandula spica), labiatae'. Typical composition (Robertet BIO TDS ranges): linalool 34-50%, 1,8-cineole 16-39%, camphor 8-16%, beta-pinene 1-4%, alpha-pinene 0.5-4%, trans-alpha-bisabolene 0.4-2.5%. Not the same as true lavender (L. angustifolia, linalyl-acetate rich) nor lavandin (hybrid). Kenny's own inventory note: 'camphoraceous lavender, more aromatic/masculine and less soft-floral than Lavender EO' (kenny_known left empty as instructed). Excellentia warns: 'Spike Lavender is easily adulterated with eucalyptus fractions, synthetic Linalool and synthetic or natural Camphor.'",
+   "odor_description": "Earthy, herbaceous, camphor, herbal, eucalyptus, floral, lavender, fresh, woody."
+  }
+ ]
+}

@@ -65,7 +65,7 @@ def test_formula_design_preserves_crystal_ambrox_as_separate_mass() -> None:
     assert result["optimized_formula"]["basis_state"] == "SEPARATE_LIQUID_AND_SOLID_TOTALS"
     assert any(row["identity_name"] == "Grapefruit FCF Oil Sicilian" for row in rows)
     grapefruit = next(row for row in rows if row["identity_name"] == "Grapefruit FCF Oil Sicilian")
-    assert grapefruit["profile_source"] == "HEURISTIC_CATEGORY_PROXY"
+    assert grapefruit["profile_source"] == "DECLARED_MATERIAL_PROFILE"  # sourced profile since 31 Oct 2026
 
 
 def test_formula_design_withholds_an_unbound_quantity_in_chat() -> None:

@@ -284,9 +284,11 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "character",
         "texture": "lift",
-        "mw": 168.23,
-        "vp": 0.5,
-        "clogp": 2.1,
+        # 1,1-dimethoxy-2,2,5-trimethyl-4-hexene, CAS 67674-46-8, C11H22O2 (Givaudan).
+        "mw": 186.3,
+        "vp": 29.0,
+        "vp_source": "Givaudan Methyl Pamplemousse product page: 0.2900 hPa (temperature not stated)",
+        "clogp": 4.3,  # Givaudan Log Pow
         "synergies": ["Grapefruit FCF", "Hedione", "Allyl Amyl Glycolate"],
     },
     "Bergamot EO": {
@@ -1468,8 +1470,9 @@ _PROFILES: dict[str, dict] = {
         "role": "character",
         "texture": "skin-effect",
         "mw": 208.34,
-        "vp": 0.89,
-        "clogp": 4.5,
+        "vp": 0.13,
+        "vp_source": "Givaudan Ebanol product page: 0.0013 hPa (temperature not stated)",
+        "clogp": 4.9,  # Givaudan Log Pow
         "synergies": ["Javanol", "Bacdanol"],
     },
     "Sandalore": {
@@ -1520,6 +1523,9 @@ _PROFILES: dict[str, dict] = {
         "mw": 262.4,
         "vp": 0.1,  # sesquiterpene ester mixture; base note ~0.1 Pa
         "clogp": 4.8,
+        # TGSC rw1051731 at 100%: "woody powdery root vetiver sweet dry sandal"; Moellhausen
+        # (via TGSC) "strongly woody, characteristic vetivert"; PW 3WY00468 "Sweet-and-dry fresh-woody".
+        "odor_description": "Woody, vetiver, root, sweet, dry, powdery, fresh woody.",
         "synergies": ["Vetiver EO", "Iso E Super", "Cedarwood EO", "Sandalore"],
     },
     "Vertofix Coeur": {
@@ -2969,6 +2975,9 @@ _PROFILES: dict[str, dict] = {
         "vp": 3.72,  # EPI Suite estimate (TGSC ep1047261, Modified Grain); no measured VP found
         "clogp": 2.77,  # RIFM 2017c, measured
         "cas": "7403-42-1",
+        # Symrise Vetikon datasheet: "Woody, Vetiver, Grapefruit, Gardenia", "adds a fresh woody,
+        # vetiver-like accent"; TGSC rw1047261 quotes Symrise "rooty, vetiver-like".
+        "odor_description": "Woody, vetiver, rooty, fresh woody, grapefruit, gardenia.",
         "synergies": ["Iso E Super", "Vertofix", "Vetiver EO", "Clearwood"],
     },
     "Ylang Ylang EO": {
@@ -5097,6 +5106,30 @@ _VERIFIED_VP_SOURCE.update(
     }
 )
 
+# 2026-10-31 Acqua di Gio Luxe research (stock thread): these profile VPs follow the data
+# spine (A.yaml Amber Xtreme, B.yaml Beta Damascone), whose provenance carries each source.
+_VERIFIED_VP.update(
+    {
+        "Amber Xtreme": 0.38,
+        "Damascone Beta": 2.6,
+    }
+)
+_VERIFIED_VP_SOURCE.update(
+    {
+        "Amber Xtreme": (
+            "RIFM fragrance ingredient safety assessment, CAS 476332-65-7 (Api et al., Food Chem "
+            "Toxicol 156 Suppl 1 (2021) 112476): 'Vapor Pressure: 3.8 x 10(-1) Pa at 25 C (RIFM, "
+            "2003f)' (IFF report, method not printed); IFF compendium 0.005516 mm Hg at 23 C = "
+            "0.7354 Pa is the second source (replaces an unsourced 0.001 Pa; re-opened 2026-10-31)"
+        ),
+        "Damascone Beta": (
+            "ECHA registration dossier EC 245-842-1, section 4.7: 'Vapour pressure: 2.6 Pa at the "
+            "temperature of: 25 C' (GLP, OECD/EC method); Firmenich SDS v13 (2024) 2.6 Pa, OECD 104 "
+            "(replaces an unsourced 0.08 Pa; re-opened 2026-10-31)"
+        ),
+    }
+)
+
 for _key, _val in _VERIFIED_VP.items():
     if _key in _PROFILES:
         _PROFILES[_key]["vp"] = _val
@@ -5497,7 +5530,10 @@ _PROFILES.setdefault("elemi eo", {}).update(
 # 2026-09-07: entity facts do not establish stock composition or measured liking.
 for _name, _mw, _cas, _source in (
     ("Damascone Beta", 192.30, "23726-91-2", "https://www.iff.com/scent/ingredients-compendium/damascone-beta/"),
-    ("Amber Xtreme", 264.4, "476332-65-7", "https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/"),
+    # 264.45 = C18H32O, IFF's formula (the compendium rounds to 264); RIFM 2021 prints 264.45
+    # (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/476332-65-7.pdf).
+    # 2026-10-31, was 264.4.
+    ("Amber Xtreme", 264.45, "476332-65-7", "https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/"),
 ):
     _PROFILES[_name].update(mw=_mw, cas=_cas)
     _PROFILES[_name].setdefault("evidence", {})["mw"] = {
@@ -6205,34 +6241,53 @@ _PROFILES.update(
 # only odour prose. Kenny, 31 Oct 2026: "Do literature research and fix this as
 # best as possible". The prose moves to odor_description; character and note take
 # the sourced rubric values. Role is left as it was.
-_LITERATURE_CHARACTER_PROFILES = (
-    Path(__file__).resolve().parents[1]
-    / "data"
-    / "knowledge_graph"
-    / "literature_character_profiles_20261031.json"
+_LITERATURE_PROFILE_DIR = Path(__file__).resolve().parents[1] / "data" / "knowledge_graph"
+# Round 1 (#169): owned stocks with prose-only profiles. Round 2: owned stocks that only
+# had a category proxy (new entries). Round 3: thin hand-written
+# profiles re-sourced, plus three owned stocks with no profile (new entries).
+_LITERATURE_CHARACTER_PROFILES = tuple(
+    _LITERATURE_PROFILE_DIR / name
+    for name in (
+        "literature_character_profiles_20261031.json",
+        "literature_character_profiles_20261031_round2.json",
+        "literature_character_profiles_20261031_round3.json",
+    )
 )
 
 
 def _apply_literature_character_profiles() -> None:
-    document = json.loads(_LITERATURE_CHARACTER_PROFILES.read_text(encoding="utf-8"))
-    for entry in document["profiles"]:
-        data = _PROFILES[entry["profile_key"]]
-        prose = data.get("character")
-        if isinstance(prose, str):
-            data["odor_description"] = prose
-        if data.get("note") not in {"top", "heart", "base"} and data.get("role") in {"top", "heart", "base"}:
-            data["role"] = "modifier"  # what get_profile already returned for this record
-        data["character"] = dict(entry["character"])
-        data["note"] = entry["note"]
-        if entry.get("cas") and not data.get("cas"):
-            data["cas"] = entry["cas"]
-        evidence = data.setdefault("evidence", {})
-        evidence["character"] = {
-            "status": document["character_evidence"]["status"],
-            "source": str(_LITERATURE_CHARACTER_PROFILES.relative_to(Path(__file__).resolve().parents[1])),
-            "sources": [source["url"] for source in entry["sources_ranked"]],
-        }
-        evidence["note"] = {"status": document["note_evidence"]["status"], "basis": entry["note_basis"]}
+    root = Path(__file__).resolve().parents[1]
+    for path in _LITERATURE_CHARACTER_PROFILES:
+        document = json.loads(path.read_text(encoding="utf-8"))
+        for entry in document["profiles"]:
+            data = _PROFILES.get(entry["profile_key"])
+            if data is None:
+                # A stock with no profile gets a sourced one; role is not researched.
+                assert entry.get("odor_description"), entry["profile_key"]
+                data = _PROFILES[entry["profile_key"]] = {"role": "modifier"}
+                for field_name in ("mw", "vp"):  # material_properties values, status kept in the file
+                    if entry.get(field_name) is not None:
+                        data[field_name] = entry[field_name]
+            prose = data.get("character")
+            if isinstance(prose, str):
+                data["odor_description"] = prose
+            if entry.get("odor_description"):
+                data["odor_description"] = entry["odor_description"]
+            if data.get("note") not in {"top", "heart", "base"} and data.get("role") in {"top", "heart", "base"}:
+                data["role"] = "modifier"  # what get_profile already returned for this record
+            data["character"] = dict(entry["character"])
+            data["note"] = entry["note"]
+            cas = entry.get("cas")
+            cas = cas.get("cas") if isinstance(cas, dict) else cas
+            if cas and not data.get("cas"):
+                data["cas"] = cas
+            evidence = data.setdefault("evidence", {})
+            evidence["character"] = {
+                "status": document["character_evidence"]["status"],
+                "source": str(path.relative_to(root)),
+                "sources": [source["url"] for source in entry["sources_ranked"]],
+            }
+            evidence["note"] = {"status": document["note_evidence"]["status"], "basis": entry["note_basis"]}
 
 
 _apply_literature_character_profiles()

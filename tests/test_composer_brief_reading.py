@@ -220,7 +220,11 @@ def test_vetiver_oils_the_user_names_are_backed_by_a_vetiver_molecule() -> None:
     rows = _rows_by_slot(design_formula(idea="a vetiver centred scent built on Haitian Vetiver EO"))
 
     support = rows.get("explicit_anchor_1__accord_1", "").casefold()
-    assert "vetikon" in support or "vetiveryl" in support, rows
+    # Isolongifolanone's sourced round-2 profile carries vetiver in its own words
+    # (producer "vetiver aspects", supplier "dry-vetiver"), so it now edges out Vetikon
+    # (Symrise "vetiver", "rooty") by under one point; Vetiveryl Acetate is IFRA-limited
+    # and never fills a supporting role by default.
+    assert any(name in support for name in ("vetikon", "vetiveryl", "isolongifolanone")), rows
 
 
 def test_sandalwood_oil_lead_is_backed_by_a_sandalwood_molecule() -> None:

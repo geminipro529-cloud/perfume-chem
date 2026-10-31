@@ -35,8 +35,10 @@ _LABELS = {
     "Sandalwood EO": (_SANDALWOOD, 0.68, "literature_proxy"),
     "Sandalwood EO (10% in DPG)": (_SANDALWOOD, 0.68, "literature_proxy"),
     "Tuberlia Base": (_TUBERLIA, 0.236503, "literature_proxy"),
-    "Patchouli EO": ("patchouli eo", 0.7727, "direct_identity"),
-    "Patchouli Light Essential Oil": ("patchouli eo", 0.7727, "literature_proxy"),
+    # 2026-10-31: Patchouli EO moved from van Beek & Joulain (0.7727) to the ISO 3757:2002
+    # midpoints (0.6675), the Acqua di Gio Luxe research's second-read source.
+    "Patchouli EO": ("patchouli eo", 0.6675, "direct_identity"),
+    "Patchouli Light Essential Oil": ("patchouli eo", 0.6675, "literature_proxy"),
     "Siam Benzoin": (_SIAM, 0.306, "literature_proxy"),
     "Siam Benzoin (50% w/w in DPG)": (_SIAM, 0.306, "literature_proxy"),
 }
@@ -55,7 +57,8 @@ _SOURCES = {
         "ISO-3518-2025.pdf"
     ),
     "Tuberlia Base": "https://www.perfumersworld.com/document-list.php?pro_id=6ND09663",
-    "Patchouli EO": "https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",
+    # 2026-10-31: ISO 3757:2002 is now the composition source; van Beek stays as a cross-check.
+    "Patchouli EO": "https://cdn.standards.iteh.ai/samples/32035/01ce2b0f2fb947a5b31c02c63b4f3da3/ISO-3757-2002.pdf",
     "Siam Benzoin": "https://www.fao.org/fileadmin/user_upload/agns/pdf/jecfa/cta/74/benzoe_tonkinensis.pdf",
 }
 
@@ -198,19 +201,31 @@ def test_tuberlia_models_declared_levels_and_leaves_sds_bands_unresolved():
     assert unresolved["hexyl salicylate"]["reported_fraction"] == pytest.approx(0.006406)
 
 
-def test_patchouli_uses_the_van_beek_joulain_literature_averages():
+def test_patchouli_uses_the_iso_3757_midpoints_with_van_beek_as_cross_check():
+    # Changed 2026-10-31 because of the new sourced profile (Acqua di Gio Luxe research, R8,
+    # second-read): ISO 3757:2002 Table 1 midpoints replace the van Beek & Joulain literature
+    # averages, whose patchoulol 39% is above the standard's 35% maximum. van Beek and the Shay
+    # Indonesian lot 13134 are kept as cross-checks; seychellene is no longer modeled.
     rows = {name: row[1] for name, row in _rows("Patchouli EO").items()}
-    assert rows["patchoulol"] == pytest.approx(0.39)
-    assert rows["alpha-bulnesene"] == pytest.approx(0.14)
-    assert rows["alpha-guaiene"] == pytest.approx(0.11)
-    assert rows["seychellene"] == pytest.approx(0.066)
-    assert sum(rows.values()) == pytest.approx(0.7727)
+    assert rows["patchoulol"] == pytest.approx(0.31)
+    assert rows["alpha-bulnesene"] == pytest.approx(0.17)
+    assert rows["alpha-guaiene"] == pytest.approx(0.135)
+    assert "seychellene" not in rows
+    assert sum(rows.values()) == pytest.approx(0.6675)
     meta = get_composite_metadata("Patchouli EO")
-    assert meta.sources == ("https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",)
+    assert meta.sources == (
+        "https://cdn.standards.iteh.ai/samples/32035/01ce2b0f2fb947a5b31c02c63b4f3da3/ISO-3757-2002.pdf",
+        "https://onlinelibrary.wiley.com/doi/full/10.1002/ffj.3418",
+        "https://shayandcompany.com/wp-content/uploads/2018/08/Patchouli-Essential-Oil-GCMS-Shay-and-Company-Lot13134.pdf",
+    )
     assert meta.quantitative_evaluability == "PARTIAL_INPUT_COVERAGE"
-    unresolved = {u["name"]: u["reported_fraction"] for u in meta.unresolved_constituents}
-    assert unresolved["alpha-patchoulene"] == pytest.approx(0.045)
-    assert unresolved["norpatchoulenol"] == pytest.approx(0.0086)
+    composition = meta.input_authority["composition"]
+    assert composition["literature_average_cross_check"]["reported_pct_average"]["patchoulol"] == 39
+    assert composition["cross_check_lot"]["reported_pct"]["patchoulol"] == pytest.approx(31.13)
+    unresolved = {u["name"]: u for u in meta.unresolved_constituents}
+    assert unresolved["beta-patchoulene"]["reported_fraction"] == pytest.approx(0.0265)
+    assert unresolved["nor-patchoulenol"]["reported_fraction"] == pytest.approx(0.00675)
+    assert "reported_fraction" not in unresolved["copaene"]
     # Patchouli Light still reaches the same whole-oil profile as a proxy.
     light = get_composite_metadata("Patchouli Light Essential Oil")
     assert light.profile_key == "patchouli eo" and light.resolution == "literature_proxy"
