@@ -1267,7 +1267,11 @@ def _roles(
                 # A register the brief names keeps its own notes first; one it
                 # leaves open looks first for the family's materials.
                 *((*facet_terms, *family_terms) if own_register else (*family_terms, *facet_terms)),
-                *_source_tokens(f"{label} {function} {note}"),
+                # The function word ("bridge", "volume") is scored once, as the
+                # role's function.  As a query word it paid the few profiles
+                # whose role text says "bridge" (Linalool, Dihydro Beta Ionone,
+                # Coriander) a second time on every coverage role.
+                *(word for word in _source_tokens(f"{label} {note}") if word != function),
             )
         )[:16]
 
