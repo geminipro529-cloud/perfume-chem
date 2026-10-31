@@ -3,7 +3,7 @@
   "authority": "COMPUTATIONAL_DATA_RECONCILIATION_NOT_RELEASE",
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
-    "engine/ingredient_intelligence.py": "edff107fa0436013f1ceb8a50cbc2b8a9c259553caab579c6866daf0327b43e7",
+    "engine/ingredient_intelligence.py": "9700c18ee633a026deb61abc0514ae68c4903c96f21ed1d5bd2d6d0908ff81f3",
     "engine/inventory_parser.py": "582b0fcc2e8929dedd4b271d690ec96831b7bdc8654423b51178a6fa348a6a03",
     "engine/odor_thresholds.py": "4ba7c31aabe21e8df723dec2402f43bd58672727134377de35c92c4d8dd37dd1",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
@@ -19,7 +19,7 @@
     "data/materials/E.yaml": "f66635239d9908234e6ea94e0764118a0c302e5010f535b88ddd2f6a43f36a9a",
     "data/materials/F.yaml": "6367a6bec0c89bfe9c29865b1bd9495c63a9d97ed2598a491d7f6166579f4058",
     "data/materials/G.yaml": "aa4fa451625efdaa5d874ac8967a593596987a7cf9099dd943be040f559ed4b4",
-    "data/materials/H.yaml": "647bf2c24eab81eacb43a017f2bd32a5fa02ab42ee8cc3a7e937d6dcaad9146f",
+    "data/materials/H.yaml": "0dd83c3eba4fbaaf46535fb82e93bc7d3257b96105df48f78e2cd8896c8acab4",
     "data/materials/I.yaml": "3ff81594dcb3e25dd30d448c90b6054912122319dcb0a75b72aebf020d801468",
     "data/materials/J.yaml": "f2344da7fdbd77331e7bfdfc7a2f326c5b760b9c53eebb3f358ad1b8f9aeb76d",
     "data/materials/K.yaml": "19796fb49bec7b078fce62bc6bccbac3f5447057fbc9970c46685705c8bff32b",
@@ -53,7 +53,7 @@
     "rows_with_profile": 301,
     "rows_with_registry": 324,
     "rows_with_odt": 307,
-    "rows_with_unresolved_scalar_disagreements": 156
+    "rows_with_unresolved_scalar_disagreements": 154
   },
   "rows": [
     {
@@ -478,20 +478,7 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {
-        "mw": {
-          "profile": 168.23,
-          "registry": 186.29
-        },
-        "vp": {
-          "profile": 0.5,
-          "registry": 29.0
-        },
-        "clogp": {
-          "profile": 2.1,
-          "registry": 4.3
-        }
-      }
+      "unresolved_scalar_disagreements": {}
     },
     {
       "source_rows": [
@@ -3899,16 +3886,7 @@
       ],
       "odt_present": true,
       "missing_numeric_fields": [],
-      "unresolved_scalar_disagreements": {
-        "vp": {
-          "profile": 0.89,
-          "registry": 0.13
-        },
-        "clogp": {
-          "profile": 4.5,
-          "registry": 4.9
-        }
-      }
+      "unresolved_scalar_disagreements": {}
     },
     {
       "source_rows": [
@@ -6776,6 +6754,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "76fabc045579bd7912475dbd5c8ae6e2f3440d094a218f773422dc924317da11",
-  "input_cache_sha256": "659021b8b3982151ea9bc8090797cca304ce469358e2e99f31618c89798ca0e6"
+  "output_sha256": "6370ad9c69814b75988acfa13efb31794c03a8d2c4b1d9483a612727c4c95988",
+  "input_cache_sha256": "6370ad9c69814b75988acfa13efb31794c03a8d2c4b1d9483a612727c4c95988"
 }

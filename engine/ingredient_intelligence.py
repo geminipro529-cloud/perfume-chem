@@ -284,9 +284,11 @@ _PROFILES: dict[str, dict] = {
         "note": "top",
         "role": "character",
         "texture": "lift",
-        "mw": 168.23,
-        "vp": 0.5,
-        "clogp": 2.1,
+        # 1,1-dimethoxy-2,2,5-trimethyl-4-hexene, CAS 67674-46-8, C11H22O2 (Givaudan).
+        "mw": 186.3,
+        "vp": 29.0,
+        "vp_source": "Givaudan Methyl Pamplemousse product page: 0.2900 hPa (temperature not stated)",
+        "clogp": 4.3,  # Givaudan Log Pow
         "synergies": ["Grapefruit FCF", "Hedione", "Allyl Amyl Glycolate"],
     },
     "Bergamot EO": {
@@ -1468,8 +1470,9 @@ _PROFILES: dict[str, dict] = {
         "role": "character",
         "texture": "skin-effect",
         "mw": 208.34,
-        "vp": 0.89,
-        "clogp": 4.5,
+        "vp": 0.13,
+        "vp_source": "Givaudan Ebanol product page: 0.0013 hPa (temperature not stated)",
+        "clogp": 4.9,  # Givaudan Log Pow
         "synergies": ["Javanol", "Bacdanol"],
     },
     "Sandalore": {
