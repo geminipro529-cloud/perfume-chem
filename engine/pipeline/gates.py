@@ -1119,6 +1119,8 @@ _ANTIOXIDANT_CONSTITUENT_STANDARDS = {"limonene": "IFRA_STD_186", "linalool": "I
 _STEREO_PREFIX = re.compile(r"^(?:(?:\([^()]*\)|dl|d|l)-)+")
 # Batch-volume sources that do not give the finished perfume volume.
 _UNKNOWN_FINISHED_VOLUME_SOURCES = frozenset({"default", "mass_card_concentrate_only"})
+# The warning names this many in-scope rows, biggest first; the data lists them all.
+_ANTIOXIDANT_NAMED_ROWS = 4
 
 
 def _ifra_number_text(standards: Sequence[str]) -> str:
@@ -1341,8 +1343,14 @@ def _antioxidant_assessment(
             f"{HOUSE_BHT_UL_PER_ML_FINISHED:g} uL per mL (antioxidant, IFRA {numbers})"
         )
     verb = "falls" if len(in_scope) == 1 else "fall"
+    shown = sorted(
+        in_scope, key=lambda row: (row.get("active_mg") is None, -(row.get("active_mg") or 0.0))
+    )[:_ANTIOXIDANT_NAMED_ROWS]
+    named = ", ".join(_label(row) for row in shown)
+    if len(in_scope) > len(shown):
+        named += f" and {len(in_scope) - len(shown)} more"
     reason = (
-        f"no antioxidant row: {', '.join(_label(row) for row in in_scope)} {verb} under "
+        f"no antioxidant row: {named} {verb} under "
         f"IFRA {numbers} (antioxidants at production); add {HOUSE_BHT_STOCK}, {dose} "
         "as a pre-charge"
     )

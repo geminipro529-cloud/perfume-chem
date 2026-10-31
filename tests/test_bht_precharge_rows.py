@@ -329,6 +329,10 @@ def test_release_gate_adds_the_precharge_gate_and_leaves_every_odour_gate_alone(
     statuses = {g["gate"]: g["status"] for g in without["gates"]}
     statuses_bht = {g["gate"]: g["status"] for g in with_bht["gates"]}
     precharge = statuses_bht.pop("technical_precharge")
+    # The fixture holds Bergamot FCF (limonene, IFRA 186): chemistry_stability asks for
+    # BHT without the row and is satisfied with it. Every other gate is unchanged.
+    assert statuses.pop("chemistry_stability") == "WARN"
+    assert statuses_bht.pop("chemistry_stability") == "PASS"
     assert statuses_bht == statuses
     assert "technical_precharge" not in statuses
     assert precharge == ("PASS" if _live_bht_recorded() else "HOLD")

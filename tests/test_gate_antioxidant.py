@@ -430,3 +430,22 @@ def test_release_cli_prints_the_bench_addition_for_the_bottle_size(tmp_path, cap
     )
     # Once in the gate lines and once in the analysis Gate Summary.
     assert out.count(bench) == 2
+
+
+def test_a_long_scope_names_the_four_biggest_rows_and_counts_the_rest():
+    many = {
+        "Bergamot FCF Oil Sicilian": 50.0,
+        "Linalool": 40.0,
+        "Lavender EO": 30.0,
+        "Coriander Seed EO": 20.0,
+        "Grapefruit FCF": 10.0,
+        "Hedione": 30.0,
+    }
+    result = _chemistry(_w_v_state(many))
+
+    assert result.status == "WARN"
+    assert "Grapefruit FCF" not in result.detail
+    assert "Coriander Seed EO" in result.detail
+    assert "and 1 more fall under IFRA" in result.detail
+    in_scope = result.data["antioxidant"]["in_scope_materials"]
+    assert "Grapefruit FCF" in {row["material"] for row in in_scope}
