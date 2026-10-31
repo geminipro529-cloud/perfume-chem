@@ -5,6 +5,7 @@ from __future__ import annotations
 import hashlib
 import re
 from dataclasses import dataclass, replace
+from decimal import Decimal
 from functools import lru_cache
 from typing import Any, Callable, Mapping, Sequence
 
@@ -37,7 +38,9 @@ from engine.research.composition_planner import (
     _MIN_RAW_TRANSFER_UL,
     ACCORD_SUPPORT_SEPARATOR,
     AMBER_CRYSTAL_IDENTITIES,
+    AMBROX_CRYSTAL_MASS_BASIS,
     TRACE_STOCK_FRACTION,
+    WEIGHABLE_POWDER_MIN_MG,
     Choice,
     RoleSpec,
     _allocate_capped,
@@ -1212,6 +1215,12 @@ _COVERAGE_STEERED_FAMILIES = frozenset({"base_shadow", "heart_watery"})
 # cushion, lift, cocoon, veil, halo).
 _TEXTURE_WORDS = frozenset({"cocoon", "veil", "cushion", "lift", "halo", "diffusion"})
 _CHARACTER_ASK_WEIGHT = .3
+# A family's own facets: ambergris is animalic, musky and powdery, so an amber
+# layer counted Ambrox Super's own words off-brief (4 points) while Amber
+# Xtreme ("amber, woody, warm") paid none and took 10 of 12 amber layers.
+_FAMILY_FACETS = {"base_amber": frozenset({"base_shadow", "base_musk", "heart_powder"})}
+# A character weight (of 10) at which a material mainly smells of that family.
+_MAIN_CHARACTER_WEIGHT = 3.0
 
 
 def _families(words: frozenset[str]) -> frozenset[str]:
@@ -1266,12 +1275,26 @@ def _off_brief_penalty(
     # smells of, so it names no family here.  It counted as resin, which made
     # every cedarwood pay a family that Clearwood's "veil" did not.
     families = _families(capability.descriptor_vocabulary - _TEXTURE_WORDS)
+    for family, facets in _FAMILY_FACETS.items():
+        if role.provenance != "FUNCTIONAL_COVERAGE" and family in own and family in families:
+            own |= facets
+    on_brief = families & (own | asked_families)
     extra = families - own - asked_families
+    # A material pays for the families it mainly smells of, not every facet
+    # its description names: the 50 sourced profiles (median 4 families
+    # against 2 for hand-written ones) paid in 97% of layer roles against
+    # 84% and won a quarter as often (pickability audit, 31 Oct).  With no
+    # character weight behind any family, the description decides.
+    main = _families(frozenset(
+        dim.casefold() for dim, weight in capability.character_map.items() if weight >= _MAIN_CHARACTER_WEIGHT
+    ))
+    if main:
+        extra &= main
     # One off-brief family or several cost the same, so a fuller description
     # does not pay more: Jasmine Absolute (floral, green, animalic) paid 16
     # where Jasmine Sambac (floral) paid nothing.  A material that also
     # carries the brief pays half a family's worth.
-    partial = _OFF_BRIEF_FAMILY_PENALTY / 2 if families - extra else _OFF_BRIEF_FAMILY_PENALTY
+    partial = _OFF_BRIEF_FAMILY_PENALTY / 2 if on_brief else _OFF_BRIEF_FAMILY_PENALTY
     if role.provenance == "FUNCTIONAL_COVERAGE":
         # A link must not carry a steered family at all, so any of them
         # costs a whole family's worth.
@@ -1365,6 +1388,7 @@ def _unary_rank_for_role(
     request: str = "",
     required_identity: tuple[str, ...] | None = None,
     frontier: int | None = _UNARY_FRONTIER,
+    before_cardamom: bool = False,
 ) -> list[tuple[float, MaterialCapability]]:
     ranked: list[tuple[float, MaterialCapability]] = []
     query_terms = role.query_terms
@@ -1421,6 +1445,15 @@ def _unary_rank_for_role(
             score -= 1.35 + .25 * variant_index
         if role.exact_material is None and not _has_own_threshold(capability.identity_name):
             score -= _UNSCORABLE_PENALTY
+        if (
+            before_cardamom and role.exact_material is None
+            and "cardamom" not in capability.identity_name.casefold()
+            and _cineole_camphor_fraction(capability.identity_name) >= _CINEOLE_CAMPHOR_MIN_FRACTION
+        ):
+            # The brief's cardamom role comes later; keep the other
+            # cineole/camphor oils out of the roles before it.  Roles after
+            # it pay the pair penalty instead.
+            score -= _CINEOLE_STACK_PENALTY
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
     if _is_cited_helper(role) and role.exact_material is None:
@@ -1490,7 +1523,56 @@ def _pair_adjustment(
         ) / len(dimensions)
         if mean_difference < .75 and capability.note == other.note:
             adjustment -= .55
+    if any(_cineole_stack(capability, other) for other in selected):
+        adjustment -= _CINEOLE_STACK_PENALTY
     return adjustment
+
+
+# Cardamom beside another cineole or camphor oil reads medicinal: Kenny poured
+# out a bottle of Cardamom, Rosemary, Lavender and Clary Sage (25 Oct 2026).
+_CINEOLE_STACK_PENALTY = 3.0
+_CINEOLE_CAMPHOR_MIN_FRACTION = .10
+_CINEOLE_CAMPHOR_KEYS = frozenset({"1 8 cineole", "cineole", "eucalyptol", "camphor", "borneol", "isoborneol"})
+
+
+@lru_cache(maxsize=None)
+def _cineole_camphor_fraction(identity_name: str) -> float:
+    from engine.pipeline.natural_absolute_decomposition import get_constituents
+
+    return sum(
+        float(row[1]) for row in get_constituents(identity_name) or ()
+        if _molecule_key(str(row[0])) in _CINEOLE_CAMPHOR_KEYS
+    )
+
+
+def _drop_cineole_stacks(
+    ranked: list[tuple[float, MaterialCapability]], state: Any,
+) -> tuple[list[tuple[float, MaterialCapability]], bool]:
+    """The ranking without stocks that would stack cardamom with a state's other cineole oil, and whether any went."""
+
+    kept = [
+        row for row in ranked
+        if not any(_cineole_stack(row[1], capability) for _role, capability, _score in state.assignments)
+    ]
+    return kept, len(kept) < len(ranked)
+
+
+def _roles_before_cardamom(brief: SemanticBrief) -> frozenset[str]:
+    """The roles solved before the brief's first cardamom role (a cardamom family role or a named cardamom)."""
+
+    for position, role in enumerate(brief.roles):
+        if "cardamom" in family_role_words(role.role_id) or "cardamom" in (role.exact_material or "").casefold():
+            return frozenset(r.role_id for r in brief.roles[:position])
+    return frozenset()
+
+
+def _cineole_stack(capability: MaterialCapability, other: MaterialCapability) -> bool:
+    """Cardamom and another oil of 10% or more cineole and camphor in one formula."""
+
+    names = (capability.identity_name, other.identity_name)
+    if not any("cardamom" in name.casefold() for name in names) or _chemical_identity(capability) == _chemical_identity(other):
+        return False
+    return all(_cineole_camphor_fraction(name) >= _CINEOLE_CAMPHOR_MIN_FRACTION for name in names)
 
 
 # Below this stock strength _allocation_weight (research/composition_planner.py)
@@ -1949,11 +2031,14 @@ def _solve_assignments(
     enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
     asked_families = _asked_families(brief)
     identity_words = identity_words or {}
+    before_cardamom = _roles_before_cardamom(brief)
 
     def unary(role: SemanticRole, cache_id: str | None = None) -> list[tuple[float, MaterialCapability]]:
         # A cache shared by solves of one brief with the same inputs: only a
         # role whose identity words differ is ranked again.
         key = (cache_id or role.role_id, identity_words.get(role.role_id))
+        if role.role_id in before_cardamom:
+            key = (*key, "before_cardamom")
         if frontier != _UNARY_FRONTIER:
             key = (*key, frontier)
         if unary_cache is not None and key in unary_cache:
@@ -1971,6 +2056,7 @@ def _solve_assignments(
             request=brief.normalized_request,
             required_identity=identity_words.get(role.role_id),
             frontier=frontier,
+            before_cardamom=role.role_id in before_cardamom,
         )
         if unary_cache is not None:
             unary_cache[key] = ranked
@@ -2137,9 +2223,25 @@ def _solve_assignments(
                     elif kept_for is not None:
                         kept_for[(role.role_id, row[1].stock_id)] = owner
                 ranked = kept
+            # An optional role never stacks cardamom with another cineole
+            # or camphor oil (Kenny poured out the medicinal cardamom,
+            # rosemary and lavender trials, 25 Oct): the pair penalty cannot
+            # turn a family role whose stocks are all named for its word.
+            unstack = not role.required and role.exact_material is None
+            stacked = False
+            if unstack:
+                ranked, stacked = _drop_cineole_stacks(ranked, state)
             if not ranked and role.role_id in fallbacks:
                 placed_role = fallbacks[role.role_id]
                 ranked = _rank_for_state(fallback_rankings[role.role_id], placed_role, state, **rank_kwargs)
+                if unstack:
+                    ranked, fallback_stacked = _drop_cineole_stacks(ranked, state)
+                    stacked = stacked or fallback_stacked
+            if not ranked and stacked:
+                # The state keeps its cardamom (or its other oil) and goes on
+                # without this role, rather than leaving the beam.
+                expanded.append(state)
+                continue
             role_has_candidate = role_has_candidate or bool(ranked)
             for score, capability in ranked:
                 groups = state.groups()
@@ -2219,6 +2321,46 @@ def _solve_assignments(
 
 
 _INCOMPLETE_RETRY_BEAM_FACTOR = 4
+
+
+def _pour_unweighable_crystals(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    rows: Sequence[dict[str, Any]],
+    index: MaterialCapabilityIndex,
+) -> tuple[tuple[SolvedAssignment, ...], tuple[Choice, ...]] | None:
+    """Swap a rule-weighed Ambrox Super crystal row under 100 mg for the owned solution.
+
+    Kenny's scale cannot weigh tens of mg (30 Oct 2026), so a small crystal
+    row pours his strongest owned liquid grade of it (Ambrox Super 25%)
+    instead.  A requested mass is his call and stays.  None when no row moves.
+    """
+
+    light = {
+        row["slot"] for row in rows
+        if row.get("mass_basis") == AMBROX_CRYSTAL_MASS_BASIS
+        and Decimal(row["amount_decimal"]) < WEIGHABLE_POWDER_MIN_MG
+    }
+    if not light:
+        return None
+    new_assignments, new_choices = list(assignments), list(choices)
+    for position, choice in enumerate(choices):
+        if choice.role.role_id not in light:
+            continue
+        crystal = assignments[position].capability
+        grades = [
+            capability for capability in index.capabilities
+            if _chemical_identity(capability) == _chemical_identity(crystal)
+            and not capability.candidate.solid and capability.design_ready and capability.execution_ready
+        ]
+        if not grades:
+            continue
+        grade = max(grades, key=lambda capability: (float(capability.candidate.stock.dilution), capability.stock_id))
+        new_assignments[position] = replace(assignments[position], capability=grade)
+        new_choices[position] = replace(choice, candidate=grade.candidate)
+    if new_choices == list(choices):
+        return None
+    return tuple(new_assignments), tuple(new_choices)
 
 
 def _missing_role_has_candidates(
@@ -2346,6 +2488,19 @@ def solve_formula(
                 liquid_total_ul=liquid_total_ul,
                 quantities=explicit_quantities,
             )
+            poured = _pour_unweighable_crystals(assignments, choices, rows, index)
+            if poured is not None:
+                try:
+                    poured_rows = _formula_rows(
+                        poured[1],
+                        liquid_total_ul=liquid_total_ul,
+                        quantities=explicit_quantities,
+                    )
+                except ValueError:
+                    # The solution does not allocate: the weighed crystal row stands.
+                    pass
+                else:
+                    (assignments, choices), (rows, totals, holds) = poured, poured_rows
         except ValueError as exc:
             status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"
             holds.append(f"DOSE_ALLOCATION_INFEASIBLE:{exc}")
