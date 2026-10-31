@@ -53,9 +53,10 @@ def test_a_vanilla_balsam_lead_is_the_vanilla_molecule() -> None:
 
     assert _facets(result)["facet_vanilla_balsam"] == "Vanillin"
     # Since Siam Benzoin moved to the JECFA resin means (2026-10-25 naturals batch),
-    # the first solve already leads with Vanillin and the check keeps it; the pepper
-    # brief above still pins the repair path.
-    assert _self_check(result)["picked"] == "primary"
+    # the first solve already led with Vanillin. With the round-2 sourced profiles the
+    # self-check may reach Vanillin through its vanilla-balsam repair instead; the lead
+    # is what this test pins, and the pepper brief above still pins the repair path.
+    assert _self_check(result)["picked"] in {"primary", "repair:facet_vanilla_balsam"}
 
 
 def test_a_brief_whose_leads_carry_their_notes_keeps_its_first_solve() -> None:

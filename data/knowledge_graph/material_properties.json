@@ -3395,20 +3395,54 @@
     "ifra_standard_type": "restriction",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ambermaxtm-50dowanol-tpm",
+          "https://www.givaudan.com/print/1314066",
+          "https://www.thegoodscentscompany.com/data/rw1687381.html",
+          null,
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=4WU16860"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 400 h at 100%"
+      },
       "mw": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN"
       },
       "vp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -5160,20 +5194,54 @@
     "audit_flags": [],
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/star-aniseed-oil",
+          "https://www.thegoodscentscompany.com/data/es1101481.html",
+          "https://www.thegoodscentscompany.com/data/es1027991.html",
+          "https://pubmed.ncbi.nlm.nih.gov/24689303",
+          "https://europepmc.org/article/AGR/IND606307605",
+          "https://www.perfumersworld.com/view.php?pro_id=7SB00041"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 68 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -7457,20 +7525,52 @@
     "ifra_standard_type": "restriction",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          null,
+          "https://www.thegoodscentscompany.com/data/rw1001671.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=0ZN00054"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 322 h at 100%"
+      },
       "mw": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN"
       },
       "vp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -16401,9 +16501,9 @@
     "alt_name": null,
     "cas": null,
     "formula_str": null,
-    "mw": 200.0,
+    "mw": null,
     "bp": null,
-    "vp": 0.001,
+    "vp": null,
     "clp": null,
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -16457,20 +16557,54 @@
     "ifra_standard_type": "restriction",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://perfumersupplyhouse.com/wp-content/uploads/2014/04/COSTUS-OLIFFAC-2020-FPIS.pdf",
+          "https://www.thegoodscentscompany.com/data/es1059371.html",
+          "https://www.thegoodscentscompany.com/data/es1059371.html",
+          "https://www.perfumersworld.com/view.php?pro_id=5UW11312",
+          "https://fraterworks.com/products/costus-oliffac",
+          "https://perfumersupplyhouse.com/product/costus-ollifac/"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "engine VP 0.001 Pa (unsourced legacy value; no TGSC substantivity)"
+      },
       "mw": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "vp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "clp": {
         "status": "UNKNOWN"
       },
+      "vp": {
+        "status": "UNKNOWN"
+      },
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -16571,6 +16705,13 @@
           "or_family": "animalic",
           "activity_coef": 0.9,
           "hedonic": -1.0
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 200.0,
+          "vp": 0.001
         }
       }
     ],
@@ -17480,20 +17621,53 @@
     "ifra_standard_type": "restriction",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1013771.html",
+          "https://www.thegoodscentscompany.com/data/rw1013771.html",
+          "local pyrfume dravnieks_1985_behavior_1.csv + dravnieks_1985_stimuli.csv",
+          "local pyrfume leffingwell_behavior.csv + leffingwell_molecules.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=3CQ00276"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 4 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -25815,20 +25989,51 @@
     "pubchem_warnings": [],
     "audit_flags": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/grapefruit-argentina-low-furocoumarin-oil",
+          "https://www.thegoodscentscompany.com/data/es1651151.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7CA24030"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: PW 7CA24030 strip life 12 h (12 h or less = top); TGSC 264 h is for whole grapefruit oil, not this distilled FCF grade"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -31723,20 +31928,51 @@
     "ifra_standard_type": "restriction",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/juniper-berry-oil-albania",
+          "https://www.thegoodscentscompany.com/data/es1029741.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7KH00262"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "engine VP 65.0 Pa (unsourced legacy value; no TGSC substantivity)"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -33389,20 +33625,53 @@
     "ifra_standard_type": "restriction",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/lemon-italy-oil",
+          "https://www.thegoodscentscompany.com/data/es1101122.html",
+          "https://www.thegoodscentscompany.com/data/es1544691.html",
+          "https://www.thegoodscentscompany.com/data/es1544691.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7CC24029"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 4 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN"
       },
       "vp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -34274,20 +34543,52 @@
     "ifra_standard_type": "restriction",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/print/2738571",
+          "https://www.e-robertet.com/media/akeneo_connector/media_files/e/_/e_Robertet_FT_UK_LIMETTE_DISTILLEE_BIO_5075.pdf",
+          "https://www.thegoodscentscompany.com/data/es1618891.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7CK00274"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 20 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -35147,20 +35448,50 @@
     "pubchem_warnings": [],
     "audit_flags": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://thegoodscentscompany.com/data/es1068501.html",
+          "https://thegoodscentscompany.com/data/es1068501.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: IFF via TGSC: \"Powerful fruity green apple top note\"; Michelia alba flower oil is ~73% linalool (TGSC linalool 12 h = top)"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -38279,20 +38610,54 @@
     "audit_flags": [],
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/neroli-oil-egypt",
+          "https://www.thegoodscentscompany.com/data/es1618991.html",
+          "https://www.thegoodscentscompany.com/data/es1618991.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=7CN00318"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 116 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -41342,20 +41707,53 @@
     "verification": "Profile + Estimate 2026-05-30",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://synarome.com/wp-content/uploads/2025/04/Pamzest.pdf",
+          null,
+          null,
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=6CN23709"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "engine VP 30.0 Pa (unsourced legacy value; no TGSC substantivity)"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -43676,20 +44074,51 @@
     "ifra_standard_type": "restriction",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/pine-scotch-oil-bulgaria",
+          "https://www.thegoodscentscompany.com/data/es1019031.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7KQ07511"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 16 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -49196,20 +49625,55 @@
     "ifra_standard_type": "restriction",
     "in_inventory": true,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1007631.html",
+          "https://www.givaudan.com/print/1314216",
+          "https://www.thegoodscentscompany.com/data/rw1007631.html",
+          "https://www.thegoodscentscompany.com/data/rw1007631.html",
+          null,
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=4GH00450"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 8 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -63262,20 +63726,53 @@
     "name": "Aldehyde C16 EMPG",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/strawberry-pure",
+          "https://www.thegoodscentscompany.com/data/rw1001601.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/dravnieks_1985_behavior_1.csv",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=5FC07539"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 241 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -64110,20 +64607,52 @@
     "name": "Birch Tar",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1001911.html",
+          "https://www.perfumersworld.com/view.php?pro_id=5TP11094",
+          "https://www.perfumersworld.com/view.php?pro_id=7TP00822",
+          "https://fraterworks.com/products/birch-tar-extra-oil-rectified"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -64259,20 +64788,53 @@
     "name": "Caryophyllene Acetate",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          null,
+          "https://www.thegoodscentscompany.com/data/rw1023611.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/goodscents_behavior.csv",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=3WI03465"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 196 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -64684,20 +65246,53 @@
     "name": "Cinnamon Bark EO (Telvada)",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/cinnamon-bark-oil",
+          "https://www.thegoodscentscompany.com/data/es1022811.html",
+          "https://www.thegoodscentscompany.com/data/es1022811.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/dravnieks_1985_behavior_1.csv",
+          null
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 372 h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -64790,20 +65385,54 @@
     "name": "Cis-3-Hexenyl Salicylate",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Hexenyl_Salicylate_Cis_-3.pdf",
+          "https://www.thegoodscentscompany.com/data/rw1010652.html",
+          "https://www.thegoodscentscompany.com/data/rw1010652.html",
+          "https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/2294",
+          "https://www.perfumersworld.com/view.php?pro_id=3GO00229",
+          "https://fraterworks.com/products/cis-3-hexenyl-salicylate"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 216 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -67158,20 +67787,52 @@
     "name": "Liffarome",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.iff.com/scent/ingredients-compendium/liffarome",
+          "https://www.thegoodscentscompany.com/data/rw1028731.html",
+          "",
+          "https://www.perfumersworld.com/view.php?pro_id=4GI24147"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 12 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -67726,20 +68387,54 @@
     "name": "Nutmeg EO",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/nutmeg-oil",
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/nutmeg-oil-indonesia",
+          "https://www.thegoodscentscompany.com/data/es1009111.html",
+          "https://www.thegoodscentscompany.com/data/es1009111.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          "https://www.perfumersworld.com/view.php?pro_id=7SC00327"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 52 h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -69538,7 +70233,7 @@
       "Vetiver EO",
       "Clearwood"
     ],
-    "odor_profile": "",
+    "odor_profile": "Woody, vetiver, rooty, fresh woody, grapefruit, gardenia.",
     "odt": 87.53,
     "odt_ethanol_ppm": 1.0,
     "odt_evidence": {
@@ -69701,7 +70396,7 @@
       "Cedarwood EO",
       "Sandalore"
     ],
-    "odor_profile": "",
+    "odor_profile": "Woody, vetiver, root, sweet, dry, powdery, fresh woody.",
     "odt": 10.0,
     "odt_ethanol_ppm": 2.0,
     "odt_evidence": {
@@ -74873,20 +75568,55 @@
     "name": "Kenyan Myrrh Ethanol Tincture",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://biolandes.com/en/product/myrrh-2/",
+          "https://thegoodscentscompany.com/data/rs1047681.html",
+          "https://thegoodscentscompany.com/data/rs1047681.html",
+          "https://thegoodscentscompany.com/data/rs1047681.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9229828/",
+          "https://www.perfumersworld.com/view.php?pro_id=7QC00314"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 232 h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -75056,20 +75786,58 @@
     "name": "Oman Frankincense Ethanol Tincture",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://biolandes.com/en/product/olibanum-4/",
+          "https://biolandes.com/en/product/incense-7",
+          "https://biolandes.com/en/product/olibanum-50-tec",
+          "https://www.thegoodscentscompany.com/data/rs1048341.html",
+          "https://www.thegoodscentscompany.com/data/rs1048341.html",
+          "https://www.thegoodscentscompany.com/data/rs1009191.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          "https://pubmed.ncbi.nlm.nih.gov/25468535/",
+          "https://pubmed.ncbi.nlm.nih.gov/27699963/",
+          "https://www.perfumersworld.com/view.php?pro_id=7QK00333"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 284 h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -80043,20 +80811,53 @@
     "vp": 2.06,
     "clp": 4.3,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://aroma-ingredients.basf.com/dam/jcr:2c307960-7dfb-4222-91ca-43c2cd6d4612/basf/aroma-ingredients/global/Brochures/2026_04_Brochure_BASF-Aroma-Ingredients_Isobionics_Digital.pdf?vid=w7CbtvjWXKwA73UNyI49g2jVIbDSCwGi",
+          "https://www.thegoodscentscompany.com/data/rw1030092.html",
+          "https://www.thegoodscentscompany.com/data/rw1030092.html",
+          "https://fraterworks.com/products/geranyl-acetate",
+          "https://www.perfumersworld.com/view.php?pro_id=3RL00206"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 24 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -81342,20 +82143,53 @@
     "vp": 1.29,
     "clp": 1.7,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/linalool-oxide",
+          "https://www.thegoodscentscompany.com/data/rw1014331.html",
+          "https://www.thegoodscentscompany.com/data/rw1432371.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=4LL00277"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 12 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -83932,20 +84766,56 @@
     "name": "Ginger Lily Oil",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=7NS25173",
+          "https://www.thegoodscentscompany.com/data/fr1544391.html",
+          "https://www.thegoodscentscompany.com/data/ex1739481.html",
+          "https://agris.fao.org/search/en/providers/122535/records/65df2f3a63b8185d9cab781b",
+          "https://www.tandfonline.com/doi/abs/10.1080/10412905.1993.9698190",
+          "https://pubmed.ncbi.nlm.nih.gov/25056927",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC4472261",
+          "https://www.lgbotanicals.com/White-Ginger-Lily-Absolute-Hexane-Free_p_195.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: no figure; seller: \"exotic sweet florals with great tenacity\"; floral compound, heart by class"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -84034,20 +84904,53 @@
     "name": "Pomelo EO",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://synarome.com/wp-content/uploads/2025/05/Pomelo-Corsica.pdf",
+          "https://www.thegoodscentscompany.com/data/es1651151.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=7CN23708"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: Synarome (producer): \"Tenacity on blotter: 2 hours\"; TGSC 264 h is its generic grapefruit-oil page"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -84669,20 +85572,53 @@
     "vp": 0.317,
     "clp": 4.88,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://studio.dsm-firmenich.com/product/cedroxyder-pe-922470",
+          "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/CEDROXYDE_922470.pdf",
+          "https://www.thegoodscentscompany.com/data/rw1021872.html",
+          "",
+          "https://www.perfumersworld.com/view.php?pro_id=3WI00098"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 268 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -84766,20 +85702,53 @@
     "name": "Hindinol",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.takasago.com/index.php/en/node/676",
+          "https://www.thegoodscentscompany.com/data/rw1013511.html",
+          null,
+          "https://www.thegoodscentscompany.com/data/rw1013511.html",
+          "https://www.perfumersworld.com/view.php?pro_id=4WX24656"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 400 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -85068,20 +86037,54 @@
     "name": "Red Saffron Infusion",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=5ES18560",
+          "https://www.thegoodscentscompany.com/data/ab1604721.html",
+          "https://www.thegoodscentscompany.com/data/ex1050121.html",
+          "https://pubmed.ncbi.nlm.nih.gov/25842335",
+          "https://europepmc.org/article/AGR/IND44517183",
+          "https://europepmc.org/article/AGR/IND20581644"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: PW 5ES18560 strip life 60 h (heart by the same hours rule)"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -85170,20 +86173,52 @@
     "name": "Citronellyl Acetate",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.iff.com/scent/ingredients-compendium/citronellyl-acetate",
+          "https://www.thegoodscentscompany.com/data/rw1012172.html",
+          "",
+          "https://www.perfumersworld.com/view.php?pro_id=3RL00118"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 8 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -85295,20 +86330,52 @@
     "name": "Neryl Acetate",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1033551.html",
+          "https://www.thegoodscentscompany.com/data/rw1033551.html",
+          "https://www.thegoodscentscompany.com/data/rw1033551.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3RF05061"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 52 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -85734,20 +86801,56 @@
     "name": "Delta Damascone",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.iff.com/scent/ingredients-compendium/damascone-delta",
+          "https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/DAMASCONE_DELTA_937856.pdf",
+          "https://studio.dsm-firmenich.com/product/damascone-delta-pe-937856",
+          "https://www.thegoodscentscompany.com/data/rw1006961.html",
+          "https://www.thegoodscentscompany.com/data/rw1445021.html",
+          null,
+          "https://www.thegoodscentscompany.com/data/rw1006961.html",
+          null
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 220 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -85890,20 +86993,53 @@
     "name": "Geranium Bourbon Essential Oil",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://biolandes.com/en/product/geranium-bourbon-5",
+          "https://www.thegoodscentscompany.com/data/es1033011.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=7RB00930"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 28 h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -86291,20 +87427,52 @@
     "name": "Para-Acetanisole",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1000111.html",
+          "https://www.thegoodscentscompany.com/data/rw1000111.html",
+          "https://www.thegoodscentscompany.com/data/rw1000111.html",
+          null
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "engine VP 0.86 Pa (unsourced legacy value; no TGSC substantivity)"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -86449,20 +87617,51 @@
     "name": "Rhodinol",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/rhodinol-nat",
+          "https://www.thegoodscentscompany.com/data/rw1429921.html",
+          ""
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 208 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -86563,20 +87762,51 @@
     "name": "Rum Ether",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1034451.html",
+          "https://www.thegoodscentscompany.com/data/rw1034451.html",
+          "https://www.myskinrecipes.com/shop/en/tar-aroma-chemicals/2805-rum-ether-pyroligneous-acids-ethyl-esters.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "engine VP 9100.0 Pa (unsourced legacy value; no TGSC substantivity)"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -86984,20 +88214,53 @@
     "name": "Orris Butter 50% in EtOH",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/orris-pallida-butter-8-irones-france",
+          "https://www.thegoodscentscompany.com/data/co1001091.html",
+          "https://www.thegoodscentscompany.com/data/co1001091.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          "https://www.perfumersworld.com/view.php?pro_id=8IA00344"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: PW 8IA00344 neat butter strip life 28 h; same note as the round-1 Orris Butter"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -87090,20 +88353,51 @@
     "name": "Cabbage Rose Extract",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ex1091061.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          "https://ec.europa.eu/growth/tools-databases/cosing/details/79756"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: no figure; rose absolute class, heart"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -87192,20 +88486,52 @@
     "name": "Canthoxal",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.iff.com/scent/ingredients-compendium/canthoxal/",
+          "https://www.thegoodscentscompany.com/data/rw1023691.html",
+          "https://www.thegoodscentscompany.com/data/rw1023691.html",
+          "https://perfumersupplyhouse.com/product/anisyl-propanal"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 48 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -87335,20 +88661,54 @@
     "name": "Cyclogalbanate",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Cyclogalbanat.pdf",
+          "https://www.thegoodscentscompany.com/data/rw1038701.html",
+          "https://www.thegoodscentscompany.com/data/rw1038701.html",
+          null,
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          null
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 32 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -87492,20 +88852,51 @@
     "name": "Decatone",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/decatone",
+          "https://www.thegoodscentscompany.com/data/rw1025111.html",
+          "https://www.perfumersworld.com/view.php?pro_id=4CF19148"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 140 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -87649,20 +89040,53 @@
     "name": "Dimethyl Benzyl Carbinol",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.ventos.com/index.php/en/producto/2067/DIMETHYL+BENZYL+CARBINOL/223",
+          "https://www.thegoodscentscompany.com/data/rw1004412.html",
+          "https://www.thegoodscentscompany.com/data/rw1004412.html",
+          "https://www.thegoodscentscompany.com/data/rw1004412.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3LL00156"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 6 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -87781,20 +89205,52 @@
     "name": "Dupical",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/dupical",
+          "https://www.thegoodscentscompany.com/data/rw1023851.html",
+          "",
+          "https://www.perfumersworld.com/view.php?pro_id=4MA00167"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 240 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -87911,20 +89367,53 @@
     "name": "Fir Essential Oil",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1018931.html",
+          "https://www.edenbotanicals.com/fir-balsam-organic.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7KG07758",
+          "https://www.edenbotanicals.com/fir-balsam-organic.html",
+          "https://matieres-premieres.robertet.com/fir-balsam-resinoid"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 24 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -88013,20 +89502,53 @@
     "name": "Iris Florentina Root Extract",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.myskinrecipes.com/shop/en/search?controller=search&s=iris+florentina",
+          "https://www.thegoodscentscompany.com/data/ex1033491.html",
+          "https://fraterworks.com/blogs/information/iris-naturals-a-primer",
+          "https://www.makingcosmetics.com/Z-BOT-ORRISRT-01.html?lang=en_US",
+          "https://www.edenbotanicals.com/orris-butter-15-irones.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: no figure; same note as the round-1 Orris Butter (labelled proxy)"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -88192,20 +89714,51 @@
     "name": "Para-Cresyl Phenyl Acetate",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "",
+          "https://www.thegoodscentscompany.com/data/rw1003971.html",
+          "https://www.perfumersworld.com/view.php?pro_id=1PF01952"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "engine VP 0.0127 Pa (unsourced legacy value; no TGSC substantivity)"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -88317,20 +89870,51 @@
     "name": "Peach Ketone",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/nectaryl",
+          "https://www.thegoodscentscompany.com/data/rw1052381.html",
+          "https://www.myskinrecipes.com/shop/en/fruit-aroma-chemicals/2571-peach-cyclopentanone.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 380 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -88466,20 +90050,54 @@
     "name": "Pear Valerate",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://chemical.kao.com/content/dam/sites/kao/chemical-kao-com/en/products/catalog_usen_B0010631.pdf",
+          "https://chemical.kao.com/en/products/B0010631_en/",
+          "https://www.thegoodscentscompany.com/data/rw1031271.html",
+          null,
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          null
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 16 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -88601,20 +90219,51 @@
     "name": "Phenoxy Ethyl Isobutyrate",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1031511.html",
+          "https://www.thegoodscentscompany.com/data/rw1031511.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3RB00369"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 184 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -88742,20 +90391,52 @@
     "name": "Velvione",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/velvionetm",
+          "https://www.thegoodscentscompany.com/data/rw1016851.html",
+          "https://shop.perfumersapprentice.com/p-6238-velvione-givaudan.aspx",
+          "https://www.perfumersworld.com/view.php?pro_id=4XU11429"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -88874,20 +90555,52 @@
     "name": "Orange Flower Absolute",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/orange-flower-tunisia-absolute",
+          "https://www.thegoodscentscompany.com/data/ab1018991.html",
+          "https://www.thegoodscentscompany.com/data/ab1018991.html",
+          "https://www.perfumersworld.com/view.php?pro_id=5NC07544"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -89004,20 +90717,52 @@
     "mw": 180.203,
     "clp": 1.9,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Anisyl_Acetate.pdf",
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/anisyl-acetate",
+          "https://www.thegoodscentscompany.com/data/rw1001292.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3LN00043"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 100 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -89131,20 +90876,52 @@
     "vp": 105.4,
     "clp": 0.25,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Acetoacetate.pdf",
+          "https://www.thegoodscentscompany.com/data/rw1001851.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=3FG00172"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 4 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -89245,20 +91022,53 @@
     "vp": 2011.0,
     "clp": 1.71,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Butyrate.pdf",
+          "https://www.thegoodscentscompany.com/data/rw1004791.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/dravnieks_1985_behavior_1.csv",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=3FD00174"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 4 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -89339,20 +91149,50 @@
     "name": "Palm Dates Base",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=6FQ21068",
+          "https://thegoodscentscompany.com/data/fl1021691.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: PW 6FQ21068 strip life 200 h (200 h or less = heart by the same hours rule)"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -89468,20 +91308,51 @@
     "mw": 206.285,
     "clp": 2.96,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.iff.com/scent/ingredients-compendium/dimethyl-phenyl-ethyl-carbinyl-acetate",
+          "https://www.thegoodscentscompany.com/data/rw1024591.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3LR00160"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 28 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -89588,20 +91459,52 @@
     "vp": 1.724,
     "clp": 2.7,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_FC_Einzel-PDF/SYM_FC-Cinnamyl_Acetate.pdf",
+          "https://www.thegoodscentscompany.com/data/rw1003371.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=3SQ00109"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 124 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -89685,20 +91588,54 @@
     "name": "Fir Needle Oil (Canada)",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.e-robertet.com/us/fir-needle-canada-essential-oils-00020723-us.html",
+          "https://www.e-robertet.com/media/akeneo_connector/media_files/e/_/e_Robertet_FT_UK_SAPIN_BAUMIER_CANADA_BIO_961d.pdf",
+          "https://biolandes.com/wp-content/uploads/fiche-securite-B847.pdf",
+          "https://biolandes.com/en/product/fir-balsam/",
+          "https://www.thegoodscentscompany.com/data/es1018931.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 24 h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -89787,20 +91724,53 @@
     "name": "Magnolia Absolute",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.myskinrecipes.com/shop/en/absolute-solvent-extract/7870-magnolia-absolute.html",
+          "https://www.thegoodscentscompany.com/data/es1068501.html",
+          "https://www.thegoodscentscompany.com/data/ab1040551.html",
+          "https://pmc.ncbi.nlm.nih.gov/articles/PMC9182571",
+          "https://www.natureinbottle.com/product/champaca_absolute_oil"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: no figure for this solvent extract; floral absolute, heart by class (labelled proxy)"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -89889,20 +91859,51 @@
     "name": "Olibanum Oil",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/olibanum-oil",
+          "https://www.thegoodscentscompany.com/data/es1004051.html",
+          "data/governance/inventory_user_authority_overlay_20261014_*.json (STK-173)"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 188 h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -89991,20 +91992,52 @@
     "name": "White Sandalwood Oil (China)",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/sandalwood-oil-australia",
+          "https://www.thegoodscentscompany.com/data/es1050241.html",
+          "https://www.thegoodscentscompany.com/data/es1050241.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: Arctander: \"extremely tenacious\", \"great tenacity (fixative value)\""
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -90116,20 +92149,53 @@
     "vp": 1.513,
     "clp": 6.23,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1060851.html",
+          "https://www.thegoodscentscompany.com/data/rw1060851.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/dravnieks_1985_behavior_1.csv",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=3WS00089"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 44 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -90212,20 +92278,54 @@
     "name": "Davana Essential Oil",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/davana-oil-india",
+          "https://matieres-premieres.robertet.com/davana-oil",
+          "https://www.thegoodscentscompany.com/data/es1024001.html",
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          "https://www.perfumersworld.com/view.php?pro_id=5HH12466",
+          "https://www.perfumersworld.com/view.php?pro_id=7HH00895"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 128 h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -90316,20 +92416,51 @@
     "name": "Fixative 505",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.firmenich.com/product/fixateur-pe-000505-e",
+          "https://www.thegoodscentscompany.com/data/pb1005171.html",
+          "https://www.perfumersworld.com/view.php?pro_id=4UY07514"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "override: Firmenich: FIXATEUR family built on Ambrox; PW lists \"Fixative-effect\" (PW strip life 67 h)"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -90441,20 +92572,54 @@
     "vp": 0.2275,
     "clp": 4.2,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/isolongifolanone",
+          "https://www.thegoodscentscompany.com/data/rw1007011.html",
+          "https://www.thegoodscentscompany.com/data/rw1007011.html",
+          "",
+          "https://www.perfumersworld.com/view.php?pro_id=3WY14446",
+          "https://shop.perfumersapprentice.com/p-9374-isolongifolanone-givaudan.aspx"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 240 h at 100%"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "vp": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
-      "clp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+      "clogp": {
+        "status": "UNKNOWN"
+      },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {
         "mw": "registry:data_spine.mw",
@@ -90657,20 +92822,51 @@
     "name": "Cedarwood Chinese Essential Oil",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/cedarwood-china-oil",
+          "https://www.thegoodscentscompany.com/data/es1007241.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7WP00844"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },
@@ -90761,20 +92957,53 @@
     "name": "Ylang Madagascar Complete Organic EO",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031_round2.json",
+        "sources": [
+          "https://biolandes.com/en/natural-ingredients-for-perfumery-essential-oil-of-ylang-2",
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/ylang-ylang-oil-complete-madagascar-organic",
+          "https://www.thegoodscentscompany.com/data/es1012152.html",
+          "https://www.thegoodscentscompany.com/data/es1012152.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7NJ23635"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity 140 h at 100%"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
       "vp": {
         "status": "UNKNOWN"
       },
-      "clp": {
+      "clogp": {
         "status": "UNKNOWN"
       },
+      "odt": {
+        "status": "UNKNOWN"
+      },
+      "odt_ppm": {
+        "status": "UNKNOWN"
+      },
+      "role": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "synergies": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
+      "or_family": {
+        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      },
       "activity_coef": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "IDEAL_DEFAULT_UNMEASURED"
       },
       "hedonic": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNKNOWN_NEUTRAL_DEFAULT"
+      },
+      "dilution": {
+        "status": "NOT_CURRENT_STOCK_AUTHORITY"
       },
       "gate_value_sources": {}
     },

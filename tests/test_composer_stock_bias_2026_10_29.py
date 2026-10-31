@@ -72,20 +72,24 @@ def test_owned_cedarwoods_have_own_odour_words(index):
 
 
 def test_a_stock_with_no_profile_takes_the_registry_odour_sentence(index):
-    caps = [c for c in index.capabilities if c.identity_name == "Velvione"]
+    # Velvione was the example until it got a sourced profile (31 Oct 2026); Freesia HDI
+    # (prohibited, never composed) is the last proxy stock with a registry sentence.
+    caps = [c for c in index.capabilities if c.identity_name == "Freesia HDI"]
     assert caps
     for cap in caps:
         assert cap.profile_source == "HEURISTIC_CATEGORY_PROXY"
         assert cap.registry_descriptors
-        assert {"musk", "powdery", "macrocyclic"} <= cap.descriptor_vocabulary
+        assert {"floral", "freesia", "green"} <= cap.descriptor_vocabulary
 
 
 def test_a_stock_the_gate_cannot_score_gets_no_registry_words(index):
-    # Red Saffron Infusion has a registry sentence but no own air threshold.
+    # Red Saffron Infusion has a registry sentence but no own air threshold. Since
+    # 31 Oct 2026 its words come from its own sourced profile, never the registry's.
     caps = [c for c in index.capabilities if c.identity_name == "Red Saffron Infusion"]
     assert caps
     assert not any(c.registry_descriptors for c in caps)
-    assert all(not c.descriptor_vocabulary for c in caps)
+    assert all(c.profile_source == "DECLARED_MATERIAL_PROFILE" for c in caps)
+    assert not any({"narcissus", "camphor", "calyx"} & c.descriptor_vocabulary for c in caps)
 
 
 def test_registry_text_drops_where_a_material_is_used():

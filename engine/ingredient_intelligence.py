@@ -1523,6 +1523,9 @@ _PROFILES: dict[str, dict] = {
         "mw": 262.4,
         "vp": 0.1,  # sesquiterpene ester mixture; base note ~0.1 Pa
         "clogp": 4.8,
+        # TGSC rw1051731 at 100%: "woody powdery root vetiver sweet dry sandal"; Moellhausen
+        # (via TGSC) "strongly woody, characteristic vetivert"; PW 3WY00468 "Sweet-and-dry fresh-woody".
+        "odor_description": "Woody, vetiver, root, sweet, dry, powdery, fresh woody.",
         "synergies": ["Vetiver EO", "Iso E Super", "Cedarwood EO", "Sandalore"],
     },
     "Vertofix Coeur": {
@@ -2972,6 +2975,9 @@ _PROFILES: dict[str, dict] = {
         "vp": 3.72,  # EPI Suite estimate (TGSC ep1047261, Modified Grain); no measured VP found
         "clogp": 2.77,  # RIFM 2017c, measured
         "cas": "7403-42-1",
+        # Symrise Vetikon datasheet: "Woody, Vetiver, Grapefruit, Gardenia", "adds a fresh woody,
+        # vetiver-like accent"; TGSC rw1047261 quotes Symrise "rooty, vetiver-like".
+        "odor_description": "Woody, vetiver, rooty, fresh woody, grapefruit, gardenia.",
         "synergies": ["Iso E Super", "Vertofix", "Vetiver EO", "Clearwood"],
     },
     "Ylang Ylang EO": {
@@ -6236,12 +6242,14 @@ _PROFILES.update(
 # best as possible". The prose moves to odor_description; character and note take
 # the sourced rubric values. Role is left as it was.
 _LITERATURE_PROFILE_DIR = Path(__file__).resolve().parents[1] / "data" / "knowledge_graph"
-# Round 1 (#169): owned stocks with prose-only profiles. Round 3: thin hand-written
+# Round 1 (#169): owned stocks with prose-only profiles. Round 2: owned stocks that only
+# had a category proxy (new entries). Round 3: thin hand-written
 # profiles re-sourced, plus three owned stocks with no profile (new entries).
 _LITERATURE_CHARACTER_PROFILES = tuple(
     _LITERATURE_PROFILE_DIR / name
     for name in (
         "literature_character_profiles_20261031.json",
+        "literature_character_profiles_20261031_round2.json",
         "literature_character_profiles_20261031_round3.json",
     )
 )

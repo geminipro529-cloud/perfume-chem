@@ -3,7 +3,7 @@
   "authority": "COMPUTATIONAL_DATA_RECONCILIATION_NOT_RELEASE",
   "input_sha256": {
     "inventory.txt": "116c39815c81d148f0a259332b8acf734b9f3eced484b5e390dc4bc7df38cc58",
-    "engine/ingredient_intelligence.py": "b9721877b5561b7af83e6e557866bae0f2723c5f6ceb38272322e375a1c3ad04",
+    "engine/ingredient_intelligence.py": "442fd09a4b31c34921780f3ed2ef6b7147ff7968c7f90bcd13afd97183b55cc0",
     "engine/inventory_parser.py": "582b0fcc2e8929dedd4b271d690ec96831b7bdc8654423b51178a6fa348a6a03",
     "engine/odor_thresholds.py": "a368a5bb2abb0a409165e57021fde1a172c0b3a5b26ab5c29d15ab34059e37bb",
     "engine/name_utils.py": "a5b3e5d33afac1dbe0e880f8bd71e0b3d822185b43ed3cbf3ee915842fdb48cb",
@@ -50,7 +50,7 @@
     "historical_requirement_rows": 280,
     "current_physical_stocks": 386,
     "registry_records": 1287,
-    "rows_with_profile": 301,
+    "rows_with_profile": 321,
     "rows_with_registry": 324,
     "rows_with_odt": 307,
     "rows_with_unresolved_scalar_disagreements": 154
@@ -239,7 +239,7 @@
       "identity": "D-Limonene",
       "text_status": "owned",
       "registry_name": "D-Limonene",
-      "profile_name": null,
+      "profile_name": "D-Limonene",
       "current_stock_ids": [
         "inventory:v5:f8e1796ddeb744b703fd"
       ],
@@ -504,7 +504,7 @@
       "identity": "Grapefruit FCF oil Sicilian",
       "text_status": "owned",
       "registry_name": "Grapefruit FCF Oil Sicilian",
-      "profile_name": null,
+      "profile_name": "Grapefruit FCF Oil Sicilian",
       "current_stock_ids": [
         "inventory:v5:52a88f156b00633a842d"
       ],
@@ -561,7 +561,7 @@
       "identity": "Lime Distilled EO",
       "text_status": "owned",
       "registry_name": "lime distilled eo",
-      "profile_name": null,
+      "profile_name": "Lime Distilled EO",
       "current_stock_ids": [
         "inventory:v5:a3884b83a240c47f906d"
       ],
@@ -661,7 +661,7 @@
       "identity": "Pamzest",
       "text_status": "owned",
       "registry_name": "Pamzest",
-      "profile_name": null,
+      "profile_name": "Pamzest",
       "current_stock_ids": [
         "inventory:user-20261014:538eeb09c770a8f3d55f"
       ],
@@ -712,7 +712,7 @@
       "identity": "Neroli EO",
       "text_status": "owned",
       "registry_name": "Neroli EO",
-      "profile_name": null,
+      "profile_name": "Neroli EO",
       "current_stock_ids": [
         "inventory:user-20261014:a0088298ffa6dfdcc3ca"
       ],
@@ -728,7 +728,7 @@
       "identity": "Neroli EO",
       "text_status": "owned",
       "registry_name": "Neroli EO",
-      "profile_name": null,
+      "profile_name": "Neroli EO",
       "current_stock_ids": [
         "inventory:user-20261014:a0088298ffa6dfdcc3ca"
       ],
@@ -1215,7 +1215,7 @@
       "identity": "Triplal",
       "text_status": "owned",
       "registry_name": "Triplal",
-      "profile_name": null,
+      "profile_name": "Triplal",
       "current_stock_ids": [
         "inventory:v5:18c02052bf7dbda51e1a"
       ],
@@ -1344,7 +1344,7 @@
       "identity": "Liffarome",
       "text_status": "owned",
       "registry_name": "Liffarome",
-      "profile_name": null,
+      "profile_name": "Liffarome",
       "current_stock_ids": [
         "inventory:user-20260915:5195b063cbe62777db7c"
       ],
@@ -2088,7 +2088,7 @@
       "identity": "Benzyl Benzoate",
       "text_status": "owned",
       "registry_name": "Benzyl Benzoate",
-      "profile_name": null,
+      "profile_name": "Benzyl Benzoate",
       "current_stock_ids": [
         "inventory:v5:48d08954bb41de2543fb"
       ],
@@ -2356,7 +2356,7 @@
       "identity": "Lemon FCF oil Sicilian",
       "text_status": "owned",
       "registry_name": "Lemon FCF Oil Sicilian",
-      "profile_name": null,
+      "profile_name": "Lemon FCF Oil Sicilian",
       "current_stock_ids": [
         "inventory:v5:1c50b10c2f24954f6105"
       ],
@@ -2428,7 +2428,7 @@
       "identity": "Magnolia EO",
       "text_status": "owned",
       "registry_name": "Magnolia EO",
-      "profile_name": null,
+      "profile_name": "Magnolia EO",
       "current_stock_ids": [
         "inventory:v5:68206d86bcaa9e75e590"
       ],
@@ -2707,7 +2707,7 @@
       "identity": "Geranyl Acetate",
       "text_status": "owned",
       "registry_name": "Geranyl Acetate",
-      "profile_name": null,
+      "profile_name": "Geranyl Acetate",
       "current_stock_ids": [
         "inventory:user-20261014:c6ec82b94452fe5e71fe"
       ],
@@ -2725,7 +2725,7 @@
       "identity": "Linalool Oxide",
       "text_status": "owned",
       "registry_name": "Linalool Oxide",
-      "profile_name": null,
+      "profile_name": "Linalool Oxide",
       "current_stock_ids": [
         "inventory:user-20261014:e874678d90ef9d463369"
       ],
@@ -3168,7 +3168,7 @@
       "identity": "Cis-3-Hexenyl Salicylate",
       "text_status": "owned",
       "registry_name": "Cis-3-Hexenyl Salicylate",
-      "profile_name": null,
+      "profile_name": "Cis-3-Hexenyl Salicylate",
       "current_stock_ids": [
         "inventory:user-20261014:c6e1805dab66f92db699"
       ],
@@ -3861,7 +3861,7 @@
       "identity": "Ambermax",
       "text_status": "owned",
       "registry_name": "Ambermax",
-      "profile_name": null,
+      "profile_name": "Ambermax",
       "current_stock_ids": [
         "inventory:user-20261014:67bc788c5b7b22245e07"
       ],
@@ -5736,7 +5736,7 @@
       "identity": "Costus Olifac",
       "text_status": "owned",
       "registry_name": "Costus Olifac",
-      "profile_name": null,
+      "profile_name": "Costus Olifac",
       "current_stock_ids": [
         "inventory:user-20261014:e4a47d66eae8d03fa058"
       ],
@@ -6218,7 +6218,7 @@
       "identity": "Nutmeg EO",
       "text_status": "owned",
       "registry_name": "Nutmeg EO",
-      "profile_name": null,
+      "profile_name": "Nutmeg EO",
       "current_stock_ids": [
         "inventory:user-20260830:caa7c7f7418d43c86660"
       ],
@@ -6349,7 +6349,7 @@
       "identity": "Pine EO",
       "text_status": "owned",
       "registry_name": "pine eo",
-      "profile_name": null,
+      "profile_name": "Pine EO",
       "current_stock_ids": [
         "inventory:v5:c3d646d1f22d2be06839"
       ],
@@ -6365,7 +6365,7 @@
       "identity": "Juniper Berry EO",
       "text_status": "owned",
       "registry_name": "juniper berry eo",
-      "profile_name": null,
+      "profile_name": "Juniper Berry EO",
       "current_stock_ids": [
         "inventory:v5:44479b1b43ba8def3143"
       ],
@@ -6489,7 +6489,7 @@
       "identity": "Caryophyllene Acetate",
       "text_status": "owned",
       "registry_name": "Caryophyllene Acetate",
-      "profile_name": null,
+      "profile_name": "Caryophyllene Acetate",
       "current_stock_ids": [
         "inventory:user-20261014:5a85818096ab6912388b"
       ],
@@ -6750,6 +6750,6 @@
     "Legacy quantitative proxies remain explicitly unverified; no observed liking, safety, stability or release claim.",
     "Historical formulas and embedded diagnostics were not regenerated."
   ],
-  "output_sha256": "21aedd81270464a5db01f74ac9c39b53d777d71fc7cf7ec1f6dfac5348482b81",
+  "output_sha256": "f98a602a2033bf3b720c5f7b28bc7f76ac7c0bf53cc681c07d9b04686c4e3fea",
   "input_cache_sha256": "21aedd81270464a5db01f74ac9c39b53d777d71fc7cf7ec1f6dfac5348482b81"
 }
