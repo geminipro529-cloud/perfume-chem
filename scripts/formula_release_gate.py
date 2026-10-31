@@ -59,7 +59,7 @@ from engine.pipeline.interventions import build_intervention_contract
 from engine.pipeline.oav_authority import OAVAuthorityRequest, analyze_oav_authority
 from engine.pipeline.release_scoring import compute_unified_release_scores
 from engine.reference_contracts import detect_reference_claim
-from scripts.format_pipeline_analysis import cli_transport_text
+from scripts.format_pipeline_analysis import bench_addition_lines, cli_transport_text
 from scripts.verify_formula_workflow import (
     PIPELINE_ANALYSIS_END,
     PIPELINE_ANALYSIS_START,
@@ -1362,6 +1362,8 @@ def main(
             for gate in report["gates"]:
                 detail = f" - {gate['detail']}" if gate.get("detail") else ""
                 print(f"  {gate['status']}: {gate['gate']}{detail}")
+            for line in bench_addition_lines(report["gates"]):
+                print(f"  {line}")
             for line in role_reading_text_lines(report["role_reading"]):
                 print(line)
 
