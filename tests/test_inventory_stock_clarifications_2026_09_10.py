@@ -61,8 +61,9 @@ def test_current_overlay_is_pinned_to_live_inventory_and_receipts() -> None:
     # 2026-10-28: STK-208 to STK-226 (receipt and intake holds cleared, three V5 10% rows bound),
     # STK-227 Heliotropin, STK-228 the Maple Lactone 20% row, STK-229 the China cedarwood and
     # STK-230/231 the older Birch Tar 1% and 10%; 2026-10-29: STK-232 Ambrofix Crystals and STK-233
-    # Ambrettolide used up; 2026-10-30: STK-234 no Evernyl Crystals; STK-235..237 his three ylangs.
-    assert len(payload["delta_records"]) == 237
+    # Ambrettolide used up; 2026-10-30: STK-234 no Evernyl Crystals; STK-235..237 his three ylangs;
+    # 2026-10-31: STK-238 BHT 5% w/v in ethanol, STK-239..246 the engine audit's unrecorded bottles.
+    assert len(payload["delta_records"]) == 246
     assert payload["predecessor"]["normalized_text_sha256"] == (
         inventory.NEW_STOCK_20261013_USER_INVENTORY_OVERLAY_SHA256
     )

@@ -275,6 +275,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "No",
         # 2026-10-30 22:09 UTC: his three ylang oils (STK-235..237).
         "I have 3 ylangs EO in my inventory",
+        # 2026-10-31 04:58 UTC: engine-audit card tap, BHT 5% and the unrecorded bottles (STK-238..245).
+        "All five, in order",
+        # 2026-10-31 05:07 UTC: his Basil EO is neat (STK-246).
+        "Mine is neat",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -363,7 +367,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 238)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 247)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired
