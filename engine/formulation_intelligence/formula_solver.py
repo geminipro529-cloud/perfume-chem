@@ -753,10 +753,28 @@ def _ifra_prohibited(capability: MaterialCapability) -> bool:
     return _ifra_prohibited_name(capability.identity_name, stock.name or "")
 
 
+@lru_cache(maxsize=None)
 def _has_own_threshold(identity_name: str) -> bool:
-    from engine.odor_thresholds import lookup_odt_entry
+    """Whether the release gate can score this material's odour threshold.
 
-    return lookup_odt_entry(identity_name) is not None
+    It asks the gate's own state builder for a bulk air ODT.  An exact
+    ODT-table lookup missed 9 owned stocks that have one: a suffixed label
+    ("Vetiver EO (Haiti)", "Allyl Amyl Glycolate (AAG)"), a registry or
+    profile threshold ("Coumarin Powder", DMBCA).  They paid the unscorable
+    penalty on every unnamed role.  A natural modelled only through its
+    constituents (Oman Frankincense Tincture, Olibanum Oil) still counts as
+    unscored: a named note it carries reads as unknown physics.
+    """
+    from engine.odor_thresholds import lookup_odt_entry
+    from engine.pipeline.formula_state import build_formula_state
+
+    if lookup_odt_entry(identity_name) is not None:
+        return True
+    try:
+        state = build_formula_state({identity_name: 100.0}, {identity_name: 1.0})
+    except (KeyError, ValueError):
+        return False
+    return any(material.odt_air_ppm is not None for material in state.materials)
 
 
 def _backs_natural_lead(

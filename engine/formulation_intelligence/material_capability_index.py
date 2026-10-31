@@ -73,6 +73,29 @@ def _gate_scorable(identity: str) -> bool:
     return lookup_odt_entry(identity) is not None
 
 
+_NOTE_TIERS = frozenset({"top", "heart", "base"})
+
+
+def _registry_note(*names: str) -> str:
+    """A note tier from the registry's vapour pressure, for a profile tagged none.
+
+    34 owned profiles carry note "unassigned", so every role scored them as a
+    wrong-note material (-0.8 instead of +1.25).  The registry's 25 C vapour
+    pressure places most of them with the repo's own thresholds
+    (``property_estimator.estimate_note_tier``); a stock with no vapour
+    pressure stays unassigned.
+    """
+    from engine.data_spine.loader import load_registry
+    from engine.property_estimator import estimate_note_tier
+
+    registry = load_registry()
+    for name in names:
+        material = registry.get(name) if name else None
+        if material is not None and material.vp_25c_pa:
+            return estimate_note_tier(float(material.vp_25c_pa))
+    return ""
+
+
 def _registry_odor_text(*names: str) -> tuple[str, ...]:
     """The material registry's own odour words for a stock the profile table lacks.
 
@@ -329,7 +352,10 @@ def _capability(candidate: Candidate) -> MaterialCapability:
         stock_id=stock.stock_id,
         identity_name=identity,
         stock_label=stock.raw_name or stock.name,
-        note=profile.note.casefold(),
+        note=(
+            profile.note.casefold() if profile.note.casefold() in _NOTE_TIERS
+            else _registry_note(identity, stock.name) or profile.note.casefold()
+        ),
         function_terms=functions,
         vocabulary=vocabulary,
         identity_vocabulary=identity_words,
@@ -448,7 +474,9 @@ def capability_role_score(
 
     score = exact_bonus + _term_score(capability, query_terms)
     character = capability.character_map
-    for dimension, weight in character_weights:
+    # An empty map is no annotation, not a zero on every axis: a negative
+    # weight ("low sweetness") must not give it full marks.
+    for dimension, weight in character_weights if character else ():
         # Signed weights express direction only.  Negative sweetness, for
         # example, rewards low annotated sweetness without claiming liking.
         value = max(0.0, min(10.0, character.get(dimension, 0.0))) / 10.0
