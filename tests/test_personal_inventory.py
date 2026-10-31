@@ -41,23 +41,23 @@ def test_projection_recovers_live_owned_rows_and_aliases(tmp_path: Path) -> None
         addition_path=tmp_path / "additions.jsonl"
     )
 
-    # Sandalwood Base X3 (2026-10-14) and Clove EO (2026-10-15) were the examples
-    # here until they entered the gate's stock list; Champaca Flower EO is still
-    # recovered only from inventory.txt.
-    champaca = [
+    # Sandalwood Base X3 (2026-10-14), Clove EO (2026-10-15) and Champaca Flower EO
+    # (2026-10-31) were the examples here until they entered the gate's stock list;
+    # Jasmine Sambac Blossoms (dried flowers) is still recovered only from inventory.txt.
+    blossoms = [
         stock
         for stock in projection.stocks
-        if names_match(stock.identity_name or stock.name, "Champaca Flower EO")
+        if names_match(stock.identity_name or stock.name, "Jasmine Sambac Blossoms")
     ]
-    assert len(champaca) == 1
-    assert champaca[0].identity_name == "Champaca Flower EO"
-    assert champaca[0].authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
-    assert champaca[0].design_ready is True
-    assert champaca[0].execution_ready is False
+    assert len(blossoms) == 1
+    assert blossoms[0].identity_name == "Jasmine Sambac Blossoms"
+    assert blossoms[0].authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
+    assert blossoms[0].design_ready is True
+    assert blossoms[0].execution_ready is False
     assert sum(
         stock.authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
         for stock in projection.stocks
-    ) >= 35  # 38 since 2026-10-30, when the two Comoros ylang lines entered the gate
+    ) >= 28  # 31 since 2026-10-31, when eight audit bottles entered the gate
     assert projection.inventory_text_sha256
     assert projection.effective_inventory_sha256 != (
         projection.canonical_effective_inventory_sha256

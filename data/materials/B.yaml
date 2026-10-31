@@ -1744,13 +1744,13 @@
   or_targets: []
   trp_targets: null
   hedonic_valence: -1.5
-  ifra_max_pct_edp: 0.0
+  ifra_max_pct_edp: 0.01
   user_stock_dilution: inventory.txt
   user_in_inventory: true  # corrected boolean type; current-stock overlay governs
   supplier: null
   families: [leather, smoky]
   character: pyrogenic Russian leather char — scorched birch bark smoke
-  notes: "IFRA PROHIBITED (CAS 8001-88-5, IFRA 51st). Main components: guaiacol, cresols, catechol, phenol, xylenols. Use at trace levels (0.05-0.15%) for scorched leather effect."
+  notes: "Not prohibited in the rectified grade. IFRA Standard 114 (Amendment 47, current in the 51st) prohibits crude birch wood pyrolysate (CAS 8001-88-5) and allows rectified birch tar oil as a specification only, with no % limit: benzo[a]pyrene + 1,2-benz[a]anthracene at most 1 ppb combined in the finished product, shared with rectified cade, opoponax and styrax oils. The 0.01% cap here is neat birch tar from PerfumersWorld's 51st-Amendment certificate for Kenny's SKU 5TP11094 (Birch Tar Oil Rectified 10% in DPG): Category 4 'Maximum Compound Level' 0.1000% of that 10% stock (certificate read 31 Oct 2026). PW's 0.13% for its neat SKU 7TP00822 is a different product and does not apply. Main components: guaiacol, cresols, catechol, phenol, xylenols."
   provenance:
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds

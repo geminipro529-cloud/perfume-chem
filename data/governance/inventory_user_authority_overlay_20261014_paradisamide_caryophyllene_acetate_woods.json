@@ -607,6 +607,16 @@
         "message_timestamp_utc": "2026-10-30T22:09:11Z",
         "text": "I have 3 ylangs EO in my inventory",
         "context": "Kenny's own words in another thread of the project (luxury upgrades). STK-235..237 record his three ylang oils: PerfumersWorld Ylang Comoros Complete F3255 and Ylang Comoros III F3295 (order 260328-170326414) and Ylang Madagascar Complete Organic (order PW-260910-051700a45)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-31T04:58:13Z",
+        "text": "All five, in order",
+        "context": "Kenny's tap on the card 'Which engine fixes should I start on?' (thread 'Find why engine stopped suggesting BHT'); the option read: 'BHT, then the 12 bottles, odour data for the 70, an amber-layer fix with a crystal weighing rule, and a cineole stacking rule.' The card's other options described the BHT stock as 'BHT 5% w/v in ethanol, 120 uL per 30 mL'. Recorded as BHT 5% w/v in ethanol (STK-238) and the unrecorded owned bottles (STK-239..245)."
+      },
+      {
+        "message_timestamp_utc": "2026-10-31T05:07:26Z",
+        "text": "Mine is neat",
+        "context": "Answer to 'is your Basil EO (India) neat, or the 10% dilution?' (stock thread). STK-246."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -692,7 +702,10 @@
     "ambrofix_crystals_used_up_20261029": true,
     "ambrettolide_used_up_20261029": true,
     "evernyl_crystals_not_owned_20261030": true,
-    "three_ylang_oils_owned_20261030": true
+    "three_ylang_oils_owned_20261030": true,
+    "bht_5pct_wv_ethanol_stock_recorded_20261031": true,
+    "audit_unrecorded_bottles_recorded_20261031": true,
+    "basil_eo_neat_only_20261031": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -11985,6 +11998,442 @@
         "shipped_email_seen": true
       },
       "note": "PerfumersWorld order PW-260910-051700a45 (THB 1,125.96, placed 10 Sep 2026, payment approved 10 Sep 16:21 ICT, shipped 11 Sep by Thai EMS ET787873388TH; k3nnyw mail), 1 g, neat as supplied; the CoA names it 'Ylang Madagascar Complete ORGANIC Ess. oil N1450'. It was on the 20 Oct email-sweep list of paid orders with no stock record; Kenny's 30 Oct words identify it as his third ylang. Kenny: 'I have 3 ylangs EO in my inventory' (30 Oct 2026 22:09:11 UTC). PerfumersWorld's product page and documents (read 30 Oct 2026) print the same generic figures for all three ylang SKUs (SG 0.9060, RI 1.4950; SDS SG 0.906-0.923; no composition; a 'no restricted materials' IFRA certificate), so they are not used as this oil's data; IFRA Standard 84 (ylang ylang extracts) still applies. The CoA batch reference is generated on the day the page is read, so no bottle lot is recorded. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-238",
+      "canonical_name": "BHT 5% w/v in ethanol",
+      "aliases": [
+        "BHT 5% in ethanol",
+        "BHT 5% w/v EtOH",
+        "Butylated Hydroxytoluene 5% w/v in ethanol"
+      ],
+      "state": "OWNED",
+      "category": "stabilizer",
+      "stock": {
+        "physical_form": "solution",
+        "fraction": 0.05,
+        "fraction_basis": "mass_per_volume",
+        "carrier": "ethanol",
+        "fraction_authority": "USER_DECISION_CARD_STOCK_PREPARATION_STATED",
+        "execution_basis": "USER_DECISION_20261031_BHT_5PCT_WV_ETHANOL_100MG_TO_2ML",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "preparation": "100 mg BHT made up to 2.000 mL with ethanol"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-31",
+      "source_kind": "DIRECT_USER_DECISION_CARD",
+      "source_quote": "All five, in order",
+      "source_message_timestamp_utc": "2026-10-31T04:58:13Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "preparation_from_bench_cards": true,
+        "antioxidant_not_odour_row": true,
+        "composer_role_authorized": false
+      },
+      "note": "Kenny's tap on the card 'Which engine fixes should I start on?' (thread 'Find why engine stopped suggesting BHT'); the option read: 'BHT, then the 12 bottles, odour data for the 70, an amber-layer fix with a crystal weighing rule, and a cineole stacking rule.' The card's other options described the BHT stock as 'BHT 5% w/v in ethanol, 120 uL per 30 mL'. The solution has been the BHT step on his bench cards since 8 Oct (CHIMIE L'Homme V2.1): 100 mg BHT made up to 2.000 mL with ethanol, 120 uL per 30 mL of finished perfume (6 mg). It is an antioxidant, not an odour material: the composer skips the stabiliser category, so only the fixed BHT step adds it. The neat BHT line (inventory.txt L369) stays a legacy design row. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-239",
+      "canonical_name": "Aldehyde C11 undecylenic",
+      "aliases": [
+        "Aldehyde C11 undecylenic neat",
+        "Aldehyde C11 neat",
+        "Undecylenic aldehyde",
+        "10-Undecenal"
+      ],
+      "state": "OWNED",
+      "category": "citrus / top",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "V5_ROW_268_NEAT_USER_CONFIRMED_BOTH_FORMS",
+        "execution_basis": "USER_ANSWER_20261015_ALDEHYDE_C11_NEAT_AND_1PCT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 268,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-31",
+      "source_kind": "DIRECT_USER_STOCK_CLARIFICATION",
+      "source_quote": "I have both",
+      "source_message_timestamp_utc": "2026-10-15T19:34:20Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_from_user_message": true
+      },
+      "note": "Asked whether his Aldehyde C11 undecylenic is neat or a 1% dilution, Kenny answered 'I have both' (15 Oct 2026 19:34:20 UTC); his 21 Oct stock forms repeat 'Aldehyde C11 neat + 1%'. The 1% is STK-036. The neat bottle is V5 row 268 ('Aldehyde C11 neat/as supplied'), which the design view hid because inventory.txt L41 names only the 1%; this record is that bottle. Recorded on the engine audit's list of owned bottles with no usable record, after Kenny's tap on the card 'Which engine fixes should I start on?' (thread 'Find why engine stopped suggesting BHT'); the option read: 'BHT, then the 12 bottles, odour data for the 70, an amber-layer fix with a crystal weighing rule, and a cineole stacking rule.' The card's other options described the BHT stock as 'BHT 5% w/v in ethanol, 120 uL per 30 mL'. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-240",
+      "canonical_name": "Allyl Ionone (Ketone V)",
+      "aliases": [
+        "Allyl Ionone",
+        "Allyl Ionone Cetone V",
+        "Allyl Ionone neat",
+        "Ketone V"
+      ],
+      "state": "OWNED",
+      "category": "iris / violet",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261031_PW_260212_ALLYL_IONONE_CETONE_V",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Allyl Ionone Cetone V",
+        "sku": "4IN10857",
+        "order": "PW order of 12 Feb 2026 (THB 2,150.40; quoted in Kenny's reply, k3nnyw mail)",
+        "pack": "1 g"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 17,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-31",
+      "source_kind": "DIRECT_USER_DECISION_CARD",
+      "source_quote": "All five, in order",
+      "source_message_timestamp_utc": "2026-10-31T04:58:13Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true
+      },
+      "note": "inventory.txt L195 'Allyl Ionone (Ketone V)'; V5 row 17 'Allyl Ionone 10% [HAVE — NEAT ONLY]'. PerfumersWorld order line '4IN10857 Allyl Ionone Cetone V ... 1 gram' (12 Feb 2026). PW sells the 10% separately (5IN19129, in TEC); the product page (read 31 Oct 2026) lists CAS 79-78-7, a colourless-pale straw oily liquid, Cat 4 certificate 25%. PW's SDS prints a wrong formula (C16H12O3), so its document data is not used. Recorded after Kenny's tap on the card 'Which engine fixes should I start on?' (thread 'Find why engine stopped suggesting BHT'); the option read: 'BHT, then the 12 bottles, odour data for the 70, an amber-layer fix with a crystal weighing rule, and a cineole stacking rule.' The card's other options described the BHT stock as 'BHT 5% w/v in ethanol, 120 uL per 30 mL'. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-241",
+      "canonical_name": "Azarbre",
+      "aliases": [
+        "Azarbre neat",
+        "Azarbre (Givaudan)"
+      ],
+      "state": "OWNED",
+      "category": "woods / amber / structure",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261031_PW_4WB16858_AZARBRE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Azarbre",
+        "sku": "4WB16858",
+        "order": "not recorded",
+        "pack": "not recorded"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-31",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "both but it i i cedar amber  mell",
+      "source_message_timestamp_utc": "2026-10-28T10:18:42Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_user_order": false,
+        "fraction_from_supplier_listing": true
+      },
+      "note": "inventory.txt L243 'Azarbre # added 2026-04-17 — purchased'. Kenny on its smell (28 Oct 2026 10:18:42 UTC): 'both but it i i cedar amber  mell' (mainly cedar-amber). PerfumersWorld 4WB16858 (former SKU 4WB15147; product page read 31 Oct 2026): SDS >= 90-100%, CAS 68845-36-3, colourless clear liquid, Cat 4 certificate 25%; PW sells the 10% separately (5WB21992, in TEC). Order and pack not found in the k3nnyw mail. Recorded after Kenny's tap on the card 'Which engine fixes should I start on?' (thread 'Find why engine stopped suggesting BHT'); the option read: 'BHT, then the 12 bottles, odour data for the 70, an amber-layer fix with a crystal weighing rule, and a cineole stacking rule.' The card's other options described the BHT stock as 'BHT 5% w/v in ethanol, 120 uL per 30 mL'. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-242",
+      "canonical_name": "Methyl Benzoate",
+      "aliases": [
+        "Methyl Benzoate neat",
+        "Niobe oil"
+      ],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261031_PW_260328_METHYL_BENZOATE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Methyl Benzoate",
+        "sku": "4NJ00296",
+        "order": "PW order 260328-170326414 (placed 28 Mar 2026; k3nnyw mail)",
+        "pack": "5 g"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-31",
+      "source_kind": "DIRECT_USER_DECISION_CARD",
+      "source_quote": "All five, in order",
+      "source_message_timestamp_utc": "2026-10-31T04:58:13Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true
+      },
+      "note": "inventory.txt L145 'Methyl Benzoate'. PW order 260328-170326414 (placed 28 Mar 2026; k3nnyw mail) line '4NJ00296 | Methyl Benzoate | ... 5 gram'. Product page (read 31 Oct 2026): SDS >= 90-100%, CAS 93-58-3, pale straw oily liquid, SG 1.0820, Cat 4 certificate 25%; PW's 10% is a separate product (5NJ18275, in TEC). Allowed again since Kenny's 29 Oct words; he disliked it for tuberose (25 Oct). Recorded after Kenny's tap on the card 'Which engine fixes should I start on?' (thread 'Find why engine stopped suggesting BHT'); the option read: 'BHT, then the 12 bottles, odour data for the 70, an amber-layer fix with a crystal weighing rule, and a cineole stacking rule.' The card's other options described the BHT stock as 'BHT 5% w/v in ethanol, 120 uL per 30 mL'. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-243",
+      "canonical_name": "Champaca Flower EO",
+      "aliases": [
+        "Champaca Flower Essential Oil",
+        "Champaca EO",
+        "Michelia champaca flower oil"
+      ],
+      "state": "OWNED",
+      "category": "floral materials",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261031_PW_260328_CHAMPACA_FLOWER_EO",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Champaca Flower Essential Oil",
+        "sku": "7NJ07740",
+        "order": "PW order 260328-170326414 (placed 28 Mar 2026; k3nnyw mail)",
+        "pack": "1 g"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-31",
+      "source_kind": "DIRECT_USER_DECISION_CARD",
+      "source_quote": "All five, in order",
+      "source_message_timestamp_utc": "2026-10-31T04:58:13Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true
+      },
+      "note": "inventory.txt L143 'Champaca Flower EO'. PW order 260328-170326414 (placed 28 Mar 2026; k3nnyw mail) line '7NJ07740 | Champaca Flower Essential Oil | ... 1 gram'. Product page (read 31 Oct 2026): no dilution stated, CAS 94333-99-0, pale yellow liquid, SG 0.9500, Cat 4 certificate 2.67%; PW's 10% in DPG is a separate product (5NN07927), so this bottle is the undiluted oil. Thai flowers allowed since Kenny's 31 Oct words. Recorded after Kenny's tap on the card 'Which engine fixes should I start on?' (thread 'Find why engine stopped suggesting BHT'); the option read: 'BHT, then the 12 bottles, odour data for the 70, an amber-layer fix with a crystal weighing rule, and a cineole stacking rule.' The card's other options described the BHT stock as 'BHT 5% w/v in ethanol, 120 uL per 30 mL'. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-244",
+      "canonical_name": "Parmavert",
+      "aliases": [
+        "Parmavert neat",
+        "1,1-Dimethoxynon-2-yne"
+      ],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261031_PW_260317_PARMAVERT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Parmavert",
+        "sku": "4IG05175",
+        "order": "PW order 260317-1551483c5 (placed 17 Mar 2026; k3nnyw mail)",
+        "pack": "1 g"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-31",
+      "source_kind": "DIRECT_USER_DECISION_CARD",
+      "source_quote": "All five, in order",
+      "source_message_timestamp_utc": "2026-10-31T04:58:13Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true
+      },
+      "note": "inventory.txt L81 'Parmavert # physically found/reconfirmed owned 2026-08-30'. PW order 260317-1551483c5 line '4IG05175 | Parmavert | ... 1 gram'. Product page (read 31 Oct 2026): SDS >= 90-100%, CAS 13257-44-8, colourless oily liquid, SG 0.8810, Cat 4 certificate 9.9%; PW's 10% dilutions are separate products (5IG11455 DPG, 5IG21770 TEC). Recorded after Kenny's tap on the card 'Which engine fixes should I start on?' (thread 'Find why engine stopped suggesting BHT'); the option read: 'BHT, then the 12 bottles, odour data for the 70, an amber-layer fix with a crystal weighing rule, and a cineole stacking rule.' The card's other options described the BHT stock as 'BHT 5% w/v in ethanol, 120 uL per 30 mL'. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-245",
+      "canonical_name": "Eucalyptus Essential Oil",
+      "aliases": [
+        "Eucalyptus Essential Oil (Eucalyptus globulus, India)",
+        "Eucalyptus Globulus EO",
+        "Eucalyptus EO"
+      ],
+      "state": "OWNED",
+      "category": "green / fresh / marine",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_INVENTORY_LINE_STATES_100PCT_PURE",
+        "execution_basis": "INVENTORY_LINE_20260615_EUCALYPTUS_100PCT_PURE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "not recorded",
+        "product_name": "Eucalyptus Essential Oil (Eucalyptus globulus, India)",
+        "sku": "not recorded",
+        "order": "not found in the k3nnyw mail",
+        "pack": "not recorded"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-31",
+      "source_kind": "DIRECT_USER_DECISION_CARD",
+      "source_quote": "All five, in order",
+      "source_message_timestamp_utc": "2026-10-31T04:58:13Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "supplier_from_user_order": false,
+        "fraction_from_inventory_line": true
+      },
+      "note": "inventory.txt L88 'Eucalyptus Essential Oil (Eucalyptus globulus, India) # added 2026-06-15 — steam-distilled; 100% pure; INCI: Eucalyptus Globulus Leaf Oil'. The line itself says 100% pure, so it is neat. No order was found in the k3nnyw mail (PW, MySkinRecipes, Shopee/Lazada searched). A 1,8-cineole oil: Kenny allowed cineole oils again on 29 Oct; his 25 Oct cardamom note says not to stack cineole/camphor oils. Recorded after Kenny's tap on the card 'Which engine fixes should I start on?' (thread 'Find why engine stopped suggesting BHT'); the option read: 'BHT, then the 12 bottles, odour data for the 70, an amber-layer fix with a crystal weighing rule, and a cineole stacking rule.' The card's other options described the BHT stock as 'BHT 5% w/v in ethanol, 120 uL per 30 mL'. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-246",
+      "canonical_name": "Basil EO (India, Ocimum Basilicum)",
+      "aliases": [
+        "Basil EO",
+        "Basil Essential Oil",
+        "Ocimum basilicum oil",
+        "Basil EO ct. Methyl Chavicol"
+      ],
+      "state": "OWNED",
+      "category": "spice / aromatic",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "USER_ANSWER_NEAT",
+        "execution_basis": "USER_ANSWER_20261031_BASIL_EO_NEAT",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "not recorded",
+        "product_name": "Basil EO (India, Ocimum Basilicum)",
+        "sku": "not recorded",
+        "order": "not found in the k3nnyw mail",
+        "pack": "not recorded"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 37,
+          "disposition": "GAP",
+          "status": "NOT OWNED - NO BASIL 10%; HIS BASIL EO IS NEAT (USER-CONFIRMED 2026-10-31)",
+          "actual_stock_text": "Kenny 31 Oct 2026: 'Mine is neat'; the neat bottle is STK-246",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-31",
+      "source_kind": "DIRECT_USER_STOCK_CLARIFICATION",
+      "source_quote": "Mine is neat",
+      "source_message_timestamp_utc": "2026-10-31T05:07:26Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "fraction_from_user_message": true
+      },
+      "note": "Asked 'is your Basil EO (India) neat, or the 10% dilution?', Kenny: 'Mine is neat' (31 Oct 2026 05:07:26 UTC). inventory.txt L355 'Basil EO (India, Ocimum Basilicum)'. V5 row 37 ('Basil EO ct. Methyl Chavicol 10% [VERIFY]') is resolved: he has no 10%. Indian basil oils are usually the methyl chavicol (estragole) chemotype; no CoA or order is on file, so that is not asserted. inventory.txt is not edited."
     }
   ]
 }
