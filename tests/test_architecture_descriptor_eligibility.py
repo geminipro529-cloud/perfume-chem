@@ -163,9 +163,17 @@ def test_both_solver_paths_enforce_evidence_before_generic_scores(monkeypatch, r
     assert solver._allowed(contaminant, exact, state, avoid=(), allow_multiple_musks=False)
 
 
-def test_live_placeholder_and_aquatic_context_do_not_gain_exact_facet_eligibility():
+def test_live_placeholder_and_aquatic_context_do_not_gain_exact_facet_eligibility(monkeypatch):
     index = _index()
-    placeholder = next(c for c in index.capabilities if c.identity_name == "Rose Otto Bulgarian")
+    # Rose Otto Bulgarian was a supplier-label placeholder; its declared
+    # profile is floral now, so the otto of the rose leads rose (31 Oct 2026).
+    # A placeholder profile under the same name still qualifies for nothing.
+    rose_otto = next(c for c in index.capabilities if c.identity_name == "Rose Otto Bulgarian")
+    assert capabilities.supports_descriptor_requirement(rose_otto, "rose")
+    placeholder = _capability(
+        monkeypatch, "Supplier-labelled Rose Otto Bulgarian; detailed odor profile not reviewed in this stock intake.",
+    )
+    placeholder = replace(placeholder, identity_vocabulary=rose_otto.identity_vocabulary)
     assert not capabilities.supports_descriptor_requirement(placeholder, "rose")
     for name in ("Calone", "Helional"):
         materials = index.exact_matches(name)

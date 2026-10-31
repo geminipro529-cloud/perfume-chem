@@ -26,7 +26,6 @@ from engine.formulation_intelligence.formula_design_runtime import design_formul
 from engine.formulation_intelligence.material_capability_index import (
     build_material_capability_index,
 )
-from engine.formulation_intelligence.semantic_brief_adapter import compile_semantic_brief
 from tests.reheld_overlay import neat_ambrettolide_owned
 
 
@@ -196,29 +195,16 @@ def test_guard_no_brief_without_an_amber_base_gets_a_weighed_row(idea):
         assert [row["identity_name"] for row in formula["rows"] if row["amount_unit"] == "mg"] == []
 
 
-def test_guard_tinctures_and_oranger_crystals_stay_refused_as_solids():
-    brief = compile_semantic_brief(
-        formula_name="Amber", request="A soft woody amber",
-        interpretation={"must_preserve": [], "must_avoid": [], "explicit_materials": [],
-                        "material_count_constraints": []},
-        max_materials=15,
-    )
-    (amber,) = [role for role in brief.roles if role.role_id == "facet_amber_mineral"]
-    flagged = [
+def test_guard_tinctures_and_oranger_crystals_are_poured_not_weighed():
+    # A solution is poured whatever its name says: Oranger Crystals 10% in DPG
+    # and the resin tinctures ("dissolved-solids fraction") used to read as
+    # solids, so no unnamed role could take them.
+    poured = [
         capability for capability in _capabilities().values()
-        if capability.candidate.solid
-        and ("tincture" in capability.identity_name.casefold() or capability.identity_name == "Oranger Crystals")
+        if "tincture" in capability.identity_name.casefold() or capability.identity_name == "Oranger Crystals"
     ]
-    assert len(flagged) == 5
-    index = build_material_capability_index()
-    ranked = fs._unary_rank_for_role(index, amber, avoid=(), previous_stock_ids=frozenset(),
-                                     prior_variant_stock_ids=frozenset(), variant_index=0)
-    ranked_ids = {capability.stock_id for _score, capability in ranked}
-    for capability in flagged:
-        assert capability.stock_id not in ranked_ids, capability.identity_name
-        assert fs._block_reason(capability, amber, _EMPTY, avoid=(), allow_multiple_musks=False), (
-            capability.identity_name
-        )
+    assert len(poured) >= 5
+    assert not [capability.identity_name for capability in poured if capability.candidate.solid]
 
 
 def test_guard_a_brief_naming_the_ambrox_solution_keeps_its_liquid_row():

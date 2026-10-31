@@ -177,6 +177,10 @@ _DESCRIPTOR_REQUIREMENTS: dict[str, tuple[frozenset[str], ...]] = {
 }
 
 
+_FLOWER_REQUIREMENTS = frozenset({"frangipani", "jasmine", "rose"})
+_NATURAL_FORM_WORDS = frozenset({"absolute", "concrete", "essential", "eo", "oil", "otto", "co2", "resinoid"})
+
+
 @dataclass(frozen=True, slots=True)
 class MaterialCapability:
     candidate: Candidate
@@ -381,7 +385,21 @@ def supports_descriptor_requirement(capability: MaterialCapability, requirement:
     if requirement.startswith("v5_"):
         return rules_v5.eligible(capability.identity_name, capability.architecture_v5_vocabulary, requirement)
     groups = _DESCRIPTOR_REQUIREMENTS.get(requirement)
-    return groups is not None and all(capability.descriptor_vocabulary & group for group in groups)
+    if groups is None:
+        return False
+    if all(capability.descriptor_vocabulary & group for group in groups):
+        return True
+    # A flower's own absolute, oil or otto with floral descriptors of its own
+    # is that flower: Frangipani Absolute, Jasmine Sambac Absolute and Rose
+    # Otto name no "frangipani", "jasmine" or "rose" descriptor, so Benzyl
+    # Salicylate led frangipani.  The name narrows the floral evidence; it is
+    # never the evidence (a placeholder profile still qualifies for nothing).
+    return (
+        requirement in _FLOWER_REQUIREMENTS
+        and bool(capability.identity_vocabulary & _NATURAL_FORM_WORDS)
+        and bool(capability.identity_vocabulary & groups[0])
+        and bool(capability.descriptor_vocabulary & _DESCRIPTOR_REQUIREMENTS["heart_floral"][0])
+    )
 
 
 def architecture_avoid_conflict(

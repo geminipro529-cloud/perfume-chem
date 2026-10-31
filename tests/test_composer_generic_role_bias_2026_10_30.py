@@ -38,8 +38,8 @@ def _cap(*descriptors):
 def test_a_texture_word_names_no_odour_family():
     cedarwood = _cap("cocoon", "sweetness", "warmth", "woody")
     assert fs._off_brief_penalty(cedarwood, _layer(), frozenset()) == 0.0
-    # A real resin word still counts.
-    assert fs._off_brief_penalty(_cap("woody", "balsamic"), _layer(), frozenset()) == fs._OFF_BRIEF_FAMILY_PENALTY
+    # A real resin word still counts (half: the material also carries the layer).
+    assert fs._off_brief_penalty(_cap("woody", "balsamic"), _layer(), frozenset()) == fs._OFF_BRIEF_FAMILY_PENALTY / 2
 
 
 def test_a_family_the_layer_character_asks_for_is_not_off_brief():
@@ -48,12 +48,13 @@ def test_a_family_the_layer_character_asks_for_is_not_off_brief():
                           character_weights=(("creamy", .425), ("woody", .975)))
     assert fs._off_brief_penalty(sandalwood, creamy_layer, frozenset()) == 0.0
     # Without the creamy weight the creamy family is still off-brief.
-    assert fs._off_brief_penalty(sandalwood, _layer(), frozenset()) == fs._OFF_BRIEF_FAMILY_PENALTY
+    half = fs._OFF_BRIEF_FAMILY_PENALTY / 2
+    assert fs._off_brief_penalty(sandalwood, _layer(), frozenset()) == half
     # A negative weight asks for less of it, not for it.
     dry_layer = _layer(character_weights=(("creamy", -.4), ("woody", .8)))
     trace_layer = _layer(character_weights=(("creamy", .15), ("woody", .8)))
-    assert fs._off_brief_penalty(sandalwood, trace_layer, frozenset()) == fs._OFF_BRIEF_FAMILY_PENALTY
-    assert fs._off_brief_penalty(sandalwood, dry_layer, frozenset()) == fs._OFF_BRIEF_FAMILY_PENALTY
+    assert fs._off_brief_penalty(sandalwood, trace_layer, frozenset()) == half
+    assert fs._off_brief_penalty(sandalwood, dry_layer, frozenset()) == half
 
 
 def test_coverage_roles_do_not_query_their_function_word():
