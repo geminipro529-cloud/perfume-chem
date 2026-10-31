@@ -65,8 +65,19 @@ from engine.name_utils import normalize_name
 from engine.optimizer.models import FormulaVector
 from engine.optimizer.oav_guard import check_proportional_scaling
 from engine.optimizer.perfumer_logic import evaluate_perfumer_logic
+from engine.pipeline.antioxidant import (
+    ANTIOXIDANT_IFRA_STANDARDS,
+    HOUSE_BHT_STOCK,
+    HOUSE_BHT_UL_PER_ML_FINISHED,
+    house_bht_precharge,
+    is_antioxidant_row,
+)
 from engine.pipeline.audit_log import append_event, gate_report_event
 from engine.pipeline.formula_state import FormulaState, build_formula_state
+from engine.pipeline.natural_absolute_decomposition import (
+    get_composite_metadata,
+    get_constituents,
+)
 from engine.pipeline.oav_intelligence import (
     _FUTURE_MODULES_AVAILABLE,
     analyze_oav_intelligence,
@@ -1090,7 +1101,275 @@ def _describe_missing_active_mass(missing: list[dict[str, str]]) -> str:
     )
 
 
-def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) -> GateResult:
+# IFRA Standards 184 (Pinacea derivatives), 186 (Limonene) and 187 (Linalool): these
+# materials, "and natural products containing substantial amounts of it", should only be
+# used with (hydro)peroxides kept low, "for instance by adding antioxidants at the time of
+# production" (data/regulatory/ifra_cat4_51.json). IFRA does not define "substantial".
+# A natural is screened in when its modelled limonene or linalool share is at least this
+# fraction of the material: the engine's screening value, not an IFRA figure. There is no
+# dose threshold, because IFRA's concern is the peroxides in the material itself.
+ANTIOXIDANT_CONSTITUENT_SCREEN_FRACTION = 0.05
+ANTIOXIDANT_CONSTITUENT_SCREEN_BASIS = (
+    "engine screening value: IFRA does not define 'substantial amounts'; a natural "
+    "counts when its modelled limonene or linalool share is at least 5% of the material"
+)
+# Pinaceae (STD_184) membership is botanical, so it comes from the IFRA table only: a
+# pinene share does not make juniper or rosemary a Pinaceae oil.
+_ANTIOXIDANT_CONSTITUENT_STANDARDS = {"limonene": "IFRA_STD_186", "linalool": "IFRA_STD_187"}
+_STEREO_PREFIX = re.compile(r"^(?:(?:\([^()]*\)|dl|d|l)-)+")
+# Batch-volume sources that do not give the finished perfume volume.
+_UNKNOWN_FINISHED_VOLUME_SOURCES = frozenset({"default", "mass_card_concentrate_only"})
+# The warning names this many in-scope rows, biggest first; the data lists them all.
+_ANTIOXIDANT_NAMED_ROWS = 4
+
+
+def _ifra_number_text(standards: Sequence[str]) -> str:
+    return "/".join(standard.rsplit("_", 1)[-1] for standard in sorted(standards))
+
+
+def _antioxidant_constituent_shares(material) -> tuple[dict[str, str], dict[str, float]]:
+    """A natural's modelled limonene and linalool shares, with the profile they come from.
+
+    The identities are tried in the order the natural-composite headspace uses.
+    """
+    for candidate in dict.fromkeys(
+        name for name in (material.canonical_name, material.name) if str(name or "").strip()
+    ):
+        rows = get_constituents(candidate)
+        if rows is None:
+            continue
+        shares: dict[str, float] = {}
+        for row in rows:
+            key = _STEREO_PREFIX.sub("", normalize_name(str(row[0])))
+            if key in _ANTIOXIDANT_CONSTITUENT_STANDARDS:
+                shares[key] = shares.get(key, 0.0) + float(row[1])
+        metadata = get_composite_metadata(candidate)
+        profile = {
+            "constituent_profile": metadata.profile_key if metadata else candidate,
+            "composition_authority": (
+                metadata.composition_authority if metadata else "UNKNOWN"
+            ),
+        }
+        return profile, shares
+    return {}, {}
+
+
+def _optional_float(value: object) -> float | None:
+    try:
+        return float(str(value)) if value is not None and value != "" else None
+    except ValueError:
+        return None
+
+
+def declared_antioxidant_rows(formula: Mapping) -> tuple[Mapping, ...]:
+    """Antioxidant rows a formula carries outside ``ingredients_ul``.
+
+    The formula-file parser keeps a BHT/tocopherol row out of the odour rows and
+    lists it under ``technical_precharge_rows``; composer output lists it under
+    ``technical_rows``. Neither reaches ``FormulaState.materials``.
+    """
+    rows = [
+        *(formula.get("technical_precharge_rows") or ()),
+        *(formula.get("technical_rows") or ()),
+    ]
+    return tuple(
+        row
+        for row in rows
+        if isinstance(row, Mapping) and is_antioxidant_row(str(row.get("material", "")))
+    )
+
+
+def _antioxidant_assessment(
+    state: FormulaState,
+    config: ReleaseGateConfig,
+    active_mass_pct: Mapping[str, float] | None,
+    declared_rows: Sequence[Mapping] = (),
+) -> tuple[str | None, dict]:
+    """IFRA 184/186/187 antioxidant check: (reason when a BHT row is advised, data).
+
+    An antioxidant row is a ``declared_rows`` entry (the formula's technical
+    pre-charge rows) or a BHT/tocopherol row among the state's materials. The
+    check looks only for such a row and says nothing about how long the perfume
+    keeps or whether the row's dose is enough.
+    """
+    table = load_ifra_table()
+    in_scope: list[dict] = []
+    antioxidant_rows: list[dict] = [
+        {
+            "material": str(row.get("material", "")),
+            "source": "technical_precharge_row",
+            "raw_ul": _optional_float(row.get("raw_ul")),
+            "fraction": _optional_float(row.get("fraction", row.get("active_fraction"))),
+            "fraction_basis": row.get("fraction_basis"),
+            "active_mg": _optional_float(row.get("active_mg", row.get("bht_mg"))),
+        }
+        for row in declared_rows
+        if is_antioxidant_row(str(row.get("material", "")))
+    ]
+    for material in state.materials:
+        if is_antioxidant_row(material.name) or is_antioxidant_row(material.canonical_name):
+            antioxidant_rows.append(
+                {
+                    "material": material.name,
+                    "source": "formula_row",
+                    "raw_ul": round(material.raw_ul, 3),
+                    "fraction": material.dilution,
+                    "fraction_basis": material.stock_fraction_basis,
+                    "active_mg": (
+                        None
+                        if material.authoritative_active_g is None
+                        else round(material.authoritative_active_g * 1000.0, 3)
+                    ),
+                }
+            )
+            continue
+        bases: list[dict] = []
+        entry = table.lookup(material.name, *_ifra_alt_names(material))
+        if (
+            entry is not None
+            and entry.status == "specification"
+            and entry.standard in ANTIOXIDANT_IFRA_STANDARDS
+        ):
+            bases.append(
+                {"standard": entry.standard, "basis": "ifra_table", "ifra_entry": entry.name}
+            )
+        profile, shares = _antioxidant_constituent_shares(material)
+        for constituent, share in sorted(shares.items()):
+            if share >= ANTIOXIDANT_CONSTITUENT_SCREEN_FRACTION - 1e-9:
+                bases.append(
+                    {
+                        "standard": _ANTIOXIDANT_CONSTITUENT_STANDARDS[constituent],
+                        "basis": "modelled_constituent_share",
+                        "constituent": constituent,
+                        "share_of_material": round(share, 4),
+                        **profile,
+                    }
+                )
+        if bases:
+            in_scope.append(
+                {
+                    "material": material.name,
+                    "standards": sorted({basis["standard"] for basis in bases}),
+                    "bases": bases,
+                    "active_mass_pct": (
+                        None
+                        if active_mass_pct is None
+                        else round(float(active_mass_pct.get(material.name, 0.0)), 3)
+                    ),
+                    "active_mg": (
+                        None
+                        if material.authoritative_active_g is None
+                        else round(material.authoritative_active_g * 1000.0, 3)
+                    ),
+                }
+            )
+
+    volume_known = (
+        config.batch_volume_source not in _UNKNOWN_FINISHED_VOLUME_SOURCES
+        and config.batch_volume_ml > 0
+    )
+    precharge = house_bht_precharge(config.batch_volume_ml if volume_known else 30.0)
+    house_precharge = {
+        **precharge.as_mapping(),
+        "batch_volume_known": volume_known,
+        "batch_volume_source": config.batch_volume_source,
+    }
+    standards = sorted({s for row in in_scope for s in row["standards"]})
+    data: dict = {
+        "status": "NOT_IN_SCOPE",
+        "in_scope_materials": in_scope,
+        "antioxidant_rows": [
+            {
+                **row,
+                "house_dose_raw_ul": precharge.raw_ul,
+                "house_dose_bht_mg": precharge.bht_mg,
+            }
+            for row in antioxidant_rows
+        ],
+        "active_mass_basis": (
+            "authoritative_active_g; active_mass_pct is null when the formula's "
+            "authoritative active mass is unavailable"
+        ),
+        "dose_adequacy": "NOT_ASSESSED",
+        "dose_threshold": None,
+        "constituent_screen_fraction": ANTIOXIDANT_CONSTITUENT_SCREEN_FRACTION,
+        "constituent_screen_basis": ANTIOXIDANT_CONSTITUENT_SCREEN_BASIS,
+        "house_precharge": house_precharge,
+        "recommended_precharge": None,
+        "bench_addition": None,
+        "ifra_notes": [
+            {
+                "standard": sid,
+                "name": table.standards[sid].name,
+                "url": table.standards[sid].url,
+                "quotes": [
+                    note
+                    for note in table.standards[sid].notes
+                    if "antioxidant" in note.lower() or "bht" in note.lower()
+                ],
+            }
+            for sid in standards
+            if sid in table.standards
+        ],
+    }
+    if antioxidant_rows:
+        data["status"] = "PRESENT"
+        return None, data
+    if not in_scope:
+        return None, data
+
+    def _label(row: dict) -> str:
+        parts = [
+            f"{basis['constituent']} {basis['share_of_material'] * 100:.0f}%"
+            for basis in row["bases"]
+            if basis["basis"] == "modelled_constituent_share"
+        ]
+        return f"{row['material']} ({', '.join(parts)})" if parts else row["material"]
+
+    numbers = _ifra_number_text(standards)
+    if volume_known:
+        dose = f"{precharge.raw_ul:g} uL"
+        bench_dose = (
+            f"{precharge.raw_ul:g} uL pre-charge (antioxidant, IFRA {numbers}; "
+            f"{precharge.bht_mg:g} mg BHT for the {precharge.batch_volume_ml:g} mL batch)"
+        )
+    else:
+        dose = (
+            f"{precharge.raw_ul:g} uL per 30 mL of finished perfume "
+            f"({HOUSE_BHT_UL_PER_ML_FINISHED:g} uL per mL)"
+        )
+        bench_dose = (
+            f"{precharge.raw_ul:g} uL pre-charge per 30 mL of finished perfume, "
+            f"{HOUSE_BHT_UL_PER_ML_FINISHED:g} uL per mL (antioxidant, IFRA {numbers})"
+        )
+    verb = "falls" if len(in_scope) == 1 else "fall"
+    shown = sorted(
+        in_scope, key=lambda row: (row.get("active_mg") is None, -(row.get("active_mg") or 0.0))
+    )[:_ANTIOXIDANT_NAMED_ROWS]
+    named = ", ".join(_label(row) for row in shown)
+    if len(in_scope) > len(shown):
+        named += f" and {len(in_scope) - len(shown)} more"
+    reason = (
+        f"no antioxidant row: {named} {verb} under "
+        f"IFRA {numbers} (antioxidants at production); add {HOUSE_BHT_STOCK}, {dose} "
+        "as a pre-charge"
+    )
+    data.update(
+        {
+            "status": "ADVISED",
+            "recommended_precharge": house_precharge,
+            "bench_addition": f"Bench addition: {HOUSE_BHT_STOCK}, {bench_dose}",
+            "message": reason,
+        }
+    )
+    return reason, data
+
+
+def _gate_chemistry_stability(
+    state: FormulaState,
+    config: ReleaseGateConfig,
+    declared_antioxidant_rows: Sequence[Mapping] = (),
+) -> GateResult:
     functional_groups = {
         m.name: set(m.functional_groups) for m in state.materials if m.functional_groups
     }
@@ -1147,6 +1426,9 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
             risk_profiles.append((material, science_profile, science_source))
 
     active_mass_pct = state.active_mass_percentages()
+    antioxidant_reason, antioxidant_data = _antioxidant_assessment(
+        state, config, active_mass_pct, declared_antioxidant_rows
+    )
     mass_dependent_assessment = bool((aldehydes and amines) or flagged_materials)
     if mass_dependent_assessment and active_mass_pct is None:
         missing_rows = _missing_authoritative_active_mass(state)
@@ -1155,11 +1437,16 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
             unknown_scope.append("Schiff-base risk")
         if flagged_materials:
             unknown_scope.append("oxidation/photolability burden")
+        hold_detail = (
+            f"{' and '.join(unknown_scope)} assessment UNKNOWN: authoritative active mass "
+            f"is unavailable for {_describe_missing_active_mass(missing_rows)}"
+        )
+        if antioxidant_reason:
+            hold_detail = f"{hold_detail}; {antioxidant_reason}"
         return _result(
             "chemistry_stability",
             "HOLD",
-            f"{' and '.join(unknown_scope)} assessment UNKNOWN: authoritative active mass "
-            f"is unavailable for {_describe_missing_active_mass(missing_rows)}",
+            hold_detail,
             {
                 "assessment": "UNKNOWN",
                 "claim_ceiling": "AUTHORITATIVE_ACTIVE_MASS_REQUIRED",
@@ -1172,6 +1459,7 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
                 "aging_claim": aging_claim.as_mapping(),
                 "candidate_schiff_base_pairs": _schiff_pair_rows(aldehydes),
                 "candidate_oxidation_or_photolability_materials": sorted(flagged_materials),
+                "antioxidant": antioxidant_data,
             },
         )
 
@@ -1246,9 +1534,14 @@ def _gate_chemistry_stability(state: FormulaState, config: ReleaseGateConfig) ->
         "active_mass_basis": "authoritative_active_g",
         "proxy_active_g_ignored": True,
         "assessment": "EVALUATED",
+        "antioxidant": antioxidant_data,
     }
     if fail_reasons:
+        if antioxidant_reason:
+            fail_reasons.append(antioxidant_reason)
         return _result("chemistry_stability", "FAIL", "; ".join(fail_reasons), data)
+    if antioxidant_reason:
+        warn_reasons.append(antioxidant_reason)
     if warn_reasons:
         return _result("chemistry_stability", "WARN", "; ".join(warn_reasons), data)
     return _result(
@@ -7149,7 +7442,12 @@ def gate_formula(
         _safe_gate(lambda: _gate_material_coverage(state), "material_coverage"),
         _safe_gate(lambda: _gate_data_coverage(state), "data_coverage"),
         _safe_gate(lambda: _gate_odt_coverage(state), "odt_coverage"),
-        _safe_gate(lambda: _gate_chemistry_stability(state, config), "chemistry_stability"),
+        _safe_gate(
+            lambda: _gate_chemistry_stability(
+                state, config, declared_antioxidant_rows(formula)
+            ),
+            "chemistry_stability",
+        ),
         _safe_gate(lambda: _gate_phase_compatibility(state), "phase_compatibility"),
         _safe_gate(lambda: _gate_preblends(state, config), "preblends"),
         _safe_gate(
