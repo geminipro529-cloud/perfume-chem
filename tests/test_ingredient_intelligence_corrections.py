@@ -129,5 +129,5 @@ def test_late_intake_prose_does_not_crash_numeric_character_consumers():
     # Since 31 Oct 2026 sourced descriptor-rubric scores, labelled as design values.
     assert profile.character == {"green": 3.0, "sweetness": 6.0, "warmth": 5.0, "woody": 2.5}
     assert profile.evidence["character"]["status"] == "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT"
-    assert profile.note == "heart"  # volatility rule: vapour pressure 0.3 Pa
+    assert profile.note == "base"  # TGSC substantivity 400 h; the engine VP has no cited source
     assert profile.role == "modifier"
