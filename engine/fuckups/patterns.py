@@ -307,8 +307,9 @@ COMBINATION_RULES: tuple[CombinationRule, ...] = (
         severity="warn",
         recommendation=(
             "Preserve the role hierarchy rather than forcing fixed materials or doses. In the "
-            "current inventory, Birch Tar is excluded because its live row is marked prohibited; "
-            "any Cade/Suederal smoke-leather mapping is explicitly non-equivalent. "
+            "current inventory, Birch Tar Rectified 10% in DPG is owned; its supplier certificate "
+            "caps it at 0.1% of that stock (0.01% birch tar) in fine fragrance. "
+            "Any Cade/Suederal smoke-leather mapping is explicitly non-equivalent. "
             + compare_without("each candidate role material")
         ),
         fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,
@@ -324,7 +325,8 @@ COMBINATION_RULES: tuple[CombinationRule, ...] = (
         ),
         severity="warn",
         recommendation=(
-            "Do not use Birch Tar because the live inventory marks it prohibited. "
+            "Use Birch Tar Rectified 10% for the oily leather-smoke, within its 0.1%-of-stock "
+            "certificate cap. "
             + compare_without("Nagarmotha", "Guaiacol")
         ),
         fuckup_reference=CASSIS_IRIS_SMOKE_CAMPAIGN_ID,

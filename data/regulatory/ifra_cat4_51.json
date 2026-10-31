@@ -2365,7 +2365,9 @@
     "Cedarwood EO (China; species unspecified)": {
       "status": "natural_no_own_standard",
       "standard": null,
-      "aliases": ["Cedarwood Chinese Essential Oil"],
+      "aliases": [
+        "Cedarwood Chinese Essential Oil"
+      ],
       "note": "Contains cedrene, which STD_197 limits to 1.5 % counting natural sources. Since 2026-10-28 the stock is Cedarwood Chinese Essential Oil (Cupressus funebris, a closest-identity proxy; STK-229)."
     },
     "Cedarwood Himalayan EO": {
@@ -5100,6 +5102,47 @@
       "identity_note": "Its own PerfumersWorld certificate (5NC07544) also lists benzyl cyanide (CAS 140-29-4) 0.0496 % and 7-methoxycoumarin (CAS 531-59-9) 0.0002 % of the 10% under 'IFRA prohibited materials' (PW: each 'is Prohibited by IFRA for use in Fragrance'); the neat 8NC00338 certificate gives ten times each. Kenny chose to use it anyway, so this is a warning, not a block.",
       "source_url": "https://www.perfumersworld.com/document-list.php?pro_id=5NC07544",
       "verified_on": "2026-10-28"
+    },
+    "BHT": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Butylated Hydroxytoluene",
+        "BHT 5% w/v in ethanol"
+      ],
+      "note": "Butylated hydroxytoluene (2,6-di-tert-butyl-4-methylphenol), CAS 128-37-0: an antioxidant added to protect terpenes (IFRA Standards 184, 186 and 187 ask for antioxidants at production), not an odour material. No IFRA Standard restricts it. Kenny's stock is his 5% w/v solution in ethanol (STK-238), dosed 120 uL per 30 mL (6 mg, 0.02% of a 30 mL batch).",
+      "cas": [
+        "128-37-0"
+      ],
+      "verified_on": "2026-10-31"
+    },
+    "Methyl Benzoate": {
+      "status": "no_standard",
+      "standard": null,
+      "aliases": [
+        "Niobe oil"
+      ],
+      "note": "Methyl benzoate, CAS 93-58-3. No IFRA Standard restricts it. PerfumersWorld's 51st-Amendment IFRA certificate for Kenny's bottle (4NJ00296, read 31 Oct 2026) prints 'Fine Fragrance unshaved skin | 4 | 25.0000', its ceiling for products with no restricted constituent.",
+      "cas": [
+        "93-58-3"
+      ],
+      "verified_on": "2026-10-31"
+    },
+    "Eucalyptus Essential Oil": {
+      "status": "natural_no_own_standard",
+      "standard": null,
+      "aliases": [
+        "Eucalyptus Essential Oil (Eucalyptus globulus, India)",
+        "Eucalyptus Globulus EO",
+        "Eucalyptus EO"
+      ],
+      "note": "Eucalyptus globulus leaf oil, CAS 8000-48-4 / 84625-32-1 (Kenny's line: steam-distilled, India, 100% pure). No IFRA Standard of its own. Its restricted constituents (limonene and others) are not counted: no certificate for Kenny's bottle is on file and its supplier is not recorded.",
+      "identity_note": "Supplier and lot not recorded; constituents uncounted.",
+      "cas": [
+        "8000-48-4",
+        "84625-32-1"
+      ],
+      "verified_on": "2026-10-31"
     }
   },
   "group_rules": [
