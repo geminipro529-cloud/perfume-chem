@@ -602,6 +602,11 @@
         "message_timestamp_utc": "2026-10-30T08:19:28Z",
         "text": "No",
         "context": "Kenny's answer in the stock thread to 'But the stock also still lists a neat Evernyl Crystals bottle. Do you still have the crystals?'. STK-234 records the Evernyl Crystals as not owned."
+      },
+      {
+        "message_timestamp_utc": "2026-10-30T22:09:11Z",
+        "text": "I have 3 ylangs EO in my inventory",
+        "context": "Kenny's own words in another thread of the project (luxury upgrades). STK-235..237 record his three ylang oils: PerfumersWorld Ylang Comoros Complete F3255 and Ylang Comoros III F3295 (order 260328-170326414) and Ylang Madagascar Complete Organic (order PW-260910-051700a45)."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -686,7 +691,8 @@
     "birch_tar_older_1pct_10pct_kept_ww_dpg_20261028": true,
     "ambrofix_crystals_used_up_20261029": true,
     "ambrettolide_used_up_20261029": true,
-    "evernyl_crystals_not_owned_20261030": true
+    "evernyl_crystals_not_owned_20261030": true,
+    "three_ylang_oils_owned_20261030": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -11819,6 +11825,166 @@
         "release_authorized": false
       },
       "note": "Kenny said 'Remove Labdanum, my evernyl is 10%' (30 Oct 2026 08:16:42 UTC). Asked in the stock thread 'But the stock also still lists a neat Evernyl Crystals bottle. Do you still have the crystals?', he answered 'No' (08:19:28 UTC). The neat Evernyl Crystals record INV-USER-20260907-005 is replaced; his Evernyl 10% w/w in DPG (INV-USER-20260915-EVERNYL-10WW-001) is unchanged. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-235",
+      "canonical_name": "Ylang Comoros Complete EO F3255",
+      "aliases": [
+        "Ylang-Ylang EO",
+        "Ylang-Ylang Comoros Complete EO",
+        "Ylang Comoros Complete Essential Oil F3255"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261030_PW_260328_YLANG_COMOROS_COMPLETE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ylang Comoros Complete Essential Oil F3255",
+        "sku": "7NJ23636",
+        "order": "PW 260328-170326414",
+        "pack": "3 g"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [
+        {
+          "source_row": 251,
+          "disposition": "OWNED",
+          "status": "HAVE - COMOROS COMPLETE + III + MADAGASCAR COMPLETE ORGANIC (USER-CONFIRMED 2026-10-30)",
+          "actual_stock_text": "Ylang Comoros Complete EO F3255 (default for a generic ylang), Ylang Comoros III EO F3295, Ylang Madagascar Complete Organic EO",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-10-30",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have 3 ylangs EO in my inventory",
+      "source_message_timestamp_utc": "2026-10-30T22:09:11Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "composition_published": false,
+        "shipped_email_seen": false
+      },
+      "note": "PerfumersWorld order 260328-170326414 (THB 982.74, placed 29 Mar 2026; k3nnyw mail), 3 g, neat as supplied. PW: a complete oil blended from the first four distillation fractions, mainly No. 1 and No. 2. V5 row 251 'Ylang-Ylang EO' (HAVE - COMOROS COMPLETE + III) is resolved to owned; Complete stays the default when a formula calls for ylang generically, as the V5 policy says. Kenny: 'I have 3 ylangs EO in my inventory' (30 Oct 2026 22:09:11 UTC). PerfumersWorld's product page and documents (read 30 Oct 2026) print the same generic figures for all three ylang SKUs (SG 0.9060, RI 1.4950; SDS SG 0.906-0.923; no composition; a 'no restricted materials' IFRA certificate), so they are not used as this oil's data; IFRA Standard 84 (ylang ylang extracts) still applies. The CoA batch reference is generated on the day the page is read, so no bottle lot is recorded. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-236",
+      "canonical_name": "Ylang Comoros III EO F3295",
+      "aliases": [
+        "Ylang-Ylang Comoros III EO",
+        "Ylang Comoros III Essential Oil F3295"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261030_PW_260328_YLANG_COMOROS_III",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ylang Comoros III essential oil F3295",
+        "sku": "7NJ17821",
+        "order": "PW 260328-170326414",
+        "pack": "2 g"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-30",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have 3 ylangs EO in my inventory",
+      "source_message_timestamp_utc": "2026-10-30T22:09:11Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "composition_published": false,
+        "shipped_email_seen": false
+      },
+      "note": "PerfumersWorld order 260328-170326414 (THB 982.74, placed 29 Mar 2026; k3nnyw mail), 2 g, neat as supplied. The third (last) distillation fraction: mostly sesquiterpenes, little of the esters and ethers of the early fractions. Its product page lists 'Ylang III Organic Essential Oil Madagascar' among synonyms, so its origin is taken from the product name only. Kenny: 'I have 3 ylangs EO in my inventory' (30 Oct 2026 22:09:11 UTC). PerfumersWorld's product page and documents (read 30 Oct 2026) print the same generic figures for all three ylang SKUs (SG 0.9060, RI 1.4950; SDS SG 0.906-0.923; no composition; a 'no restricted materials' IFRA certificate), so they are not used as this oil's data; IFRA Standard 84 (ylang ylang extracts) still applies. The CoA batch reference is generated on the day the page is read, so no bottle lot is recorded. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-237",
+      "canonical_name": "Ylang Madagascar Complete Organic EO",
+      "aliases": [
+        "Ylang Madagascar Complete ORGANIC Ess. oil",
+        "Ylang Madagascar Complete ORGANIC EO",
+        "Ylang Madagascar Complete Organic"
+      ],
+      "state": "OWNED",
+      "category": "floral",
+      "stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261030_PW_260910_YLANG_MADAGASCAR_COMPLETE_ORGANIC",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Ylang Madagascar Complete ORGANIC Ess. oil",
+        "sku": "7NJ23635",
+        "order": "PW-260910-051700a45",
+        "pack": "1 g"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-10-30",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have 3 ylangs EO in my inventory",
+      "source_message_timestamp_utc": "2026-10-30T22:09:11Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "composition_published": false,
+        "shipped_email_seen": true
+      },
+      "note": "PerfumersWorld order PW-260910-051700a45 (THB 1,125.96, placed 10 Sep 2026, payment approved 10 Sep 16:21 ICT, shipped 11 Sep by Thai EMS ET787873388TH; k3nnyw mail), 1 g, neat as supplied; the CoA names it 'Ylang Madagascar Complete ORGANIC Ess. oil N1450'. It was on the 20 Oct email-sweep list of paid orders with no stock record; Kenny's 30 Oct words identify it as his third ylang. Kenny: 'I have 3 ylangs EO in my inventory' (30 Oct 2026 22:09:11 UTC). PerfumersWorld's product page and documents (read 30 Oct 2026) print the same generic figures for all three ylang SKUs (SG 0.9060, RI 1.4950; SDS SG 0.906-0.923; no composition; a 'no restricted materials' IFRA certificate), so they are not used as this oil's data; IFRA Standard 84 (ylang ylang extracts) still applies. The CoA batch reference is generated on the day the page is read, so no bottle lot is recorded. inventory.txt is not edited."
     }
   ]
 }
