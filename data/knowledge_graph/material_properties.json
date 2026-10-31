@@ -7665,7 +7665,7 @@
     "oav_dose_pct": 5.0,
     "smell_strength": null,
     "anosmic_risk": null,
-    "note": "heart",
+    "note": "top",
     "role": "character",
     "texture": "lift",
     "synergies": [
@@ -7733,6 +7733,12 @@
         "fields": {
           "smell_strength": "moderate",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "heart"
         }
       }
     ],
