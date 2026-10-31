@@ -57,7 +57,7 @@ def test_projection_recovers_live_owned_rows_and_aliases(tmp_path: Path) -> None
     assert sum(
         stock.authority == "LEGACY_INVENTORY_TEXT_DESIGN_ONLY"
         for stock in projection.stocks
-    ) >= 40  # about 45 since 2026-10-15, when 19 lines entered the gate
+    ) >= 35  # 38 since 2026-10-30, when the two Comoros ylang lines entered the gate
     assert projection.inventory_text_sha256
     assert projection.effective_inventory_sha256 != (
         projection.canonical_effective_inventory_sha256

@@ -113,7 +113,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 200.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.9445
   logp: null
   functional_groups: []
   chirality: null
@@ -131,14 +131,15 @@
   hedonic_valence: null
   ifra_max_pct_edp: null
   user_stock_dilution: 1.0
-  user_in_inventory: true
+  user_in_inventory: true  # Kenny 30 Oct 2026: 'I have 3 ylangs EO in my inventory' (overlay STK-235)
   supplier: null
   families:
   - floral materials
   character: null
-  notes: null
+  notes: 'PerfumersWorld 7NJ23636 (STK-235, order 260328-170326414, 3 g, neat): a complete oil blended from the first four distillation fractions, mainly No. 1 and No. 2. Composition: the EFSA 2022 five-batch Comoros profile (natural_absolute_decomposition). PW prints the same SG 0.9060 and RI 1.4950 for all three of its ylang SKUs, so those figures are not used.'
   provenance:
-    user_in_inventory: inventory.txt
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json'
+    density_25c_g_ml: 'EFSA FEEDAP Panel (2022) EFSA Journal 20(2):e07159 (https://doi.org/10.2903/j.efsa.2022.7159), section 3.2.1: five commercial Comoros batches, "the density (20°C) ranged between 944 and 945 kg/m3"; midpoint 0.9445 g/mL at 20 C, not 25 C; commercial Comoros oil similar to the first and second fractions, not this lot. Loaded 2026-10-30 (Kenny: ''I have 3 ylangs EO in my inventory'').'
 - canonical_name: Ylang Comoros Complete Essential Oil F3255
   aliases: []
   cas: null
@@ -322,7 +323,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 200.0
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.898
   logp: null
   functional_groups: []
   chirality: null
@@ -340,14 +341,15 @@
   hedonic_valence: null
   ifra_max_pct_edp: null
   user_stock_dilution: 1.0
-  user_in_inventory: true
+  user_in_inventory: true  # Kenny 30 Oct 2026: 'I have 3 ylangs EO in my inventory' (overlay STK-236)
   supplier: null
   families:
   - floral materials
   character: null
-  notes: null
+  notes: 'PerfumersWorld 7NJ17821 (STK-236, order 260328-170326414, 2 g, neat), third distillation fraction. Composition: Benveniste and Azzo (1992) grade III via The Good Scents Company (natural_absolute_decomposition). Biolandes, whose Comoros ylang oils PW names among its synonyms, describes Ylang Comoros III Organic as "floral family / slightly smoky, plastic, opulent" (sheet B3299).'
   provenance:
-    user_in_inventory: inventory.txt
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json'
+    density_25c_g_ml: 'Biolandes technical sheet B3299 YLANG COMOROS III ORGANIC OIL (https://www.biolandes.com/wp-content/uploads/fiche-technique-B3299.pdf): specific gravity D20/20 "0,8890 / 0,9100"; midpoint 0.8995 x 0.99820 g/mL (water at 20 C) = 0.898 g/mL at 20 C, not 25 C; producer specification, identity inferred (PW does not name its producer for this SKU). RI 1.5020-1.5090, optical rotation -55 to -25 degrees. Loaded 2026-10-30 (Kenny: ''I have 3 ylangs EO in my inventory'').'
 - canonical_name: Ylang Comoros III Essential Oil F3295
   aliases:
   - Ylang Comoros III essential oil F3295
@@ -459,6 +461,7 @@
   aliases:
   - Ylang Madagascar Complete ORGANIC Ess. oil N1450
   - Ylang Madagascar Complete ORGANIC EO
+  - Ylang Madagascar Complete Organic EO
   cas: null
   smiles: null
   inchikey: null
@@ -480,8 +483,8 @@
   trp_targets: null
   hedonic_valence: null
   ifra_max_pct_edp: null
-  user_stock_dilution: null
-  user_in_inventory: false
+  user_stock_dilution: 'neat'
+  user_in_inventory: true  # Kenny 30 Oct 2026: 'I have 3 ylangs EO in my inventory' (overlay STK-237)
   supplier:
     perfumersworld_sku: 7NJ23635
     perfumersworld_price_usd_per_g: 0.9
@@ -490,9 +493,10 @@
     other: {}
   families: []
   character: null
-  notes: null
+  notes: 'PerfumersWorld 7NJ23635 (STK-237, order PW-260910-051700a45, 1 g, neat). No open GC of a Madagascar complete oil was found; the engine uses the EFSA 2022 Comoros profile as a labelled proxy. The SG 0.906 below is the figure PW prints for all three of its ylang SKUs.'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    user_in_inventory: 'data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json'
     density_25c_g_ml: 'SG 0.9060, supplier-reported (PerfumersWorld 7NJ23635 "Ylang Madagascar Complete ORGANIC Ess. oil N1450"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement'
     density_basis: supplier_sg_temperature_unstated
 - canonical_name: Ylang Ylang EO

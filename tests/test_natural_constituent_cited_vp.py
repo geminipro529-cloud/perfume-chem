@@ -72,8 +72,10 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     ("oakmoss absolute (10% in dpg)", "evernyl", 0.05, 0.00227),
     # p-Cresyl methyl ether: RIFM-quoted US EPA estimate 1.2 mm Hg at 25 C
     # (FMA 1.3 mm Hg at 20 C).
-    ("ylang comoros complete eo f3255", "p-cresyl methyl ether", 30.0, 243.0),
-    ("ylang comoros iii eo f3295", "p-cresyl methyl ether", 30.0, 243.0),
+    # 2026-10-30: Kenny's ylang oils take sourced grade profiles that reuse the row.
+    ("ylang ylang oil comoros efsa 2022 five-batch profile", "p-cresyl methyl ether", 30.0, 243.0),
+    ("ylang ylang oil grade iii benveniste azzo 1992 profile", "p-cresyl methyl ether", 30.0, 243.0),
+    ("ylang ylang oil comoros efsa 2022 five-batch profile", "farnesol", 0.05, 0.005253),
     ("ylang ylang eo (extra grade)", "p-cresyl methyl ether", 30.0, 243.0),
     # 2026-10-25 physics batch 1: the frangipani profile reuses the module's citral
     # and citronellol rows, so the cited citral (above) and citronellol (ECHA

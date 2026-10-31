@@ -195,7 +195,6 @@ def test_neat_and_one_percent_2_acetyl_pyrazine_bind_separately() -> None:
         ("Cocoa CO2 7.7%", 0.077, None, "IDCL-009", 79),
         ("Ethyl Maltol 10%", 0.10, None, "IDCL-011", 266),
         ("Peru Balsam 50%", 0.50, None, "IDCL-016", 201),
-        ("Ylang Complete EO", 1.0, "inventory_stock_unavailable", "IDCL-018", 251),
     ],
 )
 def test_aliases_preserve_native_hold_preparation_gap_and_abstention(
@@ -220,6 +219,21 @@ def test_aliases_preserve_native_hold_preparation_gap_and_abstention(
     assert issue["reason"] == reason
     assert issue["identity_crosswalk_contract_id"] == contract_id
     assert source_row in issue.get("source_rows", issue.get("requirement_source_rows", []))
+
+
+def test_generic_ylang_label_still_abstains_once_the_exact_stocks_exist() -> None:
+    # 2026-10-30: Kenny's three ylang oils are owned (STK-235..237) and V5 row 251 is
+    # resolved, so the guarded alias finds no unresolved row; it still binds nothing.
+    generic = _dilution_consistency_check(_formula("Ylang Complete EO", 1.0))
+    exact = _dilution_consistency_check(_formula("Ylang Comoros Complete EO F3255", 1.0))
+
+    assert generic.status == "FAIL"
+    issue = generic.data["issues"][0]
+    assert issue["reason"] == "not_in_inventory"
+    assert issue["identity_crosswalk_contract_id"] == "IDCL-018"
+    assert issue["inventory_lookup_label"] == "Ylang-Ylang EO"
+    assert exact.status == "PASS", exact.data.get("issues")
+    assert exact.data["matched_stocks"][0]["source_rows"] == [251]
 
 
 def test_exact_fraction_and_unknown_label_remain_fail_closed() -> None:

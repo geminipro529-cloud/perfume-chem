@@ -948,6 +948,54 @@ _YLANG_YLANG_EO_CONSTITUENTS = [
     ("geranyl acetate", 0.02, 196.29, 5.0, 10.0, 2.0),
 ]
 
+# Ylang ylang oil, Comoros, EFSA FEEDAP Panel (2022) EFSA Journal 20(2):e07159,
+# doi:10.2903/j.efsa.2022.7159, Tables 2 and 3: GC-MS means of five commercial batches, all
+# from Comoros, % GC area (all detected peaks = 100). EFSA calls the oil "similar to the ISO's
+# first and second fractions"; PerfumersWorld's Complete is blended from the first four
+# fractions, mainly No. 1 and No. 2. Used for the owned Ylang Comoros Complete F3255 and, as a
+# labelled proxy, the Madagascar Complete Organic. Fifteen rows (69.89%) reuse this module's
+# runtime inputs; 25.54% is listed without one and stays unresolved; nothing is renormalized.
+_YLANG_COMOROS_EFSA_2022_CONSTITUENTS = [
+    ("germacrene d", 0.175, 204.35, 1.0, 5.0, 1.2),
+    ("alpha farnesene", 0.134, 204.35, 0.50, 1.00, 1.2),
+    ("beta caryophyllene", 0.071, 204.35, 1.0, 10.0, 1.2),
+    ("benzyl benzoate", 0.067, 212.24, 0.02, 810.0, 0.5),
+    ("benzyl acetate", 0.064, 150.17, 20.0, 2.0, 2.0),
+    ("linalool", 0.043, 154.25, 21.3, 1.5, 2.0),
+    ("benzyl salicylate", 0.0382, 228.24, 0.01, 50.0, 0.5),
+    ("geranyl acetate", 0.0333, 196.29, 2.00, 10.0, 1.5),
+    ("methyl benzoate", 0.0285, 136.15, 50.0, 0.5, 2.0),
+    ("p-cresyl methyl ether", 0.0192, 122.16, 30.0, 1.0, 2.0),
+    ("farnesol", 0.0171, 222.37, 0.05, 3.0, 0.6),
+    ("caryophyllene oxide", 0.0039, 220.35, 0.10, 2.00, 0.6),
+    ("isoeugenol", 0.0022, 164.20, 1.00, 0.10, 1.5),
+    ("geraniol", 0.0015, 154.25, 4.0, 2.0, 1.5),
+    ("alpha pinene", 0.0010, 136.24, 400.0, 20.0, 3.0),
+]
+
+# Ylang ylang oil grade III, Benveniste and Azzo (1992) Kato Technical Bulletin and Newsletter
+# VI, as reproduced in Perfumer & Flavorist 20(2):49 (1995) and by The Good Scents Company
+# (gca/gc1001792, "Ylang ylang flower oil III"); GC %, origin not printed. Used for the owned
+# Ylang Comoros III F3295. "para-methyl cresol" (0.39%; 5.75% in the same source's grade I)
+# is read as p-cresyl methyl ether. Fourteen rows (69.97%) reuse this module's runtime
+# inputs; 19.43% is printed without one and stays unresolved; nothing is renormalized.
+_YLANG_III_BENVENISTE_AZZO_1992_CONSTITUENTS = [
+    ("alpha farnesene", 0.2375, 204.35, 0.50, 1.00, 1.2),
+    ("germacrene d", 0.2165, 204.35, 1.0, 5.0, 1.2),
+    ("beta caryophyllene", 0.1239, 204.35, 1.0, 10.0, 1.2),
+    ("benzyl benzoate", 0.0543, 212.24, 0.02, 810.0, 0.5),
+    ("benzyl salicylate", 0.0281, 228.24, 0.01, 50.0, 0.5),
+    ("geranyl acetate", 0.0121, 196.29, 2.00, 10.0, 1.5),
+    ("linalool", 0.0076, 154.25, 21.3, 1.5, 2.0),
+    ("benzyl acetate", 0.0069, 150.17, 20.0, 2.0, 2.0),
+    ("p-cresyl methyl ether", 0.0039, 122.16, 30.0, 1.0, 2.0),
+    ("isoeugenol", 0.0036, 164.20, 1.00, 0.10, 1.5),
+    ("methyl benzoate", 0.0020, 136.15, 50.0, 0.5, 2.0),
+    ("geraniol", 0.0019, 154.25, 4.0, 2.0, 1.5),
+    ("alpha pinene", 0.0008, 136.24, 400.0, 20.0, 3.0),
+    ("eugenol", 0.0006, 164.20, 2.50, 0.50, 1.5),
+]
+
 _BLUE_CHAMOMILE_EO_CONSTITUENTS = [
     # Matricaria chamomilla — GC-O constituents from published literature.
     # References: Orav et al. (2008) J. Essent. Oil Res. 20, 6—12;
@@ -1172,7 +1220,9 @@ _MAGNOLIA_OFFICINALIS_FLOS_LIU_2025_S1_CONSTITUENTS = [
 # Table 2, steam distillation (fresh Thai flowers, 500 g, 4 h; GC-MS relative peak area, DB-5).
 # Used for the owner's Magnolia EO, which is Michelia alba flower oil (owner-confirmed; Shopee
 # shop "True Industry"; Kenny, 28 Oct 2026: "there i anotheer magnlia eo but it micahelia alba
-# eo"). Replaces the Zhu (1993) table, which was read from scent.vn (not an accepted source).
+# eo"; plant part flower, Kenny 30 Oct 2026: "Flower, msr check"; not a MySkinRecipes bottle,
+# none of his MSR purchases is a Michelia or magnolia oil). Replaces the Zhu (1993) table,
+# which was read from scent.vn (not an accepted source).
 # Only nine peaks were reported, so the percentages are shares of the identified peaks. Five
 # constituents (5.09%) have no runtime input and stay unresolved; nothing is renormalized.
 _MICHELIA_ALBA_FLOWER_PUNJEE_2009_STEAM_CONSTITUENTS = [
@@ -1575,8 +1625,10 @@ _ABSOLUTE_CONSTITUENTS = {
     "mimosa absolute": _MIMOSA_ABSOLUTE_CONSTITUENTS,
     "violet leaf absolute": _VIOLET_LEAF_ABSOLUTE_CONSTITUENTS,
     "ylang ylang eo (extra grade)": _YLANG_YLANG_EO_CONSTITUENTS,
-    "ylang comoros complete eo f3255": _YLANG_YLANG_EO_CONSTITUENTS,
-    "ylang comoros iii eo f3295": _YLANG_YLANG_EO_CONSTITUENTS,
+    "ylang ylang oil comoros efsa 2022 five-batch profile": _YLANG_COMOROS_EFSA_2022_CONSTITUENTS,
+    "ylang ylang oil grade iii benveniste azzo 1992 profile": (
+        _YLANG_III_BENVENISTE_AZZO_1992_CONSTITUENTS
+    ),
     # Citrus EOs
     "citrus bergamia calabrian type iso 3520 midpoint profile": (
         _BERGAMOT_ISO_3520_MIDPOINT_CONSTITUENTS
@@ -1807,6 +1859,16 @@ _PROFILE_ALIASES = {
     "orris butter 50% in etoh": "iris rhizome concrete 8 pct irone low grade scenario profile",
     "orris butter 50%": "iris rhizome concrete 8 pct irone low grade scenario profile",
     "ylang": "ylang ylang eo (extra grade)",
+    # Kenny's three PerfumersWorld ylang oils (30 Oct 2026: "I have 3 ylangs EO in my inventory").
+    "ylang comoros complete eo f3255": "ylang ylang oil comoros efsa 2022 five-batch profile",
+    "ylang comoros complete eo": "ylang ylang oil comoros efsa 2022 five-batch profile",
+    "ylang-ylang comoros complete eo": "ylang ylang oil comoros efsa 2022 five-batch profile",
+    "ylang madagascar complete organic eo": "ylang ylang oil comoros efsa 2022 five-batch profile",
+    "ylang madagascar complete organic ess. oil": "ylang ylang oil comoros efsa 2022 five-batch profile",
+    "ylang comoros iii eo f3295": "ylang ylang oil grade iii benveniste azzo 1992 profile",
+    "ylang comoros iii eo": "ylang ylang oil grade iii benveniste azzo 1992 profile",
+    "ylang-ylang comoros iii eo": "ylang ylang oil grade iii benveniste azzo 1992 profile",
+    "ylang iii": "ylang ylang oil grade iii benveniste azzo 1992 profile",
     "cedarwood virginia": "cedarwood eo",
     "benzoin sumatra resinoid": "benzoin resinoid",
     "lavender eo high altitude": "lavender eo",
@@ -1893,7 +1955,7 @@ _PROFILE_ALIASES = {
         "oman boswellia resin ethanol tincture generic profile"
     ),
     # Owner stock "Magnolia EO (neat / as supplied)": Michelia alba flower oil
-    # (owner-confirmed species; Shopee shop "True Industry").
+    # (owner-confirmed species and plant part; Shopee shop "True Industry").
     "magnolia eo": "michelia alba flower oil punjee 2009 steam distillation profile",
     # PerfumersWorld 7NS25173 Ginger Lily Oil: H. spicatum rhizome oil, the closest identity
     # (Kenny's strip test, 28 Oct 2026: "Ginger root, check on msr").
@@ -2024,7 +2086,18 @@ _BERGAMOT_FCF_PROXY_LIMITATIONS = (
     "This headspace proxy supplies no furocoumarin assay or skin-safety clearance.",
 )
 
+_YLANG_MADAGASCAR_PROXY_LIMITATIONS = (
+    "PerfumersWorld 7NJ23635 is a Madagascar complete organic oil; no open GC of a Madagascar "
+    "complete oil was found, so it takes the Comoros five-batch profile (EFSA 2022) as a "
+    "labelled closest-identity proxy, not an analysis of a Madagascar oil or this lot.",
+    "Ng et al. (2021, Flavour Fragr. J.) report Madagascar oils higher in geranyl acetate, "
+    "benzyl benzoate, humulene and caryophyllene, and Comoros oils higher in cinnamyl acetate, "
+    "benzyl salicylate, farnesyl acetate and alpha-farnesene; their figures were not read.",
+)
+
 _PROFILE_PROXY_LIMITATIONS: dict[str, tuple[str, ...]] = {
+    "ylang madagascar complete organic eo": _YLANG_MADAGASCAR_PROXY_LIMITATIONS,
+    "ylang madagascar complete organic ess. oil": _YLANG_MADAGASCAR_PROXY_LIMITATIONS,
     "bergamot fcf sicilian": _BERGAMOT_FCF_PROXY_LIMITATIONS,
     "bergamot fcf": _BERGAMOT_FCF_PROXY_LIMITATIONS,
     "lavender 40/42, aroma&more": _LAVENDER_40_42_PROXY_LIMITATIONS,
@@ -2296,6 +2369,16 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC11576735/",
         "https://doi.org/10.1038/s41598-024-79712-5",
         "https://www.thegoodscentscompany.com/data/es1067151.html",
+    ),
+    "ylang ylang oil comoros efsa 2022 five-batch profile": (
+        "https://doi.org/10.2903/j.efsa.2022.7159",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC8867525/",
+        "https://www.perfumersworld.com/view.php?pro_id=7NJ23636",
+        "https://www.perfumersworld.com/view.php?pro_id=7NJ23635",
+    ),
+    "ylang ylang oil grade iii benveniste azzo 1992 profile": (
+        "https://www.thegoodscentscompany.com/gca/gc1001792.html",
+        "https://www.perfumersworld.com/view.php?pro_id=7NJ17821",
     ),
     "michelia alba flower oil punjee 2009 steam distillation profile": (
         "https://li01.tci-thaijo.org/index.php/anres/article/view/244814",
@@ -3449,6 +3532,109 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "57.34% is modeled; 30.73% is printed but has no runtime input, 0.74% is not itemized and four trace rows (<0.20%) carry no value. Later stages shift beta-caryophyllene (30.07 to 17.31%) to its oxide (18.72 to 33.81%).",
         ),
     },
+    "ylang ylang oil comoros efsa 2022 five-batch profile": {
+        "analytical_method": "PUBLISHED_GC_MS_COMMERCIAL_OIL_FIVE_BATCH_MEAN",
+        "composition_basis": "GC_MS_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://doi.org/10.2903/j.efsa.2022.7159",
+                "document": "EFSA FEEDAP Panel (2022) Safety and efficacy of a feed additive consisting of an essential oil from the flowers of Cananga odorata (ylang ylang oil) for use in all animal species (FEFANA asbl). EFSA Journal 20(2):e07159, Tables 2 and 3",
+                "published_botanical_name": "Cananga odorata (Lam.) Hook.f. & Thomson",
+                "published_type": "Steam-distilled flower oil, five commercial batches from Comoros; similar to the ISO first and second fractions",
+                "reported_sum_pct_tables_2_and_3": 97.4,
+                "batch_density_20c_kg_m3": "944-945",
+                "batch_refractive_index_20c": "1.503-1.508",
+                "safrole_isosafrole_methyleugenol": "not detected (LOD 0.002%)",
+                "fraction_rule": "REPORTED_MEAN_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Ylang Comoros Complete EO F3255 (PerfumersWorld 7NJ23636); Ylang Madagascar Complete Organic EO (7NJ23635) as a labelled proxy",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("germacrene d", "alpha farnesene", "beta caryophyllene", "benzyl benzoate",
+                            "benzyl acetate", "linalool", "benzyl salicylate", "geranyl acetate",
+                            "methyl benzoate", "p-cresyl methyl ether", "farnesol",
+                            "caryophyllene oxide", "isoeugenol", "geraniol", "alpha pinene")},
+        },
+        "unresolved_constituents": (
+            {"name": "(E,E)-farnesyl acetate", "reported_fraction": 0.0408, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "delta-cadinene", "reported_fraction": 0.0313, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "cinnamyl acetate", "reported_fraction": 0.0274, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-cadinol", "reported_fraction": 0.0232, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-humulene", "reported_fraction": 0.0228, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "gamma-muurolene", "reported_fraction": 0.0146, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-copaene", "reported_fraction": 0.0131, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "tau-cadinol", "reported_fraction": 0.0129, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-muurolene", "reported_fraction": 0.0093, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "gamma-cadinene", "reported_fraction": 0.0087, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "gamma-amorphene", "reported_fraction": 0.0083, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "delta-cadinol", "reported_fraction": 0.0064, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "tau-muurolol", "reported_fraction": 0.005, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "(Z,E)-alpha-farnesene", "reported_fraction": 0.005, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "bicyclogermacrene", "reported_fraction": 0.0044, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "junenol", "reported_fraction": 0.0041, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "beta-elemene", "reported_fraction": 0.0037, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "beta-copaene", "reported_fraction": 0.0036, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "cubenol", "reported_fraction": 0.003, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "prenyl benzoate", "reported_fraction": 0.0029, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-cadinene", "reported_fraction": 0.0025, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "prenyl acetate", "reported_fraction": 0.0024, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "Composition is the mean of five commercial Comoros batches analysed for an EFSA feed-additive dossier, not an analysis of the owned PerfumersWorld lots; PerfumersWorld publishes no composition for its ylang oils.",
+            "69.89% is modeled; the 22 listed rows above (25.54%) have no runtime input and are uncomputed, not odorless. Not itemized: 1.97% of smaller Table 3 rows (each under 0.24%), 1.18% of traces (35 compounds under 0.1%) and 1.4% of unidentified peaks. Nothing is renormalized.",
+            "EFSA notes the batches lie inside its ISO 3063-based specification (germacrene D 9.5-28%, alpha-farnesene 3-21%, linalool 2-19%, benzyl acetate 0.5-14%, benzyl benzoate 4.2-10%, beta-caryophyllene 4-17%).",
+        ),
+    },
+    "ylang ylang oil grade iii benveniste azzo 1992 profile": {
+        "analytical_method": "PUBLISHED_GC_COMMERCIAL_GRADE_III_OIL",
+        "composition_basis": "GC_AREA_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.thegoodscentscompany.com/gca/gc1001792.html",
+                "document": "B. Benveniste and N. Azzo, Kato Technical Bulletin and Newsletter, Vol. VI, 30 June 1992; Perfumer & Flavorist 20(2):49 (1995); as listed by The Good Scents Company, 'Ylang ylang flower oil III'",
+                "published_botanical_name": "Cananga odorata (ylang ylang)",
+                "published_type": "Commercial ylang ylang oil, third grade; origin not printed",
+                "reported_sum_pct": 89.4,
+                "name_reading": {"para-methyl cresol": "p-cresyl methyl ether"},
+                "fraction_rule": "REPORTED_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Ylang Comoros III EO F3295 (PerfumersWorld 7NJ17821)",
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("alpha farnesene", "germacrene d", "beta caryophyllene", "benzyl benzoate",
+                            "benzyl salicylate", "geranyl acetate", "linalool", "benzyl acetate",
+                            "p-cresyl methyl ether", "isoeugenol", "methyl benzoate", "geraniol",
+                            "alpha pinene", "eugenol")},
+        },
+        "unresolved_constituents": (
+            {"name": "delta-cadinene", "reported_fraction": 0.0367, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-humulene", "reported_fraction": 0.0362, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "(E,E)-alpha-farnesyl acetate", "reported_fraction": 0.0346, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "T-amorphol", "reported_fraction": 0.0193, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-copaene", "reported_fraction": 0.016, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "(Z,Z)-alpha-farnesyl acetate", "reported_fraction": 0.0156, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "gamma-cadinene", "reported_fraction": 0.0125, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "cinnamyl acetate", "reported_fraction": 0.0088, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "beta-cubebene + beta-elemene", "reported_fraction": 0.0054, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "beta-cedrene", "reported_fraction": 0.0046, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "prenyl benzoate", "reported_fraction": 0.0027, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "(E)-anethole", "reported_fraction": 0.0009, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "1,8-cineole + limonene", "reported_fraction": 0.0003, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "2-phenethyl acetate", "reported_fraction": 0.0002, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "prenyl acetate", "reported_fraction": 0.0002, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-terpineol + methyl chavicol", "reported_fraction": 0.0002, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "iso prenyl acetate", "reported_fraction": 0.0001, "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "Composition is one published commercial grade III analysis (1992, origin not printed), not an analysis of the owned PerfumersWorld lot.",
+            "69.97% is modeled; the 17 listed rows above (19.43%) have no runtime input and are uncomputed, not odorless; the printed rows sum to 89.4%, so about 10.6% is not itemized. Nothing is renormalized.",
+            "'para-methyl cresol' is read as p-cresyl methyl ether (the ether is the ylang marker; the same source prints 5.75% in grade I).",
+        ),
+    },
     "michelia alba flower oil punjee 2009 steam distillation profile": {
         "analytical_method": "PUBLISHED_GC_MS_STEAM_DISTILLED_OIL",
         "composition_basis": "GC_MS_AREA_NOMINAL_MODEL_PROXY",
@@ -3481,7 +3667,8 @@ _PARTIAL_PROFILE_EVIDENCE = {
                 "owned_stock_label": "Magnolia EO (neat / as supplied)",
                 "owned_species": "Michelia alba (owner-confirmed; Kenny 28 Oct 2026)",
                 "owned_supplier_reference": "Shopee shop True Industry",
-                "owned_plant_part_recorded": False,
+                "owned_plant_part_recorded": True,
+                "owned_plant_part": "flower (owner-confirmed; Kenny 30 Oct 2026: 'Flower, msr check')",
             },
             **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
                for name in ("linalool", "methyl eugenol", "beta caryophyllene", "germacrene d")},
@@ -3519,7 +3706,7 @@ _PARTIAL_PROFILE_EVIDENCE = {
             },
         ),
         "limitations": (
-            "The composition is one published Thai flower distillation (Punjee et al. 2009), not an analysis of the owned Shopee True Industry bottle; plant part and process of the owned oil are not recorded (steam-distilled flower oil is assumed).",
+            "The composition is one published Thai flower distillation (Punjee et al. 2009), not an analysis of the owned Shopee True Industry bottle. The plant part is owner-confirmed flower (30 Oct 2026); the process is not recorded (steam distillation is assumed). The bottle is not from MySkinRecipes.",
             "Only nine peaks were reported, so trace odorants are missing and the percentages are shares of the identified peaks. 94.92% is modeled; five constituents (5.09%, including the fruity methyl and ethyl 2-methylbutyrate) are uncomputed, not odorless. Nothing is renormalized.",
             "The same paper's water distillation gives more methyl eugenol (3.59%); IFRA uses that higher value.",
             "Michelia alba flower oil is non-equivalent to Michelia champaca absolute, to Michelia alba absolutes (indole and phenylethyl alcohol rich in the same paper) and to Magnolia leaf oils.",
