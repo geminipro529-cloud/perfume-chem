@@ -1,0 +1,3169 @@
+{
+ "schema": "literature_character_profiles_v1",
+ "created": "2026-10-31",
+ "requested_by": "Kenny, 31 Oct 2026 01:56 UTC: \"Do literature research and fix this as best as possible\" (owned, execution-ready stocks with no character scores)",
+ "character_evidence": {
+  "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+  "method": "Ranked sources (producer texts, then The Good Scents Company, then Arctander/P&F, then supplier pages). Descriptors mapped to the 13 engine dimensions, position-weighted, scored 10*(1-exp(-0.6*raw)) per source family (producer 1.0, TGSC 1.0, literature 0.8, supplier 0.5), combined with the peak held at the mean of the family peaks. Checked against the engine's own hand profiles: 2.0 points mean held-out error versus 4.1 for no data. Design value, not a sensory measurement (RULE 1)."
+ },
+ "note_evidence": {
+  "status": "LITERATURE_VOLATILITY_RULE",
+  "method": "TGSC substantivity at 100%: 12 h or less top, 200 h or less heart, else base. Engine vapour pressure: 10 Pa or more top, 0.1 Pa or more heart, else base. Vapour pressure decides when they disagree. A producer's own note statement overrides both (stated in note_basis)."
+ },
+ "role_unchanged": true,
+ "profiles": [
+  {
+   "profile_key": "Acetoin",
+   "identity": "Acetoin",
+   "stock_ids": [
+    "inventory:user-20261014:5331c7a376355ff7740d"
+   ],
+   "character": {
+    "creamy": 8.0,
+    "sweetness": 5.0
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity class 1 (28 hour(s) at 100.00 %), VP class 0 (360.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "buttery",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "buttery",
+     "sweet",
+     "creamy",
+     "milky"
+    ],
+    "supplier": [
+     "dairy",
+     "fatty",
+     "buttery-oily",
+     "creamy-fatty",
+     "caramel",
+     "sweet caramel creamy sour green buttery"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Producer text as carried by TGSC (Advanced Biotech, Lluch Essence, Vigon, De Monchy)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1007331.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC acetoin page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1007331.html"
+    },
+    {
+     "rank": 3,
+     "source": "Leffingwell (local pyrfume)",
+     "url": "local pyrfume leffingwell_behavior.csv"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 4DV02664 (Kenny's bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4DV02664"
+    }
+   ],
+   "identity_notes": "Acetoin = 3-hydroxybutan-2-one (acetyl methyl carbinol). Commodity material, no single producer; producer quotes taken from TGSC's 'descriptions from others' block. PW recommends 'BEST USED IN 10% or even 1% DILUTION'."
+  },
+  {
+   "profile_key": "Aldehyde C-9 Nonanal",
+   "identity": "Aldehyde C-9 Nonanal",
+   "stock_ids": [
+    "inventory:user-20261014:313c5a3ee3552030426b"
+   ],
+   "character": {
+    "floral": 2.5,
+    "freshness": 6.0,
+    "green": 2.5
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity class 2 (276 hour(s) at 100.00 %), VP class 0 (49.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "aldehydic",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "aldehydic",
+     "waxy",
+     "orange peel",
+     "orris"
+    ],
+    "producer": [
+     "citrus",
+     "floral",
+     "rose",
+     "fatty",
+     "green",
+     "orange"
+    ],
+    "literature": [
+     "fresh",
+     "green lemon peel",
+     "cucumber fattiness"
+    ],
+    "supplier": [
+     "fatty citrus orange peel"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Producer descriptions quoted by TGSC: Firmenich ALDEHYDE C 9, Givaudan Aldehyde C 9 Nonylic, Bedoukian ALDEHYDE C-9",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000292.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC nonanal page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000292.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969 as quoted by Pell Wall Perfumes on TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000292.html"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local pyrfume)",
+     "url": "local pyrfume leffingwell_behavior.csv"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 4AC00027",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00027"
+    }
+   ],
+   "identity_notes": "Nonanal (pelargonaldehyde). Commodity aldehyde made by several producers (Givaudan, Firmenich, Kao, Bedoukian)."
+  },
+  {
+   "profile_key": "Berry Hexanoate (BerryFlor)",
+   "identity": "Berry Hexanoate (BerryFlor)",
+   "stock_ids": [
+    "inventory:user-20261014:8ba301a6763487137030"
+   ],
+   "character": {
+    "floral": 5.0,
+    "freshness": 4.0,
+    "spicy": 2.0,
+    "sweetness": 4.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (24 hour(s) at 100.00 %), VP class 1 (2.37 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "fruity",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "fruity",
+     "raspberry",
+     "floral",
+     "jasmine",
+     "anisic",
+     "balsamic",
+     "fresh"
+    ],
+    "tgsc": [
+     "fruity floral anisic fresh raspberry jasmin"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan Berryflor product page",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/berryflortm"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC berry hexanoate page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1061362.html"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 3FG19149",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3FG19149"
+    }
+   ],
+   "identity_notes": "Berryflor (Givaudan) = berry hexanoate = ethyl 6-acetoxyhexanoate, C10H18O4, MW 202.2. Also sold as Jasminoberry (Tadimety). PW product matches the Givaudan material (PW text repeats Givaudan's description)."
+  },
+  {
+   "profile_key": "Butyl Butyrate",
+   "identity": "Butyl Butyrate",
+   "stock_ids": [
+    "inventory:user-20261014:f92961d40feffc2148c0"
+   ],
+   "character": {
+    "freshness": 3.5,
+    "green": 1.5,
+    "radiance": 4.5,
+    "sweetness": 5.5
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity class 0 (8 hour(s) at 100.00 %), VP class 0 (241.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "fruity",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "fruity",
+     "banana",
+     "pineapple",
+     "cherry"
+    ],
+    "literature": [
+     "sweet",
+     "fresh",
+     "diffusive",
+     "ripe"
+    ],
+    "producer": [
+     "green",
+     "estery",
+     "raspberry"
+    ],
+    "supplier": [
+     "apple",
+     "berry",
+     "peach",
+     "pear",
+     "fruity pineapple sweet apple"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Producer lines quoted by TGSC (Moellhausen, Vigon, Sigma-Aldrich)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1014091.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC butyl butyrate page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1014091.html"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local pyrfume)",
+     "url": "local pyrfume leffingwell_behavior.csv"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 3FD05860",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3FD05860"
+    }
+   ],
+   "identity_notes": "n-Butyl butanoate. Kenny's receipt references PW SKU 3FD05860; PW page exists and matches. Commodity ester, no single producer."
+  },
+  {
+   "profile_key": "Cedryl Acetate",
+   "identity": "Cedryl Acetate",
+   "stock_ids": [
+    "inventory:user-20261014:18431814c087d4fa6259"
+   ],
+   "character": {
+    "powdery": 1.5,
+    "sweetness": 1.5,
+    "woody": 5.5
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 2 (0.081 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "woody",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "woody",
+     "sharp dry woody cedar",
+     "powdery"
+    ],
+    "producer": [
+     "cedar",
+     "sweet woody"
+    ],
+    "literature": [
+     "leathery",
+     "earthy"
+    ],
+    "supplier": [
+     "leather",
+     "balsamic",
+     "woody sharp dry cedar soft earthy"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "IFF Cedryl Acetate compendium page",
+     "url": "https://www.iff.com/scent/ingredients-compendium/cedryl-acetate"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC cedryl acetate page",
+     "url": "https://thegoodscentscompany.com/data/rw1002481.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969 as quoted on TGSC (Pell Wall block)",
+     "url": "https://thegoodscentscompany.com/data/rw1002481.html"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local)",
+     "url": "local pyrfume leffingwell_behavior.csv"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 2WW00099",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=2WW00099"
+    }
+   ],
+   "identity_notes": "Cedrol acetate (cedran-8-yl acetate). Sold as crystals or liquid; PW lists 'Colourless - pale straw oily liquid or crystals'. Liquid grades (50-70% ester) can differ from crystals."
+  },
+  {
+   "profile_key": "Ethyl Linalyl Acetate",
+   "identity": "Ethyl Linalyl Acetate",
+   "stock_ids": [
+    "inventory:user-20261014:d1adde7e70de65dd1c6e"
+   ],
+   "character": {
+    "floral": 7.0,
+    "freshness": 7.0,
+    "sweetness": 3.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (16 hour(s) at 100.00 %), VP class 1 (4.25 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "citrus",
+     "bergamot",
+     "fruity",
+     "pear",
+     "fresh",
+     "floral than linalyl acetate",
+     "lavender"
+    ],
+    "tgsc": [
+     "floral",
+     "tropical",
+     "rose"
+    ],
+    "supplier": [
+     "fresh bergamot"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan Ethyl Linalyl Acetate page",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-linalyl-acetate"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC ethyl linalyl acetate page",
+     "url": "http://thegoodscentscompany.com/data/rw1022781.html"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local)",
+     "url": "local pyrfume leffingwell_behavior.csv"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 3LC19147",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3LC19147"
+    }
+   ],
+   "identity_notes": "(E/Z)-3,7-dimethyl-1,6-nonadien-3-yl acetate (homolinalyl acetate). Givaudan is the main producer; BASF grade also exists (Ventós listing)."
+  },
+  {
+   "profile_key": "Gamma Octalactone",
+   "identity": "Gamma Octalactone",
+   "stock_ids": [
+    "inventory:user-20261014:d702637863d495834772"
+   ],
+   "character": {
+    "creamy": 6.0,
+    "sweetness": 5.0
+   },
+   "note": "heart",
+   "note_basis": "Arctander via TGSC: \"excellent tenacity\"; TGSC 144 h; VP alone says top",
+   "tgsc_odor_type": "coconut",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "coconut",
+     "sweet",
+     "waxy",
+     "creamy",
+     "dairy",
+     "milky",
+     "fatty"
+    ],
+    "literature": [
+     "tonka",
+     "peach",
+     "apricot",
+     "fruity"
+    ],
+    "supplier": [
+     "herbaceous",
+     "sweet creamy dairy fatty oily coconut"
+    ],
+    "producer": [
+     "characteristic coconut"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Bedoukian gamma-OCTALACTONE (quoted by TGSC, Bedoukian SDS link on page)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1006542.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC gamma-octalactone page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1006542.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969 as quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1006542.html"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local)",
+     "url": "local pyrfume leffingwell_behavior.csv"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 4DD00331",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4DD00331"
+    }
+   ],
+   "identity_notes": "gamma-Octalactone = 5-butyloxolan-2-one (octan-4-olide). Commodity lactone; Bedoukian is a main producer (its text is quoted by TGSC)."
+  },
+  {
+   "profile_key": "Maltol",
+   "identity": "Maltol",
+   "stock_ids": [
+    "inventory:user-20261014:8417b1941b60f97f9991"
+   ],
+   "character": {
+    "smoky": 2.0,
+    "sweetness": 6.5,
+    "warmth": 2.0
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class None (372 hour(s) at 20.00 % in benzyl alcohol), VP class 2 (0.068 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "caramellic",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "caramellic",
+     "sweet",
+     "cotton candy",
+     "bready"
+    ],
+    "literature": [
+     "jammy fruity",
+     "burnt"
+    ],
+    "supplier": [
+     "strawberry",
+     "caramel-butter",
+     "fruity-strawberry",
+     "sweet caramel cotton-candy jam fruity burnt"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Producer lines quoted by TGSC (Alfrebro, Oamic, Ventós, Indukern etc.)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1002341.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC maltol page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1002341.html"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local)",
+     "url": "local pyrfume leffingwell_behavior.csv"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 1VE00283",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=1VE00283"
+    }
+   ],
+   "identity_notes": "3-Hydroxy-2-methyl-4-pyrone; white powder (mp 159-162 °C), so used dissolved. TGSC substantivity is measured 'at 20.00 % in benzyl alcohol'. Commodity material."
+  },
+  {
+   "profile_key": "Methyl Diantilis",
+   "identity": "Methyl Diantilis",
+   "stock_ids": [
+    "inventory:user-20261014:612d88969cbeaf23cfda"
+   ],
+   "character": {
+    "creamy": 1.5,
+    "floral": 3.5,
+    "powdery": 1.5,
+    "smoky": 1.5,
+    "spicy": 5.5,
+    "sweetness": 4.5,
+    "warmth": 5.0,
+    "woody": 2.0
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 2 (0.0057 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "cas": "5595-79-9",
+   "cas_source": "Givaudan Methyl Diantilis page 'CAS no. 5595-79-9'; TGSC 'dianthus ethone, 5595-79-9'; PW 4SP16859 'CAS No. 5595-79-9'",
+   "tgsc_odor_type": "spicy",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "spicy",
+     "carnation",
+     "vanilla",
+     "sweet",
+     "powdery"
+    ],
+    "tgsc": [
+     "floral",
+     "clove",
+     "burnt wood",
+     "balsamic"
+    ],
+    "supplier": [
+     "spicy",
+     "vanilla",
+     "balsamic",
+     "smooth"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan Methyl Diantilis page",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-diantilistm"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC dianthus ethone page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009761.html"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 4SP16859",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4SP16859"
+    }
+   ],
+   "identity_notes": "Methyl Diantilis (Givaudan) = 2-ethoxy-4-(methoxymethyl)phenol, C10H14O3, MW 182.2; TGSC name 'dianthus ethone'. (The CAS 5595-79-7 is not this material; the verified CAS ends -9.)"
+  },
+  {
+   "profile_key": "Rhubofix",
+   "identity": "Rhubofix",
+   "stock_ids": [
+    "inventory:user-20261014:ff605073d2047294a2f6"
+   ],
+   "character": {
+    "floral": 4.0,
+    "freshness": 5.5,
+    "green": 3.5,
+    "spicy": 4.0,
+    "sweetness": 2.0,
+    "warmth": 2.0,
+    "woody": 5.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (96 hour(s) at 100.00 %), VP class 1 (0.98 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "woody",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "woody",
+     "green rhubarb",
+     "grapefruit",
+     "spicy",
+     "floral",
+     "fruity",
+     "zesty freshness"
+    ],
+    "tgsc": [
+     "fresh woody spicy floral fruity rhubarb zesty"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "dsm-firmenich RHUBOFIX product page",
+     "url": "https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC rhubarb oxirane page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1028291.html"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 3FL06757",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3FL06757"
+    }
+   ],
+   "identity_notes": "Rhubofix (Firmenich, product 978880) = 3',7-dimethyl-3,4,4a,5,8,8a-hexahydrospiro[1,4-methanonaphthalene-2(1H),2'-oxirane]; TGSC 'rhubarb oxirane'. MW 204.31."
+  },
+  {
+   "profile_key": "verdyl acetate",
+   "identity": "Verdyl Acetate",
+   "stock_ids": [
+    "inventory:v5:e09588d8e5f7d2b704d0"
+   ],
+   "character": {
+    "floral": 6.0,
+    "freshness": 4.0,
+    "green": 5.5,
+    "spicy": 1.5,
+    "sweetness": 3.0,
+    "transparency": 1.5,
+    "woody": 6.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (2.84 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "floral",
+     "green",
+     "fruity",
+     "anisic",
+     "woody",
+     "green",
+     "woody",
+     "sweet anisic"
+    ],
+    "tgsc": [
+     "soapy",
+     "cedar",
+     "pine"
+    ],
+    "supplier": [
+     "herbaceous-green",
+     "light-floral green soapy"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan Jasmacyclene page",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/jasmacyclene"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC verdyl acetate page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1002152.html"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Verdyl Acetate 3LJ01926 (SKU not confirmed for Kenny's bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3LJ01926"
+    }
+   ],
+   "identity_notes": "Verdyl acetate = tricyclodecenyl acetate (3a,4,5,6,7,7a-hexahydro-4,7-methano-1H-inden-5(6)-yl acetate), sold as Jasmacyclene (Givaudan), Cyclacet (IFF), Herbaflorat, Greenyl acetate. Kenny's stock row has no SKU; PW sells it as SKU 3LJ01926 (not confirmed as Kenny's bottle)."
+  },
+  {
+   "profile_key": "Orris Concrete Orris Butter",
+   "identity": "Orris Concrete Orris Butter",
+   "stock_ids": [
+    "inventory:user-20261014:aaf000b4cc4177a782f5"
+   ],
+   "character": {
+    "creamy": 2.0,
+    "floral": 6.0,
+    "powdery": 4.5,
+    "sweetness": 6.0,
+    "warmth": 4.0,
+    "woody": 6.0
+   },
+   "note": "heart",
+   "note_basis": "no TGSC substantivity or VP; PW 10% strip life 9.1 h, PW lists heart and base as wood; heart chosen",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "floral",
+     "woody fatty violet",
+     "fruity",
+     "sweet",
+     "warm"
+    ],
+    "producer": [
+     "powdery",
+     "dry woody root",
+     "sweet caramel",
+     "floral",
+     "woody",
+     "fatty"
+    ],
+    "supplier": [
+     "rich warm sweet violet",
+     "white chocolate",
+     "creamy floral-woody orris-root dry-violet"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "IFF Orris Concrete 15 PCT Irones (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/co1001091.html"
+    },
+    {
+     "rank": 1,
+     "source": "Biolandes orris concrete (quoted by TGSC as 'orris family / floral, woody, fatty')",
+     "url": "https://www.thegoodscentscompany.com/data/co1001091.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC orris rhizome concrete butter page",
+     "url": "https://www.thegoodscentscompany.com/data/co1001091.html"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 5IA07847 (10% in DPG)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=5IA07847"
+    }
+   ],
+   "identity_notes": "WARNING: PW SKU 5IA07847 is 'Orris Concrete Orris Butter 10% in DPG' (a 10% dilution), consistent with Kenny's stock dilution 0.1. Orris butter is the steam-distilled concrete of Iris pallida/germanica rhizome; irone content (8%, 15%, 20%) varies by grade. PW gives no odour text for the dilution ('refer to constituent materials')."
+  },
+  {
+   "profile_key": "cypress eo",
+   "identity": "Cypress EO",
+   "stock_ids": [
+    "inventory:user-20260830:6db445a212d6344de07c"
+   ],
+   "character": {
+    "freshness": 6.0,
+    "green": 1.5,
+    "radiance": 4.5,
+    "spicy": 3.0,
+    "warmth": 3.5,
+    "woody": 4.5
+   },
+   "note": "top",
+   "note_basis": "Givaudan: \"an aromatic, fresh and invigorating head note\"",
+   "tgsc_odor_type": "terpenic",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "woody",
+     "aromatic",
+     "fresh",
+     "resinous pine",
+     "balsamic amber",
+     "zesty",
+     "earthy",
+     "resinous",
+     "peppery",
+     "fruity-apple",
+     "aromatic",
+     "green",
+     "diffusive",
+     "spicy",
+     "woody",
+     "resinous"
+    ],
+    "tgsc": [
+     "terpenic",
+     "fresh pine woody earthy olibanum dry spicy cedar"
+    ],
+    "supplier": [
+     "piney fresh pine fougere juniper"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan Cypress Oil Spain",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/cypress-oil-spain"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet / Biolandes / Albert Vieille cypress oil (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/es1004291.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC cypress leaf oil page",
+     "url": "https://www.thegoodscentscompany.com/data/es1004291.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960 p.211 (cited by Eden Botanicals; text not reached)",
+     "url": "https://www.edenbotanicals.com/cypress-leaf-sample.html"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Cypress Essential Oil 7KB00833 (reference)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=7KB00833"
+    }
+   ],
+   "identity_notes": "Cupressus sempervirens leaf/twig oil, steam distilled. Kenny's stock row has no supplier SKU; PW sells 'Cypress Essential Oil' 7KB00833 (reference only, not confirmed as Kenny's bottle). Do not confuse with cypress absolute (TGSC ab1042021, 'balsam fatty sweet pine amber') or blue cypress (Callitris)."
+  },
+  {
+   "profile_key": "hay absolute",
+   "identity": "Hay Absolute",
+   "stock_ids": [
+    "inventory:user-20261014:b32efbcf2c2883f7c262"
+   ],
+   "character": {
+    "green": 3.0,
+    "sweetness": 6.0,
+    "warmth": 5.0,
+    "woody": 2.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (0.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "hay",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "hay",
+     "tonka"
+    ],
+    "producer": [
+     "soft",
+     "sweet",
+     "woody",
+     "tobacco",
+     "honey",
+     "herbaceous",
+     "warm virginia tobacco",
+     "warm",
+     "dried apricot",
+     "smoky",
+     "green",
+     "mild tobacco",
+     "sugary",
+     "dry fig",
+     "green",
+     "dry"
+    ],
+    "supplier": [
+     "dry",
+     "tea",
+     "clary-sage herbaceous",
+     "honey",
+     "cocoa",
+     "sweet hay woody tobacco moss tonka"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Firmenich HAY PAYS ABS (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1026191.html"
+    },
+    {
+     "rank": 1,
+     "source": "Biolandes hay absolute France (via Perfumer's Apprentice and TGSC)",
+     "url": "https://shop.perfumersapprentice.com/p-10342-hay-absolute-biolandes.aspx"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet, IFF, Mane (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1026191.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC hay absolute page",
+     "url": "https://www.thegoodscentscompany.com/data/ab1026191.html"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld Hay Absolute 8NY00523 (reference)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=8NY00523"
+    }
+   ],
+   "identity_notes": "Hay (foin) absolute from dried grasses (PW: Lolium perenne; Hermitage: Hierochloe alpina, Spain; Biolandes: 'Hay (various species)', France). Grade varies by producer. Kenny's stock is at dilution 0.1 with no SKU; PW 8NY00523 (neat) used as reference only."
+  },
+  {
+   "profile_key": "Lavandin Absolute",
+   "identity": "Lavandin Absolute",
+   "stock_ids": [
+    "inventory:user-20261014:14f87ce6bfd08af03aaf"
+   ],
+   "character": {
+    "floral": 2.0,
+    "freshness": 5.0,
+    "green": 4.5,
+    "sweetness": 4.0
+   },
+   "note": "heart",
+   "note_basis": "Biolandes via TGSC: \"middle-note\"",
+   "tgsc_odor_type": "herbal",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "herbal",
+     "herbal sweet camphoreous lavandin flower"
+    ],
+    "producer": [
+     "aromatic",
+     "fresh",
+     "hay",
+     "fresh",
+     "aromatic",
+     "sweet",
+     "floral",
+     "floral herbaceous",
+     "sweet watery green",
+     "hay",
+     "floral woody gourmand"
+    ],
+    "literature": [
+     "herbaceous"
+    ],
+    "supplier": [
+     "herbal sweet",
+     "soft vanillic",
+     "camphor"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Robertet, Firmenich, IFF, Biolandes, Mane lavandin absolute (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1045781.html"
+    },
+    {
+     "rank": 1,
+     "source": "Biolandes Lavandin Absolute via Perfumer's Apprentice",
+     "url": "https://shop.perfumersapprentice.com/p-9950-lavandin-absolute-biolandes.aspx"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC lavandin absolute page",
+     "url": "https://www.thegoodscentscompany.com/data/ab1045781.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960 as quoted by Hermitage Oils on TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/ab1045781.html"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 8HY00554",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=8HY00554"
+    }
+   ],
+   "identity_notes": "Lavandula x intermedia (hybrida) absolute from concrete; dark green viscous liquid (PW). Grosso is the usual cultivar (Biolandes, Mane)."
+  },
+  {
+   "profile_key": "sandalwood base x3",
+   "identity": "Sandalwood Base X3",
+   "stock_ids": [
+    "inventory:user-20261014:8f1fba04dd164c6cacfc"
+   ],
+   "character": {
+    "creamy": 4.5,
+    "woody": 5.0
+   },
+   "note": "base",
+   "note_basis": "PW: odor life 300 h, base notes wood",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "sandalwood",
+     "creamy",
+     "rich"
+    ],
+    "supplier": [
+     "wood"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "PerfumersWorld Sandalwood Base X3 product page (producer)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=6WX24054"
+    },
+    {
+     "rank": 1,
+     "source": "PerfumersWorld document list (MSDS/CoA) for 6WX24054",
+     "url": "https://www.perfumersworld.com/document-list.php?pro_id=6WX24054"
+    }
+   ],
+   "identity_notes": "PerfumersWorld proprietary base (page title 'Sandalwood Base X3', text calls it 'Sandalwood Art X3'), SKU 6WX24054. Kenny's stock row has no SKU, so the match to this PW product is by name only. PW is the producer, so the PW page is the rank-1 source. No TGSC, Arctander, Dravnieks or Leffingwell entry exists for a proprietary base."
+  },
+  {
+   "profile_key": "turkish storax",
+   "identity": "Turkish Storax Tincture",
+   "stock_ids": [
+    "inventory:user-20261014:89835e7a783f474e2d77"
+   ],
+   "character": {
+    "animalic": 2.0,
+    "floral": 3.5,
+    "smoky": 1.5,
+    "spicy": 2.0,
+    "sweetness": 4.5,
+    "warmth": 5.5,
+    "woody": 3.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (1.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "balsamic",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "balsamic",
+     "storax balsamic"
+    ],
+    "producer": [
+     "leather",
+     "woody",
+     "balsamic",
+     "floral",
+     "rich",
+     "sweet",
+     "balsam",
+     "floral",
+     "spicy"
+    ],
+    "supplier": [
+     "spicy-fresh-aromatic cinnamic gassy",
+     "woody-vanilla",
+     "leathery",
+     "animalic-castoreum"
+    ],
+    "literature": [
+     "dry-floral"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Robertet styrax absolute (quoted by TGSC on L. orientalis absolute page)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1057281.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC styrax resinoid / absolute / resin (Liquidambar orientalis)",
+     "url": "https://www.thegoodscentscompany.com/data/rs1046501.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960 pp.599-601 as quoted by Eden Botanicals (L. styraciflua product page)",
+     "url": "https://www.edenbotanicals.com/liquidambar-styrax.html"
+    },
+    {
+     "rank": 4,
+     "source": "Firmenich STYRAX HONDURAS (TGSC L. styraciflua oil page) - American comparator only",
+     "url": "https://www.thegoodscentscompany.com/data/es1001941.html"
+    }
+   ],
+   "identity_notes": "Turkish (Levant) storax = Liquidambar orientalis balsam. Kenny's stock is a tincture at dilution 0.2 with no SKU (likely self-made or supplier tincture; maker unknown). No producer sells a 'tincture' grade with its own description, so the evidence is for L. orientalis resinoid/absolute/resin. IFRA: crude gums must not be used; only extracts/distillates."
+  },
+  {
+   "profile_key": "Aldehyde C-12 Lauric Dodecanal",
+   "identity": "Aldehyde C-12 Lauric Dodecanal",
+   "stock_ids": [
+    "inventory:user-20261014:0589daddf28ebf458b9f"
+   ],
+   "character": {
+    "creamy": 1.5,
+    "floral": 2.5,
+    "freshness": 6.0,
+    "green": 2.5,
+    "transparency": 2.0,
+    "woody": 1.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 2 (368 hour(s) at 100.00 %), VP class 1 (1.12 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "aldehydic",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "soapy",
+     "waxy",
+     "aldehydic",
+     "green",
+     "floral"
+    ],
+    "literature": [
+     "citrus",
+     "orange rindy"
+    ],
+    "producer": [
+     "woody",
+     "fresh",
+     "clean",
+     "fresh citrus",
+     "waxy-herbal clear floral"
+    ],
+    "supplier": [
+     "fatty",
+     "sweaty",
+     "green",
+     "fatty sweaty soapy fresh clean ... clean-soap-laundry",
+     "waxy fatty soapy clean rose laundry"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan (Aldehyde C 12 Lauric) producer text, as quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000371.html"
+    },
+    {
+     "rank": 1,
+     "source": "Bedoukian Research (LAURIC ALDEHYDE) producer text, quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000371.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC dodecanal page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000371.html"
+    },
+    {
+     "rank": 2,
+     "source": "pyrfume goodscents_behavior.csv / leffingwell_behavior.csv (local)",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/"
+    },
+    {
+     "rank": 5,
+     "source": "PerfumersWorld 4AA00021",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4AA00021"
+    }
+   ],
+   "identity_notes": "Dodecanal (lauric aldehyde), neat material on PW 4AA00021 (stock dilution 1.0). Engine text 'chanel-no.5 lux soap ... rancid' is the PW header string; PW's own 'Odour=>' line differs (quoted below)."
+  },
+  {
+   "profile_key": "Ambrette Seed Absolute",
+   "identity": "Ambrette Seed Absolute",
+   "stock_ids": [
+    "inventory:user-20261014:15f2734e3bc929f73851"
+   ],
+   "character": {
+    "animalic": 2.0,
+    "floral": 2.0,
+    "green": 2.0,
+    "powdery": 4.0,
+    "sweetness": 5.5,
+    "warmth": 5.5,
+    "woody": 3.5
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class 2 (332 hour(s) at 100.00 %), VP class None (None Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "amber",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "dry",
+     "woody",
+     "amber",
+     "hay",
+     "tobacco"
+    ],
+    "producer": [
+     "musk",
+     "musky",
+     "sweet",
+     "powdery",
+     "floral",
+     "cognac top",
+     "powdery orris bottom",
+     "musk vegetal animal"
+    ],
+    "literature": [
+     "seedy",
+     "berry",
+     "fruity"
+    ],
+    "supplier": [
+     "dry woody seedy berry fruity musk tobacco"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Firmenich AMBRETTE ABS 908840 (producer text quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1029391.html"
+    },
+    {
+     "rank": 1,
+     "source": "IFF Ambrette Absolute (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1029391.html"
+    },
+    {
+     "rank": 1,
+     "source": "Mane Ambrette Absolute (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1029391.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC ambrette seed absolute",
+     "url": "https://www.thegoodscentscompany.com/data/ab1029391.html"
+    },
+    {
+     "rank": 5,
+     "source": "PW 8XU00529 (neat absolute) and 5XU12235 (Kenny's 10% DPG)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=8XU00529"
+    }
+   ],
+   "identity_notes": "Kenny's bottle is PW 5XU12235 'Ambrette Seed Absolute 10% in DPG' (dilution 0.1 matches). PW gives no odour text for the dilution ('Refer to constituent materials'); PW neat absolute is SKU 8XU00529. Abelmoschus moschatus (Hibiscus abelmoschus) seed."
+  },
+  {
+   "profile_key": "Black Tea Base",
+   "identity": "Black Tea Base",
+   "stock_ids": [
+    "inventory:user-20261014:ef02d05ebb1341fe0fb6"
+   ],
+   "character": {
+    "floral": 1.5,
+    "freshness": 2.5,
+    "green": 3.0,
+    "spicy": 5.0,
+    "sweetness": 6.0,
+    "warmth": 5.0,
+    "woody": 1.5
+   },
+   "note": "top",
+   "note_basis": "only PW strip life 8 h (12 h or less = top by the same hours rule)",
+   "descriptor_terms_by_source": {
+    "supplier": [
+     "bitter black tea leaves",
+     "wine",
+     "dry herb tea",
+     "sweet tobacco leaves",
+     "faint black pepper",
+     "lavender",
+     "sweet clove"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "PerfumersWorld 6HE09224 (producer of this base)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=6HE09224"
+    }
+   ],
+   "identity_notes": "PerfumersWorld's own base, SKU 6HE09224; PW describes it as 'a complex blend derived from natural black tea leaves with a few added compounds'. Not a textbook material, so no TGSC/Arctander/Dravnieks entry exists. PW page is the producer source."
+  },
+  {
+   "profile_key": "cabreuva eo",
+   "identity": "Cabreuva EO",
+   "stock_ids": [
+    "inventory:v5:7da4331c6d8cae3ac1b2"
+   ],
+   "character": {
+    "floral": 3.0,
+    "freshness": 1.5,
+    "spicy": 3.0,
+    "sweetness": 3.5,
+    "warmth": 3.0,
+    "woody": 6.5
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class None (None), VP class 2 (0.006 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "woody",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "woody",
+     "dry",
+     "sweet",
+     "floral",
+     "balsamic",
+     "spicy",
+     "nutty"
+    ],
+    "supplier": [
+     "woody",
+     "sweet",
+     "floral",
+     "woody",
+     "fresh floral woody",
+     "warm",
+     "woody",
+     "sweet",
+     "nut-floral"
+    ],
+    "producer": [
+     "woody",
+     "spicy",
+     "wet wood"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 2,
+     "source": "TGSC cabreuva wood oil",
+     "url": "https://www.thegoodscentscompany.com/data/es1014101.html"
+    },
+    {
+     "rank": 5,
+     "source": "Ernesto Ventos / Prodasynth / Indukern supplier lines on TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/es1014101.html"
+    },
+    {
+     "rank": 5,
+     "source": "Hermitage Oils (Adam Michael), quoted on TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/es1014101.html"
+    }
+   ],
+   "identity_notes": "Stock is 'Cabreuva EO 50% in DPG' (dilution 0.5); no supplier SKU in batch file, so producer/grade unknown. Engine text says 'nerolidol-rich'; TGSC supplier lines confirm nerolidol grades: Prodasynth 'CABREUVA OIL 60 (NEROLIDOL 55-75%)' and 'CABREUVA OIL 80 (NEROLIDOL 70-80%)'."
+  },
+  {
+   "profile_key": "Cis-3 Hexenyl Acetate",
+   "identity": "Cis-3 Hexenyl Acetate",
+   "stock_ids": [
+    "inventory:user-20261014:348b45e22c8ee518bd87"
+   ],
+   "character": {
+    "freshness": 5.0,
+    "green": 5.0,
+    "radiance": 7.0,
+    "sweetness": 5.0,
+    "transparency": 7.0
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity class 0 (< 4 hour(s) at 100.00 %), VP class 0 (214.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "green",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "green",
+     "fresh",
+     "sweet",
+     "fruity"
+    ],
+    "producer": [
+     "banana",
+     "grassy",
+     "green",
+     "fruity",
+     "pear",
+     "banana"
+    ],
+    "literature": [
+     "apple",
+     "pear",
+     "melon"
+    ],
+    "supplier": [
+     "diffusive",
+     "sharp-fruity"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "IFF cis-3-Hexenyl Acetate (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001471.html"
+    },
+    {
+     "rank": 1,
+     "source": "Firmenich CIS-3-HEXENYL ACETATE NAT (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001471.html"
+    },
+    {
+     "rank": 1,
+     "source": "Bedoukian Research (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001471.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC (Z)-3-hexen-1-yl acetate",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001471.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969, quoted by Pell Wall Perfumes on TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1001471.html"
+    }
+   ],
+   "identity_notes": "(Z)-3-hexen-1-yl acetate, leaf acetate. Kenny's bottle PW 4GF00226 is neat (PW also sells 5GF07561 at 10% DPG)."
+  },
+  {
+   "profile_key": "Diethyl Malonate",
+   "identity": "Diethyl Malonate",
+   "stock_ids": [
+    "inventory:user-20261014:7877c1d9816fc80bde93"
+   ],
+   "character": {
+    "freshness": 4.5,
+    "green": 4.0,
+    "sweetness": 6.5
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity class 0 (4 hour(s) at 100.00 %), VP class 0 (25.33 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "fruity",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "fruity",
+     "sweet",
+     "green",
+     "apple"
+    ],
+    "supplier": [
+     "green apple",
+     "fruity",
+     "winey-estery",
+     "balsamic",
+     "fruity",
+     "ethereal",
+     "fruity"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 2,
+     "source": "TGSC diethyl malonate",
+     "url": "https://www.thegoodscentscompany.com/data/rw1004331.html"
+    },
+    {
+     "rank": 2,
+     "source": "pyrfume goodscents/leffingwell CSV",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/"
+    },
+    {
+     "rank": 5,
+     "source": "Ernesto Ventos / Grau / Inoue supplier lines on TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1004331.html"
+    },
+    {
+     "rank": 5,
+     "source": "PW 3FG00145",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3FG00145"
+    },
+    {
+     "rank": 5,
+     "source": "DirectPCW diethyl malonate",
+     "url": "https://directpcw.com/en/products/dm-1"
+    }
+   ],
+   "identity_notes": "Diethyl propanedioate. Engine text is the PW header string. A reseller (DirectPCW) notes it is mainly a synthesis intermediate with 'slightly fruity and ethereal' intrinsic odour."
+  },
+  {
+   "profile_key": "Frangipani Absolute",
+   "identity": "Frangipani Absolute",
+   "stock_ids": [
+    "inventory:user-20261014:eda0747514a20ac6f2d4"
+   ],
+   "character": {
+    "creamy": 2.5,
+    "floral": 6.5,
+    "freshness": 1.5,
+    "spicy": 2.5,
+    "sweetness": 6.5,
+    "warmth": 4.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (52 hour(s) at 100.00 % (white frangipani page); not given on pink page), VP class None (None Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "floral",
+     "sweet",
+     "orangeflower",
+     "neroli",
+     "gardenia",
+     "fruity",
+     "spicy"
+    ],
+    "producer": [
+     "white flowers balsamic almond-vanilla"
+    ],
+    "supplier": [
+     "heavy",
+     "sweet",
+     "warm",
+     "delicate spice",
+     "creamy"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Albert Vieille 'Frangipani Absolute India' producer text, as quoted on TGSC white-frangipani page (Albert Vieille site now offline: domain at auction)",
+     "url": "https://thegoodscentscompany.com/data/ab1039361.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC white frangipani absolute (94350-02-4)",
+     "url": "https://thegoodscentscompany.com/data/ab1039361.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC pink frangipani absolute (223748-06-9)",
+     "url": "https://thegoodscentscompany.com/data/ab1062361.html"
+    },
+    {
+     "rank": 5,
+     "source": "PW 8ON00534 (neat) and 5ON09236 (Kenny's 10% DPG)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=8ON00534"
+    },
+    {
+     "rank": 5,
+     "source": "Fraterworks Frangipani Absolute",
+     "url": "https://fraterworks.com/products/frangipani-absolute"
+    }
+   ],
+   "identity_notes": "WARNING: botanical identity of Kenny's bottle is ambiguous. PW's dilution (5ON09236) carries the pink Plumeria rubra CAS 223748-06-9, while PW's neat parent absolute (8ON00534, 'Plumiera Rubra Flower Absolute' in synonyms) carries the white-frangipani CAS 94350-02-4; Fraterworks and Albert Vieille describe Plumeria alba (white). Kenny's bottle is 10% in DPG (dilution 0.1); PW gives no odour text for the dilution ('Refer to constituent materials')."
+  },
+  {
+   "profile_key": "Glycolierral",
+   "identity": "Glycolierral",
+   "stock_ids": [
+    "inventory:user-20261014:2110fe75bdf17ff9ad95"
+   ],
+   "character": {
+    "creamy": 2.5,
+    "floral": 5.5,
+    "freshness": 2.5,
+    "green": 5.5,
+    "woody": 4.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (32 hour(s) at 100.00 %), VP class 1 (0.24 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "green",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "green",
+     "floral rose green woody"
+    ],
+    "producer": [
+     "floral",
+     "milky",
+     "woody",
+     "fresh",
+     "herbaceous"
+    ],
+    "supplier": [
+     "soft",
+     "rosy"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan Glycolierral product page",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/glycolierral"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC ivy dioxolane / glycolierral",
+     "url": "https://www.thegoodscentscompany.com/data/rw1492991.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC glycoacetal (same CAS)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1019411.html"
+    },
+    {
+     "rank": 5,
+     "source": "PW 3MW11714",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3MW11714"
+    },
+    {
+     "rank": 5,
+     "source": "Perfumer's Apprentice Glycolierral",
+     "url": "https://shop.perfumersapprentice.com/p-9057-glycolierral-givaudan.aspx"
+    }
+   ],
+   "identity_notes": "Glycolierral (Givaudan, Giv code 5631203) = ivy dioxolane, 2-[6(5)-methyl-8(7)-(1-methylethyl)bicyclo[2.2.2]oct-5-en-2-yl]-1,3-dioxolane, C15H24O2. TGSC has two pages for this CAS: rw1492991 'ivy dioxolane / glycolierral (Givaudan)' (used here) and rw1019411 'glycoacetal' (PCAS Glycoacetal 236; 'floral rose green woody'). Engine text 'Odourbr' is a broken HTML <br> from PW."
+  },
+  {
+   "profile_key": "helichrysum eo",
+   "identity": "Helichrysum EO",
+   "stock_ids": [
+    "inventory:v5:ba9e5c088591bccbeb19"
+   ],
+   "character": {
+    "floral": 2.5,
+    "green": 2.0,
+    "spicy": 2.5,
+    "sweetness": 5.0,
+    "warmth": 5.0,
+    "woody": 1.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class None (None), VP class 1 (0.5 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "herbal",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "herbal",
+     "sweet",
+     "warm",
+     "woody",
+     "floral"
+    ],
+    "producer": [
+     "dried fruit",
+     "tobacco",
+     "spicy",
+     "honey",
+     "aromatic",
+     "spicy"
+    ],
+    "supplier": [
+     "honey",
+     "chamomile",
+     "tea",
+     "rose"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Robertet/Charabot Helichrysum Corsican organic oil and Helichrysum Balkans oil (quoted by TGSC)",
+     "url": "https://thegoodscentscompany.com/data/es1062881.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC immortelle flower oil",
+     "url": "https://thegoodscentscompany.com/data/es1062881.html"
+    },
+    {
+     "rank": 5,
+     "source": "Ernesto Ventos, Moellhausen supplier lines on TGSC",
+     "url": "https://thegoodscentscompany.com/data/es1062881.html"
+    },
+    {
+     "rank": 5,
+     "source": "Hermitage Oils (Adam Michael) quoted on TGSC",
+     "url": "https://thegoodscentscompany.com/data/es1062881.html"
+    }
+   ],
+   "identity_notes": "Helichrysum italicum (syn. H. angustifolium) flower oil, steam distilled. No supplier SKU in batch file, so origin (Corsica / Balkans) unknown; producers describe the origins very differently (Robertet Corsican: tobacco-curry-fenugreek; Balkans: honey/dried fruit)."
+  },
+  {
+   "profile_key": "Lemon Terpeneless Oil Sicilian",
+   "identity": "Lemon Terpeneless Oil Sicilian",
+   "stock_ids": [
+    "inventory:user-20261014:f33447c7019ce2ea2e36"
+   ],
+   "character": {
+    "freshness": 7.0,
+    "radiance": 2.0,
+    "sweetness": 3.5
+   },
+   "note": "top",
+   "note_basis": "citrus oil; TGSC substantivity printed at 0.10% so not used; PW lists citrus top",
+   "tgsc_odor_type": "citrus",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "citrus",
+     "fresh sweet",
+     "aldehydic",
+     "aromatic",
+     "terpenic",
+     "candy"
+    ],
+    "producer": [
+     "lemon"
+    ],
+    "supplier": [
+     "zesty juicy aldehydic",
+     "citrus lemon fresh sweet",
+     "smooth",
+     "juicy",
+     "aldehydic"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Firmenich LEMON OIL TERPENELESS (flavor grade), quoted by TGSC",
+     "url": "https://thegoodscentscompany.com/data/tl1032421.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC lemon oil terpeneless",
+     "url": "https://thegoodscentscompany.com/data/tl1032421.html"
+    },
+    {
+     "rank": 5,
+     "source": "PW 7CC24027",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=7CC24027"
+    }
+   ],
+   "identity_notes": "Citrus limon peel oil, terpeneless. PW 7CC24027 synonyms mention 'Citrus and Allied Essences' (likely source). Engine text is PW's marketing summary."
+  },
+  {
+   "profile_key": "Manzanate",
+   "identity": "Manzanate",
+   "stock_ids": [
+    "inventory:user-20261014:f5c535171b8bb6ae827f"
+   ],
+   "character": {
+    "freshness": 5.0,
+    "green": 5.0,
+    "radiance": 5.0,
+    "sweetness": 5.0
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity class 0 (> 4 hour(s) at 100.00 %), VP class 0 (279.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "green",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "fruity",
+     "apple",
+     "pineapple",
+     "apple skin"
+    ],
+    "tgsc": [
+     "green",
+     "melon"
+    ],
+    "literature": [
+     "waxy",
+     "fatty",
+     "banana-pineapple",
+     "strawberry"
+    ],
+    "supplier": [
+     "fresh",
+     "fruity-green",
+     "apple",
+     "unripe plum peel"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan Manzanate product page",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate"
+    },
+    {
+     "rank": 1,
+     "source": "Bedoukian ethyl 2-methyl pentanoate (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1006801.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC manzanate",
+     "url": "https://www.thegoodscentscompany.com/data/rw1006801.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander, quoted by Pell Wall on TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1006801.html"
+    },
+    {
+     "rank": 2,
+     "source": "pyrfume goodscents/leffingwell CSV",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/"
+    }
+   ],
+   "identity_notes": "Manzanate (Givaudan, Giv code 6702803) = ethyl 2-methylpentanoate (ethyl 2-methylvalerate)."
+  },
+  {
+   "profile_key": "Methyl Laitone",
+   "identity": "Methyl Laitone",
+   "stock_ids": [
+    "inventory:user-20261014:6ecff628056a62ab6514"
+   ],
+   "character": {
+    "creamy": 6.5,
+    "sweetness": 4.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (168 hour(s) at 100.00 %), VP class 1 (0.6 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "coconut",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "lactonic",
+     "creamy",
+     "coconut milk",
+     "fruity"
+    ],
+    "tgsc": [
+     "coconut",
+     "tropical",
+     "dairy",
+     "plum"
+    ],
+    "supplier": [
+     "milky",
+     "ripe plum",
+     "lactonic",
+     "woody"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan Methyl Laitone 10%/DPG product page",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg"
+    },
+    {
+     "rank": 1,
+     "source": "Givaudan full use text, quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1456331.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC coconut decanone methyl",
+     "url": "https://www.thegoodscentscompany.com/data/rw1456331.html"
+    },
+    {
+     "rank": 2,
+     "source": "pyrfume goodscents CSV",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/"
+    },
+    {
+     "rank": 5,
+     "source": "PW 5VD10871 (not confirmed as Kenny's bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=5VD10871"
+    }
+   ],
+   "identity_notes": "Givaudan sells Methyl Laitone only as 10%/DPG (Giv code 6978468) or 10%/TEC (0010213). Kenny's stock dilution is recorded as 0.2 with no SKU; check whether that is the Givaudan 10% product re-diluted or a mislabel. PW equivalent: 5VD10871 'METHYL LAITONE 10% DPG'."
+  },
+  {
+   "profile_key": "Phenyl Acetaldehyde",
+   "identity": "Phenyl Acetaldehyde",
+   "stock_ids": [
+    "inventory:user-20261014:09302255b76383e3b718"
+   ],
+   "character": {
+    "floral": 6.5,
+    "green": 6.5,
+    "powdery": 1.5,
+    "sweetness": 4.0,
+    "warmth": 2.5
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 0 (58.2 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "green",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "green",
+     "floral",
+     "hyacinth"
+    ],
+    "tgsc": [
+     "sweet",
+     "honey",
+     "cocoa"
+    ],
+    "literature": [
+     "rose",
+     "powdery",
+     "chocolate",
+     "earthy"
+    ],
+    "supplier": [
+     "green floral",
+     "hyacinth",
+     "lilac",
+     "green floral"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise Phenylacetaldehyde (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009931.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC phenyl acetaldehyde",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009931.html"
+    },
+    {
+     "rank": 2,
+     "source": "pyrfume goodscents/leffingwell CSV",
+     "url": "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/"
+    },
+    {
+     "rank": 5,
+     "source": "Moellhausen, Prodasynth supplier lines on TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009931.html"
+    },
+    {
+     "rank": 5,
+     "source": "PW 5GP07497",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=5GP07497"
+    }
+   ],
+   "identity_notes": "Kenny's bottle PW 5GP07497 is 'Phenyl Acetaldehyde 85% in PEA' (15% phenylethyl alcohol added for stabilisation), dilution 0.85. The PEA carrier adds rose character not present in neat phenylacetaldehyde."
+  },
+  {
+   "profile_key": "Rose Otto Bulgarian",
+   "identity": "Rose Otto Bulgarian",
+   "stock_ids": [
+    "inventory:user-20261014:73f08ba05db2304e9c55"
+   ],
+   "character": {
+    "floral": 7.5,
+    "freshness": 4.5,
+    "green": 3.5,
+    "spicy": 3.5,
+    "sweetness": 4.0,
+    "transparency": 2.0,
+    "warmth": 4.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (168 hour(s) at 100.00 %), VP class None (None Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "floral",
+     "rose",
+     "rosy",
+     "spicy",
+     "winey",
+     "waxy",
+     "honey",
+     "green",
+     "metallic"
+    ],
+    "producer": [
+     "fresh",
+     "watery",
+     "green",
+     "spicy",
+     "honey",
+     "fresh rose petal",
+     "rose",
+     "metallic",
+     "rosy"
+    ],
+    "supplier": [
+     "warm",
+     "honey"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Robertet/Charabot Rose Bulgarian oil (quoted by TGSC; Robertet page reached)",
+     "url": "https://matieres-premieres.robertet.com/rose-bulgarian-oil"
+    },
+    {
+     "rank": 1,
+     "source": "Firmenich ROSE BULGARIE HE (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/es1024951.html"
+    },
+    {
+     "rank": 1,
+     "source": "IFF Rose Oil Bulgaria (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/es1024951.html"
+    },
+    {
+     "rank": 1,
+     "source": "Biolandes rose (line on TGSC, attribution by position)",
+     "url": "https://www.thegoodscentscompany.com/data/es1024951.html"
+    },
+    {
+     "rank": 1,
+     "source": "Albert Vieille Rose Essential oil Bulgaria (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/es1024951.html"
+    }
+   ],
+   "identity_notes": "Kenny's bottle PW 5RR12478 is 'Rose Otto Bulgarian 10% in DPG' (dilution 0.1); PW's text calls it 'Rose Otto Bulgarian/Anatolian', so Turkish material may be blended. Steam-distilled Rosa damascena oil (otto), not absolute."
+  },
+  {
+   "profile_key": "styralyl acetate",
+   "identity": "Styralyl Acetate",
+   "stock_ids": [
+    "inventory:v5:0cca8a43aa1784e413a8"
+   ],
+   "character": {
+    "floral": 2.5,
+    "freshness": 2.5,
+    "green": 5.5,
+    "radiance": 4.5,
+    "sweetness": 2.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 0 (8 hour(s) at 100.00 %), VP class 1 (8.42 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "green",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "green",
+     "leafy",
+     "musty"
+    ],
+    "producer": [
+     "gardenia",
+     "rhubarb",
+     "herbal-green-fruity"
+    ],
+    "literature": [
+     "fruity",
+     "seedy",
+     "berry"
+    ],
+    "supplier": [
+     "metallic",
+     "green-floral",
+     "green leaf",
+     "suggestive gardenia",
+     "plum apple apricot",
+     "tart fruity-floral"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise Styrallyl acetate 611357 (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1011092.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC styralyl acetate",
+     "url": "https://www.thegoodscentscompany.com/data/rw1011092.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969, quoted by Pell Wall on TGSC (full passage)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1011092.html"
+    },
+    {
+     "rank": 4,
+     "source": "FAO JECFA specification (odour line)",
+     "url": "https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/790"
+    },
+    {
+     "rank": 5,
+     "source": "Vigon Gardenol, Prodasynth, Eternis lines on TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1011092.html"
+    }
+   ],
+   "identity_notes": "alpha-methylbenzyl acetate / 1-phenylethyl acetate; trade name Gardenol (Vigon/Givaudan). No supplier SKU in batch file. Two TGSC pages exist (rw1011091 older, rw1011092 current); values agree."
+  },
+  {
+   "profile_key": "Vanilla Absolute",
+   "identity": "Vanilla Absolute",
+   "stock_ids": [
+    "inventory:user-20261014:c5015e1a8fbe9938b800"
+   ],
+   "character": {
+    "animalic": 2.0,
+    "creamy": 3.0,
+    "powdery": 1.5,
+    "smoky": 2.0,
+    "spicy": 2.0,
+    "sweetness": 7.5,
+    "warmth": 6.0,
+    "woody": 3.0
+   },
+   "note": "base",
+   "note_basis": "Firmenich via TGSC: \"enhances the gourmand bottom note\"; TGSC 400 h at 20%",
+   "tgsc_odor_type": "vanilla",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "vanilla",
+     "vanilla bean",
+     "sweet",
+     "caramellic",
+     "creamy",
+     "powdery"
+    ],
+    "producer": [
+     "balsamic",
+     "woody",
+     "phenolic",
+     "animalic or gourmet",
+     "ambery",
+     "vanilla pods",
+     "woody",
+     "fruity",
+     "spicy",
+     "phenolic"
+    ],
+    "supplier": []
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Firmenich VANILLE PLANIFOLIA MADA ABS 990045 (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1101871.html"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet/Charabot Vanilla absolute (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1101871.html"
+    },
+    {
+     "rank": 1,
+     "source": "Biolandes vanilla absolute Madagascar (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1101871.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC vanilla bean absolute",
+     "url": "https://www.thegoodscentscompany.com/data/ab1101871.html"
+    },
+    {
+     "rank": 5,
+     "source": "PW 5VW09926",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=5VW09926"
+    }
+   ],
+   "identity_notes": "Kenny's bottle PW 5VW09926 is 'Vanilla ABS 10% in DPG' (dilution 0.1); PW gives no odour text for it. Origin not stated by PW; Vanilla planifolia assumed."
+  },
+  {
+   "profile_key": "benzoin styrax tonkinensis tincture",
+   "identity": "Vietnamese Benzoin Tincture",
+   "stock_ids": [
+    "inventory:user-20261014:1eb954176d185a4f88ed"
+   ],
+   "character": {
+    "creamy": 1.5,
+    "powdery": 2.5,
+    "spicy": 3.5,
+    "sweetness": 6.0,
+    "warmth": 6.0,
+    "woody": 1.5
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class None (100 hour(s) at 20.00 % (resinoid page rs1006721); 400 hour(s) at 100.00 % (resin page rs1000281)), VP class 2 (0.02 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "balsamic",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "balsamic",
+     "vanilla",
+     "spicy",
+     "cinnamon",
+     "almond",
+     "amber",
+     "almond"
+    ],
+    "tgsc": [
+     "sweet",
+     "woody",
+     "powdery",
+     "resinous"
+    ],
+    "supplier": [
+     "sweet-balsamic distinct vanilla",
+     "soft-spicy-cinnamic",
+     "chocolate"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Robertet Benzoin Siam resinoid Laos (e-robertet product page)",
+     "url": "https://www.e-robertet.com/en/benzoin-siam-resinoid-laos.html"
+    },
+    {
+     "rank": 1,
+     "source": "Firmenich BENJOIN SIAM RES 915058 (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rs1006721.html"
+    },
+    {
+     "rank": 1,
+     "source": "IFF Benzoin Resinoid Siam (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rs1006721.html"
+    },
+    {
+     "rank": 1,
+     "source": "Biolandes benzoin siam resinoid Laos (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rs1006721.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC siam benzoin resinoid",
+     "url": "https://www.thegoodscentscompany.com/data/rs1006721.html"
+    }
+   ],
+   "identity_notes": "Vietnamese benzoin is Siam-type benzoin from Styrax tonkinensis (Robertet/Biolandes source it from Laos). Kenny's stock is a TINCTURE (dilution 0.4, solvent presumably ethanol), not a resinoid; no supplier SKU. Siam differs from Sumatra benzoin (Styrax benzoin, CAS 9000-05-9), which Castel et al. describe as 'strong styrax-like ... quite distinct from the vanilla odour of the Siam variety' (abstract/excerpt)."
+  },
+  {
+   "profile_key": "Aldehyde C-8 Octanal",
+   "identity": "Aldehyde C-8 Octanal",
+   "stock_ids": [
+    "inventory:user-20261014:34295e2655c6a0931626"
+   ],
+   "character": {
+    "creamy": 1.5,
+    "freshness": 5.5,
+    "green": 1.5,
+    "radiance": 2.0
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity class 0 (7 hour(s) at 100.00 %), VP class 0 (148.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "aldehydic",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "aldehydic",
+     "waxy",
+     "citrus orange peel",
+     "green peely",
+     "fatty"
+    ],
+    "producer": [
+     "lemon-lime citrus"
+    ],
+    "supplier": [
+     "lemon fatty aldehydic rose",
+     "sharp citrus fruity sweet ... honey ... penetrating"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Bedoukian Research ALDEHYDE C-8 (producer text, quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000251.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC octanal page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000251.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969",
+     "url": null
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (pyrfume local)",
+     "url": "pyrfume_data/leffingwell_behavior.csv (local)"
+    },
+    {
+     "rank": 5,
+     "source": "PW 4AC00026 (Kenny's bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4AC00026"
+    }
+   ],
+   "identity_notes": "Textbook n-octanal. PW product is the neat aroma chemical (no dilution on page)."
+  },
+  {
+   "profile_key": "Ambrocenide",
+   "identity": "Ambrocenide",
+   "stock_ids": [
+    "inventory:user-20261014:75c1a90e9b9b3833f8bd"
+   ],
+   "character": {
+    "animalic": 2.0,
+    "radiance": 4.5,
+    "sweetness": 3.0,
+    "warmth": 6.0,
+    "woody": 6.0
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class None (None), VP class 2 (0.09 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "woody",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "woody-ambery",
+     "ambery",
+     "wood",
+     "amber"
+    ],
+    "tgsc": [
+     "woody amber agarwood"
+    ],
+    "supplier": [
+     "dry woody",
+     "sharp",
+     "ambery",
+     "animalic",
+     "smokey agarwood",
+     "amber",
+     "woody",
+     "highly diffusive"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise data sheet Ambrocenide 10 DPG and Ambrocenide Flakes (PDF, read via search excerpt)",
+     "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_10_DPG.pdf"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC Ambrocenide page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1612511.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander",
+     "url": null
+    },
+    {
+     "rank": 5,
+     "source": "PW 5WU22696 (Kenny's bottle, 10% in TEC)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=5WU22696"
+    },
+    {
+     "rank": 5,
+     "source": "Perfumer's Apprentice Ambrocenide Crystals (Symrise text)",
+     "url": "https://shop.perfumersapprentice.com/p-9393-ambrocenide-crystals-symrise.aspx"
+    }
+   ],
+   "identity_notes": "Symrise Ambrocenide (acetal of cedrene diol type, C18H30O2). Kenny's PW bottle is 'Ambrocenide 10% in TEC' (stock dilution 0.1 matches). Symrise sells 10 DPG, 5 TEC, 5 IPM, crystals/flakes; descriptions below are for the molecule and its 10 DPG dilution."
+  },
+  {
+   "profile_key": "Buccoxime",
+   "identity": "Buccoxime",
+   "stock_ids": [
+    "inventory:user-20261014:0ed860e7422dbab60855",
+    "inventory:user-20261014:71e476184654207285c8"
+   ],
+   "character": {
+    "animalic": 2.5,
+    "freshness": 4.0,
+    "green": 4.0,
+    "sweetness": 4.0,
+    "transparency": 1.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class None (400 hour(s) at 10.00 % in dipropylene glycol), VP class 1 (0.16 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "herbal",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "fruity",
+     "cassis",
+     "buchu leaf",
+     "green"
+    ],
+    "tgsc": [
+     "herbal",
+     "fresh fruity natural buchu clean"
+    ],
+    "supplier": [
+     "blackcurrant cassis"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise Buccoxime data sheet (PDF, search excerpt)",
+     "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Buccoxime.pdf"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC buchu oxime page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1004001.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander",
+     "url": null
+    },
+    {
+     "rank": 5,
+     "source": "PW 1FB00071 (neat) / 5FB07818 (10% DPG)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=1FB00071"
+    }
+   ],
+   "identity_notes": "Symrise Buccoxime = 1,5-dimethylbicyclo[3.2.1]octan-8-one oxime (crystals). Two PW SKUs on the receipt: 1FB00071 is neat Buccoxime; 5FB07818 is 'Buccoxime 10% in DPG'. Stock is labelled '(neat)', dilution 1.0, which matches 1FB00071. Check which bottle is which: PW gives very different odour life for the two (130 h neat vs 19.3 h at 10%)."
+  },
+  {
+   "profile_key": "caraway seed eo",
+   "identity": "Caraway Seed EO",
+   "stock_ids": [
+    "inventory:v5:13edbb78e065aae28c67"
+   ],
+   "character": {
+    "freshness": 6.0,
+    "green": 3.0,
+    "powdery": 1.5,
+    "spicy": 4.5,
+    "sweetness": 1.5,
+    "warmth": 3.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (20 hour(s) at 100.00 %), VP class 1 (6.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "herbal",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "herbal",
+     "fresh herbal spicy minty balsamic rye bread seedy carrot carvones"
+    ],
+    "producer": [
+     "spicy",
+     "minty",
+     "zesty",
+     "orris"
+    ],
+    "supplier": [
+     "fresh",
+     "herbaceous",
+     "carvone",
+     "caraway-seed-cake dill rye-bread sweet-herbal-spicy warm",
+     "herbaceous",
+     "musky"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Robertet/Charabot Caraway oil (producer text, quoted in TGSC supplier list)",
+     "url": "https://www.thegoodscentscompany.com/data/es1028851.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC carum carvi fruit oil",
+     "url": "https://www.thegoodscentscompany.com/data/es1028851.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960",
+     "url": null
+    },
+    {
+     "rank": 5,
+     "source": "PW 7SE00083 Caraway Seed Essential Oil (search snippet)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=7SE00083"
+    }
+   ],
+   "identity_notes": "Carum carvi seed oil; Kenny's stock is 10% w/w in DPG (inventory.txt). No PW SKU on the batch row; PW sells 'Caraway Seed Essential Oil' 7SE00083 (not confirmed as Kenny's bottle). TGSC notes D-carvone up to 59%."
+  },
+  {
+   "profile_key": "Cis-3 Hexenyl Hexanoate",
+   "identity": "Cis-3 Hexenyl Hexanoate",
+   "stock_ids": [
+    "inventory:user-20261014:8aab45e91eb8ed1b88dc"
+   ],
+   "character": {
+    "creamy": 2.0,
+    "freshness": 5.5,
+    "green": 6.5,
+    "radiance": 7.5,
+    "sweetness": 6.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 0 (8 hour(s) at 100.00 %), VP class 1 (2.13 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "green",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "green",
+     "fruity green waxy pear winey tropical grassy pineapple",
+     "fruity",
+     "waxy",
+     "green",
+     "fatty",
+     "tropical",
+     "winey balsamic"
+    ],
+    "producer": [
+     "pear",
+     "vegetable",
+     "fruity",
+     "pear"
+    ],
+    "supplier": [
+     "green sweet fruity waxy pear",
+     "green vegetable",
+     "cucumber"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Firmenich CAPROATE DE CIS-3-HEXENOL NAT and Bedoukian (producer text, quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1007981.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC page",
+     "url": "https://www.thegoodscentscompany.com/data/rw1007981.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander",
+     "url": null
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local)",
+     "url": "pyrfume_data/leffingwell_behavior.csv (local)"
+    },
+    {
+     "rank": 5,
+     "source": "PW 4GG01946 (Kenny's bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4GG01946"
+    }
+   ],
+   "identity_notes": "(Z)-3-hexenyl hexanoate (caproate). Matches textbook material."
+  },
+  {
+   "profile_key": "elemi eo",
+   "identity": "Elemi EO",
+   "stock_ids": [
+    "inventory:v5:a7f1444b4e03133a1344"
+   ],
+   "character": {
+    "freshness": 6.5,
+    "spicy": 5.0,
+    "warmth": 2.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (20 hour(s) at 100.00 %), VP class 1 (5.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "herbal",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "fresh lemony peppery",
+     "herbal"
+    ],
+    "producer": [
+     "spicy",
+     "peppery",
+     "lemon-scented",
+     "fresh",
+     "spicy",
+     "pepper",
+     "lemon",
+     "conifer-terpenic",
+     "citrus",
+     "pepper",
+     "fresh",
+     "citrus",
+     "balsamic"
+    ],
+    "supplier": [
+     "fresh lime balsamic"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Firmenich ELEMI HE / ELEMI SFE; Albert Vieille Elemi Philippines; Biolandes elemi oil (producer text, quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/es1025511.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC canarium luzonicum oil",
+     "url": "https://www.thegoodscentscompany.com/data/es1025511.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960",
+     "url": null
+    },
+    {
+     "rank": 5,
+     "source": "PW 7QC00902 Elemi Essential Oil (search snippet)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=7QC00902"
+    }
+   ],
+   "identity_notes": "Manila elemi, Canarium luzonicum (syn. C. commune) resin oil; inventory.txt says 'Canarium luzonicum'. Do not confuse with Amyris elemifera 'elemi' (sandalwood-like). Typical GC: d-limonene ~45-55%, alpha-phellandrene 8-15%, elemol 5.5-10%, elemicin 1.5-5.5% (Ayuroma TDS). No PW SKU on batch row; PW Elemi Essential Oil is 7QC00902 (not confirmed as Kenny's bottle)."
+  },
+  {
+   "profile_key": "Fructone B",
+   "identity": "Fructone B",
+   "stock_ids": [
+    "inventory:user-20261014:d7f791737e85091fd147"
+   ],
+   "character": {
+    "freshness": 6.0,
+    "radiance": 4.0,
+    "sweetness": 6.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 0 (12 hour(s) at 100.00 %), VP class 1 (7.95 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "cas": "6290-17-1",
+   "cas_source": "PW 3FG00196 page 'CAS No. 6290-17-1'; TGSC rw1005422 lists 'fructone B' as a synonym; RIFM assessment 'CAS Registry Number: 6290-17-1'",
+   "tgsc_odor_type": "fruity",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "fruity",
+     "fresh fruity apple strawberry licorice"
+    ],
+    "producer": [
+     "fresh",
+     "anisic",
+     "apple",
+     "plum",
+     "strawberry",
+     "fresh-fruity",
+     "fruity",
+     "apple",
+     "strawberry",
+     "sweet"
+    ],
+    "supplier": [
+     "fruity berry",
+     "fruity-floral",
+     "warm sweet",
+     "winey fermented fruit",
+     "cooked strawberry preserve"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Takasago Dimethyl Dioxolan compendium page (producer, search excerpt)",
+     "url": "https://www.takasago.com/en/node/671"
+    },
+    {
+     "rank": 1,
+     "source": "IFF Fraistone and Symrise Fragolane (producer text, quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1005422.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC fruity ketal",
+     "url": "https://www.thegoodscentscompany.com/data/rw1005422.html"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local, CID 95392)",
+     "url": "pyrfume_data/leffingwell_behavior.csv (local)"
+    },
+    {
+     "rank": 5,
+     "source": "PW 3FG00196 (Kenny's bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3FG00196"
+    }
+   ],
+   "identity_notes": "WARNING: Fructone B is NOT Fructone. Fructone B = ethyl 2,4-dimethyl-1,3-dioxolane-2-acetate (IFF Fraistone, Symrise Fragolane, Takasago Dimethyl Dioxolan, FEMA 4294). Fructone = ethyl 2-methyl-1,3-dioxolane-2-acetate, CAS 6413-10-1 (apple). Kenny's PW 3FG00196 page gives CAS 6290-17-1 and the 2,4-dimethyl name. PW's 'cooked strawberry preserve' text is Arctander-style wording, not the producer line."
+  },
+  {
+   "profile_key": "Guaiacwood EO",
+   "identity": "Guaiacwood EO",
+   "stock_ids": [
+    "inventory:user-20261014:690d5c22cf2180c08302"
+   ],
+   "character": {
+    "creamy": 1.5,
+    "floral": 3.5,
+    "spicy": 2.0,
+    "sweetness": 4.5,
+    "warmth": 1.5,
+    "woody": 6.0
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class None (None Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "woody",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "woody",
+     "sweet dry woody spicy powdery balsamic tea rose"
+    ],
+    "producer": [
+     "sweet",
+     "woody",
+     "milky",
+     "sandalwood",
+     "smoky"
+    ],
+    "literature": [
+     "delicately sweet",
+     "rosy-woody",
+     "woody-rosy"
+    ],
+    "supplier": [
+     "dry woody spicy sweet pepper tea-rose smokey"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Albert Vieille Guaiac wood EO Paraguay (producer text, quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/es1005751.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC guaiacwood oil",
+     "url": "https://www.thegoodscentscompany.com/data/es1005751.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960, quoted by AromaWeb",
+     "url": "https://www.aromaweb.com/essential-oils/guaiacwood-essential-oil.php"
+    },
+    {
+     "rank": 4,
+     "source": "Tissandié et al. 2018 Phytochemistry GC-O study (abstract)",
+     "url": "https://www.sciencedirect.com/science/article/abs/pii/S0031942218300384"
+    },
+    {
+     "rank": 5,
+     "source": "PW Guaiacwood Oil (quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/es1005751.html"
+    }
+   ],
+   "identity_notes": "Bulnesia sarmientoi wood oil (Paraguay). Kenny's stock is exactly 1/3 w/w oil in ethanol + DEP (stock dilution 0.333). Robertet 'Guaiac Heart' and IFF 'Guaiacwood Heart' are fractions, not the plain EO; their lines are recorded but flagged."
+  },
+  {
+   "profile_key": "Helvetolide",
+   "identity": "Helvetolide",
+   "stock_ids": [
+    "inventory:user-20261014:4de6a0abd01d38f3f53a"
+   ],
+   "character": {
+    "animalic": 1.5,
+    "floral": 2.5,
+    "freshness": 3.0,
+    "powdery": 6.5,
+    "radiance": 4.5,
+    "sweetness": 3.5,
+    "warmth": 4.5,
+    "woody": 2.5
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class 2 (> 336 hour(s) at 100.00 %), VP class 2 (0.03 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "musk",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "musky",
+     "musky",
+     "powdery",
+     "ambrette",
+     "fruity",
+     "pear",
+     "ambrette"
+    ],
+    "tgsc": [
+     "musk ambrette fruity pear woody floral"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "dsm-firmenich HELVETOLIDE® product page",
+     "url": "https://www.firmenich.com/product/helvetolider-pe-947650"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC musk propanoate",
+     "url": "https://www.thegoodscentscompany.com/data/rw1557401.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander",
+     "url": null
+    },
+    {
+     "rank": 5,
+     "source": "PW 3XD17215",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3XD17215"
+    }
+   ],
+   "identity_notes": "dsm-firmenich HELVETOLIDE® 947650, musk propanoate (alicyclic musk). PW names Firmenich as producer. Engine text is a truncated copy of the Firmenich 'Perfumery usage' paragraph."
+  },
+  {
+   "profile_key": "Magnolan",
+   "identity": "Magnolan",
+   "stock_ids": [
+    "inventory:user-20261014:83466c843ddcd25020a4"
+   ],
+   "character": {
+    "floral": 6.5,
+    "freshness": 3.0,
+    "green": 4.0,
+    "transparency": 4.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 2 (308 hour(s) at 100.00 %), VP class 1 (0.208 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "floral",
+     "floral-green",
+     "magnolia",
+     "peony",
+     "geranium",
+     "grapefruit",
+     "indolic"
+    ],
+    "tgsc": [
+     "floral green grapefruit narcissus magnolia geranium gardenia"
+    ],
+    "supplier": [
+     "dry floral"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise Magnolan data sheet (PDF, search excerpt)",
+     "url": "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Magnolan.pdf"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC magnolia indene",
+     "url": "https://www.thegoodscentscompany.com/data/rw1007991.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander",
+     "url": null
+    },
+    {
+     "rank": 5,
+     "source": "PW 3MN13569",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3MN13569"
+    },
+    {
+     "rank": 5,
+     "source": "Perfumer's Apprentice / Perfumer Supply House (via TGSC and search)",
+     "url": "https://perfumersupplyhouse.com/product/magnolan-symrise"
+    }
+   ],
+   "identity_notes": "Symrise Magnolan® = 2,4-dimethyl-4,4a,5,9b-tetrahydroindeno[1,2-d][1,3]dioxine (acetal). Engine text is the TGSC Luebke descriptor string."
+  },
+  {
+   "profile_key": "Mate Absolute",
+   "identity": "Mate Absolute",
+   "stock_ids": [
+    "inventory:user-20261014:50c19a807b9076661d88"
+   ],
+   "character": {
+    "freshness": 1.5,
+    "green": 5.5,
+    "smoky": 2.5,
+    "spicy": 1.5,
+    "sweetness": 3.0,
+    "warmth": 4.5
+   },
+   "note": "heart",
+   "note_basis": "PW neat 8HE00557 strip life 24 h",
+   "tgsc_odor_type": "herbal",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "tea",
+     "green",
+     "herbaceous",
+     "hay",
+     "tobacco",
+     "fruity",
+     "leathery",
+     "phenolic",
+     "tobacco",
+     "tea",
+     "hay",
+     "herbaceous",
+     "warm tea leaf",
+     "floral mimosa",
+     "woody",
+     "spicy",
+     "balsamic"
+    ],
+    "tgsc": [
+     "tea herbal leafy hay phenolic tobacco"
+    ],
+    "supplier": [
+     "matcha green tea"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Firmenich MATE ABS CTX / Robertet Mate absolute / IFF Mate Absolute 40 PCT BB (producer text, quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/ab1046151.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC yerba mate absolute",
+     "url": "https://www.thegoodscentscompany.com/data/ab1046151.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1960",
+     "url": null
+    },
+    {
+     "rank": 5,
+     "source": "PW 5HE13845 (Kenny's 10% DPG bottle)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=5HE13845"
+    },
+    {
+     "rank": 5,
+     "source": "Perfumer's Apprentice Mate (Robertet)",
+     "url": "https://shop.perfumersapprentice.com/p-8454-mate-absolute.aspx"
+    }
+   ],
+   "identity_notes": "Ilex paraguariensis leaf absolute. Kenny's PW bottle is 'Mate Absolute 10% in DPG' (stock dilution 0.1). PW neat Mate Absolute is 8HE00557. Firmenich offers decolourised (CTX) and MPG versions; Robertet offers absolute and several clarextracts; these differ."
+  },
+  {
+   "profile_key": "nerolidol",
+   "identity": "Nerolidol",
+   "stock_ids": [
+    "inventory:v5:26a68ef5e1c2ebd41ece"
+   ],
+   "character": {
+    "creamy": 1.5,
+    "floral": 8.0,
+    "freshness": 3.5,
+    "green": 6.0,
+    "transparency": 4.5,
+    "woody": 7.0
+   },
+   "note": "base",
+   "note_basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 2 (0.006 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "floral",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "floral",
+     "floral green waxy citrus woody",
+     "floral",
+     "green",
+     "citrus",
+     "woody waxy"
+    ],
+    "producer": [
+     "woody",
+     "floral",
+     "green",
+     "tea",
+     "floral",
+     "woody",
+     "green",
+     "floral | green | woody",
+     "fruity-woody"
+    ],
+    "supplier": [
+     "mild herbal-floral",
+     "soft-light floral-woody",
+     "muguet",
+     "faint woody-floral",
+     "rose apple"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "BASF Nerolidol page (producer, search excerpt)",
+     "url": "https://aroma-ingredients.basf.com/global/en/our-portfolio/selected-sensations/nerolidol"
+    },
+    {
+     "rank": 1,
+     "source": "Bedoukian / Robertet / Firmenich nerolidol (producer text, quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009032.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC nerolidol",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009032.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969, quoted by Pell Wall, quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009032.html"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local, CID 5284507)",
+     "url": "pyrfume_data/leffingwell_behavior.csv (local)"
+    }
+   ],
+   "identity_notes": "Cis/trans mixture (EFFA spec quoted by TGSC: 34-44% cis, 54-64% trans). Kenny's bottle: 'Nerolidol # neat'; supplier not on batch row (PW sells 3LM00319). Do not confuse with Cabreuva EO, which Kenny also owns."
+  },
+  {
+   "profile_key": "padma",
+   "identity": "Phenylacetaldehyde Dimethyl Acetal (PADMA)",
+   "stock_ids": [
+    "inventory:v5:c1854d67b749615e3016"
+   ],
+   "character": {
+    "floral": 5.5,
+    "green": 7.0,
+    "woody": 2.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (4.16 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "green",
+   "descriptor_terms_by_source": {
+    "tgsc": [
+     "green",
+     "green foliage floral rosy earthy mushroom"
+    ],
+    "producer": [
+     "floral-rosy",
+     "green",
+     "green-floral",
+     "earthy"
+    ],
+    "supplier": [
+     "green-earthy",
+     "flower-stem",
+     "green-floral hyacinth",
+     "fresh narcotic",
+     "hyacinth",
+     "lilac"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Symrise Phenylacetaldehyde dimethyl acetal (producer text, quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009972.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC phenyl acetaldehyde dimethyl acetal",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009972.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969, quoted by Pell Wall, quoted by TGSC",
+     "url": "https://www.thegoodscentscompany.com/data/rw1009972.html"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local, CID 60995)",
+     "url": "pyrfume_data/leffingwell_behavior.csv (local)"
+    },
+    {
+     "rank": 5,
+     "source": "PW 4GN00382 (search snippet)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=4GN00382"
+    }
+   ],
+   "identity_notes": "PADMA = Givaudan Viridine = Rosal / Vert de Lilas. Kenny's bottle stated neat; supplier not on batch row (PW neat 4GN00382; PW also sells 10% DPG 5GN08326)."
+  },
+  {
+   "profile_key": "Saffranal",
+   "identity": "Saffranal",
+   "stock_ids": [
+    "inventory:user-20261014:db2c3c60652ce30eca3a"
+   ],
+   "character": {
+    "floral": 3.5,
+    "freshness": 3.5,
+    "green": 5.5,
+    "smoky": 1.5,
+    "spicy": 6.0,
+    "sweetness": 3.5,
+    "warmth": 5.5,
+    "woody": 1.5
+   },
+   "note": "top",
+   "note_basis": "TGSC substantivity class 1 (64 hour(s) at 100.00 %), VP class 0 (14.1 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "herbal",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "spicy saffron",
+     "herbaceous",
+     "tobacco",
+     "floral",
+     "sweet",
+     "green-floral",
+     "tobacco-herbaceous",
+     "spicy",
+     "saffron",
+     "floral"
+    ],
+    "tgsc": [
+     "herbal",
+     "fresh herbal phenolic metallic rosemary tobacco spicy",
+     "woody",
+     "spicy",
+     "phenolic",
+     "camphoreous",
+     "medicinal",
+     "powdery"
+    ],
+    "literature": [
+     "sweet",
+     "green-floral",
+     "tobacco-herbaceous",
+     "saffron extreme"
+    ],
+    "supplier": [
+     "saffron",
+     "spicy-herbal"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "Givaudan Safranal page (producer, search excerpt)",
+     "url": "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/safranal"
+    },
+    {
+     "rank": 1,
+     "source": "Robertet / Bedoukian safranal (producer text, quoted by TGSC)",
+     "url": "https://www.thegoodscentscompany.com/data/rw1016371.html"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC safranal",
+     "url": "https://www.thegoodscentscompany.com/data/rw1016371.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander 1969 monograph 869 Dehydro-beta-cyclocitral (search snippet of archive.org text)",
+     "url": "https://archive.org/stream/336871454-perfume-and-flavor-chemicals-by-steffen-arctander-79/336871454-Perfume-and-Flavor-Chemicals-by-Steffen-Arctander79_djvu.txt"
+    },
+    {
+     "rank": 4,
+     "source": "Leffingwell (local, CID 61041)",
+     "url": "pyrfume_data/leffingwell_behavior.csv (local)"
+    }
+   ],
+   "identity_notes": "'Saffranal' is PW's spelling of safranal (2,6,6-trimethylcyclohexa-1,3-diene-1-carbaldehyde). Kenny's bottle is PW 'Saffranal 10% in DPG' (stock dilution 0.1 matches). PW neat Saffranal is 4ES00402. PW synonym line contains a typo ('Dilution of Safranal 10% in Safranal'). IFRA-restricted (Standard noted by Premiere Peau; TGSC carries an IFRA specification)."
+  },
+  {
+   "profile_key": "tuberlia base",
+   "identity": "Tuberlia Base",
+   "stock_ids": [
+    "inventory:user-20261014:4c79888df34205fd46ec"
+   ],
+   "character": {
+    "creamy": 4.5,
+    "floral": 6.5,
+    "sweetness": 4.0,
+    "warmth": 4.0
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class None (None), VP class 1 (0.1 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "descriptor_terms_by_source": {
+    "supplier": [
+     "tuberose",
+     "sweet",
+     "warm floral",
+     "creamy"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "PW Tuberalia Base 6ND09663 (PW's own base, so PW is the producer)",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=6ND09663"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC",
+     "url": null
+    }
+   ],
+   "identity_notes": "Kenny's spelling 'Tuberlia'; PW product is 'Tuberalia Base' SKU 6ND09663 (Kenny confirmed the label 15 Oct, per data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json). PW synonyms: 'Tuberose Artificial Base', 'Tuberose Absolute Replacer'. Composition opaque; dose as supplied. Not the same as any tuberose absolute or EO Kenny owns."
+  },
+  {
+   "profile_key": "Veloutone",
+   "identity": "Veloutone",
+   "stock_ids": [
+    "inventory:user-20261014:03f5f2b27b17e3a6d75f"
+   ],
+   "character": {
+    "creamy": 5.5,
+    "floral": 4.5,
+    "freshness": 2.5,
+    "green": 2.0,
+    "sweetness": 4.5
+   },
+   "note": "heart",
+   "note_basis": "TGSC substantivity class 0 (12 hour(s) at 100.00 %), VP class 1 (9.2 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "tgsc_odor_type": "fruity",
+   "descriptor_terms_by_source": {
+    "producer": [
+     "fruity",
+     "peach",
+     "lactonic fruits",
+     "celery",
+     "peach",
+     "apricot",
+     "lactonic jasmine",
+     "lavender"
+    ],
+    "tgsc": [
+     "fruity peach apricot jasmin lactonic herbal lavender"
+    ],
+    "supplier": [
+     "smooth",
+     "floral"
+    ]
+   },
+   "sources_ranked": [
+    {
+     "rank": 1,
+     "source": "dsm-firmenich VELOUTONE® product page",
+     "url": "https://www.firmenich.com/product/veloutoner-pe-990257"
+    },
+    {
+     "rank": 2,
+     "source": "TGSC fruity cyclopentanone",
+     "url": "https://www.thegoodscentscompany.com/data/rw1000241.html"
+    },
+    {
+     "rank": 3,
+     "source": "Arctander",
+     "url": null
+    },
+    {
+     "rank": 5,
+     "source": "PW 3LH00459",
+     "url": "https://www.perfumersworld.com/view.php?pro_id=3LH00459"
+    }
+   ],
+   "identity_notes": "dsm-firmenich VELOUTONE® 990257 = 2,2,5-trimethyl-5-pentylcyclopentanone (Hedione family). Engine text 'fresh floral slightly fruity herbal woody' does not match producer text: producer leads with fruity peach/apricot, lactonic jasmine, lavender."
+  }
+ ]
+}

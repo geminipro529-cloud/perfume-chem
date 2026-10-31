@@ -202,10 +202,10 @@ def inventory_index():
 def test_actual_supplier_application_text_is_not_own_odor():
     from engine.ingredient_intelligence import _PROFILES
 
-    text = rules.positive_description(_PROFILES["Ethyl Linalyl Acetate"]["character"])
+    text = rules.positive_description(_PROFILES["Ethyl Linalyl Acetate"]["odor_description"])
     assert "bergamot" in text.casefold()
     assert "floral" not in text.casefold()
-    text = rules.positive_description(_PROFILES["Acetoin"]["character"])
+    text = rules.positive_description(_PROFILES["Acetoin"]["odor_description"])
     assert "creamy" in text.casefold()
     assert "fruit" not in text.casefold() and "milk" not in text.casefold()
 

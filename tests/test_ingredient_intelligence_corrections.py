@@ -126,6 +126,8 @@ def test_late_intake_prose_does_not_crash_numeric_character_consumers():
         assert profile.role not in {"top", "heart", "base"}
     profile = get_profile("hay absolute")
     assert profile.odor_description == "coumarinic hay, dry, natural"
-    assert profile.character == {}  # unknown scores, not invented measurements
-    assert profile.note == "base"
+    # Since 31 Oct 2026 sourced descriptor-rubric scores, labelled as design values.
+    assert profile.character == {"green": 3.0, "sweetness": 6.0, "warmth": 5.0, "woody": 2.5}
+    assert profile.evidence["character"]["status"] == "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT"
+    assert profile.note == "heart"  # volatility rule: vapour pressure 0.3 Pa
     assert profile.role == "modifier"

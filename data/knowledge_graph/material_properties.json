@@ -10110,6 +10110,19 @@
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1014101.html",
+          "https://www.thegoodscentscompany.com/data/es1014101.html",
+          "https://www.thegoodscentscompany.com/data/es1014101.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class None (None), VP class 2 (0.006 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -10124,9 +10137,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -16899,7 +16909,7 @@
     "mw": 136.0,
     "vp": 250.0,
     "clp": 3.8,
-    "note": "heart",
+    "note": "top",
     "role": "modifier",
     "texture": "dry, resinous",
     "activity_coef": 3.0,
@@ -16971,12 +16981,33 @@
         "fields": {
           "odor_family": "woody"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "heart"
+        }
       }
     ],
     "or_family": "conifer",
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/cypress-oil-spain",
+          "https://www.thegoodscentscompany.com/data/es1004291.html",
+          "https://www.thegoodscentscompany.com/data/es1004291.html",
+          "https://www.edenbotanicals.com/cypress-leaf-sample.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7KB00833"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "Givaudan: \"an aromatic, fresh and invigorating head note\""
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -16991,9 +17022,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -19869,7 +19897,7 @@
     "mw": 204.0,
     "vp": 5.0,
     "clp": 4.0,
-    "note": "top",
+    "note": "heart",
     "role": "modifier",
     "texture": "fresh, balsamic",
     "activity_coef": 2.5,
@@ -19941,12 +19969,32 @@
         "fields": {
           "odor_family": "citrus"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "top"
+        }
       }
     ],
     "or_family": "citrus_balsamic",
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1025511.html",
+          "https://www.thegoodscentscompany.com/data/es1025511.html",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=7QC00902"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (20 hour(s) at 100.00 %), VP class 1 (5.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -19961,9 +20009,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -25798,7 +25843,7 @@
     "mw": 146.0,
     "vp": 0.3,
     "clp": 1.4,
-    "note": "base",
+    "note": "heart",
     "role": "modifier",
     "texture": "dry, powdery",
     "activity_coef": 0.7,
@@ -25870,12 +25915,33 @@
         "fields": {
           "odor_family": "unknown"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "base"
+        }
       }
     ],
     "or_family": "hay",
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1026191.html",
+          "https://shop.perfumersapprentice.com/p-10342-hay-absolute-biolandes.aspx",
+          "https://www.thegoodscentscompany.com/data/ab1026191.html",
+          "https://www.thegoodscentscompany.com/data/ab1026191.html",
+          "https://www.perfumersworld.com/view.php?pro_id=8NY00523"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (0.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -25890,9 +25956,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -26364,6 +26427,20 @@
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://thegoodscentscompany.com/data/es1062881.html",
+          "https://thegoodscentscompany.com/data/es1062881.html",
+          "https://thegoodscentscompany.com/data/es1062881.html",
+          "https://thegoodscentscompany.com/data/es1062881.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class None (None), VP class 1 (0.5 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -26378,9 +26455,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -37886,7 +37960,7 @@
     "mw": 222.37,
     "vp": 0.006,
     "clp": 4.8,
-    "note": "heart",
+    "note": "base",
     "role": "modifier",
     "texture": "soft, balmy",
     "activity_coef": 1.2,
@@ -37970,12 +38044,33 @@
         "fields": {
           "clp": 4.6
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "heart"
+        }
       }
     ],
     "or_family": "floral_woody",
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://aroma-ingredients.basf.com/global/en/our-portfolio/selected-sensations/nerolidol",
+          "https://www.thegoodscentscompany.com/data/rw1009032.html",
+          "https://www.thegoodscentscompany.com/data/rw1009032.html",
+          "https://www.thegoodscentscompany.com/data/rw1009032.html",
+          "pyrfume_data/leffingwell_behavior.csv (local)"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 2 (0.006 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -37990,9 +38085,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -40573,6 +40665,21 @@
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009972.html",
+          "https://www.thegoodscentscompany.com/data/rw1009972.html",
+          "https://www.thegoodscentscompany.com/data/rw1009972.html",
+          "pyrfume_data/leffingwell_behavior.csv (local)",
+          "https://www.perfumersworld.com/view.php?pro_id=4GN00382"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (4.16 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -40587,9 +40694,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -48672,6 +48776,18 @@
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=6ND09663",
+          null
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class None (None), VP class 1 (0.1 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -48686,9 +48802,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -49297,7 +49410,7 @@
     "mw": 148.0,
     "vp": 1.0,
     "clp": 2.0,
-    "note": "base",
+    "note": "heart",
     "role": "modifier",
     "texture": "warm, resinous",
     "activity_coef": 1.2,
@@ -49343,6 +49456,20 @@
     "pubchem_warnings": [],
     "audit_flags": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1057281.html",
+          "https://www.thegoodscentscompany.com/data/rs1046501.html",
+          "https://www.edenbotanicals.com/liquidambar-styrax.html",
+          "https://www.thegoodscentscompany.com/data/es1001941.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (1.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -49357,9 +49484,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -49468,6 +49592,12 @@
         "reason": "CURRENT_PROFILE_FAMILY_SYNCHRONIZATION_20260907",
         "fields": {
           "odor_family": "unknown"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "base"
         }
       }
     ],
@@ -50580,6 +50710,19 @@
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/jasmacyclene",
+          "https://www.thegoodscentscompany.com/data/rw1002152.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3LJ01926"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (2.84 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -50594,9 +50737,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -51465,6 +51605,21 @@
     "pubchem_warnings": [],
     "audit_flags": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.e-robertet.com/en/benzoin-siam-resinoid-laos.html",
+          "https://www.thegoodscentscompany.com/data/rs1006721.html",
+          "https://www.thegoodscentscompany.com/data/rs1006721.html",
+          "https://www.thegoodscentscompany.com/data/rs1006721.html",
+          "https://www.thegoodscentscompany.com/data/rs1006721.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class None (100 hour(s) at 20.00 % (resinoid page rs1006721); 400 hour(s) at 100.00 % (resin page rs1000281)), VP class 2 (0.02 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -51479,9 +51634,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -65586,6 +65738,21 @@
         "status": "NATURAL_COMPOSITE_REQUIRED_UNBOUND",
         "source": "engine/formulation_intelligence/wood_registry.py"
       },
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1005751.html",
+          "https://www.thegoodscentscompany.com/data/es1005751.html",
+          "https://www.aromaweb.com/essential-oils/guaiacwood-essential-oil.php",
+          "https://www.sciencedirect.com/science/article/abs/pii/S0031942218300384",
+          "https://www.thegoodscentscompany.com/data/es1005751.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class None (None Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -65600,9 +65767,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -66394,6 +66558,21 @@
         ],
         "scope": "Active entity only; user 20% is not the supplier 10% DPG product"
       },
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg",
+          "https://www.thegoodscentscompany.com/data/rw1456331.html",
+          "https://www.thegoodscentscompany.com/data/rw1456331.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/",
+          "https://www.perfumersworld.com/view.php?pro_id=5VD10871"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (168 hour(s) at 100.00 %), VP class 1 (0.6 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "vp": {
         "status": "UNKNOWN"
       },
@@ -66405,9 +66584,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -67253,6 +67429,21 @@
     "name": "Phenylacetaldehyde Dimethyl Acetal (PADMA)",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009972.html",
+          "https://www.thegoodscentscompany.com/data/rw1009972.html",
+          "https://www.thegoodscentscompany.com/data/rw1009972.html",
+          "pyrfume_data/leffingwell_behavior.csv (local)",
+          "https://www.perfumersworld.com/view.php?pro_id=4GN00382"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (4.16 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -67267,9 +67458,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -67742,6 +67930,21 @@
     "name": "Styralyl Acetate",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1011092.html",
+          "https://www.thegoodscentscompany.com/data/rw1011092.html",
+          "https://www.thegoodscentscompany.com/data/rw1011092.html",
+          "https://www.fao.org/food/food-safety-quality/scientific-advice/jecfa/jecfa-flav/details/en/c/790",
+          "https://www.thegoodscentscompany.com/data/rw1011092.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 0 (8 hour(s) at 100.00 %), VP class 1 (8.42 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -67756,9 +67959,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -69361,6 +69561,20 @@
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1028851.html",
+          "https://www.thegoodscentscompany.com/data/es1028851.html",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=7SE00083"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (20 hour(s) at 100.00 %), VP class 1 (6.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -69375,9 +69589,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -72500,6 +72711,21 @@
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009972.html",
+          "https://www.thegoodscentscompany.com/data/rw1009972.html",
+          "https://www.thegoodscentscompany.com/data/rw1009972.html",
+          "pyrfume_data/leffingwell_behavior.csv (local)",
+          "https://www.perfumersworld.com/view.php?pro_id=4GN00382"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (4.16 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -72514,9 +72740,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -73985,6 +74208,20 @@
     "name": "Turkish Storax Tincture",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1057281.html",
+          "https://www.thegoodscentscompany.com/data/rs1046501.html",
+          "https://www.edenbotanicals.com/liquidambar-styrax.html",
+          "https://www.thegoodscentscompany.com/data/es1001941.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (1.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -73999,9 +74236,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -74104,12 +74338,18 @@
         "fields": {
           "odor_family": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "base"
+        }
       }
     ],
     "mw": 148.0,
     "vp": 1.0,
     "clp": 2.0,
-    "note": "base",
+    "note": "heart",
     "role": "modifier",
     "texture": "warm, resinous",
     "or_family": "balsamic",
@@ -74174,6 +74414,21 @@
     "name": "Vietnamese Benzoin Tincture",
     "alt_name": null,
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.e-robertet.com/en/benzoin-siam-resinoid-laos.html",
+          "https://www.thegoodscentscompany.com/data/rs1006721.html",
+          "https://www.thegoodscentscompany.com/data/rs1006721.html",
+          "https://www.thegoodscentscompany.com/data/rs1006721.html",
+          "https://www.thegoodscentscompany.com/data/rs1006721.html"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class None (100 hour(s) at 20.00 % (resinoid page rs1006721); 400 hour(s) at 100.00 % (resin page rs1000281)), VP class 2 (0.02 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -74188,9 +74443,6 @@
       },
       "odt_ppm": {
         "status": "UNVERIFIED_LEGACY_VALUE"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -74678,12 +74930,18 @@
         "fields": {
           "vp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 88.11,
     "vp": 360.0,
     "clp": -0.36,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -74700,11 +74958,18 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=4DV02664"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1007331.html",
+          "https://www.thegoodscentscompany.com/data/rw1007331.html",
+          "local pyrfume leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=4DV02664"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (28 hour(s) at 100.00 %), VP class 0 (360.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -74875,12 +75140,18 @@
         "fields": {
           "vp": 2.04
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 184.32,
     "vp": 1.12,
     "clp": 4.75,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -74897,11 +75168,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=4AA00021"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1000371.html",
+          "https://www.thegoodscentscompany.com/data/rw1000371.html",
+          "https://www.thegoodscentscompany.com/data/rw1000371.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/",
+          "https://www.perfumersworld.com/view.php?pro_id=4AA00021"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (368 hour(s) at 100.00 %), VP class 1 (1.12 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -75072,12 +75351,18 @@
           "vp": 157.3,
           "clp": 2.8
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 128.22,
     "vp": 148.3,
     "clp": 3.5,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -75094,11 +75379,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=4AC00026"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1000251.html",
+          "https://www.thegoodscentscompany.com/data/rw1000251.html",
+          null,
+          "pyrfume_data/leffingwell_behavior.csv (local)",
+          "https://www.perfumersworld.com/view.php?pro_id=4AC00026"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 0 (7 hour(s) at 100.00 %), VP class 0 (148.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -75261,12 +75554,18 @@
         "fields": {
           "clp": 3.27
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 142.24,
     "vp": 49.3,
     "clp": 3.4,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -75283,11 +75582,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=4AC00027"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1000292.html",
+          "https://www.thegoodscentscompany.com/data/rw1000292.html",
+          "https://www.thegoodscentscompany.com/data/rw1000292.html",
+          "local pyrfume leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=4AC00027"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (276 hour(s) at 100.00 %), VP class 0 (49.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -75436,12 +75743,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": null,
     "vp": null,
     "clp": null,
-    "note": "unassigned",
+    "note": "base",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -75458,11 +75771,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=5XU12235"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1029391.html",
+          "https://www.thegoodscentscompany.com/data/ab1029391.html",
+          "https://www.thegoodscentscompany.com/data/ab1029391.html",
+          "https://www.thegoodscentscompany.com/data/ab1029391.html",
+          "https://www.perfumersworld.com/view.php?pro_id=8XU00529"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (332 hour(s) at 100.00 %), VP class None (None Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -75615,12 +75936,18 @@
           "vp": null,
           "clp": 6.0
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 278.4,
     "vp": 0.09,
     "clp": 4.865,
-    "note": "unassigned",
+    "note": "base",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -75637,11 +75964,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=5WU22696"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Ambrocenide_10_DPG.pdf",
+          "https://www.thegoodscentscompany.com/data/rw1612511.html",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=5WU22696",
+          "https://shop.perfumersapprentice.com/p-9393-ambrocenide-crystals-symrise.aspx"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class None (None), VP class 2 (0.09 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -75977,12 +76312,18 @@
         "fields": {
           "vp": 2.67
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 202.25,
     "vp": 2.37,
     "clp": 2.0,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -75999,11 +76340,17 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=3FG19149"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/berryflortm",
+          "https://www.thegoodscentscompany.com/data/rw1061362.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3FG19149"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (24 hour(s) at 100.00 %), VP class 1 (2.37 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -76159,12 +76506,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": null,
     "vp": null,
     "clp": null,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -76181,11 +76534,15 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=6HE09224"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=6HE09224"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "only PW strip life 8 h (12 h or less = top by the same hours rule)"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -76354,12 +76711,18 @@
         "fields": {
           "vp": 0.0813
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 167.25,
     "vp": 0.16,
     "clp": 2.94,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -76377,11 +76740,18 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Buccoxime.pdf",
+          "https://www.thegoodscentscompany.com/data/rw1004001.html",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=1FB00071"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class None (400 hour(s) at 10.00 % in dipropylene glycol), VP class 1 (0.16 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -76597,12 +76967,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 144.21,
     "vp": 241.3,
     "clp": 2.83,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -76619,11 +76995,18 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "data/inventory_receipts/perfumersworld_261004-055451ce1_received_20261007.json"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1014091.html",
+          "https://www.thegoodscentscompany.com/data/rw1014091.html",
+          "local pyrfume leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=3FD05860"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 0 (8 hour(s) at 100.00 %), VP class 0 (241.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -76935,12 +77318,18 @@
         "fields": {
           "vp": 0.08
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 264.41,
     "vp": 0.081,
     "clp": 6.2,
-    "note": "unassigned",
+    "note": "base",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -76957,11 +77346,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=2WW00099"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.iff.com/scent/ingredients-compendium/cedryl-acetate",
+          "https://thegoodscentscompany.com/data/rw1002481.html",
+          "https://thegoodscentscompany.com/data/rw1002481.html",
+          "local pyrfume leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=2WW00099"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 2 (0.081 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -77138,12 +77535,18 @@
           "vp": 183.0,
           "clp": 1.9
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 142.2,
     "vp": 214.0,
     "clp": 2.7,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -77160,11 +77563,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=4GF00226"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1001471.html",
+          "https://www.thegoodscentscompany.com/data/rw1001471.html",
+          "https://www.thegoodscentscompany.com/data/rw1001471.html",
+          "https://www.thegoodscentscompany.com/data/rw1001471.html",
+          "https://www.thegoodscentscompany.com/data/rw1001471.html"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 0 (< 4 hour(s) at 100.00 %), VP class 0 (214.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -77331,12 +77742,18 @@
         "fields": {
           "clp": 4.1
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 198.31,
     "vp": 2.13,
     "clp": 4.44,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -77353,11 +77770,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=4GG01946"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1007981.html",
+          "https://www.thegoodscentscompany.com/data/rw1007981.html",
+          null,
+          "pyrfume_data/leffingwell_behavior.csv (local)",
+          "https://www.perfumersworld.com/view.php?pro_id=4GG01946"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 0 (8 hour(s) at 100.00 %), VP class 1 (2.13 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -77522,12 +77947,18 @@
           "vp": 48.1,
           "clp": 0.9
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 160.17,
     "vp": 25.33,
     "clp": 0.96,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -77544,11 +77975,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=3FG00145"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1004331.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/",
+          "https://www.thegoodscentscompany.com/data/rw1004331.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3FG00145",
+          "https://directpcw.com/en/products/dm-1"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 0 (4 hour(s) at 100.00 %), VP class 0 (25.33 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -77705,12 +78144,18 @@
         "fields": {
           "clp": 4.88
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 210.31,
     "vp": 4.25,
     "clp": 4.7,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -77727,11 +78172,18 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=3LC19147"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ethyl-linalyl-acetate",
+          "http://thegoodscentscompany.com/data/rw1022781.html",
+          "local pyrfume leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=3LC19147"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (16 hour(s) at 100.00 %), VP class 1 (4.25 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -77887,12 +78339,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": null,
     "vp": null,
     "clp": null,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -77909,11 +78367,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=5ON09236"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://thegoodscentscompany.com/data/ab1039361.html",
+          "https://thegoodscentscompany.com/data/ab1039361.html",
+          "https://thegoodscentscompany.com/data/ab1062361.html",
+          "https://www.perfumersworld.com/view.php?pro_id=8ON00534",
+          "https://fraterworks.com/products/frangipani-absolute"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (52 hour(s) at 100.00 % (white frangipani page); not given on pink page), VP class None (None Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -78073,12 +78539,18 @@
           "vp": 7.3,
           "clp": 1.0
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 188.22,
     "vp": 7.95,
     "clp": 1.72,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -78095,13 +78567,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=3FG00196",
-        "review": "docs/research/CHYPRE_COLOGNE_V4_IMPLEMENTATION_PLAN_20261007.md",
-        "scope": "OWN_ODOR_ONLY_APPLICATION_FLOWER_NAMES_EXCLUDED"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.takasago.com/en/node/671",
+          "https://www.thegoodscentscompany.com/data/rw1005422.html",
+          "https://www.thegoodscentscompany.com/data/rw1005422.html",
+          "pyrfume_data/leffingwell_behavior.csv (local)",
+          "https://www.perfumersworld.com/view.php?pro_id=3FG00196"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 0 (12 hour(s) at 100.00 %), VP class 1 (7.95 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -78258,12 +78736,18 @@
         "fields": {
           "vp": 8.45
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 142.2,
     "vp": 14.1,
     "clp": 1.8,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -78280,11 +78764,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=4DD00331"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1006542.html",
+          "https://www.thegoodscentscompany.com/data/rw1006542.html",
+          "https://www.thegoodscentscompany.com/data/rw1006542.html",
+          "local pyrfume leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=4DD00331"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "Arctander via TGSC: \"excellent tenacity\"; TGSC 144 h; VP alone says top"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -78593,12 +79085,18 @@
         "fields": {
           "vp": 0.242
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 236.35,
     "vp": 0.24,
     "clp": 3.8,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -78615,11 +79113,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=3MW11714"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/glycolierral",
+          "https://www.thegoodscentscompany.com/data/rw1492991.html",
+          "https://www.thegoodscentscompany.com/data/rw1019411.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3MW11714",
+          "https://shop.perfumersapprentice.com/p-9057-glycolierral-givaudan.aspx"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (32 hour(s) at 100.00 %), VP class 1 (0.24 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -78970,12 +79476,18 @@
           "vp": null,
           "clp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 284.43,
     "vp": 0.03,
     "clp": 4.68,
-    "note": "unassigned",
+    "note": "base",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -78992,11 +79504,18 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=3XD17215"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.firmenich.com/product/helvetolider-pe-947650",
+          "https://www.thegoodscentscompany.com/data/rw1557401.html",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=3XD17215"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (> 336 hour(s) at 100.00 %), VP class 2 (0.03 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -79143,12 +79662,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": null,
     "vp": null,
     "clp": null,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -79165,11 +79690,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=8HY00554"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1045781.html",
+          "https://shop.perfumersapprentice.com/p-9950-lavandin-absolute-biolandes.aspx",
+          "https://www.thegoodscentscompany.com/data/ab1045781.html",
+          "https://www.thegoodscentscompany.com/data/ab1045781.html",
+          "https://www.perfumersworld.com/view.php?pro_id=8HY00554"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "Biolandes via TGSC: \"middle-note\""
       },
       "role": {
         "status": "UNREVIEWED"
@@ -79494,12 +80027,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": null,
     "vp": null,
     "clp": null,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -79516,11 +80055,17 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=7CC24027"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://thegoodscentscompany.com/data/tl1032421.html",
+          "https://thegoodscentscompany.com/data/tl1032421.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7CC24027"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "citrus oil; TGSC substantivity printed at 0.10% so not used; PW lists citrus top"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -79808,12 +80353,18 @@
         "fields": {
           "vp": 0.4
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 204.27,
     "vp": 0.208,
     "clp": 2.67,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -79830,11 +80381,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=3MN13569"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Magnolan.pdf",
+          "https://www.thegoodscentscompany.com/data/rw1007991.html",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=3MN13569",
+          "https://perfumersupplyhouse.com/product/magnolan-symrise"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (308 hour(s) at 100.00 %), VP class 1 (0.208 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -79998,12 +80557,18 @@
         "fields": {
           "vp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 126.11,
     "vp": 0.068,
     "clp": 0.09,
-    "note": "unassigned",
+    "note": "base",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -80020,11 +80585,18 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=1VE00283"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1002341.html",
+          "https://www.thegoodscentscompany.com/data/rw1002341.html",
+          "local pyrfume leffingwell_behavior.csv",
+          "https://www.perfumersworld.com/view.php?pro_id=1VE00283"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class None (372 hour(s) at 20.00 % in benzyl alcohol), VP class 2 (0.068 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -80201,12 +80773,18 @@
         "fields": {
           "vp": 200.0
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 144.21,
     "vp": 279.0,
     "clp": 2.7,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -80223,11 +80801,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=4FG15438"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/manzanate",
+          "https://www.thegoodscentscompany.com/data/rw1006801.html",
+          "https://www.thegoodscentscompany.com/data/rw1006801.html",
+          "https://www.thegoodscentscompany.com/data/rw1006801.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 0 (> 4 hour(s) at 100.00 %), VP class 0 (279.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -80375,12 +80961,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": null,
     "vp": null,
     "clp": null,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -80397,11 +80989,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=5HE13845"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1046151.html",
+          "https://www.thegoodscentscompany.com/data/ab1046151.html",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=5HE13845",
+          "https://shop.perfumersapprentice.com/p-8454-mate-absolute.aspx"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "PW neat 8HE00557 strip life 24 h"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -80566,12 +81166,18 @@
         "fields": {
           "vp": 0.07946
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 182.22,
     "vp": 0.0057,
     "clp": 1.1,
-    "note": "unassigned",
+    "note": "base",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -80588,11 +81194,17 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=4SP16859"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-diantilistm",
+          "https://www.thegoodscentscompany.com/data/rw1009761.html",
+          "https://www.perfumersworld.com/view.php?pro_id=4SP16859"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 2 (0.0057 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -80829,12 +81441,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": null,
     "vp": null,
     "clp": null,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -80851,11 +81469,18 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=5IA07847"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/co1001091.html",
+          "https://www.thegoodscentscompany.com/data/co1001091.html",
+          "https://www.thegoodscentscompany.com/data/co1001091.html",
+          "https://www.perfumersworld.com/view.php?pro_id=5IA07847"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "no TGSC substantivity or VP; PW 10% strip life 9.1 h, PW lists heart and base as wood; heart chosen"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -81008,12 +81633,18 @@
         "fields": {
           "vp": 52.3
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 120.15,
     "vp": 58.2,
     "clp": 1.78,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -81030,11 +81661,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=5GP07497"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009931.html",
+          "https://www.thegoodscentscompany.com/data/rw1009931.html",
+          "/mnt/project-files/unused-gaps-20261028/profiles/pyrfume_data/",
+          "https://www.thegoodscentscompany.com/data/rw1009931.html",
+          "https://www.perfumersworld.com/view.php?pro_id=5GP07497"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 0 (58.2 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -81190,12 +81829,18 @@
         "fields": {
           "vp": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 204.31,
     "vp": 0.98,
     "clp": 3.1,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -81212,11 +81857,17 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=3FL06757"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://studio.dsm-firmenich.com/product/rhubofixr-pe-978880",
+          "https://www.thegoodscentscompany.com/data/rw1028291.html",
+          "https://www.perfumersworld.com/view.php?pro_id=3FL06757"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (96 hour(s) at 100.00 %), VP class 1 (0.98 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -81371,12 +82022,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": null,
     "vp": null,
     "clp": null,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -81393,11 +82050,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=5RR12478"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://matieres-premieres.robertet.com/rose-bulgarian-oil",
+          "https://www.thegoodscentscompany.com/data/es1024951.html",
+          "https://www.thegoodscentscompany.com/data/es1024951.html",
+          "https://www.thegoodscentscompany.com/data/es1024951.html",
+          "https://www.thegoodscentscompany.com/data/es1024951.html"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (168 hour(s) at 100.00 %), VP class None (None Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -81556,12 +82221,18 @@
           "vp": 21.2,
           "clp": 3.22
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 150.22,
     "vp": 14.1,
     "clp": 2.7,
-    "note": "unassigned",
+    "note": "top",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -81578,11 +82249,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=5ES07841"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/safranal",
+          "https://www.thegoodscentscompany.com/data/rw1016371.html",
+          "https://www.thegoodscentscompany.com/data/rw1016371.html",
+          "https://archive.org/stream/336871454-perfume-and-flavor-chemicals-by-steffen-arctander-79/336871454-Perfume-and-Flavor-Chemicals-by-Steffen-Arctander79_djvu.txt",
+          "pyrfume_data/leffingwell_behavior.csv (local)"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 1 (64 hour(s) at 100.00 %), VP class 0 (14.1 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -81730,12 +82409,18 @@
           "activity_coef": null,
           "hedonic": null
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": null,
     "vp": null,
     "clp": null,
-    "note": "unassigned",
+    "note": "base",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -81752,11 +82437,19 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=5VW09926"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1101871.html",
+          "https://www.thegoodscentscompany.com/data/ab1101871.html",
+          "https://www.thegoodscentscompany.com/data/ab1101871.html",
+          "https://www.thegoodscentscompany.com/data/ab1101871.html",
+          "https://www.perfumersworld.com/view.php?pro_id=5VW09926"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "Firmenich via TGSC: \"enhances the gourmand bottom note\"; TGSC 400 h at 20%"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -81915,12 +82608,18 @@
           "vp": 2.17,
           "clp": 4.34
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "unassigned"
+        }
       }
     ],
     "mw": 196.33,
     "vp": 9.2,
     "clp": 4.7,
-    "note": "unassigned",
+    "note": "heart",
     "role": "unassigned",
     "texture": "",
     "or_family": null,
@@ -81937,11 +82636,18 @@
         ]
       },
       "character": {
-        "status": "SUPPLIER_DESCRIPTION_NOT_SENSORY_MEASUREMENT",
-        "source": "https://www.perfumersworld.com/view.php?pro_id=3LH00459"
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.firmenich.com/product/veloutoner-pe-990257",
+          "https://www.thegoodscentscompany.com/data/rw1000241.html",
+          null,
+          "https://www.perfumersworld.com/view.php?pro_id=3LH00459"
+        ]
       },
       "note": {
-        "status": "UNREVIEWED"
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "TGSC substantivity class 0 (12 hour(s) at 100.00 %), VP class 1 (9.2 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
       "role": {
         "status": "UNREVIEWED"
@@ -82952,6 +83658,18 @@
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_NOT_SENSORY_MEASUREMENT",
+        "source": "data/knowledge_graph/literature_character_profiles_20261031.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=6WX24054",
+          "https://www.perfumersworld.com/document-list.php?pro_id=6WX24054"
+        ]
+      },
+      "note": {
+        "status": "LITERATURE_VOLATILITY_RULE",
+        "basis": "PW: odor life 300 h, base notes wood"
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -82966,9 +83684,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
