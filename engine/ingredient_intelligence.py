@@ -46,9 +46,11 @@ Sources: Arctander, PerfumersWorld ABC, Carles method, Roudnitska aesthetics,
 
 from __future__ import annotations
 
+import json
 import re
 from copy import deepcopy
 from dataclasses import dataclass, field
+from pathlib import Path
 
 from engine.material_identity import resolve_material_identity
 
@@ -4875,7 +4877,7 @@ def _get_profile_uncached(name: str) -> MaterialProfile | None:
         # Historical intake stored odor prose in the numeric character field and
         # note tiers in role. Preserve that prose; do not fabricate radar scores.
         character = data.get("character", {})
-        odor_description = character if isinstance(character, str) else ""
+        odor_description = character if isinstance(character, str) else data.get("odor_description", "")
         note, role = data.get("note", "heart"), data.get("role", "modifier")
         if note not in {"top", "heart", "base"} and role in {"top", "heart", "base"}:
             note, role = role, "modifier"
@@ -6197,3 +6199,40 @@ _PROFILES.update(
                               'note': {'status': 'UNREVIEWED'},
                               'role': {'status': 'UNREVIEWED'}}}}
 )
+
+
+# LITERATURE_CHARACTER_PROFILES_2026_10_31 — owned stocks whose intake record held
+# only odour prose. Kenny, 31 Oct 2026: "Do literature research and fix this as
+# best as possible". The prose moves to odor_description; character and note take
+# the sourced rubric values. Role is left as it was.
+_LITERATURE_CHARACTER_PROFILES = (
+    Path(__file__).resolve().parents[1]
+    / "data"
+    / "knowledge_graph"
+    / "literature_character_profiles_20261031.json"
+)
+
+
+def _apply_literature_character_profiles() -> None:
+    document = json.loads(_LITERATURE_CHARACTER_PROFILES.read_text(encoding="utf-8"))
+    for entry in document["profiles"]:
+        data = _PROFILES[entry["profile_key"]]
+        prose = data.get("character")
+        if isinstance(prose, str):
+            data["odor_description"] = prose
+        if data.get("note") not in {"top", "heart", "base"} and data.get("role") in {"top", "heart", "base"}:
+            data["role"] = "modifier"  # what get_profile already returned for this record
+        data["character"] = dict(entry["character"])
+        data["note"] = entry["note"]
+        if entry.get("cas") and not data.get("cas"):
+            data["cas"] = entry["cas"]
+        evidence = data.setdefault("evidence", {})
+        evidence["character"] = {
+            "status": document["character_evidence"]["status"],
+            "source": str(_LITERATURE_CHARACTER_PROFILES.relative_to(Path(__file__).resolve().parents[1])),
+            "sources": [source["url"] for source in entry["sources_ranked"]],
+        }
+        evidence["note"] = {"status": document["note_evidence"]["status"], "basis": entry["note_basis"]}
+
+
+_apply_literature_character_profiles()

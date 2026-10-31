@@ -504,7 +504,7 @@ def infer_odor_family(profile: dict | None, norm_name: str) -> str:
 
 def infer_odor_profile(profile: dict | None, odt_char: str | None, name: str) -> str:
     if profile and profile.get("character"):
-        chars = profile["character"]
+        chars = profile.get("odor_description") or profile["character"]
         if isinstance(chars, dict):
             sorted_chars = sorted(chars.items(), key=lambda x: -x[1])
             parts = [f"{k}-like ({v})" if v > 5 else k for k, v in sorted_chars[:4]]

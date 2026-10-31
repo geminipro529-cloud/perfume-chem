@@ -181,10 +181,12 @@ def test_a_fruit_lead_on_hexyl_acetate_keeps_the_one_percent_grade(mode):
                             liquid_concentrate_ul_decimal="6000", design_mode=mode)
     # The solved formula and the structural control; a stock-alternative
     # variant steps off the control's stocks and may take the 10% grade.
+    # Since 31 Oct 2026 (sourced character scores) Diethyl Malonate, a green-apple
+    # ester, leads the facet and Hexyl Acetate sits in its accord; the grade pin holds.
     formulas = [result["optimized_formula"], result["design_variants"][0]["formula"]]
     leads = [
         row for formula in formulas for row in formula["rows"]
-        if row["slot"] == "facet_fruit" and row["identity_name"] == "Hexyl Acetate"
+        if row["slot"].startswith("facet_fruit") and row["identity_name"] == "Hexyl Acetate"
     ]
     assert len(leads) == 2
     for row in leads:
