@@ -1274,7 +1274,7 @@ def _off_brief_penalty(
     # every cedarwood pay a family that Clearwood's "veil" did not.
     families = _families(capability.descriptor_vocabulary - _TEXTURE_WORDS)
     for family, facets in _FAMILY_FACETS.items():
-        if family in own and family in families:
+        if role.provenance != "FUNCTIONAL_COVERAGE" and family in own and family in families:
             own |= facets
     extra = families - own - asked_families
     # One off-brief family or several cost the same, so a fuller description
@@ -1375,7 +1375,7 @@ def _unary_rank_for_role(
     request: str = "",
     required_identity: tuple[str, ...] | None = None,
     frontier: int | None = _UNARY_FRONTIER,
-    cardamom_brief: bool = False,
+    before_cardamom: bool = False,
 ) -> list[tuple[float, MaterialCapability]]:
     ranked: list[tuple[float, MaterialCapability]] = []
     query_terms = role.query_terms
@@ -1433,12 +1433,13 @@ def _unary_rank_for_role(
         if role.exact_material is None and not _has_own_threshold(capability.identity_name):
             score -= _UNSCORABLE_PENALTY
         if (
-            cardamom_brief and role.exact_material is None
+            before_cardamom and role.exact_material is None
             and "cardamom" not in capability.identity_name.casefold()
             and _cineole_camphor_fraction(capability.identity_name) >= _CINEOLE_CAMPHOR_MIN_FRACTION
         ):
             # The brief's cardamom role comes later; keep the other
-            # cineole/camphor oils out of the roles before it.
+            # cineole/camphor oils out of the roles before it.  Roles after
+            # it pay the pair penalty instead.
             score -= _CINEOLE_STACK_PENALTY
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
@@ -1531,14 +1532,25 @@ def _cineole_camphor_fraction(identity_name: str) -> float:
     )
 
 
-def _cardamom_brief(brief: SemanticBrief) -> bool:
-    """The brief holds a role only cardamom fills: a cardamom family role or a named cardamom."""
+def _drop_cineole_stacks(
+    ranked: list[tuple[float, MaterialCapability]], state: Any,
+) -> tuple[list[tuple[float, MaterialCapability]], bool]:
+    """The ranking without stocks that would stack cardamom with a state's other cineole oil, and whether any went."""
 
-    return any(
-        "cardamom" in family_role_words(role.role_id)
-        or "cardamom" in (role.exact_material or "").casefold()
-        for role in brief.roles
-    )
+    kept = [
+        row for row in ranked
+        if not any(_cineole_stack(row[1], capability) for _role, capability, _score in state.assignments)
+    ]
+    return kept, len(kept) < len(ranked)
+
+
+def _roles_before_cardamom(brief: SemanticBrief) -> frozenset[str]:
+    """The roles solved before the brief's first cardamom role (a cardamom family role or a named cardamom)."""
+
+    for position, role in enumerate(brief.roles):
+        if "cardamom" in family_role_words(role.role_id) or "cardamom" in (role.exact_material or "").casefold():
+            return frozenset(r.role_id for r in brief.roles[:position])
+    return frozenset()
 
 
 def _cineole_stack(capability: MaterialCapability, other: MaterialCapability) -> bool:
@@ -2006,12 +2018,14 @@ def _solve_assignments(
     enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
     asked_families = _asked_families(brief)
     identity_words = identity_words or {}
-    cardamom_brief = _cardamom_brief(brief)
+    before_cardamom = _roles_before_cardamom(brief)
 
     def unary(role: SemanticRole, cache_id: str | None = None) -> list[tuple[float, MaterialCapability]]:
         # A cache shared by solves of one brief with the same inputs: only a
         # role whose identity words differ is ranked again.
         key = (cache_id or role.role_id, identity_words.get(role.role_id))
+        if role.role_id in before_cardamom:
+            key = (*key, "before_cardamom")
         if frontier != _UNARY_FRONTIER:
             key = (*key, frontier)
         if unary_cache is not None and key in unary_cache:
@@ -2029,7 +2043,7 @@ def _solve_assignments(
             request=brief.normalized_request,
             required_identity=identity_words.get(role.role_id),
             frontier=frontier,
-            cardamom_brief=cardamom_brief,
+            before_cardamom=role.role_id in before_cardamom,
         )
         if unary_cache is not None:
             unary_cache[key] = ranked
@@ -2196,19 +2210,25 @@ def _solve_assignments(
                     elif kept_for is not None:
                         kept_for[(role.role_id, row[1].stock_id)] = owner
                 ranked = kept
-            if not role.required and role.exact_material is None:
-                # An optional role never stacks cardamom with another
-                # cineole or camphor oil (Kenny poured out the medicinal
-                # cardamom, rosemary and lavender trials, 25 Oct): the
-                # pair penalty cannot turn a family role whose stocks are
-                # all named for its word.
-                ranked = [
-                    row for row in ranked
-                    if not any(_cineole_stack(row[1], capability) for _role, capability, _score in state.assignments)
-                ]
+            # An optional role never stacks cardamom with another cineole
+            # or camphor oil (Kenny poured out the medicinal cardamom,
+            # rosemary and lavender trials, 25 Oct): the pair penalty cannot
+            # turn a family role whose stocks are all named for its word.
+            unstack = not role.required and role.exact_material is None
+            stacked = False
+            if unstack:
+                ranked, stacked = _drop_cineole_stacks(ranked, state)
             if not ranked and role.role_id in fallbacks:
                 placed_role = fallbacks[role.role_id]
                 ranked = _rank_for_state(fallback_rankings[role.role_id], placed_role, state, **rank_kwargs)
+                if unstack:
+                    ranked, fallback_stacked = _drop_cineole_stacks(ranked, state)
+                    stacked = stacked or fallback_stacked
+            if not ranked and stacked:
+                # The state keeps its cardamom (or its other oil) and goes on
+                # without this role, rather than leaving the beam.
+                expanded.append(state)
+                continue
             role_has_candidate = role_has_candidate or bool(ranked)
             for score, capability in ranked:
                 groups = state.groups()
@@ -2457,12 +2477,17 @@ def solve_formula(
             )
             poured = _pour_unweighable_crystals(assignments, choices, rows, index)
             if poured is not None:
-                assignments, choices = poured
-                rows, totals, holds = _formula_rows(
-                    choices,
-                    liquid_total_ul=liquid_total_ul,
-                    quantities=explicit_quantities,
-                )
+                try:
+                    poured_rows = _formula_rows(
+                        poured[1],
+                        liquid_total_ul=liquid_total_ul,
+                        quantities=explicit_quantities,
+                    )
+                except ValueError:
+                    # The solution does not allocate: the weighed crystal row stands.
+                    pass
+                else:
+                    (assignments, choices), (rows, totals, holds) = poured, poured_rows
         except ValueError as exc:
             status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"
             holds.append(f"DOSE_ALLOCATION_INFEASIBLE:{exc}")

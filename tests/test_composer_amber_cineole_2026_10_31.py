@@ -86,3 +86,13 @@ def test_cardamom_is_not_stacked_with_another_cineole_oil():
     # The aromatic family asks for both rosemary and cardamom: one goes.
     stacked = [n for n in names if n != "Cardamom EO" and fs._cineole_camphor_fraction(n) >= .10]
     assert not ("Cardamom EO" in names and stacked), sorted(names)
+
+
+def test_a_stacking_candidate_is_dropped_and_reported():
+    caps = {c.identity_name: c for c in build_material_capability_index().capabilities if c.design_ready}
+    state = SimpleNamespace(assignments=((None, caps["Cardamom EO"], 1.0),))
+    ranked = [(2.0, caps["Rosemary EO"]), (1.0, caps["Clary Sage EO"])]
+    kept, dropped = fs._drop_cineole_stacks(ranked, state)
+    assert [cap.identity_name for _score, cap in kept] == ["Clary Sage EO"]
+    assert dropped
+    assert fs._drop_cineole_stacks(kept, state) == (kept, False)
