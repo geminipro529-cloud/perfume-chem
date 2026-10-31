@@ -179,7 +179,21 @@ def build_gate_summary(formula):
         lines.append(f"  HOLD {g['gate']}: {str(g.get('detail', ''))}")
     for g in warned:
         lines.append(f"  WARN {g['gate']}: {str(g.get('detail', ''))}")
+    bench_additions = bench_addition_lines(gates)
+    if bench_additions:
+        lines.append("")
+        lines.extend(f"  {line}" for line in bench_additions)
     lines.append("")
+    return lines
+
+
+def bench_addition_lines(gates) -> list[str]:
+    """Technical rows the gate asks the bench to add (the BHT antioxidant pre-charge)."""
+    lines = []
+    for g in gates:
+        antioxidant = (g.get("data") or {}).get("antioxidant") or {}
+        if antioxidant.get("bench_addition"):
+            lines.append(str(antioxidant["bench_addition"]))
     return lines
 
 

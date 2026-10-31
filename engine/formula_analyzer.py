@@ -45,6 +45,7 @@ from engine.odor_thresholds import MIXTURE_SUPPRESSION_FACTOR, ODT_DATA  # noqa:
 from engine.optimizer.models import FormulaVector  # noqa: E402  # sys.path
 from engine.optimizer.scoring import FormulaScorer  # noqa: E402  # sys.path
 from engine.perspectives import evaluate_all_perspectives  # noqa: E402  # sys.path
+from engine.pipeline.antioxidant import is_antioxidant_row  # noqa: E402  # sys.path
 from engine.reverse_engineer import (  # noqa: E402  # sys.path
     EvidenceItem,
     EvidencePool,
@@ -117,8 +118,13 @@ def parse_formulas(path: Path | None = None) -> list[FormulaInfo]:
                 ing_name = m.group(2).strip()
                 dilution_raw = m.group(3).strip()
                 amount_ul = float(m.group(4))
-                # Skip ethanol and total rows
-                if is_ethanol_vehicle_name(ing_name) or "total" in ing_name.lower():
+                # Skip ethanol and total rows, and the antioxidant (BHT) pre-charge,
+                # which is a technical row, not an odour row.
+                if (
+                    is_ethanol_vehicle_name(ing_name)
+                    or "total" in ing_name.lower()
+                    or is_antioxidant_row(ing_name)
+                ):
                     continue
                 # Clean up name (remove bold markers)
                 ing_name = ing_name.replace("**", "").strip()

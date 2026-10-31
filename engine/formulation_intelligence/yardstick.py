@@ -24,10 +24,13 @@ Formula input (a plain dict)::
      "rows": [{"material": str, "amount": "120", "unit": "uL" | "mg",
                "active_fraction": "0.1", "fraction_basis": str, "carrier": str,
                "stock_id": str, "tier": "top" | "heart" | "base", "role": str}],
+     "technical_rows": [<house BHT pre-charge, AntioxidantPrecharge.as_mapping()>],
      "gate_record": <parse_formula_markdown record, optional>}
 
 ``formula_from_markdown`` and ``formula_from_composer`` build it. Every result is a plain,
 JSON-serialisable dict (floats rounded; Decimal amounts carried as strings).
+``technical_rows`` (the BHT antioxidant pre-charge) sit apart from ``rows``: no score,
+floor or diagnostic reads them; ``bench_record`` hands them to the mixer.
 """
 
 from __future__ import annotations
@@ -136,6 +139,8 @@ def formula_from_markdown(
         "name": record["name"],
         "batch_volume_ml": float(batch_volume_ml),
         "rows": rows,
+        # The file's own antioxidant rows (parsed out of the odour rows), never scored.
+        "technical_rows": list(record.get("technical_precharge_rows", []) or []),
         "parent": parent,
         "gate_record": record,
         **missing_parent,
@@ -166,10 +171,19 @@ def formula_from_composer(result: Mapping[str, Any], *, batch_volume_ml: float =
             "role": str(row.get("role") or ""),
             **({"tier": row["tier"]} if row.get("tier") else {}),
         })
+    from engine.pipeline.antioxidant import house_bht_precharge
+
+    # The house antioxidant pre-charge (BHT 5% w/v in ethanol, 4 uL per mL of finished
+    # perfume). The composer leaves BHT out of its odour rows on purpose; the bench adds
+    # it first. Kept apart from ``rows``: no score reads it, so the yardstick is unchanged.
+    technical = (
+        [house_bht_precharge(batch_volume_ml).as_mapping()] if rows and batch_volume_ml > 0 else []
+    )
     return {
         "name": str(formula.get("name") or result.get("name") or "composer formula"),
         "batch_volume_ml": batch_volume_ml,
         "rows": rows,
+        "technical_rows": technical,
         "parent": None,
         **({"withheld_reason": withheld} if withheld else {}),
     }
@@ -210,6 +224,48 @@ def _gate_record(formula: Mapping[str, Any]) -> dict[str, Any]:
         "dilutions": dilutions,
         "stock_specs": specs,
     }
+
+
+def bench_record(formula: Mapping[str, Any]) -> dict[str, Any]:
+    """The gate record plus the formula's technical pre-charge rows, for the bench.
+
+    ``engine.mixer.instructions.build_formula_compounding_protocol(bench_record(f))``
+    gives the mixing order with the house BHT row first, as a PRECHARGE. Scoring
+    never reads this record (``score_formula`` uses ``_gate_record``), so a technical
+    row cannot move a score.
+    """
+    from engine.pipeline.antioxidant import technical_precharge_row
+
+    record = _gate_record(formula)
+    if record.get("technical_precharge_rows"):
+        return record
+    rows = []
+    for row in formula.get("technical_rows", []) or []:
+        # Composer rows (AntioxidantPrecharge.as_mapping) carry active_fraction/unit;
+        # parser rows carry fraction/amount_unit.
+        fraction = float(Decimal(str(row.get("active_fraction") or row.get("fraction") or "1")))
+        basis = str(row.get("fraction_basis") or "unspecified")
+        carrier = str(row.get("carrier") or "")
+        basis_word = {
+            "mass_per_volume": " w/v", "mass_fraction": " w/w", "volume_fraction": " v/v"
+        }.get(basis, "")
+        strength = f"{fraction * 100:g}%{basis_word}" + (f" in {carrier}" if carrier else "")
+        rows.append(
+            technical_precharge_row(
+                str(row["material"]),
+                float(Decimal(str(row["amount"]))),
+                str(row.get("unit") or row.get("amount_unit") or "uL"),
+                {
+                    "fraction": fraction,
+                    "fraction_basis": basis,
+                    "carrier": carrier,
+                    "declared": True,
+                    "raw": strength,
+                },
+            )
+        )
+    record["technical_precharge_rows"] = rows
+    return record
 
 
 # ── Helpers ─────────────────────────────────────────────────────────────────
@@ -1027,6 +1083,7 @@ __all__ = [
     "FLOOR_IDS",
     "Scorecard",
     "Verdict",
+    "bench_record",
     "closeness",
     "duel_verdict",
     "formula_from_composer",

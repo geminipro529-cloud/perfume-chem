@@ -17,6 +17,8 @@ from hashlib import sha256
 from pathlib import Path
 from typing import Any, Iterable, Mapping
 
+from engine.pipeline.antioxidant import is_antioxidant_row
+
 from .contracts import FormulaComponentV1, FormulaSnapshotV1, decimal_text
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -54,6 +56,8 @@ class FormulaSnapshotLoadV1:
     solid_total_mg_decimal: str
     validation_state: str
     reason_codes: tuple[str, ...]
+    # The BHT antioxidant pre-charge, outside the liquid stock-charge total.
+    technical_precharge_ul_decimal: str = "0"
 
     def __post_init__(self) -> None:
         for name in ("source_sha256", "canonical_rows_sha256"):
@@ -64,6 +68,15 @@ class FormulaSnapshotLoadV1:
             self,
             "liquid_total_ul_decimal",
             decimal_text(self.liquid_total_ul_decimal, "liquid_total_ul_decimal", nonnegative=True),
+        )
+        object.__setattr__(
+            self,
+            "technical_precharge_ul_decimal",
+            decimal_text(
+                self.technical_precharge_ul_decimal,
+                "technical_precharge_ul_decimal",
+                nonnegative=True,
+            ),
         )
         object.__setattr__(
             self,
@@ -138,6 +151,11 @@ def _manifest_row_component(row: Mapping[str, Any]) -> FormulaComponentV1:
         raise SnapshotSourceError("source_row must be a positive integer")
     if not all((basket, label, stock, evidence)):
         raise SnapshotSourceError("manifest row text fields cannot be empty")
+    if is_antioxidant_row(label):
+        # BHT: a technical pre-charge, added first; never an odour stock-charge row.
+        operation = "PRECHARGE"
+    else:
+        operation = "MASS_ADD" if unit in {"mg", "g"} else "DIRECT_ADD"
     return FormulaComponentV1(
         row_id=f"source-row-{source_row}",
         product_id=_product_id(label),
@@ -145,7 +163,7 @@ def _manifest_row_component(row: Mapping[str, Any]) -> FormulaComponentV1:
         amount_decimal=decimal_text(amount, "dose", positive=True),
         amount_unit=unit,  # type: ignore[arg-type]
         basket=basket,
-        operation="MASS_ADD" if unit in {"mg", "g"} else "DIRECT_ADD",
+        operation=operation,  # type: ignore[arg-type]
         source_row=source_row,
         source_material_label=label,
         required_stock_description=stock,
@@ -153,10 +171,30 @@ def _manifest_row_component(row: Mapping[str, Any]) -> FormulaComponentV1:
     )
 
 
+def _is_technical_precharge(row: FormulaComponentV1) -> bool:
+    return row.operation == "PRECHARGE" and is_antioxidant_row(row.source_material_label or "")
+
+
+def _technical_precharge_ul(components: Iterable[FormulaComponentV1]) -> str:
+    total = Decimal("0")
+    for row in components:
+        if _is_technical_precharge(row) and row.amount_unit in {"uL", "mL"}:
+            amount = Decimal(row.amount_decimal)
+            total += amount * Decimal("1000") if row.amount_unit == "mL" else amount
+    return decimal_text(total, "technical_precharge_ul", nonnegative=True)
+
+
 def _totals(components: Iterable[FormulaComponentV1]) -> tuple[str, str]:
+    """Liquid stock-charge total (uL) and solid total (mg) of the odour stocks.
+
+    A technical antioxidant pre-charge (BHT solution) is not a stock charge: it
+    is counted separately, inside the batch make-up.
+    """
     liquid_ul = Decimal("0")
     solid_mg = Decimal("0")
     for row in components:
+        if _is_technical_precharge(row):
+            continue
         amount = Decimal(row.amount_decimal)
         if row.amount_unit == "uL":
             liquid_ul += amount
@@ -438,6 +476,7 @@ def load_markdown_design_snapshot(
             "STOCK_LOTS_NOT_BOUND",
             "NOT_SENSORY_TESTED",
         ),
+        technical_precharge_ul_decimal=_technical_precharge_ul(components),
     )
 
 

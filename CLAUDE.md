@@ -9,6 +9,7 @@ section your task needs (`grep -n "^## \|RULE" AGENTS.md` lists them).
 - RULE 2: no new pipeline entry scripts; extend `scripts/formula_release_gate.py` or `engine/`.
 - RULE 3: optimise toward the formula's name and brief, never toward an engine index.
 - Editing `engine/ifra_safety.py` means rebinding its hash in `data/governance/ifra_policy_status_20260927.json`.
+- Every bench formula carries the BHT 5% w/v in ethanol pre-charge row (120 uL per 30 mL); format in AGENTS.md "Running formulas through the gate".
 
 ## Where things are (8.5k tracked files; most are history, not code)
 | Path | What |

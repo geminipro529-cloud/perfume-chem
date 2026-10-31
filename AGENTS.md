@@ -132,6 +132,13 @@ python scripts/formula_release_gate.py \
     --json
 ```
 
+BHT: give every bench formula the house antioxidant pre-charge as a row of its
+formula table, `| N | Pre-charge | BHT 5% w/v in ethanol | 5% w/v in ethanol | 120 | Antioxidant, not an odour row |`
+(120 uL per 30 mL, 4 uL per mL; 6 mg BHT). The parser keeps it out of the odour rows
+and the liquid stock-charge total, the `technical_precharge` gate checks its stock,
+and `chemistry_stability` warns when limonene, linalool or Pinaceae materials
+(IFRA 184/186/187) have no antioxidant row. The bench card adds it first.
+
 A read-only pipeline run must write the complete output to an immutable,
 fingerprinted run artifact and must not modify the formula file. In chat, present
 an exact concise summary and the artifact path; paste the full analysis
