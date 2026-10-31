@@ -1421,6 +1421,14 @@ def _unary_rank_for_role(
             continue
         if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
             continue
+        if role.provenance == LASTING_SPICE_PROVENANCE and not (
+            _is_lasting_spice(capability) and capability.execution_ready
+        ):
+            # Only an owned lasting spice can fill the role (_block_reason), so
+            # other spices must not crowd it out of the frontier: once the
+            # sourced profiles raised the spice oils, Ethyl Safranate fell
+            # below the top 24 and the role went unfilled.
+            continue
         if not supports_descriptor_requirement(capability, role.descriptor_requirement):
             continue
         if architecture_avoid_conflict(capability, role.descriptor_requirement, avoid,

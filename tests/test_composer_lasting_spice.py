@@ -327,3 +327,27 @@ def test_guard_a_brief_without_a_spice_it_wants_gets_no_lasting_spice() -> None:
     for idea in ("a warm woody amber", "A warm woody amber for evening, no spice"):
         result = design_formula(idea=idea, liquid_concentrate_ul_decimal="6000")
         assert "lasting_spice" not in _role_ids(result), (idea, _role_ids(result))
+
+
+def test_the_lasting_spice_frontier_holds_only_lasting_spices() -> None:
+    # Other spice oils used to fill the role's top 24 and were then refused,
+    # so a sourced profile that raised them left the role empty (31 Oct).
+    from engine.formulation_intelligence import formula_solver as fs
+    from engine.formulation_intelligence.material_capability_index import (
+        build_material_capability_index,
+    )
+    from engine.formulation_intelligence.semantic_brief_adapter import compile_semantic_brief
+
+    brief = compile_semantic_brief(
+        formula_name="Probe", request="A ginger and vetiver scent, no leather",
+        interpretation={"must_preserve": [], "must_avoid": [], "explicit_materials": [],
+                        "material_count_constraints": []},
+        max_materials=15,
+    )
+    (role,) = [role for role in brief.roles if role.provenance == fs.LASTING_SPICE_PROVENANCE]
+    ranked = fs._unary_rank_for_role(
+        build_material_capability_index(), role, avoid=(), previous_stock_ids=frozenset(),
+        prior_variant_stock_ids=frozenset(), variant_index=0,
+    )
+    assert ranked
+    assert all(fs._is_lasting_spice(cap) and cap.execution_ready for _score, cap in ranked)
