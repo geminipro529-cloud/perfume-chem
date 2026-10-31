@@ -85,7 +85,11 @@ def _recorded_bht_stock() -> InventoryMaterial:
 @pytest.fixture
 def bht_recorded(monkeypatch):
     real = preflight.parse_current_inventory
-    record = _recorded_bht_stock()
+    # The live record once the stock is loaded (STK-238); a fixture record before that.
+    record = next(
+        (r for r in real() if normalize_name(r.name) == normalize_name(HOUSE_BHT_STOCK)),
+        _recorded_bht_stock(),
+    )
 
     def with_bht(*args, **kwargs):
         rows = list(real(*args, **kwargs))
