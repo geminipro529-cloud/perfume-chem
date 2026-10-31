@@ -1219,6 +1219,8 @@ _CHARACTER_ASK_WEIGHT = .3
 # layer counted Ambrox Super's own words off-brief (4 points) while Amber
 # Xtreme ("amber, woody, warm") paid none and took 10 of 12 amber layers.
 _FAMILY_FACETS = {"base_amber": frozenset({"base_shadow", "base_musk", "heart_powder"})}
+# A character weight (of 10) at which a material mainly smells of that family.
+_MAIN_CHARACTER_WEIGHT = 3.0
 
 
 def _families(words: frozenset[str]) -> frozenset[str]:
@@ -1276,12 +1278,23 @@ def _off_brief_penalty(
     for family, facets in _FAMILY_FACETS.items():
         if role.provenance != "FUNCTIONAL_COVERAGE" and family in own and family in families:
             own |= facets
+    on_brief = families & (own | asked_families)
     extra = families - own - asked_families
+    # A material pays for the families it mainly smells of, not every facet
+    # its description names: the 50 sourced profiles (median 4 families
+    # against 2 for hand-written ones) paid in 97% of layer roles against
+    # 84% and won a quarter as often (pickability audit, 31 Oct).  With no
+    # character weight behind any family, the description decides.
+    main = _families(frozenset(
+        dim.casefold() for dim, weight in capability.character_map.items() if weight >= _MAIN_CHARACTER_WEIGHT
+    ))
+    if main:
+        extra &= main
     # One off-brief family or several cost the same, so a fuller description
     # does not pay more: Jasmine Absolute (floral, green, animalic) paid 16
     # where Jasmine Sambac (floral) paid nothing.  A material that also
     # carries the brief pays half a family's worth.
-    partial = _OFF_BRIEF_FAMILY_PENALTY / 2 if families - extra else _OFF_BRIEF_FAMILY_PENALTY
+    partial = _OFF_BRIEF_FAMILY_PENALTY / 2 if on_brief else _OFF_BRIEF_FAMILY_PENALTY
     if role.provenance == "FUNCTIONAL_COVERAGE":
         # A link must not carry a steered family at all, so any of them
         # costs a whole family's worth.

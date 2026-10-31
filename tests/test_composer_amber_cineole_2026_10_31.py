@@ -96,3 +96,23 @@ def test_a_stacking_candidate_is_dropped_and_reported():
     assert [cap.identity_name for _score, cap in kept] == ["Clary Sage EO"]
     assert dropped
     assert fs._drop_cineole_stacks(kept, state) == (kept, False)
+
+
+def _floral_layer():
+    return SimpleNamespace(
+        role_id="heart_floral_layer", note="heart", provenance="LAYERED_HEART_ARCHITECTURE",
+        query_terms=("jasmine", "floral"), character_weights=(("floral", .8),),
+        exact_material=None, descriptor_requirement=None,
+    )
+
+
+def test_a_material_pays_for_what_it_mainly_smells_of():
+    # Kenny chose "penalty first" (31 Oct): a sourced description's minor
+    # facets (green, animalic) cost nothing when its character is floral.
+    sourced = SimpleNamespace(note="heart", character_map={"floral": 8.0, "green": 1.0, "animalic": 2.0},
+                              descriptor_vocabulary=frozenset({"floral", "green", "animalic"}))
+    assert fs._off_brief_penalty(sourced, _floral_layer(), frozenset()) == 0.0
+    # A facet the character carries still pays, half when the material also carries the brief.
+    indolic = SimpleNamespace(note="heart", character_map={"floral": 8.0, "animalic": 3.0},
+                              descriptor_vocabulary=frozenset({"floral", "animalic"}))
+    assert fs._off_brief_penalty(indolic, _floral_layer(), frozenset()) == fs._OFF_BRIEF_FAMILY_PENALTY / 2
