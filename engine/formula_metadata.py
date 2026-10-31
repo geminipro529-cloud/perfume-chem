@@ -25,9 +25,19 @@ _ETHANOL_MADE_MATERIAL_RE = re.compile(r"\b(?:tinctures?|infusions?|resinoids?|e
 
 
 def is_ethanol_vehicle_name(name: str) -> bool:
-    """True when a formula row name is the ethanol vehicle (``Ethanol 96%``), not a material."""
+    """True when a formula row name is the ethanol vehicle (``Ethanol 96%``), not a material.
+
+    An antioxidant solution in ethanol (``BHT 5% w/v in ethanol``) is a stock, not
+    the vehicle: the parser keeps it as a technical pre-charge row.
+    """
+    from engine.pipeline.antioxidant import is_antioxidant_row
+
     low = name.casefold()
-    return "ethanol" in low and not _ETHANOL_MADE_MATERIAL_RE.search(low)
+    return (
+        "ethanol" in low
+        and not _ETHANOL_MADE_MATERIAL_RE.search(low)
+        and not is_antioxidant_row(name)
+    )
 
 
 def _normalize_fallback(name: str) -> str:

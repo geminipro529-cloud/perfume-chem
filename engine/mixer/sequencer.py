@@ -17,6 +17,7 @@ from typing import Mapping, Sequence
 
 from engine.mixer.prebonding import PreBondingAnalyzer, is_crystalline
 from engine.optimizer.models import _lookup_material, classify_note
+from engine.pipeline.antioxidant import is_antioxidant_row
 
 # Materials that are solvents/carriers — always added last
 SOLVENTS = {"ethanol", "dpg", "ipm", "isopropyl myristate", "dipropylene glycol"}
@@ -444,7 +445,13 @@ class MixingSequencer:
         total_raw_ul = sum(row.raw_ul for row in rows)
         steps: list[dict] = []
         for order, row in enumerate(ordered_rows, 1):
-            if row.operation == "PRECHARGE":
+            if row.operation == "PRECHARGE" and is_antioxidant_row(row.material):
+                phase = "precharge"
+                rationale = (
+                    "Antioxidant pre-charge (technical row, not an odour row): "
+                    "in before the odour stocks."
+                )
+            elif row.operation == "PRECHARGE":
                 phase = "precharge"
                 rationale = "Explicit method precharge; placement was not inferred from its name."
             elif row.operation == "POSTCHARGE":
