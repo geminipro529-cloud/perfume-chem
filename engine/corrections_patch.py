@@ -75,7 +75,7 @@ VP_SOURCE = {
 ODT_PATCH = {
     # PUBLISHED (Tier A) — direct human psychophysical measurements
     "hedione":          0.05,     # Porta et al. 2005: isomer 0.003 ppb; racemic ~0.05 ppb
-    "iso e super":      0.05,     # Kraft 2008: Arborone 0.0005 ppb; mix ~50-100x = 0.05 ppb
+    "iso e super":      0.0184,   # Arborone share x US 5,214,160 / Chimia 2001 threshold, PEER_EST (2026-10-31; runtime row in odor_thresholds)
     "linalool":         8.0,      # van Gemert 2011 / RIFM: 8 ppb air (NOT 0.51 — that was water ODT)
     "linalyl acetate":  2.7,      # van Gemert 2011: published 2.7 ppb (NOT 50 ppb)
     "romandolide":      4.9,      # Kraft & Eichenberger 2004: 54 ng/L = 4.9 ppb
@@ -103,7 +103,7 @@ ODT_PATCH = {
     "polysantol":       0.01,     # Kraft & Swift 2005: santalol-class sub-ppb
     "habanolide":       2.8,      # Macrocyclic class 2.1-4 ppb (Kraft & Swift 2005)
     "scentenal":        0.02,     # Firmenich product page: 0.001-0.05% trace material
-    "floralozone":      1.0,      # Less potent than calone; 10-20x higher ODT (0.05ppb -> 1.0ppb)
+    "floralozone":      6.44,     # Symrise Florazon data sheet 0.0501 ug/l (2026-10-31; runtime row in odor_thresholds)
     "vetival":          7.0,      # Vetiver sesquiterpene midpoint 5-20 ppb
     "melonal":          0.15,     # Unsaturated C7 aldehyde class; (Z)-4-heptenal 0.04 ppb
     "ethyl maltol":     0.3,      # van Gemert 2011: tactile sweetener, near-zero OAV

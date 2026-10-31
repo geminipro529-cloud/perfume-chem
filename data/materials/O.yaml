@@ -380,7 +380,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.8723
   logp: null
   functional_groups: []
   chirality: null
@@ -407,6 +407,8 @@
     cas: 'MySkinRecipes COA lot 3S74J8 prints 89957-98-2. Robertet, Olibanum oil 99020112, Boswellia carterii gum, Somalia, steam distillation (https://matieres-premieres.robertet.com/olibanum-oil): CAS and TSCA 8016-36-2, EINECS 232-474-1, FEMA 2816. Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
     character: 'Robertet, Olibanum oil 99020112 (https://matieres-premieres.robertet.com/olibanum-oil): ''Olfactive description Ambery/vanillic, spicy, peppery, lemony, and terpenic'' (grade A_producer; producer text, quoted; flash point 43 C on the same page). Loaded 2026-10-27 (MySkinRecipes orders 2200410/2200413; source re-opened).'
     user_in_inventory: data/governance/inventory_user_authority_overlay_20261014_paradisamide_caryophyllene_acetate_woods.json
+    density_25c_g_ml: 'TGSC frankincense oil (Boswellia carterii, CAS 8016-36-2), https://www.thegoodscentscompany.com/data/es1004051.html: ''Specific Gravity: 0.85500 to 0.88000 @ 25.00 °C.'' (x 0.99705 = 0.8525-0.8774 g/mL); Ernesto Ventos OLIBANUM OIL (B. carterii gum-resin), https://www.ventos.com/index.php/en/producto/1339: ''Density at 20°c (g/ml)) 0,860 - 0,890'' (and 0.861-0.892); midpoint of the union 0.8525-0.892 = 0.8723 (+/-2.2%); the top end is a 20 C figure, uncorrected (correcting it moves the midpoint to about 0.8705); specification ranges, not one measurement, and not matched to Kenny''s MySkinRecipes lot (Zayat batch 0.886 at 20 C, PerfumersWorld 0.875 temperature unstated); grade C_supplier. Second reader (R10): CONFIRMED (arithmetic and TGSC quote). Loaded 2026-10-31 (Acqua di Gio Luxe research; source re-opened by a second reader).'
+    density_basis: 'spec_range_union_midpoint_20_25c'
 - canonical_name: Olibanum Resinoid
   aliases:
   - Olibanum Resinoid (Viscous)

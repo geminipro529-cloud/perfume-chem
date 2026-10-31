@@ -18145,7 +18145,7 @@
     "formula_str": "C13H20O",
     "mw": 192.3,
     "bp": null,
-    "vp": 0.08,
+    "vp": 2.6,
     "clp": 3.7,
     "odt": 0.04,
     "odt_ethanol_ppm": 0.01,
@@ -18223,6 +18223,12 @@
         "fields": {
           "smell_strength": "strong",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "vp": 0.08
         }
       }
     ],
@@ -23153,7 +23159,7 @@
     "bp": 195.0,
     "vp": 0.526,
     "clp": 3.6,
-    "odt": 1.0,
+    "odt": 6.44,
     "sar_class": "Cyclic acetals — 1,3-dioxane family",
     "olfactophore": "The 1,3-dioxane ring (six-membered ring with two oxygens) is",
     "arctander_character": "Ozonic, fresh-air, watery-floral, green, \"after the rain,\"",
@@ -23333,12 +23339,19 @@
       }
     },
     "odt_evidence": {
-      "vfy": "UNVERIFIED",
+      "vfy": "PEER_SINGLE",
       "sources": [
-        "No peer-reviewed air-phase ODT found in indexed literature"
+        "Symrise Perfumery Ingredients data sheet 'Florazon' (product 100360, page dated 2023-09-14) (https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_PC_Datenblaetter/SYM_PC-Florazon.pdf): 'Threshold in Air ... Florazon aldehydic 0.0501 μg/l'; 50.1 ng/L x 24.45 / 190.3 = 6.437 ppb. Producer figure for an equivalent grade (Symrise Florazon, not IFF Floralozone; same CAS pair 67634-15-5 / 67634-14-4 and REACH no. 01-2120758796-34); medium, panel and method not stated; the figure-to-label mapping is read from the sheet layout; single source; grade A_producer; second reader: CONFIRMED (quote and arithmetic). Replaces 1.0 ppb, an unsourced adjustment (corrections_patch: 'Less potent than calone')."
       ],
-      "note": "Auto-tagged by audit 2026-05-11",
-      "declared_vfy": "UNVERIFIED"
+      "note": "Sourced threshold 2026-10-31 (stock thread, Acqua di Gio Luxe research); source re-opened before loading.",
+      "superseded": {
+        "vfy": "PEER_SINGLE",
+        "sources": [
+          "Symrise Florazon data sheet 'Threshold in Air ... 0.0501 ug/l' (equivalent grade; sourced batch 2026-10-31, the runtime row)"
+        ],
+        "note": "Static row aligned to the sourced value 2026-10-31 (was 1.0 ppb, an unsourced adjustment)."
+      },
+      "declared_vfy": "PEER_SINGLE"
     },
     "current_stocks": [
       {
@@ -29689,15 +29702,17 @@
         "derived from 'The Composition of Iso E Super', Perfumer & Flavorist (isomer G threshold and 2-4 % content) (https://www.perfumerflavorist.com/fragrance/ingredients/article/21860577/the-composition-of-iso-e-super): 'G: 2-4% (the isomer responsible for the amber note) ... approximately 5 pg/l of air'; printed 0.125-0.25 ng/L (derived); estimate for the commercial product: if detection is driven by isomer G at 2-4 % of the product, product threshold = 5 pg/L / (0.02 to 0.04) = 0.125-0.25 ng/L (inference, not a measurement); grade EST, access full text; second reader: EST (derived, not a measurement). Inputs (G 2-4 %, ~5 pg/l air) are printed; quote's 'G: 2-4% (the isomer responsible...)' is a paraphrase. Redone: 0.005/0.04-0.005/0.02 = 0.125-0.25 ng/L = 0.0130-0.0261 ppb, geometric mid 0.0184; the stated 0.017 is inside the range but not its midpoint...",
         "'The Composition of Iso E Super', Perfumer & Flavorist (article page; author/date not shown in the fetched text) (https://www.perfumerflavorist.com/fragrance/ingredients/article/21860577/the-composition-of-iso-e-super): 'Givaudan researchers have found that the predominant isomer B has a weak odor with a threshold of about 500 ng/l of air'; printed about 500 ng/l of air (isomer B); Givaudan measurement of the main isomer B (method not stated); grade A_producer, access full text (web article via fetch tool); second reader: Single isomer (B, main isomer, 40-60 % of the product), approximate value ('about'); not the commercial mixture. Article by IFF authors citing Givaudan work. MW 234.38.; listed, not used (52.16 ppb)",
         "'The Composition of Iso E Super', Perfumer & Flavorist (https://www.perfumerflavorist.com/fragrance/ingredients/article/21860577/the-composition-of-iso-e-super): 'which has a very low odor threshold value of approximately 5 pg/l of air. ... In other words, the odor of ketone G is a hundred thousand times stronger than that of B.'; printed approximately 5 pg/l of air (isomer G); Givaudan measurement of minor isomer G (Arborone / Iso E Super Plus); grade A_producer, access full text (web article via fetch tool); second reader: Single minor isomer (G, 2-4 % of the product); approximate value; not the commercial mixture. MW 234.38.; listed, not used (0.000522 ppb)",
-        "Estimate for the commercial mixture from its most potent isomer: isomer G threshold / its 2-4 % share = 0.0130-0.0261 ppb; geometric midpoint 0.0184 (second reader's arithmetic). The single-isomer values (B about 52 ppb, G 0.0005 ppb) are not used alone."
+        "Estimate for the commercial mixture from its most potent isomer: isomer G threshold / its 2-4 % share = 0.0130-0.0261 ppb; geometric midpoint 0.0184 (second reader's arithmetic). The single-isomer values (B about 52 ppb, G 0.0005 ppb) are not used alone.",
+        "2026-10-31 (Acqua di Gio Luxe research, R3/R10): Gautschi, Bajgrowicz & Kraft, Chimia 55 (2001) 379-387 (https://www.chimia.ch/chimia/article/view/2001_379): 'the impurity 13 (ca. 5%) with a threshold of only 5 pg/l is responsible for the pleasant woody-ambery odor characteristics of Iso E Super'; at 5 % the estimate is 0.10 ng/L = 0.0104 ppb, so the range is 0.0104-0.0261 ppb (0.0035-0.0209 ppb if the 2.5-14.9 % isomer-G range that AICIS EVA00028 quotes from Armanino et al. 2020 applies; secondary). Same Givaudan lab behind every input; arborone patent US 5,214,160. Value kept at 0.0184 (PEER_EST)."
       ],
       "note": "Literature threshold batch 2026-10-25 (stock thread); sources re-opened before loading.",
       "superseded": {
-        "vfy": "PEER_SINGLE",
+        "vfy": "PEER_EST",
         "sources": [
-          "Kraft (2008) Chem. Biodiv. 5:670 — pure Arborone impurity 0.005 ng/L (0.0005 ppb); commercial mixture ~0.05 ppb"
+          "Gautschi, Bajgrowicz & Kraft (Givaudan), Chimia 55 (2001) 379-387 and US 5,214,160: isomer G (Arborone) 5 pg/l (0.0005 ppb); commercial product estimated from G's 2-5 % share = 0.0104-0.0261 ppb, geometric midpoint 0.0184 (literature batch 2026-10-25, the runtime row)"
         ],
-        "odt_air": 0.05,
+        "note": "Static row aligned to the literature value 2026-10-31. It used to cite 'Kraft (2008) Chem. Biodiv. 5:670' with an unsourced 50-100x factor (0.05 ppb); that paper (5(6):970-999, 'Woody pretzels') prints no Iso E Super threshold. The ethanol value was not re-researched and is left as it was.",
+        "odt_air": 0.0184,
         "odt_eth": 0.05
       },
       "odt_eth": 0.05,
@@ -59954,13 +59969,13 @@
     "alt_name": null,
     "cas": "476332-65-7",
     "formula_str": "C18H32O",
-    "mw": 264.4,
+    "mw": 264.45,
     "bp": 290.0,
-    "vp": 0.8,
+    "vp": 0.38,
     "clp": 7.1,
     "odt": 0.05,
-    "sar_class": "Synthetic ambergris analogues — acetal/ketal family",
-    "olfactophore": "The Amber Xtreme structure is a cyclohexane-based acetal",
+    "sar_class": "Synthetic ambergris analogues — tricyclic cyclic ether (indenofuran) family",
+    "olfactophore": "The Amber Xtreme structure is a tetrahydrofuran-fused tricyclic cyclic ether, decahydro-2,2,6,6,7,8,8-heptamethyl-2H-indeno[4,5-b]furan (C18H32O; IFF, RIFM 2021), not an acetal",
     "arctander_character": "Powerful, radiant amber, clean, dry, slightly woody, mineral",
     "arctander_tenacity": "Deep base — enormous persistence (24-48+ hours on strip)",
     "carles_position": "BASE — Structure (radiance engine)",
@@ -60051,11 +60066,24 @@
           "vp": 0.001,
           "clp": 4.5
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "mw": 264.4,
+          "vp": 0.8
+        }
       }
     ],
     "pubchem_cid": null,
     "identity_evidence": {
-      "source": "https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/"
+      "source": "https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/",
+      "contract_values_not_read_by_gate": {
+        "mw": {
+          "contract": 264.4,
+          "gate": 264.45
+        }
+      }
     },
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",

@@ -5100,6 +5100,30 @@ _VERIFIED_VP_SOURCE.update(
     }
 )
 
+# 2026-10-31 Acqua di Gio Luxe research (stock thread): these profile VPs follow the data
+# spine (A.yaml Amber Xtreme, B.yaml Beta Damascone), whose provenance carries each source.
+_VERIFIED_VP.update(
+    {
+        "Amber Xtreme": 0.38,
+        "Damascone Beta": 2.6,
+    }
+)
+_VERIFIED_VP_SOURCE.update(
+    {
+        "Amber Xtreme": (
+            "RIFM fragrance ingredient safety assessment, CAS 476332-65-7 (Api et al., Food Chem "
+            "Toxicol 156 Suppl 1 (2021) 112476): 'Vapor Pressure: 3.8 x 10(-1) Pa at 25 C (RIFM, "
+            "2003f)' (IFF report, method not printed); IFF compendium 0.005516 mm Hg at 23 C = "
+            "0.7354 Pa is the second source (replaces an unsourced 0.001 Pa; re-opened 2026-10-31)"
+        ),
+        "Damascone Beta": (
+            "ECHA registration dossier EC 245-842-1, section 4.7: 'Vapour pressure: 2.6 Pa at the "
+            "temperature of: 25 C' (GLP, OECD/EC method); Firmenich SDS v13 (2024) 2.6 Pa, OECD 104 "
+            "(replaces an unsourced 0.08 Pa; re-opened 2026-10-31)"
+        ),
+    }
+)
+
 for _key, _val in _VERIFIED_VP.items():
     if _key in _PROFILES:
         _PROFILES[_key]["vp"] = _val
@@ -5500,7 +5524,10 @@ _PROFILES.setdefault("elemi eo", {}).update(
 # 2026-09-07: entity facts do not establish stock composition or measured liking.
 for _name, _mw, _cas, _source in (
     ("Damascone Beta", 192.30, "23726-91-2", "https://www.iff.com/scent/ingredients-compendium/damascone-beta/"),
-    ("Amber Xtreme", 264.4, "476332-65-7", "https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/"),
+    # 264.45 = C18H32O, IFF's formula (the compendium rounds to 264); RIFM 2021 prints 264.45
+    # (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/476332-65-7.pdf).
+    # 2026-10-31, was 264.4.
+    ("Amber Xtreme", 264.45, "476332-65-7", "https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/"),
 ):
     _PROFILES[_name].update(mw=_mw, cas=_cas)
     _PROFILES[_name].setdefault("evidence", {})["mw"] = {

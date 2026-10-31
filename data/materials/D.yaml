@@ -290,9 +290,9 @@
   logp:
   functional_groups: []
   chirality:
-  # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (was 1.5, corrected to 0.08)
-  vp_25c_pa: 0.08
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  # 2026-10-31: unsourced 0.08 (synced from the profile on 2026-05-30; 1.5 before) -> 2.6 Pa, the same source as B.yaml Beta Damascone
+  vp_25c_pa: 2.6
+  vp_source: ECHA_GLP_measured_25C  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff: 0.003
@@ -314,7 +314,7 @@
   provenance:
     character: 'IFF Damascone Beta page (CAS 23726-91-2), https://www.iff.com/scent/ingredients-compendium/damascone-beta/: "Fruity, floral, fresh, green, woody, rose like odor. With plum, honey, tobacco and blackcurrant undertones."; dsm-firmenich 939697 page: "Apple, Rose, Plum, Tobacco". Loaded 2026-10-25 (fruit batch; source re-opened by a second reader).'
     mw_g_mol: engine.diffusion_model
-    vp_25c_pa: engine.diffusion_model
+    vp_25c_pa: 'ECHA REACH registration dossier, (E)-1-(2,6,6-trimethyl-1-cyclohexen-1-yl)-2-buten-1-one (EC 245-842-1, CAS 23726-91-2), section 4.7 Vapour pressure, https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.041.660/4/7: ''Key value for chemical safety assessment Vapour pressure: 2.6 Pa at the temperature of: 25 °C. Additional information: A fully reliable experimental study, conducted according to a recognized OECD/EC method and under GLP, is available.''; 25 C; experimental, GLP (study record not visible; the Firmenich SDS names OECD 104); grade A_regulatory. Second reader (R10): CONFIRMED (identity on page is the (E) isomer; the Firmenich SDS repeats the same registration, so the two are not independent). Second source: Firmenich GHS SDS 939697 DAMASCONE BETA FAB v13.0 (2024), https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Damascone_Beta_Firmenich_SDS.pdf: 2.6 Pa at 25 C, OECD 104. Replaces 0.08 Pa (provenance was engine.diffusion_model, not a source); this record and B.yaml Beta Damascone (same CAS) now agree. Loaded 2026-10-31 (Acqua di Gio Luxe research; source re-opened by a second reader).'
     kaw_eff: engine.diffusion_model
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt

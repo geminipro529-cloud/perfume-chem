@@ -1613,13 +1613,14 @@
         price_usd_per_g: 0.04
   families:
   - floral materials
-  character:
+  character: 'phenolic wintergreen almond floral cananga'
   notes:
   provenance:
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 93-58-3 (https://www.thegoodscentscompany.com/data/rw1015012.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 1.08200 to 1.08900 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1015012.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    character: 'Methyl Benzoate | The Good Scents Company, methyl benzoate, https://www.thegoodscentscompany.com/data/rw1015012.html: Odor Description: at 1.00 % in dipropylene glycol. phenolic wintergreen almond floral cananga (grade C_supplier/TGSC; Luebke 1982, sample from Berje). Second source on the same page, Symrise line: ''strong phenolic, similar to cresol/wintergreen oil, sweet-floral like ylang ylang, tuberose'' (A_producer, quoted by TGSC). Loaded 2026-10-31 (Acqua di Gio Luxe research, R9; not in the second reader''s sample).'
 - canonical_name: Methyl Chavicol
   aliases: []
   cas:

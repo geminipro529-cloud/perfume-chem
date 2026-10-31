@@ -64,7 +64,9 @@ def test_neroli_text_keeps_prepared_ethanol_distinct_from_legacy_neat_yaml():
     assert all(r["user_stock_dilution"] == "neat" for r in neroli)
     assert all("neroli eo (neat)" in r["aliases"] for r in neroli)
     assert all("neroli eo (10% in dpg)" in r["aliases"] for r in neroli[1:])
-    assert [r["density_25c_g_ml"] for r in neroli] == [None, 0.87, 0.86]
+    # 2026-10-31: the record the stock resolves to (the last) moved 0.86 (PerfumersWorld SG, temperature
+    # unstated) -> 0.864, the TGSC + Robertet/ISO 3517 range midpoint (Acqua di Gio Luxe research, R5).
+    assert [r["density_25c_g_ml"] for r in neroli] == [None, 0.87, 0.864]
 
 
 def test_retired_neat_record_kept_its_claim_limits_and_no_longer_binds():
