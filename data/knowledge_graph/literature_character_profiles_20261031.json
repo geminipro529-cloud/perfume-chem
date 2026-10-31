@@ -8,7 +8,7 @@
  },
  "note_evidence": {
   "status": "LITERATURE_VOLATILITY_RULE",
-  "method": "TGSC substantivity at 100%: 12 h or less top, 200 h or less heart, else base. Engine vapour pressure: 10 Pa or more top, 0.1 Pa or more heart, else base. Vapour pressure decides when they disagree. A producer's own note statement overrides both (stated in note_basis)."
+  "method": "TGSC substantivity at 100%: 12 h or less top, 200 h or less heart, else base. Engine vapour pressure: 10 Pa or more top, 0.1 Pa or more heart, else base. Vapour pressure decides when they disagree, but only a vapour pressure with a cited source in data/materials can override TGSC substantivity. A producer's own note statement overrides both (stated in note_basis)."
  },
  "role_unchanged": true,
  "profiles": [
@@ -805,8 +805,8 @@
     "warmth": 5.0,
     "woody": 2.5
    },
-   "note": "heart",
-   "note_basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (0.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "note": "base",
+   "note_basis": "TGSC substantivity 400 hour(s) at 100.00 % -> base; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)",
    "tgsc_odor_type": "hay",
    "descriptor_terms_by_source": {
     "tgsc": [
@@ -991,8 +991,8 @@
     "warmth": 5.5,
     "woody": 3.0
    },
-   "note": "heart",
-   "note_basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (1.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "note": "base",
+   "note_basis": "TGSC substantivity 400 hour(s) at 100.00 % -> base; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)",
    "tgsc_odor_type": "balsamic",
    "descriptor_terms_by_source": {
     "tgsc": [
@@ -2865,8 +2865,8 @@
     "transparency": 4.5,
     "woody": 7.0
    },
-   "note": "base",
-   "note_basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 2 (0.006 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides",
+   "note": "heart",
+   "note_basis": "TGSC substantivity 100 hour(s) at 100.00 % -> heart; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)",
    "tgsc_odor_type": "floral",
    "descriptor_terms_by_source": {
     "tgsc": [

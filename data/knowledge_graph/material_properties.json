@@ -7665,7 +7665,7 @@
     "oav_dose_pct": 5.0,
     "smell_strength": null,
     "anosmic_risk": null,
-    "note": "heart",
+    "note": "top",
     "role": "character",
     "texture": "lift",
     "synergies": [
@@ -7733,6 +7733,12 @@
         "fields": {
           "smell_strength": "moderate",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "heart"
         }
       }
     ],
@@ -25843,7 +25849,7 @@
     "mw": 146.0,
     "vp": 0.3,
     "clp": 1.4,
-    "note": "heart",
+    "note": "base",
     "role": "modifier",
     "texture": "dry, powdery",
     "activity_coef": 0.7,
@@ -25921,6 +25927,12 @@
         "fields": {
           "note": "base"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "heart"
+        }
       }
     ],
     "or_family": "hay",
@@ -25940,7 +25952,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (0.3 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 % -> base; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -37960,7 +37972,7 @@
     "mw": 222.37,
     "vp": 0.006,
     "clp": 4.8,
-    "note": "base",
+    "note": "heart",
     "role": "modifier",
     "texture": "soft, balmy",
     "activity_coef": 1.2,
@@ -38050,6 +38062,12 @@
         "fields": {
           "note": "heart"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "base"
+        }
       }
     ],
     "or_family": "floral_woody",
@@ -38069,7 +38087,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 2 (0.006 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+        "basis": "TGSC substantivity 100 hour(s) at 100.00 % -> heart; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -49410,7 +49428,7 @@
     "mw": 148.0,
     "vp": 1.0,
     "clp": 2.0,
-    "note": "heart",
+    "note": "base",
     "role": "modifier",
     "texture": "warm, resinous",
     "activity_coef": 1.2,
@@ -49468,7 +49486,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (1.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 % -> base; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -49598,6 +49616,12 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "note": "base"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "heart"
         }
       }
     ],
@@ -74220,7 +74244,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class 1 (1.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 % -> base; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -74344,12 +74368,18 @@
         "fields": {
           "note": "base"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "heart"
+        }
       }
     ],
     "mw": 148.0,
     "vp": 1.0,
     "clp": 2.0,
-    "note": "heart",
+    "note": "base",
     "role": "modifier",
     "texture": "warm, resinous",
     "or_family": "balsamic",
