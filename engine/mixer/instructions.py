@@ -139,7 +139,7 @@ class InstructionGenerator:
             "musk": "MUSKS (smoothing)",
             "top": "TOP NOTES (sparkle)",
             "solvent": "CARRIER / SOLVENT",
-            "precharge": "DECLARED CARRIER PRECHARGE",
+            "precharge": "DECLARED PRECHARGE (carrier, antioxidant)",
             "postcharge": "DECLARED FINAL MAKE-UP / POSTCHARGE",
             "unassigned": "UNASSIGNED PHYSICAL BASKET — NOT EXECUTABLE",
         }
@@ -278,6 +278,42 @@ class InstructionGenerator:
         }
 
 
+def _technical_precharge_mixing_rows(
+    formula: Mapping[str, object],
+    mixing_rows: Sequence[Mapping[str, object]],
+) -> list[dict[str, object]]:
+    """PRECHARGE rows for the formula's technical rows (BHT) not already listed.
+
+    The formula parser keeps an antioxidant row out of ``ingredients_ul``; a
+    basket-bound table already carries it as a PRECHARGE transfer, any other
+    source needs it added here so the bench card starts with it.
+    """
+    listed = {str(row.get("material", "")) for row in mixing_rows}
+    added: list[dict[str, object]] = []
+    for index, row in enumerate(formula.get("technical_precharge_rows", []) or [], 1):
+        material = str(row.get("material", ""))
+        raw_ul = row.get("raw_ul")
+        if not material or material in listed or raw_ul is None or float(raw_ul) <= 0:
+            continue
+        strength = str(row.get("strength_text", "") or "")
+        label = (
+            f"{material} [{strength}]"
+            if strength and strength.casefold() not in material.casefold()
+            else material
+        )
+        added.append(
+            {
+                "row_id": f"technical-precharge-{index:03d}",
+                "material": material,
+                "physical_stock_label": label,
+                "raw_ul": float(raw_ul),
+                "basket": None,
+                "operation": "PRECHARGE",
+            }
+        )
+    return added
+
+
 def build_formula_compounding_protocol(
     formula: Mapping[str, object],
     *,
@@ -319,6 +355,7 @@ def build_formula_compounding_protocol(
         ]
         if not source_blockers:
             source_blockers = ["EXPLICIT_BASKET_ASSIGNMENTS_NOT_DECLARED"]
+    mixing_rows.extend(_technical_precharge_mixing_rows(formula, mixing_rows))
     return generator.generate(
         rows=mixing_rows,
         formula_name=str(formula.get("name", "Custom Formula")),

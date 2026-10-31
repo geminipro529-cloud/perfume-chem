@@ -172,6 +172,15 @@ TECHNICAL_MATERIALS: frozenset[str] = frozenset(
     }
 )
 
+# Words that make a row an antioxidant whatever its strength or solvent is written as
+# ("BHT 5% w/v EtOH", "alpha-Tocopherol"). engine.pipeline.antioxidant reads these too.
+ANTIOXIDANT_NAME_TOKENS: tuple[str, ...] = ("bht", "tocopherol")
+
+
+def _names_antioxidant(name: str) -> bool:
+    words = re.split(r"[\s\-]+", name)
+    return any(token in words or name.startswith(token) for token in ANTIOXIDANT_NAME_TOKENS)
+
 
 @dataclass(frozen=True, slots=True)
 class Concentration:
@@ -358,7 +367,7 @@ def is_carrier(material_name: str) -> bool:
 def is_technical(material_name: str) -> bool:
     """Return True if the material is a technical additive, not an odorant."""
     name = _material_base_name(material_name)
-    return name in TECHNICAL_MATERIALS
+    return name in TECHNICAL_MATERIALS or _names_antioxidant(name)
 
 
 def classify_material_category(
@@ -375,7 +384,7 @@ def classify_material_category(
         return "solvent"
     if name in CARRIER_MATERIALS:
         return "carrier"
-    if name in TECHNICAL_MATERIALS:
+    if name in TECHNICAL_MATERIALS or _names_antioxidant(name):
         return "technical"
     return "odorant"
 
@@ -625,6 +634,7 @@ def compute_active_accounting(
 
 
 __all__ = [
+    "ANTIOXIDANT_NAME_TOKENS",
     "ActiveAccounting",
     "CARRIER_MATERIALS",
     "Concentration",

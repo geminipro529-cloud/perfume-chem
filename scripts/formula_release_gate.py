@@ -49,6 +49,7 @@ from engine.optimizer.models import ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
 from engine.perception.role_reading import build_role_reading, role_reading_text_lines
 from engine.pipeline.analysis import render_pipeline_analysis
+from engine.pipeline.antioxidant import stock_charge_expected_ul, technical_precharge_gate
 from engine.pipeline.audit_log import append_event, config_summary
 from engine.pipeline.gates import (
     DEFAULT_CONCENTRATE_UL,
@@ -164,7 +165,16 @@ def _config_for_formula(
     mass_batch = mass_card_batch_volume(formula)
     if mass_batch is not None and source == "default":
         volume, source = mass_batch
-    return dataclasses.replace(config, batch_volume_ml=volume, batch_volume_source=source)
+    # An antioxidant pre-charge (BHT) is outside the liquid stock-charge total; a file
+    # whose stated total counted it is checked against the odour stocks only (the
+    # technical_precharge gate says so).
+    expected = stock_charge_expected_ul(config.expected_concentrate_ul, formula)
+    return dataclasses.replace(
+        config,
+        batch_volume_ml=volume,
+        batch_volume_source=source,
+        expected_concentrate_ul=expected,
+    )
 
 
 def mass_card_batch_volume(formula: dict) -> tuple[float, str] | None:
@@ -247,6 +257,35 @@ def _build_config(args: argparse.Namespace) -> ReleaseGateConfig:
         audit_source=args.audit_source or str(args.formula_file),
         expected_retail_price_thb=args.expected_retail_price_thb or 1500.0,
     )
+
+
+_STATUS_RANK = {"PASS": 0, "WARN": 1, "HOLD": 2, "FAIL": 3}
+
+
+def _add_technical_precharge_gate(
+    gate_report: dict,
+    formula: dict,
+    batch_volume_ml: float,
+    expected_concentrate_ul: float | None = None,
+) -> None:
+    """Add the antioxidant (BHT) pre-charge gate when the formula has such a row.
+
+    The parser keeps BHT out of ``ingredients_ul``, so no odour gate sees it;
+    this gate checks its stock (RULE 0), house dose and place in the make-up.
+    The worst status wins, as in ``gate_formula``.
+    """
+    gate = technical_precharge_gate(
+        formula,
+        batch_volume_ml=batch_volume_ml,
+        expected_concentrate_ul=expected_concentrate_ul,
+    )
+    if gate is None:
+        return
+    gate_report["gates"].append(gate)
+    gate_report["technical_precharge"] = gate["data"]
+    current = str(gate_report.get("status", "PASS"))
+    if _STATUS_RANK.get(gate["status"], 0) > _STATUS_RANK.get(current, 0):
+        gate_report["status"] = gate["status"]
 
 
 def _role_reading(gate_result, oav_result) -> dict[str, object]:
@@ -959,6 +998,12 @@ def main(
             authorized_active_dose_changes=authorized_active_dose_changes,
         )
         gate_report = gate_result.as_dict()
+        _add_technical_precharge_gate(
+            gate_report,
+            formula,
+            formula_config.batch_volume_ml,
+            expected_concentrate_ul=config.expected_concentrate_ul,
+        )
         record_stage("gate_formula", stage_started_ns)
 
         # Phase 1: OAV authority analysis

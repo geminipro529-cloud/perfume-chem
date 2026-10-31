@@ -48,6 +48,7 @@ from engine.mixer.instructions import build_formula_compounding_protocol
 from engine.mixer.prebonding import PreBondingAnalyzer
 from engine.optimizer.models import FormulaVector
 from engine.optimizer.scoring import FormulaScorer
+from engine.pipeline.antioxidant import is_antioxidant_row, technical_precharge_row
 from engine.synergy_graph import SynergyGraph
 from engine.volatility import VolatilityCurveSimulator
 
@@ -698,6 +699,7 @@ def _parse_formula_rows(
     body: str,
     blockers: list[dict[str, object]] | None = None,
     mass_card: dict[str, object] | None = None,
+    technical_rows: list[dict[str, object]] | None = None,
 ) -> tuple[dict[str, float], dict[str, float | None], dict[str, dict[str, object]]]:
     """Parse formula rows; a card with no volume rows is read by its gram column.
 
@@ -706,18 +708,29 @@ def _parse_formula_rows(
     mass row becomes uL through :func:`mass_row_ul`, and a row it can't convert
     is held with its reason in ``blockers``. ``mass_card`` (when given) is
     filled with the card's unit, stock mass, converted volume and stated batch.
+    An antioxidant row (BHT) is never an odour row: it is left out of the
+    returned ingredients and appended to ``technical_rows`` (when given).
     """
 
     volume_blockers: list[dict[str, object]] = []
-    parsed = _parse_formula_rows_by_column(body, volume_blockers)
+    volume_technical: list[dict[str, object]] = []
+    parsed = _parse_formula_rows_by_column(
+        body, volume_blockers, technical_rows=volume_technical
+    )
     if parsed[0] or volume_blockers:
         if blockers is not None:
             blockers.extend(volume_blockers)
+        if technical_rows is not None:
+            technical_rows.extend(volume_technical)
         return parsed
     card: dict[str, object] = {}
-    parsed = _parse_formula_rows_by_column(body, blockers, card)
+    mass_technical: list[dict[str, object]] = []
+    parsed = _parse_formula_rows_by_column(body, blockers, card, technical_rows=mass_technical)
     if card and mass_card is not None:
         mass_card.update(card)
+    if technical_rows is not None:
+        # The two passes read different tables (volume columns vs gram columns).
+        technical_rows.extend([*volume_technical, *mass_technical])
     return parsed
 
 
@@ -725,6 +738,8 @@ def _parse_formula_rows_by_column(
     body: str,
     blockers: list[dict[str, object]] | None = None,
     mass_card: dict[str, object] | None = None,
+    *,
+    technical_rows: list[dict[str, object]] | None = None,
 ) -> tuple[dict[str, float], dict[str, float | None], dict[str, dict[str, object]]]:
     """Parse formula rows from a markdown table. Accepts multiple formats.
 
@@ -744,6 +759,11 @@ def _parse_formula_rows_by_column(
 
     With ``mass_card`` given, a table with no uL/mL/% column is read by its
     weighed-stock gram column (never a carrier or undiluted-product column).
+
+    An antioxidant row (``BHT 5% w/v in ethanol``) is a technical pre-charge,
+    not an odour row: it never enters the returned ingredients, dilutions or
+    stock specs (so no ODT, OAV, role or headspace models it) and is appended
+    to ``technical_rows`` instead, with its stock dose and strength.
     """
     dilutions: dict[str, float | None] = {}
     stock_specs: dict[str, dict[str, object]] = {}
@@ -1172,6 +1192,26 @@ def _parse_formula_rows_by_column(
             dilution_cell,
             current_headers[dilution_idx] if dilution_idx is not None else "",
         )
+
+        if is_antioxidant_row(ingredient):
+            # BHT is a technical pre-charge (IFRA 184/186/187 antioxidant), not an
+            # odour row: keep it out of the odour rows and every physics model.
+            if technical_rows is not None:
+                technical_rows.append(
+                    technical_precharge_row(
+                        ingredient,
+                        amount_ul,
+                        amount_mass_unit
+                        if amount_mass_idx is not None
+                        else "%"
+                        if amount_is_percentage
+                        else "uL",
+                        spec,
+                        strength_problem=strength_problem,
+                        source_line=idx + 1,
+                    )
+                )
+            continue
 
         if ingredient not in ingredient_order:
             ingredient_order.append(ingredient)
@@ -1729,6 +1769,9 @@ def _parse_compounding_rows(
         if (
             not material
             or material_key in {"total", "subtotal", "fragrance sub-total", "final bottle total"}
+            # "Liquid stock-charge total" and the like sum the rows above; they
+            # are not a transfer (the formula parser skips them the same way).
+            or re.search(r"\b(?:sub[- ]?total|total)\b", material_key)
             or "~~" in cell(cells, name_index)
         ):
             continue
@@ -1742,7 +1785,15 @@ def _parse_compounding_rows(
 
         basket = current_basket
         basket_cell = cell(cells, basket_index)
-        if basket_cell:
+        # A basket cell may name the method instead of a basket ("Pre-charge"):
+        # that is an explicit operation, not an invalid basket.
+        basket_operation, basket_operation_blocker = parse_operation(basket_cell)
+        basket_names_operation = bool(basket_cell) and basket_operation_blocker is None and (
+            basket_operation != "DIRECT_ADD"
+        )
+        if basket_names_operation:
+            basket = None
+        elif basket_cell:
             basket_match = re.search(r"\d{1,2}", basket_cell)
             if basket_match:
                 parsed_basket = int(basket_match.group(0))
@@ -1758,9 +1809,17 @@ def _parse_compounding_rows(
                 blockers.append(f"INVALID_BASKET_AT_SOURCE_LINE:{line_index}")
 
         operation_index = find_column(headers, "operation", "addition method")
-        operation, operation_blocker = parse_operation(cell(cells, operation_index))
+        operation_cell = cell(cells, operation_index)
+        operation, operation_blocker = parse_operation(operation_cell)
         if operation_blocker:
             blockers.append(f"{operation_blocker}:SOURCE_LINE_{line_index}")
+        elif not operation_cell.strip():
+            if basket_names_operation:
+                operation = basket_operation
+            elif is_antioxidant_row(material):
+                # The house method adds the antioxidant (BHT) first, before any
+                # odour basket; it is a technical row, never an odour basket row.
+                operation = "PRECHARGE"
 
         stock_label_index = find_column(headers, "physical stock", "stock label", "bottle label")
         dilution_index = find_column(headers, "dilution", "stock strength")
@@ -1847,6 +1906,7 @@ def _build_formula_record(
     embedded_analysis: str = "",
     row_parse_blockers: list[dict[str, object]] | None = None,
     mass_card: dict[str, object] | None = None,
+    technical_rows: list[dict[str, object]] | None = None,
 ) -> dict:
     total_ul = sum(ingredients_ul.values()) or 1.0
     ingredients_pct = {
@@ -1866,6 +1926,9 @@ def _build_formula_record(
         # Rows held out of ingredients_ul because a strength or amount cell
         # could not be read. Any entry blocks release and physics output.
         "row_parse_blockers": list(row_parse_blockers or []),
+        # Antioxidant (BHT) rows: technical pre-charges, outside ingredients_ul and
+        # the liquid stock-charge total, never modelled as odour (engine.pipeline.antioxidant).
+        "technical_precharge_rows": list(technical_rows or []),
         # Set only for a card read by its weighed-stock gram column.
         **({"mass_card": dict(mass_card)} if mass_card else {}),
         **compounding_contract,
@@ -1961,7 +2024,10 @@ def parse_formula_markdown(path: Path) -> list[dict]:
         body = sections[idx + 2]
         blockers: list[dict[str, object]] = []
         card: dict[str, object] = {}
-        ingredients_ul, dilutions, stock_specs = _parse_formula_rows(body, blockers, card)
+        technical: list[dict[str, object]] = []
+        ingredients_ul, dilutions, stock_specs = _parse_formula_rows(
+            body, blockers, card, technical
+        )
         if not ingredients_ul and not blockers:
             continue
         formulas.append(
@@ -1975,6 +2041,7 @@ def parse_formula_markdown(path: Path) -> list[dict]:
                 embedded_analysis,
                 blockers,
                 card,
+                technical,
             )
         )
 
@@ -1983,7 +2050,8 @@ def parse_formula_markdown(path: Path) -> list[dict]:
 
     blockers = []
     card = {}
-    ingredients_ul, dilutions, stock_specs = _parse_formula_rows(text, blockers, card)
+    technical = []
+    ingredients_ul, dilutions, stock_specs = _parse_formula_rows(text, blockers, card, technical)
     if not ingredients_ul and not blockers:
         return []
 
@@ -2000,6 +2068,7 @@ def parse_formula_markdown(path: Path) -> list[dict]:
             embedded_analysis,
             blockers,
             card,
+            technical,
         )
     ]
 
