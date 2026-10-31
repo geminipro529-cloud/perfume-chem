@@ -99,13 +99,14 @@ def test_a_pear_brief_leads_its_fruit_with_a_stock_that_smells_of_pear() -> None
     ],
 )
 def test_a_frangipani_brief_leads_it_with_a_stock_that_names_frangipani(idea: str) -> None:
-    # No owned stock is called frangipani: the note's own role may only take a stock whose
-    # reviewed description names it, never any white floral.
+    # The note's own role may only take a stock whose reviewed description names it, or
+    # the owned Frangipani Absolute itself (its floral profile names no "frangipani";
+    # it arrived after this test was written), never any white floral.
     named = {
         capability.identity_name
         for capability in build_material_capability_index().capabilities
         if "frangipani" in capability.descriptor_vocabulary
-    }
+    } | {"Frangipani Absolute"}
     result = design_formula(idea=idea)
 
     facets = {

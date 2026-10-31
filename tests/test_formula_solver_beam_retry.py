@@ -1,4 +1,4 @@
-"""The wider-beam retry runs only when a missing role could still be filled."""
+"""The wider-beam and full-frontier retries run only when a missing role could still be filled."""
 
 from types import SimpleNamespace
 
@@ -9,7 +9,7 @@ def _solve(monkeypatch, pool):
     calls = []
 
     def fake_solve(**kwargs):
-        calls.append(kwargs["beam_width"])
+        calls.append((kwargs["beam_width"], kwargs.get("frontier", solver._UNARY_FRONTIER)))
         return (), ("Top citrus",)
 
     monkeypatch.setattr(solver, "_solve_assignments", fake_solve)
@@ -25,8 +25,9 @@ def _solve(monkeypatch, pool):
 
 
 def test_retry_runs_when_a_missing_role_has_candidates(monkeypatch):
-    assert _solve(monkeypatch, [(1.0, object())]) == [8, 32]
+    # A wider beam first, then every stock each role admits (31 Oct 2026).
+    assert _solve(monkeypatch, [(1.0, object())]) == [(8, 24), (32, 24), (32, None)]
 
 
 def test_retry_is_skipped_when_a_missing_role_has_no_candidates(monkeypatch):
-    assert _solve(monkeypatch, []) == [8]
+    assert _solve(monkeypatch, []) == [(8, 24)]

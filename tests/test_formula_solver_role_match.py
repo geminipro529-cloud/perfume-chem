@@ -51,7 +51,8 @@ def test_off_brief_penalty_applies_to_layers_and_coverage_only():
     pinene = _cap("green", "pine", "woody")
     layer = _role(role_id="top_green_layer", provenance="LAYERED_TOP_ARCHITECTURE",
                   query_terms=("green",), descriptor_requirement="top_green")
-    assert fs._off_brief_penalty(pinene, layer, asked) == fs._OFF_BRIEF_FAMILY_PENALTY
+    # Half a family's worth: pinene is green too.
+    assert fs._off_brief_penalty(pinene, layer, asked) == fs._OFF_BRIEF_FAMILY_PENALTY / 2
     assert fs._off_brief_penalty(_cap("green", "leafy"), layer, asked) == 0.0
     coverage = _role(role_id="heart_to_base_link", provenance="FUNCTIONAL_COVERAGE",
                      query_terms=("amber", "heart", "base"))
@@ -123,7 +124,7 @@ def test_a_tuberose_base_is_a_floral_not_only_a_creamy_texture():
     leather = fs._asked_families(SimpleNamespace(normalized_request="a leather", roles=()))
     assert "heart_floral" in fs._families(tuberose_base.descriptor_vocabulary)
     # A leather's creamy texture should not bring in a white flower ...
-    assert fs._off_brief_penalty(tuberose_base, creamy, leather) == fs._OFF_BRIEF_FAMILY_PENALTY
+    assert fs._off_brief_penalty(tuberose_base, creamy, leather) == fs._OFF_BRIEF_FAMILY_PENALTY / 2
     assert fs._off_brief_penalty(lactone, creamy, leather) == 0.0
     # ... but a brief that asks for tuberose still may.
     tuberose = fs._asked_families(SimpleNamespace(normalized_request="a creamy tuberose", roles=()))

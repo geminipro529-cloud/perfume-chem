@@ -763,12 +763,15 @@ def _has_own_threshold(identity_name: str) -> bool:
     profile threshold ("Coumarin Powder", DMBCA).  They paid the unscorable
     penalty on every unnamed role.  A natural modelled only through its
     constituents (Oman Frankincense Tincture, Olibanum Oil) still counts as
-    unscored: a named note it carries reads as unknown physics.
+    unscored: a named note it carries reads as unknown physics.  So does a
+    table entry with no air value: Diethyl Malonate's entry only records the
+    receipt, and it led the pear note of a brief the gate could not check.
     """
     from engine.odor_thresholds import lookup_odt_entry
     from engine.pipeline.formula_state import build_formula_state
 
-    if lookup_odt_entry(identity_name) is not None:
+    entry = lookup_odt_entry(identity_name)
+    if entry is not None and entry.get("odt_air") is not None:
         return True
     try:
         state = build_formula_state({identity_name: 100.0}, {identity_name: 1.0})
@@ -908,6 +911,45 @@ def _weighed_amber_crystal(capability: MaterialCapability, role: SemanticRole) -
         getattr(role, "note", None) == "base"
         and getattr(role, "function", None) in _AMBER_CRYSTAL_FUNCTIONS
         and bool(_words(role.query_terms) & _AMBER_CRYSTAL_QUERY_WORDS)
+    )
+
+
+def _weighed_solid(capability: MaterialCapability, role: SemanticRole) -> bool:
+    """An owned neat solid the planner weighs by rule may fill this unnamed role.
+
+    The Ambrox Super crystals keep their amber-base rule
+    (_weighed_amber_crystal).  Any other owned neat powder is weighed as the
+    active its 10% solution would carry (composition_planner.
+    is_rule_weighed_powder); a dose too small for Kenny's scale is held there.
+    """
+
+    candidate = capability.candidate
+    if _chemical_identity(capability) in _AMBER_CRYSTAL_IDENTITIES:
+        return _weighed_amber_crystal(capability, role)
+    return bool(
+        getattr(candidate, "solid", False)
+        and role.exact_material is None
+        and float(candidate.stock.dilution) >= .999
+        and capability.design_ready
+        and capability.execution_ready
+    )
+
+
+_FORM_WORDS = re.compile(r"\b(?:powder|crystals?|flakes|solid|neat)\b")
+
+
+def _poured_identity(capability: MaterialCapability) -> str:
+    """The material behind a stock label, without its form ("Coumarin Powder")."""
+
+    return " ".join(_FORM_WORDS.sub(" ", _chemical_identity(capability)).split())
+
+
+def _poured_identities(index: MaterialCapabilityIndex) -> frozenset[str]:
+    """Materials Kenny owns as a design-ready poured stock (a solution or liquid)."""
+
+    return frozenset(
+        _poured_identity(capability) for capability in index.capabilities
+        if not capability.candidate.solid and capability.design_ready
     )
 
 
@@ -1105,11 +1147,10 @@ def _block_reason(
         lead = _accord_lead(role, state)
         if not _supports_accord(capability, role, lead[0] if lead else None):
             return "does not carry the lead's note and odor"
-    if capability.candidate.solid and role.exact_material is None and not _weighed_amber_crystal(capability, role):
-        # A solid needs an explicit mass-bearing request.  Selecting one from a
-        # descriptor alone would force the solver to invent a mass operation.
-        # The owned Ambrox Super crystals are the one exception: the planner
-        # doses them by rule (composition_planner._ambrox_crystal_mg).
+    if capability.candidate.solid and role.exact_material is None and not _weighed_solid(capability, role):
+        # The planner weighs an owned neat solid by rule
+        # (composition_planner._rule_dosed_solid_mg); a solid it cannot weigh
+        # needs an explicit mass-bearing request.
         return "a solid stock needs a mass request"
     if role.provenance == ACCENT_PROVENANCE and role.exact_material is None:
         # Accents are the one supporting place for potent materials, kept to
@@ -1224,9 +1265,17 @@ def _off_brief_penalty(
     # A texture word ("cocoon") says how a material sits on skin, not what it
     # smells of, so it names no family here.  It counted as resin, which made
     # every cedarwood pay a family that Clearwood's "veil" did not.
-    extra = _families(capability.descriptor_vocabulary - _TEXTURE_WORDS) - own - asked_families
+    families = _families(capability.descriptor_vocabulary - _TEXTURE_WORDS)
+    extra = families - own - asked_families
+    # One off-brief family or several cost the same, so a fuller description
+    # does not pay more: Jasmine Absolute (floral, green, animalic) paid 16
+    # where Jasmine Sambac (floral) paid nothing.  A material that also
+    # carries the brief pays half a family's worth.
+    partial = _OFF_BRIEF_FAMILY_PENALTY / 2 if families - extra else _OFF_BRIEF_FAMILY_PENALTY
     if role.provenance == "FUNCTIONAL_COVERAGE":
-        return _OFF_BRIEF_FAMILY_PENALTY * len(extra & _COVERAGE_STEERED_FAMILIES)
+        # A link must not carry a steered family at all, so any of them
+        # costs a whole family's worth.
+        return _OFF_BRIEF_FAMILY_PENALTY if extra & _COVERAGE_STEERED_FAMILIES else 0.0
     if not capability.descriptor_vocabulary:
         # No own-odor annotation (e.g. a category proxy): nothing shows the
         # layer fits, so it must not outrank annotated materials by default.
@@ -1234,10 +1283,10 @@ def _off_brief_penalty(
     if getattr(capability, "registry_descriptors", False):
         # A registry sentence ("sweet, woody and persistent") names fewer
         # families than a profile entry, so it would dodge the penalty its
-        # fuller-described rivals pay and win every such layer.  It pays at
-        # least one family's worth.
-        return _OFF_BRIEF_FAMILY_PENALTY * max(1, len(extra))
-    return _OFF_BRIEF_FAMILY_PENALTY * len(extra)
+        # fuller-described rivals pay and win every such layer.  It pays one
+        # family's worth.
+        return _OFF_BRIEF_FAMILY_PENALTY
+    return partial if extra else 0.0
 
 
 _NOTE_TIERS = {"top": 0, "heart": 1, "base": 2}
@@ -1299,6 +1348,9 @@ def _rank_key(
     )
 
 
+_UNARY_FRONTIER = 24
+
+
 def _unary_rank_for_role(
     index: MaterialCapabilityIndex,
     role: SemanticRole,
@@ -1312,6 +1364,7 @@ def _unary_rank_for_role(
     liking: _LikingFn | None = None,
     request: str = "",
     required_identity: tuple[str, ...] | None = None,
+    frontier: int | None = _UNARY_FRONTIER,
 ) -> list[tuple[float, MaterialCapability]]:
     ranked: list[tuple[float, MaterialCapability]] = []
     query_terms = role.query_terms
@@ -1320,10 +1373,16 @@ def _unary_rank_for_role(
         # A cited lead prefers the spec's recognizer stocks; any stock of
         # the note may still lead it.
         query_terms = tuple(dict.fromkeys((*(name for name, _ in accord.stocks), *query_terms)))
+    poured = _poured_identities(index)
     for capability in index.capabilities:
         if _avoid_candidate(capability.candidate, avoid):
             continue
-        if capability.candidate.solid and role.exact_material is None and not _weighed_amber_crystal(capability, role):
+        if capability.candidate.solid and role.exact_material is None and not (
+            _weighed_amber_crystal(capability, role)
+            or (_weighed_solid(capability, role) and _poured_identity(capability) not in poured)
+        ):
+            # Kenny's scale cannot weigh small doses, so an owned solution of
+            # a powder (Coumarin 10%) takes its roles, not the powder.
             continue
         if role.exact_material is None and capability.candidate.legacy_text_only and not capability.execution_ready:
             # An old inventory.txt line with no current stock record carries
@@ -1408,7 +1467,7 @@ def _unary_rank_for_role(
     # Exact roles retain every matching stock form.  The ordinary unary
     # frontier is deliberately wider than the state frontier so global
     # constraints can still route around a stock consumed by another role.
-    return ranked if role.exact_material is not None else ranked[:24]
+    return ranked if role.exact_material is not None or frontier is None else ranked[:frontier]
 
 
 def _pair_adjustment(
@@ -1863,9 +1922,10 @@ def _solve_assignments(
     beam_width: int,
     liking: _LikingFn | None = None,
     identity_words: Mapping[str, tuple[str, ...]] | None = None,
-    unary_cache: dict[tuple[str, tuple[str, ...] | None], list[tuple[float, MaterialCapability]]] | None = None,
+    unary_cache: dict[tuple[Any, ...], list[tuple[float, MaterialCapability]]] | None = None,
     liquid_total_ul: int = _STANDARD_LIQUID_TOTAL_UL,
     kept_for: dict[tuple[str, str], SemanticRole] | None = None,
+    frontier: int | None = _UNARY_FRONTIER,
 ) -> tuple[tuple[SolvedAssignment, ...], tuple[str, ...]]:
     """The beam search.  ``kept_for`` collects, per (cited helper role id,
     stock id), the later role that helper's stock was kept for: a required
@@ -1894,6 +1954,8 @@ def _solve_assignments(
         # A cache shared by solves of one brief with the same inputs: only a
         # role whose identity words differ is ranked again.
         key = (cache_id or role.role_id, identity_words.get(role.role_id))
+        if frontier != _UNARY_FRONTIER:
+            key = (*key, frontier)
         if unary_cache is not None and key in unary_cache:
             return unary_cache[key]
         ranked = _unary_rank_for_role(
@@ -1908,6 +1970,7 @@ def _solve_assignments(
             liking=liking,
             request=brief.normalized_request,
             required_identity=identity_words.get(role.role_id),
+            frontier=frontier,
         )
         if unary_cache is not None:
             unary_cache[key] = ranked
@@ -2204,7 +2267,7 @@ def solve_formula(
     beam_width: int = 48,
     exact_material_count: bool = False,
     identity_words: Mapping[str, tuple[str, ...]] | None = None,
-    unary_cache: dict[tuple[str, tuple[str, ...] | None], list[tuple[float, MaterialCapability]]] | None = None,
+    unary_cache: dict[tuple[Any, ...], list[tuple[float, MaterialCapability]]] | None = None,
 ) -> FormulaSolveResult:
     """Assign one stock per role and allocate doses.
 
@@ -2242,6 +2305,19 @@ def solve_formula(
         )
         if len(wider_missing) < len(missing):
             assignments, missing = wider, wider_missing
+    if missing and _missing_role_has_candidates(missing, **solve_kwargs):
+        # A long brief can use up every stock of a role's ranked frontier
+        # (the 60-material chypre's heart contrast: each rose stock it ranks
+        # is placed or held by the rose family rule).  Search once more with
+        # every stock each role admits.
+        full, full_missing = _solve_assignments(
+            **solve_kwargs,
+            beam_width=beam_width * _INCOMPLETE_RETRY_BEAM_FACTOR,
+            **search_kwargs,
+            frontier=None,
+        )
+        if len(full_missing) < len(missing):
+            assignments, missing = full, full_missing
     choices = tuple(
         Choice(
             role=_role_spec(
