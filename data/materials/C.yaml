@@ -5096,8 +5096,8 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: 3.0
-  odt_eth_ppm: 0.5
+  odt_air_ppb: 3.0  # unsourced placeholder: no threshold is published for the whole extract
+  odt_eth_ppm: 0.5  # unsourced placeholder
   stevens_n: null
   or_targets: []
   trp_targets: null
@@ -5114,19 +5114,20 @@
   families:
   - gourmand
   - natural
-  character: 'An incredibly delicious, creamy, and photorealistic aroma of milk chocolate and sweet roasted cocoa beans. It is much "brighter" and sweeter than Cocoa Absolute, featuring milky, buttery, and sugary facets with a smooth, powdery dry-down reminiscent of a fresh bar of chocolate.'
-  notes: User stock is 7.7%. Distinct from neat Cocoa Absolute; old Cocoa CO2 Absolute wording is a legacy alias only.
+  character: 'chocolate- and caramel-like with nuances of dark chocolate, sweet, honey-like, earthy and nutty (Flavex 093.001); chocolate cocoa creamy milky dairy (TGSC es1085491); milk chocolate, sweet roasted cocoa beans (PerfumersWorld 1VT23924)'
+  notes: 'User stock is 7.7% w/w in DPG and is a suspension (Kenny, 2 Nov 2026: "The 7.7% cocoa co2 bottle is a suspension"): shake before pipetting. Distinct from neat Cocoa Absolute; old Cocoa CO2 Absolute wording is a legacy alias only. Process unverified: a cocoa CO2 extract (Flavex 093.001, Hermitage) is a fat-rich soft solid, and its fat does not dissolve in DPG, which fits his suspension; PW 1VT23924 calls its product a "brown to dark brown liquid" and its synonyms name Advanced Biotech Cocoa Extract Dark Natural, a water-soluble flavour preparation. Labelled proxy: "PW Cocoa CO2 Extract (process unverified)". Typical use (PW 1VT23924): 0.1% from, 0.5% average, 5% maximum of the compound.'
   provenance:
-    character: 'Cocoa CO2 Extract | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=1VT23924: An incredibly delicious, creamy, and photorealistic aroma of milk chocolate and sweet roasted cocoa beans. It is much "brighter" and sweeter than Cocoa Absolute, featuring milky, buttery, and sugary facets with a smooth, powdery dry-down reminiscent of a fresh bar of chocolate. ... cocoa roasted powdery (grade A_producer; supplier description (PerfumersWorld 1VT23924)). Replaces unsourced text ''Brighter, sweeter, creamy cocoa extract used as economical chocolate body.''. Second reader: CAS No. 84649-99-0 on page. Inventory stock is a 7.7% dilution. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    character: '2 Nov 2026 cocoa value check: producer and TGSC words first (https://www.flavex.com/en/produkt/093_001/ "The sensory profile can be described as chocolate- and caramel-like with nuances of dark chocolate, sweet, honey-like, earthy and nutty with rosy and popcorn like leg notes"; https://www.thegoodscentscompany.com/data/es1085491.html "chocolate cocoa creamy milky dairy"), PW last. Earlier text: Cocoa CO2 Extract | PerfumersWorld, https://www.perfumersworld.com/view.php?pro_id=1VT23924: An incredibly delicious, creamy, and photorealistic aroma of milk chocolate and sweet roasted cocoa beans. It is much "brighter" and sweeter than Cocoa Absolute, featuring milky, buttery, and sugary facets with a smooth, powdery dry-down reminiscent of a fresh bar of chocolate. ... cocoa roasted powdery (grade A_producer; supplier description (PerfumersWorld 1VT23924)). Replaces unsourced text ''Brighter, sweeter, creamy cocoa extract used as economical chocolate body.''. Second reader: CAS No. 84649-99-0 on page. Inventory stock is a 7.7% dilution. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     mw_g_mol: legacy mixture proxy; not a molecular identity
     logp: legacy mixture proxy
     vp_25c_pa: legacy mixture proxy
-    odt_air_ppb: legacy estimated effective threshold
-    odt_eth_ppm: legacy estimated effective threshold
+    odt_air_ppb: unsourced legacy placeholder; no threshold is published for the whole extract (2 Nov 2026 check)
+    odt_eth_ppm: unsourced legacy placeholder (2 Nov 2026 check)
     user_in_inventory: user-confirmed 2026-07-18
     density_25c_g_ml: 'SG 0.9600, supplier-reported (PerfumersWorld 1VT23924 "Cocoa CO2 Extract"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; also: 22 Oct 2026 missing-data pass: stated; raw 0.9600; https://www.perfumersworld.com/view.php?pro_id=1VT23924; temperature as printed by source (often 20 C), not corrected to 25 C'
     density_basis: supplier_sg_temperature_unstated
+    density_trust: 'LOW: the same PW table prints refractive index 1.3000 (below water, impossible for an organic extract), flash point 0 and odour impact TBA, so its numbers look like placeholders (PW 1VT23924, read 2 Nov 2026)'
 - canonical_name: Coconut F-TEC
   aliases:
   - COCONUT F-TEC

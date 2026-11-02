@@ -3789,9 +3789,11 @@ ODT_DATA.update(
             "char": "natural coumarinic-hay-almond richness",
         },
         "cocoa co2 extract": {
+            # No threshold has been published for the whole extract: both values are unsourced
+            # placeholders. Words: Flavex 093.001 and TGSC es1085491 (checked 2 Nov 2026).
             "odt_air": 3.0,
             "odt_eth": 0.5,
-            "char": "true dark chocolate, clean cocoa butter warmth",
+            "char": "chocolate, caramel, sweet, creamy, milky",
         },
         "peru balsam resinoid": {
             "odt_air": 30.0,
@@ -4077,6 +4079,16 @@ ODT_VERIFICATION.setdefault("tuberose eo (volume level grade)", {}).update(
             "TGSC — tuberose material class",
         ],
         "note": "material intake batch 2026-08-07",
+    }
+)
+ODT_VERIFICATION.setdefault("cocoa co2 extract", {}).update(
+    {
+        "vfy": "UNVERIFIED",
+        "sources": [
+            "No air or ethanol threshold is published for the whole extract; 3.0 ppb and 0.5 ppm are unsourced placeholders",
+            "Odour words: Flavex 093.001 https://www.flavex.com/en/produkt/093_001/; TGSC es1085491",
+        ],
+        "note": "Cocoa CO2 value check, Kenny 2 Nov 2026",
     }
 )
 # ─────────────────────────────────────────────────────────────────────
