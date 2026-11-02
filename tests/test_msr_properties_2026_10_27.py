@@ -19,13 +19,16 @@ from engine.pipeline.natural_absolute_decomposition import (
 )
 
 _FIR = "abies balsamea needle oil canadian commercial swor 2022 range midpoint profile"
-_OLIBANUM = "boswellia carterii oil woolley 2012 somali average profile"
+# 2026-10-31: Olibanum Oil moved from the Woolley (2012) averages (0.744) to the median of four
+# Somaliland B. carterii GC/MS tables (Acqua di Gio Luxe research, R7, second-read); Woolley stays
+# in that profile's evidence as a cross-check.
+_OLIBANUM = "boswellia carterii oil somaliland four-lot gc-ms median profile"
 _GALBANUM = "ferula galbaniflua resinoid canton 2025 volatile fraction profile"
 
 _PROFILES = {
     "Fir Needle Oil (Canada)": (_FIR, 0.902, "https://journals.sagepub.com/doi/10.1177/1934578X221086901"),
-    "Olibanum Oil": (_OLIBANUM, 0.744, "https://doi.org/10.1016/j.chroma.2012.06.073"),
-    "Olibanum (Frankincense) Oil": (_OLIBANUM, 0.744, "https://doi.org/10.1016/j.chroma.2012.06.073"),
+    "Olibanum Oil": (_OLIBANUM, 0.7845, "https://pmc.ncbi.nlm.nih.gov/articles/PMC9415502/"),
+    "Olibanum (Frankincense) Oil": (_OLIBANUM, 0.7845, "https://pmc.ncbi.nlm.nih.gov/articles/PMC9415502/"),
     "Galbanum Resinoid": (_GALBANUM, 0.139035, "https://doi.org/10.1002/cbdv.202501442"),
 }
 

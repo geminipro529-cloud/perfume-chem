@@ -191,7 +191,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # Symrise buccoxime 5.818, and UNVERIFIED analogues pear valerate 2.1, cis-3 hexenyl hexanoate 3.1,
     # isolongifolanone 9, rhubofix 6 and linalool oxide 2.3; group 6 gave ed3945b0….
     # The VP-tied rows then moved with ECHA's measured VPs: peach ketone 0.0140, veloutone 6.85.
-    assert digest == "e90a945349d83f82e75821e6c369df0ff3a3abc2daf6d9f2140cfeab1f71341a"
+    # 2026-10-31 (Acqua di Gio Luxe research, _SOURCED_ODT_2026_10_31): floralozone 1.0 -> 6.44
+    # (Symrise Florazon data sheet, 0.0501 ug/l); with floralozone at 1.0 the digest is e90a9453….
+    assert digest == "3bf88c1ac06bf8a5dbc82a4e399c1e005b1df3906ab858cbf816edf384267e98"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

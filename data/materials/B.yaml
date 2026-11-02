@@ -303,7 +303,7 @@
   supplier: null
   families:
   - spice / aromatic
-  character: null
+  character: 'sweet herbal tarragon green spicy'
   notes: Ocimum basilicum leaf oil, India origin — methyl chavicol (estragole) chemotype, sweet-herbal-anisic with linalool freshness
   provenance:
     mw_g_mol: estimated
@@ -312,6 +312,7 @@
     odt_air_ppb: engine.odor_thresholds
     odt_eth_ppm: engine.odor_thresholds
     user_in_inventory: inventory.txt
+    character: 'Basil EO (India, Ocimum Basilicum) | The Good Scents Company, ocimum basilicum leaf oil india, https://www.thegoodscentscompany.com/data/es1661021.html: Odor Description: at 100.00 %. sweet herbal tarragon green spicy (grade C_supplier/TGSC; TGSC CAS 8015-73-4, odor type anisic, the methyl chavicol (estragole) type; the chemotype of Kenny''s bottle is not recorded). Loaded 2026-10-31 (Acqua di Gio Luxe research, R9; not in the second reader''s sample).'
 - canonical_name: Basil Fleuressence
   aliases: []
   cas: null
@@ -1574,7 +1575,7 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 23726-91-2 (https://www.thegoodscentscompany.com/data/rw1000881.html)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.92800 to 0.93600 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1000881.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
-    vp_25c_pa: 'Firmenich SDS v13 (2024) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Damascone_Beta_Firmenich_SDS.pdf: 2.6 Pa at 25 C, OECD 104; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    vp_25c_pa: 'Firmenich SDS v13 (2024) https://cdn.shopify.com/s/files/1/0682/1448/9400/files/Damascone_Beta_Firmenich_SDS.pdf: 2.6 Pa at 25 C, OECD 104; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10); also ECHA REACH registration dossier, (E)-1-(2,6,6-trimethyl-1-cyclohexen-1-yl)-2-buten-1-one (EC 245-842-1, CAS 23726-91-2), section 4.7 Vapour pressure, https://echa.europa.eu/information-on-chemicals/registered-substances/-/disreg/substance/external/100.041.660/4/7: ''Key value for chemical safety assessment Vapour pressure: 2.6 Pa at the temperature of: 25 °C. Additional information: A fully reliable experimental study, conducted according to a recognized OECD/EC method and under GLP, is available.''; 25 C; experimental, GLP (study record not visible; the Firmenich SDS names OECD 104); grade A_regulatory. Second reader (R10): CONFIRMED (identity on page is the (E) isomer; the Firmenich SDS repeats the same registration, so the two are not independent). Provenance added 2026-10-31 (Acqua di Gio Luxe research; value unchanged).'
     logp: 'same Firmenich SDS: log Kow 3.68 (OECD 117); via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     mw_g_mol: '23 Oct 2026 third data pass: PubChem CID for CAS 23726-91-2: beta-damascone C13H20O, MolecularWeight 192.30; the old 190.3 was the C13H18O (damascenone) weight'
 - canonical_name: Beta Homocyclocitral
@@ -2970,11 +2971,12 @@
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
   families: []
-  character: null
+  character: 'mild phenolic camphor'
   notes: null
   provenance:
     vp_25c_pa: 'PubChem compound record, Vapor Pressure section, Hazardous Substances Data Bank (HSDB), CID 31404 (https://pubchem.ncbi.nlm.nih.gov/compound/31404#section=Vapor-Pressure): "5.16X10-3 mm Hg at 25 °C", citing Perry & Green, Perry''s Chemical Handbook, 6th ed. (1984); x 133.322 = 0.688 Pa. Conflict kept on record: ICSC lists 1.3 Pa at 20 °C.'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    character: 'Butylated Hydroxytoluene (BHT) | The Good Scents Company, butylated hydroxytoluene, https://www.thegoodscentscompany.com/data/rw1029651.html: Odor Description: at 100.00 %. mild phenolic camphor (grade C_supplier/TGSC; odor type phenolic, strength low; TGSC prints ''not for fragrance use'': an antioxidant, not an odour material). Loaded 2026-10-31 (Acqua di Gio Luxe research, R9; not in the second reader''s sample).'
 - canonical_name: beta ionone (1% in tec)
   aliases:
   - Beta Ionone 1%

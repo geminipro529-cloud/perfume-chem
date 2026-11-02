@@ -577,7 +577,7 @@
         price_usd_per_g: 0.19
   families:
   - green / fresh / marine
-  character: null
+  character: 'A powerful green, floral, violet leaf odor.'
   notes: 'Producer: Bedoukian Research (''PARMAVERT IS A TRADEMARK OF BEDOUKIAN RESEARCH''), 2-nonyn-1-al dimethyl acetal, not Firmenich. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
   provenance:
     ifra_max_pct_edp: 'IFRA STD_066 (Amendment 49), ''Category 4 9.9 %''; data/regulatory/ifra_cat4_51.json ''Parmavert''. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
@@ -596,6 +596,7 @@
     user_in_inventory: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     density_25c_g_ml: 'Bedoukian (https://search.bedoukian.com/ff_prodlist/?method=specs&product_id=310&bio=): ''Specific Gravity: 0.881 : 0.889 at 25 deg C''; midpoint 0.885 x 0.99705 (water at 25 C) = 0.882 g/mL. Loaded 2026-10-28 (unused-materials group 3 fixes; source re-opened).'
+    character: 'Parmavert | Bedoukian Research, Technical Data Sheet BRI 310 PARMAVERT, https://search.bedoukian.com/ff_prodlist/?method=specs&product_id=310&bio=: Odor Description: A powerful green, floral, violet leaf odor. (grade A_producer; CAS 13257-44-8, 2-nonynal dimethyl acetal, C11H20O2; TGSC rw1001971 (Bedoukian sample, 10% in DPG): ''fresh green violet foliage sweet'' agrees). Second reader (R10): CONFIRMED, producer and CAS match. Loaded 2026-10-31 (Acqua di Gio Luxe research; source re-opened by a second reader).'
 - canonical_name: Parsley Seed Essential Oil
   aliases: []
   cas: null

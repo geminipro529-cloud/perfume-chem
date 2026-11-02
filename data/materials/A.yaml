@@ -1389,7 +1389,7 @@
   supplier: null
   families:
   - citrus / top
-  character: null
+  character: 'waxy aldehydic rose mandarin citrus soapy fatty'
   odour_family: 'aldehydic'
   notes: null
   provenance:
@@ -1408,6 +1408,7 @@
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 10-undecenal, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/112-45-8.pdf: "Log KOW: 5.1 at 24 C (RIFM, 1994b), 4.12 (EPI Suite), 3.7 (RIFM, 2010a)"; the newer RIFM measurement is used; replaces the unsourced 3.3'
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 10-undecenal, CAS Registry Number 112-45-8 (Api et al., Food Chem Toxicol 165 (2022) 113135, doi:10.1016/j.fct.2022.113135) (https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/112-45-8.pdf): ''7. Vapor Pressure: 0.0423 mm Hg at 20 C (EPI Suite v4.0), 0.0423 mm Hg at 20 C (EPI Suite v4.0), 0.03 mm Hg at 20 C (FMA), 0.0653 mm Hg at 25 C (EPI Suite)''; printed 0.03 mm Hg at 20 C (FMA); FMA value quoted by RIFM; method not stated; grade A_producer. Converted from 4 Pa at 20 C to 25 C by Clausius-Clapeyron with dHvap 63.0 kJ/mol from the engine''s correlation 70.0 - 3.82 ln(VP/Pa) (doi:10.1021/es980812j). Second reader: Quote verbatim, CAS 112-45-8 matches. 0.03 x 133.322 = 4.00 Pa at 20 C. FMA value (method not stated), graded A_producer; FMA counts as measured per brief, so no estimate mislabel. Printed to one significant figure. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     vp_source: 'same source as vp_25c_pa (23 Oct 2026 third data pass)'
+    character: 'Aldehyde C11 undecylenic | The Good Scents Company, 10-undecen-1-al, https://www.thegoodscentscompany.com/data/rw1000331.html: Odor Description: at 1.00 % in dipropylene glycol. waxy aldehydic rose mandarin citrus soapy fatty (grade C_supplier/TGSC; CAS 112-45-8, the plain undecylenic grade; the ozone/marine wording on TGSC rw1395171 is IFF Intreleven Aldehyde, a different grade, and is not used; the grade of Kenny''s bottle is not recorded). Loaded 2026-10-31 (Acqua di Gio Luxe research, R9; not in the second reader''s sample).'
 - canonical_name: Aldehyde C12 Lauric
   aliases:
   - aldehyde c12 lauric
@@ -3212,7 +3213,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 236.4
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.052
   logp: 5.1
   functional_groups: []
   chirality: null
@@ -3267,6 +3268,8 @@
     user_stock_dilution: inventory.txt
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 6790-58-5 (https://www.thegoodscentscompany.com/data/rw1016071.html)'
+    density_25c_g_ml: 'ECHA registration dossier 11951 (CAS 6790-58-5), section 4.5 relative density, https://echa.europa.eu/registration-dossier/-/registered-dossier/11951/4/5: ''The density of the test substance at 20°C is 1052 kg/m3, and its relative density D(20/4) is 1.052.''; measured at 20 C (not 25 C), OECD 109 / EU A.3, GLP, air comparison pycnometer for solids; a solid''s true (skeletal) density, not a liquid density and not the flake bulk density (Kao 0.44); grade A_regulatory; Symrise SDS 23095 Ambroxide ''Relative density : 1.052 Temp.: 20 °C'' agrees (snippet). Second reader (R10): CONFIRMED (20 C, negligible for a crystalline solid). Loaded 2026-10-31 (Acqua di Gio Luxe research; source re-opened by a second reader).'
+    density_basis: 'solid_true_density_measured_20c'
 - canonical_name: Ambroxan
   aliases: []
   cas: null
@@ -4617,16 +4620,16 @@
 - canonical_name: Amber Xtreme
   aliases: [amber xtreme]
   cas: 476332-65-7
-  mw_g_mol: 264.4
+  mw_g_mol: 264.45
   density_25c_g_ml: 0.9592
-  vp_25c_pa: 0.8
-  vp_source: IFF_supplier_23C_converted
+  vp_25c_pa: 0.38
+  vp_source: RIFM_report_25C
   logp: 7.1
   user_stock_dilution: "1% (legacy declaration; current stock authority governs)"
   user_in_inventory: true
-  notes: 'C18H32O entity mass, manufacturer rounded MW264. VP: IFF compendium 0.005516 mmHg at 23 C = 0.74 Pa, method not stated, x 1.18 (23 to 25 C, dHvap 60 kJ/mol) = 0.87, recorded as 0.8 Pa (one figure); IFF SDS v5.38 (2018) "< 0.01 hPa" agrees. log P 7.1 (IFF compendium, method not stated).'
+  notes: 'IFF Amber Xtreme: 2H-Indeno[4,5-b]furan, decahydro-2,2,6,6,7,8,8-heptamethyl, C18H32O, MW 264.45 (IFF prints 264), EC 449-360-4, REACH 01-0000018977-51. A tetrahydrofuran-fused tricyclic cyclic ether (IFF SDS: aliphatic ethers), not an acetal/ketal and not C13H26O2. CAS 647828-16-8 is the regio-isomer (2,2,7,7,8,9,9-heptamethyl) that RIFM assesses with it; commercial material is a regio- and stereo-isomer mixture. Not Cashmeran (33704-61-9), although TGSC lists "cashmeran velvet" as a synonym. VP: RIFM 2021 prints 0.38 Pa at 25 C (IFF report 47754, method not printed); IFF compendium 0.005516 mmHg at 23 C = 0.7354 Pa (about 0.87 Pa at 25 C) is the second source, 2.3x higher; IFF SDS (2019) "< 0.01 hPa" fits both. log P 7.1 (IFF compendium, method not stated).'
   provenance:
-    mw_g_mol: https://www.iff.com/scent/ingredients-compendium/amber-xtreme-2/
-    vp_25c_pa: 'https://iff-v2.prod-use1.investis.com/en/site-services/online-compendium-new/amber-xtreme (IFF compendium): "0.005516 mmHg at 23 C" = 0.74 Pa, x 1.18 to 25 C = 0.8 Pa, method not stated; IFF SDS v5.38 (2018) "< 0.01 hPa"; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
+    mw_g_mol: 'IFF online compendium, https://www.iff.com/scent/ingredients-compendium/amber-xtreme: ''Amber Xtreme™ 2H-Indeno[4,5-b] furan, decahydro-2,2,6,6,7,8,8-heptamethyl'' ... ''Molecular Weight: 264'', ''C ₁₈ H ₃₂ O''; RIFM fragrance ingredient safety assessment CAS 476332-65-7 (Api et al., Food Chem Toxicol 2021, 112476), https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/476332-65-7.pdf: ''CAS Registry Number: 476332-65-7 Additional CAS* 647828-16-8 Indeno[4,3a-b]furan,decahydro- 2,2,7,7,8,9,9-heptamethyl'' with MW 264.45; C18H32O = 18 x 12.011 + 32 x 1.008 + 15.999 = 264.45; identity facts, not stock physics; grade A_producer + B_peer. Second reader (R10): CONFIRMED (also IFF SDS rev. 11/26/2024 via De Hekserij: EC 449-360-4, REACH 01-0000018977-51). Replaces 264.4 (IFF compendium rounded). Loaded 2026-10-31 (Acqua di Gio Luxe research; source re-opened by a second reader).'
+    vp_25c_pa: 'RIFM fragrance ingredient safety assessment, 2H-indeno[4,5b]furan, decahydro-2,2,6,6,7,8,8-heptamethyl, CAS 476332-65-7 (Api et al., Food Chem Toxicol 156 Suppl 1 (2021) 112476), https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/476332-65-7.pdf: ''Vapor Pressure: 3.8 × 10 ( − 1) Pa at 25 ◦ C ( RIFM, 2003f )'' (RIFM 2003f = unpublished IFF report no. 47754, ''Determination of Hazardous Physico-Chemical Properties''; ''Physical data same for both materials''); 25 C as printed, no conversion; method not printed and not labelled EPI, so treated as a laboratory value of unknown method; grade B_peer (RIFM citing a producer report). Second source: IFF online compendium, https://www.iff.com/scent/ingredients-compendium/amber-xtreme: ''Vapor Pressure: 0.005516 mm Hg @ 23° C'' = 0.7354 Pa at 23 C (x 1.178 to 25 C, dHvap 60 kJ/mol = 0.866 Pa), method not stated, grade A_producer; the two differ 2.3x and are not averaged; the stock thread loaded the RIFM 25 C value (decision of 31 Oct 2026, HANDOFF section 2). Second reader (R10): both CONFIRMED (RIFM read as a search excerpt of the PDF; IFF arithmetic OK). Replaces 0.8 Pa (the IFF figure converted) and the profile''s unsourced 0.001 Pa. Loaded 2026-10-31 (Acqua di Gio Luxe research; source re-opened by a second reader).'
     logp: 'IFF compendium, same page: log P 7.1, method not stated; via /mnt/project-files/material-data-firecrawl/LHOMME_SUPERAMBER_VP_20261010.md (read 2026-10-10)'
     density_25c_g_ml: 'TGSC: Specific Gravity: 0.95700 to 0.96700 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1660971.html, page "musk indenofuran"); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C): 0.962 x 0.99705 = 0.9592; CAS-matched: page CAS 476332-65-7 equals the entry CAS (TGSC titles it musk indenofuran)'

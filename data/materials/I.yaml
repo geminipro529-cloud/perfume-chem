@@ -607,7 +607,7 @@
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: IFF official compendium, 0.001735 mmHg at 23 C
     kaw_eff: engine.diffusion_model
-    odt_air_ppb: 'ESTIMATE (derived from the most potent isomer''s share): Estimate for the commercial mixture from its most potent isomer: isomer G threshold / its 2-4 % share = 0.0130-0.0261 ppb; geometric midpoint 0.0184 (second reader''s arithmetic). The single-isomer values (B about 52 ppb, G 0.0005 ppb) are not used alone. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
+    odt_air_ppb: 'ESTIMATE (derived from the most potent isomer''s share): Estimate for the commercial mixture from its most potent isomer: isomer G threshold / its 2-4 % share = 0.0130-0.0261 ppb; geometric midpoint 0.0184 (second reader''s arithmetic). The single-isomer values (B about 52 ppb, G 0.0005 ppb) are not used alone. Air detection threshold, ppb v/v at 25 C; full sources in engine/odor_thresholds.py _LITERATURE_ODT_2026_10_25. Loaded 2026-10-25 (literature fill; source re-opened by a second reader). 2026-10-31 (Acqua di Gio Luxe research, R3; second reader R10 confirmed the Chimia figures): range 0.0104-0.0261 ppb, the low end from Gautschi, Bajgrowicz & Kraft (Givaudan), Chimia 55 (2001) 379-387, https://www.chimia.ch/chimia/article/view/2001_379: ''the impurity 13 (ca. 5%) with a threshold of only 5 pg/l is responsible for the pleasant woody-ambery odor characteristics of Iso E Super'' (5 pg/L / 0.05 = 0.10 ng/L = 0.0104 ppb); 0.0035-0.0209 ppb if isomer G is 2.5-14.9 % (Armanino et al. 2020 as quoted by AICIS EVA00028; secondary). Inference, not a measurement; one Givaudan lab behind every input (GC-olfactometry sniff-port thresholds). The arborone source is Givaudan US 5,214,160; the old static rows'' ''Kraft (2008) Chem. Biodiv. 5:670'' citation was wrong (5(6):970-999 is ''Woody pretzels'' and prints no Iso E Super threshold). Value 0.0184 kept (PEER_EST).'
     odt_eth_ppm: engine.odor_thresholds
     stevens_n: engine.odor_thresholds
     logp: 'ECHA registration dossier 15069 (OTNE), Partition coefficient (https://echa.europa.eu/registration-dossier/-/registered-dossier/15069/4/8): ''The partition coefficient of OTNE has been determined as log P = 5.65 at 30 C under OECD TG 117 (HPLC).''; printed log P = 5.65 at 30 C; OECD TG 117 (HPLC); grade A_measured. Second reader: Quote verbatim. Registered substance is the OTNE isomer reaction mass (EC 915-730-3; page shows no CAS), i.e. the Iso E Super composition. Measured at 30 C (not 25 C) by HPLC (OECD 117), which is a retention-time... Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
@@ -1070,7 +1070,7 @@
   inchikey:
   # SYNCED: matched ingredient_intelligence profile, 2026-05-30 (null -> 270.46)
   mw_g_mol: 270.46
-  density_25c_g_ml:
+  density_25c_g_ml: 0.851
   logp:
   functional_groups: []
   chirality:
@@ -1098,13 +1098,14 @@
   provenance:
     user_in_inventory: inventory.txt
     user_stock_dilution: inventory.txt
+    density_25c_g_ml: 'Same sources as the ''Isopropyl Myristate (IPM)'' record (the inventory label resolves there): Sigma-Aldrich Isopropyl myristate >=98% (W355690), https://www.sigmaaldrich.com/US/en/product/aldrich/w355690: ''0.85 g/mL at 25 °C (lit.)'' (snippet); Spectrum Chemical IPM NF certificate, https://www.spectrumchemical.com/productdocument/package/download/id/430261: SG 25/25 0.852 (= 0.8495 g/mL; snippet); SDS 0.853 at 25 C; 25 C; 0.851 = midpoint of 0.8495 and 0.853; grade C_supplier. Loaded 2026-10-31 (Acqua di Gio Luxe research, HANDOFF section 1; not in the second reader''s sample).'
 - canonical_name: Isopropyl Myristate (IPM)
   aliases: []
   cas: '110-27-0'
   smiles:
   inchikey:
   mw_g_mol:
-  density_25c_g_ml: 0.847
+  density_25c_g_ml: 0.851
   logp:
   functional_groups: []
   chirality:
@@ -1135,7 +1136,7 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 110-27-0 (https://www.thegoodscentscompany.com/data/rw1019332.html)'
-    density_25c_g_ml: 'TGSC: Specific Gravity: 0.84000 to 0.86000 @ 25.00 °C. (https://www.thegoodscentscompany.com/data/rw1019332.html); midpoint of the TGSC specific gravity range x 0.99705 g/mL (water at 25 C)'
+    density_25c_g_ml: 'Sigma-Aldrich Isopropyl myristate >=98% (W355690), https://www.sigmaaldrich.com/US/en/product/aldrich/w355690: ''0.85 g/mL at 25 °C (lit.)'' (snippet); Spectrum Chemical IPM NF certificate, https://www.spectrumchemical.com/productdocument/package/download/id/430261: ''SPECIFIC GRAVITY @ 25 o /25 o C 0.846 0.854 0.852'' (batch 0.852 x 0.997075 = 0.8495 g/mL; snippet); SDS 0.853 at 25 C; 25 C; 0.851 = midpoint of 0.8495 and 0.853 (credible band 0.850-0.853); grade C_supplier. Replaces 0.847, the TGSC 0.840-0.860 range midpoint. Loaded 2026-10-31 (Acqua di Gio Luxe research, HANDOFF section 1; not in the second reader''s sample).'
 - canonical_name: Isopropyl Palmitate (IPP)
   aliases: []
   cas:

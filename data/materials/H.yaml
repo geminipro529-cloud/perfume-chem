@@ -75,7 +75,7 @@
 - canonical_name: Habanolide
   aliases:
   - habanolide
-  cas: '34902-57-3'
+  cas: '111879-80-2'
   smiles: null
   inchikey: null
   mw_g_mol: 238.4
@@ -111,7 +111,7 @@
   character: null
   notes: 'VP 25 C set to the RIFM 2004 measured value. Other figures kept for the record, not used: 0.039 Pa at 20 C and 0.16 Pa at 25 C from an older study (RIFM 1995), both quoted in the same RIFM assessment; the producer figure 0.00003 Pa at 20 C (previous gate value 0.000053 Pa was a temperature-adjusted estimate from it) looks like an EPI estimate (2.68e-5 mm Hg) printed as Pa. Air ODT in engine/odor_thresholds.py (2.8 ppb) is an unsourced macrocyclic-class estimate, not a Habanolide measurement.'
   provenance:
-    cas: 'The Good Scents Company rw1016021 (musk decenone): "CAS Number: 34902-57-3", https://www.thegoodscentscompany.com/data/rw1016021.html'
+    cas: 'dsm-firmenich HABANOLIDE 947303 (https://studio.dsm-firmenich.com/product/habanolider-pe-947303): "CAS Name Oxacyclohexadec-12-en-2-one, (12E)- CAS# 0111879-80-2"; PerfumersWorld 3XA09821 (Kenny''s bottle, https://www.perfumersworld.com/view.php?pro_id=3XA09821): "CAS No. 111879-80-2". Replaces 34902-57-3, the CAS The Good Scents Company rw1016021 files under Symrise Globalide (oxacyclohexadecen-2-one, isomer mixture). The RIFM VP below is from the 34902-57-3 assessment, read across. Corrected 2026-10-31 (Dior Homme Intense reparse, re-checked by the stock thread).'
     mw_g_mol: engine.diffusion_model
     vp_25c_pa: 'RIFM fragrance ingredient safety assessment, CAS 34902-57-3, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/34902-57-3.pdf; "0.076" Pa at 25 C, measured (RIFM 2004), as quoted in the inventory musk research dossier (allgaps/MUSK_FIXES_from_dossier.md, read 2026-10-08)'
     kaw_eff: engine.diffusion_model

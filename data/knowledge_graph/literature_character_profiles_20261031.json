@@ -243,7 +243,8 @@
      "url": "https://www.perfumersworld.com/view.php?pro_id=3FD05860"
     }
    ],
-   "identity_notes": "n-Butyl butanoate. Kenny's receipt references PW SKU 3FD05860; PW page exists and matches. Commodity ester, no single producer."
+   "identity_notes": "n-Butyl butanoate. Kenny's receipt references PW SKU 3FD05860; PW page exists and matches. Commodity ester, no single producer.",
+   "odor_description": "Green, estery, raspberry, fruity, pineapple, sweet."
   },
   {
    "profile_key": "Cedryl Acetate",
@@ -718,7 +719,8 @@
      "url": "https://www.perfumersworld.com/view.php?pro_id=5IA07847"
     }
    ],
-   "identity_notes": "WARNING: PW SKU 5IA07847 is 'Orris Concrete Orris Butter 10% in DPG' (a 10% dilution), consistent with Kenny's stock dilution 0.1. Orris butter is the steam-distilled concrete of Iris pallida/germanica rhizome; irone content (8%, 15%, 20%) varies by grade. PW gives no odour text for the dilution ('refer to constituent materials')."
+   "identity_notes": "WARNING: PW SKU 5IA07847 is 'Orris Concrete Orris Butter 10% in DPG' (a 10% dilution), consistent with Kenny's stock dilution 0.1. Orris butter is the steam-distilled concrete of Iris pallida/germanica rhizome; irone content (8%, 15%, 20%) varies by grade. PW gives no odour text for the dilution ('refer to constituent materials').",
+   "odor_description": "Powdery, dry, woody, root, sweet, floral, fatty, violet, warm."
   },
   {
    "profile_key": "cypress eo",
@@ -1486,7 +1488,8 @@
      "url": "https://fraterworks.com/products/frangipani-absolute"
     }
    ],
-   "identity_notes": "WARNING: botanical identity of Kenny's bottle is ambiguous. PW's dilution (5ON09236) carries the pink Plumeria rubra CAS 223748-06-9, while PW's neat parent absolute (8ON00534, 'Plumiera Rubra Flower Absolute' in synonyms) carries the white-frangipani CAS 94350-02-4; Fraterworks and Albert Vieille describe Plumeria alba (white). Kenny's bottle is 10% in DPG (dilution 0.1); PW gives no odour text for the dilution ('Refer to constituent materials')."
+   "identity_notes": "WARNING: botanical identity of Kenny's bottle is ambiguous. PW's dilution (5ON09236) carries the pink Plumeria rubra CAS 223748-06-9, while PW's neat parent absolute (8ON00534, 'Plumiera Rubra Flower Absolute' in synonyms) carries the white-frangipani CAS 94350-02-4; Fraterworks and Albert Vieille describe Plumeria alba (white). Kenny's bottle is 10% in DPG (dilution 0.1); PW gives no odour text for the dilution ('Refer to constituent materials').",
+   "odor_description": "White, flowers, balsamic, almond, sweet."
   },
   {
    "profile_key": "Glycolierral",
@@ -1939,7 +1942,8 @@
      "url": "https://www.thegoodscentscompany.com/data/es1024951.html"
     }
    ],
-   "identity_notes": "Kenny's bottle PW 5RR12478 is 'Rose Otto Bulgarian 10% in DPG' (dilution 0.1); PW's text calls it 'Rose Otto Bulgarian/Anatolian', so Turkish material may be blended. Steam-distilled Rosa damascena oil (otto), not absolute."
+   "identity_notes": "Kenny's bottle PW 5RR12478 is 'Rose Otto Bulgarian 10% in DPG' (dilution 0.1); PW's text calls it 'Rose Otto Bulgarian/Anatolian', so Turkish material may be blended. Steam-distilled Rosa damascena oil (otto), not absolute.",
+   "odor_description": "Fresh, watery, green, spicy, honey, rose, metallic, rosy."
   },
   {
    "profile_key": "styralyl acetate",
@@ -2080,7 +2084,8 @@
      "url": "https://www.perfumersworld.com/view.php?pro_id=5VW09926"
     }
    ],
-   "identity_notes": "Kenny's bottle PW 5VW09926 is 'Vanilla ABS 10% in DPG' (dilution 0.1); PW gives no odour text for it. Origin not stated by PW; Vanilla planifolia assumed."
+   "identity_notes": "Kenny's bottle PW 5VW09926 is 'Vanilla ABS 10% in DPG' (dilution 0.1); PW gives no odour text for it. Origin not stated by PW; Vanilla planifolia assumed.",
+   "odor_description": "Balsamic, woody, phenolic, animalic, vanilla."
   },
   {
    "profile_key": "benzoin styrax tonkinensis tincture",
@@ -2330,7 +2335,8 @@
      "url": "https://www.perfumersworld.com/view.php?pro_id=1FB00071"
     }
    ],
-   "identity_notes": "Symrise Buccoxime = 1,5-dimethylbicyclo[3.2.1]octan-8-one oxime (crystals). Two PW SKUs on the receipt: 1FB00071 is neat Buccoxime; 5FB07818 is 'Buccoxime 10% in DPG'. Stock is labelled '(neat)', dilution 1.0, which matches 1FB00071. Check which bottle is which: PW gives very different odour life for the two (130 h neat vs 19.3 h at 10%)."
+   "identity_notes": "Symrise Buccoxime = 1,5-dimethylbicyclo[3.2.1]octan-8-one oxime (crystals). Two PW SKUs on the receipt: 1FB00071 is neat Buccoxime; 5FB07818 is 'Buccoxime 10% in DPG'. Stock is labelled '(neat)', dilution 1.0, which matches 1FB00071. Check which bottle is which: PW gives very different odour life for the two (130 h neat vs 19.3 h at 10%).",
+   "odor_description": "Fruity, cassis, buchu, leaf."
   },
   {
    "profile_key": "caraway seed eo",
@@ -3068,7 +3074,8 @@
      "url": "pyrfume_data/leffingwell_behavior.csv (local)"
     }
    ],
-   "identity_notes": "'Saffranal' is PW's spelling of safranal (2,6,6-trimethylcyclohexa-1,3-diene-1-carbaldehyde). Kenny's bottle is PW 'Saffranal 10% in DPG' (stock dilution 0.1 matches). PW neat Saffranal is 4ES00402. PW synonym line contains a typo ('Dilution of Safranal 10% in Safranal'). IFRA-restricted (Standard noted by Premiere Peau; TGSC carries an IFRA specification)."
+   "identity_notes": "'Saffranal' is PW's spelling of safranal (2,6,6-trimethylcyclohexa-1,3-diene-1-carbaldehyde). Kenny's bottle is PW 'Saffranal 10% in DPG' (stock dilution 0.1 matches). PW neat Saffranal is 4ES00402. PW synonym line contains a typo ('Dilution of Safranal 10% in Safranal'). IFRA-restricted (Standard noted by Premiere Peau; TGSC carries an IFRA specification).",
+   "odor_description": "Spicy, saffron, herbaceous, tobacco, floral, sweet, green, herbal."
   },
   {
    "profile_key": "tuberlia base",
@@ -3165,5 +3172,6 @@
    ],
    "identity_notes": "dsm-firmenich VELOUTONE® 990257 = 2,2,5-trimethyl-5-pentylcyclopentanone (Hedione family). Engine text 'fresh floral slightly fruity herbal woody' does not match producer text: producer leads with fruity peach/apricot, lactonic jasmine, lavender."
   }
- ]
+ ],
+ "odor_description_note": "2026-10-31: seven entries whose intake prose was only a 'Supplier-labelled ..., detailed odor profile not reviewed' placeholder get an odor_description from their own descriptor_terms_by_source, by the round-2 cross-check rule (a word goes in when two source families use it, or when it is one of the first 4 words of the best-ranked family). Ambrette Seed Absolute is left without one (Kenny: 'Do not use Ambrette seed')."
 }

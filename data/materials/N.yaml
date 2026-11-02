@@ -1557,7 +1557,7 @@
   - neroli eo (neat)
   cas: 8016-38-4
   mw_g_mol: 170.0
-  density_25c_g_ml: 0.86
+  density_25c_g_ml: 0.864
   logp: 2.5
   functional_groups: []
   chirality: null
@@ -1577,5 +1577,5 @@
   odour_family: 'floral'
   provenance:
     odour_family: 'odour family "floral" from ''Floral'': Neroli Oil Egypt | Givaudan, https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/neroli-oil-egypt: FLORAL | Fresh, Floral, Animal-like ... Capturing the essence of orange blossom in its most authentic form, neroli essential oil is one of the freshest and softest expressions of orange blossom on the perfumer’s palette. Greener, lighter and less opulent than orange blossom absolute (grade A_producer; producer classification (Givaudan Neroli Oil Egypt; descriptors ''Fresh, Floral, Animal-like'')). Second reader: Origin of stocked Neroli EO not stated. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
-    density_25c_g_ml: 'SG 0.8600, supplier-reported (PerfumersWorld 7CN00318 "Neroli Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
-    density_basis: supplier_sg_temperature_unstated
+    density_25c_g_ml: 'TGSC neroli bigarade oil: specific gravity 0.856-0.869 at 25 C (x 0.99705 = 0.8535-0.8664 g/mL); Robertet technical data sheet, Organic Neroli Oil (Citrus aurantium, Morocco, ISO 3517), https://www.e-robertet.com/media/akeneo_connector/media_files/e/_/e_Robertet_FT_UK_NEROLI_MAROC_BIO_2b7b.pdf: ''Relative density (d20/20) : [0.863 ; 0.876]'' (x 0.998203 = 0.8614-0.8744 g/mL at 20 C; snippet); ISO 3517:2012 Tunisia/Morocco band 0.863-0.876 is the same (iTeh summary, snippet); midpoint of the union 0.8535-0.8744 = 0.864 (+/-1.2%), the Robertet half at 20 C (about 0.3% high for 25 C); specification ranges, not a lot measurement; grade A_producer + C_supplier. Second reader (R10): CONFIRMED (a TGSC + Robertet union midpoint, not Robertet alone). Replaces 0.86, PerfumersWorld 7CN00318 SG with no reference temperature. Loaded 2026-10-31 (Acqua di Gio Luxe research; source re-opened by a second reader).'
+    density_basis: 'spec_range_union_midpoint_20_25c'

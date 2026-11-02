@@ -604,7 +604,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: null
-  density_25c_g_ml: null
+  density_25c_g_ml: 0.870
   logp: null
   functional_groups: []
   chirality: null
@@ -634,6 +634,7 @@
   notes: null
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    density_25c_g_ml: 'Pharmacological Research jojoba liquid-wax paper (doi:10.1016/j.phrs.2004.04.011), property table, https://ijec.net/wp-content/uploads/2018/09/Anti-inflammatory-effects-of-jojoba.pdf: ''Specific gravity at 25 ◦ C 0.87'' (snippet); NHR Organic Oils, Organic Jojoba Oil specification, https://www.nhrorganicoils.com/uploads/20170710134134e_Jojoba_Spec.pdf: ''Specific Gravity @ 25°C (g/ml) 0.860 – 0.880'' (snippet); 25 C; 0.870 is the band midpoint (+/-1.2%); grade B_peer + C_supplier; not tied to Kenny''s organic jojoba lot. Loaded 2026-10-31 (Acqua di Gio Luxe research, HANDOFF section 1; not in the second reader''s sample).'
 - canonical_name: Jungle Pepper Oil
   aliases: []
   cas: null

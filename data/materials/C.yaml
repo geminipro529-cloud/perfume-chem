@@ -270,7 +270,7 @@
   smiles: null
   inchikey: null
   mw_g_mol: 178.18
-  density_25c_g_ml: null
+  density_25c_g_ml: 1.353
   logp: 1.95
   functional_groups: []
   chirality: null
@@ -327,6 +327,8 @@
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC: CAS Number: 28940-11-6 (https://www.thegoodscentscompany.com/data/rw1002352.html)'
     logp: '23 Oct 2026 third data pass: RIFM fragrance ingredient safety assessment, 7-methyl-2H-benzo-1,5-dioxepin-3(4H)-one, https://fragrancematerialsafetyresource.elsevier.com/sites/default/files/28940-11-6.pdf: "Log KOW: 2.43 (EPI Suite), 1.95 (RIFM, 2008b)"; measured 1.95 used; replaces the unsourced 1.5'
+    density_25c_g_ml: 'Firmenich SDS 918970 CALONE, v12 (US) 6 March 2023, section 9 (hosted on cdn.hstatic.net), https://cdn.hstatic.net/files/200000928041/file/calone-1951_sds_sl1251021.pdf: ''= 1.353 at 21.6°C (OECD 109)''; measured at 21.6 C (not 25 C) on the crystalline solid (mp 37.9 C, OECD 102), so a solid''s true density, not a melt or liquid density; grade A_producer; Echemi SDS page 1.35 at 21.6 C agrees (snippet). Second reader (R10): CONFIRMED. Loaded 2026-10-31 (Acqua di Gio Luxe research; source re-opened by a second reader).'
+    density_basis: 'solid_true_density_measured_21_6c'
 - canonical_name: Camphene
   aliases: []
   cas: null
@@ -2288,7 +2290,7 @@
   supplier: null
   families:
   - floral materials
-  character: null
+  character: 'dry tea orangeflower ylang carnation guaiacwood'
   notes: null
   provenance:
     mw_g_mol: engine.diffusion_model
@@ -2302,6 +2304,7 @@
     user_in_inventory: inventory.txt
     density_25c_g_ml: 'SG 0.9500, supplier-reported (PerfumersWorld 7NJ07740 "Champaca Flower Essential Oil"), reference temperature not stated; PW snapshot data/research/perfumersworld/20261007_01a1152f (read 2026-10-23); the single published value, not a 25 C measurement; matched by product name only: Kenny''s bottle is not tied to this SKU'
     density_basis: supplier_sg_temperature_unstated
+    character: 'Champaca Flower EO | The Good Scents Company, michelia champaca flower oil, https://www.thegoodscentscompany.com/data/es1672831.html: Odor Description: at 100.00 %. dry tea orangeflower ylang carnation guaiacwood (grade C_supplier/TGSC; TGSC CAS 94333-99-0, Michelia champaca; the species of Kenny''s PerfumersWorld 7NJ07740 oil is not stated, and white champaca (M. alba) is a different oil). Loaded 2026-10-31 (Acqua di Gio Luxe research, R9; not in the second reader''s sample).'
 - canonical_name: Champaca Flower Essential Oil
   aliases: []
   cas: null
