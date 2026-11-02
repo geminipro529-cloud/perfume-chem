@@ -29,6 +29,7 @@ from engine.formulation_intelligence.semantic_brief_adapter import (
     TODAY_SUPPORT_PLACES,
     SemanticBrief,
     SemanticRole,
+    _mask_avoided_phrases,
     accord_lead_role_id,
     accord_support_clone,
     role_identity_requirement,
@@ -1237,10 +1238,14 @@ def _single_words(terms: Sequence[str]) -> frozenset[str]:
 _FAMILY_NAMED_BY = {"oud": "base_shadow", "agarwood": "base_shadow"}
 
 
-def _asked_families(brief: SemanticBrief) -> frozenset[str]:
-    """Odor families the request words or the requested facets' own words name."""
+def _asked_families(brief: SemanticBrief, avoid: Sequence[str] = ()) -> frozenset[str]:
+    """Odor families the request words or the requested facets' own words name.
 
-    words = _words((brief.normalized_request,))
+    Words of an avoided phrase ask for nothing: "a woody floral, no musk" does
+    not ask for the musk family, and "no amber shout" does not ask for amber.
+    """
+
+    words = _words((_mask_avoided_phrases(brief.normalized_request, avoid),))
     for role in brief.roles:
         if role.provenance == "PROMPT_DERIVED_FACET":
             words |= _single_words(role.query_terms)
@@ -2037,7 +2042,7 @@ def _solve_assignments(
     # v5 applies explicit own-odor exclusions to the entire comparison, not
     # only the added/refined role. Historical controls keep their replay path.
     enforce_own_odor_avoid = bool(brief.architecture_plan.get("operation"))
-    asked_families = _asked_families(brief)
+    asked_families = _asked_families(brief, avoid)
     identity_words = identity_words or {}
     before_cardamom = _roles_before_cardamom(brief)
 

@@ -104,6 +104,16 @@ def test_asking_for_oud_asks_for_the_shadow_family():
         SimpleNamespace(normalized_request="a bright citrus cologne", roles=()))
 
 
+def test_an_avoided_family_is_not_asked_for():
+    no_musk = SimpleNamespace(normalized_request="a woody floral, no musk", roles=())
+    assert "base_musk" in fs._asked_families(no_musk)  # the words alone
+    assert "base_musk" not in fs._asked_families(no_musk, ("musk",))
+    assert {"base_wood", "heart_floral"} <= fs._asked_families(no_musk, ("musk",))
+    # Only the avoided phrase is masked: citrus asked elsewhere stays asked.
+    both = SimpleNamespace(normalized_request="bergamot opening, no citrus blast", roles=())
+    assert "top_citrus" in fs._asked_families(both, ("citrus blast",))
+
+
 def test_a_base_in_a_product_name_is_not_the_base_note():
     from engine.formulation_intelligence.material_capability_index import (
         build_material_capability_index,
