@@ -281,6 +281,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Mine is neat",
         # 2026-11-02 09:21 UTC: his neat Heliotropal is a liquid (STK-247).
         "Heliotropal is liquid and neat",
+        # 2026-11-02 09:35 UTC: his Orris Butter 10% is used up (STK-077); the 50% stays.
+        "Orris butter 10% is out, there is only orris butter 50%",
+        # 2026-11-02 09:36 UTC: his 7.7% Cocoa CO2 Extract is a suspension (STK-045).
+        "The 7.7% cocoa co2 bottle is a suspension",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -598,3 +602,13 @@ def test_freesia_hdi_is_owned_as_perfumersworld_freesia_hdl() -> None:
 def _record_by_id(record_id: str) -> dict:
     (record,) = [r for r in _head()["records"] if r["record_id"] == record_id]
     return record
+
+
+def test_kenny_stock_forms_of_2_nov_2026() -> None:
+    # "Heliotropal is liquid and neat"; "Orris butter 10% is out, there is only orris butter 50%";
+    # "The 7.7% cocoa co2 bottle is a suspension" (Dior Homme Parfum thread, 2 Nov 2026).
+    stocks = {stock.name: stock for stock in inventory.materialize_current_inventory().stocks if stock.status == "owned"}
+    assert stocks["Heliotropal"].physical_form == "liquid" and stocks["Heliotropal"].fraction_basis == "neat"
+    assert "Orris Concrete Orris Butter" not in stocks
+    assert stocks["Orris Butter 50% in EtOH"].dilution == 0.5
+    assert stocks["Cocoa CO2 Extract 7.7%"].physical_form == "suspension"

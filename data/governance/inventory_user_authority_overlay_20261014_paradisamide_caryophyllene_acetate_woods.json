@@ -622,6 +622,16 @@
         "message_timestamp_utc": "2026-11-02T09:21:30Z",
         "text": "Heliotropal is liquid and neat",
         "context": "Kenny's own words in another thread of the project (Dior Homme Parfum). STK-247 records his neat Heliotropal as a liquid."
+      },
+      {
+        "message_timestamp_utc": "2026-11-02T09:35:23Z",
+        "text": "Orris butter 10% is out, there is only orris butter 50%",
+        "context": "Kenny's own words in another thread of the project (Dior Homme Parfum). STK-077 (Orris Concrete Orris Butter 10% in DPG) is used up; STK-119 (Orris Butter 50% in EtOH) stays owned."
+      },
+      {
+        "message_timestamp_utc": "2026-11-02T09:36:37Z",
+        "text": "The 7.7% cocoa co2 bottle is a suspension",
+        "context": "Kenny's own words in another thread of the project (Dior Homme Parfum). STK-045 records the 7.7% Cocoa CO2 Extract stock as a suspension."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -711,7 +721,9 @@
     "bht_5pct_wv_ethanol_stock_recorded_20261031": true,
     "audit_unrecorded_bottles_recorded_20261031": true,
     "basil_eo_neat_only_20261031": true,
-    "heliotropal_neat_liquid_20261102": true
+    "heliotropal_neat_liquid_20261102": true,
+    "orris_butter_10pct_used_up_20261102": true,
+    "cocoa_co2_7_7pct_suspension_20261102": true
   },
   "superseded_record_ids": [
     "INV-USER-20260830-010",
@@ -2710,7 +2722,7 @@
       "state": "OWNED",
       "category": "gourmand",
       "stock": {
-        "physical_form": "solution",
+        "physical_form": "suspension",
         "fraction": 0.077,
         "fraction_basis": "mass_fraction",
         "carrier": "dpg",
@@ -2744,9 +2756,10 @@
         "formula_rebase_authorized": false,
         "compounding_authorized": false,
         "safety_asserted": false,
-        "release_authorized": false
+        "release_authorized": false,
+        "physical_form_from_user_message": true
       },
-      "note": "V5 row 79 had 'Cocoa CO2 Extract 7.7%' at 7.7% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept."
+      "note": "V5 row 79 had 'Cocoa CO2 Extract 7.7%' at 7.7% with no basis and no solvent. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG). The display name is kept. 2 Nov 2026 09:36:37 UTC, Kenny: 'The 7.7% cocoa co2 bottle is a suspension', so physical_form is suspension (was solution): the extract is not fully dissolved in the DPG, and the bottle is shaken just before pipetting so the dose is even. A cocoa CO2 extract is mostly cocoa butter fat, which does not dissolve in DPG; an undissolved part fits a CO2 extract rather than a water-soluble flavour extract (inferred, not proven)."
     },
     {
       "record_id": "INV-USER-20261014-STK-046",
@@ -4183,18 +4196,8 @@
       "record_id": "INV-USER-20261014-STK-077",
       "canonical_name": "Orris Concrete Orris Butter",
       "aliases": [],
-      "state": "OWNED",
+      "state": "NOT_OWNED",
       "category": "iris / violet",
-      "stock": {
-        "physical_form": "supplier_prepared_solution",
-        "fraction": 0.1,
-        "fraction_basis": "mass_fraction",
-        "carrier": "dpg",
-        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
-        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-026",
-        "execution_ready": true,
-        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
-      },
       "supplier_product": {
         "supplier": "PerfumersWorld",
         "product_name": "Orris Concrete Orris Butter 10% in DPG",
@@ -4204,11 +4207,11 @@
       "pw_receipt_line": 26,
       "supersedes_parent_stocks": [],
       "requirement_overrides": [],
-      "effective_date": "2026-10-14",
+      "effective_date": "2026-11-02",
       "source_kind": "DIRECT_USER_STOCK_CORRECTION",
-      "source_quote": "Load the rule",
+      "source_quote": "Orris butter 10% is out, there is only orris butter 50%",
       "authority_limits": {
-        "availability_confirmed": true,
+        "availability_confirmed": false,
         "fraction_and_carrier_from_retired_record": true,
         "basis_from_user_ww_rule_20261015": true,
         "user_lot_asserted": false,
@@ -4219,7 +4222,19 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "Re-issues INV-USER-20261007-PW-026 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 26 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word."
+      "note": "Used up. Kenny, 2 Nov 2026 09:35:23 UTC: 'Orris butter 10% is out, there is only orris butter 50%'. This was his PerfumersWorld 5IA07847 Orris Concrete Orris Butter 10% w/w in DPG (2 g received 7 Oct); the stock it recorded is kept as used_up_stock. His Orris Butter 50% in ethanol (STK-119) stays owned, and so does Orris Liquid 9% w/w in DEP (STK-120), which he did not mention. Earlier note: Re-issues INV-USER-20261007-PW-026 (inventory_user_authority_overlay_20261007_pw_received.json), which recorded 10% in DPG with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. So it is w/w in DPG, the solvent already recorded. Everything else (supplier product, category, aliases, parent rows) is carried over. PerfumersWorld receipt line 26 is kept as pw_receipt_line: that receipt gives no basis, so the stock no longer matches its basis field word for word. Formula files that name the 10% are history and are not rewritten; inventory.txt is not edited.",
+      "used_up_stock": {
+        "physical_form": "supplier_prepared_solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "RECORDED_STRENGTH_AND_CARRIER_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_REISSUE_INV-USER-20261007-PW-026",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "stock": null,
+      "source_message_timestamp_utc": "2026-11-02T09:35:23Z"
     },
     {
       "record_id": "INV-USER-20261014-STK-078",
