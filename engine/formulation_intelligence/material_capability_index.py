@@ -179,6 +179,17 @@ _DESCRIPTOR_REQUIREMENTS: dict[str, tuple[frozenset[str], ...]] = {
 
 _FLOWER_REQUIREMENTS = frozenset({"frangipani", "jasmine", "rose"})
 _NATURAL_FORM_WORDS = frozenset({"absolute", "concrete", "essential", "eo", "oil", "otto", "co2", "resinoid"})
+# A plant part or preparation in a label (Orange Peel EO, Carrot Seed EO,
+# Violet Leaf Absolute) says what was extracted, not what it smells of: the
+# citrus facet's query word "peel" gave Orange Peel EO the name bonus, so it
+# took the citrus layer from Lemon, Bergamot and Grapefruit, which are peel
+# oils too.  Alone, such a query word earns a vocabulary match, never a name
+# match; a phrase ("orange flower") still matches the name.
+_GENERIC_NAME_WORDS = _NATURAL_FORM_WORDS | frozenset({
+    "peel", "pith", "leaf", "leaves", "root", "roots", "seed", "seeds", "bark", "bud", "bean",
+    "needle", "flower", "flowers", "blossom", "blossoms", "petal", "petals", "wood", "woods",
+    "resin", "extract", "tincture", "infusion",
+})
 
 
 @dataclass(frozen=True, slots=True)
@@ -447,7 +458,8 @@ def _term_score(capability: MaterialCapability, query_terms: Sequence[str]) -> f
         exact_identity_match = (
             normalized in identity_text
             if " " in normalized
-            else normalized in capability.identity_vocabulary
+            else (normalized in capability.identity_vocabulary
+                  and normalized not in _GENERIC_NAME_WORDS)
         )
         exact_capability_match = (
             normalized in all_text
