@@ -338,7 +338,7 @@ def _avoid_values_and_spans(text: str) -> tuple[tuple[str, ...], tuple[tuple[int
     # Common prose negation that is not naturally introduced by "avoid".
     for match in re.finditer(
         r"\bnot\s+(?P<value>sweet|sporty|edible|perfumey|detergent(?:-like)?|"
-        r"sugary|romantic(?:ally)?\s+sweet)\b",
+        r"sugary|romantic(?:ally)?\s+sweet|spicy|spiced|gourmand)\b",
         text,
         re.I,
     ):

@@ -41,7 +41,7 @@ from engine.formulation_intelligence.target_compiler import (
     compile_target_intent,
 )
 from engine.research.composition_planner import ACCORD_SUPPORT_SEPARATOR, AccordPart
-from engine.research.request_interpretation import plain_stock_name
+from engine.research.request_interpretation import _MATERIAL_ALIASES, plain_stock_name
 
 
 def _clean(value: object) -> str:
@@ -242,11 +242,36 @@ _FACET_DESCRIPTOR_REQUIREMENTS = {
 # A note the brief asks for as a nuance ("a hint of apricot", "a little apricot",
 # "barely smoky") is a modifier: no accord of its own, at the share the smoke
 # and animalic modifiers use.  One describing word may sit between the two.
-_NUANCE_BEFORE = re.compile(
-    r"(?:^| )(?:hint of|touch of|a little|whisper of|trace of|dash of|barely|slightly|faintly)"
-    r"(?: [a-z]+)? $"
-)
+_NUANCE_WORDS = r"(?:hint of|touch of|a little|whisper of|trace of|dash of|barely|slightly|faintly)"
+_NUANCE_BEFORE = re.compile(rf"(?:^| ){_NUANCE_WORDS}(?: [a-z]+)? $")
 _NUANCE_SHARE, _NUANCE_MAX_RAW_SHARE = .035, .07
+
+# A stock the brief names takes the size its own words give it, as a facet
+# does: "a little incense and labdanum" makes labdanum a nuance and "a large
+# Hedione" makes Hedione lead.  Any other mention keeps the default share.
+# Before, every named stock took the same share whatever the brief said
+# (ADG Luxe: Hedione and Labdanum both 4.4%).
+_ANCHOR_SHARE, _ANCHOR_EMPHASIS = .12, 2.5
+_ANCHOR_NUANCE_BEFORE = re.compile(rf"(?:^| ){_NUANCE_WORDS}(?: [a-z]+)?(?: [a-z]+ (?:and|or))? $")
+_ANCHOR_EMPHASIS_BEFORE = re.compile(
+    r"(?:^| )(?:large|big|generous|lots of|plenty of|a lot of|heavy|overdosed|backbone of)(?: [a-z]+)? $"
+)
+
+
+def _anchor_share(material: str, text_key: str) -> float:
+    """A named stock's share, from the words before each place the brief names it."""
+    aliases = (alias for alias, name in _MATERIAL_ALIASES.items() if name.casefold() == material.casefold())
+    words = [word for word in dict.fromkeys(map(_key, (material, plain_stock_name(material), *aliases))) if word]
+    before = [
+        text_key[:hit.start() + (text_key[hit.start()] == " ")]
+        for word in words
+        for hit in re.finditer(rf"(?:^| ){re.escape(word)}(?= |$)", text_key)
+    ]
+    if any(_ANCHOR_EMPHASIS_BEFORE.search(text) for text in before):
+        return _ANCHOR_SHARE * _ANCHOR_EMPHASIS
+    if before and all(_ANCHOR_NUANCE_BEFORE.search(text) for text in before):
+        return _NUANCE_SHARE
+    return _ANCHOR_SHARE
 
 
 def _asked_as_nuance(facet: FacetDefinition, text_key: str, words: Sequence[str]) -> bool:
@@ -1149,7 +1174,7 @@ def _roles(
                 function="character",
                 query_terms=(material,),
                 character_weights=(),
-                share=.12,
+                share=_anchor_share(material, complexity_text),
                 exact_material=material,
                 provenance="EXPLICIT_REQUEST_MATERIAL",
             )

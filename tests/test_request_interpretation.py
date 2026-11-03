@@ -115,6 +115,22 @@ def test_interpretation_recognizes_inline_no_constraint() -> None:
     assert result["explicit_materials"] == []
 
 
+@pytest.mark.parametrize(
+    ("text", "avoided"),
+    [
+        ("A warm amber, not spicy.", "spicy"),
+        ("A dark resin, not spiced.", "spiced"),
+        ("A luxurious aquatic aromatic. Not gourmand.", "gourmand"),
+    ],
+)
+def test_a_family_turned_down_with_not_is_avoided(text: str, avoided: str) -> None:
+    # "not spicy" turns spice down as "no spice" does: without it, master put
+    # 1165 uL of Red Saffron Infusion in "a warm amber, not spicy".
+    result = interpret_request(RequestInterpretationInputV1(original_request=text))
+
+    assert result["must_avoid"] == [avoided]
+
+
 def test_interpretation_detects_true_semantic_contradictions() -> None:
     result = interpret_request(
         RequestInterpretationInputV1(
