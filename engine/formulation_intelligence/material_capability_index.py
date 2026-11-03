@@ -334,6 +334,10 @@ def _capability(candidate: Candidate) -> MaterialCapability:
     v5_vocabulary = _tokens((*v5_descriptors, *registry_text, *(reviewed["vocabulary"] if reviewed else ())))
     if "fruit" in descriptor_vocabulary or "fruity" in descriptor_vocabulary:
         descriptor_vocabulary |= frozenset(("fruit", "fruity"))
+    # Pairing partners ("blends with") are not matching words: "Lavender EO"
+    # in Peppermint EO's list does not make it smell of lavender, and the
+    # pair bonus already credits a chosen partner.  Kenny's pick, 4 Nov 2026,
+    # with Good Scents odour words for the hand-written profiles.
     vocabulary = _tokens(
         (
             identity,
@@ -347,7 +351,6 @@ def _capability(candidate: Candidate) -> MaterialCapability:
             profile.odor_description,
             profile.or_family or "",
             *profile.formulation_roles,
-            *profile.synergies,
             *registry_text,
             *(reviewed["vocabulary"] if reviewed else ()),
         )
