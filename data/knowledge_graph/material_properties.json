@@ -5604,7 +5604,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 68 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 68 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -16833,7 +16833,7 @@
     "mw": 250.0,
     "vp": 0.01,
     "clp": 4.0,
-    "note": "heart",
+    "note": "base",
     "role": "character",
     "texture": "rich-dense",
     "synergies": [
@@ -16942,7 +16942,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity > 200 h at 100%"
+        "basis": "TGSC substantivity > 200 h at 100%; rule: 200 h or less heart, else base"
       },
       "dilution": {
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
@@ -17043,6 +17043,12 @@
         "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
         "fields": {
           "note": "base"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "heart"
         }
       }
     ],
@@ -19000,7 +19006,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 4 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 4 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -36256,7 +36262,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 4 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 4 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNKNOWN"
@@ -69360,7 +69366,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -70165,7 +70171,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 216 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 216 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -86629,7 +86635,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 24 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 24 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -90075,7 +90081,6 @@
           "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/safranal",
           "https://www.thegoodscentscompany.com/data/rw1016371.html",
           "https://www.thegoodscentscompany.com/data/rw1016371.html",
-          "https://archive.org/stream/336871454-perfume-and-flavor-chemicals-by-steffen-arctander-79/336871454-Perfume-and-Flavor-Chemicals-by-Steffen-Arctander79_djvu.txt",
           "pyrfume_data/leffingwell_behavior.csv (local)"
         ]
       },
@@ -92240,7 +92245,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 52 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 52 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -95112,7 +95117,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 6 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 6 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -95439,7 +95444,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 24 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 24 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNKNOWN"
@@ -96289,7 +96294,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 184 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 184 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -96462,7 +96467,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
@@ -96626,7 +96631,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNKNOWN"
@@ -98916,7 +98921,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 %"
       },
       "mw": {
         "status": "UNKNOWN"
