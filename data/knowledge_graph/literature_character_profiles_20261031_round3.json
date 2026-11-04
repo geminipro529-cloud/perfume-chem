@@ -737,8 +737,8 @@
     "sweetness": 7.0,
     "warmth": 6.0
    },
-   "note": "heart",
-   "note_basis": "TGSC substantivity > 200 h at 100%",
+   "note": "base",
+   "note_basis": "TGSC substantivity > 200 h at 100%; rule: 200 h or less heart, else base",
    "tgsc_odor_type": "cocoa",
    "descriptor_terms_by_source": {
     "producer": [

@@ -3572,15 +3572,50 @@ _PROFILES: dict[str, dict] = {
         "clogp": 2.5,
         "synergies": ["Coumarin", "Vanillin", "Benzoin Resinoid", "Tobacco Absolute"],
     },
+    # Kenny 2 Nov 2026: "Check cocoa co2 absolute values in engines, make sure that it is not
+    # overdosed or made from a fake source". CAS 84649-99-0 (PerfumersWorld 1VT23924; TGSC es1085491;
+    # Flavex 093.001). Character and words are the round-4 sourced values from Flavex ("chocolate- and
+    # caramel-like with nuances of dark chocolate, sweet, honey-like, earthy and nutty"), TGSC ("chocolate
+    # cocoa creamy milky dairy", odour type chocolate) and PW, scored with the 31 Oct literature rubric;
+    # the old map's "smoky 4" was in no producer text. Pairings: Flavex "harmonises well with vanilla"
+    # and TGSC's blender list (acetoin). No source gives a pleasantness, so hedonic is neutral 0, not
+    # the -0.4 the unsourced smoky value produced. mw, vp and clogp are placeholders for a mixture.
     "Cocoa CO2 Extract": {
-        "character": {"sweetness": 7, "warmth": 6, "smoky": 4, "creamy": 4},
+        "character": {"sweetness": 8.5, "creamy": 7.0, "warmth": 6.5, "radiance": 3.0},
+        "odor_description": "Chocolate, cocoa, creamy, milky.",
+        "cas": "84649-99-0",
         "note": "base",
         "role": "character",
         "texture": "warm",
         "mw": 260.0,
         "vp": 0.01,
         "clogp": 3.5,
-        "synergies": ["Cocoa Absolute", "Vanillin", "Patchouli EO", "Coffee"],
+        "synergies": ["Vanillin", "Acetoin"],
+        "hedonic": 0.0,
+        "evidence": {
+            "character": {
+                "status": "LITERATURE_DESCRIPTOR_RUBRIC_20261031",
+                "sources": [
+                    "https://www.flavex.com/en/produkt/093_001/",
+                    "https://www.thegoodscentscompany.com/data/es1085491.html",
+                    "https://www.perfumersworld.com/view.php?pro_id=1VT23924",
+                ],
+            },
+            "synergies": {
+                "status": "PRODUCER_AND_TGSC_BLENDERS",
+                "sources": [
+                    "https://www.flavex.com/en/produkt/093_001/",
+                    "https://www.thegoodscentscompany.com/data/es1085491.html",
+                ],
+            },
+            "hedonic": {"status": "NO_SOURCED_VALUE_NEUTRAL"},
+            "mw": {"status": "UNSOURCED_MIXTURE_PLACEHOLDER"},
+            "vp": {"status": "UNSOURCED_MIXTURE_PLACEHOLDER"},
+            "clogp": {"status": "UNSOURCED_MIXTURE_PLACEHOLDER"},
+            "odt": {"status": "UNSOURCED_MIXTURE_PLACEHOLDER"},
+            "odt_ppm": {"status": "UNSOURCED_MIXTURE_PLACEHOLDER"},
+            "activity_coef": {"status": "HEURISTIC_OVERRIDE_UNSOURCED"},
+        },
     },
     "Peru Balsam Resinoid": {
         "character": {"warmth": 7, "sweetness": 7, "balsamic": 7, "spicy": 5},

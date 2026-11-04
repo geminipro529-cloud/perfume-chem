@@ -16,7 +16,9 @@ Reference data:
   - Distilled lime: Chisholm, Wilson & Gaskey (2003), DOI 10.1002/ffj.1172
   - Cocoa liquor: Tuenter et al. (2020), DOI 10.1016/j.foodres.2019.108943
   - Cocoa SFE: Sanagi, Hung & Yasir (1997), DOI 10.1016/S0021-9673(97)00569-4
-  - Cocoa aldehyde air ODTs: Sakuma et al. (2013), Exp. Anim. 62, 101-107
+  - Cocoa aldehyde air ODTs: 3-methylbutanal 0.10 ppb is Nagata (2003), Odor Measurement Review
+    pp. 118-127, Table 2 ("Isovaleraldehyde 0.00010" ppm v/v); Sakuma et al. (2013), Exp. Anim.
+    62, 101-107 is a mouse-faeces paper that quotes thresholds, so it is not the measurement
   - Trimethylpyrazine air ODT: Liang et al. (2022), DOI 10.1021/acs.jafc.2c06418
   - Patchouli: van Beek & Joulain (2018)
   - Oakmoss: Joulain & Tabacchi (2009)
@@ -456,8 +458,11 @@ _TONKA_SOLVENT_EXTRACT_PROXY_CONSTITUENTS = [
 #   3-methylbutanal: 109.8 * 5.4 ng/g = 592.92 ng/g
 #   2-methylbutanal:  52.5 * 2.2 ng/g = 115.50 ng/g
 # The same study measured 2,3,5-trimethylpyrazine at 1.59 microgram/g and
-# linalool at 12.8 * 37 ng/g = 473.6 ng/g.  Air-phase aldehyde ODTs are from
-# Sakuma et al. (2013).  The trimethylpyrazine ODT of approximately 50 ng/L
+# linalool at 12.8 * 37 ng/g = 473.6 ng/g.  Air-phase aldehyde ODTs: 3-methylbutanal
+# 0.10 ppb is Nagata (2003) Table 2 ("Isovaleraldehyde 0.00010" ppm v/v,
+# https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf).  2-methylbutanal 0.18 ppb was taken
+# from Sakuma et al. (2013), which quotes earlier work; its primary measurement is not yet
+# found (Nagata's table does not list it).  The trimethylpyrazine ODT of approximately 50 ng/L
 # air reported by Liang et al. (2022) converts to approximately 10 ppbv at
 # 25 C; its 193 Pa vapor pressure is the RIFM/EPI-Suite 25 C estimate.
 _COCOA_ABSOLUTE_CONSTITUENTS = [
@@ -475,6 +480,11 @@ _COCOA_ABSOLUTE_CONSTITUENTS = [
 # Until supplier GC-MS is available, retain only the quantified cocoa-liquor
 # trimethylpyrazine floor.  The uncharacterized cocoa-butter matrix is inert in
 # OAV space, making this numeric result intentionally conservative.
+# 2 Nov 2026 check: this is a cocoa-LIQUOR amount (Tuenter 2020), not a measurement of the
+# extract.  Flavex 093.001 enriches the cocoa-butter aroma by counter-current CO2 extraction,
+# so the real extract is very likely stronger than this floor; a "silent" OAV reading for it
+# is a data limit, not evidence that the row does nothing.  The trimethylpyrazine ODT of
+# Liang et al. (2022) is itself quoted from that paper's references.
 _COCOA_CO2_EXTRACT_CONSTITUENTS = [
     ("2,3,5-trimethylpyrazine", 1.5900e-6, 122.17, 193.0, 10.0, 1.2),
 ]

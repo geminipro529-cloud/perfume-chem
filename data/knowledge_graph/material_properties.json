@@ -5778,7 +5778,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 68 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 68 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -17360,7 +17360,7 @@
     "mw": 250.0,
     "vp": 0.01,
     "clp": 4.0,
-    "note": "heart",
+    "note": "base",
     "role": "character",
     "texture": "rich-dense",
     "synergies": [
@@ -17469,7 +17469,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity > 200 h at 100%"
+        "basis": "TGSC substantivity > 200 h at 100%; rule: 200 h or less heart, else base"
       },
       "dilution": {
         "status": "NOT_CURRENT_STOCK_AUTHORITY"
@@ -17571,6 +17571,12 @@
         "fields": {
           "note": "base"
         }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "note": "heart"
+        }
       }
     ],
     "oav_evidence": {
@@ -17593,14 +17599,12 @@
     "role": "character",
     "texture": "warm",
     "synergies": [
-      "Cocoa Absolute",
       "Vanillin",
-      "Patchouli EO",
-      "Coffee"
+      "Acetoin"
     ],
     "or_family": "gourmand",
     "activity_coef": 0.5,
-    "hedonic": -0.4,
+    "hedonic": 0.0,
     "odt": 3.0,
     "odt_ethanol_ppm": 0.5,
     "oav_typical": null,
@@ -17608,7 +17612,7 @@
     "smell_strength": null,
     "anosmic_risk": null,
     "odor_family": "gourmand",
-    "odor_profile": "sweetness-like (7), warmth-like (6), smoky, creamy character.",
+    "odor_profile": "Chocolate, cocoa, creamy, milky.",
     "ifra_cat4_limit_pct": null,
     "ifra_banned": false,
     "ifra_restricted": false,
@@ -17619,7 +17623,7 @@
     "character_shift": [],
     "dilution_pct": 0.077,
     "in_inventory": true,
-    "cas": null,
+    "cas": "84649-99-0",
     "formula_str": null,
     "bp": null,
     "sar_class": null,
@@ -17638,49 +17642,56 @@
     "handle_as": null,
     "avoid": null,
     "best_with": [
-      "Cocoa Absolute",
       "Vanillin",
-      "Patchouli EO",
-      "Coffee"
+      "Acetoin"
     ],
-    "typical_pct_range": "0.9–6% of concentrate",
+    "typical_pct_range": "0.1–5% of compound (PerfumersWorld 1VT23924 typical usage: 0.1% from, 0.5% average, 5% maximum; supplier figure)",
     "pubchem_warnings": [],
     "audit_flags": [],
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
     "field_evidence": {
+      "character": {
+        "status": "LITERATURE_DESCRIPTOR_RUBRIC_20261031",
+        "sources": [
+          "https://www.flavex.com/en/produkt/093_001/",
+          "https://www.thegoodscentscompany.com/data/es1085491.html",
+          "https://www.perfumersworld.com/view.php?pro_id=1VT23924"
+        ]
+      },
+      "synergies": {
+        "status": "PRODUCER_AND_TGSC_BLENDERS",
+        "sources": [
+          "https://www.flavex.com/en/produkt/093_001/",
+          "https://www.thegoodscentscompany.com/data/es1085491.html"
+        ]
+      },
+      "hedonic": {
+        "status": "NO_SOURCED_VALUE_NEUTRAL"
+      },
       "mw": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNSOURCED_MIXTURE_PLACEHOLDER"
       },
       "vp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNSOURCED_MIXTURE_PLACEHOLDER"
       },
       "clogp": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNSOURCED_MIXTURE_PLACEHOLDER"
       },
       "odt": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNSOURCED_MIXTURE_PLACEHOLDER"
       },
       "odt_ppm": {
-        "status": "UNVERIFIED_LEGACY_VALUE"
+        "status": "UNSOURCED_MIXTURE_PLACEHOLDER"
       },
-      "character": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
+      "activity_coef": {
+        "status": "HEURISTIC_OVERRIDE_UNSOURCED"
       },
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "activity_coef": {
-        "status": "HEURISTIC_OVERRIDE"
-      },
-      "hedonic": {
-        "status": "CHARACTER_DERIVED_HEURISTIC"
       },
       "literature_sources": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -17725,7 +17736,12 @@
     },
     "odt_evidence": {
       "vfy": "UNVERIFIED",
-      "reason": "No identity-bound metadata"
+      "sources": [
+        "No air or ethanol threshold is published for the whole extract; 3.0 ppb and 0.5 ppm are unsourced placeholders",
+        "Odour words: Flavex 093.001 https://www.flavex.com/en/produkt/093_001/; TGSC es1085491"
+      ],
+      "note": "Cocoa CO2 value check, Kenny 2 Nov 2026",
+      "declared_vfy": "UNVERIFIED"
     },
     "current_stocks": [
       {
@@ -17815,6 +17831,12 @@
         "fields": {
           "smell_strength": "moderate-strong",
           "anosmic_risk": "standard"
+        }
+      },
+      {
+        "reason": "CURRENT_PROFILE_MODEL_SYNCHRONIZATION_20260907",
+        "fields": {
+          "hedonic": -0.4
         }
       }
     ],
@@ -19588,7 +19610,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 4 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 4 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -37403,7 +37425,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 4 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 4 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -71496,7 +71518,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -72351,7 +72373,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 216 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 216 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -89660,7 +89682,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 24 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 24 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -93342,7 +93364,6 @@
           "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/safranal",
           "https://www.thegoodscentscompany.com/data/rw1016371.html",
           "https://www.thegoodscentscompany.com/data/rw1016371.html",
-          "https://archive.org/stream/336871454-perfume-and-flavor-chemicals-by-steffen-arctander-79/336871454-Perfume-and-Flavor-Chemicals-by-Steffen-Arctander79_djvu.txt",
           "pyrfume_data/leffingwell_behavior.csv (local)"
         ]
       },
@@ -95673,7 +95694,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 52 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 52 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -98741,7 +98762,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 6 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 6 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -99097,7 +99118,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 24 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 24 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -100019,7 +100040,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 184 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 184 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -100207,7 +100228,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -100385,7 +100406,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
@@ -102895,7 +102916,7 @@
       },
       "note": {
         "status": "LITERATURE_VOLATILITY_RULE",
-        "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
+        "basis": "TGSC substantivity 400 hour(s) at 100.00 %"
       },
       "literature_pairings": {
         "status": "EVIDENCE_ONLY_NOT_APPLIED",
