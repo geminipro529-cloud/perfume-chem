@@ -570,6 +570,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 309 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4DD00324",
+          "https://www.thegoodscentscompany.com/data/rw1001601.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -586,9 +594,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -706,7 +711,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": []
+    "synergies": [
+      "Gamma Undecalactone",
+      "Coumarin",
+      "Cashmeran",
+      "Aldehyde C16 EMPG",
+      "Raspberry Ketone"
+    ]
   },
   {
     "name": "ALDEHYDE C10",
@@ -3372,7 +3383,12 @@
     "note": "base",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Kephalis",
+      "Cedramber",
+      "Labdanum Absolute",
+      "Ambrocenide"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -3411,6 +3427,15 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 400 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/ambermaxtm-50dowanol-tpm",
+          "https://www.perfumersworld.com/view.php?pro_id=4WU16860",
+          "https://www.thegoodscentscompany.com/data/rw1687381.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -3427,9 +3452,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -5145,7 +5167,11 @@
     "note": "heart",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Petitgrain EO Paraguay",
+      "Benzyl Acetate",
+      "Amyl Cinnamic Aldehyde (ACA)"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "odt": 5.0,
@@ -5210,6 +5236,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 68 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1101481.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -5226,9 +5259,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -7501,7 +7531,12 @@
     "note": "base",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Benzyl Salicylate",
+      "Benzoin Sumatra Resinoid",
+      "Siam Benzoin",
+      "Aldehyde C12 MNA"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -7539,6 +7574,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 322 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=0ZN00054",
+          "https://www.thegoodscentscompany.com/data/rw1001671.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -7555,9 +7598,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -10432,6 +10472,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class None (None), VP class 2 (0.006 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1014101.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -10448,9 +10495,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -10471,7 +10515,12 @@
         "clp": "profile:ingredient_intelligence.clogp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Cedarwood Virginia",
+      "Labdanum Absolute",
+      "Guaiacwood EO",
+      "Cypress EO"
+    ],
     "odt_evidence": {
       "vfy": "DERIVED",
       "sources": [
@@ -16514,7 +16563,12 @@
     "note": "base",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Vetiver EO (Haiti)",
+      "Ambrox Super",
+      "Guaiacwood EO",
+      "Black Pepper EO"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -16573,6 +16627,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "engine VP 0.001 Pa (unsourced legacy value; no TGSC substantivity)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://fraterworks.com/products/costus-oliffac"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -16589,9 +16650,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -17433,6 +17491,16 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "Givaudan: \"an aromatic, fresh and invigorating head note\""
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.edenbotanicals.com/cypress-leaf-sample.html",
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/cypress-oil-spain",
+          "https://www.perfumersworld.com/view.php?pro_id=7KB00833",
+          "https://www.thegoodscentscompany.com/data/es1004291.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -17449,9 +17517,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -17472,7 +17537,13 @@
         "clp": "profile:ingredient_intelligence.clogp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Labdanum Absolute",
+      "Cedarwood Virginia",
+      "Juniper Berry EO",
+      "Clary Sage EO",
+      "Patchouli EO"
+    ],
     "odt_evidence": {
       "vfy": "MULTI_SOURCE_LITERATURE",
       "sources": [
@@ -17580,7 +17651,13 @@
     "note": "top",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Aldehyde C10",
+      "Aldehyde C-12 Lauric Dodecanal",
+      "Allyl Cyclohexyl Propionate",
+      "Terpinyl Acetate",
+      "Dihydromyrcenol"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -17636,6 +17713,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 4 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3CQ00276",
+          "https://www.thegoodscentscompany.com/data/rw1013771.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -17652,9 +17737,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -20489,6 +20571,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class 1 (20 hour(s) at 100.00 %), VP class 1 (5.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=7QC00902",
+          "https://www.thegoodscentscompany.com/data/es1025511.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -20505,9 +20595,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -20528,7 +20615,12 @@
         "clp": "profile:ingredient_intelligence.clogp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Cashmeran",
+      "Black Pepper EO",
+      "Clary Sage EO",
+      "Cardamom EO"
+    ],
     "odt_evidence": {
       "vfy": "DERIVED",
       "sources": [
@@ -26002,6 +26094,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: PW 7CA24030 strip life 12 h (12 h or less = top); TGSC 264 h is for whole grapefruit oil, not this distilled FCF grade"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1651151.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -26018,9 +26117,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -26150,7 +26246,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": []
+    "synergies": [
+      "Bergamot FCF Oil Sicilian",
+      "Lemon FCF Oil Sicilian",
+      "Lime Distilled EO",
+      "Neroli EO",
+      "Lavender EO"
+    ]
   },
   {
     "name": "GUAIACOL",
@@ -26546,6 +26648,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 400 hour(s) at 100.00 % -> base; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1026191.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -26562,9 +26671,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -26585,7 +26691,13 @@
         "clp": "profile:ingredient_intelligence.clogp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Lavender EO",
+      "Tobacco Absolute",
+      "Oakmoss Absolute",
+      "Clary Sage EO",
+      "Coumarin"
+    ],
     "odt_evidence": {
       "vfy": "MULTI_SOURCE_LITERATURE",
       "sources": [
@@ -27045,6 +27157,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class None (None), VP class 1 (0.5 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://thegoodscentscompany.com/data/es1062881.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -27061,9 +27180,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -27084,7 +27200,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Peppermint EO",
+      "Bergamot FCF Oil Sicilian",
+      "Lavender EO",
+      "Neroli EO",
+      "Petitgrain EO Paraguay"
+    ],
     "odt_evidence": {
       "vfy": "MULTI_SOURCE_LITERATURE",
       "sources": [
@@ -31885,7 +32007,13 @@
     "note": "top",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Labdanum Absolute",
+      "Elemi EO",
+      "Myrrh EO",
+      "Cypress EO",
+      "Lavender EO"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -31941,6 +32069,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "engine VP 65.0 Pa (unsourced legacy value; no TGSC substantivity)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=7KH00262",
+          "https://www.thegoodscentscompany.com/data/es1029741.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -31957,9 +32093,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -33583,7 +33716,10 @@
     "note": "top",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Linalool",
+      "Petitgrain EO Paraguay"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -33640,6 +33776,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 4 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=7CC24029",
+          "https://www.thegoodscentscompany.com/data/es1544691.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -33656,9 +33800,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -34500,7 +34641,13 @@
     "note": "heart",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Ginger EO",
+      "Cinnamon Bark EO (Telvada)",
+      "Neroli EO",
+      "Lavender EO",
+      "Rosemary EO"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -34557,6 +34704,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 20 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/print/2738571",
+          "https://www.perfumersworld.com/view.php?pro_id=7CK00274"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -34573,9 +34728,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -35460,6 +35612,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: IFF via TGSC: \"Powerful fruity green apple top note\"; Michelia alba flower oil is ~73% linalool (TGSC linalool 12 h = top)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1068501.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -35476,9 +35635,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -35608,7 +35764,11 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": []
+    "synergies": [
+      "Methyl Ionone",
+      "Mimosa Absolute",
+      "Violet Leaf Absolute"
+    ]
   },
   {
     "name": "MAPLE LACTONE",
@@ -38626,6 +38786,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 116 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/neroli-oil-egypt",
+          "https://www.thegoodscentscompany.com/data/es1618991.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -38642,9 +38810,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -38823,7 +38988,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": []
+    "synergies": [
+      "Orange Flower Absolute",
+      "Bergamot FCF Oil Sicilian",
+      "Jasmine Absolute",
+      "Lavender EO",
+      "Lime Distilled EO"
+    ]
   },
   {
     "name": "Nerolidol",
@@ -38948,6 +39119,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 100 hour(s) at 100.00 % -> heart; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009032.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -38964,9 +39142,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -38987,7 +39162,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Sandalwood EO",
+      "Oakmoss Absolute",
+      "Peru Balsam Resinoid",
+      "Clary Sage EO",
+      "Ylang Madagascar Complete Organic EO"
+    ],
     "odt_evidence": {
       "vfy": "MULTI_SOURCE_LITERATURE",
       "sources": [
@@ -41580,6 +41761,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (4.16 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009972.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -41596,9 +41784,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -41619,7 +41804,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Lavandin Absolute",
+      "Oakmoss Absolute",
+      "Vetiver EO (Haiti)",
+      "Geranium EO",
+      "Methyl Ionone"
+    ],
     "odt_evidence": {
       "vfy": "MULTI_SOURCE_LITERATURE",
       "sources": [
@@ -44031,7 +44222,13 @@
     "note": "heart",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Clary Sage EO",
+      "Oakmoss Absolute",
+      "Galbanum Resinoid",
+      "Ambrox Super",
+      "Beta-Pinene"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -44087,6 +44284,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 16 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1019031.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -44103,9 +44307,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -47203,7 +47404,13 @@
     "note": "heart",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Eucalyptus Essential Oil",
+      "Rosemary EO",
+      "Lavender EO",
+      "Clary Sage EO",
+      "Oakmoss Absolute"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -47266,6 +47473,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 184 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1029951.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -47282,9 +47496,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -49581,7 +49792,13 @@
     "note": "top",
     "role": "modifier",
     "texture": "",
-    "synergies": [],
+    "synergies": [
+      "Lime Distilled EO",
+      "Bergamot FCF Oil Sicilian",
+      "Violet Leaf Absolute",
+      "Cyclamen Aldehyde",
+      "Adoxal"
+    ],
     "or_family": null,
     "activity_coef": 1.0,
     "hedonic": 0.0,
@@ -49642,6 +49859,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 8 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1007631.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -49658,9 +49882,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -50599,6 +50820,15 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 400 hour(s) at 100.00 % -> base; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.edenbotanicals.com/liquidambar-styrax.html",
+          "https://www.thegoodscentscompany.com/data/ab1057281.html",
+          "https://www.thegoodscentscompany.com/data/rs1046501.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -50615,9 +50845,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -50748,7 +50975,13 @@
     "or_family": "balsamic",
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": []
+    "synergies": [
+      "Siam Benzoin",
+      "Rose Otto Bulgarian",
+      "Mimosa Absolute",
+      "Lavender EO",
+      "Olibanum Oil"
+    ]
   },
   {
     "name": "Ultralia",
@@ -51858,6 +52091,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (2.84 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3LJ01926",
+          "https://www.thegoodscentscompany.com/data/rw1002152.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -51874,9 +52115,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -51897,7 +52135,12 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Anisaldehyde",
+      "Linalyl Acetate",
+      "Geranium EO",
+      "Cyclamen Aldehyde"
+    ],
     "odt_evidence": {
       "vfy": "PEER_EST",
       "sources": [
@@ -52755,6 +52998,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class None (100 hour(s) at 20.00 % (resinoid page rs1006721); 400 hour(s) at 100.00 % (resin page rs1000281)), VP class 2 (0.02 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rs1006721.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -52771,9 +53021,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -52915,7 +53162,13 @@
     "or_family": "balsamic",
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": []
+    "synergies": [
+      "Sandalwood EO",
+      "Jasmine Absolute",
+      "Olibanum Oil",
+      "Myrrh EO",
+      "Coriander Essential Oil"
+    ]
   },
   {
     "name": "Violet Leaf Absolute",
@@ -63741,6 +63994,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 241 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/strawberry-pure",
+          "https://www.thegoodscentscompany.com/data/rw1001601.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -63757,9 +64018,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -63874,7 +64132,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Hydroxycitronellal",
+      "Beta Ionone",
+      "Raspberry Ketone",
+      "Gamma Undecalactone",
+      "Aldehyde C-18"
+    ],
     "odor_profile": "Fruity, strawberry, sweet."
   },
   {
@@ -64621,6 +64885,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1001911.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -64637,9 +64908,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -64781,7 +65049,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Isobutyl Quinoline",
+      "Cade Oil Rectified",
+      "Indole",
+      "Cedarwood Chinese Essential Oil",
+      "Rum Ether"
+    ],
     "odor_profile": "Phenolic, aromatic, spicy, smoky, burnt, wood, leathery."
   },
   {
@@ -64803,6 +65077,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 196 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1023611.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -64819,9 +65100,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -64971,7 +65249,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Cedarwood Virginia",
+      "Cedryl Acetate",
+      "Guaiacwood EO",
+      "Vertofix",
+      "Cedroxyde"
+    ],
     "odor_profile": "Woody, sweet, amber, fruity, fresh, sharp, cedar, spicy."
   },
   {
@@ -65261,6 +65545,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 372 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1022811.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -65277,9 +65568,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -65378,7 +65666,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Eugenol",
+      "Siam Benzoin",
+      "Peru Balsam Resinoid",
+      "Coriander Essential Oil",
+      "Vanillin"
+    ],
     "odor_profile": "Spicy, woody, powdery, fresh, fruity, sweet, aromatic, warm."
   },
   {
@@ -65401,6 +65695,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 216 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://fraterworks.com/products/cis-3-hexenyl-salicylate",
+          "https://www.perfumersworld.com/view.php?pro_id=3GO00229"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -65417,9 +65719,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -65567,7 +65866,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "cis-3-Hexenol",
+      "Cis-3 Hexenyl Acetate",
+      "Clary Sage EO",
+      "Lavender EO",
+      "Evernyl"
+    ],
     "odor_profile": "Floral, green, ylang, frangipani, sweet, balsamic."
   },
   {
@@ -67032,6 +67337,15 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 309 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://fraterworks.com/products/nonalactone-gamma",
+          "https://www.perfumersworld.com/view.php?pro_id=4DD00324",
+          "https://www.thegoodscentscompany.com/data/rw1000531.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -67048,9 +67362,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -67169,7 +67480,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Gamma Undecalactone",
+      "Tuberose Absolute",
+      "Jasmine Absolute",
+      "Coumarin",
+      "Cashmeran"
+    ],
     "odor_profile": "Fruity, coconut, lactonic, tuberose, creamy, sweet, fatty, waxy."
   },
   {
@@ -67229,6 +67546,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class 2 (400 hour(s) at 100.00 %), VP class None (None Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt",
+          "https://www.thegoodscentscompany.com/data/es1005751.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -67247,9 +67572,6 @@
       "role": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
@@ -67264,7 +67586,12 @@
       },
       "gate_value_sources": {}
     },
-    "synergies": [],
+    "synergies": [
+      "Hay Absolute",
+      "Orris Concrete Orris Butter",
+      "Rose de Mai Absolute",
+      "Cedarwood Virginia"
+    ],
     "odor_profile": "Woody smoky balsamic floral bridge; existing wood-registry design interpretation.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -67801,6 +68128,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 12 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1028731.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -67817,9 +68151,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -67990,7 +68321,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Methyl Ionone",
+      "Cyclamen Aldehyde",
+      "Phenethyl Alcohol",
+      "Styralyl Acetate",
+      "Alpha Damascone"
+    ],
     "odor_profile": "Violet, green, pear, fruity, apple, floral."
   },
   {
@@ -68101,6 +68438,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class 1 (168 hour(s) at 100.00 %), VP class 1 (0.6 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg"
+        ]
+      },
       "vp": {
         "status": "UNKNOWN"
       },
@@ -68114,9 +68458,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -68137,7 +68478,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Peach Ketone",
+      "Coumarin",
+      "Tonka Bean Absolute",
+      "Jasmine Absolute",
+      "Tuberose Absolute"
+    ],
     "odor_profile": "Creamy lactonic fruity body; white-flower body and sandalwood milkiness.",
     "odt": 0.0303,
     "odt_ethanol_ppm": null,
@@ -68403,6 +68750,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 52 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=7SC00327"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -68419,9 +68773,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -68554,7 +68905,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Oakmoss Absolute",
+      "Peru Balsam Resinoid",
+      "Clary Sage EO",
+      "Coriander Essential Oil",
+      "Sweet Orange Essential Oil"
+    ],
     "odor_profile": "Spicy, peppery, woody, green, warm, powdery, terpenic, sweet."
   },
   {
@@ -69046,6 +69403,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (4.16 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009972.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -69062,9 +69426,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -69189,7 +69550,13 @@
     "hedonic": 0.5,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Lavandin Absolute",
+      "Oakmoss Absolute",
+      "Vetiver EO (Haiti)",
+      "Geranium EO",
+      "Methyl Ionone"
+    ],
     "odor_profile": "green-hyacinth floral acetal",
     "odor_family": "green_floral"
   },
@@ -69547,6 +69914,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class 0 (8 hour(s) at 100.00 %), VP class 1 (8.42 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1011092.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -69563,9 +69937,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -69695,7 +70066,13 @@
     "hedonic": 0.6,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Oakmoss Absolute",
+      "Galbanum Resinoid",
+      "Allyl Ionone (Ketone V)",
+      "Benzyl Acetate",
+      "Bergamot FCF Oil Sicilian"
+    ],
     "odor_profile": "green-sweet gardenia-floral ester",
     "odor_family": "floral"
   },
@@ -71207,6 +71584,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class 1 (20 hour(s) at 100.00 %), VP class 1 (6.0 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=7SE00083",
+          "https://www.thegoodscentscompany.com/data/es1028851.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -71223,9 +71608,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -71246,7 +71628,13 @@
         "clp": "profile:ingredient_intelligence.clogp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Clove EO (India)",
+      "Jasmine Absolute",
+      "Cinnamon Bark EO (Telvada)",
+      "Cassia Essential Oil",
+      "Coriander Essential Oil"
+    ],
     "odor_profile": "caraway-seed spicy natural",
     "odt": 2.0,
     "odt_ethanol_ppm": 0.01,
@@ -74358,6 +74746,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class 1 (100 hour(s) at 100.00 %), VP class 1 (4.16 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009972.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -74374,9 +74769,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -74397,7 +74789,13 @@
         "clp": "profile:ingredient_intelligence.clogp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Lavandin Absolute",
+      "Oakmoss Absolute",
+      "Vetiver EO (Haiti)",
+      "Geranium EO",
+      "Methyl Ionone"
+    ],
     "odor_profile": "green-hyacinth floral acetal",
     "odt": 200.0,
     "odt_ethanol_ppm": 0.5,
@@ -75585,6 +75983,15 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 232 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://biolandes.com/en/product/myrrh-2/",
+          "https://thegoodscentscompany.com/data/rs1047681.html",
+          "https://www.perfumersworld.com/view.php?pro_id=7QC00314"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -75601,9 +76008,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -75698,7 +76102,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Labdanum Absolute",
+      "Olibanum Resinoid",
+      "Patchouli EO",
+      "Cinnamyl Alcohol",
+      "Sandalwood EO"
+    ],
     "odor_profile": "Warm, roasted, cocoa, balsamic, sweet, fresh, amber, woody, balsam, spicy, rich, medicinal."
   },
   {
@@ -75806,6 +76216,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 284 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rs1048341.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -75822,9 +76239,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -75919,7 +76333,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Cedarwood Virginia",
+      "Coumarin",
+      "Methyl Ionone",
+      "Myrrh EO",
+      "Sandalwood EO"
+    ],
     "odor_profile": "Terpenic, fresh, spicy, ambery, woody, sweet, balsamic, green, peppery, resinous, warm, fruity."
   },
   {
@@ -76021,6 +76441,15 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 400 hour(s) at 100.00 % -> base; the engine VP for this material has no cited source (data/materials vp_source null), so it does not override (rule revised 31 Oct 2026 after the stock thread's Hay Absolute check)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.edenbotanicals.com/liquidambar-styrax.html",
+          "https://www.thegoodscentscompany.com/data/ab1057281.html",
+          "https://www.thegoodscentscompany.com/data/rs1046501.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -76037,9 +76466,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -76162,7 +76588,13 @@
     "hedonic": 0.6,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Siam Benzoin",
+      "Rose Otto Bulgarian",
+      "Mimosa Absolute",
+      "Lavender EO",
+      "Olibanum Oil"
+    ],
     "odor_profile": "balsamic-cinnamic resin tincture",
     "odor_family": "balsamic"
   },
@@ -76234,6 +76666,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity class None (100 hour(s) at 20.00 % (resinoid page rs1006721); 400 hour(s) at 100.00 % (resin page rs1000281)), VP class 2 (0.02 Pa); rule: 12 h or less top, 200 h or less heart, else base; VP 10 Pa or more top, 0.1 Pa or more heart, else base; when they disagree, VP decides"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rs1006721.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -76250,9 +76689,6 @@
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -76364,7 +76800,13 @@
     "hedonic": 0.7,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Sandalwood EO",
+      "Jasmine Absolute",
+      "Olibanum Oil",
+      "Myrrh EO",
+      "Coriander Essential Oil"
+    ],
     "odor_profile": "benzoin-balsamic sweet resin tincture",
     "odor_family": "balsamic"
   },
@@ -76391,6 +76833,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 309 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4DD00324",
+          "https://www.thegoodscentscompany.com/data/rw1001601.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -76407,9 +76857,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -76476,7 +76923,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Gamma Undecalactone",
+      "Coumarin",
+      "Cashmeran",
+      "Aldehyde C16 EMPG",
+      "Raspberry Ketone"
+    ],
     "odor_profile": "Creamy, coconut, apricot, sweet, fatty, fruity, heavy."
   },
   {
@@ -76841,6 +77294,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1007331.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -76855,9 +77315,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -76877,7 +77334,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Ethyl Maltol",
+      "Maltol",
+      "Raspberry Ketone",
+      "Tonka Bean Absolute",
+      "Ethyl Vanillin"
+    ],
     "odor_profile": "Acetoin is intensely sweet caramel creamy sour green buttery useful for modifying dairy notes Keywords: milk fatty butter vanilla orange juice carrot fish fruit",
     "odt": 3.0,
     "odt_ethanol_ppm": null,
@@ -77052,6 +77515,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4AA00021"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -77066,9 +77536,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -77088,7 +77555,11 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Hydroxycitronellal",
+      "Beta Ionone",
+      "Benzyl Salicylate"
+    ],
     "odor_profile": "Aldehyde C-12 Lauric Dodecanal is waxy fatty soapy clean rose laundry chanel-no.5 lux soap aldehydic heavy-white-florals violet mimosa reseda pine-needle wisteria butter rancid.",
     "odt": 0.2916,
     "odt_ethanol_ppm": 0.2,
@@ -77263,6 +77734,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4AC00026"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -77277,9 +77755,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -77299,7 +77774,11 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Phenylacetaldehyde Dimethyl Acetal (PADMA)",
+      "Aldehyde C-9 Nonanal",
+      "Phenethyl Alcohol"
+    ],
     "odor_profile": "Aldehyde C-8 Octanal is powerful lemon fatty aldehydic rose useful in lemon fragrances.",
     "odt": 0.17,
     "odt_ethanol_ppm": null,
@@ -77466,6 +77945,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4AC00027"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -77480,9 +77966,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -77502,7 +77985,11 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Dimethyl Benzyl Carbinol",
+      "Cinnamyl Alcohol",
+      "Phenylacetaldehyde Dimethyl Acetal (PADMA)"
+    ],
     "odor_profile": "Aldehyde C-9 Nonanal is powerful fatty citrus orange peel.",
     "odt": 0.53,
     "odt_ethanol_ppm": null,
@@ -77655,6 +78142,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=8XU00529",
+          "https://www.thegoodscentscompany.com/data/ab1029391.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -77670,9 +78165,6 @@
       "odt_ppm": {
         "status": "UNKNOWN"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
@@ -77687,7 +78179,13 @@
       },
       "gate_value_sources": {}
     },
-    "synergies": [],
+    "synergies": [
+      "Clary Sage EO",
+      "Sandalwood EO",
+      "Patchouli EO",
+      "Cypress EO",
+      "Labdanum Absolute"
+    ],
     "odor_profile": "Supplier-labelled Ambrette Seed Absolute; detailed odor profile not reviewed in this stock intake.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -77848,6 +78346,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1612511.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -77862,9 +78367,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -77884,7 +78386,10 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Ambermax",
+      "Vertofix"
+    ],
     "odor_profile": "extremely powerful and very sharp dry woody scent with ambery, slightly animalic and smokey agarwood tones.",
     "odt": 0.00176,
     "odt_ethanol_ppm": 0.02,
@@ -78222,6 +78727,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/berryflortm",
+          "https://www.thegoodscentscompany.com/data/rw1061362.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -78236,9 +78749,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -78258,7 +78768,11 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Isoraldeine 70",
+      "Isoraldeine 95",
+      "Canthoxal"
+    ],
     "odor_profile": "fruity floral anisic fresh raspberry jasmin",
     "odt": 4.087,
     "odt_ethanol_ppm": null,
@@ -78623,6 +79137,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1004001.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -78637,9 +79158,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -78659,7 +79177,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Beta Damascone",
+      "Pear Valerate",
+      "Gamma Undecalactone",
+      "Blue Chamomile EO",
+      "Benzyl Salicylate"
+    ],
     "odor_profile": "Supplier-labelled Buccoxime; detailed odor profile not reviewed in this stock intake.",
     "odt": 5.818,
     "odt_ethanol_ppm": null,
@@ -78878,6 +79402,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1014091.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -78892,9 +79423,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -78914,7 +79442,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Ethyl Butyrate",
+      "Allyl Amyl Glycolate (AAG)",
+      "Cis-3 Hexenyl Acetate",
+      "Allyl Cyclohexyl Propionate",
+      "Ethyl Acetoacetate"
+    ],
     "odor_profile": "Supplier-labelled Butyl Butyrate; detailed odor profile not reviewed in this stock intake.",
     "odt": 4.8,
     "odt_ethanol_ppm": null,
@@ -79230,6 +79764,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://thegoodscentscompany.com/data/rw1002481.html",
+          "https://www.perfumersworld.com/view.php?pro_id=2WW00099"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -79244,9 +79786,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -79266,7 +79805,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Vetiver EO (Haiti)",
+      "Patchouli EO",
+      "Sandalwood EO",
+      "Vetiveryl Acetate",
+      "Siam Benzoin"
+    ],
     "odor_profile": "Cedryl Acetate is woody sharp dry cedar soft earthy oily straw liquid maybe with a green tint leather sandal oriental chypre lavender herb fougere",
     "odt": 20.0,
     "odt_ethanol_ppm": null,
@@ -79447,6 +79992,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://fraterworks.com/products/cis-3-hexenyl-acetate",
+          "https://www.perfumersworld.com/view.php?pro_id=4GF00226"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -79461,9 +80014,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -79483,7 +80033,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "cis-3-Hexenol",
+      "Jasmine Sambac Absolute",
+      "Phenethyl Alcohol",
+      "Benzyl Acetate",
+      "Benzyl Salicylate"
+    ],
     "odor_profile": "cis-3 Hexenyl Acetate has a fresh and sharp green sweet fruity aroma",
     "odt": 2.67,
     "odt_ethanol_ppm": null,
@@ -79654,6 +80210,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4GG01946",
+          "https://www.thegoodscentscompany.com/data/rw1007981.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -79668,9 +80232,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -79690,7 +80251,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Cis-3 Hexenyl Acetate",
+      "Butyl Butyrate",
+      "Gamma Undecalactone",
+      "Citronellol",
+      "Citronellyl Acetate"
+    ],
     "odor_profile": "cis-3 Hexenyl Hexanoate has a green vegetable and pear-like odor",
     "odt": 3.1,
     "odt_ethanol_ppm": null,
@@ -79859,6 +80426,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1004331.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -79873,9 +80447,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -79895,7 +80466,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Ethyl Butyrate",
+      "Ethyl 2-Methylbutyrate",
+      "Ethyl Acetoacetate",
+      "Hexyl Acetate",
+      "Manzanate"
+    ],
     "odor_profile": "Diethyl Malonate is sweet green apple fruity pineapple winey-estery soft pleasant fruity-green balsamic apples fresh-top-note-modifier green-citrus-notes grape pear apricot wine-like-notes rose-apple star-fruit berry.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -80055,6 +80632,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "http://thegoodscentscompany.com/data/rw1022781.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -80069,9 +80653,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -80091,7 +80672,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Bergamot FCF Oil Sicilian",
+      "Linalool",
+      "Linalyl Acetate",
+      "Petitgrain EO Paraguay",
+      "Hedione"
+    ],
     "odor_profile": "Ethyl Linalyl Acetate has fresh Bergamot character. Useful as a modifier for any fresh and floral notes",
     "odt": 14.42,
     "odt_ethanol_ppm": null,
@@ -80251,6 +80838,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://fraterworks.com/products/frangipani-absolute",
+          "https://thegoodscentscompany.com/data/ab1062361.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -80266,9 +80861,6 @@
       "odt_ppm": {
         "status": "UNKNOWN"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
@@ -80283,7 +80875,12 @@
       },
       "gate_value_sources": {}
     },
-    "synergies": [],
+    "synergies": [
+      "Tuberose Absolute",
+      "Orange Flower Absolute",
+      "Neroli EO",
+      "Methyl Anthranilate"
+    ],
     "odor_profile": "Supplier-labelled Frangipani Absolute; detailed odor profile not reviewed in this stock intake.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -80451,6 +81048,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3FG00196",
+          "https://www.thegoodscentscompany.com/data/rw1005422.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -80465,9 +81070,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -80487,7 +81089,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Beta Ionone",
+      "Ethyl Maltol",
+      "Gamma Decalactone",
+      "Ethyl Butyrate",
+      "Cis-3 Hexenyl Acetate"
+    ],
     "odor_profile": "Fruity berry and floral, warm and sweet, with wine-like fermented-fruit undertones resembling cooked strawberry preserve.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -80648,6 +81256,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4DD00331",
+          "https://www.thegoodscentscompany.com/data/rw1006542.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -80662,9 +81278,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -80684,7 +81297,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Coumarin",
+      "Beta Ionone",
+      "Benzyl Acetate",
+      "Galaxolide",
+      "cis-3-Hexenol"
+    ],
     "odor_profile": "Gamma Octalactone is sweet creamy dairy fatty oily coconut aromatic tuberose oakwood cream peach raspberry specialty fruit milk butter.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -80826,6 +81445,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 24 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://fraterworks.com/products/geranyl-acetate",
+          "https://www.perfumersworld.com/view.php?pro_id=3RL00206"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -80842,9 +81469,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -80963,7 +81587,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Bergamot FCF Oil Sicilian",
+      "Lavender EO",
+      "Neroli EO",
+      "Ylang Comoros Complete EO F3255",
+      "Geraniol"
+    ],
     "odor_profile": "Fruity, floral, rose, sweet, freshness, green, lavender, pear, waxy."
   },
   {
@@ -81050,6 +81680,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1492991.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -81064,9 +81701,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -81086,7 +81720,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Violet Leaf Absolute",
+      "Cis-3 Hexenyl Acetate",
+      "cis-3-Hexenol",
+      "Styralyl Acetate",
+      "Allyl Amyl Glycolate"
+    ],
     "odor_profile": "Glycolierral has a Floral Green, Ivy-leaf Woody Odourbr Glycolierral offers a soft, green, milky nuance when used as a green top note modifier.It fits",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -81440,6 +82080,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3XD17215",
+          "https://www.thegoodscentscompany.com/data/rw1557401.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -81454,9 +82102,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -81476,7 +82121,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Exaltolide",
+      "Habanolide",
+      "Cashmeran",
+      "Ethylene Brassylate",
+      "Ambrox Super"
+    ],
     "odor_profile": "HELVETOLIDE®(Firmenich) offers excellent volatile pear-like facets and smooth ambrette undertones. Its unexpected volume and richness propelled it as a cornerstone of perfumery ingredients. It",
     "odt": 0.146,
     "odt_ethanol_ppm": null,
@@ -81627,6 +82278,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1045781.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -81642,9 +82300,6 @@
       "odt_ppm": {
         "status": "UNKNOWN"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
@@ -81659,7 +82314,13 @@
       },
       "gate_value_sources": {}
     },
-    "synergies": [],
+    "synergies": [
+      "Labdanum Absolute",
+      "Oakmoss Absolute",
+      "Coumarin",
+      "Patchouli EO",
+      "Clary Sage EO"
+    ],
     "odor_profile": "Lavandin Absolute is an herbal sweet lavandin flower; its detectable vanillic qualities are warm and inviting",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -81990,6 +82651,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://thegoodscentscompany.com/data/tl1032421.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -82005,9 +82673,6 @@
       "odt_ppm": {
         "status": "UNKNOWN"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
@@ -82022,7 +82687,13 @@
       },
       "gate_value_sources": {}
     },
-    "synergies": [],
+    "synergies": [
+      "Bergamot FCF Oil Sicilian",
+      "Linalool",
+      "Citral Natural",
+      "Nerol",
+      "Sweet Orange Essential Oil"
+    ],
     "odor_profile": "A smooth, concentrated, and highly stable lemon heart. By removing terpenes, the scent becomes sweeter and more soluble, focusing on juicy, aldehydic qualities.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -82158,6 +82829,15 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 12 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/linalool-oxide",
+          "https://www.thegoodscentscompany.com/data/rw1014331.html",
+          "https://www.thegoodscentscompany.com/data/rw1432371.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -82174,9 +82854,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -82296,7 +82973,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Patchouli EO",
+      "Lavender EO",
+      "Linalyl Acetate",
+      "Bergamot FCF Oil Sicilian",
+      "Rose Oxide"
+    ],
     "odor_profile": "Herbal, pine, floral, fresh, sweet, earthy."
   },
   {
@@ -82371,6 +83054,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1007991.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -82385,9 +83075,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -82407,7 +83094,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Bergamot FCF Oil Sicilian",
+      "Linalool",
+      "Dihydromyrcenol",
+      "Ylang Comoros III EO F3295",
+      "Rose Oxide"
+    ],
     "odor_profile": "Magnolan is floral green grapefruit narcissus magnolia geranium gardenia.",
     "odt": 1.508,
     "odt_ethanol_ppm": null,
@@ -82574,6 +83267,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=1VE00283",
+          "https://www.thegoodscentscompany.com/data/rw1002341.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -82588,9 +83289,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -82610,7 +83308,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Vanillin",
+      "Raspberry Ketone",
+      "Ethyl Maltol",
+      "Coumarin",
+      "Ethyl Vanillin"
+    ],
     "odor_profile": "Maltol is sweet caramel cotton-candy jam fruity burnt bread-nuances tasteful burnt-sugar candy-floss vanillin-modifier vanilla coumarin strawberry cotton candy butterscotch pineapple milk toffee chocolate.",
     "odt": 1.0,
     "odt_ethanol_ppm": 0.2,
@@ -82791,6 +83495,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1006801.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -82805,9 +83516,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -82827,7 +83535,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Hexyl Acetate",
+      "Cis-3 Hexenyl Acetate",
+      "Allyl Amyl Glycolate",
+      "Allyl Cyclohexyl Propionate",
+      "Cis-3 Hexenyl Hexanoate"
+    ],
     "odor_profile": "Manzanate has a fruity green apple pineapple melon odour Its fruity ripe apple character has aspects of cider and sweet pineapple. When used in",
     "odt": 0.0515,
     "odt_ethanol_ppm": null,
@@ -82979,6 +83693,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1046151.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -82994,9 +83715,6 @@
       "odt_ppm": {
         "status": "UNKNOWN"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
@@ -83011,7 +83729,12 @@
       },
       "gate_value_sources": {}
     },
-    "synergies": [],
+    "synergies": [
+      "Tobacco Absolute",
+      "Oakmoss Absolute",
+      "Jasmine Absolute",
+      "Mimosa Absolute"
+    ],
     "odor_profile": "Mate Absolute 10% in DPG has a lovely natural Matcha-Green-Tea odour. Useful in herbal, fougere, forest and tobacco type fragrances or wherever a natural",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -83182,6 +83905,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009761.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -83196,9 +83926,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -83218,7 +83945,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Rose Otto Bulgarian",
+      "Geranium Bourbon Essential Oil",
+      "Rhodinol",
+      "Cinnamyl Acetate",
+      "Tuberose Absolute"
+    ],
     "odor_profile": "Methyl Diantilis is an elegant, spicy sweet ingredient with a similar olfactive note to Isoeugenol.",
     "odt": 0.2287,
     "odt_ethanol_ppm": null,
@@ -83458,6 +84191,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/co1001091.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -83473,9 +84213,6 @@
       "odt_ppm": {
         "status": "UNKNOWN"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
@@ -83490,7 +84227,13 @@
       },
       "gate_value_sources": {}
     },
-    "synergies": [],
+    "synergies": [
+      "Methyl Ionone",
+      "Sandalwood EO",
+      "Labdanum Absolute",
+      "Bergamot FCF Oil Sicilian",
+      "Clary Sage EO"
+    ],
     "odor_profile": "Supplier-labelled Orris Concrete Orris Butter; detailed odor profile not reviewed in this stock intake.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -83651,6 +84394,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1009931.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -83665,9 +84415,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -83687,7 +84434,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Phenethyl Alcohol",
+      "Hydroxycitronellal",
+      "Benzyl Acetate",
+      "Hedione",
+      "Linalool"
+    ],
     "odor_profile": "Phenyl acetaldehyde 85% in PEA (15% of PEA added for stabilization) Odour=> This strongest concentration of Phenyl Acetaldehyde has a intense and powerful green",
     "odt": 4.0,
     "odt_ethanol_ppm": 0.4,
@@ -83845,6 +84598,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3FL06757",
+          "https://www.thegoodscentscompany.com/data/rw1028291.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -83859,9 +84620,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -83881,7 +84639,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Bergamot FCF Oil Sicilian",
+      "Lavender EO",
+      "Heliotropin",
+      "Lemon FCF Oil Sicilian",
+      "Grapefruit FCF Oil Sicilian"
+    ],
     "odor_profile": "Rhubofix is woody, spicy, floral and fruity note. It has a zesty freshness and unique green rhubarb",
     "odt": 6.0,
     "odt_ethanol_ppm": null,
@@ -84040,6 +84804,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/rose.php",
+          "https://www.thegoodscentscompany.com/data/es1024951.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -84055,9 +84827,6 @@
       "odt_ppm": {
         "status": "UNKNOWN"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
@@ -84072,7 +84841,13 @@
       },
       "gate_value_sources": {}
     },
-    "synergies": [],
+    "synergies": [
+      "Guaiacwood EO",
+      "Vetiver EO (Haiti)",
+      "Geranium EO",
+      "Rose de Mai Absolute",
+      "Violet Leaf Absolute"
+    ],
     "odor_profile": "Supplier-labelled Rose Otto Bulgarian; detailed odor profile not reviewed in this stock intake.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -84239,6 +85014,14 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/safranal",
+          "https://www.thegoodscentscompany.com/data/rw1016371.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -84253,9 +85036,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -84275,7 +85055,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Tobacco Absolute",
+      "Orris Concrete Orris Butter",
+      "Mate Absolute",
+      "Clary Sage EO",
+      "Sandalwood EO"
+    ],
     "odor_profile": "Supplier-labelled Saffranal; detailed odor profile not reviewed in this stock intake.",
     "odt": 0.5,
     "odt_ethanol_ppm": 0.1,
@@ -84427,6 +85213,13 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1101871.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -84442,9 +85235,6 @@
       "odt_ppm": {
         "status": "UNKNOWN"
       },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
@@ -84459,7 +85249,12 @@
       },
       "gate_value_sources": {}
     },
-    "synergies": [],
+    "synergies": [
+      "Cocoa Absolute",
+      "Peru Balsam Resinoid",
+      "Mimosa Absolute",
+      "Anisyl Acetate"
+    ],
     "odor_profile": "Supplier-labelled Vanilla Absolute; detailed odor profile not reviewed in this stock intake.",
     "odt": null,
     "odt_ethanol_ppm": null,
@@ -84625,6 +85420,15 @@
       "role": {
         "status": "UNREVIEWED"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.firmenich.com/product/veloutoner-pe-990257",
+          "https://www.perfumersworld.com/view.php?pro_id=3LH00459",
+          "https://www.thegoodscentscompany.com/data/rw1000241.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -84639,9 +85443,6 @@
       },
       "odt_ppm": {
         "status": "UNKNOWN"
-      },
-      "synergies": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
@@ -84661,7 +85462,13 @@
         "clp": "registry:data_spine.logp"
       }
     },
-    "synergies": [],
+    "synergies": [
+      "Hedione",
+      "Vertofix Coeur",
+      "Lavender EO",
+      "Jasmine Absolute",
+      "Tuberose Absolute"
+    ],
     "odor_profile": "fresh floral slightly fruity herbal woody",
     "odt": 6.85,
     "odt_ethanol_ppm": null,
@@ -84784,6 +85591,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: no figure; seller: \"exotic sweet florals with great tenacity\"; floral compound, heart by class"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.lgbotanicals.com/White-Ginger-Lily-Absolute-Hexane-Free_p_195.html",
+          "https://www.thegoodscentscompany.com/data/fr1544391.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -84800,9 +85615,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -84897,7 +85709,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Jasmine Sambac Absolute",
+      "Tuberose Absolute",
+      "Frangipani Absolute",
+      "Osmanthus Absolute",
+      "Jasmine Absolute"
+    ],
     "odor_profile": "Floral, lily, spicy."
   },
   {
@@ -84919,6 +85737,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: Synarome (producer): \"Tenacity on blotter: 2 hours\"; TGSC 264 h is its generic grapefruit-oil page"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://synarome.com/wp-content/uploads/2025/05/Pomelo-Corsica.pdf",
+          "https://www.perfumersworld.com/view.php?pro_id=7CA00868"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -84935,9 +85761,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -85032,7 +85855,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Juniper Berry EO",
+      "Ginger EO",
+      "Bergamot FCF Oil Sicilian",
+      "Neroli EO",
+      "Cypress EO"
+    ],
     "odor_profile": "Zesty, fresh, citrus, sweet, dry, bitter, aldehydic, orange."
   },
   {
@@ -85087,6 +85916,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 309 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4DD00324",
+          "https://www.thegoodscentscompany.com/data/rw1001601.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -85103,9 +85940,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -85228,7 +86062,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Gamma Undecalactone",
+      "Coumarin",
+      "Cashmeran",
+      "Aldehyde C16 EMPG",
+      "Raspberry Ketone"
+    ],
     "odor_profile": "Creamy, coconut, apricot, sweet, fatty, fruity, heavy."
   },
   {
@@ -85587,6 +86427,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 268 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1007241.html",
+          "https://www.thegoodscentscompany.com/data/rw1021872.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -85603,9 +86451,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -85695,7 +86540,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Vetiver EO (Haiti)",
+      "Siam Benzoin",
+      "Benzyl Salicylate",
+      "Vanillin",
+      "Cedarwood Chinese Essential Oil"
+    ],
     "odor_profile": "Dry, woody, cedarwood, ambery, patchouli, sweet, powdery, amber, cedar, sandalwood."
   },
   {
@@ -85717,6 +86568,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 400 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1013511.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -85733,9 +86591,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -85865,7 +86720,12 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Sandalwood EO",
+      "Anisaldehyde",
+      "Clove EO (India)",
+      "Cassia Essential Oil"
+    ],
     "odor_profile": "Woody, sandalwood, creamy, fresh, milky."
   },
   {
@@ -86053,6 +86913,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: PW 5ES18560 strip life 60 h (heart by the same hours rule)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://img.perfumerflavorist.com/files/base/allured/all/document/2007/12/pf.PF_33_01_026_09.pdf",
+          "https://www.perfumersworld.com/view.php?pro_id=5ES18560"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -86069,9 +86937,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -86166,7 +87031,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Jasmine Absolute",
+      "Tuberose Absolute",
+      "Orris Concrete Orris Butter",
+      "Tobacco Absolute",
+      "Osmanthus Absolute"
+    ],
     "odor_profile": "Herbal, saffron, spicy, leathery, woody, hay, tobacco, honey."
   },
   {
@@ -86187,6 +87058,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 8 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1012172.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -86203,9 +87081,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -86323,7 +87198,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Bergamot FCF Oil Sicilian",
+      "Rose Oxide",
+      "Styralyl Acetate",
+      "Violet Leaf Absolute",
+      "Citronellol"
+    ],
     "odor_profile": "Rosy, fresh, citrus, fruity, rose, green, pear."
   },
   {
@@ -86344,6 +87225,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 52 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3RF05061",
+          "https://www.thegoodscentscompany.com/data/rw1033551.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -86360,9 +87249,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -86487,7 +87373,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Neroli EO",
+      "Jasmine Absolute",
+      "Ylang Comoros Complete EO F3255",
+      "Petitgrain EO Paraguay",
+      "Hedione"
+    ],
     "odor_profile": "Sweet, floral, cologne, pear, fruity, citrus, fresh, rose, tropical."
   },
   {
@@ -86819,6 +87711,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 220 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1006961.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -86835,9 +87734,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -86986,7 +87882,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Phenethyl Alcohol",
+      "Geraniol",
+      "Blackcurrant Absolute",
+      "Beta Ionone",
+      "Gamma Decalactone"
+    ],
     "odor_profile": "Blackcurrant, fruity, rosy, plum, rose, sweet, black, currant."
   },
   {
@@ -87008,6 +87910,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 28 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1033011.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -87024,9 +87933,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -87121,7 +88027,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Patchouli EO",
+      "Bergamot FCF Oil Sicilian",
+      "Lavender EO",
+      "Clove EO (India)",
+      "Rose Otto Bulgarian"
+    ],
     "odor_profile": "Floral, minty, green, metallic, rosy, sweet."
   },
   {
@@ -87441,6 +88353,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "engine VP 0.86 Pa (unsourced legacy value; no TGSC substantivity)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1000111.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -87457,9 +88376,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -87610,7 +88526,12 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Ethyl Maltol",
+      "Heliotropin",
+      "Ethyl Vanillin",
+      "Nutmeg EO"
+    ],
     "odor_profile": "Sweet, hay, floral, hawthorn, acacia, mimosa."
   },
   {
@@ -87630,6 +88551,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 208 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1429921.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -87646,9 +88574,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -87755,7 +88680,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Geraniol",
+      "Phenethyl Alcohol",
+      "Geranium EO",
+      "Citronellol",
+      "Phenethyl Acetate"
+    ],
     "odor_profile": "Floral, rose, fresh, fruity, metallic, red."
   },
   {
@@ -87775,6 +88706,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "engine VP 9100.0 Pa (unsourced legacy value; no TGSC substantivity)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1034451.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -87791,9 +88729,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -87905,7 +88840,12 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Guaiacol",
+      "Birch Tar",
+      "Cade Oil Rectified",
+      "Cedarwood Chinese Essential Oil"
+    ],
     "odor_profile": "Woody, smoky, burnt, rum."
   },
   {
@@ -88229,6 +89169,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: PW 8IA00344 neat butter strip life 28 h; same note as the round-1 Orris Butter"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=8IA00344",
+          "https://www.thegoodscentscompany.com/data/co1001091.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -88245,9 +89193,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -88346,7 +89291,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Methyl Ionone",
+      "Sandalwood EO",
+      "Vetiver EO (Haiti)",
+      "Mimosa Absolute",
+      "Cedarwood Virginia"
+    ],
     "odor_profile": "Powdery, earthy, round, musk, woody, floral, dry, sweet, fatty, violet."
   },
   {
@@ -88500,6 +89451,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 48 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1023691.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -88516,9 +89474,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -88654,7 +89609,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Basil EO (India, Ocimum Basilicum)",
+      "Anisaldehyde",
+      "Heliotropin",
+      "Aldehyde C11 undecylenic",
+      "Anisyl Acetate"
+    ],
     "odor_profile": "Anise, fruity, watery, anisic, fennel."
   },
   {
@@ -88677,6 +89638,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 32 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1038701.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -88693,9 +89661,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -88845,7 +89810,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Allyl Amyl Glycolate",
+      "Dihydromyrcenol",
+      "Hexyl Acetate",
+      "Linalyl Acetate",
+      "Linalool"
+    ],
     "odor_profile": "Green, pineapple, herbal, galbanum, fruity, spicy, leafy."
   },
   {
@@ -88865,6 +89836,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 140 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/decatone"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -88881,9 +89859,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -89033,7 +90008,12 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Oakmoss Absolute",
+      "Vetiver EO (Haiti)",
+      "Sandalwood EO",
+      "Isobutyl Quinoline"
+    ],
     "odor_profile": "Citrus, grapefruit, woody, vetiver, green, rhubarb, fruity."
   },
   {
@@ -89055,6 +90035,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 6 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1004412.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -89071,9 +90058,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -89198,7 +90182,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Mimosa Absolute",
+      "Galbanum Resinoid",
+      "Phenethyl Alcohol",
+      "Hydroxycitronellal",
+      "Rose Oxide"
+    ],
     "odor_profile": "Fresh, aromatic, floral, fruity, green, clean, rose, oily, rhubarb."
   },
   {
@@ -89219,6 +90209,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 240 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/dupical",
+          "https://www.thegoodscentscompany.com/data/rw1023851.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -89235,9 +90233,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -89360,7 +90355,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Methyl Laitone",
+      "Hydroxycitronellal",
+      "Cyclamen Aldehyde",
+      "Hedione",
+      "Phenethyl Alcohol"
+    ],
     "odor_profile": "Floral, green, muguet, fresh, aldehydic, watery, lily, valley, sweet."
   },
   {
@@ -89382,6 +90383,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 24 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=7KG07758",
+          "https://www.thegoodscentscompany.com/data/es1018931.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -89398,9 +90407,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -89495,7 +90501,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Galbanum Resinoid",
+      "Juniper Berry EO",
+      "Rosemary EO",
+      "Beta-Pinene",
+      "Patchouli EO"
+    ],
     "odor_profile": "Fresh, balsam, woody, fir, needle, balsamic."
   },
   {
@@ -89517,6 +90529,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: no figure; same note as the round-1 Orris Butter (labelled proxy)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://archive.org/stream/ArctanderPerfumeryBook/Arctander-Perfumery-Book_djvu.txt"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -89533,9 +90552,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -89630,7 +90646,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Methyl Ionone",
+      "Mimosa Absolute",
+      "Heliotropin",
+      "Sandalwood EO",
+      "Phenyl Ethyl Dimethyl Carbinol"
+    ],
     "odor_profile": "Powdery, floral, green, woody, violet."
   },
   {
@@ -89727,6 +90749,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "engine VP 0.0127 Pa (unsourced legacy value; no TGSC substantivity)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1003971.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -89743,9 +90772,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -89863,7 +90889,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Dimethyl Benzyl Carbinol",
+      "Anisaldehyde",
+      "Siam Benzoin",
+      "Heliotropin",
+      "Benzyl Salicylate"
+    ],
     "odor_profile": "Aromatic, medicinal, phenolic, honey, sweet, animal, rose, narcissus, lily, hyacinth."
   },
   {
@@ -89883,6 +90915,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 380 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/fragrance-molecules/methyl-laitone-10dpg",
+          "https://www.thegoodscentscompany.com/data/rw1052381.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -89899,9 +90939,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -90043,7 +91080,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Methyl Laitone",
+      "Gamma Undecalactone",
+      "Phenoxy Ethyl Isobutyrate",
+      "Violet Leaf Absolute",
+      "Raspberry Ketone"
+    ],
     "odor_profile": "Fruity, peach, apricot, lactonic."
   },
   {
@@ -90066,6 +91109,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 16 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1031271.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -90082,9 +91132,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -90212,7 +91259,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Hedione",
+      "Peach Ketone",
+      "Gamma Undecalactone",
+      "Delta Decalactone",
+      "Citronellyl Acetate"
+    ],
     "odor_profile": "Fruity, pear."
   },
   {
@@ -90232,6 +91285,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 184 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3RB00369",
+          "https://www.thegoodscentscompany.com/data/rw1031511.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -90248,9 +91309,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -90384,7 +91442,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Raspberry Ketone",
+      "Alpha Ionone",
+      "Citronellol",
+      "Benzyl Acetate",
+      "Para-Cresyl Phenyl Acetate"
+    ],
     "odor_profile": "Sweet, fruity, floral, rose, honey."
   },
   {
@@ -90405,6 +91469,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4XU11429",
+          "https://www.thegoodscentscompany.com/data/rw1016851.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -90421,9 +91493,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -90548,7 +91617,12 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Ethylene Brassylate",
+      "Aldehyde C12 MNA",
+      "Aldehyde C-12 Lauric Dodecanal",
+      "Ambrox Super"
+    ],
     "odor_profile": "Musky, powdery, animalic, nitro, musk, ambrette, dry, amber, civet."
   },
   {
@@ -90569,6 +91643,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/ab1018991.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -90585,9 +91666,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -90682,7 +91760,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Petitgrain EO Paraguay",
+      "Jasmine Absolute",
+      "Myrrh EO",
+      "Methyl Anthranilate",
+      "Linalool"
+    ],
     "odor_profile": "Floral, warm, green, animalic, orange, blossom, stem, honey, sweet, fruity."
   },
   {
@@ -90731,6 +91815,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 100 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3LN00043",
+          "https://www.thegoodscentscompany.com/data/rw1001292.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -90747,9 +91839,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -90840,7 +91929,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Cyclamen Aldehyde",
+      "Heliotropin",
+      "Anisaldehyde",
+      "Mimosa Absolute",
+      "Coumarin"
+    ],
     "odor_profile": "Floral, lilac, mimosa, heliotrope, fruity, balsamic, sweet, powdery, vanilla, plum."
   },
   {
@@ -90890,6 +91985,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 4 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1001851.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -90906,9 +92008,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -90992,7 +92091,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Ethyl Butyrate",
+      "Ethyl 2-Methylbutyrate",
+      "Raspberry Ketone",
+      "Berry Hexanoate (BerryFlor)",
+      "Manzanate"
+    ],
     "odor_profile": "Fruity, apple, green, plum."
   },
   {
@@ -91037,6 +92142,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 4 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3FD00174",
+          "https://www.thegoodscentscompany.com/data/rw1004791.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -91053,9 +92166,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -91142,7 +92252,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Benzaldehyde",
+      "Gamma Undecalactone",
+      "Ethyl Acetoacetate",
+      "Butyl Butyrate",
+      "Allyl Cyclohexyl Propionate"
+    ],
     "odor_profile": "Fruity, raspberry, strawberry, juicy, fruit, pineapple."
   },
   {
@@ -91161,6 +92277,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: PW 6FQ21068 strip life 200 h (200 h or less = heart by the same hours rule)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://thegoodscentscompany.com/data/fl1021691.html",
+          "https://www.perfumersworld.com/view.php?pro_id=6FQ21068"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -91177,9 +92301,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -91274,7 +92395,11 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Black Agarwood Artificial",
+      "Red Saffron Infusion",
+      "Ethyl Vanillin"
+    ],
     "odor_profile": "Rich, palm, date, dried."
   },
   {
@@ -91321,6 +92446,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 28 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1024591.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -91337,9 +92469,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -91429,7 +92558,12 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Para-Cresyl Phenyl Acetate",
+      "Benzyl Benzoate",
+      "Dimethyl Benzyl Carbinol",
+      "Geranium Bourbon Essential Oil"
+    ],
     "odor_profile": "Sweet, floral, leafy, rich, balsamic."
   },
   {
@@ -91473,6 +92607,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 124 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1003371.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -91489,9 +92630,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -91581,7 +92719,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Geranium Bourbon Essential Oil",
+      "Cinnamyl Alcohol",
+      "Benzyl Benzoate",
+      "Coumarin",
+      "Sandalwood EO"
+    ],
     "odor_profile": "Cinnamon, cocoa, fruity, honey, sweet, floral, spicy."
   },
   {
@@ -91604,6 +92748,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 24 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1018931.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -91620,9 +92771,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -91717,7 +92865,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Galbanum Resinoid",
+      "Rosemary EO",
+      "Beta-Pinene",
+      "Patchouli EO",
+      "Cardamom EO"
+    ],
     "odor_profile": "Coniferous, clean, resinous, woody, fresh, balsamic."
   },
   {
@@ -91739,6 +92893,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: no figure for this solvent extract; floral absolute, heart by class (labelled proxy)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.natureinbottle.com/product/champaca_absolute_oil",
+          "https://www.thegoodscentscompany.com/data/ab1040551.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -91755,9 +92917,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -91852,7 +93011,12 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Sandalwood EO",
+      "Methyl Ionone",
+      "Ethyl Linalool",
+      "Tuberose Absolute"
+    ],
     "odor_profile": "Fruity, green, apple, floral."
   },
   {
@@ -91872,6 +93036,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 188 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1004051.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -91888,9 +93059,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -91985,7 +93153,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Bergamot FCF Oil Sicilian",
+      "Sweet Orange Essential Oil",
+      "Labdanum Absolute",
+      "Myrrh EO",
+      "Black Pepper EO"
+    ],
     "odor_profile": "Ambery, spicy, peppery, terpenic, green, resinous."
   },
   {
@@ -92006,6 +93180,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: Arctander: \"extremely tenacious\", \"great tenacity (fixative value)\""
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/sandalwood-oil-australia",
+          "https://www.thegoodscentscompany.com/data/es1050241.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -92022,9 +93204,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -92119,7 +93298,11 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Vanilla Absolute",
+      "Jasmine Absolute",
+      "Siam Benzoin"
+    ],
     "odor_profile": "Woody, resinous, balsamic, creamy, dry, sweet, soft, myrrh."
   },
   {
@@ -92164,6 +93347,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 44 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=3WS00089",
+          "https://www.thegoodscentscompany.com/data/rw1060851.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -92180,9 +93371,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -92271,7 +93459,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Siam Benzoin",
+      "Beta-Pinene",
+      "Amyl Cinnamic Aldehyde (ACA)",
+      "Clove EO (India)",
+      "Nutmeg EO"
+    ],
     "odor_profile": "Woody, spicy, dry, terpenic, clove, sweet."
   },
   {
@@ -92294,6 +93488,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 128 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/es1024001.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -92310,9 +93511,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -92409,7 +93607,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Gamma Undecalactone",
+      "Gamma Decalactone",
+      "Osmanthus Absolute",
+      "Beta Damascone",
+      "Tonka Bean Absolute"
+    ],
     "odor_profile": "Fruity, syrupy, apricot, quince, sweet, herbaceous, black, currant, balsamic."
   },
   {
@@ -92429,6 +93633,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "override: Firmenich: FIXATEUR family built on Ambrox; PW lists \"Fixative-effect\" (PW strip life 67 h)"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=4UY07514",
+          "https://www.thegoodscentscompany.com/data/pb1005171.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -92445,9 +93657,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -92542,7 +93751,12 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Galbanum Resinoid",
+      "Labdanum Absolute",
+      "Vetiveryl Acetate",
+      "Cedryl Acetate"
+    ],
     "odor_profile": "Ambergris, ambery, woody, animalic, old, wood, animal."
   },
   {
@@ -92588,6 +93802,13 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 240 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.thegoodscentscompany.com/data/rw1007011.html"
+        ]
+      },
       "mw": {
         "status": "UNVERIFIED_LEGACY_VALUE"
       },
@@ -92604,9 +93825,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -92694,7 +93912,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Vetiver EO (Haiti)",
+      "Patchouli EO",
+      "Guaiacwood EO",
+      "Ambrox Super",
+      "Coumarin"
+    ],
     "odor_profile": "Woody, ambery, dry, fresh, amber, earthy, patchouli, warm, vetiver, tobacco."
   },
   {
@@ -92835,6 +94059,14 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 400 hour(s) at 100.00 % h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://www.perfumersworld.com/view.php?pro_id=7WP00844",
+          "https://www.thegoodscentscompany.com/data/es1007241.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -92851,9 +94083,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -92950,7 +94179,12 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Birch Tar",
+      "Ambermax",
+      "Cedroxyde",
+      "Cade Oil Rectified"
+    ],
     "odor_profile": "Woody, smoky, cedar."
   },
   {
@@ -92972,6 +94206,15 @@
         "status": "LITERATURE_VOLATILITY_RULE",
         "basis": "TGSC substantivity 140 h at 100%"
       },
+      "synergies": {
+        "status": "LITERATURE_PAIRINGS_20261102",
+        "source": "data/knowledge_graph/literature_synergies_20261102.json",
+        "sources": [
+          "https://biolandes.com/en/natural-ingredients-for-perfumery-essential-oil-of-ylang-2",
+          "https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-business/natural-ingredients/ylang-ylang-oil-complete-madagascar-organic",
+          "https://www.thegoodscentscompany.com/data/es1012152.html"
+        ]
+      },
       "mw": {
         "status": "UNKNOWN"
       },
@@ -92988,9 +94231,6 @@
         "status": "UNKNOWN"
       },
       "role": {
-        "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
-      },
-      "synergies": {
         "status": "DESIGN_HEURISTIC_NOT_SENSORY_MEASUREMENT"
       },
       "or_family": {
@@ -93085,7 +94325,13 @@
     "hedonic": 0.0,
     "material_kind": "UNRESOLVED",
     "formulation_roles": [],
-    "synergies": [],
+    "synergies": [
+      "Sandalwood EO",
+      "Jasmine Absolute",
+      "Vetiver EO (Haiti)",
+      "Mimosa Absolute",
+      "Opoponax Resinoid"
+    ],
     "odor_profile": "Floral, jasmine, fruity, green, spicy."
   }
 ]

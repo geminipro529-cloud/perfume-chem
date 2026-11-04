@@ -6291,3 +6291,28 @@ def _apply_literature_character_profiles() -> None:
 
 
 _apply_literature_character_profiles()
+
+# Pairings for the literature-sourced profiles (Kenny 2 Nov 2026, "Add pairings to sourced profiles"):
+# 3 to 5 partners each that a producer text, TGSC's blender list or PerfumersWorld names next to the
+# material, written as his stock names. Hand-written profiles keep their own lists.
+_LITERATURE_SYNERGIES = (
+    Path(__file__).resolve().parents[1] / "data/knowledge_graph/literature_synergies_20261102.json"
+)
+
+
+def _apply_literature_synergies() -> None:
+    root = Path(__file__).resolve().parents[1]
+    document = json.loads(_LITERATURE_SYNERGIES.read_text(encoding="utf-8"))
+    for entry in document["profiles"]:
+        if not entry["synergies"]:
+            continue
+        data = _PROFILES[entry["profile_key"]]
+        data["synergies"] = list(entry["synergies"])
+        data.setdefault("evidence", {})["synergies"] = {
+            "status": "LITERATURE_PAIRINGS_20261102",
+            "source": str(_LITERATURE_SYNERGIES.relative_to(root)),
+            "sources": sorted({partner["url"] for partner in entry["partners"] if partner.get("url")}),
+        }
+
+
+_apply_literature_synergies()
