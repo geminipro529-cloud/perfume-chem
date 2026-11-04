@@ -32,12 +32,12 @@ def test_orris_butter_50_is_a_separate_mass_fraction_ethanol_stock():
     stocks = inventory.materialize_current_inventory().stocks
     new = [s for s in stocks if s.name == NAME]
     old = [s for s in stocks if s.name == "Orris Concrete Orris Butter"]
-    assert len(new) == 1 and len(old) == 1
+    # Kenny, 2 Nov 2026: "Orris butter 10% is out, there is only orris butter 50%".
+    assert len(new) == 1 and old == []
     assert new[0].dilution == pytest.approx(0.5)
     assert new[0].fraction_basis == "mass_fraction"
     assert new[0].carrier == "ethanol"
     assert new[0].execution_ready is True
-    assert old[0].dilution == pytest.approx(0.1) and old[0].carrier == "dpg"
 
 
 def test_orris_butter_50_uses_the_orris_butter_scenario_under_its_own_name():

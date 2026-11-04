@@ -28,8 +28,9 @@ def test_received_order_totals_and_all_stock_forms_are_visible() -> None:
     assert len(receipt["records"]) == 53
     assert sum(Decimal(row["received_quantity_g"]) for row in receipt["records"]) == 133
     stocks = materialize_personal_inventory().stocks
-    # Received bottles Kenny has since used up: Ambrofix Crystals on 2026-10-29 (STK-232).
-    used_up = {normalize_name("Ambrofix Crystals")}
+    # Received bottles Kenny has since used up: Ambrofix Crystals on 2026-10-29 (STK-232)
+    # and Orris Butter 10% in DPG on 2026-11-02 (STK-077).
+    used_up = {normalize_name("Ambrofix Crystals"), normalize_name("Orris Concrete Orris Butter")}
     for row in receipt["records"]:
         visible = any(
             normalize_name(stock.identity_name or stock.name) == normalize_name(row["inventory_identity"])
@@ -61,8 +62,10 @@ def test_new_dilutions_and_iris_products_are_not_collapsed() -> None:
     # 2026-10-15: Kenny's w/w rule gives PerfumersWorld's 10% in TEC its basis.
     assert (ambrocenide.dilution, ambrocenide.fraction_basis, ambrocenide.carrier) == (0.1, "mass_fraction", "tec")
     assert ambrocenide.execution_ready is True
-    butter = next(stock for stock in stocks if stock.identity_name == "Orris Concrete Orris Butter")
-    assert butter.dilution == 0.1 and butter.carrier == "dpg"
+    # Kenny, 2 Nov 2026: "Orris butter 10% is out, there is only orris butter 50%".
+    assert not [stock for stock in stocks if stock.identity_name == "Orris Concrete Orris Butter"]
+    butter = next(stock for stock in stocks if stock.name == "Orris Butter 50% in EtOH")
+    assert butter.dilution == 0.5 and butter.carrier == "ethanol"
     liquid = [stock for stock in stocks if stock.identity_name == "Orris Liquid"]
     # The user lifted the Orris Liquid compounding hold on 2026-10-08.
     assert liquid and not any(inventory.is_user_compounding_held(stock) for stock in liquid)

@@ -6292,6 +6292,42 @@ def _apply_literature_character_profiles() -> None:
 
 _apply_literature_character_profiles()
 
+# Round 4 (Kenny 2 Nov 2026, "Sources only"): sources, CAS flags and literature note tiers for 186
+# hand-written profiles, plus the Dior Homme Intense reparse odour records. Evidence only: the
+# character, note, odor_description, cas and physics values that score formulas are not changed.
+_LITERATURE_SOURCES_EVIDENCE = (
+    Path(__file__).resolve().parents[1] / "data/knowledge_graph/literature_sources_round4_20261102.json"
+)
+
+
+def _attach_literature_sources_evidence() -> None:
+    root = Path(__file__).resolve().parents[1]
+    document = json.loads(_LITERATURE_SOURCES_EVIDENCE.read_text(encoding="utf-8"))
+    source = str(_LITERATURE_SOURCES_EVIDENCE.relative_to(root))
+    for entry in document["profiles"]:
+        evidence = _PROFILES[entry["profile_key"]].setdefault("evidence", {})
+        # One {"status": ...} dict like every other evidence field; a profile with two stocks has two records.
+        literature = evidence.setdefault(
+            "literature_sources",
+            {"status": "EVIDENCE_ONLY_NOT_APPLIED", "source": source, "records": []},
+        )
+        literature["records"].append(
+            {
+                "stock_names": list(entry["stock_names"]),
+                "sources": [ranked["url"] for ranked in entry["sources_ranked"]],
+                "cas_flag": entry["cas_evidence"]["flag"],
+                "sourced_cas": entry["cas_evidence"]["sourced"],
+                "sourced_note": entry["note_evidence"]["sourced_note"],
+                "note_status": entry["note_evidence"]["status"],
+                "dhi_reparse_sources": sorted(
+                    {url for row in entry["dhi_reparse_records"] for url in row.get("sources") or []}
+                ),
+            }
+        )
+
+
+_attach_literature_sources_evidence()
+
 # Pairings for the literature-sourced profiles (Kenny 2 Nov 2026, "Add pairings to sourced profiles"):
 # 3 to 5 partners each that a producer text, TGSC's blender list or PerfumersWorld names next to the
 # material, written as his stock names. Hand-written profiles keep their own lists.

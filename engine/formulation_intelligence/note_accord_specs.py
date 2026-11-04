@@ -166,10 +166,8 @@ SPECS: tuple[AccordSpec, ...] = (
         lead=NodeRef("FL_IRIS", "recognizer", "root/butter anchor", ("biolandes_orris",)),
         # FL_IRIS's negative space calls Orris Liquid held; Kenny cleared that hold on
         # 2026-10-08 (data/governance/inventory_compounding_holds.json has no records).
+        # Kenny, 2 Nov 2026: "Orris butter 10% is out, there is only orris butter 50%".
         lead_stocks=(
-            StockRef("Orris Concrete Orris Butter", .1, True,
-                     "PerfumersWorld orris concrete/butter 5IA07847 at 10% w/w in DPG, irone content not "
-                     "recorded; not the Biolandes assay-specified butter"),
             StockRef("Orris Butter 50% in EtOH", .5, True,
                      "Kenny's 50% w/w solution in ethanol of MySkinRecipes orris butter, irone content "
                      "unknown; not the Biolandes assay-specified butter"),
