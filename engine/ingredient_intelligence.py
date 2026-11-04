@@ -6352,3 +6352,30 @@ def _apply_literature_synergies() -> None:
 
 
 _apply_literature_synergies()
+
+# Kenny, 4 Nov 2026 (card "Odour words for all, then lists"): hand-written profiles
+# without their own odour text take the Good Scents Company odour description,
+# cross-checked with producer text. Only an empty odor_description is filled;
+# character, note and synergies stay as they are.
+_HAND_ODOUR_DESCRIPTIONS = (
+    Path(__file__).resolve().parents[1] / "data/knowledge_graph/hand_profile_odour_descriptions_20261104.json"
+)
+
+
+def _apply_hand_odour_descriptions() -> None:
+    root = Path(__file__).resolve().parents[1]
+    document = json.loads(_HAND_ODOUR_DESCRIPTIONS.read_text(encoding="utf-8"))
+    source = str(_HAND_ODOUR_DESCRIPTIONS.relative_to(root))
+    for entry in document["profiles"]:
+        data = _PROFILES[entry["profile_key"]]
+        if not entry.get("odor_description") or data.get("odor_description"):
+            continue
+        data["odor_description"] = entry["odor_description"]
+        data.setdefault("evidence", {})["odor_description"] = {
+            "status": "TGSC_ODOUR_DESCRIPTION_20261104",
+            "source": source,
+            "sources": [row["url"] for row in entry["sources"]],
+        }
+
+
+_apply_hand_odour_descriptions()
