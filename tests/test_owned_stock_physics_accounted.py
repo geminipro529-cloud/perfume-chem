@@ -79,10 +79,8 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
         "PW declares only methyl heptadienone 0.23%; US 9434908 Table 5 (read 2026-10-25) is a "
         "dimethyl-carbonate leaf extract, 58.9% caffeine by GC area, not an absolute",
     ),
-    "Red Saffron Infusion": (
-        _ALL,
-        "PerfumersWorld: saffron stigmas extracted in DPG; strength unpublished",
-    ),
+    # Red Saffron Infusion left on 2026-11-04: its certificate safranal (0.0519%) is now a
+    # labelled partial composite profile.
     "Cabbage Rose Extract": (_ALL, _MSR_COSMETIC_EXTRACT),
     "Magnolia Flower Extract": (_ALL, _MSR_COSMETIC_EXTRACT),
     "Iris Florentina Root Extract": (_ALL, _MSR_COSMETIC_EXTRACT),

@@ -240,15 +240,16 @@ def test_unresolved_natural_matrix_is_explicit_and_opaque_blends_are_separate() 
     # New purchases can add unresolved naturals without making this test fail.
     # Champaca Flower EO, Magnolia EO, Peru Balsam Resinoid and Tagetes EO got
     # labelled partial proxy profiles on 2026-10-09 and left this list; Pine EO
-    # (PerfumersWorld 7KQ07511 declaration) left it on 2026-10-25.
+    # (PerfumersWorld 7KQ07511 declaration) left it on 2026-10-25, and Opoponax Resinoid
+    # (Baser 2003 oil profile scaled to the resinoid) on 2026-11-04.
     unresolved = set(audit["categories"]["naturals_missing_composite_evidence"])
     assert {
         "Anise EO",
         "Basil EO",
         "Cade Oil Rectified",
         "Himalayan Cedarwood EO",
-        "Opoponax Resinoid",
     }.issubset(unresolved)
+    assert "Opoponax Resinoid" not in unresolved
     opaque = set(audit["categories"]["opaque_preblends_without_disclosed_composition"])
     assert "Leather FO" in opaque
     assert unresolved.isdisjoint(opaque)
