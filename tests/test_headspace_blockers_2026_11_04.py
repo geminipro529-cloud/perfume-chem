@@ -91,3 +91,12 @@ def test_opoponax_resinoid_prints_screening_headspace_but_still_warns():
     assert row.physics_status == "SCREENING_SENSITIVITY_ONLY"
     assert row.sources["oav_model"] == "modeled:natural_constituent_composite"
     assert "NATURAL_COMPOSITE_PARTIAL" in row.physics_blockers
+
+
+def test_texas_cedarwood_takes_its_own_thujopsene_led_median():
+    rows = {row[0]: row[1] for row in get_constituents("Cedarwood Texas EO")}
+    assert rows["thujopsene"] == pytest.approx(0.362)
+    assert rows["cedrol"] == pytest.approx(0.2712)
+    assert rows["alpha cedrene"] == pytest.approx(0.114)
+    virginia = {row[0]: row[1] for row in get_constituents("Cedarwood EO")}
+    assert virginia["alpha cedrene"] == pytest.approx(0.318)  # Virginia profile unchanged

@@ -145,10 +145,11 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # (266 -> 267). Group 5 shared Leafovert's Symrise air threshold with Liffarome, the same
     # molecule (267 -> 268). Group 7 gave Buccoxime Symrise's air threshold, Veloutone a Givaudan
     # PROC value and Cis-3 Hexenyl Hexanoate, Linalool Oxide and Rhubofix labelled UNVERIFIED
-    # analogue estimates (268 -> 273).
-    assert audit["oav_available_count"] == 273
-    assert audit["oav_unknown_count"] == 17
-    assert audit["oav_coverage_pct"] == 94.138
+    # analogue estimates (268 -> 273). 2026-11-04 headspace blockers: a labelled partial
+    # Baser 2003 oil profile made Opoponax Resinoid OAV-available (273 -> 274).
+    assert audit["oav_available_count"] == 274
+    assert audit["oav_unknown_count"] == 16
+    assert audit["oav_coverage_pct"] == 94.483
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"

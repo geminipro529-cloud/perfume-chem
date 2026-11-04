@@ -566,6 +566,22 @@ _CEDARWOOD_EO_CONSTITUENTS = [
 ]
 # Total identified: 82.7% — excellent coverage (APRC 56-sample mean)
 
+# Texas cedarwood oil (Juniperus mexicana / J. ashei wood oil), Kenny's MySkinRecipes
+# bottle (order 2199302, lot 4ZPU51; the COA prints no composition). Per-row median of
+# nine published wood-oil analyses: Adams via TGSC gc1002952; Kitzing and four APRC
+# commercial lots (Setzer & Satyal 2026, Plants 15:659, Table 10); PhytoChemia CB8110R
+# (J. mexicana); VINEVIDA DPP9589; and the EFSA FEEDAP 2024 five-batch GC-FID mean
+# (doi:10.2903/j.efsa.2024.8799). Thujopsene-led like Chinese cedar, not cedrene-led
+# like Virginia. Molecular inputs reuse the Virginia rows; nothing is renormalized.
+_CEDARWOOD_TEXAS_MEDIAN_CONSTITUENTS = [
+    ("thujopsene", 0.362, 204.35, 2.00, 5.00, 1.2),
+    ("cedrol", 0.2712, 222.37, 0.001, 2.00, 0.5),
+    ("alpha cedrene", 0.114, 204.35, 3.00, 10.0, 1.2),
+    ("beta cedrene", 0.034, 204.35, 2.00, 10.0, 1.2),
+    ("cuparene", 0.0184, 202.34, 0.50, 3.00, 1.0),
+    ("widdrol", 0.0169, 222.37, 0.005, 1.00, 0.5),
+]
+
 # Chinese cedarwood oil (Cupressus funebris wood oil, CAS 85085-29-6): The Good Scents Company
 # typical GC (https://www.thegoodscentscompany.com/gca/gc1007241.html), citing R. P. Adams, "Cedarwood oil - analyses and properties"
 # (Modern Methods of Plant Analysis NS 12) and P&F 23(5):55 (1998). Same sesquiterpenes as the
@@ -1689,6 +1705,29 @@ _PINE_PW_7KQ07511_IFRA_DECLARATION_CONSTITUENTS = [
     ("limonene", 0.028407, 136.24, 200.0, 20.0, 3.0),
 ]
 
+# Kenny's Pine EO is PerfumersWorld 7KQ07511 (his answer, 4 Nov 2026), which PW gives
+# the Scots pine CAS 84012-35-1. Rows are the per-row median of three PhytoChemia
+# GC reports of Pinus sylvestris needle oil for Plant Therapy (P70114R Romania,
+# P7010794R Austria, P70108207R Hungary). Limonene keeps the owned batch's declared
+# 2.8407% (PW IFRA declaration), which outranks a generic median. The declared
+# 8.88% longifolene does not fit Scots pine (lots 0-1.3%) and stays unresolved.
+# alpha-Pinene, beta-pinene and limonene carry Nagata (2003) air thresholds; the
+# other rows reuse this module's runtime tuples. Nothing is renormalized.
+_PINE_SYLVESTRIS_THREE_LOT_MEDIAN_CONSTITUENTS = [
+    ("alpha pinene", 0.5001, 136.24, 633.3, 18.0, 3.0),
+    ("beta pinene", 0.1220, 136.24, 390.6, 33.0, 3.0),
+    ("delta-3-carene", 0.1093, 136.23, 200.0, 50.0, 3.0),
+    ("limonene", 0.028407, 136.24, 206.6, 38.0, 3.0),
+    ("myrcene", 0.0325, 136.24, 400.0, 10.0, 3.0),
+    ("beta caryophyllene", 0.0207, 204.35, 1.00, 10.0, 1.2),
+    ("bornyl acetate", 0.0147, 196.29, 3.0, 10.0, 1.5),
+    ("camphene", 0.0144, 136.24, 400.0, 50.0, 3.0),
+    ("p cymene", 0.0116, 134.22, 240.0, 30.0, 3.0),
+    ("beta phellandrene", 0.0096, 136.24, 300.0, 20.0, 3.0),
+    ("alpha terpineol", 0.0067, 154.25, 2.00, 10.0, 1.5),
+    ("terpinolene", 0.0060, 136.23, 150.0, 30.0, 3.0),
+]
+
 # Santalum album L. oil: ISO 3518:2025 Table 2 chromatographic profile; fractions
 # are the midpoints of the (Z)-alpha- and (Z)-beta-santalol ranges. Farnesol and
 # lanceol (n.d.-1.0% and n.d.-5.0%) have upper bounds only and stay unresolved. The
@@ -1833,6 +1872,7 @@ _ABSOLUTE_CONSTITUENTS = {
     # Literature-only proxy identities (not supplier-batch identities).
     "cupressus sempervirens leaf oil literature profile": _CYPRESS_LEAF_LITERATURE_CONSTITUENTS,
     "cupressus funebris wood oil tgsc typical gc profile": _CUPRESSUS_FUNEBRIS_TGSC_CONSTITUENTS,
+    "cedarwood texas oil nine-analysis gc median profile": _CEDARWOOD_TEXAS_MEDIAN_CONSTITUENTS,
     "mentha piperita lk literature profile": _PEPPERMINT_LK_LITERATURE_CONSTITUENTS,
     "lavandula latifolia spanish type iso 4719 midpoint profile": (
         _SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS
@@ -1940,6 +1980,9 @@ _ABSOLUTE_CONSTITUENTS = {
     "pine oil perfumersworld 7kq07511 ifra declaration profile": (
         _PINE_PW_7KQ07511_IFRA_DECLARATION_CONSTITUENTS
     ),
+    "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile": (
+        _PINE_SYLVESTRIS_THREE_LOT_MEDIAN_CONSTITUENTS
+    ),
     "santalum album oil iso 3518 midpoint profile": (
         _SANDALWOOD_ALBUM_ISO_3518_MIDPOINT_CONSTITUENTS
     ),
@@ -1977,10 +2020,12 @@ _PROFILE_ALIASES = {
     "blood orange sicilian": "orange peel eo",
     # MySkinRecipes order 2199302 stocks (Kenny chose "Link them", 16 Oct 2026): labelled
     # proxies onto the existing whole-oil profiles, not lot data. Bourbon geranium uses the
-    # geranium EO profile and Texas cedar
-    # (Juniperus mexicana, thujopsene/cedrene/cedrol like Virginia) the cedarwood EO profile.
+    # geranium EO profile. Texas cedar used the Virginia cedarwood EO profile until 4 Nov 2026
+    # (Kenny chose "Fix and source"); it now takes its own nine-analysis Texas median.
     "geranium bourbon essential oil": "geranium eo",
-    "cedarwood texas eo": "cedarwood eo",
+    "cedarwood texas eo": "cedarwood texas oil nine-analysis gc median profile",
+    "cedarwood texas": "cedarwood texas oil nine-analysis gc median profile",
+    "cedarwood texas essential oil": "cedarwood texas oil nine-analysis gc median profile",
     # Kenny's China cedarwood (V5 row 62, STK-229): Cupressus funebris as the closest identity,
     # by his 28 Oct 2026 rule for unidentified bottles ("select the one that is the closest").
     "cedarwood chinese essential oil": "cupressus funebris wood oil tgsc typical gc profile",
@@ -2187,8 +2232,10 @@ _PROFILE_ALIASES = {
     "cabreuva eo (50% w/w in dpg)": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
     "cabreuva eo 50% in dpg": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
     "cabreuva essential oil": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
-    "pine eo": "pine oil perfumersworld 7kq07511 ifra declaration profile",
-    "pine essential oil": "pine oil perfumersworld 7kq07511 ifra declaration profile",
+    # Pine EO = PW 7KQ07511 (Kenny, 4 Nov 2026); since then the Scots pine median, with
+    # the batch declaration kept as its cross-check.
+    "pine eo": "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile",
+    "pine essential oil": "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile",
     "sandalwood eo": "santalum album oil iso 3518 midpoint profile",
     "sandalwood eo (10% in dpg)": "santalum album oil iso 3518 midpoint profile",
     "sandalwood essential oil": "santalum album oil iso 3518 midpoint profile",
@@ -2402,6 +2449,21 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "oman boswellia resin ethanol tincture generic profile": (
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC8881160/",
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC10603989/",
+    ),
+    "cedarwood texas oil nine-analysis gc median profile": (
+        "https://thegoodscentscompany.com/gca/gc1002952.html",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12944130/",
+        "https://www.planttherapy.com/cdn/shop/files/Cedarwood_Texas_crude_-_CB8110R.pdf",
+        "https://cdn.shopify.com/s/files/1/0305/1562/6117/files/VINEVIDA_Cedarwood_Texas_Essential_Oil_GCMS_05-01-2026.pdf",
+        "https://doi.org/10.2903/j.efsa.2024.8799",
+        "https://cdn.standards.iteh.ai/samples/34879/52f537904d964d00815825b815d01d0a/ISO-4725-2004.pdf",
+    ),
+    "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile": (
+        "https://www.planttherapy.com/cdn/shop/files/Pine_-_P70114R.pdf",
+        "https://www.planttherapy.com/cdn/shop/files/Pine_P70107.pdf",
+        "https://www.planttherapy.com/cdn/shop/files/Pine_P70108.pdf",
+        "https://www.perfumersworld.com/document-list.php?pro_id=7KQ07511",
+        "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf",
     ),
     "cupressus funebris wood oil tgsc typical gc profile": (
         "https://www.thegoodscentscompany.com/gca/gc1007241.html",
@@ -3764,6 +3826,111 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Only 72.25% of nominal composition is modeled; myristicin, safrole and unlisted constituents remain uncomputed, not odorless.",
             "Safrole is restricted by IFRA Standard 179 (safrole, isosafrole and dihydrosafrole together at most 0.01% of the finished product); this composition scenario does not feed the IFRA screen.",
             "Mace (aril) oil and West Indian nutmeg oil are not covered by this profile.",
+        ),
+    },
+    "cedarwood texas oil nine-analysis gc median profile": {
+        "analytical_method": "PUBLISHED_GC_TABLES_PER_ROW_MEDIAN",
+        "composition_basis": "GC_AREA_MEDIAN_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12944130/",
+                "analyses": (
+                    "Adams (1991) via TGSC gc1002952 (= Setzer & Satyal 2026 Table 10 ref 83): alpha-cedrene 30.7, beta-cedrene 5.5, thujopsene 25.0, cedrol 19.1, cuparene 1.70, widdrol 1.60",
+                    "Kitzing commercial (Setzer & Satyal 2026 Table 10 ref 85): 8.6 / 3.4 / 38.4 / 28.9",
+                    "APRC commercial x4 (Setzer & Satyal 2026 Table 10): alpha-cedrene 12.5, 11.4, 13.3, 10.6; beta-cedrene 3.4, 3.3, 2.6, 2.7; thujopsene 36.2, 38.6, 38.5, 39.8; cedrol 30.3, 29.4, 23.1, 27.3",
+                    "PhytoChemia CB8110R for Plant Therapy, J. mexicana (2023-11-24): alpha-cedrene 11.30, beta-cedrene 3.63, cis-thujopsene 33.77, cedrol 17.81, widdrol 2.41, cuparene 2.14",
+                    "VINEVIDA DPP9589 (Dec 2025): alpha-cedrene 8.36, beta-cedrene 2.95, thujopsene 34.94, cuprene 1.81, cedrol 27.12, widrol 1.69",
+                    "EFSA FEEDAP 2024, five batches J. deppeana, GC-FID means: thujopsene 29.8, cedrol 22.0, alpha-cedrene 16.9, beta-cedrene 5.80; GC-MS cuparene 1.86",
+                ),
+                "excluded": "SC-CO2 extract (Setzer & Satyal 2026 ref 86): 'not a true essential oil'",
+                "iso_4725_2004_ranges_pct": {
+                    "alpha-cedrene": (15.0, 25.0), "beta-cedrene": (3.0, 8.0), "thujopsene": (25.0, 35.0),
+                    "cuparene": (1.5, 3.2), "cedrol": (20.0, None), "widdrol": (2.5, None),
+                },
+                "fraction_rule": "PER_ROW_MEDIAN_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "response_factor_correction": "NONE_APPLIED_IN_SOURCES",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Cedarwood Texas EO, MySkinRecipes order 2199302, lot 4ZPU51, neat",
+                "owned_bottle_sku_verified": True,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("thujopsene", "cedrol", "alpha cedrene", "beta cedrene", "cuparene", "widdrol")},
+        },
+        "unresolved_constituents": (
+            {"name": "alpha-chamigrene", "reported_fraction": 0.012,
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "beta-himachalene, beta-funebrene, alpha-acorenol, alpha-cuprenene, beta-elemene and traces",
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "A median of published commercial and reference analyses, not an analysis of the owned lot; MySkinRecipes prints no composition.",
+            "Most market lots sit outside ISO 4725: 7 of 9 have alpha-cedrene below the 15% minimum and the thujopsene median (36.2%) is above the 35% maximum; widdrol is below the 2.5% minimum in every point value.",
+            "Sources name J. mexicana, J. ashei and J. deppeana; the owned bottle's species is not stated.",
+            "Constituent vapour pressures and thresholds are the legacy runtime estimates shared with the Virginia cedarwood profile; no air ODT was found for any cedarwood constituent. TGSC estimates cedrol at 0.001 mm Hg (0.133 Pa), while the legacy row carries 0.001 Pa.",
+        ),
+    },
+    "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile": {
+        "analytical_method": "PUBLISHED_LOT_GC_REPORTS_MEDIAN",
+        "composition_basis": "GC_AREA_MEDIAN_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.planttherapy.com/cdn/shop/files/Pine_-_P70114R.pdf",
+                "lots_pct_romania_austria_hungary": {
+                    "alpha-pinene": (50.01, 51.56, 40.09), "beta-pinene": (12.20, 9.69, 19.90),
+                    "delta-3-carene": (10.18, 10.93, 15.20), "limonene": (8.02, 7.99, 8.02),
+                    "myrcene": (2.85, 4.66, 3.25), "beta-caryophyllene": (2.07, 2.14, 1.83),
+                    "bornyl acetate": (1.28, 1.90, 1.47), "camphene": (1.44, 2.11, 1.10),
+                    "p-cymene": (0.92, 1.16, 1.30), "beta-phellandrene": (0.45, 0.96, 1.15),
+                    "alpha-terpineol": (1.21, 0.67, 0.56), "terpinolene": (0.60, 0.53, 0.85),
+                },
+                "published_botanical_name": "Pinus sylvestris (PhytoChemia: 'Source : Pinus sylvestris')",
+                "owned_batch_declaration": {
+                    "source": "https://www.perfumersworld.com/document-list.php?pro_id=7KQ07511",
+                    "declared_pct": {"d-limonene": 2.8407, "longifolene": 8.8795},
+                    "used_for": "limonene row; longifolene listed as unresolved",
+                },
+                "species_link": "Kenny, 4 Nov 2026: his Pine EO is PerfumersWorld 7KQ07511; PW gives CAS 84012-35-1 (Pinus sylvestris)",
+                "fraction_rule": "PER_ROW_MEDIAN_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_bottle_sku_verified": True,
+            },
+            "alpha pinene": {
+                "vp_status": "HSDB_25C", "vp_source": "PubChem CID 6654 (HSDB): 4.75 mm Hg at 25 C",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata (2003) Table 2, alpha-Pinene 0.018 ppm v/v",
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT", "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "beta pinene": {
+                "vp_status": "TGSC_25C", "vp_source": "https://thegoodscentscompany.com/data/rw1344431.html (2.93 mm Hg at 25 C)",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata (2003) Table 2, beta-Pinene 0.033 ppm v/v",
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT", "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "limonene": {
+                "vp_status": "HSDB_EXTRAPOLATED_25C", "vp_source": "PubChem CID 22311 (HSDB): 1.55 mm Hg at 25 C, extrapolated",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata (2003) Table 2, Limonene 0.038 ppm v/v",
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT", "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY) for name in ('delta-3-carene', 'myrcene', 'beta caryophyllene', 'bornyl acetate', 'camphene', 'p cymene', 'beta phellandrene', 'alpha terpineol', 'terpinolene')},
+        },
+        "unresolved_constituents": (
+            {"name": "longifolene", "reported_fraction": 0.088795,
+              "missing_input": "OWNED_BATCH_DECLARATION_CONFLICTS_WITH_SCOTS_PINE_AND_NO_AIR_ODT",
+              "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-humulene, tricyclene, caryophyllene oxide and traces",
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "A median of three published Scots pine lots, not an analysis of the owned bottle; the owned batch declares 2.84% limonene (Ph. Eur. 7-12%) and 8.88% longifolene, which no Scots pine lot found reaches, so the bottle may be another pine or a blend.",
+            "Rows other than alpha-pinene, beta-pinene and limonene use the module's legacy runtime vapour pressures and thresholds.",
         ),
     },
     "cupressus funebris wood oil tgsc typical gc profile": {

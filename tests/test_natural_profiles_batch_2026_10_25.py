@@ -20,6 +20,7 @@ from engine.pipeline.natural_absolute_decomposition import (
 
 _CABREUVA = "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile"
 _PINE = "pine oil perfumersworld 7kq07511 ifra declaration profile"
+_PINE_SYLVESTRIS = "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile"
 _SANDALWOOD = "santalum album oil iso 3518 midpoint profile"
 _TUBERLIA = "tuberalia base perfumersworld 6nd09663 declaration profile"
 _SIAM = "styrax tonkinensis resin jecfa 2011 mean profile"
@@ -31,7 +32,9 @@ _LABELS = {
     "Rose de Mai Absolute": ("rose de mai absolute", 0.4804, "direct_identity"),
     "Cabreuva EO 50% in DPG": (_CABREUVA, 0.070497, "literature_proxy"),
     "Cabreuva EO": (_CABREUVA, 0.070497, "literature_proxy"),
-    "Pine EO": (_PINE, 0.028407, "literature_proxy"),
+    # Changed 2026-11-04 because Kenny confirmed his Pine EO is PW 7KQ07511 (Scots pine CAS):
+    # it now takes the three-lot P. sylvestris median, keeping the batch's declared limonene.
+    "Pine EO": (_PINE_SYLVESTRIS, 0.876007, "literature_proxy"),
     "Sandalwood EO": (_SANDALWOOD, 0.68, "literature_proxy"),
     "Sandalwood EO (10% in DPG)": (_SANDALWOOD, 0.68, "literature_proxy"),
     "Tuberlia Base": (_TUBERLIA, 0.236503, "literature_proxy"),
@@ -51,7 +54,7 @@ _SOURCES = {
     ),
     "Rose de Mai Absolute": "https://www.planttherapy.com/cdn/shop/files/Rose_R30111.pdf",
     "Cabreuva EO": "https://www.perfumersworld.com/document-list.php?pro_id=7LW00863",
-    "Pine EO": "https://www.perfumersworld.com/document-list.php?pro_id=7KQ07511",
+    "Pine EO": "https://www.planttherapy.com/cdn/shop/files/Pine_-_P70114R.pdf",
     "Sandalwood EO": (
         "https://cdn.standards.iteh.ai/sist-preview/88588/1b7516dd3de5489a8752a4f51f66838c/"
         "ISO-3518-2025.pdf"
@@ -163,14 +166,25 @@ def test_cabreuva_keeps_nerolidol_unresolved():
     assert nerolidol["reported_fraction"] == pytest.approx(0.6454)
 
 
-def test_pine_is_the_owned_batch_declaration_only():
-    assert {name: row[1] for name, row in _rows("Pine EO").items()} == pytest.approx(
-        {"limonene": 0.028407}
-    )
+def test_pine_declaration_profile_is_unchanged_and_kept_as_cross_check():
+    import engine.pipeline.natural_absolute_decomposition as nad
+
+    rows = nad._ABSOLUTE_CONSTITUENTS[_PINE]
+    assert {row[0]: row[1] for row in rows} == pytest.approx({"limonene": 0.028407})
+    evidence = nad._PARTIAL_PROFILE_EVIDENCE[_PINE]
+    assert evidence["unresolved_constituents"][0]["name"] == "longifolene"
+    assert evidence["input_authority"]["composition"]["supplier_species_stated"] is False
+
+
+def test_pine_eo_takes_the_scots_pine_median_with_the_declared_limonene():
+    # Changed 2026-11-04: Kenny confirmed his Pine EO is PerfumersWorld 7KQ07511.
+    rows = {name: row[1] for name, row in _rows("Pine EO").items()}
+    assert rows["alpha pinene"] == pytest.approx(0.5001)
+    assert rows["limonene"] == pytest.approx(0.028407)
     meta = get_composite_metadata("Pine EO")
+    assert meta.profile_key == _PINE_SYLVESTRIS
     assert meta.unresolved_constituents[0]["name"] == "longifolene"
     assert meta.unresolved_constituents[0]["reported_fraction"] == pytest.approx(0.088795)
-    assert meta.input_authority["composition"]["supplier_species_stated"] is False
 
 
 def test_sandalwood_santalols_carry_their_cited_physics():

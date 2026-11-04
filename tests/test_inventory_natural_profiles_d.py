@@ -84,8 +84,12 @@ def test_hay_absolute_is_declared_levels_with_terpineol_as_alpha_terpineol():
     assert any("declared levels" in text for text in meta.limitations)
 
 
-def test_opoponax_stays_unmapped():
-    assert get_composite_metadata("Opoponax Resinoid") is None
+def test_opoponax_maps_to_its_sourced_partial_profile():
+    # Changed 2026-11-04: Opoponax Resinoid now has a labelled partial profile (Baser 2003
+    # C. guidottii oil scaled by a 5% oil fraction) instead of staying unmapped.
+    meta = get_composite_metadata("Opoponax Resinoid")
+    assert meta is not None
+    assert meta.profile_key == "commiphora guidottii opoponax resinoid baser 2003 oil scaled profile"
 
 
 @pytest.mark.parametrize(
