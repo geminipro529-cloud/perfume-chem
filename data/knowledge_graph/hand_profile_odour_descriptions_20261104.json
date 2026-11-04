@@ -2227,7 +2227,7 @@
   },
   {
    "profile_key": "Ultralia",
-   "odor_description": "Orris, violet, powdery, woody, floral, fruity.",
+   "odor_description": null,
    "odor_type": "floral",
    "sources": [
     {
@@ -2241,9 +2241,10 @@
      "quote": "IRALIA ® for fragrance | Odor Description: The most floral and rich of all qualities of methylionones with a strong orris, violet character and a slight fruity note"
     }
    ],
-   "identity_note": "PROXY: Ultralia is a PerfumersWorld product of unverified composition; the N-methyl ionone page and Firmenich IRALIA follow round 4's assumption that it is an Iralia-type methyl ionone.",
+   "identity_note": "PROXY: Ultralia is a PerfumersWorld product of unverified composition; the N-methyl ionone page and Firmenich IRALIA follow round 4's assumption that it is an Iralia-type methyl ionone. Not applied: the page describes a stand-in, not this PerfumersWorld base, whose formula is unknown.",
    "conflict_note": "",
-   "first_batch": false
+   "first_batch": false,
+   "odor_description_not_applied": "Orris, violet, powdery, woody, floral, fruity."
   },
   {
    "profile_key": "Violet Leaf Absolute",
@@ -2352,7 +2353,7 @@
   },
   {
    "profile_key": "Black Agarwood Artificial",
-   "odor_description": "Woody, balsamic, sweet, vetiver, animal, earthy, amber, smoky.",
+   "odor_description": null,
    "odor_type": "woody",
    "sources": [
     {
@@ -2366,9 +2367,10 @@
      "quote": "Firmenich | Oud Synth 10760 E | Odor Description: Woody, Balsamic | A reconstitution of agarwood oil. Intensely woody, reminiscent of vetyver, with sweet balsamic undertones."
     }
    ],
-   "identity_note": "PROXY: stock is a PerfumersWorld base (6WU07708) of unknown formula; TGSC's generic agarwood replacer page and Firmenich Oud Synth stand in for it.",
+   "identity_note": "PROXY: stock is a PerfumersWorld base (6WU07708) of unknown formula; TGSC's generic agarwood replacer page and Firmenich Oud Synth stand in for it. Not applied: the page describes a stand-in, not this PerfumersWorld base, whose formula is unknown.",
    "conflict_note": "",
-   "first_batch": false
+   "first_batch": false,
+   "odor_description_not_applied": "Woody, balsamic, sweet, vetiver, animal, earthy, amber, smoky."
   },
   {
    "profile_key": "Blue Chamomile EO",
@@ -3842,7 +3844,7 @@
   },
   {
    "profile_key": "Castoreum Synthetic",
-   "odor_description": "Animal, leathery, smoky, phenolic, old wood, burnt, resinous, warm.",
+   "odor_description": null,
    "odor_type": "animal",
    "sources": [
     {
@@ -3856,9 +3858,10 @@
      "quote": "Givaudan | Castoreum Givco 116 | Odor Description: castoreum | This reconstitution contains only synthetic ingredients and plant-based naturals. It reflects all the typical warm, animal, leather-like notes"
     }
    ],
-   "identity_note": "PROXY: stock is PerfumersWorld Castoreum Synthetic; TGSC 'castoreum absolute replacer' is a generic page for non-animal castoreum reconstitutions (Givaudan Givco 116, Firmenich Castoreum Synth, etc.), not this exact base.",
+   "identity_note": "PROXY: stock is PerfumersWorld Castoreum Synthetic; TGSC 'castoreum absolute replacer' is a generic page for non-animal castoreum reconstitutions (Givaudan Givco 116, Firmenich Castoreum Synth, etc.), not this exact base. Not applied: the page describes a stand-in, not this PerfumersWorld base, whose formula is unknown.",
    "conflict_note": "",
-   "first_batch": false
+   "first_batch": false,
+   "odor_description_not_applied": "Animal, leathery, smoky, phenolic, old wood, burnt, resinous, warm."
   },
   {
    "profile_key": "Damascol",

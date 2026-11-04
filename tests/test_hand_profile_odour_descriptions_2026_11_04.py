@@ -1,4 +1,7 @@
-"""Good Scents odour descriptions for hand-written profiles (Kenny's 4 Nov 2026 card)."""
+"""Good Scents odour descriptions for hand-written profiles (Kenny's 4 Nov 2026 cards).
+
+Stored as evidence only: as matching words they let broad descriptions win roles.
+"""
 
 from __future__ import annotations
 
@@ -32,25 +35,19 @@ def test_no_banned_source_is_cited():
     assert not any(word in text for word in _BANNED)
 
 
-def test_only_empty_odour_text_is_filled_and_nothing_else_changes(monkeypatch):
+def test_the_descriptions_are_evidence_and_change_no_scoring_field(monkeypatch):
     before = deepcopy(ii._PROFILES)
-    for entry in _document()["profiles"]:
-        before[entry["profile_key"]].pop("odor_description", None)
-        before[entry["profile_key"]].get("evidence", {}).pop("odor_description", None)
+    for data in before.values():
+        data.get("evidence", {}).pop("tgsc_odour_description", None)
     profiles = deepcopy(before)
-    keep = next(iter(profiles))
-    profiles[keep]["odor_description"] = "Kept."
     monkeypatch.setattr(ii, "_PROFILES", profiles)
-    ii._apply_hand_odour_descriptions()
+    ii._attach_hand_odour_descriptions_evidence()
     filled = {e["profile_key"]: e for e in _document()["profiles"] if e["odor_description"]}
+    assert len(filled) >= 190
     for key, data in profiles.items():
-        if key == keep:
-            assert data["odor_description"] == "Kept."
-            continue
-        for field in ("character", "note", "synergies"):
+        for field in ("character", "note", "synergies", "odor_description"):
             assert data.get(field) == before[key].get(field), (key, field)
         if key in filled:
-            assert data["odor_description"] == filled[key]["odor_description"]
-            assert data["evidence"]["odor_description"]["status"] == "TGSC_ODOUR_DESCRIPTION_20261104"
-        else:
-            assert data.get("odor_description") == before[key].get("odor_description"), key
+            evidence = data["evidence"]["tgsc_odour_description"]
+            assert evidence["status"] == "EVIDENCE_ONLY_NOT_APPLIED"
+            assert evidence["text"] == filled[key]["odor_description"]
