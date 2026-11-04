@@ -864,9 +864,7 @@ def _accord_affinity(
         (cap for prior, cap, _score in state.assignments if prior.role_id == lead_id),
         None,
     )
-    if lead is None or not _has_own_threshold(capability.identity_name):
-        # A pairing credit must not lift a stock the gate cannot score over
-        # the scored ones the unscorable penalty put ahead of it.
+    if lead is None:
         return 0.0
     affinity = 0.0
     own = " ".join(capability.candidate.profile.synergies).casefold()
@@ -1524,15 +1522,9 @@ def _pair_adjustment(
 ) -> float:
     adjustment = 0.0
     vector = capability.character_map
-    # No pairing credit for a stock the gate cannot score: with the sourced
-    # pairing lists, Oman Frankincense Tincture's partners (Cedarwood
-    # Virginia, Myrrh EO) lifted it over the scored Olibanum Resinoid.
-    synergies = (
-        " ".join(capability.candidate.profile.synergies).casefold()
-        if _has_own_threshold(capability.identity_name) else ""
-    )
+    synergies = " ".join(capability.candidate.profile.synergies).casefold()
     for other in selected:
-        if synergies and other.identity_name.casefold() in synergies:
+        if other.identity_name.casefold() in synergies:
             adjustment += .35
         other_vector = other.character_map
         dimensions = set(vector) | set(other_vector)
