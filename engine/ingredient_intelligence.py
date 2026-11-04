@@ -6362,3 +6362,54 @@ def _attach_literature_sources_evidence() -> None:
 
 
 _attach_literature_sources_evidence()
+
+# Pairings for the literature-sourced profiles (Kenny 2 Nov 2026, "Add pairings to sourced profiles"):
+# 3 to 5 partners each that a producer text, TGSC's blender list or PerfumersWorld names next to the
+# material, written as his stock names.  Evidence only (Kenny's 4 Nov 2026 card): in the composer's
+# matching they made more picks worse than they fixed, so `synergies` is not changed.
+_LITERATURE_SYNERGIES = (
+    Path(__file__).resolve().parents[1] / "data/knowledge_graph/literature_synergies_20261102.json"
+)
+
+
+def _attach_literature_synergies_evidence() -> None:
+    root = Path(__file__).resolve().parents[1]
+    document = json.loads(_LITERATURE_SYNERGIES.read_text(encoding="utf-8"))
+    for entry in document["profiles"]:
+        if not entry["synergies"]:
+            continue
+        _PROFILES[entry["profile_key"]].setdefault("evidence", {})["literature_pairings"] = {
+            "status": "EVIDENCE_ONLY_NOT_APPLIED",
+            "source": str(_LITERATURE_SYNERGIES.relative_to(root)),
+            "partners": list(entry["synergies"]),
+            "sources": sorted({partner["url"] for partner in entry["partners"] if partner.get("url")}),
+        }
+
+
+_attach_literature_synergies_evidence()
+
+# Good Scents odour descriptions for the hand-written profiles (Kenny's 4 Nov 2026 cards), cross-checked
+# with producer text.  Evidence only: as matching words they let broad descriptions win roles (Cashmeran,
+# which Good Scents files as a musk, took the musk layer in 19 of 34 benchmark briefs), so
+# `odor_description` is not changed.
+_HAND_ODOUR_DESCRIPTIONS = (
+    Path(__file__).resolve().parents[1] / "data/knowledge_graph/hand_profile_odour_descriptions_20261104.json"
+)
+
+
+def _attach_hand_odour_descriptions_evidence() -> None:
+    root = Path(__file__).resolve().parents[1]
+    document = json.loads(_HAND_ODOUR_DESCRIPTIONS.read_text(encoding="utf-8"))
+    source = str(_HAND_ODOUR_DESCRIPTIONS.relative_to(root))
+    for entry in document["profiles"]:
+        if not entry.get("odor_description"):
+            continue
+        _PROFILES[entry["profile_key"]].setdefault("evidence", {})["tgsc_odour_description"] = {
+            "status": "EVIDENCE_ONLY_NOT_APPLIED",
+            "source": source,
+            "text": entry["odor_description"],
+            "sources": [row["url"] for row in entry["sources"]],
+        }
+
+
+_attach_hand_odour_descriptions_evidence()
