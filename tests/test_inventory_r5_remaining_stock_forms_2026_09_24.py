@@ -111,7 +111,6 @@ def test_gamma_coeur_is_depleted_without_family_substitution() -> None:
 @pytest.mark.parametrize(
     ("identity_name", "stock_id"),
     [
-        ("Heliotropal", "inventory:v5:593f575b080f30401f9b"),
         ("Black Pepper EO", "inventory:v5:4bb69da9b62fe8fbd8bb"),
         ("Nutmeg EO", "inventory:user-20260830:caa7c7f7418d43c86660"),
     ],
@@ -128,6 +127,23 @@ def test_neat_parent_does_not_create_required_r5_working_stock(
     assert stock.identity_name == identity_name
     assert stock.dilution == pytest.approx(1.0)
     assert stock.fraction_basis == "neat"
+
+
+def test_neat_heliotropal_parent_is_his_liquid_bottle() -> None:
+    # The R5 parent was V5 row 131 (inventory:v5:593f575b080f30401f9b). Kenny, 2 Nov 2026:
+    # "Heliotropal is liquid and neat"; STK-247 replaces that row with the same neat stock.
+    stocks = [
+        stock
+        for stock in inventory.materialize_current_inventory().stocks
+        if stock.identity_name == "Heliotropal"
+    ]
+    assert len(stocks) == 1
+    stock = stocks[0]
+    assert stock.dilution == pytest.approx(1.0)
+    assert stock.fraction_basis == "neat"
+    assert stock.physical_form == "liquid"
+    assert stock.execution_ready
+    assert stock.stock_id.startswith("inventory:user-20261014:")
 
 
 def test_v17_loader_rejects_record_mutation() -> None:
