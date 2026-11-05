@@ -958,6 +958,23 @@ _GERANIUM_EO_CONSTITUENTS = [
     ("beta-caryophyllene", 0.03, 204.35, 1.5, 10.0, 1.2),
 ]
 
+# Geranium oil, Bourbon type (Pelargonium x asperum, Reunion; ISO 4731:2012 Table 1 "Bourbon
+# type" column), Kenny's MySkinRecipes Geranium Bourbon (order 2199302, lot RS8T01, neat; the COA
+# prints no composition). Row = midpoint of the ISO min/max; (Z)- and (E)-rose oxide are summed.
+# Linalool and geraniol run higher and citronellol lower than the China and North Africa types.
+# Since 5 Nov 2026 (Kenny: no strip tests), so it no longer shares the generic geranium profile with
+# the Bontoux bottle. Molecular inputs reuse the existing geranium rows; nothing is renormalized.
+_GERANIUM_BOURBON_ISO4731_CONSTITUENTS = [
+    ("citronellol", 0.22, 156.26, 2.0, 5.0, 2.0),  # 18.0-26.0
+    ("geraniol", 0.16, 154.25, 4.0, 2.0, 1.5),  # 12.0-20.0
+    ("linalool", 0.095, 154.25, 21.3, 1.5, 2.0),  # 8.0-11.0
+    ("citronellyl formate", 0.0875, 184.28, 5.0, 10.0, 2.0),  # 6.5-11.0
+    ("isomenthone", 0.075, 154.25, 10.0, 5.0, 2.0),  # 5.0-10.0
+    ("geranyl formate", 0.06, 182.26, 1.50, 20.0, 1.5),  # 4.0-8.0
+    ("rose oxide", 0.010, 154.25, 15.00, 0.50, 2.0),  # (Z) 0.3-1.1 + (E) 0.1-0.5
+    ("alpha terpineol", 0.0075, 154.25, 2.00, 10.0, 1.5),  # 0.3-1.2
+]
+
 _YLANG_YLANG_EO_CONSTITUENTS = [
     # Gaydou 1986 (J Agric Food Chem), Stashenko 2008 (J Sep Sci).
     # Extraction: steam distillation. Cananga odorata.
@@ -1861,6 +1878,7 @@ _ABSOLUTE_CONSTITUENTS = {
     "rosemary eo": _ROSEMARY_EO_CONSTITUENTS,
     "rosemary eo (french rosmarinus officinalis leaf oil)": _ROSEMARY_EO_CONSTITUENTS,
     "geranium eo": _GERANIUM_EO_CONSTITUENTS,
+    "pelargonium bourbon type iso 4731 2012 midpoint profile": _GERANIUM_BOURBON_ISO4731_CONSTITUENTS,
     "clove eo": _CLOVE_EO_CONSTITUENTS,
     "black pepper eo": _BLACK_PEPPER_EO_CONSTITUENTS,
     "pink pepper eo": _SCHINUS_MOLLE_EO_CONSTITUENTS,
@@ -2018,11 +2036,17 @@ _PROFILE_ALIASES = {
     # Kenny's sweet orange (STK-112, COA limonene 95.28 %): its own ISO 3140 profile since 28 Oct 2026.
     "sweet orange essential oil": "citrus sinensis sweet orange iso 3140 2019 midpoint profile",
     "blood orange sicilian": "orange peel eo",
+    # Kenny's Orange Peel EO (neat, supplier and species not recorded): read as sweet orange
+    # expressed peel oil, the usual oil sold under that name, on the ISO 3140 profile since
+    # 5 Nov 2026 (Kenny: no strip tests). The old "orange peel eo" table stays for Blood Orange.
+    # The IFRA side still lists both sweet and bitter orange for this bottle.
+    "orange peel eo": "citrus sinensis sweet orange iso 3140 2019 midpoint profile",
     # MySkinRecipes order 2199302 stocks (Kenny chose "Link them", 16 Oct 2026): labelled
-    # proxies onto the existing whole-oil profiles, not lot data. Bourbon geranium uses the
-    # geranium EO profile. Texas cedar used the Virginia cedarwood EO profile until 4 Nov 2026
+    # proxies onto the existing whole-oil profiles, not lot data. Bourbon geranium used the
+    # geranium EO profile until 5 Nov 2026; it now takes the ISO 4731 Bourbon-type midpoints.
+    # Texas cedar used the Virginia cedarwood EO profile until 4 Nov 2026
     # (Kenny chose "Fix and source"); it now takes its own nine-analysis Texas median.
-    "geranium bourbon essential oil": "geranium eo",
+    "geranium bourbon essential oil": "pelargonium bourbon type iso 4731 2012 midpoint profile",
     "cedarwood texas eo": "cedarwood texas oil nine-analysis gc median profile",
     "cedarwood texas": "cedarwood texas oil nine-analysis gc median profile",
     "cedarwood texas essential oil": "cedarwood texas oil nine-analysis gc median profile",
@@ -2482,6 +2506,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://webbook.nist.gov/cgi/cbook.cgi?ID=2216-51-5",
     ),
     "orange peel eo": ("https://pubmed.ncbi.nlm.nih.gov/12862384/",),
+    "pelargonium bourbon type iso 4731 2012 midpoint profile": (
+        "https://cdn.standards.iteh.ai/samples/52144/00741cec04264c84bac088532995961e/ISO-4731-2012.pdf",
+        "https://www.thegoodscentscompany.com/data/es1033011.html",
+    ),
     "rum ether efsa fge500 company 2 scenario profile": (
         "https://doi.org/10.2903/j.efsa.2017.4897",
         "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf",
@@ -3826,6 +3854,48 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Only 72.25% of nominal composition is modeled; myristicin, safrole and unlisted constituents remain uncomputed, not odorless.",
             "Safrole is restricted by IFRA Standard 179 (safrole, isosafrole and dihydrosafrole together at most 0.01% of the finished product); this composition scenario does not feed the IFRA screen.",
             "Mace (aril) oil and West Indian nutmeg oil are not covered by this profile.",
+        ),
+    },
+    "pelargonium bourbon type iso 4731 2012 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://cdn.standards.iteh.ai/samples/52144/00741cec04264c84bac088532995961e/ISO-4731-2012.pdf",
+                "document": "ISO 4731:2012 Oil of geranium (Pelargonium x ssp.), Table 1, Bourbon type column",
+                "iso_4731_2012_bourbon_ranges_pct": {
+                    "(Z)-rose oxide": (0.3, 1.1), "(E)-rose oxide": (0.1, 0.5), "menthone": (None, 2.0),
+                    "isomenthone": (5.0, 10.0), "linalool": (8.0, 11.0), "guaia-6,9-diene": (5.0, 8.5),
+                    "citronellyl formate": (6.5, 11.0), "alpha-terpineol": (0.3, 1.2),
+                    "geranyl formate": (4.0, 8.0), "citronellol": (18.0, 26.0), "geraniol": (12.0, 20.0),
+                    "geranyl butyrate": (0.7, 2.0), "10-epi-gamma-eudesmol": (None, None),
+                    "geranyl tiglate": (0.7, 2.0), "2-phenylethyl tiglate": (0.4, 1.0),
+                },
+                "fraction_rule": "RANGE_MIDPOINT_PERCENT_DIVIDED_BY_100; ROSE_OXIDE_ISOMERS_SUMMED",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "response_factor_correction": "NONE_APPLIED_IN_SOURCE",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Geranium Bourbon Essential Oil, MySkinRecipes order 2199302, lot RS8T01, neat",
+                "owned_bottle_sku_verified": True,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("citronellol", "geraniol", "linalool", "citronellyl formate",
+                            "isomenthone", "geranyl formate", "rose oxide", "alpha terpineol")},
+        },
+        "unresolved_constituents": (
+            {"name": "guaia-6,9-diene", "reported_fraction": 0.0675,
+             "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "menthone", "reported_fraction": 0.010,
+             "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "geranyl butyrate, geranyl tiglate, 2-phenylethyl tiglate", "reported_fraction": 0.034,
+             "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "ISO specification midpoints, not an analysis of the owned lot; MySkinRecipes prints no composition.",
+            "The owned bottle is sold as Bourbon; its origin (Reunion or Bourbon-type from elsewhere) is not stated.",
+            "10-epi-gamma-eudesmol is not detected in the Bourbon type (it marks North African oil), so it is not a row.",
+            "Constituent vapour pressures and thresholds are the legacy runtime estimates shared with the generic geranium profile.",
         ),
     },
     "cedarwood texas oil nine-analysis gc median profile": {

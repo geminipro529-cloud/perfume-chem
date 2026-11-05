@@ -82,7 +82,7 @@ def test_naturals_count_their_annex_constituents(name, ncs, substance):
 @pytest.mark.parametrize(
     "name,proxy",
     [
-        ("Geranium Bourbon Essential Oil", "geranium eo"),
+        ("Geranium Bourbon Essential Oil", "pelargonium bourbon type iso 4731 2012 midpoint profile"),
         # Sweet orange has its own ISO 3140 profile since 2026-10-28 (Kenny's COA limonene).
         ("Sweet Orange Essential Oil", "citrus sinensis sweet orange iso 3140 2019 midpoint profile"),
         # Texas cedar has its own nine-analysis Texas median since 2026-11-04 (Kenny chose
