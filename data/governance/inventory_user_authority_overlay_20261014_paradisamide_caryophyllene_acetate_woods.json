@@ -6050,7 +6050,7 @@
         "fraction_from_user_message": true,
         "carrier_from_user_message": true,
         "basis_from_user_ww_rule_20261015": true,
-        "supplier_asserted": false,
+        "supplier_asserted": true,
         "purity_assay_asserted": false,
         "user_lot_asserted": false,
         "density_asserted": false,
@@ -6058,9 +6058,19 @@
         "formula_rebase_authorized": false,
         "compounding_authorized": false,
         "safety_asserted": false,
-        "release_authorized": false
+        "release_authorized": false,
+        "parent_product_inferred": true
       },
-      "note": "Kenny: 'Add Alpha Irone 5% in IPM to inventory' (16 Oct 07:59:11 UTC, 'Formulation studio 3'), corrected seconds later: '25' (07:59:50), 'not 5' (07:59:52). The stock is 25%. The carrier is isopropyl myristate (IPM), not DPG or DEP. He gave no basis, so it is w/w under his 15 Oct rule. A separate stock from Alpha Irone 10% w/w in DEP (inventory.txt L198), which stays owned."
+      "note": "Kenny: 'Add Alpha Irone 5% in IPM to inventory' (16 Oct 07:59:11 UTC, 'Formulation studio 3'), corrected seconds later: '25' (07:59:50), 'not 5' (07:59:52). The stock is 25%. The carrier is isopropyl myristate (IPM), not DPG or DEP. He gave no basis, so it is w/w under his 15 Oct rule. A separate stock from Alpha Irone 10% w/w in DEP (inventory.txt L198), which stays owned. Supplier, 5 Nov 2026: Kenny tapped 'PerfumersWorld' when asked who sold it; the parent is read as the neat PerfumersWorld Alpha Irone 8II00243 (inferred: PerfumersWorld sells no 25% IPM grade).",
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "supplier_authority": "Kenny's tap 'PerfumersWorld' on the card 'Who sold you the Alpha Irone 25% in IPM?' (stock thread, 5 Nov 2026 10:22 UTC)",
+        "parent_sku": "8II00243",
+        "parent_product_name": "Alpha Irone",
+        "parent_product_url": "https://www.perfumersworld.com/view.php?pro_id=8II00243",
+        "parent_reasoning": "Inferred, not stated by Kenny. PerfumersWorld lists Alpha Irone neat (8II00243), Alpha Irone 10% in DPG (5II11436) and Alpha Irone 10% in Myristic Acid (5II09179), and no 25% IPM product, so a 25% stock can only be made from the neat 8II00243. His k3nnyw mail shows 8II00243 Alpha Irone bought neat on six PerfumersWorld orders between Jan and Jul 2026 (260106-1854557a1, 260113-13501543d, 260227-151316565, 260405-11193443e (2 g), 260603-0224399f4, 260710-162432d2d), 1 g each unless noted. The Alpha Irone 10% w/w DEP stock (INV-USER-20261020 re-issue of INV-USER-20260828-003) is made from the same product.",
+        "parent_documents": "Same PerfumersWorld 8II00243 COA, IFRA 51st certificate and allergen declaration as the Alpha Irone 10% DEP record; the COA has no irone assay."
+      }
     },
     {
       "record_id": "INV-USER-20261014-STK-118",

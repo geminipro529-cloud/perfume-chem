@@ -35,4 +35,15 @@ def test_record_quotes_kenny():
     overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
     (record,) = [r for r in overlay["records"] if r["canonical_name"] == "Alpha Irone 25% in IPM"]
     assert record["source_quote"] == "Add Alpha Irone 5% in IPM to inventory / 25 / not 5"
-    assert record["authority_limits"]["supplier_asserted"] is False
+    assert record["authority_limits"]["supplier_asserted"] is True
+
+
+def test_supplier_is_perfumersworld_from_kenny_card_tap():
+    # Kenny tapped "PerfumersWorld" on "Who sold you the Alpha Irone 25% in IPM?" (5 Nov 2026).
+    # PerfumersWorld sells no 25% IPM grade, so the parent is the neat Alpha Irone 8II00243 (inferred).
+    overlay = inventory.load_current_user_inventory_overlay(require_live_inventory_binding=True)
+    (record,) = [r for r in overlay["records"] if r["canonical_name"] == "Alpha Irone 25% in IPM"]
+    product = record["supplier_product"]
+    assert product["supplier"] == "PerfumersWorld"
+    assert product["parent_sku"] == "8II00243"
+    assert record["authority_limits"]["parent_product_inferred"] is True
