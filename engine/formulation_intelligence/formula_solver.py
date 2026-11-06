@@ -1445,6 +1445,35 @@ def _rank_key(
 
 
 _UNARY_FRONTIER = 24
+# The same backbone won most briefs: in the 34-brief check (6 Nov 2026) Ambrox
+# Super was in 19 formulas, Bergamot 18, Cedarwood Virginia 16, Cedroxyde 13,
+# and Safraleine in every Baie Rose card and the leather (Kenny, 29 Oct:
+# "you just use it too much").  Unless the brief names it (one of its words),
+# such a stock gives up this much fit, about a third of one main-character
+# descriptor's weight, so a stock that fits nearly as well gets the role.
+# Every cedarwood oil pays, not only Virginia: penalising Virginia alone moved
+# the same 15 briefs onto Himalayan cedarwood.
+_BACKBONE_PENALTY = 1.0
+_BACKBONE_WORDS: Mapping[str, tuple[str, ...]] = {
+    "ambrox super": ("ambrox", "ambroxan", "ambroxide", "amber"),
+    "bergamot": ("bergamot", "citrus", "cologne", "earl grey"),
+    "cedarwood": ("cedar", "cedarwood"),
+    "cedroxyde": ("cedroxyde",),
+    "safraleine": ("safraleine", "saffron", "safran"),
+}
+
+
+def _unasked_backbone(capability: MaterialCapability, request: str) -> bool:
+    """A backbone stock (``_BACKBONE_WORDS``) the brief does not name."""
+
+    identity = capability.identity_name.casefold()
+    text = f" {_identity_key(request)} "
+    for backbone, words in _BACKBONE_WORDS.items():
+        if backbone in identity:
+            return not any(f" {_identity_key(word)} " in text for word in words)
+    return False
+
+
 # The performance pass (solve_formula, when a formula is short of the
 # planner's long-lasting floor): the brief's own facets keep their stocks,
 # and the formula's functional base roles prefer a long-lasting material
@@ -1487,7 +1516,13 @@ def _unary_rank_for_role(
     required_identity: tuple[str, ...] | None = None,
     frontier: int | None = _UNARY_FRONTIER,
     before_cardamom: bool = False,
+    brief_text: str | None = None,
 ) -> list[tuple[float, MaterialCapability]]:
+    """Every stock that may fill ``role``, best first.
+
+    ``brief_text`` (the formula name and brief) turns on the backbone
+    penalty (``_unasked_backbone``), which a brief lifts by naming the stock.
+    """
     ranked: list[tuple[float, MaterialCapability]] = []
     query_terms = role.query_terms
     accord = getattr(role, "accord", None)
@@ -1569,6 +1604,8 @@ def _unary_rank_for_role(
             and _long_lasting_material(capability.identity_name)
         ):
             score += _PERFORMANCE_BONUS
+        if brief_text is not None and role.exact_material is None and _unasked_backbone(capability, brief_text):
+            score -= _BACKBONE_PENALTY
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
     if _is_cited_helper(role) and role.exact_material is None:
@@ -2169,6 +2206,7 @@ def _solve_assignments(
             asked_families=asked_families,
             liking=liking,
             request=brief.normalized_request,
+            brief_text=f"{brief.formula_name} {brief.normalized_request}",
             required_identity=identity_words.get(role.role_id),
             frontier=frontier,
             before_cardamom=role.role_id in before_cardamom,
