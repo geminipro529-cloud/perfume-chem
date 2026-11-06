@@ -6,7 +6,7 @@ import hashlib
 import re
 from contextvars import ContextVar
 from dataclasses import dataclass, replace
-from decimal import ROUND_CEILING, Decimal
+from decimal import ROUND_CEILING, ROUND_FLOOR, Decimal
 from functools import lru_cache
 from typing import Any, Callable, Mapping, Sequence
 
@@ -1124,6 +1124,11 @@ def _block_reason(
     twin = _gate_duplicate(capability, state)
     if twin is not None:
         return f"the gate counts it as the same material as {twin}"
+    if role.exact_material is None and _chemical_identity(capability) in _DISLIKED_TOP_PAIR and any(
+        _chemical_identity(other) in _DISLIKED_TOP_PAIR - {_chemical_identity(capability)}
+        for _role, other, _score in state.assignments
+    ):
+        return "Hexyl Acetate with Ethyl 2-Methylbutyrate is the fruity top Kenny dislikes"
     if _avoid_candidate(capability.candidate, avoid):
         return "the brief's avoid list"
     if role.provenance == LASTING_SPICE_PROVENANCE:
@@ -1463,6 +1468,70 @@ _BACKBONE_WORDS: Mapping[str, tuple[str, ...]] = {
 }
 
 
+# House rules (Kenny; 6 Nov 2026 fault hunt, fix 5).
+# Berries only when the brief asks, and no sweet layer a brief does not ask
+# for: the aromatic fougere carried Vanillin, Cocoa and Tonka, and the Femme
+# Raspberry Ketone.  A stock named for one of these words takes no role the
+# brief does not name, unless the brief carries one of the allowing words.
+_BERRY_WORDS = ("raspberry", "strawberry", "blackberry", "blueberry", "cassis", "blackcurrant",
+                "buccoxime", "berry", "berries", "frambinone")
+_BERRY_ALLOWING = ("berry", "berries", "raspberry", "strawberry", "blackberry", "blueberry",
+                   "cassis", "blackcurrant", "currant", "red fruit", "red fruits")
+_SWEET_WORDS = ("vanill", "maltol", "furaneol", "caramel", "cocoa", "chocolate", "praline",
+                "tonka", "coumarin", "maple", "honey", "condensed milk", "cotton candy")
+_SWEET_ALLOWING = ("sweet", "gourmand", "vanilla", "tonka", "coumarin", "caramel", "cocoa",
+                   "chocolate", "praline", "dessert", "honey", "amber", "oriental", "tobacco",
+                   "benzoin", "pina", "colada", "coconut", "maple", "milk", "almond", "cherry",
+                   "heliotrope", "candy", "sugar", "liqueur", "rum", "cognac", "date", "dates")
+# Coumarin and tonka are the fougere's own sweet note.
+_FOUGERE_SWEET = ("coumarin", "tonka")
+# The fruity top Kenny dislikes (fruity tops are green cis-3-hexenyl or pear):
+# Hexyl Acetate with Ethyl 2-Methylbutyrate.
+_DISLIKED_TOP_PAIR = frozenset({"hexyl acetate", "ethyl 2 methylbutyrate"})
+# Two oils of this much 1,8-cineole and camphor or more in one formula get a
+# vial test before the bottle (his 25 Oct medicinal bottle); cardamom with
+# one is never placed (_cineole_stack).
+_VIAL_TEST_CINEOLE_FRACTION = .05
+# Gate hedione_share caps (gates._HEDIONE_CAP_*_PCT), as fractions of the active oil.
+_HEDIONE_CAP_DEFAULT = Decimal("0.15")
+_HEDIONE_CAP_CHYPRE = Decimal("0.12")
+_HEDIONE_IDENTITIES = frozenset({"hedione", "hedione hc"})
+
+
+def _words_in(text: str, words: Sequence[str]) -> bool:
+    padded = f" {_identity_key(text)} "
+    return any(f" {_identity_key(word)}" in padded for word in words)
+
+
+def _apple_ester_planned(brief: SemanticBrief) -> bool:
+    """The brief names apple, or its family plans the Ethyl 2-Methylbutyrate
+    layer: the apple ester keeps the fruity top and Hexyl Acetate gives way,
+    so the pear comes from a pear stock or green cis-3-hexenyl (Chimie Femme
+    lost its apple when the pair block reached the ester first)."""
+
+    apple = _identity_key("ethyl 2-methylbutyrate").replace(" ", "_")
+    return _words_in(f"{brief.formula_name} {brief.normalized_request}", ("apple",)) or any(
+        apple in role.role_id
+        or (role.exact_material is not None and _identity_key(role.exact_material) == _identity_key("ethyl 2-methylbutyrate"))
+        for role in brief.roles
+    )
+
+
+def _unasked_sweet_or_berry(capability: MaterialCapability, request: str) -> str | None:
+    """"berry" or "sweet" when the stock is one and the brief does not ask for it."""
+
+    name = capability.identity_name.casefold()
+    if any(word in name for word in _BERRY_WORDS):
+        return None if _words_in(request, _BERRY_ALLOWING) else "berry"
+    if any(word in name for word in _SWEET_WORDS):
+        if _words_in(request, _SWEET_ALLOWING):
+            return None
+        if _words_in(request, ("fougere", "fougère")) and any(word in name for word in _FOUGERE_SWEET):
+            return None
+        return "sweet"
+    return None
+
+
 def _unasked_backbone(capability: MaterialCapability, request: str) -> bool:
     """A backbone stock (``_BACKBONE_WORDS``) the brief does not name."""
 
@@ -1520,8 +1589,10 @@ def _unary_rank_for_role(
 ) -> list[tuple[float, MaterialCapability]]:
     """Every stock that may fill ``role``, best first.
 
-    ``brief_text`` (the formula name and brief) turns on the backbone
-    penalty (``_unasked_backbone``), which a brief lifts by naming the stock.
+    ``brief_text`` (the formula name and brief) turns on the house rules a
+    brief can lift by naming them: no unasked sweet or berry stock
+    (``_unasked_sweet_or_berry``) and the backbone penalty
+    (``_unasked_backbone``).
     """
     ranked: list[tuple[float, MaterialCapability]] = []
     query_terms = role.query_terms
@@ -1604,6 +1675,8 @@ def _unary_rank_for_role(
             and _long_lasting_material(capability.identity_name)
         ):
             score += _PERFORMANCE_BONUS
+        if brief_text is not None and role.exact_material is None and _unasked_sweet_or_berry(capability, brief_text):
+            continue
         if brief_text is not None and role.exact_material is None and _unasked_backbone(capability, brief_text):
             score -= _BACKBONE_PENALTY
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
@@ -2184,6 +2257,7 @@ def _solve_assignments(
     asked_families = _asked_families(brief, avoid)
     identity_words = identity_words or {}
     before_cardamom = _roles_before_cardamom(brief)
+    apple_ester = _apple_ester_planned(brief)
 
     def unary(role: SemanticRole, cache_id: str | None = None) -> list[tuple[float, MaterialCapability]]:
         # A cache shared by solves of one brief with the same inputs: only a
@@ -2211,6 +2285,8 @@ def _solve_assignments(
             frontier=frontier,
             before_cardamom=role.role_id in before_cardamom,
         )
+        if apple_ester and role.exact_material is None:
+            ranked = [item for item in ranked if _chemical_identity(item[1]) != "hexyl acetate"]
         if unary_cache is not None:
             unary_cache[key] = ranked
         return ranked
@@ -2579,6 +2655,77 @@ def _strengthen_long_lasting_rows(
     return tuple(new_assignments), tuple(new_choices)
 
 
+def _row_active(row: Mapping[str, Any]) -> Decimal:
+    """A delivered row's active uL (a weighed solid counts 1 mg as 1 uL)."""
+
+    return Decimal(str(row.get("amount_decimal") or 0)) * Decimal(str(row.get("stock_fraction_decimal") or 1))
+
+
+def _hedione_pours(
+    choices: Sequence[Choice],
+    rows: Sequence[dict[str, Any]],
+    quantities: Sequence[dict[str, Any]],
+    brief_text: str,
+) -> tuple[dict[str, Any], ...]:
+    """MATERIAL_DOSE rows that bring Hedione back to the gate's share of the active oil.
+
+    Hedione went past 15% of the active oil in 5 of 34 test formulas (Femme
+    23%), and the gate warns at 15% (12% in a chypre, gates.
+    _gate_hedione_share).  Every Hedione row is scaled down by one factor so
+    their sum sits at the cap; the freed volume goes back to the other rows.
+    A brief that names Hedione, or a requested Hedione dose, is left as asked.
+    """
+
+    if _words_in(brief_text, ("hedione",)):
+        return ()
+    cap = _HEDIONE_CAP_CHYPRE if _words_in(brief_text, ("chypre",)) else _HEDIONE_CAP_DEFAULT
+    slots = {
+        choice.role.role_id: choice for choice in choices
+        if _identity_key(choice.candidate.stock.identity_name or choice.candidate.stock.name) in _HEDIONE_IDENTITIES
+    }
+    hedione = [row for row in rows if row.get("slot") in slots and row.get("amount_unit") == "uL"]
+    if not hedione or any(_quantity_for_candidate(slots[row["slot"]].candidate, quantities) for row in hedione):
+        return ()
+    held = sum((_row_active(row) for row in hedione), Decimal(0))
+    others = sum((_row_active(row) for row in rows), Decimal(0)) - held
+    limit = cap / (1 - cap) * others
+    if held <= limit or held <= 0:
+        return ()
+    factor = limit / held
+    return tuple(
+        {
+            "scope": "MATERIAL_DOSE",
+            "material": slots[row["slot"]].candidate.stock.name,
+            "amount_decimal": str(max(
+                _MIN_RAW_TRANSFER_UL,
+                int((Decimal(row["amount_decimal"]) * factor).to_integral_value(rounding=ROUND_FLOOR)),
+            )),
+            "unit": "uL",
+        }
+        for row in hedione
+    )
+
+
+def _cineole_vial_step(assignments: Sequence[SolvedAssignment]) -> dict[str, Any] | None:
+    """The vial test a formula with two cineole or camphor oils gets before its bottle."""
+
+    oils = sorted({
+        assignment.capability.identity_name for assignment in assignments
+        if _cineole_camphor_fraction(assignment.capability.identity_name) >= _VIAL_TEST_CINEOLE_FRACTION
+    })
+    if len(oils) < 2:
+        return None
+    return {
+        "step": "VIAL_TEST_CINEOLE_STACK",
+        "materials": oils,
+        "text": (
+            f"Before the bottle, mix {', '.join(oils)} at their card ratio in a vial and smell it "
+            "on a strip after 10 minutes: together their cineole and camphor can read medicinal "
+            "(Kenny's 25 Oct bottle). Drop or cut the weaker-fitting one if it does."
+        ),
+    }
+
+
 def _pour_sub_transfer_rows(
     assignments: Sequence[SolvedAssignment],
     choices: Sequence[Choice],
@@ -2803,6 +2950,23 @@ def solve_formula(
                     reached = _long_lasting_reached(strong_rows[2])
                     if reached is None or reached > short_of:
                         (assignments, choices), (rows, totals, holds) = strong, strong_rows
+            capped = _hedione_pours(choices, rows, explicit_quantities, f"{brief.formula_name} {brief.normalized_request}")
+            for _round in range(3):
+                if not capped:
+                    break
+                try:
+                    capped_rows = _formula_rows(
+                        choices,
+                        liquid_total_ul=liquid_total_ul,
+                        quantities=(*explicit_quantities, *capped),
+                    )
+                except ValueError:
+                    # The other rows cannot take Hedione's volume: it stays.
+                    break
+                rows, totals, holds = capped_rows
+                # The freed volume moved the active total: check once more.
+                more = _hedione_pours(choices, rows, (), f"{brief.formula_name} {brief.normalized_request}")
+                capped = more
             diluted = _pour_sub_transfer_rows(assignments, choices, rows, index, explicit_quantities)
             if diluted is not None:
                 try:
@@ -2859,6 +3023,9 @@ def solve_formula(
         # Optional roles, so they never withhold the formula: recorded beside
         # missing_roles with the reason each cited stock could not go in.
         receipt["unplaced_accord_helpers"] = unplaced_helpers
+    vial = _cineole_vial_step(assignments)
+    if vial is not None:
+        receipt["bench_steps"] = [vial]
     lasting_limitations = _lasting_spice_limitations(brief, assignments, index, avoid, liquid_total_ul)
     if lasting_limitations:
         # An optional role, so the formula is not withheld: the receipt says
