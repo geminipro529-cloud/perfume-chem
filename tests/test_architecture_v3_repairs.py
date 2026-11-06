@@ -67,6 +67,9 @@ def _duplicate_result():
 
     with pytest.MonkeyPatch.context() as patch:
         patch.setattr(solver, "_solve_assignments", duplicate_third)
+        # One beam search per variant: the performance re-solve (6 Nov 2026)
+        # would add calls, so this harness reads every formula as at the floor.
+        patch.setattr(solver, "_long_lasting_reached", lambda holds: None)
         result = runtime.design_formula(**_kwargs("lav_soft_musk"))
     assert len(assignments) == 3
     return result

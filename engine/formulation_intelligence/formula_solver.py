@@ -1504,17 +1504,12 @@ def _words_in(text: str, words: Sequence[str]) -> bool:
 
 
 def _apple_ester_planned(brief: SemanticBrief) -> bool:
-    """The brief names apple, or its family plans the Ethyl 2-Methylbutyrate
-    layer: the apple ester keeps the fruity top and Hexyl Acetate gives way,
-    so the pear comes from a pear stock or green cis-3-hexenyl (Chimie Femme
-    lost its apple when the pair block reached the ester first)."""
+    """The brief names apple: the apple ester keeps the fruity top and Hexyl
+    Acetate gives way, so the pear comes from a pear stock or green
+    cis-3-hexenyl (Chimie Femme lost its apple when the pair block reached
+    the ester first).  Without apple, Hexyl Acetate may keep the pear."""
 
-    apple = _identity_key("ethyl 2-methylbutyrate").replace(" ", "_")
-    return _words_in(f"{brief.formula_name} {brief.normalized_request}", ("apple",)) or any(
-        apple in role.role_id
-        or (role.exact_material is not None and _identity_key(role.exact_material) == _identity_key("ethyl 2-methylbutyrate"))
-        for role in brief.roles
-    )
+    return _words_in(f"{brief.formula_name} {brief.normalized_request}", ("apple",))
 
 
 def _unasked_sweet_or_berry(capability: MaterialCapability, request: str) -> str | None:
@@ -2601,11 +2596,47 @@ def _long_lasting_reached(holds: Sequence[str]) -> Decimal | None:
     return None
 
 
+def _grade_allowed(
+    assignments: Sequence[SolvedAssignment],
+    position: int,
+    grade: MaterialCapability,
+    *,
+    avoid: Sequence[str],
+    allow_multiple_musks: bool,
+    enforce_own_odor_avoid: bool,
+    liquid_total_ul: int,
+) -> bool:
+    """The solver's own blocks for ``grade`` in row ``position``, with every
+    other row placed (as the audit replays it, and at the formula's total)."""
+
+    others = [a for i, a in enumerate(assignments) if i != position]
+    groups: dict[str, int] = {}
+    for other in others:
+        groups[other.capability.group] = groups.get(other.capability.group, 0) + 1
+        family = _family_bucket(other.capability)
+        if family:
+            groups[f"family:{family}"] = groups.get(f"family:{family}", 0) + 1
+    state = _BeamState(
+        tuple((a.role, a.capability, 0.0) for a in others),
+        frozenset(_chemical_identity(a.capability) for a in others),
+        tuple(sorted(groups.items())), 0.0,
+    )
+    role = assignments[position].role
+    return all(
+        _block_reason(
+            grade, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
+            enforce_own_odor_avoid=enforce_own_odor_avoid, liquid_total_ul=total,
+        ) is None
+        for total in {liquid_total_ul, _STANDARD_LIQUID_TOTAL_UL}
+    )
+
+
 def _strengthen_long_lasting_rows(
     assignments: Sequence[SolvedAssignment],
     choices: Sequence[Choice],
     index: MaterialCapabilityIndex,
     quantities: Sequence[dict[str, Any]],
+    grade_ok: Callable[[Sequence[SolvedAssignment], int, MaterialCapability], bool] | None = None,
 ) -> tuple[tuple[SolvedAssignment, ...], tuple[Choice, ...]] | None:
     """Pour the strongest owned liquid grade of each long-lasting row.
 
@@ -2618,7 +2649,9 @@ def _strengthen_long_lasting_rows(
     0.1 Pa) moves to its strongest owned liquid grade; the planner's caps
     still bound each dose.  Left alone: the amber base (moved only with the
     whole formula), a requested dose, an exact material named with its
-    grade, and a weighed solid grade.  None when no row moves.
+    grade, and a weighed solid grade.  ``grade_ok`` keeps a grade the solver
+    would block in that row (an IFRA ceiling at the role's dose).  None when
+    no row moves.
     """
 
     new_assignments, new_choices = list(assignments), list(choices)
@@ -2643,6 +2676,7 @@ def _strengthen_long_lasting_rows(
             if _chemical_identity(capability) == _chemical_identity(current)
             and not capability.candidate.solid and capability.design_ready and capability.execution_ready
             and float(capability.candidate.stock.dilution) > fraction
+            and (grade_ok is None or grade_ok(new_assignments, position, capability))
         ]
         if not grades:
             continue
@@ -2732,6 +2766,7 @@ def _pour_sub_transfer_rows(
     rows: Sequence[dict[str, Any]],
     index: MaterialCapabilityIndex,
     quantities: Sequence[dict[str, Any]],
+    grade_ok: Callable[[Sequence[SolvedAssignment], int, MaterialCapability], bool] | None = None,
 ) -> tuple[tuple[SolvedAssignment, ...], tuple[Choice, ...], tuple[dict[str, Any], ...]] | None:
     """Swap a liquid row under 10 uL for an owned weaker grade that pours >= 10 uL.
 
@@ -2769,6 +2804,7 @@ def _pour_sub_transfer_rows(
             and not capability.candidate.solid and capability.design_ready and capability.execution_ready
             and 0 < Decimal(str(capability.candidate.stock.dilution)) < fraction
             and active / Decimal(str(capability.candidate.stock.dilution)) >= _MIN_RAW_TRANSFER_UL
+            and (grade_ok is None or grade_ok(new_assignments, position, capability))
         ]
         if not grades:
             continue
@@ -2908,6 +2944,9 @@ def solve_formula(
     rows: list[dict[str, Any]] = []
     totals = {"liquid_total_ul": "0", "mass_total_mg": "0"}
     holds: list[str] = []
+    # Doses the solver pins after allocation (the Hedione cap, a sub-10 uL
+    # row poured from a weaker grade): on the receipt, so an audit replays them.
+    dose_pins: tuple[dict[str, Any], ...] = ()
     status = "SOLVED"
     if missing or len(choices) < min(6, len(brief.roles)):
         status = "WITHHELD_CONCEPT_COVERAGE_INCOMPLETE"
@@ -2931,9 +2970,17 @@ def solve_formula(
                     pass
                 else:
                     (assignments, choices), (rows, totals, holds) = poured, poured_rows
+            def grade_ok(current: Sequence[SolvedAssignment], position: int, grade: MaterialCapability) -> bool:
+                return _grade_allowed(
+                    current, position, grade, avoid=avoid,
+                    allow_multiple_musks=_allows_multiple_musks(brief.normalized_request, brief.roles),
+                    enforce_own_odor_avoid=bool(brief.architecture_plan.get("operation")),
+                    liquid_total_ul=liquid_total_ul,
+                )
+
             short_of = _long_lasting_reached(holds)
             strong = (
-                _strengthen_long_lasting_rows(assignments, choices, index, explicit_quantities)
+                _strengthen_long_lasting_rows(assignments, choices, index, explicit_quantities, grade_ok)
                 if short_of is not None else None
             )
             if strong is not None:
@@ -2964,22 +3011,26 @@ def solve_formula(
                     # The other rows cannot take Hedione's volume: it stays.
                     break
                 rows, totals, holds = capped_rows
+                dose_pins = tuple(capped)
                 # The freed volume moved the active total: check once more.
                 more = _hedione_pours(choices, rows, (), f"{brief.formula_name} {brief.normalized_request}")
                 capped = more
-            diluted = _pour_sub_transfer_rows(assignments, choices, rows, index, explicit_quantities)
+            diluted = _pour_sub_transfer_rows(
+                assignments, choices, rows, index, (*explicit_quantities, *dose_pins), grade_ok,
+            )
             if diluted is not None:
                 try:
                     diluted_rows = _formula_rows(
                         diluted[1],
                         liquid_total_ul=liquid_total_ul,
-                        quantities=(*explicit_quantities, *diluted[2]),
+                        quantities=(*explicit_quantities, *dose_pins, *diluted[2]),
                     )
                 except ValueError:
                     # The weaker grade does not allocate: the short row stands.
                     pass
                 else:
                     (assignments, choices), (rows, totals, holds) = diluted[:2], diluted_rows
+                    dose_pins = (*dose_pins, *diluted[2])
         except ValueError as exc:
             status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"
             holds.append(f"DOSE_ALLOCATION_INFEASIBLE:{exc}")
@@ -3023,6 +3074,8 @@ def solve_formula(
         # Optional roles, so they never withhold the formula: recorded beside
         # missing_roles with the reason each cited stock could not go in.
         receipt["unplaced_accord_helpers"] = unplaced_helpers
+    if dose_pins:
+        receipt["solver_dose_pins"] = [dict(pin) for pin in dose_pins]
     vial = _cineole_vial_step(assignments)
     if vial is not None:
         receipt["bench_steps"] = [vial]

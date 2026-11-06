@@ -65,15 +65,13 @@ def test_the_disliked_fruity_top_pair_is_blocked() -> None:
     assert reason is not None and "fruity top" in reason
 
 
-def _brief(text: str, *role_ids: str):
-    roles = tuple(SimpleNamespace(role_id=r, exact_material=None) for r in role_ids)
-    return SimpleNamespace(formula_name="Test", normalized_request=text, roles=roles)
+def _brief(text: str):
+    return SimpleNamespace(formula_name="Test", normalized_request=text, roles=())
 
 
 def test_an_apple_brief_keeps_the_apple_ester_and_drops_hexyl_acetate() -> None:
     assert solver._apple_ester_planned(_brief("a pear and apple femme"))
-    assert solver._apple_ester_planned(_brief("a fruity femme", "family_ethyl_2_methylbutyrate_layer"))
-    assert not solver._apple_ester_planned(_brief("a pear and lychee femme", "facet_fruit"))
+    assert not solver._apple_ester_planned(_brief("a pear and lychee femme"))
     assert not solver._apple_ester_planned(_brief("pineapple rum"))
 
 
