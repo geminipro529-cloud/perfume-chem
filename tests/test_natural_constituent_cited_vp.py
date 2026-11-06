@@ -128,6 +128,8 @@ _EXPECTED_LARGE_SUBSTITUTIONS = {
     # alpha-ionone and dihydro-beta-ionone rows, so the same cited registry VPs replace them.
     ("orris givco 204/2/20 givaudan sds band lower bound profile", "alpha ionone", 1.0, 3.62),
     ("orris givco 204/2/20 givaudan sds band lower bound profile", "dihydro beta ionone", 0.5, 3.8),
+    # 5 Nov 2026: the ISO 4731 Bourbon geranium profile reuses the rose oxide row (RIFM measured VP).
+    ("pelargonium bourbon type iso 4731 2012 midpoint profile", "rose oxide", 15.0, 77.0),
 }
 
 
