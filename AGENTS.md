@@ -145,6 +145,14 @@ an exact concise summary and the artifact path; paste the full analysis
 (`scripts/format_pipeline_analysis.py --input <json>`) only when the user explicitly
 asks for it.
 
+Performance numbers failed the public benchmark (`data/benchmarks/public_performance_v1.json`,
+`engine/calibration/public_performance.py`): no gate read-out ranks 19 commercial
+originals' Parfumo longevity or sillage at Spearman 0.6, and the gate's hours are
+smelling-strip hours, not skin hours. On a card, never state longevity, sillage,
+projection or hours-until-faint from gate numbers; give the concentrate % and the
+materials that carry the base instead. A performance number may be called calibrated
+only after it passes that benchmark's `pass_rule`.
+
 Before presenting a run, read `docs/agents/pipeline-runs.md`. It holds the JSON
 sections to read beyond gate status, the required OAV headspace table and
 perfumer-analysis order, common pipeline bugs, and the places to touch when

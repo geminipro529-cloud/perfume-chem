@@ -7,6 +7,7 @@ import statistics
 from dataclasses import dataclass
 from typing import Any, Mapping
 
+from engine.calibration.public_performance import PUBLIC_BENCHMARK_SUMMARY
 from engine.optimizer.models import FormulaVector, ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
 
@@ -492,6 +493,7 @@ def compute_unified_release_scores(
                 "measured_sillage_or_projection_distance",
                 "skin_performance_outcome",
             ],
+            "public_benchmark": dict(PUBLIC_BENCHMARK_SUMMARY),
             "industry_10_authority": (
                 "HEURISTIC_DIAGNOSTIC_INDICES_DESPITE_LEGACY_NAME"
             ),
