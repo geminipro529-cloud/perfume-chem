@@ -4,6 +4,7 @@ from __future__ import annotations
 
 import hashlib
 import re
+from contextvars import ContextVar
 from dataclasses import dataclass, replace
 from decimal import ROUND_CEILING, Decimal
 from functools import lru_cache
@@ -51,6 +52,7 @@ from engine.research.composition_planner import (
     _formula_rows,
     _hard_cap_ul,
     _ifra_cap_ul,
+    _long_lasting_material,
     _quantity_for_candidate,
 )
 from future_modules._shared_types import NoteTier, get_note_tier_from_vp
@@ -1443,6 +1445,31 @@ def _rank_key(
 
 
 _UNARY_FRONTIER = 24
+# The performance pass (solve_formula, when a formula is short of the
+# planner's long-lasting floor): the brief's own facets keep their stocks,
+# and the formula's functional base roles prefer a long-lasting material
+# (the gate's VP under 0.1 Pa) by this much, about one main-character
+# descriptor's weight.
+_PERFORMANCE_PASS: ContextVar[bool] = ContextVar("formula_solver_performance_pass", default=False)
+_PERFORMANCE_BONUS = 3.0
+_PERFORMANCE_PROVENANCES = frozenset({
+    "FUNCTIONAL_COVERAGE", "PROMPT_REQUESTED_EXPANDED_ARCHITECTURE", "MINIMUM_FUNCTIONAL_ARCHITECTURE",
+    "LAYERED_BASE_ARCHITECTURE",
+})
+
+
+def _performance_role(role: SemanticRole) -> bool:
+    """A functional base role the performance pass may steer.
+
+    Heart roles stay as solved: steering them took the second rose, citrus or
+    lavender row that supports a named note (34-brief check, 6 Nov 2026).
+    """
+
+    return (
+        role.exact_material is None
+        and getattr(role, "provenance", "") in _PERFORMANCE_PROVENANCES
+        and getattr(role, "note", None) == "base"
+    )
 
 
 def _unary_rank_for_role(
@@ -1537,6 +1564,11 @@ def _unary_rank_for_role(
             # cineole/camphor oils out of the roles before it.  Roles after
             # it pay the pair penalty instead.
             score -= _CINEOLE_STACK_PENALTY
+        if (
+            _PERFORMANCE_PASS.get() and _performance_role(role)
+            and _long_lasting_material(capability.identity_name)
+        ):
+            score += _PERFORMANCE_BONUS
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
     if _is_cited_helper(role) and role.exact_material is None:
@@ -2446,6 +2478,69 @@ def _pour_unweighable_crystals(
     return tuple(new_assignments), tuple(new_choices)
 
 
+def _long_lasting_reached(holds: Sequence[str]) -> Decimal | None:
+    """The uL/mL a LONG_LASTING_FLOOR_SHORT hold reports, or None at the floor."""
+
+    for hold in holds:
+        if hold.startswith("LONG_LASTING_FLOOR_SHORT:"):
+            return Decimal(hold.split(":", 1)[1])
+    return None
+
+
+def _strengthen_long_lasting_rows(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    index: MaterialCapabilityIndex,
+    quantities: Sequence[dict[str, Any]],
+) -> tuple[tuple[SolvedAssignment, ...], tuple[Choice, ...]] | None:
+    """Pour the strongest owned liquid grade of each long-lasting row.
+
+    Performance comes first for Kenny (kenny-performance-first), and the
+    planner's floor of 57 uL long-lasting per mL (his weakest card) only
+    moves volume between rows: a long-lasting row poured from a 10% stock
+    carries a tenth of the active it could, so 25 of 34 test formulas ended
+    under 60 uL/mL (Violette 20 against his 58, 6 Nov 2026 fault hunt).
+    When a formula is short, every long-lasting row (the gate's VP under
+    0.1 Pa) moves to its strongest owned liquid grade; the planner's caps
+    still bound each dose.  Left alone: the amber base (moved only with the
+    whole formula), a requested dose, an exact material named with its
+    grade, and a weighed solid grade.  None when no row moves.
+    """
+
+    new_assignments, new_choices = list(assignments), list(choices)
+    moved = False
+    for position, choice in enumerate(choices):
+        current = assignments[position].capability
+        role = assignments[position].role
+        stock = current.candidate.stock
+        if (
+            current.candidate.solid
+            or _is_amber_base(current)
+            or _quantity_for_candidate(choice.candidate, quantities) is not None
+            or not _long_lasting_material(str(stock.identity_name or stock.name))
+        ):
+            continue
+        exact = getattr(role, "exact_material", None)
+        if exact is not None and _NAMES_A_GRADE.search(exact.casefold()):
+            continue
+        fraction = float(stock.dilution)
+        grades = [
+            capability for capability in index.capabilities
+            if _chemical_identity(capability) == _chemical_identity(current)
+            and not capability.candidate.solid and capability.design_ready and capability.execution_ready
+            and float(capability.candidate.stock.dilution) > fraction
+        ]
+        if not grades:
+            continue
+        grade = max(grades, key=lambda capability: (float(capability.candidate.stock.dilution), capability.stock_id))
+        new_assignments[position] = replace(assignments[position], capability=grade)
+        new_choices[position] = replace(choice, candidate=grade.candidate)
+        moved = True
+    if not moved:
+        return None
+    return tuple(new_assignments), tuple(new_choices)
+
+
 def _pour_sub_transfer_rows(
     assignments: Sequence[SolvedAssignment],
     choices: Sequence[Choice],
@@ -2651,6 +2746,25 @@ def solve_formula(
                     pass
                 else:
                     (assignments, choices), (rows, totals, holds) = poured, poured_rows
+            short_of = _long_lasting_reached(holds)
+            strong = (
+                _strengthen_long_lasting_rows(assignments, choices, index, explicit_quantities)
+                if short_of is not None else None
+            )
+            if strong is not None:
+                try:
+                    strong_rows = _formula_rows(
+                        strong[1],
+                        liquid_total_ul=liquid_total_ul,
+                        quantities=explicit_quantities,
+                    )
+                except ValueError:
+                    # The stronger grades do not allocate: the weaker rows stand.
+                    pass
+                else:
+                    reached = _long_lasting_reached(strong_rows[2])
+                    if reached is None or reached > short_of:
+                        (assignments, choices), (rows, totals, holds) = strong, strong_rows
             diluted = _pour_sub_transfer_rows(assignments, choices, rows, index, explicit_quantities)
             if diluted is not None:
                 try:
@@ -2719,7 +2833,7 @@ def solve_formula(
     signature = hashlib.sha256(
         "|".join(f"{row.role.role_id}:{row.capability.stock_id}" for row in assignments).encode()
     ).hexdigest()[:16]
-    return FormulaSolveResult(
+    result = FormulaSolveResult(
         status=status,
         variant_id=f"semantic-variant-{variant_index + 1}-{signature}",
         assignments=assignments,
@@ -2729,6 +2843,38 @@ def solve_formula(
         holds=tuple(sorted(set(holds))),
         solver_receipt=receipt,
     )
+    short_of = _long_lasting_reached(result.holds)
+    if status != "SOLVED" or short_of is None or _PERFORMANCE_PASS.get():
+        return result
+    # Performance is a goal, not only a report: a formula short of the
+    # long-lasting floor is solved once more with its functional heart and
+    # base roles preferring long-lasting materials, and the stronger one is
+    # kept (Kenny, 6 Nov 2026: "All six, in order", fix 2).
+    token = _PERFORMANCE_PASS.set(True)
+    try:
+        stronger = solve_formula(
+            brief=brief, index=index, liquid_total_ul=liquid_total_ul,
+            explicit_quantities=explicit_quantities, avoid=avoid,
+            previous_stock_ids=previous_stock_ids, prior_variant_stock_ids=prior_variant_stock_ids,
+            variant_index=variant_index, beam_width=beam_width,
+            exact_material_count=exact_material_count, identity_words=identity_words,
+            unary_cache=None,
+        )
+    finally:
+        _PERFORMANCE_PASS.reset(token)
+    reached = _long_lasting_reached(stronger.holds)
+    if stronger.status != "SOLVED" or (reached is not None and reached <= short_of):
+        result.solver_receipt["performance_pass"] = {
+            "long_lasting_ul_per_ml": str(short_of), "kept": "FIRST_SOLVE",
+            "performance_solve_ul_per_ml": None if reached is None else str(reached),
+        }
+        return result
+    stronger.solver_receipt["performance_pass"] = {
+        "long_lasting_ul_per_ml": "AT_FLOOR" if reached is None else str(reached),
+        "kept": "PERFORMANCE_SOLVE",
+        "first_solve_ul_per_ml": str(short_of),
+    }
+    return stronger
 
 
 # Factory seam: tests point it at temporary personal files.
