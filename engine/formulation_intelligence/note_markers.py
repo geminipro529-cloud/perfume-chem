@@ -55,6 +55,30 @@ _TONKA = Marker(
     "vanilla-like odour.",
 )
 
+_LEMON = Marker(
+    "citral", "citral",
+    "Chida M, Yamashita K, Izumiya Y, Watanabe K, Tamura H (2006) Aroma impact compounds in "
+    "three Citrus oils: cross-matching test and correspondence analysis approach. J Food Sci "
+    "71(1) (abstract, FAO AGRIS record 65dfef9f0f3e94b9e5ddc266): of 23 character-impact "
+    "candidates cross-matched by a sensory panel, \"the aroma character of lemon oil was mainly "
+    "represented by citral\" (matching frequency 0.89, 59 of 66 trials). Southwell I (2021) "
+    "Foods 10:1596, doi:10.3390/foods10071596: citral (neral + geranial) is the preferred key "
+    "component of the lemon note. TGSC citral (rw1003432): odour \"sharp lemon sweet\".",
+)
+
+_BERGAMOT = Marker(
+    "linalyl acetate", "linalyl acetate",
+    "Sawamura M, Onishi Y, Ikemoto J, Tu NTM, Phi NTL (2006) Characteristic odour components "
+    "of bergamot (Citrus bergamia Risso) essential oil. Flavour Fragr J 21:609-615, "
+    "doi:10.1002/ffj.1604: GC-olfactometry names (Z)-limonene oxide, decanal, linalyl acetate "
+    "and geraniol as the compounds that define bergamot's character. Melliou E et al. (2009) "
+    "Molecules 14:839-849, doi:10.3390/molecules14020839: (-)-linalyl acetate, the main "
+    "constituent of the cold-pressed oil, \"is responsible for the characteristic odour of the "
+    "bergamot fruit\". TGSC linalyl acetate (rw1007892): odour \"sweet green citrus bergamot "
+    "lavender woody\". Of the four, only linalyl acetate is in the profile with a cited air "
+    "threshold. In lavender the same ester is not a marker (no single impact compound, above).",
+)
+
 # Natural constituent-profile key (engine.pipeline.natural_absolute_decomposition) -> markers.
 # Checked and left out (20 Oct 2026), so their notes still hold:
 # * lavender oil: no single impact compound; "lavender character" is "an emergent perceptual
@@ -64,9 +88,15 @@ _TONKA = Marker(
 # * orange oil: "No single compound exhibited the characteristic aroma of orange oil"
 #   (Hognadottir & Rouseff 2003, J Chromatogr A 998:201); cold-pressed peel oil GC-O names a
 #   group, not one compound (Qiao et al. 2008, Molecules 13:1333).
+# Checked 6 Nov 2026 and still left out: vetiver (Vetiver EO (Haiti) has no constituent
+# profile, and khusimone and the vetivones have no cited air threshold in the spine), pink
+# pepper (no single impact compound named), patchouli (patchoulol versus norpatchoulenol is
+# contested).
 NOTE_MARKERS: Mapping[str, tuple[Marker, ...]] = {
     "tonka bean absolute": (_TONKA,),
     "tonka bean solvent extract literature profile": (_TONKA,),
+    "lemon fcf oil sicilian": (_LEMON,),
+    "citrus bergamia calabrian type iso 3520 midpoint profile": (_BERGAMOT,),
 }
 
 
