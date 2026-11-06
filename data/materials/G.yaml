@@ -666,7 +666,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.31
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -692,6 +692,7 @@
   odour_family: 'lactonic'
   notes: 'VP is an estimate; TGSC lists 0.041 mm Hg at 25 C (est) = 5.47 Pa, which equals the EPI v4.0 20 C figure, so it is probably mislabelled; FMA 0.07 mm Hg at 20 C = 9.33 Pa (not used). Other log Kow estimates: EPI 1.59, TGSC 1.432. FMA specific gravity 0.975 (temperature not stated). No air ODT found. Source batch: material-data-firecrawl/allgaps/S2_lactones_esters.md'
   provenance:
+    odt_air_ppb: 'PEER_SINGLE: van Gemert (2011) Odour Thresholds, AIR section (book text as hosted on vdoc.pub, https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0): ''(R)-4-HYDROXYOCTANOIC ACID LACTONE ((R)-gamma-octalactone) Buhr (2006) 0.0018 (S)-... Buhr (2006) 0.0018'' mg/m3 (GC-olfactometry, Buhr PhD thesis 2006); 1.8 ng/L x 24.45 / 142.2 = 0.31 ppb. Water cross-check: Czerny 2008 6.5 ug/L x Kaw 2.2e-4 = 0.25 ppb. Loaded 2026-11-06 (engine fault check; source re-opened).'
     odour_family: 'odour family "lactonic" from ''sweet / coconut-lactonic (derived from the quoted description)'': Natural Aroma Ingredients | Takasago International Corporation, https://www.takasago.com/en/aromaingredients/natural_aroma_ingredients: Olfactory Description Sweet, Coconut-like (grade A_producer; ). Second reader: ''Sweet, Coconut-like'' supports ''sweet / coconut''; the word ''lactonic'' is not on the page (it follows from coconut character and the lactone class). Page is Takasago''s natural (fermentation) grade, same CAS 104-50-7 as Kenny''s PerfumersWorld 4DD00331. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
     cas: 'TGSC https://www.thegoodscentscompany.com/data/rw1006541.html: "104-50-7" (via material-data-firecrawl/allgaps/S2_lactones_esters.md)'
@@ -1609,7 +1610,7 @@
   dhvap_kj_mol: null
   kaw_eff: null
   hsp: null
-  odt_air_ppb: null
+  odt_air_ppb: 0.78
   odt_eth_ppm: null
   stevens_n: null
   or_targets: []
@@ -1631,6 +1632,7 @@
   odour_family: 'floral'
   notes: 'Second CAS for the isomer mixture: 94087-23-7. logP and VP left null (2026-10-08), no measured value: logP 4.007 (TGSC est) vs "Log Pow: 3.8" (scentspiracy, method not stated); VP "0.001000 mmHg @ 25.00 C. (est)" = 0.133 Pa (TGSC) vs "0.0024 hPa at 25C" = 0.24 Pa (scentspiracy, method not stated). Producer is Givaudan per TGSC. Density not found. Source: material-data-firecrawl/allgaps/S3_fruity_captives.md. Update 2026-10-13: logP and VP now set to the labelled estimate (see provenance), because Kenny chose "Fill estimates" on 2026-10-13; still an estimate, not a measurement. Update 2026-10-13 (literature common-ground review, material-data-consensus/COMMON_GROUND.md): vp_25c_pa 0.133 -> 0.242. Update 2026-10-28: VP is now Givaudan''s printed 0.24 Pa at 25 C, logP Givaudan''s 3.8 (Vigon SDS 5.3 conflicts), density the 25 C value from the Vigon SDS; see provenance.'
   provenance:
+    odt_air_ppb: 'UNVERIFIED analogue estimate, not a measurement: no published air threshold (van Gemert 2011, TGSC rw1492991, Givaudan page). Geometric mean of eight Givaudan GC-O air values for bicyclic dioxanes/dioxolanes in van Gemert 2011 (Bajgrowicz & Frank 2001; Naetscher et al. 2010) = 7.6 ng/L x 24.45 / 236.35 = 0.78 ppb (working range 0.2-5). Loaded 2026-11-06 (engine fault check).'
     character: 'Givaudan, Glycolierral (https://www.givaudan.com/print/1314361): ''Olfactive Note Floral Green Ivy leaves Woody''; ''Glycolierral offers a soft, green, milky nuance when used as a green top note modifier.'' (grade A_producer). TGSC carries Moellhausen ''fresh, herbaceous, soft floral-green, reminiscent of ivy leaves, woody'', which agrees. Loaded 2026-10-28 (unused-materials group 1 fixes; source re-opened).'
     odour_family: 'odour family "floral" from ''Floral (Olfactive Note: Floral, Green, Ivy leaves, Woody)'': Print Page | Givaudan: Glycolierral, https://www.givaudan.com/print/1314361: Glycolierral Giv Code 5631203 Olfactive Family Floral | Olfactive Note Floral Green Ivy leaves Woody (grade A_producer; ). Second reader: CAS 68901-32-6 matches. Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md

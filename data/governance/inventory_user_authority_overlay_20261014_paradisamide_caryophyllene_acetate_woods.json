@@ -8271,13 +8271,13 @@
       "state": "OWNED",
       "category": "sweet / gourmand / balsamic",
       "stock": {
-        "physical_form": "as_supplied",
+        "physical_form": "solid_as_supplied",
         "fraction": 1.0,
         "fraction_basis": "neat",
         "carrier": "",
         "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
         "execution_ready": true,
-        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_scope": "WEIGHED_SOLID_OR_PREPARED_SOLUTION_ONLY",
         "execution_basis": "INV-USER-20261007-PW-048_INTAKE_HOLD_CLEARED_BY_USER_ALL_NEAT_CARD_20261025"
       },
       "supplier_product": {
@@ -8308,7 +8308,7 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "Asked on a Stock data thread card 'Mark these 15 PerfumersWorld fruit bottles neat, as supplied?', Kenny chose 'All neat' (25 Oct 2026 08:16:22 UTC). The 1 g bottle (SKU 1VE00286, receipt line 48 of the 2026-10-07 order) was held at intake (INV-USER-20261007-PW-048, superseded) and is now neat as supplied, ready for raw-stock volume transfer. Dilutions he made from it are separate records and unchanged."
+      "note": "Asked on a Stock data thread card 'Mark these 15 PerfumersWorld fruit bottles neat, as supplied?', Kenny chose 'All neat' (25 Oct 2026 08:16:22 UTC). The 1 g bottle (SKU 1VE00286, receipt line 48 of the 2026-10-07 order) was held at intake (INV-USER-20261007-PW-048, superseded) and is now neat as supplied, ready for raw-stock volume transfer. Dilutions he made from it are separate records and unchanged. Form corrected 6 Nov 2026 (engine fault check): PerfumersWorld's COA for 1VE00286 reads 'White to pale yellow crystalline powder. May darken on aging.' and its MSDS 'APPEARANCE : White to pale yellow crystalline powder.' (methyl cyclopentenolone, CAS 80-71-7, mp 104 C on the product page, whose 'oily liquid' line contradicts its own melting point). Dose it by weight or as a solution he has made, never as neat microlitres; no dilution is recorded until he says one is made."
     },
     {
       "record_id": "INV-USER-20261014-STK-163",
