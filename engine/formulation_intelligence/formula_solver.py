@@ -5,7 +5,7 @@ from __future__ import annotations
 import hashlib
 import re
 from dataclasses import dataclass, replace
-from decimal import Decimal
+from decimal import ROUND_CEILING, Decimal
 from functools import lru_cache
 from typing import Any, Callable, Mapping, Sequence
 
@@ -51,6 +51,7 @@ from engine.research.composition_planner import (
     _formula_rows,
     _hard_cap_ul,
     _ifra_cap_ul,
+    _quantity_for_candidate,
 )
 from future_modules._shared_types import NoteTier, get_note_tier_from_vp
 
@@ -784,6 +785,68 @@ def _has_own_threshold(identity_name: str) -> bool:
     return any(material.odt_air_ppm is not None for material in state.materials)
 
 
+@lru_cache(maxsize=None)
+def _gate_rejects(identity_name: str) -> str:
+    """The release-gate check that fails any formula holding this stock alone, or "".
+
+    The composer used to reach for stocks the gate then failed: no odour
+    threshold or physics data (Ethyl Acetoacetate, Glycolierral, Fixative
+    505, Mate Absolute) and opaque pre-blends (Cassis Base 345B, Lilyreal
+    ND).  9 of the 34 test formulas failed the gate for such a pick
+    (engine fault hunt, 6 Nov 2026).  A partly declared base passes, as it
+    does in the gate (Kenny, 28 Oct: "Warn, don't block").
+    """
+    from engine.pipeline.formula_state import build_formula_state
+    from engine.pipeline.gates import (
+        _gate_data_coverage,
+        _gate_odt_coverage,
+        _partly_declared_warnings,
+    )
+
+    try:
+        state = build_formula_state({identity_name: 100.0}, {identity_name: 1.0})
+    except (KeyError, ValueError):
+        return ""
+    for gate in (_gate_data_coverage(state), _gate_odt_coverage(state)):
+        if gate.status == "FAIL":
+            return gate.gate
+    partly = _partly_declared_warnings(state.materials)
+    if any(material.is_opaque_preblend and material.name not in partly for material in state.materials):
+        return "opaque_preblends"
+    return ""
+
+
+@lru_cache(maxsize=None)
+def _gate_canonical(identity_name: str) -> str:
+    """The name the gate's duplicate check counts a stock under ("vetiver eo")."""
+    from engine.material_resolver import resolve_material
+
+    try:
+        return resolve_material(identity_name).canonical_name or _identity_key(identity_name)
+    except (KeyError, ValueError):
+        return _identity_key(identity_name)
+
+
+def _gate_duplicate(capability: MaterialCapability, state: "_BeamState") -> str | None:
+    """A stock already in the formula that the gate counts as the same material.
+
+    "Haitian Vetiver EO" and "Vetiver EO (Haiti)" are two labels of one oil:
+    the vetiver brief carried both at 1307 uL and the gate failed it
+    (duplicate_canonical_materials).  Variant pairs the gate allows stay
+    allowed.
+    """
+    from engine.pipeline.gates import ALLOWED_VARIANT_DUPLICATES
+
+    key = _gate_canonical(capability.identity_name)
+    for _role, other, _score in state.assignments:
+        if other.identity_name == capability.identity_name or _gate_canonical(other.identity_name) != key:
+            continue
+        pair = {capability.identity_name.lower(), other.identity_name.lower()}
+        if not any(pair == set(allowed) for allowed in ALLOWED_VARIANT_DUPLICATES):
+            return other.identity_name
+    return None
+
+
 def _backs_natural_lead(
     capability: MaterialCapability,
     role: SemanticRole,
@@ -1056,6 +1119,9 @@ def _block_reason(
     identity = _chemical_identity(capability)
     if identity in state.used_identities:
         return "already used in this formula"
+    twin = _gate_duplicate(capability, state)
+    if twin is not None:
+        return f"the gate counts it as the same material as {twin}"
     if _avoid_candidate(capability.candidate, avoid):
         return "the brief's avoid list"
     if role.provenance == LASTING_SPICE_PROVENANCE:
@@ -1423,6 +1489,10 @@ def _unary_rank_for_role(
             # The gate fails any dose of it (Freesia HDI carries Lilial), so an
             # unnamed role must not reach for it; a brief that names it still
             # gets the gate's refusal and reason.
+            continue
+        if role.exact_material is None and _gate_rejects(capability.identity_name):
+            # The same for a stock the gate cannot score or does not allow
+            # (no odour threshold, an opaque pre-blend).
             continue
         if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
             continue
@@ -2376,6 +2446,73 @@ def _pour_unweighable_crystals(
     return tuple(new_assignments), tuple(new_choices)
 
 
+def _pour_sub_transfer_rows(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    rows: Sequence[dict[str, Any]],
+    index: MaterialCapabilityIndex,
+    quantities: Sequence[dict[str, Any]],
+) -> tuple[tuple[SolvedAssignment, ...], tuple[Choice, ...], tuple[dict[str, Any], ...]] | None:
+    """Swap a liquid row under 10 uL for an owned weaker grade that pours >= 10 uL.
+
+    Kenny's bench cards hold nothing under 10 uL, and the gate holds a raw
+    transfer that small (SUB_10_UL_RAW_TRANSFER).  The planner doses the
+    grade the solver chose, so a trace of a neat oil came out at 5 uL while
+    his 1% stock of it sat unused (Cade Oil Rectified, 6 Nov 2026 audit).
+    The row keeps its active amount: the strongest owned weaker grade that
+    carries it in at least 10 uL replaces it, and the third item pins that
+    grade's pour (a MATERIAL_DOSE row for _formula_rows), since a share-based
+    allocation would pour the weak grade at the same few uL.  A requested
+    dose stays.  None when no row moves.
+    """
+
+    short = {
+        row["slot"]: Decimal(row["amount_decimal"])
+        for row in rows
+        if row.get("amount_unit") == "uL" and row.get("operation") == "PREPARED_DILUTION_REQUIRED"
+        and Decimal(row["amount_decimal"]) > 0
+    }
+    if not short:
+        return None
+    new_assignments, new_choices = list(assignments), list(choices)
+    pours: list[dict[str, Any]] = []
+    for position, choice in enumerate(choices):
+        amount = short.get(choice.role.role_id)
+        if amount is None or choice.candidate.explicit or _quantity_for_candidate(choice.candidate, quantities):
+            continue
+        current = assignments[position].capability
+        fraction = Decimal(str(current.candidate.stock.dilution))
+        active = amount * fraction
+        grades = [
+            capability for capability in index.capabilities
+            if _chemical_identity(capability) == _chemical_identity(current)
+            and not capability.candidate.solid and capability.design_ready and capability.execution_ready
+            and 0 < Decimal(str(capability.candidate.stock.dilution)) < fraction
+            and active / Decimal(str(capability.candidate.stock.dilution)) >= _MIN_RAW_TRANSFER_UL
+        ]
+        if not grades:
+            continue
+        grade = max(grades, key=lambda capability: (float(capability.candidate.stock.dilution), capability.stock_id))
+        pour = {
+            "scope": "MATERIAL_DOSE",
+            "material": grade.candidate.stock.name,
+            "amount_decimal": str(int((active / Decimal(str(grade.candidate.stock.dilution))).to_integral_value(rounding=ROUND_CEILING))),
+            "unit": "uL",
+        }
+        if any(
+            _quantity_for_candidate(other.candidate, (pour,)) is not None
+            for other_position, other in enumerate(choices) if other_position != position
+        ):
+            # The pour row's name would also pin another row: leave this one.
+            continue
+        new_assignments[position] = replace(assignments[position], capability=grade)
+        new_choices[position] = replace(choice, candidate=grade.candidate)
+        pours.append(pour)
+    if not pours:
+        return None
+    return tuple(new_assignments), tuple(new_choices), tuple(pours)
+
+
 def _missing_role_has_candidates(
     missing: Sequence[str],
     *,
@@ -2514,6 +2651,19 @@ def solve_formula(
                     pass
                 else:
                     (assignments, choices), (rows, totals, holds) = poured, poured_rows
+            diluted = _pour_sub_transfer_rows(assignments, choices, rows, index, explicit_quantities)
+            if diluted is not None:
+                try:
+                    diluted_rows = _formula_rows(
+                        diluted[1],
+                        liquid_total_ul=liquid_total_ul,
+                        quantities=(*explicit_quantities, *diluted[2]),
+                    )
+                except ValueError:
+                    # The weaker grade does not allocate: the short row stands.
+                    pass
+                else:
+                    (assignments, choices), (rows, totals, holds) = diluted[:2], diluted_rows
         except ValueError as exc:
             status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"
             holds.append(f"DOSE_ALLOCATION_INFEASIBLE:{exc}")
