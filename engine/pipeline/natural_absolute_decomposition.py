@@ -566,6 +566,22 @@ _CEDARWOOD_EO_CONSTITUENTS = [
 ]
 # Total identified: 82.7% — excellent coverage (APRC 56-sample mean)
 
+# Texas cedarwood oil (Juniperus mexicana / J. ashei wood oil), Kenny's MySkinRecipes
+# bottle (order 2199302, lot 4ZPU51; the COA prints no composition). Per-row median of
+# nine published wood-oil analyses: Adams via TGSC gc1002952; Kitzing and four APRC
+# commercial lots (Setzer & Satyal 2026, Plants 15:659, Table 10); PhytoChemia CB8110R
+# (J. mexicana); VINEVIDA DPP9589; and the EFSA FEEDAP 2024 five-batch GC-FID mean
+# (doi:10.2903/j.efsa.2024.8799). Thujopsene-led like Chinese cedar, not cedrene-led
+# like Virginia. Molecular inputs reuse the Virginia rows; nothing is renormalized.
+_CEDARWOOD_TEXAS_MEDIAN_CONSTITUENTS = [
+    ("thujopsene", 0.362, 204.35, 2.00, 5.00, 1.2),
+    ("cedrol", 0.2712, 222.37, 0.001, 2.00, 0.5),
+    ("alpha cedrene", 0.114, 204.35, 3.00, 10.0, 1.2),
+    ("beta cedrene", 0.034, 204.35, 2.00, 10.0, 1.2),
+    ("cuparene", 0.0184, 202.34, 0.50, 3.00, 1.0),
+    ("widdrol", 0.0169, 222.37, 0.005, 1.00, 0.5),
+]
+
 # Chinese cedarwood oil (Cupressus funebris wood oil, CAS 85085-29-6): The Good Scents Company
 # typical GC (https://www.thegoodscentscompany.com/gca/gc1007241.html), citing R. P. Adams, "Cedarwood oil - analyses and properties"
 # (Modern Methods of Plant Analysis NS 12) and P&F 23(5):55 (1998). Same sesquiterpenes as the
@@ -942,6 +958,23 @@ _GERANIUM_EO_CONSTITUENTS = [
     ("beta-caryophyllene", 0.03, 204.35, 1.5, 10.0, 1.2),
 ]
 
+# Geranium oil, Bourbon type (Pelargonium x asperum, Reunion; ISO 4731:2012 Table 1 "Bourbon
+# type" column), Kenny's MySkinRecipes Geranium Bourbon (order 2199302, lot RS8T01, neat; the COA
+# prints no composition). Row = midpoint of the ISO min/max; (Z)- and (E)-rose oxide are summed.
+# Linalool and geraniol run higher and citronellol lower than the China and North Africa types.
+# Since 5 Nov 2026 (Kenny: no strip tests), so it no longer shares the generic geranium profile with
+# the Bontoux bottle. Molecular inputs reuse the existing geranium rows; nothing is renormalized.
+_GERANIUM_BOURBON_ISO4731_CONSTITUENTS = [
+    ("citronellol", 0.22, 156.26, 2.0, 5.0, 2.0),  # 18.0-26.0
+    ("geraniol", 0.16, 154.25, 4.0, 2.0, 1.5),  # 12.0-20.0
+    ("linalool", 0.095, 154.25, 21.3, 1.5, 2.0),  # 8.0-11.0
+    ("citronellyl formate", 0.0875, 184.28, 5.0, 10.0, 2.0),  # 6.5-11.0
+    ("isomenthone", 0.075, 154.25, 10.0, 5.0, 2.0),  # 5.0-10.0
+    ("geranyl formate", 0.06, 182.26, 1.50, 20.0, 1.5),  # 4.0-8.0
+    ("rose oxide", 0.010, 154.25, 15.00, 0.50, 2.0),  # (Z) 0.3-1.1 + (E) 0.1-0.5
+    ("alpha terpineol", 0.0075, 154.25, 2.00, 10.0, 1.5),  # 0.3-1.2
+]
+
 _YLANG_YLANG_EO_CONSTITUENTS = [
     # Gaydou 1986 (J Agric Food Chem), Stashenko 2008 (J Sep Sci).
     # Extraction: steam distillation. Cananga odorata.
@@ -1099,6 +1132,57 @@ _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS = [
     ("camphor", 0.000334, 152.23, 25.0, 20.0, 2.0),
     ("(R)-carvone", 0.00123, 150.22, 20.16, 5.534, 2.0),
     ("alpha-terpinene", 0.000545, 136.234, 96.6, 1418.0, 3.0),
+]
+
+# Givaudan ORRIS GIVCO 204/2/20 (sales no. 21000663), the neat orris base Kenny
+# keeps for special occasions and off his stock list. Givaudan SDS v4.0 (22 May
+# 2025) section 3 declares concentration bands only; each row takes the band's
+# printed lower bound (beta-ionone ">= 50 - < 70", dihydro-beta-ionone ">= 25 -
+# < 30", ...), so the model under-states rather than invents. Rows reuse this
+# module's runtime tuples for the same molecules. Acetyl cedrene, ethyl
+# heptanoate, Okoumal and bisabolene have no runtime headspace input here and
+# stay unresolved; nothing is renormalized.
+_ORRIS_GIVCO_204_SDS_LOWER_BOUND_CONSTITUENTS = [
+    ("beta ionone", 0.50, 192.30, 1.20, 0.10, 1.5),
+    ("dihydro beta ionone", 0.25, 194.31, 0.50, 0.30, 1.5),
+    ("alpha ionone", 0.01, 192.30, 1.00, 0.50, 1.5),
+    ("alpha irone", 0.01, 206.32, 0.559, 0.9, 1.3),
+    ("alpha cedrene", 0.0025, 204.35, 3.00, 10.0, 1.2),
+    ("beta caryophyllene", 0.001, 204.35, 1.00, 10.0, 1.2),
+    ("alpha pinene", 0.001, 136.24, 400.0, 20.0, 3.0),
+]
+
+# Opoponax resinoid (PerfumersWorld 2QC00337, neat semi-solid resinoid; Kenny's
+# stock is 50% w/w in DEP, applied through the stock dilution). Commercial opoponax
+# is Commiphora guidottii (Thulin & Claeson 1991; Marcotullio 2009). Volatile oil
+# composition: Baser et al. 2003, Flavour Fragr J 18:153 (doi:10.1002/ffj.1166),
+# hydrodistilled oil of Ethiopian C. guidottii resin, Table 4 as reproduced in
+# Hanus et al. 2005 (Biomed Papers 149:3-28). The resinoid keeps the oil; the oil
+# is about 6% of gum resin plus resin (Gebrehiwot et al. 2015, doi:
+# 10.1186/s12906-015-0813-2: oil 2.8% v/w, resin 39% w/w), and the 5% lower bound
+# scales oil percentages to the resinoid, as for the Oman frankincense tincture.
+# Only rows with a primary air ODT are computed (Nagata 2003); (E)-beta-ocimene,
+# (Z)-alpha-bisabolene, alpha-santalene and the bergamotenes, the main volatiles,
+# have none and stay unresolved. Nothing is renormalized.
+_OPOPONAX_RESINOID_OIL_FRACTION = 0.05
+_OPOPONAX_RESINOID_CONSTITUENTS = [
+    ("1-decanol", 0.012 * _OPOPONAX_RESINOID_OIL_FRACTION, 158.28, 1.135, 0.77, 1.5),
+    ("limonene", 0.002 * _OPOPONAX_RESINOID_OIL_FRACTION, 136.24, 206.6, 38.0, 3.0),
+    # alpha-pinene is not in Baser's C. guidottii column; Aromatics International
+    # batch OPP-113 (Somaliland, hydrodistilled) reports 0.08%.
+    ("alpha pinene", 0.0008 * _OPOPONAX_RESINOID_OIL_FRACTION, 136.24, 633.3, 18.0, 3.0),
+]
+
+# PerfumersWorld Red Saffron Infusion, SKU 5ES18560: "The finest red Saffron
+# extracted with dipropylene glycol to give a deep red infusion" (product page).
+# Its IFRA certificate (51st Amendment) lists safranal at 0.0519%, the only
+# constituent the supplier quantifies; the same value already feeds the IFRA
+# check (data/regulatory/ifra_annex1_constituents.json). Kenny stocks it as
+# supplied ("Red Saffron is maxed in DPG", 15 Oct 2026). The DPG carrier and the
+# other saffron volatiles are not declared for this product and stay unresolved;
+# nothing is renormalized.
+_RED_SAFFRON_INFUSION_PW_5ES18560_CONSTITUENTS = [
+    ("safranal", 0.000519, 150.22, 14.1, 0.5, 1.5),
 ]
 
 # Elemi oil (Canarium luzonicum): per-constituent median of three full GC/MS lot
@@ -1638,6 +1722,29 @@ _PINE_PW_7KQ07511_IFRA_DECLARATION_CONSTITUENTS = [
     ("limonene", 0.028407, 136.24, 200.0, 20.0, 3.0),
 ]
 
+# Kenny's Pine EO is PerfumersWorld 7KQ07511 (his answer, 4 Nov 2026), which PW gives
+# the Scots pine CAS 84012-35-1. Rows are the per-row median of three PhytoChemia
+# GC reports of Pinus sylvestris needle oil for Plant Therapy (P70114R Romania,
+# P7010794R Austria, P70108207R Hungary). Limonene keeps the owned batch's declared
+# 2.8407% (PW IFRA declaration), which outranks a generic median. The declared
+# 8.88% longifolene does not fit Scots pine (lots 0-1.3%) and stays unresolved.
+# alpha-Pinene, beta-pinene and limonene carry Nagata (2003) air thresholds; the
+# other rows reuse this module's runtime tuples. Nothing is renormalized.
+_PINE_SYLVESTRIS_THREE_LOT_MEDIAN_CONSTITUENTS = [
+    ("alpha pinene", 0.5001, 136.24, 633.3, 18.0, 3.0),
+    ("beta pinene", 0.1220, 136.24, 390.6, 33.0, 3.0),
+    ("delta-3-carene", 0.1093, 136.23, 200.0, 50.0, 3.0),
+    ("limonene", 0.028407, 136.24, 206.6, 38.0, 3.0),
+    ("myrcene", 0.0325, 136.24, 400.0, 10.0, 3.0),
+    ("beta caryophyllene", 0.0207, 204.35, 1.00, 10.0, 1.2),
+    ("bornyl acetate", 0.0147, 196.29, 3.0, 10.0, 1.5),
+    ("camphene", 0.0144, 136.24, 400.0, 50.0, 3.0),
+    ("p cymene", 0.0116, 134.22, 240.0, 30.0, 3.0),
+    ("beta phellandrene", 0.0096, 136.24, 300.0, 20.0, 3.0),
+    ("alpha terpineol", 0.0067, 154.25, 2.00, 10.0, 1.5),
+    ("terpinolene", 0.0060, 136.23, 150.0, 30.0, 3.0),
+]
+
 # Santalum album L. oil: ISO 3518:2025 Table 2 chromatographic profile; fractions
 # are the midpoints of the (Z)-alpha- and (Z)-beta-santalol ranges. Farnesol and
 # lanceol (n.d.-1.0% and n.d.-5.0%) have upper bounds only and stay unresolved. The
@@ -1771,6 +1878,7 @@ _ABSOLUTE_CONSTITUENTS = {
     "rosemary eo": _ROSEMARY_EO_CONSTITUENTS,
     "rosemary eo (french rosmarinus officinalis leaf oil)": _ROSEMARY_EO_CONSTITUENTS,
     "geranium eo": _GERANIUM_EO_CONSTITUENTS,
+    "pelargonium bourbon type iso 4731 2012 midpoint profile": _GERANIUM_BOURBON_ISO4731_CONSTITUENTS,
     "clove eo": _CLOVE_EO_CONSTITUENTS,
     "black pepper eo": _BLACK_PEPPER_EO_CONSTITUENTS,
     "pink pepper eo": _SCHINUS_MOLLE_EO_CONSTITUENTS,
@@ -1782,6 +1890,7 @@ _ABSOLUTE_CONSTITUENTS = {
     # Literature-only proxy identities (not supplier-batch identities).
     "cupressus sempervirens leaf oil literature profile": _CYPRESS_LEAF_LITERATURE_CONSTITUENTS,
     "cupressus funebris wood oil tgsc typical gc profile": _CUPRESSUS_FUNEBRIS_TGSC_CONSTITUENTS,
+    "cedarwood texas oil nine-analysis gc median profile": _CEDARWOOD_TEXAS_MEDIAN_CONSTITUENTS,
     "mentha piperita lk literature profile": _PEPPERMINT_LK_LITERATURE_CONSTITUENTS,
     "lavandula latifolia spanish type iso 4719 midpoint profile": (
         _SPIKE_LAVENDER_ISO_4719_MIDPOINT_CONSTITUENTS
@@ -1791,6 +1900,15 @@ _ABSOLUTE_CONSTITUENTS = {
     ),
     "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
         _ELEMI_PW_7QC00902_ALLERGEN_DECLARATION_CONSTITUENTS
+    ),
+    "red saffron infusion perfumersworld 5es18560 ifra certificate profile": (
+        _RED_SAFFRON_INFUSION_PW_5ES18560_CONSTITUENTS
+    ),
+    "orris givco 204/2/20 givaudan sds band lower bound profile": (
+        _ORRIS_GIVCO_204_SDS_LOWER_BOUND_CONSTITUENTS
+    ),
+    "commiphora guidottii opoponax resinoid baser 2003 oil scaled profile": (
+        _OPOPONAX_RESINOID_CONSTITUENTS
     ),
     "canarium luzonicum oil three-lot gc-ms median profile": (
         _ELEMI_LUZONICUM_THREE_LOT_MEDIAN_CONSTITUENTS
@@ -1880,6 +1998,9 @@ _ABSOLUTE_CONSTITUENTS = {
     "pine oil perfumersworld 7kq07511 ifra declaration profile": (
         _PINE_PW_7KQ07511_IFRA_DECLARATION_CONSTITUENTS
     ),
+    "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile": (
+        _PINE_SYLVESTRIS_THREE_LOT_MEDIAN_CONSTITUENTS
+    ),
     "santalum album oil iso 3518 midpoint profile": (
         _SANDALWOOD_ALBUM_ISO_3518_MIDPOINT_CONSTITUENTS
     ),
@@ -1893,8 +2014,8 @@ _ABSOLUTE_CONSTITUENTS = {
 _PROFILE_ALIASES = {
     # Volatile headspace proxies with the same botanical material or a stated
     # close extraction/grade variant. Metadata marks every proxy explicitly.
-    # Calabrian whole-oil ISO profile used as a labelled proxy for Sicilian FCF
-    # bergamot oil (and for the unqualified bergamot EO label it already served).
+    # Calabrian whole-oil ISO profile used as a labelled proxy for the Bontoux FCF
+    # bergamot oil (its stock name says Sicilian), and for the unqualified bergamot EO label.
     "bergamot fcf": "citrus bergamia calabrian type iso 3520 midpoint profile",
     "bergamot fcf sicilian": "citrus bergamia calabrian type iso 3520 midpoint profile",
     # Expressed-oil ISO profile used as a labelled proxy for FCF grapefruit oil.
@@ -1915,12 +2036,20 @@ _PROFILE_ALIASES = {
     # Kenny's sweet orange (STK-112, COA limonene 95.28 %): its own ISO 3140 profile since 28 Oct 2026.
     "sweet orange essential oil": "citrus sinensis sweet orange iso 3140 2019 midpoint profile",
     "blood orange sicilian": "orange peel eo",
+    # Kenny's Orange Peel EO (neat, supplier and species not recorded): read as sweet orange
+    # expressed peel oil, the usual oil sold under that name, on the ISO 3140 profile since
+    # 5 Nov 2026 (Kenny: no strip tests). The old "orange peel eo" table stays for Blood Orange.
+    # The IFRA side still lists both sweet and bitter orange for this bottle.
+    "orange peel eo": "citrus sinensis sweet orange iso 3140 2019 midpoint profile",
     # MySkinRecipes order 2199302 stocks (Kenny chose "Link them", 16 Oct 2026): labelled
-    # proxies onto the existing whole-oil profiles, not lot data. Bourbon geranium uses the
-    # geranium EO profile and Texas cedar
-    # (Juniperus mexicana, thujopsene/cedrene/cedrol like Virginia) the cedarwood EO profile.
-    "geranium bourbon essential oil": "geranium eo",
-    "cedarwood texas eo": "cedarwood eo",
+    # proxies onto the existing whole-oil profiles, not lot data. Bourbon geranium used the
+    # geranium EO profile until 5 Nov 2026; it now takes the ISO 4731 Bourbon-type midpoints.
+    # Texas cedar used the Virginia cedarwood EO profile until 4 Nov 2026
+    # (Kenny chose "Fix and source"); it now takes its own nine-analysis Texas median.
+    "geranium bourbon essential oil": "pelargonium bourbon type iso 4731 2012 midpoint profile",
+    "cedarwood texas eo": "cedarwood texas oil nine-analysis gc median profile",
+    "cedarwood texas": "cedarwood texas oil nine-analysis gc median profile",
+    "cedarwood texas essential oil": "cedarwood texas oil nine-analysis gc median profile",
     # Kenny's China cedarwood (V5 row 62, STK-229): Cupressus funebris as the closest identity,
     # by his 28 Oct 2026 rule for unidentified bottles ("select the one that is the closest").
     "cedarwood chinese essential oil": "cupressus funebris wood oil tgsc typical gc profile",
@@ -1959,6 +2088,16 @@ _PROFILE_ALIASES = {
     # 31 Oct 2026: the three-lot median covers about 93.5% of the oil; the PerfumersWorld
     # 7QC00902 allergen declaration (49.7%, allergens only) stays as its cross-check.
     "elemi eo": "canarium luzonicum oil three-lot gc-ms median profile",
+    "red saffron infusion": "red saffron infusion perfumersworld 5es18560 ifra certificate profile",
+    "orris givco 204": "orris givco 204/2/20 givaudan sds band lower bound profile",
+    "orris givco 204/20": "orris givco 204/2/20 givaudan sds band lower bound profile",
+    "orris givco 204/2/20": "orris givco 204/2/20 givaudan sds band lower bound profile",
+    "orris givco": "orris givco 204/2/20 givaudan sds band lower bound profile",
+    "opoponax resinoid": "commiphora guidottii opoponax resinoid baser 2003 oil scaled profile",
+    "opoponax resinoid (50% in dep)": "commiphora guidottii opoponax resinoid baser 2003 oil scaled profile",
+    "opoponax resinoid 50% in dep": "commiphora guidottii opoponax resinoid baser 2003 oil scaled profile",
+    "opoponax resinoid 50%": "commiphora guidottii opoponax resinoid baser 2003 oil scaled profile",
+    "opoponax": "commiphora guidottii opoponax resinoid baser 2003 oil scaled profile",
     "elemi essential oil": "canarium luzonicum oil three-lot gc-ms median profile",
     # Aroma&More "Nutmeg Essential oil, Indonesia" (ref NutId0612B): seed oil,
     # East Indian type per the supplier. Mace (aril) oil is not mapped.
@@ -2117,8 +2256,10 @@ _PROFILE_ALIASES = {
     "cabreuva eo (50% w/w in dpg)": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
     "cabreuva eo 50% in dpg": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
     "cabreuva essential oil": "myrocarpus cabreuva oil perfumersworld 7lw00863 ifra declaration profile",
-    "pine eo": "pine oil perfumersworld 7kq07511 ifra declaration profile",
-    "pine essential oil": "pine oil perfumersworld 7kq07511 ifra declaration profile",
+    # Pine EO = PW 7KQ07511 (Kenny, 4 Nov 2026); since then the Scots pine median, with
+    # the batch declaration kept as its cross-check.
+    "pine eo": "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile",
+    "pine essential oil": "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile",
     "sandalwood eo": "santalum album oil iso 3518 midpoint profile",
     "sandalwood eo (10% in dpg)": "santalum album oil iso 3518 midpoint profile",
     "sandalwood essential oil": "santalum album oil iso 3518 midpoint profile",
@@ -2154,8 +2295,10 @@ _POMELO_EO_PROXY_LIMITATIONS = (
 )
 
 _BERGAMOT_FCF_PROXY_LIMITATIONS = (
-    "The owned oil is Sicilian furocoumarin-free bergamot; ISO 3520:2022 describes Calabrian whole "
-    "expressed oil, which must contain bergaptene 0.18-0.38%. FCF processing removes bergaptene "
+    "The owned oil is Bontoux furocoumarin-free bergamot. The stock list calls it Sicilian, but "
+    "Bontoux writes 'The bergamot is mainly grown in Calabria' "
+    "(https://bontoux.com/site2021/fr/bergamot/), so it is probably Calabrian; the lot's origin is "
+    "not recorded. ISO 3520:2022 describes Calabrian whole expressed oil, which must contain bergaptene 0.18-0.38%. FCF processing removes bergaptene "
     "(bergapten) and can shift the volatile profile.",
     "The reused composition is the ISO 3520 range midpoint profile, not an analysis of the owned "
     "product or lot.",
@@ -2331,6 +2474,21 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC8881160/",
         "https://pmc.ncbi.nlm.nih.gov/articles/PMC10603989/",
     ),
+    "cedarwood texas oil nine-analysis gc median profile": (
+        "https://thegoodscentscompany.com/gca/gc1002952.html",
+        "https://pmc.ncbi.nlm.nih.gov/articles/PMC12944130/",
+        "https://www.planttherapy.com/cdn/shop/files/Cedarwood_Texas_crude_-_CB8110R.pdf",
+        "https://cdn.shopify.com/s/files/1/0305/1562/6117/files/VINEVIDA_Cedarwood_Texas_Essential_Oil_GCMS_05-01-2026.pdf",
+        "https://doi.org/10.2903/j.efsa.2024.8799",
+        "https://cdn.standards.iteh.ai/samples/34879/52f537904d964d00815825b815d01d0a/ISO-4725-2004.pdf",
+    ),
+    "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile": (
+        "https://www.planttherapy.com/cdn/shop/files/Pine_-_P70114R.pdf",
+        "https://www.planttherapy.com/cdn/shop/files/Pine_P70107.pdf",
+        "https://www.planttherapy.com/cdn/shop/files/Pine_P70108.pdf",
+        "https://www.perfumersworld.com/document-list.php?pro_id=7KQ07511",
+        "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf",
+    ),
     "cupressus funebris wood oil tgsc typical gc profile": (
         "https://www.thegoodscentscompany.com/gca/gc1007241.html",
         "https://www.thegoodscentscompany.com/data/es1007241.html",
@@ -2348,6 +2506,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://webbook.nist.gov/cgi/cbook.cgi?ID=2216-51-5",
     ),
     "orange peel eo": ("https://pubmed.ncbi.nlm.nih.gov/12862384/",),
+    "pelargonium bourbon type iso 4731 2012 midpoint profile": (
+        "https://cdn.standards.iteh.ai/samples/52144/00741cec04264c84bac088532995961e/ISO-4731-2012.pdf",
+        "https://www.thegoodscentscompany.com/data/es1033011.html",
+    ),
     "rum ether efsa fge500 company 2 scenario profile": (
         "https://doi.org/10.2903/j.efsa.2017.4897",
         "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf",
@@ -2394,6 +2556,23 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
     "canarium elemi oil perfumersworld 7qc00902 allergen declaration profile": (
         "https://www.perfumersworld.com/document-list.php?pro_id=7QC00902",
         "https://www.perfumersworld.com/view.php?pro_id=7QC00902",
+    ),
+    "red saffron infusion perfumersworld 5es18560 ifra certificate profile": (
+        "https://www.perfumersworld.com/document-list.php?pro_id=5ES18560",
+        "https://www.perfumersworld.com/view.php?pro_id=5ES18560",
+    ),
+    "orris givco 204/2/20 givaudan sds band lower bound profile": (
+        "https://olfatorium.com/wp-content/uploads/2024/12/21000663-ORRIS-GIVCO-204220-SDS-EN.pdf",
+        "https://perfumersupplyhouse.com/wp-content/uploads/2019/06/OrrisGivco204220SDS.pdf",
+        "https://shop.perfumersapprentice.com/Documents/IFRA-51/9349.pdf",
+    ),
+    "commiphora guidottii opoponax resinoid baser 2003 oil scaled profile": (
+        "https://doi.org/10.1002/ffj.1166",
+        "http://biomed.papers.upol.cz/pdfs/bio/2005/01/01.pdf",
+        "https://doi.org/10.1186/s12906-015-0813-2",
+        "https://data.aromatics.com/products/opopanax-essential-oil",
+        "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf",
+        "https://www.perfumersworld.com/view.php?pro_id=2QC00337",
     ),
     "canarium luzonicum oil three-lot gc-ms median profile": (
         "https://www.revive-eo.com/wp-content/uploads/2025/06/REVIVE-GCMS-Report-Elemi-Oil-Philippines-8F.pdf",
@@ -3231,6 +3410,184 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "The supplier SDS lists hexyl salicylate at 0.1-1%, which is not a known elemi constituent; supplier documents may follow a template.",
         ),
     },
+    "commiphora guidottii opoponax resinoid baser 2003 oil scaled profile": {
+        "analytical_method": "PUBLISHED_GC_MS_OIL_PROFILE_SCALED_TO_RESINOID",
+        "composition_basis": "LOWER_BOUND_VOLATILE_OIL_SCALED_NOMINAL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://doi.org/10.1002/ffj.1166",
+                "table": "Baser et al. 2003 Table 4, C. guidottii column, as reproduced in Hanus et al. 2005 (http://biomed.papers.upol.cz/pdfs/bio/2005/01/01.pdf)",
+                "published_botanical_name": "Commiphora guidottii",
+                "published_extraction": "hydrodistillation of resin collected in Ethiopia",
+                "reported_oil_pct": {
+                    "(E)-beta-ocimene": 33.0, "cis-alpha-bisabolene": 22.2, "alpha-santalene": 15.8,
+                    "trans-beta-bergamotene": 6.6, "alpha-bergamotene": 3.0, "germacrene D": 1.6,
+                    "decanol": 1.2, "(Z)-beta-farnesene": 0.8, "(E)-beta-farnesene": 0.8,
+                    "(Z)-beta-ocimene": 0.7, "epi-beta-santalene": 0.6,
+                    "6-methyl-3,5-heptadien-2-one": 0.4, "cis-alpha-bergamotene": 0.3,
+                    "limonene": 0.2, "nonanol": 0.2, "furanodiene": 0.1,
+                },
+                "cross_check": "Aromatics International batch OPP-113 (https://data.aromatics.com/products/opopanax-essential-oil): (E)-beta-ocimene 41.82, (Z)-alpha-bisabolene 19.30, alpha-santalene 14.05, decanol 0.40, alpha-pinene 0.08, limonene 0.07",
+                "resinoid_volatile_oil_fraction": _OPOPONAX_RESINOID_OIL_FRACTION,
+                "oil_fraction_derivation": "Gebrehiwot et al. 2015: gum yields 2.8% v/w oil (2.4-2.6 g at TGSC oil SG 0.865-0.932) and 39% w/w resin, so oil is about 5.8-6.3% of oil plus resin; the 5% lower bound is used",
+                "fraction_policy": "PUBLISHED_RANGE_LOWER_BOUND",
+                "fraction_rule": "OIL_PERCENT_DIVIDED_BY_100_TIMES_RESINOID_OIL_FRACTION",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "GENERIC_PROXY_ONLY",
+                "owned_stock_label": "Opoponax Resinoid 50% w/w in DEP (STK-207, PerfumersWorld 2QC00337)",
+                "supplier_species_label": "Commiphora erythraea (PerfumersWorld; older trade name)",
+            },
+            "1-decanol": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "mw_source": "https://webbook.nist.gov/cgi/cbook.cgi?ID=C112301",
+                "vp_status": "MEASURED_25C",
+                "vp_source": "https://www.env.go.jp/chemi/report/h19-03/pdf/chpt2/2-2-2-24.pdf (8.51e-3 mm Hg at 25 C, measured, citing Daubert & Danner)",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata (2003) Table 2, n-Decanol 0.00077 ppm v/v (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf)",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "limonene": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "vp_status": "HSDB_EXTRAPOLATED_25C",
+                "vp_source": "PubChem CID 22311 (HSDB): 1.55 mm Hg at 25 C, extrapolated",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata (2003) Table 2, Limonene 0.038 ppm v/v (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf)",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "alpha pinene": {
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT",
+                "vp_status": "HSDB_25C",
+                "vp_source": "PubChem CID 6654 (HSDB): 4.75 mm Hg at 25 C",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata (2003) Table 2, alpha-Pinene 0.018 ppm v/v (https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf)",
+                "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+        },
+        "unresolved_constituents": tuple(
+            {
+                "name": name,
+                "reported_fraction": round(oil_pct / 100 * _OPOPONAX_RESINOID_OIL_FRACTION, 6),
+                "missing_input": "NO_PRIMARY_AIR_ODT",
+                "odor_contribution": "UNCOMPUTED",
+            }
+            for name, oil_pct in (
+                ("(E)-beta-ocimene", 33.0),
+                ("cis-alpha-bisabolene", 22.2),
+                ("alpha-santalene", 15.8),
+                ("bergamotenes (trans-beta, alpha, cis-alpha)", 9.9),
+                ("(Z)-beta-ocimene", 0.7),
+                ("6-methyl-3,5-heptadien-2-one", 0.4),
+            )
+        )
+        + (
+            {
+                "name": "nonanol",
+                "reported_fraction": 0.0001,
+                "missing_input": "NO_SOURCED_25C_VAPOUR_PRESSURE",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "resin matrix",
+                "missing_input": "NONVOLATILE_RESIN_NOT_CHARACTERIZED",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "The main opoponax volatiles (ocimene, bisabolene, santalene, bergamotenes) have no primary air ODT, so the modeled odour rests on decanol, limonene and alpha-pinene and under-represents the material.",
+            "Lots vary: a trade-grade Ogaden gum was furanosesquiterpene-rich with 6.7% ocimene (Gebrehiwot et al. 2015).",
+            "The PerfumersWorld IFRA certificate gives CAS 93384-32-8, which names Opopanax chironium resin, not Commiphora (SCCP opinion https://ec.europa.eu/health/ph_risk/committees/04_sccp/docs/sccp_o_025b.pdf distinguishes CAS 9000-78-6).",
+            "No source gives the resinoid's density.",
+        ),
+    },
+    "orris givco 204/2/20 givaudan sds band lower bound profile": {
+        "analytical_method": "PRODUCER_SDS_CONCENTRATION_BANDS",
+        "composition_basis": "SDS_BAND_LOWER_BOUND_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://olfatorium.com/wp-content/uploads/2024/12/21000663-ORRIS-GIVCO-204220-SDS-EN.pdf",
+                "document": "Givaudan Safety Data Sheet, ORRIS GIVCO 204/2/20, sales no. 21000663, version 4.0, revision date 22 May 2025, section 3.2",
+                "declared_band_pct": {
+                    "beta-ionone (14901-07-6 / 79-77-6)": (50.0, 70.0),
+                    "dihydro-beta-ionone (17283-81-7)": (25.0, 30.0),
+                    "acetyl cedrene (32388-55-9)": (2.5, 5.0),
+                    "alpha-ionone (127-41-3)": (1.0, 2.5),
+                    "alpha-irone (79-69-6)": (1.0, 2.5),
+                    "ethyl heptanoate (106-30-9)": (1.0, 2.5),
+                    "alpha-cedrene (469-61-4)": (0.25, 1.0),
+                    "Okoumal (131812-67-4)": (0.25, 1.0),
+                    "beta-caryophyllene (87-44-5)": (0.1, 1.0),
+                    "alpha-pinene (80-56-8)": (0.1, 0.25),
+                    "bisabolene (17627-44-0)": (0.1, 0.25),
+                },
+                "band_upper_bounds_sum_exceeds_100_pct": True,
+                "sds_density": "938,97 kg/m3 at 20 C",
+                "fraction_rule": "SDS_BAND_LOWER_BOUND_PERCENT_DIVIDED_BY_100",
+                "fraction_policy": "PUBLISHED_RANGE_LOWER_BOUND",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Orris Givco 204/20, neat, kept off the stock list at Kenny's request (13 Oct 2026)",
+                "owned_bottle_sku_verified": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY) for name in ('beta ionone', 'dihydro beta ionone', 'alpha ionone', 'alpha irone', 'alpha cedrene', 'beta caryophyllene', 'alpha pinene')},
+        },
+        "unresolved_constituents": (
+            {"name": "acetyl cedrene", "reported_fraction_range": (0.025, 0.05),
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "ethyl heptanoate", "reported_fraction_range": (0.01, 0.025),
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "Okoumal", "reported_fraction_range": (0.0025, 0.01),
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "bisabolene", "reported_fraction_range": (0.001, 0.0025),
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "band excess above the lower bounds and undeclared material",
+              "missing_input": "SDS_BANDS_ONLY", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "An SDS declares hazard-classified components in concentration bands; it is not an analysis, and only the band lower bounds are modeled.",
+            "Published constituent vapour pressures disagree (beta-ionone 0.9 Pa vs 7.2 Pa in the OECD SIDS; Givaudan prints dihydro-beta-ionone 0.0093 hPa and alpha-ionone 0.0013 hPa); the rows keep this module's runtime values unless a cited data-spine VP replaces them.",
+            "The SDS names no orris extract, so the base is modeled as its declared synthetic constituents only.",
+        ),
+    },
+    "red saffron infusion perfumersworld 5es18560 ifra certificate profile": {
+        "analytical_method": "SUPPLIER_IFRA_CERTIFICATE",
+        "composition_basis": "SUPPLIER_DECLARED_CONCENTRATION_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.perfumersworld.com/document-list.php?pro_id=5ES18560",
+                "document": "PerfumersWorld IFRA certificate (51st Amendment), Red Saffron Infusion, SKU 5ES18560",
+                "declared_pct": {"safranal (116-26-7)": 0.0519},
+                "supplier_description": "The finest red Saffron extracted with dipropylene glycol to give a deep red infusion.",
+                "fraction_rule": "DECLARED_CONCENTRATION_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Red Saffron Infusion, as supplied in DPG (Kenny, 15 Oct 2026: 'Red Saffron is maxed in DPG')",
+                "owned_bottle_sku_verified": True,
+            },
+            "safranal": dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY),
+        },
+        "unresolved_constituents": (
+            {
+                "name": "dipropylene glycol",
+                "missing_input": "CARRIER_FRACTION_NOT_DECLARED",
+                "odor_contribution": "UNCOMPUTED",
+            },
+            {
+                "name": "other saffron volatiles (e.g. isophorone, 4-ketoisophorone)",
+                "missing_input": "NOT_QUANTIFIED_FOR_THIS_PRODUCT",
+                "odor_contribution": "UNCOMPUTED",
+            },
+        ),
+        "limitations": (
+            "An IFRA certificate states the regulated constituent only; it is not a full composition and its analytical basis is not stated.",
+            "Only 0.0519% of the infusion (its safranal) is modeled; the DPG carrier and the other saffron volatiles remain uncomputed, not odorless.",
+        ),
+    },
     "canarium luzonicum oil three-lot gc-ms median profile": {
         "analytical_method": "PUBLISHED_LOT_GC_MS_TABLES_MEDIAN",
         "composition_basis": "MEDIAN_OF_LOT_GC_AREA_PERCENT_NOMINAL_MODEL_PROXY",
@@ -3497,6 +3854,153 @@ _PARTIAL_PROFILE_EVIDENCE = {
             "Only 72.25% of nominal composition is modeled; myristicin, safrole and unlisted constituents remain uncomputed, not odorless.",
             "Safrole is restricted by IFRA Standard 179 (safrole, isosafrole and dihydrosafrole together at most 0.01% of the finished product); this composition scenario does not feed the IFRA screen.",
             "Mace (aril) oil and West Indian nutmeg oil are not covered by this profile.",
+        ),
+    },
+    "pelargonium bourbon type iso 4731 2012 midpoint profile": {
+        "analytical_method": "STANDARD_CHROMATOGRAPHIC_PROFILE_RANGES",
+        "composition_basis": "SPECIFICATION_RANGE_MIDPOINT_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://cdn.standards.iteh.ai/samples/52144/00741cec04264c84bac088532995961e/ISO-4731-2012.pdf",
+                "document": "ISO 4731:2012 Oil of geranium (Pelargonium x ssp.), Table 1, Bourbon type column",
+                "iso_4731_2012_bourbon_ranges_pct": {
+                    "(Z)-rose oxide": (0.3, 1.1), "(E)-rose oxide": (0.1, 0.5), "menthone": (None, 2.0),
+                    "isomenthone": (5.0, 10.0), "linalool": (8.0, 11.0), "guaia-6,9-diene": (5.0, 8.5),
+                    "citronellyl formate": (6.5, 11.0), "alpha-terpineol": (0.3, 1.2),
+                    "geranyl formate": (4.0, 8.0), "citronellol": (18.0, 26.0), "geraniol": (12.0, 20.0),
+                    "geranyl butyrate": (0.7, 2.0), "10-epi-gamma-eudesmol": (None, None),
+                    "geranyl tiglate": (0.7, 2.0), "2-phenylethyl tiglate": (0.4, 1.0),
+                },
+                "fraction_rule": "RANGE_MIDPOINT_PERCENT_DIVIDED_BY_100; ROSE_OXIDE_ISOMERS_SUMMED",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "response_factor_correction": "NONE_APPLIED_IN_SOURCE",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Geranium Bourbon Essential Oil, MySkinRecipes order 2199302, lot RS8T01, neat",
+                "owned_bottle_sku_verified": True,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("citronellol", "geraniol", "linalool", "citronellyl formate",
+                            "isomenthone", "geranyl formate", "rose oxide", "alpha terpineol")},
+        },
+        "unresolved_constituents": (
+            {"name": "guaia-6,9-diene", "reported_fraction": 0.0675,
+             "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "menthone", "reported_fraction": 0.010,
+             "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "geranyl butyrate, geranyl tiglate, 2-phenylethyl tiglate", "reported_fraction": 0.034,
+             "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "ISO specification midpoints, not an analysis of the owned lot; MySkinRecipes prints no composition.",
+            "The owned bottle is sold as Bourbon; its origin (Reunion or Bourbon-type from elsewhere) is not stated.",
+            "10-epi-gamma-eudesmol is not detected in the Bourbon type (it marks North African oil), so it is not a row.",
+            "Constituent vapour pressures and thresholds are the legacy runtime estimates shared with the generic geranium profile.",
+        ),
+    },
+    "cedarwood texas oil nine-analysis gc median profile": {
+        "analytical_method": "PUBLISHED_GC_TABLES_PER_ROW_MEDIAN",
+        "composition_basis": "GC_AREA_MEDIAN_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12944130/",
+                "analyses": (
+                    "Adams (1991) via TGSC gc1002952 (= Setzer & Satyal 2026 Table 10 ref 83): alpha-cedrene 30.7, beta-cedrene 5.5, thujopsene 25.0, cedrol 19.1, cuparene 1.70, widdrol 1.60",
+                    "Kitzing commercial (Setzer & Satyal 2026 Table 10 ref 85): 8.6 / 3.4 / 38.4 / 28.9",
+                    "APRC commercial x4 (Setzer & Satyal 2026 Table 10): alpha-cedrene 12.5, 11.4, 13.3, 10.6; beta-cedrene 3.4, 3.3, 2.6, 2.7; thujopsene 36.2, 38.6, 38.5, 39.8; cedrol 30.3, 29.4, 23.1, 27.3",
+                    "PhytoChemia CB8110R for Plant Therapy, J. mexicana (2023-11-24): alpha-cedrene 11.30, beta-cedrene 3.63, cis-thujopsene 33.77, cedrol 17.81, widdrol 2.41, cuparene 2.14",
+                    "VINEVIDA DPP9589 (Dec 2025): alpha-cedrene 8.36, beta-cedrene 2.95, thujopsene 34.94, cuprene 1.81, cedrol 27.12, widrol 1.69",
+                    "EFSA FEEDAP 2024, five batches J. deppeana, GC-FID means: thujopsene 29.8, cedrol 22.0, alpha-cedrene 16.9, beta-cedrene 5.80; GC-MS cuparene 1.86",
+                ),
+                "excluded": "SC-CO2 extract (Setzer & Satyal 2026 ref 86): 'not a true essential oil'",
+                "iso_4725_2004_ranges_pct": {
+                    "alpha-cedrene": (15.0, 25.0), "beta-cedrene": (3.0, 8.0), "thujopsene": (25.0, 35.0),
+                    "cuparene": (1.5, 3.2), "cedrol": (20.0, None), "widdrol": (2.5, None),
+                },
+                "fraction_rule": "PER_ROW_MEDIAN_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "response_factor_correction": "NONE_APPLIED_IN_SOURCES",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_stock_label": "Cedarwood Texas EO, MySkinRecipes order 2199302, lot 4ZPU51, neat",
+                "owned_bottle_sku_verified": True,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY)
+               for name in ("thujopsene", "cedrol", "alpha cedrene", "beta cedrene", "cuparene", "widdrol")},
+        },
+        "unresolved_constituents": (
+            {"name": "alpha-chamigrene", "reported_fraction": 0.012,
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+            {"name": "beta-himachalene, beta-funebrene, alpha-acorenol, alpha-cuprenene, beta-elemene and traces",
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "A median of published commercial and reference analyses, not an analysis of the owned lot; MySkinRecipes prints no composition.",
+            "Most market lots sit outside ISO 4725: 7 of 9 have alpha-cedrene below the 15% minimum and the thujopsene median (36.2%) is above the 35% maximum; widdrol is below the 2.5% minimum in every point value.",
+            "Sources name J. mexicana, J. ashei and J. deppeana; the owned bottle's species is not stated.",
+            "Constituent vapour pressures and thresholds are the legacy runtime estimates shared with the Virginia cedarwood profile; no air ODT was found for any cedarwood constituent. TGSC estimates cedrol at 0.001 mm Hg (0.133 Pa), while the legacy row carries 0.001 Pa.",
+        ),
+    },
+    "pinus sylvestris needle oil three-lot median with pw 7kq07511 limonene profile": {
+        "analytical_method": "PUBLISHED_LOT_GC_REPORTS_MEDIAN",
+        "composition_basis": "GC_AREA_MEDIAN_NOMINAL_MODEL_PROXY",
+        "quantitative_evaluability": "PARTIAL_INPUT_COVERAGE",
+        "input_authority": {
+            "composition": {
+                "source": "https://www.planttherapy.com/cdn/shop/files/Pine_-_P70114R.pdf",
+                "lots_pct_romania_austria_hungary": {
+                    "alpha-pinene": (50.01, 51.56, 40.09), "beta-pinene": (12.20, 9.69, 19.90),
+                    "delta-3-carene": (10.18, 10.93, 15.20), "limonene": (8.02, 7.99, 8.02),
+                    "myrcene": (2.85, 4.66, 3.25), "beta-caryophyllene": (2.07, 2.14, 1.83),
+                    "bornyl acetate": (1.28, 1.90, 1.47), "camphene": (1.44, 2.11, 1.10),
+                    "p-cymene": (0.92, 1.16, 1.30), "beta-phellandrene": (0.45, 0.96, 1.15),
+                    "alpha-terpineol": (1.21, 0.67, 0.56), "terpinolene": (0.60, 0.53, 0.85),
+                },
+                "published_botanical_name": "Pinus sylvestris (PhytoChemia: 'Source : Pinus sylvestris')",
+                "owned_batch_declaration": {
+                    "source": "https://www.perfumersworld.com/document-list.php?pro_id=7KQ07511",
+                    "declared_pct": {"d-limonene": 2.8407, "longifolene": 8.8795},
+                    "used_for": "limonene row; longifolene listed as unresolved",
+                },
+                "species_link": "Kenny, 4 Nov 2026: his Pine EO is PerfumersWorld 7KQ07511; PW gives CAS 84012-35-1 (Pinus sylvestris)",
+                "fraction_rule": "PER_ROW_MEDIAN_PERCENT_DIVIDED_BY_100",
+                "basis_to_mass_conversion": "HEURISTIC_NOMINAL_MODEL_PROXY",
+                "owned_lot_match": "UNVERIFIED_CONDITIONAL_PROXY",
+                "owned_bottle_sku_verified": True,
+            },
+            "alpha pinene": {
+                "vp_status": "HSDB_25C", "vp_source": "PubChem CID 6654 (HSDB): 4.75 mm Hg at 25 C",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata (2003) Table 2, alpha-Pinene 0.018 ppm v/v",
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT", "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "beta pinene": {
+                "vp_status": "TGSC_25C", "vp_source": "https://thegoodscentscompany.com/data/rw1344431.html (2.93 mm Hg at 25 C)",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata (2003) Table 2, beta-Pinene 0.033 ppm v/v",
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT", "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            "limonene": {
+                "vp_status": "HSDB_EXTRAPOLATED_25C", "vp_source": "PubChem CID 22311 (HSDB): 1.55 mm Hg at 25 C, extrapolated",
+                "odt_status": "PUBLISHED_AIR_THRESHOLD",
+                "odt_source": "Nagata (2003) Table 2, Limonene 0.038 ppm v/v",
+                "mw_status": "PUBLISHED_MOLECULAR_WEIGHT", "gamma_status": "HEURISTIC_CLASS_INPUT",
+                "owned_oil_activity_measured": False,
+            },
+            **{name: dict(_LEGACY_CONSTITUENT_INPUT_AUTHORITY) for name in ('delta-3-carene', 'myrcene', 'beta caryophyllene', 'bornyl acetate', 'camphene', 'p cymene', 'beta phellandrene', 'alpha terpineol', 'terpinolene')},
+        },
+        "unresolved_constituents": (
+            {"name": "longifolene", "reported_fraction": 0.088795,
+              "missing_input": "OWNED_BATCH_DECLARATION_CONFLICTS_WITH_SCOTS_PINE_AND_NO_AIR_ODT",
+              "odor_contribution": "UNCOMPUTED"},
+            {"name": "alpha-humulene, tricyclene, caryophyllene oxide and traces",
+              "missing_input": "NO_RUNTIME_HEADSPACE_INPUT", "odor_contribution": "UNCOMPUTED"},
+        ),
+        "limitations": (
+            "A median of three published Scots pine lots, not an analysis of the owned bottle; the owned batch declares 2.84% limonene (Ph. Eur. 7-12%) and 8.88% longifolene, which no Scots pine lot found reaches, so the bottle may be another pine or a blend.",
+            "Rows other than alpha-pinene, beta-pinene and limonene use the module's legacy runtime vapour pressures and thresholds.",
         ),
     },
     "cupressus funebris wood oil tgsc typical gc profile": {
