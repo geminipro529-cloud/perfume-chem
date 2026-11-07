@@ -38,7 +38,9 @@ def _capability(identity: str, dilution: float):
 @pytest.mark.parametrize(
     ("identity", "gate"),
     [
-        ("Ethyl Acetoacetate", "odt_coverage"),
+        # Ethyl Acetoacetate (no air ODT on 6 Nov) is scored since #187.
+        ("Mate Absolute", "physics_data_coverage"),
+        ("Iris Florentina Root Extract", "physics_data_coverage"),
         ("Cassis Base 345B", "opaque_preblends"),
         ("Lilyreal ND", "opaque_preblends"),
     ],
@@ -46,8 +48,7 @@ def _capability(identity: str, dilution: float):
 def test_composer_skips_a_stock_the_gate_fails_alone(identity: str, gate: str) -> None:
     rejected = solver._gate_rejects(identity)
     assert rejected, f"{identity} should be rejected"
-    if gate == "opaque_preblends":
-        assert rejected == gate
+    assert rejected == gate
 
 
 @pytest.mark.parametrize("identity", ["Bergamot FCF Oil Sicilian", "Cedroxyde", "Hedione"])
