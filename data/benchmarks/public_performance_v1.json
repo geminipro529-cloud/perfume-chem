@@ -1,0 +1,1080 @@
+{
+ "schema": "public_performance_benchmark_v1",
+ "created": "2026-11-06",
+ "requested_by": "Kenny, 6 Nov 2026 18:33 UTC: tapped Start on checking the gate's performance numbers on public wear data",
+ "status": "FAILED_PUBLIC_BENCHMARK",
+ "use": "Benchmark labels only. Never load these as material records or optimise a formula toward them (RULE 3).",
+ "label_sources": {
+  "parfumo": "Parfumo community ratings, 0-10 scale, read 6 Nov 2026. Ranks only: the scale is not hours.",
+  "tgsc": "The Good Scents Company printed substantivity ('N hour(s) at 100.00 %'), quoted in project research notes; 400 h is TGSC's cap."
+ },
+ "pass_rule": {
+  "spearman_min": 0.6,
+  "leave_one_out_min": 0.5,
+  "strip_clock_spearman_min": 0.7,
+  "note": "Declared before fitting. One skin-to-nose dilution D from 1 to 1e-6 by decades; an original with several builds uses the mean over builds."
+ },
+ "build_rule": "Pre-declared 6 Nov 2026 before any metric was computed: every repo or project file that claims to reconstruct the named commercial original at its own concentration type (reconstruction, PW interpretation, research build, reference-first study, recreation, gate model of a replica card). Excluded up front: luxury reinterpretations, tributes at a different strength, imaginary flankers. A build is dropped after parsing only if the gate parser reads fewer than 8 rows, the concentrate is outside 5-40 % of the batch, or rows with no OAV carry more than 10 % of the concentrate. When an original has several builds, its metric is the mean over its builds.",
+ "labels": {
+  "ysl-lhomme-edt-2006": {
+   "name": "YSL L'Homme EDT",
+   "longevity": 6.3,
+   "n_longevity": 1272,
+   "sillage": 6.0,
+   "n_sillage": 1245,
+   "url": "https://www.parfumo.com/Perfumes/Yves_Saint_Laurent/L_Homme_Eau_de_Toilette"
+  },
+  "ysl-la-nuit-de-lhomme-edt-2009": {
+   "name": "YSL La Nuit de L'Homme EDT",
+   "longevity": 6.5,
+   "n_longevity": 4926,
+   "sillage": 6.5,
+   "n_sillage": 4871,
+   "url": "https://www.parfumo.com/Perfumes/Yves_Saint_Laurent/La_Nuit_de_L_Homme_Eau_de_Toilette"
+  },
+  "kilian-gggb": {
+   "name": "Kilian Good Girl Gone Bad",
+   "longevity": 7.0,
+   "n_longevity": 544,
+   "sillage": 6.6,
+   "n_sillage": 545,
+   "url": "https://www.parfumo.com/Perfumes/Kilian/Good_Girl_Gone_Bad"
+  },
+  "dior-homme-intense-2011": {
+   "name": "Dior Homme Intense (2011)",
+   "longevity": 8.2,
+   "n_longevity": 8283,
+   "sillage": 7.9,
+   "n_sillage": 8208,
+   "url": "https://www.parfumo.com/Perfumes/Dior/Dior_Homme_Intense_2011"
+  },
+  "dior-homme-parfum-2014": {
+   "name": "Dior Homme Parfum (2014)",
+   "longevity": 8.9,
+   "n_longevity": 2845,
+   "sillage": 8.5,
+   "n_sillage": 2834,
+   "url": "https://www.parfumo.com/Perfumes/Dior/dior-homme-parfum-2014"
+  },
+  "amouage-opus-v": {
+   "name": "Amouage Opus V",
+   "longevity": 8.2,
+   "n_longevity": 273,
+   "sillage": 7.6,
+   "n_sillage": 270,
+   "url": "https://www.parfumo.com/Perfumes/Amouage/Opus_V"
+  },
+  "kilian-angels-share-edp": {
+   "name": "Kilian Angels' Share EDP",
+   "longevity": 8.4,
+   "n_longevity": 5463,
+   "sillage": 8.2,
+   "n_sillage": 5412,
+   "url": "https://www.parfumo.com/Perfumes/Kilian/angels-share"
+  },
+  "chanel-ahs-edt-2004": {
+   "name": "Chanel Allure Homme Sport EDT",
+   "longevity": 7.0,
+   "n_longevity": 2212,
+   "sillage": 6.8,
+   "n_sillage": 2181,
+   "url": "https://www.parfumo.com/Perfumes/Chanel/Allure_Homme_Sport_Eau_de_Toilette"
+  },
+  "prada-lhomme-intense-2017": {
+   "name": "Prada L'Homme Intense",
+   "longevity": 8.1,
+   "n_longevity": 2501,
+   "sillage": 7.7,
+   "n_sillage": 2490,
+   "url": "https://www.parfumo.com/Perfumes/Prada/L_Homme_Intense"
+  },
+  "prada-lhomme-edt-2016": {
+   "name": "Prada L'Homme (2016)",
+   "longevity": 7.4,
+   "n_longevity": 7707,
+   "sillage": 7.0,
+   "n_sillage": 7666,
+   "url": "https://www.parfumo.com/Perfumes/Prada/L_Homme"
+  },
+  "pdm-layton": {
+   "name": "Parfums de Marly Layton",
+   "longevity": 8.2,
+   "n_longevity": 8933,
+   "sillage": 8.0,
+   "n_sillage": 8905,
+   "url": "https://www.parfumo.com/Perfumes/Parfums_de_Marly/Layton"
+  },
+  "pdm-althair": {
+   "name": "Parfums de Marly Althair",
+   "longevity": 8.3,
+   "n_longevity": 5149,
+   "sillage": 8.1,
+   "n_sillage": 5125,
+   "url": "https://www.parfumo.com/Perfumes/Parfums_de_Marly/althair"
+  },
+  "pdm-delina-edp": {
+   "name": "Parfums de Marly Delina EDP",
+   "longevity": 8.4,
+   "n_longevity": 2389,
+   "sillage": 8.1,
+   "n_sillage": 2368,
+   "url": "https://www.parfumo.com/Perfumes/Parfums_de_Marly/Delina"
+  },
+  "pdm-delina-exclusif": {
+   "name": "Parfums de Marly Delina Exclusif",
+   "longevity": 8.8,
+   "n_longevity": 1664,
+   "sillage": 8.5,
+   "n_sillage": 1652,
+   "url": "https://www.parfumo.com/Perfumes/Parfums_de_Marly/Delina_Exclusif"
+  },
+  "pdm-valaya-edp": {
+   "name": "Parfums de Marly Valaya EDP",
+   "longevity": 8.4,
+   "n_longevity": 1086,
+   "sillage": 7.9,
+   "n_sillage": 1060,
+   "url": "https://www.parfumo.com/Perfumes/Parfums_de_Marly/valaya-eau-de-parfum"
+  },
+  "creed-aventus": {
+   "name": "Creed Aventus",
+   "longevity": 7.3,
+   "n_longevity": 8082,
+   "sillage": 7.3,
+   "n_sillage": 8010,
+   "url": "https://www.parfumo.com/Perfumes/Creed/Aventus"
+  },
+  "tom-ford-white-suede-edp": {
+   "name": "Tom Ford White Suede EDP",
+   "longevity": 7.2,
+   "n_longevity": 524,
+   "sillage": 6.6,
+   "n_sillage": 515,
+   "url": "https://www.parfumo.com/Perfumes/Tom_Ford/White_Suede"
+  },
+  "diptyque-fleur-de-peau-edp": {
+   "name": "Diptyque Fleur de Peau EDP",
+   "longevity": 7.3,
+   "n_longevity": 1121,
+   "sillage": 6.5,
+   "n_sillage": 1101,
+   "url": "https://www.parfumo.com/Perfumes/Diptyque/Fleur_de_Peau"
+  },
+  "kilian-love-dont-be-shy": {
+   "name": "Kilian Love Don't Be Shy",
+   "longevity": 7.9,
+   "n_longevity": 1587,
+   "sillage": 7.6,
+   "n_sillage": 1548,
+   "url": "https://www.parfumo.com/Perfumes/Kilian/Love"
+  },
+  "dior-homme-parfum-2025": {
+   "name": "Dior Homme Parfum (Kurkdjian reformulation; Parfumo lists it as 2024)",
+   "longevity": 7.1,
+   "n_longevity": 876,
+   "sillage": 6.8,
+   "n_sillage": 882,
+   "url": "https://www.parfumo.com/Perfumes/Dior/dior-homme-parfum-2024"
+  }
+ },
+ "builds": {
+  "ysl-lhomme-edt-2006": [
+   "formulas/L_Homme_Realistic_Reconstruction_30mL_EDT.md",
+   "formulas/L_Homme_Structural_Chassis_30mL_EDT.md"
+  ],
+  "ysl-la-nuit-de-lhomme-edt-2009": [
+   "formulas/La_Nuit_de_LHomme_Realistic_Reconstruction_30mL_EDT.md",
+   "formulas/La_Nuit_Realistic_Reconstruction_30mL_EDT.md",
+   "formulas/La_Nuit_de_LHomme_Structural_Chassis_30mL_EDT.md",
+   "formulas/La_Nuit_de_LHomme_PW_R2_20261003.md"
+  ],
+  "kilian-gggb": [
+   "formulas/Good_Girl_Gone_Bad_30mL_EDP.md",
+   "formulas/GGGB_15_30mL_EDP.md",
+   "formulas/GGGB_18_30mL_EDP.md",
+   "formulas/GGGB_Minimal_30mL_EDP.md"
+  ],
+  "dior-homme-intense-2011": [
+   "formulas/Dior_Homme_Intense_PW_R1_20261003.md",
+   "project:dior-homme-intense/gate/DHI2011_R2_gate_model.md"
+  ],
+  "dior-homme-parfum-2014": [
+   "formulas/Dior_Homme_Parfum_2014_PW_R1_20261003.md",
+   "project:dior-homme-parfum/gate/DHP2014_R3_gate_model.md"
+  ],
+  "dior-homme-parfum-2025": [
+   "formulas/Dior_Homme_Parfum_2025_PW_R1_20261003.md",
+   "project:dior-homme-parfum/gate/DHP2025_R5_gate_model.md"
+  ],
+  "amouage-opus-v": [
+   "formulas/Amouage_Opus_V_PW_R1_20261003.md"
+  ],
+  "kilian-angels-share-edp": [
+   "formulas/Angels_Share_GCMS_Luxury_Tribute_10mL_EdP.md"
+  ],
+  "chanel-ahs-edt-2004": [
+   "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v1.md",
+   "formulas/AHS_2004_Reference_First_From_Zero_30mL_EDT_v2_Neat_Neroli.md"
+  ],
+  "prada-lhomme-edt-2016": [
+   "formulas/Prada_LHomme_Architecture_Control_30mL_EdT.md",
+   "formulas/Prada_LHomme_Reconstruction_Luxury_Tribute_10mL_EdP.md"
+  ],
+  "prada-lhomme-intense-2017": [
+   "formulas/Prada_LHomme_Intense_Research_Build_v1_30mL_EDP.md"
+  ],
+  "pdm-layton": [
+   "formulas/PDM_Layton_PW_R1_20261004.md"
+  ],
+  "pdm-althair": [
+   "formulas/PDM_Althair_PW_R1_20261004.md"
+  ],
+  "pdm-delina-edp": [
+   "formulas/PDM_Delina_PW_R1_20261004.md"
+  ],
+  "pdm-delina-exclusif": [
+   "formulas/PDM_Delina_Exclusif_PW_R1_20261004.md"
+  ],
+  "pdm-valaya-edp": [
+   "formulas/PDM_Valaya_PW_R1_20261004.md"
+  ],
+  "creed-aventus": [
+   "formulas/Aventus_Architecture_First_Current_Inventory_30mL_EDP.md",
+   "formulas/Aventus_Architecture_First_Current_Inventory_30mL_EDP_V1_Compact_Parent.md",
+   "formulas/Aventus_Architecture_First_Current_Inventory_30mL_EDP_V3_Astra.md",
+   "formulas/Aventus_Meridian_Rich_Ambrox_Research_v1_20261002.md"
+  ],
+  "tom-ford-white-suede-edp": [
+   "formulas/White_Suede_TF_Recreation_30mL_EdP.md"
+  ],
+  "diptyque-fleur-de-peau-edp": [
+   "formulas/Fleur_de_Peau_EDP_Research_Interpretation_v1_20261002.md"
+  ],
+  "kilian-love-dont-be-shy": [
+   "formulas/Love_Dont_Be_Shy_30mL_EDP.md"
+  ]
+ },
+ "tgsc_substantivity": [
+  {
+   "material": "Acetoin",
+   "hours": 28.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/group3/g3_03_octalactone_acetoin/VALUES.md",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json",
+    "project:unused-gaps-20261028/profiles/evidence1.json"
+   ]
+  },
+  {
+   "material": "Aldehyde C-12 Lauric Dodecanal",
+   "hours": 368.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Aldehyde C-16 Ethyl Methyl Phenyl Glycidate",
+   "hours": 241.0,
+   "sources": [
+    "project:unused-gaps-20261028/group2/g2_07_c16_c12/VALUES.md"
+   ]
+  },
+  {
+   "material": "Aldehyde C-8 Octanal",
+   "hours": 7.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Aldehyde C-9 Nonanal",
+   "hours": 276.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Aldehyde C16 EMPG",
+   "hours": 241.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Aldehyde C9",
+   "hours": 276.0,
+   "sources": [
+    "project:unused-gaps-20261028/group3/g3_05_c9_cade/SOURCES.md"
+   ]
+  },
+  {
+   "material": "Ambermax",
+   "hours": 400.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Amberwood F",
+   "hours": 168.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Anise EO",
+   "hours": 68.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Anisyl Acetate",
+   "hours": 100.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json",
+    "project:unused-gaps-20261028/profiles/round2/evidence7.json"
+   ]
+  },
+  {
+   "material": "Azarbre",
+   "hours": 24.0,
+   "sources": [
+    "project:unused-gaps-20261028/group3/g3_10_parmavert_azarbre/SOURCES.md"
+   ]
+  },
+  {
+   "material": "Bacdanol",
+   "hours": 400.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Benzyl Benzoate",
+   "hours": 322.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Berry Hexanoate (BerryFlor)",
+   "hours": 24.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Beta Caryophyllene",
+   "hours": 44.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "beta-pinene",
+   "hours": 4.0,
+   "sources": [
+    "project:unused-gaps-20261028/group3/g3_09_cassia_pinene/SOURCES.md"
+   ]
+  },
+  {
+   "material": "Birch Tar",
+   "hours": 400.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Butyl Butyrate",
+   "hours": 8.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Canthoxal",
+   "hours": 48.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Caraway Seed EO",
+   "hours": 20.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Caryophyllene Acetate",
+   "hours": 196.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Cashmeran",
+   "hours": 48.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Cedramber",
+   "hours": 124.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Cedroxyde",
+   "hours": 268.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json",
+    "project:unused-gaps-20261028/profiles/round2/evidence7.json"
+   ]
+  },
+  {
+   "material": "Cedryl Acetate",
+   "hours": 400.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Cinnamyl Acetate",
+   "hours": 124.0,
+   "sources": [
+    "project:unused-gaps-20261028/group3/g3_02_cinnamyl_eaa/SOURCES.md",
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Cis-3-Hexenyl Salicylate",
+   "hours": 216.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Cis-3 Hexenyl Hexanoate",
+   "hours": 8.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/group7/g7_01_fruity/SOURCES.md",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Citronellyl Acetate",
+   "hours": 8.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json",
+    "project:unused-gaps-20261028/profiles/round2/evidence7.json"
+   ]
+  },
+  {
+   "material": "Cyclogalbanate",
+   "hours": 32.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Decatone",
+   "hours": 140.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Delta Damascone",
+   "hours": 220.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Diethyl Malonate",
+   "hours": 4.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Dimethyl Benzyl Carbinol",
+   "hours": 6.0,
+   "sources": [
+    "project:unused-gaps-20261028/group2/g2_01_dmbc/VALUES.md",
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Dupical",
+   "hours": 240.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json",
+    "project:unused-gaps-20261028/profiles/round2/evidence7.json"
+   ]
+  },
+  {
+   "material": "Elemi EO",
+   "hours": 20.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Ethyl Acetoacetate",
+   "hours": 4.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Ethyl Butyrate",
+   "hours": 4.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Ethyl Linalyl Acetate",
+   "hours": 16.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Ethylene Brassylate",
+   "hours": 208.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Fructone B",
+   "hours": 12.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/TGSC_synthetics.md",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Galaxolide",
+   "hours": 400.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Geranyl Acetate",
+   "hours": 24.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Glycolierral",
+   "hours": 32.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Hay Absolute",
+   "hours": 400.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Himalayan Cedarwood EO",
+   "hours": 400.0,
+   "sources": [
+    "project:unused-gaps-20261028/group2/g2_09_cedar_saffron/VALUES.md"
+   ]
+  },
+  {
+   "material": "Hindinol",
+   "hours": 400.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Iso E Super",
+   "hours": 172.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Isolongifolanone",
+   "hours": 240.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json",
+    "project:unused-gaps-20261028/profiles/round2/evidence7.json"
+   ]
+  },
+  {
+   "material": "Lemon FCF Oil Sicilian",
+   "hours": 4.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Liffarome",
+   "hours": 12.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json",
+    "project:unused-gaps-20261028/profiles/round2/evidence7.json"
+   ]
+  },
+  {
+   "material": "Lime Distilled EO",
+   "hours": 20.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "D-Limonene",
+   "hours": 4.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Linalool Oxide",
+   "hours": 12.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Magnolan",
+   "hours": 308.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Melonal",
+   "hours": 144.0,
+   "sources": [
+    "project:unused-gaps-20261028/group2/g2_06_melonal/VALUES.md"
+   ]
+  },
+  {
+   "material": "Methyl Diantilis",
+   "hours": 400.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Methyl Laitone",
+   "hours": 168.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/group4/g4_01_laitone_maltol/VALUES.md",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Neroli EO",
+   "hours": 116.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Nerolidol",
+   "hours": 100.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Neryl Acetate",
+   "hours": 52.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Opoponax Resinoid",
+   "hours": 400.0,
+   "sources": [
+    "project:unused-gaps-20261028/group5/g5_03_myrrh_opoponax/VALUES.md"
+   ]
+  },
+  {
+   "material": "Phenylacetaldehyde Dimethyl Acetal (PADMA)",
+   "hours": 100.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Parmavert",
+   "hours": 48.0,
+   "sources": [
+    "project:unused-gaps-20261028/group3/g3_10_parmavert_azarbre/SOURCES.md"
+   ]
+  },
+  {
+   "material": "Peach Ketone",
+   "hours": 380.0,
+   "sources": [
+    "project:unused-gaps-20261028/group7/g7_01_fruity/SOURCES.md",
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Pear Valerate",
+   "hours": 16.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Phenoxy Ethyl Isobutyrate",
+   "hours": 184.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Phenyl Acetaldehyde",
+   "hours": 400.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Phenyl Ethyl Dimethyl Carbinyl Acetate",
+   "hours": 28.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json",
+    "project:unused-gaps-20261028/profiles/round2/evidence7.json"
+   ]
+  },
+  {
+   "material": "Pine EO",
+   "hours": 16.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Rhodinol",
+   "hours": 208.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json",
+    "project:unused-gaps-20261028/profiles/round2/evidence7.json"
+   ]
+  },
+  {
+   "material": "Rhubofix",
+   "hours": 96.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Saffranal",
+   "hours": 64.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Sandalore",
+   "hours": 400.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Styralyl Acetate",
+   "hours": 8.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Triplal",
+   "hours": 8.0,
+   "sources": [
+    "project:unused-gaps-20261028/group6/g6_01_galbanum_triplal/VALUES.md",
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Turkish Storax Tincture",
+   "hours": 400.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Undecavertol",
+   "hours": 31.0,
+   "sources": [
+    "project:unused-gaps-20261028/TGSC_synthetics.md"
+   ]
+  },
+  {
+   "material": "Veloutone",
+   "hours": 12.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/group7/g7_01_fruity/SOURCES.md",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Velvione",
+   "hours": 400.0,
+   "sources": [
+    "project:unused-gaps-20261028/profiles/round2/PROFILES_ROUND2_20261031.json"
+   ]
+  },
+  {
+   "material": "Verdyl Acetate",
+   "hours": 100.0,
+   "sources": [
+    "data/knowledge_graph/literature_character_profiles_20261031.json",
+    "project:unused-gaps-20261028/profiles/PROFILES_20261031.json"
+   ]
+  },
+  {
+   "material": "Vertofix Coeur",
+   "hours": 400.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Vetikon",
+   "hours": 4.0,
+   "sources": [
+    "project:unused-gaps-20261028/group3/g3_07_vetikon_coffee/VALUES.md"
+   ]
+  },
+  {
+   "material": "Vetiveryl Acetate",
+   "hours": 357.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  },
+  {
+   "material": "Zenolide",
+   "hours": 348.0,
+   "sources": [
+    "project:research/la-nuit-de-lhomme-20261031/notes/W5a_materials_woods_ambers_musks.md"
+   ]
+  }
+ ],
+ "result_20261106": {
+  "engine_commit_base": "a45d4f70",
+  "strip_clock": {
+   "n": 86,
+   "spearman": 0.695,
+   "median_ratio_tgsc_over_model": 0.724
+  },
+  "clock_x1": {
+   "originals": 19,
+   "builds": 30,
+   "read_outs": {
+    "hours_until_faint": {
+     "dilution": 0.0001,
+     "spearman": 0.468,
+     "leave_one_out_spearman": 0.468,
+     "label": "longevity",
+     "passes": false
+    },
+    "strength_6h": {
+     "dilution": 1e-05,
+     "spearman": 0.07,
+     "leave_one_out_spearman": 0.104,
+     "label": "longevity",
+     "passes": false
+    },
+    "strength_1h": {
+     "dilution": 0.01,
+     "spearman": -0.116,
+     "leave_one_out_spearman": -0.547,
+     "label": "sillage",
+     "passes": false
+    }
+   },
+   "concentrate_fraction_vs_longevity": 0.767,
+   "concentrate_fraction_vs_sillage": 0.763,
+   "any_read_out_passes": false
+  },
+  "clock_x100": {
+   "originals": 19,
+   "builds": 30,
+   "read_outs": {
+    "hours_until_faint": {
+     "dilution": 0.0001,
+     "spearman": 0.079,
+     "leave_one_out_spearman": -0.409,
+     "label": "longevity",
+     "passes": false
+    },
+    "strength_6h": {
+     "dilution": 0.001,
+     "spearman": 0.24,
+     "leave_one_out_spearman": 0.24,
+     "label": "longevity",
+     "passes": false
+    },
+    "strength_1h": {
+     "dilution": 1e-05,
+     "spearman": 0.192,
+     "leave_one_out_spearman": 0.074,
+     "label": "sillage",
+     "passes": false
+    }
+   },
+   "concentrate_fraction_vs_longevity": 0.767,
+   "concentrate_fraction_vs_sillage": 0.763,
+   "any_read_out_passes": false
+  },
+  "dropped_builds": [
+   {
+    "original": "dior-homme-intense-2011",
+    "build": "formulas/Dior_Homme_Intense_PW_R1_20261003.md",
+    "reason": "fewer than 8 rows parsed"
+   },
+   {
+    "original": "dior-homme-parfum-2014",
+    "build": "formulas/Dior_Homme_Parfum_2014_PW_R1_20261003.md",
+    "reason": "fewer than 8 rows parsed"
+   },
+   {
+    "original": "dior-homme-parfum-2025",
+    "build": "formulas/Dior_Homme_Parfum_2025_PW_R1_20261003.md",
+    "reason": "fewer than 8 rows parsed"
+   },
+   {
+    "original": "kilian-angels-share-edp",
+    "build": "formulas/Angels_Share_GCMS_Luxury_Tribute_10mL_EdP.md",
+    "reason": "file written for 10 mL; the gate reads it as 30 mL"
+   },
+   {
+    "original": "prada-lhomme-edt-2016",
+    "build": "formulas/Prada_LHomme_Reconstruction_Luxury_Tribute_10mL_EdP.md",
+    "reason": "file written for 10 mL; the gate reads it as 30 mL"
+   }
+  ],
+  "judged_bottles_holdout": {
+   "note": "Kenny's bottles, never used for fitting. Pass needs Cedrat R3.2 and L'Homme Luxe EDT below the 6 h bottle.",
+   "clock_x100_hours_until_faint_D1e-4": {
+    "cedrat_r32_weak": 12.1,
+    "lhomme_luxe_edt_weak": 7.3,
+    "six_hour_bottle_good": 7.8,
+    "passes": false
+   },
+   "concentrate_fraction": {
+    "cedrat_r32_weak": 0.222,
+    "lhomme_luxe_edt_weak": 0.127,
+    "six_hour_bottle_good": 0.212,
+    "passes": false
+   }
+  },
+  "diagnosis": "Iso E Super (engine ODT 0.0184 ppb, estimated from its most potent isomer) is the top screening OAV at 6 h in 25 of 30 builds on the strip clock, Hedione or Hedione HC in 21 of 30 on the 100x clock; whichever reads loudest is set by a few workhorse ODTs, so the read-outs track those doses."
+ },
+ "declared_round2": {
+  "declared_at": "2026-11-07T13:23Z",
+  "why": "Round 1 failed and its loudest row was set by already-sourced workhorse thresholds (Iso E Super 0.0184 ppb, Hedione HC 0.004 ppb), so the read-out was at fault, not the data (RULE 1). Round 2 uses no ODT and no free parameter.",
+  "read_outs": {
+   "long_lasting_ul_per_ml": "active uL of rows with gate VP at 25 C under 0.1 Pa, per mL of finished perfume (the composer's floor measure); vs longevity",
+   "oil_left_6h_ul_per_ml": "active uL still on skin at 6 h on the gate clock (305 K, ethanol fill), per mL; vs longevity",
+   "oil_flux_1h_ul_per_ml_h": "active uL leaving between 0.5 h and 1.5 h, per mL per hour; vs sillage"
+  },
+  "pass_rule": "Spearman >= 0.6 with the label over the same originals and builds as round 1; longevity read-outs must also put Cedrat R3.2 and L'Homme Luxe EDT below the 6 h bottle. Nothing else is tried after these three."
+ },
+ "judged_bottles": {
+  "six_hour_bottle": {
+   "judged": "good",
+   "model": "project:lhomme-improve/gate_v3/models/V3_P6H.md"
+  },
+  "cedrat_r32": {
+   "judged": "weak",
+   "model": "project:studio/cedrat-mineral/r2/gate/CM_R3.2_30mL_EDP.md"
+  },
+  "lhomme_luxe_edt": {
+   "judged": "weak (version assumed: Ambrocenide card)",
+   "model": "project:lhomme-improve/edt-edp-20261015/gate/models/LHOMME_LUXE_EDT_AMB_30mL_gate.md"
+  }
+ },
+ "result_20261107_round2": {
+  "engine_commit_base": "9c8ef0ab",
+  "originals": 19,
+  "builds": 30,
+  "read_outs": {
+   "long_lasting_ul_per_ml": {
+    "label": "longevity",
+    "spearman": 0.569,
+    "concentrate_fraction_spearman": 0.767,
+    "labels_pass": false,
+    "passes": false,
+    "judged_bottles": {
+     "six_hour_bottle": 72.6,
+     "cedrat_r32": 99.9,
+     "lhomme_luxe_edt": 39.5
+    },
+    "judged_bottles_pass": false
+   },
+   "oil_left_6h_ul_per_ml": {
+    "label": "longevity",
+    "spearman": 0.859,
+    "concentrate_fraction_spearman": 0.767,
+    "labels_pass": true,
+    "passes": false,
+    "judged_bottles": {
+     "six_hour_bottle": 160.2,
+     "cedrat_r32": 170.0,
+     "lhomme_luxe_edt": 91.1
+    },
+    "judged_bottles_pass": false
+   },
+   "oil_flux_1h_ul_per_ml_h": {
+    "label": "sillage",
+    "spearman": 0.23,
+    "concentrate_fraction_spearman": 0.763,
+    "labels_pass": false,
+    "passes": false
+   }
+  },
+  "any_read_out_passes": false,
+  "finding": "Oil left at 6 h is the best gate number so far on public labels (0.86, above concentrate 0.77) and orders L'Homme Luxe EDT correctly, but puts Cedrat R3.2 (170 uL/mL) above the 6 h bottle (160). Cedrat's 6 h residue is mostly heavy rows (White Sandalwood Oil (China) proxy 550 uL, Benzyl Salicylate 300, four musks 920), so mass alone does not see how strongly the residue smells. The composer's floor measure ranks public longevity below concentrate %, because Iso E Super (0.23 Pa) and Hedione HC (0.21 Pa) sit above its 0.1 Pa line though 98 % of them is left at 6 h."
+ }
+}
