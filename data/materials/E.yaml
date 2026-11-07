@@ -412,7 +412,7 @@
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 3.4
   odt_eth_ppm:
   stevens_n:
   or_targets: []
@@ -432,6 +432,7 @@
   odour_family: 'fruity'
   notes:
   provenance:
+    odt_air_ppb: 'PEER_SINGLE: van Gemert (2011) Odour Thresholds, AIR section (book text as hosted on vdoc.pub, https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0): ''ETHYL 3-OXOBUTANOATE (ethyl acetoacetate) [141-97-9] Backman (1917) r 0.016 - 0.020'' mg/m3, a RECOGNITION threshold; 16-20 ng/L x 24.45 / 130.14 = 3.0-3.8 ppb, geometric mean 3.4 ppb (working range 1-15). Loaded 2026-11-06 (engine fault check; source re-opened).'
     odour_family: 'odour family "fruity" from ''Fruity'': Symrise product sheet: Ethyl Acetoacetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Acetoacetate.pdf: family word printed with the name: "fruity ethyl acetoacetate" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     character: 'Symrise product sheet: Ethyl Acetoacetate, https://www.symrise.com/fileadmin/symrise/Marketing/Scent_and_care/Aroma_molecules/Ingredient_finder/SYM_ohnePC_Datenblaetter/SYM_P_Ethyl_Acetoacetate.pdf: "› Fruity, Apple, Green, Plum › recommended use level: up to 5 %" (grade A_producer; producer/primary text, quoted). Loaded 2026-10-25 (literature fill; source re-opened by a second reader).'
     supplier.perfumersworld: knowledge/perfumersworld_stock.md

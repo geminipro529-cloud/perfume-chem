@@ -179,6 +179,76 @@
       "declared_pct": [83.559, 83.559],
       "undeclared_pct": [16.441, 16.441],
       "undeclared_note": "the suede and leather odorants; IFF does not publish them. PROXY_IDENTITY_UNCONFIRMED: PerfumersWorld never names the maker of 3UP14351; it lists 'Suederal LT' among its synonyms and its MSDS density band (0.94-0.99 at 25 C) meets IFF's, so IFF Suederal LT is the closest published identity (Kenny's closest-identity rule), not a confirmed one. Allergens: IFF FPIS section 14 and IFF's EU allergen sheet for Suederal LT 2010/2015 (https://cdn.shopify.com/s/files/1/0682/1448/9400/files/EU_Fragrance_Allergens_SUEDERAL_IFF.PDF) both give limonene 0.002 % and every other allergen under 10 ppm; PerfumersWorld's declaration lists none. Percentages are of the neat base; Kenny's stock is his own 10% in DPG"
+    },
+    {
+      "name": "Fixative 505",
+      "aliases": [
+        "Fixateur 505",
+        "Fixateur 000505 E"
+      ],
+      "supplier": "PerfumersWorld (Firmenich FIXATEUR 000505 E, closest-identity proxy)",
+      "sku": "4UY07514",
+      "source_url": "https://perfumersupplyhouse.com/wp-content/uploads/2014/09/FIXATEUR-000505-E_SDS_US_EN.pdf",
+      "declaration_document": "Firmenich GHS SDS (US), 000505 E FIXATEUR 000505 E, revised 28 January 2021 / v 10, section 3 (a Firmenich SDS hosted by a reseller; re-read 2026-11-06); PerfumersWorld IFRA conformity certificate (51st Amendment) for 4UY07514, https://www.perfumersworld.com/document-list.php?pro_id=4UY07514 (read 2026-10-28)",
+      "ifra_certificate": {
+        "amendment": 51
+      },
+      "declared_constituents": [
+        {
+          "name": "Resin acids and rosin acids, hydrogenated, Me esters",
+          "cas": "8050-15-5",
+          "range_pct": [
+            20.0,
+            30.0
+          ]
+        },
+        {
+          "name": "Dodecahydrotetramethylnaphthofuran (ambroxide, stereo unspecified)",
+          "cas": "3738-00-9",
+          "range_pct": [
+            15.0,
+            20.0
+          ]
+        },
+        {
+          "name": "alpha-Isomethyl ionone (Firmenich 0.1-<0.5%; PerfumersWorld certificate 'METHYL IONONE 1335-46-2 0.3333')",
+          "cas": "127-51-5",
+          "range_pct": [
+            0.1,
+            0.5
+          ]
+        },
+        {
+          "name": "Benzyl benzoate (PerfumersWorld certificate)",
+          "cas": "120-51-4",
+          "range_pct": [
+            0.0131,
+            0.0131
+          ]
+        },
+        {
+          "name": "Coumarin (PerfumersWorld certificate)",
+          "cas": "91-64-5",
+          "range_pct": [
+            0.0002,
+            0.0002
+          ]
+        }
+      ],
+      "allergens_pct": {
+        "Alpha Isomethyl Ionone": 0.3333,
+        "Benzyl Benzoate": 0.0131,
+        "Coumarin": 0.0002
+      },
+      "declared_pct": [
+        35.1133,
+        50.5133
+      ],
+      "undeclared_pct": [
+        49.4867,
+        64.8867
+      ],
+      "undeclared_note": "the rest of the ambergris-woody accord; Firmenich withholds it as a trade secret. PROXY_IDENTITY_UNCONFIRMED: PerfumersWorld's SDS section 3 for 4UY07514 gives no composition; Firmenich FIXATEUR 000505 E is the closest published identity (same name and number; Firmenich: 'A very powerful odor of ambergris with a slightly woody-dry character', PerfumersWorld: 'woody-earthy-ambergris'), not a confirmed one (Kenny's closest-identity rule). Firmenich's SDS gives the two main constituents only as bands (>=20.0 <30.0 % and >=15.0 <20.0 %), so the declared part is a range. Allergens use PerfumersWorld's certificate, the document for Kenny's own SKU. Percentages are of the neat base as supplied"
     }
   ]
 }
