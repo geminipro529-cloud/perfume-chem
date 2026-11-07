@@ -151,7 +151,11 @@ originals' Parfumo longevity or sillage at Spearman 0.6, and the gate's hours ar
 smelling-strip hours, not skin hours. On a card, never state longevity, sillage,
 projection or hours-until-faint from gate numbers; give the concentrate % and the
 materials that carry the base instead. A performance number may be called calibrated
-only after it passes that benchmark's `pass_rule`.
+only after it passes that benchmark's `pass_rule`. One exception, as a comparison only:
+`score_contract.oil_left_6h` (uL per mL still on skin at 6 h) ranks public longevity
+0.86, above concentrate % at 0.77, but it puts Cedrat R3.2 (judged weak) above the 6 h
+bottle. A card may set its value beside the judged bottles (6 h bottle 160, Cedrat R3.2
+170, L'Homme Luxe EDT 91 uL/mL), never turn it into hours or a longevity verdict.
 
 Before presenting a run, read `docs/agents/pipeline-runs.md`. It holds the JSON
 sections to read beyond gate status, the required OAV headspace table and

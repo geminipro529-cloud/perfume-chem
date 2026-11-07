@@ -1010,5 +1010,71 @@
    }
   },
   "diagnosis": "Iso E Super (engine ODT 0.0184 ppb, estimated from its most potent isomer) is the top screening OAV at 6 h in 25 of 30 builds on the strip clock, Hedione or Hedione HC in 21 of 30 on the 100x clock; whichever reads loudest is set by a few workhorse ODTs, so the read-outs track those doses."
+ },
+ "declared_round2": {
+  "declared_at": "2026-11-07T13:23Z",
+  "why": "Round 1 failed and its loudest row was set by already-sourced workhorse thresholds (Iso E Super 0.0184 ppb, Hedione HC 0.004 ppb), so the read-out was at fault, not the data (RULE 1). Round 2 uses no ODT and no free parameter.",
+  "read_outs": {
+   "long_lasting_ul_per_ml": "active uL of rows with gate VP at 25 C under 0.1 Pa, per mL of finished perfume (the composer's floor measure); vs longevity",
+   "oil_left_6h_ul_per_ml": "active uL still on skin at 6 h on the gate clock (305 K, ethanol fill), per mL; vs longevity",
+   "oil_flux_1h_ul_per_ml_h": "active uL leaving between 0.5 h and 1.5 h, per mL per hour; vs sillage"
+  },
+  "pass_rule": "Spearman >= 0.6 with the label over the same originals and builds as round 1; longevity read-outs must also put Cedrat R3.2 and L'Homme Luxe EDT below the 6 h bottle. Nothing else is tried after these three."
+ },
+ "judged_bottles": {
+  "six_hour_bottle": {
+   "judged": "good",
+   "model": "project:lhomme-improve/gate_v3/models/V3_P6H.md"
+  },
+  "cedrat_r32": {
+   "judged": "weak",
+   "model": "project:studio/cedrat-mineral/r2/gate/CM_R3.2_30mL_EDP.md"
+  },
+  "lhomme_luxe_edt": {
+   "judged": "weak (version assumed: Ambrocenide card)",
+   "model": "project:lhomme-improve/edt-edp-20261015/gate/models/LHOMME_LUXE_EDT_AMB_30mL_gate.md"
+  }
+ },
+ "result_20261107_round2": {
+  "engine_commit_base": "9c8ef0ab",
+  "originals": 19,
+  "builds": 30,
+  "read_outs": {
+   "long_lasting_ul_per_ml": {
+    "label": "longevity",
+    "spearman": 0.569,
+    "concentrate_fraction_spearman": 0.767,
+    "labels_pass": false,
+    "passes": false,
+    "judged_bottles": {
+     "six_hour_bottle": 72.6,
+     "cedrat_r32": 99.9,
+     "lhomme_luxe_edt": 39.5
+    },
+    "judged_bottles_pass": false
+   },
+   "oil_left_6h_ul_per_ml": {
+    "label": "longevity",
+    "spearman": 0.859,
+    "concentrate_fraction_spearman": 0.767,
+    "labels_pass": true,
+    "passes": false,
+    "judged_bottles": {
+     "six_hour_bottle": 160.2,
+     "cedrat_r32": 170.0,
+     "lhomme_luxe_edt": 91.1
+    },
+    "judged_bottles_pass": false
+   },
+   "oil_flux_1h_ul_per_ml_h": {
+    "label": "sillage",
+    "spearman": 0.23,
+    "concentrate_fraction_spearman": 0.763,
+    "labels_pass": false,
+    "passes": false
+   }
+  },
+  "any_read_out_passes": false,
+  "finding": "Oil left at 6 h is the best gate number so far on public labels (0.86, above concentrate 0.77) and orders L'Homme Luxe EDT correctly, but puts Cedrat R3.2 (170 uL/mL) above the 6 h bottle (160). Cedrat's 6 h residue is mostly heavy rows (White Sandalwood Oil (China) proxy 550 uL, Benzyl Salicylate 300, four musks 920), so mass alone does not see how strongly the residue smells. The composer's floor measure ranks public longevity below concentrate %, because Iso E Super (0.23 Pa) and Hedione HC (0.21 Pa) sit above its 0.1 Pa line though 98 % of them is left at 6 h."
  }
 }

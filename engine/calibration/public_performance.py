@@ -12,6 +12,9 @@ Two checks, both on ``data/benchmarks/public_performance_v1.json``:
    (a skin-to-nose dilution D applied to every screening OAV) are ranked against the
    originals' Parfumo community longevity and sillage votes, with D chosen on the other
    perfumes for each held-out one.
+3. Round 2 (7 Nov 2026). Read-outs with no ODT and no free parameter, declared before
+   computing: long-lasting uL/mL, oil left on skin at 6 h, oil leaving at 1 h. The gate's
+   score contract carries oil left at 6 h (``oil_left_contract``) with its record.
 
 RULE 1: a screening OAV is never perceived strength. D only scales the screening OAV
 before a rank comparison; nothing here converts a number into an intensity claim, and a
@@ -46,6 +49,12 @@ PUBLIC_BENCHMARK_SUMMARY: dict[str, Any] = {
         "0.7), so the gate's hours are smelling-strip hours, not skin hours."
     ),
     "claim_rule": "Do not state longevity, sillage or hours-until-faint from gate numbers.",
+    "round2_finding": (
+        "7 Nov 2026, read-outs declared before computing, no ODT and no free parameter: oil "
+        "left on skin at 6 h ranks the 19 originals' longevity 0.86 (concentrate fraction "
+        "0.77) but puts Cedrat R3.2 (judged weak) above the 6 h bottle; the composer's "
+        "long-lasting uL/mL ranks them 0.57; oil leaving at 1 h ranks sillage 0.23."
+    ),
 }
 
 STRIP_TEMPERATURE_K = 298.15
@@ -396,3 +405,148 @@ def run_benchmark_builds(
             else:
                 kept.setdefault(key, []).append(run)
     return kept, dropped
+
+
+# ---------------------------------------------------------------- round 2: oil left on skin
+#
+# Declared 7 Nov 2026 before computing (benchmark ``declared_round2``): three read-outs with
+# no ODT and no free parameter, so the leave-one-out ranking equals the full one. Round 1's
+# OAV read-outs were set by the lowest-threshold workhorse in each build (RULE 1: OAV is
+# never perceived strength); these read only volumes the gate's own simulator moves.
+
+LONG_LASTING_VP_25C_PA = 0.1  # composition_planner.LONG_LASTING_VP_25C_PA (a test pins them equal)
+OIL_LEFT_HOUR = 6.0
+OIL_FLUX_WINDOW_H = (0.5, 1.5)
+OIL_LEFT_STATUS = "RANKS_PUBLIC_LONGEVITY_FAILS_JUDGED_BOTTLES"
+
+
+def _gate_vp_25c_pa(name: str) -> float | None:
+    from engine.material_resolver import gate_vp_25c_pa
+
+    value = gate_vp_25c_pa(name)
+    return None if value is None else float(value)
+
+
+def long_lasting_ul_per_ml(
+    run: BuildRun, vp_25c_pa: Callable[[str], float | None] = _gate_vp_25c_pa
+) -> float:
+    """Active uL per mL of finished perfume in rows whose gate VP at 25 C is under 0.1 Pa.
+
+    The composer's longevity-floor measure; a row with no VP counts as not long-lasting.
+    """
+    total = 0.0
+    for name, ul in run.active_ul[0].items():
+        vp = vp_25c_pa(name)
+        if vp is not None and vp < LONG_LASTING_VP_25C_PA:
+            total += ul
+    return total / run.batch_ml
+
+
+def oil_left_ul_per_ml(run: BuildRun, hour: float = OIL_LEFT_HOUR) -> float:
+    """Active uL still on skin at ``hour`` on the gate clock, per mL of finished perfume."""
+    return sum(run.active_ul[run.hours.index(float(hour))].values()) / run.batch_ml
+
+
+def oil_flux_ul_per_ml_h(run: BuildRun, window: tuple[float, float] = OIL_FLUX_WINDOW_H) -> float:
+    """Active uL that leaves between the window's two hours, per mL per hour."""
+    start, end = (float(h) for h in window)
+    gone = sum(run.active_ul[run.hours.index(start)].values()) - sum(
+        run.active_ul[run.hours.index(end)].values()
+    )
+    return gone / run.batch_ml / (end - start)
+
+
+PhysicsReadOut = Callable[[BuildRun], float]
+
+PHYSICS_READ_OUTS: dict[str, tuple[PhysicsReadOut, str]] = {
+    "long_lasting_ul_per_ml": (long_lasting_ul_per_ml, "longevity"),
+    "oil_left_6h_ul_per_ml": (oil_left_ul_per_ml, "longevity"),
+    "oil_flux_1h_ul_per_ml_h": (oil_flux_ul_per_ml_h, "sillage"),
+}
+
+# Kenny's judged bottles (bottle log, 4 Nov): never used to choose a read-out.
+JUDGED_GOOD = "six_hour_bottle"
+JUDGED_WEAK = ("cedrat_r32", "lhomme_luxe_edt")
+
+
+def judged_bottles_pass(values: Mapping[str, float]) -> bool:
+    """Both weak bottles strictly below the 6 h bottle."""
+    good = values[JUDGED_GOOD]
+    return all(values[name] < good for name in JUDGED_WEAK)
+
+
+def evaluate_physics_read_outs(
+    benchmark: Mapping[str, Any],
+    runs: Mapping[str, Sequence[BuildRun]],
+    bottles: Mapping[str, BuildRun] | None = None,
+) -> dict[str, Any]:
+    """Score the round-2 read-outs on the originals, and the longevity ones on the bottles."""
+    labels = benchmark["labels"]
+    rule = benchmark["pass_rule"]
+    keys = sorted(k for k, v in runs.items() if v and k in labels)
+    out: dict[str, Any] = {"originals": len(keys), "builds": sum(len(runs[k]) for k in keys), "read_outs": {}}
+    baseline = {
+        label: spearman(
+            [float(labels[k][label]) for k in keys],
+            [_mean([r.concentrate_fraction for r in runs[k]]) for k in keys],
+        )
+        for label in ("longevity", "sillage")
+    }
+    for name, (fn, label) in PHYSICS_READ_OUTS.items():
+        rho = spearman([float(labels[k][label]) for k in keys], [_mean([fn(r) for r in runs[k]]) for k in keys])
+        res: dict[str, Any] = {
+            "label": label,
+            "spearman": rho,
+            "concentrate_fraction_spearman": baseline[label],
+            "labels_pass": (rho if rho is not None else -1.0) >= rule["spearman_min"],
+        }
+        if label == "longevity" and bottles:
+            values = {key: fn(run) for key, run in bottles.items()}
+            res["judged_bottles"] = values
+            res["judged_bottles_pass"] = judged_bottles_pass(values)
+            res["passes"] = bool(res["labels_pass"] and res["judged_bottles_pass"])
+        else:
+            res["passes"] = bool(res["labels_pass"])
+        out["read_outs"][name] = res
+    out["any_read_out_passes"] = any(v["passes"] for v in out["read_outs"].values())
+    return out
+
+
+def formula_oil_left_ul_per_ml(state: Any, hour: float = OIL_LEFT_HOUR) -> float:
+    """``oil_left_ul_per_ml`` for one gate formula state (the gate's own simulator and clock)."""
+    from engine.pipeline.simulator import simulate_formula
+
+    frames = simulate_formula(
+        {}, {}, initial_state=state, windows=[("opening", 0.0), ("oil_left", float(hour) * 3600.0)]
+    )
+    left = sum(float(m.active_ul or 0.0) for m in frames[-1].state.materials)
+    return left / float(state.batch_volume_ml)
+
+
+# The gate's score contract carries this for every formula: the one number that ranks
+# public longevity, with its record, so a card can compare it with the judged bottles.
+OIL_LEFT_RECORD: dict[str, Any] = {
+    "basis": (
+        "active uL still on skin at 6 h on the gate clock (305 K, ethanol fill; "
+        "strip-speed), per mL of finished perfume"
+    ),
+    "status": OIL_LEFT_STATUS,
+    "public_longevity_spearman": 0.86,
+    "concentrate_fraction_spearman": 0.77,
+    "originals": 19,
+    "judged_bottles_ul_per_ml": {"six_hour_bottle": 160.2, "cedrat_r32": 170.0, "lhomme_luxe_edt": 91.1},
+    "claim_rule": (
+        "Compare with the judged bottles only; never convert to hours or call it longevity. "
+        "It does not separate Cedrat R3.2 (weak) from the 6 h bottle."
+    ),
+}
+
+
+def oil_left_contract(state: Any) -> dict[str, Any]:
+    """``OIL_LEFT_RECORD`` plus this formula's value (None, with the reason, if it can't run)."""
+    out: dict[str, Any] = {"ul_per_ml": None, **OIL_LEFT_RECORD}
+    try:
+        out["ul_per_ml"] = round(formula_oil_left_ul_per_ml(state), 1)
+    except Exception as exc:  # the score contract never fails on this read-out
+        out["unavailable_reason"] = f"{type(exc).__name__}: {exc}"[:200]
+    return out

@@ -7,7 +7,7 @@ import statistics
 from dataclasses import dataclass
 from typing import Any, Mapping
 
-from engine.calibration.public_performance import PUBLIC_BENCHMARK_SUMMARY
+from engine.calibration.public_performance import PUBLIC_BENCHMARK_SUMMARY, oil_left_contract
 from engine.optimizer.models import FormulaVector, ObjectiveWeights
 from engine.optimizer.scoring import FormulaScorer
 
@@ -494,6 +494,7 @@ def compute_unified_release_scores(
                 "skin_performance_outcome",
             ],
             "public_benchmark": dict(PUBLIC_BENCHMARK_SUMMARY),
+            "oil_left_6h": oil_left_contract(oav_result.state),
             "industry_10_authority": (
                 "HEURISTIC_DIAGNOSTIC_INDICES_DESPITE_LEGACY_NAME"
             ),
