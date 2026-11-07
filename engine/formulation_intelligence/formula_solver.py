@@ -4,8 +4,9 @@ from __future__ import annotations
 
 import hashlib
 import re
+from contextvars import ContextVar
 from dataclasses import dataclass, replace
-from decimal import Decimal
+from decimal import ROUND_CEILING, ROUND_FLOOR, Decimal
 from functools import lru_cache
 from typing import Any, Callable, Mapping, Sequence
 
@@ -51,6 +52,8 @@ from engine.research.composition_planner import (
     _formula_rows,
     _hard_cap_ul,
     _ifra_cap_ul,
+    _long_lasting_material,
+    _quantity_for_candidate,
 )
 from future_modules._shared_types import NoteTier, get_note_tier_from_vp
 
@@ -784,6 +787,68 @@ def _has_own_threshold(identity_name: str) -> bool:
     return any(material.odt_air_ppm is not None for material in state.materials)
 
 
+@lru_cache(maxsize=None)
+def _gate_rejects(identity_name: str) -> str:
+    """The release-gate check that fails any formula holding this stock alone, or "".
+
+    The composer used to reach for stocks the gate then failed: no odour
+    threshold or physics data (Ethyl Acetoacetate, Glycolierral, Fixative
+    505, Mate Absolute) and opaque pre-blends (Cassis Base 345B, Lilyreal
+    ND).  9 of the 34 test formulas failed the gate for such a pick
+    (engine fault hunt, 6 Nov 2026).  A partly declared base passes, as it
+    does in the gate (Kenny, 28 Oct: "Warn, don't block").
+    """
+    from engine.pipeline.formula_state import build_formula_state
+    from engine.pipeline.gates import (
+        _gate_data_coverage,
+        _gate_odt_coverage,
+        _partly_declared_warnings,
+    )
+
+    try:
+        state = build_formula_state({identity_name: 100.0}, {identity_name: 1.0})
+    except (KeyError, ValueError):
+        return ""
+    for gate in (_gate_data_coverage(state), _gate_odt_coverage(state)):
+        if gate.status == "FAIL":
+            return gate.gate
+    partly = _partly_declared_warnings(state.materials)
+    if any(material.is_opaque_preblend and material.name not in partly for material in state.materials):
+        return "opaque_preblends"
+    return ""
+
+
+@lru_cache(maxsize=None)
+def _gate_canonical(identity_name: str) -> str:
+    """The name the gate's duplicate check counts a stock under ("vetiver eo")."""
+    from engine.material_resolver import resolve_material
+
+    try:
+        return resolve_material(identity_name).canonical_name or _identity_key(identity_name)
+    except (KeyError, ValueError):
+        return _identity_key(identity_name)
+
+
+def _gate_duplicate(capability: MaterialCapability, state: "_BeamState") -> str | None:
+    """A stock already in the formula that the gate counts as the same material.
+
+    "Haitian Vetiver EO" and "Vetiver EO (Haiti)" are two labels of one oil:
+    the vetiver brief carried both at 1307 uL and the gate failed it
+    (duplicate_canonical_materials).  Variant pairs the gate allows stay
+    allowed.
+    """
+    from engine.pipeline.gates import ALLOWED_VARIANT_DUPLICATES
+
+    key = _gate_canonical(capability.identity_name)
+    for _role, other, _score in state.assignments:
+        if other.identity_name == capability.identity_name or _gate_canonical(other.identity_name) != key:
+            continue
+        pair = {capability.identity_name.lower(), other.identity_name.lower()}
+        if not any(pair == set(allowed) for allowed in ALLOWED_VARIANT_DUPLICATES):
+            return other.identity_name
+    return None
+
+
 def _backs_natural_lead(
     capability: MaterialCapability,
     role: SemanticRole,
@@ -1056,6 +1121,14 @@ def _block_reason(
     identity = _chemical_identity(capability)
     if identity in state.used_identities:
         return "already used in this formula"
+    twin = _gate_duplicate(capability, state)
+    if twin is not None:
+        return f"the gate counts it as the same material as {twin}"
+    if role.exact_material is None and _chemical_identity(capability) in _DISLIKED_TOP_PAIR and any(
+        _chemical_identity(other) in _DISLIKED_TOP_PAIR - {_chemical_identity(capability)}
+        for _role, other, _score in state.assignments
+    ):
+        return "Hexyl Acetate with Ethyl 2-Methylbutyrate is the fruity top Kenny dislikes"
     if _avoid_candidate(capability.candidate, avoid):
         return "the brief's avoid list"
     if role.provenance == LASTING_SPICE_PROVENANCE:
@@ -1377,6 +1450,119 @@ def _rank_key(
 
 
 _UNARY_FRONTIER = 24
+# The same backbone won most briefs: in the 34-brief check (6 Nov 2026) Ambrox
+# Super was in 19 formulas, Bergamot 18, Cedarwood Virginia 16, Cedroxyde 13,
+# and Safraleine in every Baie Rose card and the leather (Kenny, 29 Oct:
+# "you just use it too much").  Unless the brief names it (one of its words),
+# such a stock gives up this much fit, about a third of one main-character
+# descriptor's weight, so a stock that fits nearly as well gets the role.
+# Every cedarwood oil pays, not only Virginia: penalising Virginia alone moved
+# the same 15 briefs onto Himalayan cedarwood.
+_BACKBONE_PENALTY = 1.0
+_BACKBONE_WORDS: Mapping[str, tuple[str, ...]] = {
+    "ambrox super": ("ambrox", "ambroxan", "ambroxide", "amber"),
+    "bergamot": ("bergamot", "citrus", "cologne", "earl grey"),
+    "cedarwood": ("cedar", "cedarwood"),
+    "cedroxyde": ("cedroxyde",),
+    "safraleine": ("safraleine", "saffron", "safran"),
+}
+
+
+# House rules (Kenny; 6 Nov 2026 fault hunt, fix 5).
+# Berries only when the brief asks, and no sweet layer a brief does not ask
+# for: the aromatic fougere carried Vanillin, Cocoa and Tonka, and the Femme
+# Raspberry Ketone.  A stock named for one of these words takes no role the
+# brief does not name, unless the brief carries one of the allowing words.
+_BERRY_WORDS = ("raspberry", "strawberry", "blackberry", "blueberry", "cassis", "blackcurrant",
+                "buccoxime", "berry", "berries", "frambinone")
+_BERRY_ALLOWING = ("berry", "berries", "raspberry", "strawberry", "blackberry", "blueberry",
+                   "cassis", "blackcurrant", "currant", "red fruit", "red fruits")
+_SWEET_WORDS = ("vanill", "maltol", "furaneol", "caramel", "cocoa", "chocolate", "praline",
+                "tonka", "coumarin", "maple", "honey", "condensed milk", "cotton candy")
+_SWEET_ALLOWING = ("sweet", "gourmand", "vanilla", "tonka", "coumarin", "caramel", "cocoa",
+                   "chocolate", "praline", "dessert", "honey", "amber", "oriental", "tobacco",
+                   "benzoin", "pina", "colada", "coconut", "maple", "milk", "almond", "cherry",
+                   "heliotrope", "candy", "sugar", "liqueur", "rum", "cognac", "date", "dates")
+# Coumarin and tonka are the fougere's own sweet note.
+_FOUGERE_SWEET = ("coumarin", "tonka")
+# The fruity top Kenny dislikes (fruity tops are green cis-3-hexenyl or pear):
+# Hexyl Acetate with Ethyl 2-Methylbutyrate.
+_DISLIKED_TOP_PAIR = frozenset({"hexyl acetate", "ethyl 2 methylbutyrate"})
+# Two oils of this much 1,8-cineole and camphor or more in one formula get a
+# vial test before the bottle (his 25 Oct medicinal bottle); cardamom with
+# one is never placed (_cineole_stack).
+_VIAL_TEST_CINEOLE_FRACTION = .05
+# Gate hedione_share caps (gates._HEDIONE_CAP_*_PCT), as fractions of the active oil.
+_HEDIONE_CAP_DEFAULT = Decimal("0.15")
+_HEDIONE_CAP_CHYPRE = Decimal("0.12")
+_HEDIONE_IDENTITIES = frozenset({"hedione", "hedione hc"})
+
+
+def _words_in(text: str, words: Sequence[str]) -> bool:
+    padded = f" {_identity_key(text)} "
+    return any(f" {_identity_key(word)}" in padded for word in words)
+
+
+def _apple_ester_planned(brief: SemanticBrief) -> bool:
+    """The brief names apple: the apple ester keeps the fruity top and Hexyl
+    Acetate gives way, so the pear comes from a pear stock or green
+    cis-3-hexenyl (Chimie Femme lost its apple when the pair block reached
+    the ester first).  Without apple, Hexyl Acetate may keep the pear."""
+
+    return _words_in(f"{brief.formula_name} {brief.normalized_request}", ("apple",))
+
+
+def _unasked_sweet_or_berry(capability: MaterialCapability, request: str) -> str | None:
+    """"berry" or "sweet" when the stock is one and the brief does not ask for it."""
+
+    name = capability.identity_name.casefold()
+    if any(word in name for word in _BERRY_WORDS):
+        return None if _words_in(request, _BERRY_ALLOWING) else "berry"
+    if any(word in name for word in _SWEET_WORDS):
+        if _words_in(request, _SWEET_ALLOWING):
+            return None
+        if _words_in(request, ("fougere", "fougère")) and any(word in name for word in _FOUGERE_SWEET):
+            return None
+        return "sweet"
+    return None
+
+
+def _unasked_backbone(capability: MaterialCapability, request: str) -> bool:
+    """A backbone stock (``_BACKBONE_WORDS``) the brief does not name."""
+
+    identity = capability.identity_name.casefold()
+    text = f" {_identity_key(request)} "
+    for backbone, words in _BACKBONE_WORDS.items():
+        if backbone in identity:
+            return not any(f" {_identity_key(word)} " in text for word in words)
+    return False
+
+
+# The performance pass (solve_formula, when a formula is short of the
+# planner's long-lasting floor): the brief's own facets keep their stocks,
+# and the formula's functional base roles prefer a long-lasting material
+# (the gate's VP under 0.1 Pa) by this much, about one main-character
+# descriptor's weight.
+_PERFORMANCE_PASS: ContextVar[bool] = ContextVar("formula_solver_performance_pass", default=False)
+_PERFORMANCE_BONUS = 3.0
+_PERFORMANCE_PROVENANCES = frozenset({
+    "FUNCTIONAL_COVERAGE", "PROMPT_REQUESTED_EXPANDED_ARCHITECTURE", "MINIMUM_FUNCTIONAL_ARCHITECTURE",
+    "LAYERED_BASE_ARCHITECTURE",
+})
+
+
+def _performance_role(role: SemanticRole) -> bool:
+    """A functional base role the performance pass may steer.
+
+    Heart roles stay as solved: steering them took the second rose, citrus or
+    lavender row that supports a named note (34-brief check, 6 Nov 2026).
+    """
+
+    return (
+        role.exact_material is None
+        and getattr(role, "provenance", "") in _PERFORMANCE_PROVENANCES
+        and getattr(role, "note", None) == "base"
+    )
 
 
 def _unary_rank_for_role(
@@ -1394,7 +1580,15 @@ def _unary_rank_for_role(
     required_identity: tuple[str, ...] | None = None,
     frontier: int | None = _UNARY_FRONTIER,
     before_cardamom: bool = False,
+    brief_text: str | None = None,
 ) -> list[tuple[float, MaterialCapability]]:
+    """Every stock that may fill ``role``, best first.
+
+    ``brief_text`` (the formula name and brief) turns on the house rules a
+    brief can lift by naming them: no unasked sweet or berry stock
+    (``_unasked_sweet_or_berry``) and the backbone penalty
+    (``_unasked_backbone``).
+    """
     ranked: list[tuple[float, MaterialCapability]] = []
     query_terms = role.query_terms
     accord = getattr(role, "accord", None)
@@ -1423,6 +1617,10 @@ def _unary_rank_for_role(
             # The gate fails any dose of it (Freesia HDI carries Lilial), so an
             # unnamed role must not reach for it; a brief that names it still
             # gets the gate's refusal and reason.
+            continue
+        if role.exact_material is None and _gate_rejects(capability.identity_name):
+            # The same for a stock the gate cannot score or does not allow
+            # (no odour threshold, an opaque pre-blend).
             continue
         if role.knowledge_role_slot and role.knowledge_role_slot not in capability.knowledge_role_slots:
             continue
@@ -1467,6 +1665,15 @@ def _unary_rank_for_role(
             # cineole/camphor oils out of the roles before it.  Roles after
             # it pay the pair penalty instead.
             score -= _CINEOLE_STACK_PENALTY
+        if (
+            _PERFORMANCE_PASS.get() and _performance_role(role)
+            and _long_lasting_material(capability.identity_name)
+        ):
+            score += _PERFORMANCE_BONUS
+        if brief_text is not None and role.exact_material is None and _unasked_sweet_or_berry(capability, brief_text):
+            continue
+        if brief_text is not None and role.exact_material is None and _unasked_backbone(capability, brief_text):
+            score -= _BACKBONE_PENALTY
         score += _stable_tie(role.role_id, capability.stock_id, variant_index)
         ranked.append((score, capability))
     if _is_cited_helper(role) and role.exact_material is None:
@@ -2045,6 +2252,7 @@ def _solve_assignments(
     asked_families = _asked_families(brief, avoid)
     identity_words = identity_words or {}
     before_cardamom = _roles_before_cardamom(brief)
+    apple_ester = _apple_ester_planned(brief)
 
     def unary(role: SemanticRole, cache_id: str | None = None) -> list[tuple[float, MaterialCapability]]:
         # A cache shared by solves of one brief with the same inputs: only a
@@ -2067,10 +2275,13 @@ def _solve_assignments(
             asked_families=asked_families,
             liking=liking,
             request=brief.normalized_request,
+            brief_text=f"{brief.formula_name} {brief.normalized_request}",
             required_identity=identity_words.get(role.role_id),
             frontier=frontier,
             before_cardamom=role.role_id in before_cardamom,
         )
+        if apple_ester and role.exact_material is None:
+            ranked = [item for item in ranked if _chemical_identity(item[1]) != "hexyl acetate"]
         if unary_cache is not None:
             unary_cache[key] = ranked
         return ranked
@@ -2376,6 +2587,248 @@ def _pour_unweighable_crystals(
     return tuple(new_assignments), tuple(new_choices)
 
 
+def _long_lasting_reached(holds: Sequence[str]) -> Decimal | None:
+    """The uL/mL a LONG_LASTING_FLOOR_SHORT hold reports, or None at the floor."""
+
+    for hold in holds:
+        if hold.startswith("LONG_LASTING_FLOOR_SHORT:"):
+            return Decimal(hold.split(":", 1)[1])
+    return None
+
+
+def _grade_allowed(
+    assignments: Sequence[SolvedAssignment],
+    position: int,
+    grade: MaterialCapability,
+    *,
+    avoid: Sequence[str],
+    allow_multiple_musks: bool,
+    enforce_own_odor_avoid: bool,
+    liquid_total_ul: int,
+) -> bool:
+    """The solver's own blocks for ``grade`` in row ``position``, with every
+    other row placed (as the audit replays it, and at the formula's total)."""
+
+    others = [a for i, a in enumerate(assignments) if i != position]
+    groups: dict[str, int] = {}
+    for other in others:
+        groups[other.capability.group] = groups.get(other.capability.group, 0) + 1
+        family = _family_bucket(other.capability)
+        if family:
+            groups[f"family:{family}"] = groups.get(f"family:{family}", 0) + 1
+    state = _BeamState(
+        tuple((a.role, a.capability, 0.0) for a in others),
+        frozenset(_chemical_identity(a.capability) for a in others),
+        tuple(sorted(groups.items())), 0.0,
+    )
+    role = assignments[position].role
+    return all(
+        _block_reason(
+            grade, role, state, avoid=avoid, allow_multiple_musks=allow_multiple_musks,
+            enforce_own_odor_avoid=enforce_own_odor_avoid, liquid_total_ul=total,
+        ) is None
+        for total in {liquid_total_ul, _STANDARD_LIQUID_TOTAL_UL}
+    )
+
+
+def _strengthen_long_lasting_rows(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    index: MaterialCapabilityIndex,
+    quantities: Sequence[dict[str, Any]],
+    grade_ok: Callable[[Sequence[SolvedAssignment], int, MaterialCapability], bool] | None = None,
+) -> tuple[tuple[SolvedAssignment, ...], tuple[Choice, ...]] | None:
+    """Pour the strongest owned liquid grade of each long-lasting row.
+
+    Performance comes first for Kenny (kenny-performance-first), and the
+    planner's floor of 57 uL long-lasting per mL (his weakest card) only
+    moves volume between rows: a long-lasting row poured from a 10% stock
+    carries a tenth of the active it could, so 25 of 34 test formulas ended
+    under 60 uL/mL (Violette 20 against his 58, 6 Nov 2026 fault hunt).
+    When a formula is short, every long-lasting row (the gate's VP under
+    0.1 Pa) moves to its strongest owned liquid grade; the planner's caps
+    still bound each dose.  Left alone: the amber base (moved only with the
+    whole formula), a requested dose, an exact material named with its
+    grade, and a weighed solid grade.  ``grade_ok`` keeps a grade the solver
+    would block in that row (an IFRA ceiling at the role's dose).  None when
+    no row moves.
+    """
+
+    new_assignments, new_choices = list(assignments), list(choices)
+    moved = False
+    for position, choice in enumerate(choices):
+        current = assignments[position].capability
+        role = assignments[position].role
+        stock = current.candidate.stock
+        if (
+            current.candidate.solid
+            or _is_amber_base(current)
+            or _quantity_for_candidate(choice.candidate, quantities) is not None
+            or not _long_lasting_material(str(stock.identity_name or stock.name))
+        ):
+            continue
+        exact = getattr(role, "exact_material", None)
+        if exact is not None and _NAMES_A_GRADE.search(exact.casefold()):
+            continue
+        fraction = float(stock.dilution)
+        grades = [
+            capability for capability in index.capabilities
+            if _chemical_identity(capability) == _chemical_identity(current)
+            and not capability.candidate.solid and capability.design_ready and capability.execution_ready
+            and float(capability.candidate.stock.dilution) > fraction
+            and (grade_ok is None or grade_ok(new_assignments, position, capability))
+        ]
+        if not grades:
+            continue
+        grade = max(grades, key=lambda capability: (float(capability.candidate.stock.dilution), capability.stock_id))
+        new_assignments[position] = replace(assignments[position], capability=grade)
+        new_choices[position] = replace(choice, candidate=grade.candidate)
+        moved = True
+    if not moved:
+        return None
+    return tuple(new_assignments), tuple(new_choices)
+
+
+def _row_active(row: Mapping[str, Any]) -> Decimal:
+    """A delivered row's active uL (a weighed solid counts 1 mg as 1 uL)."""
+
+    return Decimal(str(row.get("amount_decimal") or 0)) * Decimal(str(row.get("stock_fraction_decimal") or 1))
+
+
+def _hedione_pours(
+    choices: Sequence[Choice],
+    rows: Sequence[dict[str, Any]],
+    quantities: Sequence[dict[str, Any]],
+    brief_text: str,
+) -> tuple[dict[str, Any], ...]:
+    """MATERIAL_DOSE rows that bring Hedione back to the gate's share of the active oil.
+
+    Hedione went past 15% of the active oil in 5 of 34 test formulas (Femme
+    23%), and the gate warns at 15% (12% in a chypre, gates.
+    _gate_hedione_share).  Every Hedione row is scaled down by one factor so
+    their sum sits at the cap; the freed volume goes back to the other rows.
+    A brief that names Hedione, or a requested Hedione dose, is left as asked.
+    """
+
+    if _words_in(brief_text, ("hedione",)):
+        return ()
+    cap = _HEDIONE_CAP_CHYPRE if _words_in(brief_text, ("chypre",)) else _HEDIONE_CAP_DEFAULT
+    slots = {
+        choice.role.role_id: choice for choice in choices
+        if _identity_key(choice.candidate.stock.identity_name or choice.candidate.stock.name) in _HEDIONE_IDENTITIES
+    }
+    hedione = [row for row in rows if row.get("slot") in slots and row.get("amount_unit") == "uL"]
+    if not hedione or any(_quantity_for_candidate(slots[row["slot"]].candidate, quantities) for row in hedione):
+        return ()
+    held = sum((_row_active(row) for row in hedione), Decimal(0))
+    others = sum((_row_active(row) for row in rows), Decimal(0)) - held
+    limit = cap / (1 - cap) * others
+    if held <= limit or held <= 0:
+        return ()
+    factor = limit / held
+    return tuple(
+        {
+            "scope": "MATERIAL_DOSE",
+            "material": slots[row["slot"]].candidate.stock.name,
+            "amount_decimal": str(max(
+                _MIN_RAW_TRANSFER_UL,
+                int((Decimal(row["amount_decimal"]) * factor).to_integral_value(rounding=ROUND_FLOOR)),
+            )),
+            "unit": "uL",
+        }
+        for row in hedione
+    )
+
+
+def _cineole_vial_step(assignments: Sequence[SolvedAssignment]) -> dict[str, Any] | None:
+    """The vial test a formula with two cineole or camphor oils gets before its bottle."""
+
+    oils = sorted({
+        assignment.capability.identity_name for assignment in assignments
+        if _cineole_camphor_fraction(assignment.capability.identity_name) >= _VIAL_TEST_CINEOLE_FRACTION
+    })
+    if len(oils) < 2:
+        return None
+    return {
+        "step": "VIAL_TEST_CINEOLE_STACK",
+        "materials": oils,
+        "text": (
+            f"Before the bottle, mix {', '.join(oils)} at their card ratio in a vial and smell it "
+            "on a strip after 10 minutes: together their cineole and camphor can read medicinal "
+            "(Kenny's 25 Oct bottle). Drop or cut the weaker-fitting one if it does."
+        ),
+    }
+
+
+def _pour_sub_transfer_rows(
+    assignments: Sequence[SolvedAssignment],
+    choices: Sequence[Choice],
+    rows: Sequence[dict[str, Any]],
+    index: MaterialCapabilityIndex,
+    quantities: Sequence[dict[str, Any]],
+    grade_ok: Callable[[Sequence[SolvedAssignment], int, MaterialCapability], bool] | None = None,
+) -> tuple[tuple[SolvedAssignment, ...], tuple[Choice, ...], tuple[dict[str, Any], ...]] | None:
+    """Swap a liquid row under 10 uL for an owned weaker grade that pours >= 10 uL.
+
+    Kenny's bench cards hold nothing under 10 uL, and the gate holds a raw
+    transfer that small (SUB_10_UL_RAW_TRANSFER).  The planner doses the
+    grade the solver chose, so a trace of a neat oil came out at 5 uL while
+    his 1% stock of it sat unused (Cade Oil Rectified, 6 Nov 2026 audit).
+    The row keeps its active amount: the strongest owned weaker grade that
+    carries it in at least 10 uL replaces it, and the third item pins that
+    grade's pour (a MATERIAL_DOSE row for _formula_rows), since a share-based
+    allocation would pour the weak grade at the same few uL.  A requested
+    dose stays.  None when no row moves.
+    """
+
+    short = {
+        row["slot"]: Decimal(row["amount_decimal"])
+        for row in rows
+        if row.get("amount_unit") == "uL" and row.get("operation") == "PREPARED_DILUTION_REQUIRED"
+        and Decimal(row["amount_decimal"]) > 0
+    }
+    if not short:
+        return None
+    new_assignments, new_choices = list(assignments), list(choices)
+    pours: list[dict[str, Any]] = []
+    for position, choice in enumerate(choices):
+        amount = short.get(choice.role.role_id)
+        if amount is None or choice.candidate.explicit or _quantity_for_candidate(choice.candidate, quantities):
+            continue
+        current = assignments[position].capability
+        fraction = Decimal(str(current.candidate.stock.dilution))
+        active = amount * fraction
+        grades = [
+            capability for capability in index.capabilities
+            if _chemical_identity(capability) == _chemical_identity(current)
+            and not capability.candidate.solid and capability.design_ready and capability.execution_ready
+            and 0 < Decimal(str(capability.candidate.stock.dilution)) < fraction
+            and active / Decimal(str(capability.candidate.stock.dilution)) >= _MIN_RAW_TRANSFER_UL
+            and (grade_ok is None or grade_ok(new_assignments, position, capability))
+        ]
+        if not grades:
+            continue
+        grade = max(grades, key=lambda capability: (float(capability.candidate.stock.dilution), capability.stock_id))
+        pour = {
+            "scope": "MATERIAL_DOSE",
+            "material": grade.candidate.stock.name,
+            "amount_decimal": str(int((active / Decimal(str(grade.candidate.stock.dilution))).to_integral_value(rounding=ROUND_CEILING))),
+            "unit": "uL",
+        }
+        if any(
+            _quantity_for_candidate(other.candidate, (pour,)) is not None
+            for other_position, other in enumerate(choices) if other_position != position
+        ):
+            # The pour row's name would also pin another row: leave this one.
+            continue
+        new_assignments[position] = replace(assignments[position], capability=grade)
+        new_choices[position] = replace(choice, candidate=grade.candidate)
+        pours.append(pour)
+    if not pours:
+        return None
+    return tuple(new_assignments), tuple(new_choices), tuple(pours)
+
+
 def _missing_role_has_candidates(
     missing: Sequence[str],
     *,
@@ -2491,6 +2944,9 @@ def solve_formula(
     rows: list[dict[str, Any]] = []
     totals = {"liquid_total_ul": "0", "mass_total_mg": "0"}
     holds: list[str] = []
+    # Doses the solver pins after allocation (the Hedione cap, a sub-10 uL
+    # row poured from a weaker grade): on the receipt, so an audit replays them.
+    dose_pins: tuple[dict[str, Any], ...] = ()
     status = "SOLVED"
     if missing or len(choices) < min(6, len(brief.roles)):
         status = "WITHHELD_CONCEPT_COVERAGE_INCOMPLETE"
@@ -2514,6 +2970,67 @@ def solve_formula(
                     pass
                 else:
                     (assignments, choices), (rows, totals, holds) = poured, poured_rows
+            def grade_ok(current: Sequence[SolvedAssignment], position: int, grade: MaterialCapability) -> bool:
+                return _grade_allowed(
+                    current, position, grade, avoid=avoid,
+                    allow_multiple_musks=_allows_multiple_musks(brief.normalized_request, brief.roles),
+                    enforce_own_odor_avoid=bool(brief.architecture_plan.get("operation")),
+                    liquid_total_ul=liquid_total_ul,
+                )
+
+            short_of = _long_lasting_reached(holds)
+            strong = (
+                _strengthen_long_lasting_rows(assignments, choices, index, explicit_quantities, grade_ok)
+                if short_of is not None else None
+            )
+            if strong is not None:
+                try:
+                    strong_rows = _formula_rows(
+                        strong[1],
+                        liquid_total_ul=liquid_total_ul,
+                        quantities=explicit_quantities,
+                    )
+                except ValueError:
+                    # The stronger grades do not allocate: the weaker rows stand.
+                    pass
+                else:
+                    reached = _long_lasting_reached(strong_rows[2])
+                    if reached is None or reached > short_of:
+                        (assignments, choices), (rows, totals, holds) = strong, strong_rows
+            capped = _hedione_pours(choices, rows, explicit_quantities, f"{brief.formula_name} {brief.normalized_request}")
+            for _round in range(3):
+                if not capped:
+                    break
+                try:
+                    capped_rows = _formula_rows(
+                        choices,
+                        liquid_total_ul=liquid_total_ul,
+                        quantities=(*explicit_quantities, *capped),
+                    )
+                except ValueError:
+                    # The other rows cannot take Hedione's volume: it stays.
+                    break
+                rows, totals, holds = capped_rows
+                dose_pins = tuple(capped)
+                # The freed volume moved the active total: check once more.
+                more = _hedione_pours(choices, rows, (), f"{brief.formula_name} {brief.normalized_request}")
+                capped = more
+            diluted = _pour_sub_transfer_rows(
+                assignments, choices, rows, index, (*explicit_quantities, *dose_pins), grade_ok,
+            )
+            if diluted is not None:
+                try:
+                    diluted_rows = _formula_rows(
+                        diluted[1],
+                        liquid_total_ul=liquid_total_ul,
+                        quantities=(*explicit_quantities, *dose_pins, *diluted[2]),
+                    )
+                except ValueError:
+                    # The weaker grade does not allocate: the short row stands.
+                    pass
+                else:
+                    (assignments, choices), (rows, totals, holds) = diluted[:2], diluted_rows
+                    dose_pins = (*dose_pins, *diluted[2])
         except ValueError as exc:
             status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"
             holds.append(f"DOSE_ALLOCATION_INFEASIBLE:{exc}")
@@ -2557,6 +3074,11 @@ def solve_formula(
         # Optional roles, so they never withhold the formula: recorded beside
         # missing_roles with the reason each cited stock could not go in.
         receipt["unplaced_accord_helpers"] = unplaced_helpers
+    if dose_pins:
+        receipt["solver_dose_pins"] = [dict(pin) for pin in dose_pins]
+    vial = _cineole_vial_step(assignments)
+    if vial is not None:
+        receipt["bench_steps"] = [vial]
     lasting_limitations = _lasting_spice_limitations(brief, assignments, index, avoid, liquid_total_ul)
     if lasting_limitations:
         # An optional role, so the formula is not withheld: the receipt says
@@ -2569,7 +3091,7 @@ def solve_formula(
     signature = hashlib.sha256(
         "|".join(f"{row.role.role_id}:{row.capability.stock_id}" for row in assignments).encode()
     ).hexdigest()[:16]
-    return FormulaSolveResult(
+    result = FormulaSolveResult(
         status=status,
         variant_id=f"semantic-variant-{variant_index + 1}-{signature}",
         assignments=assignments,
@@ -2579,6 +3101,38 @@ def solve_formula(
         holds=tuple(sorted(set(holds))),
         solver_receipt=receipt,
     )
+    short_of = _long_lasting_reached(result.holds)
+    if status != "SOLVED" or short_of is None or _PERFORMANCE_PASS.get():
+        return result
+    # Performance is a goal, not only a report: a formula short of the
+    # long-lasting floor is solved once more with its functional heart and
+    # base roles preferring long-lasting materials, and the stronger one is
+    # kept (Kenny, 6 Nov 2026: "All six, in order", fix 2).
+    token = _PERFORMANCE_PASS.set(True)
+    try:
+        stronger = solve_formula(
+            brief=brief, index=index, liquid_total_ul=liquid_total_ul,
+            explicit_quantities=explicit_quantities, avoid=avoid,
+            previous_stock_ids=previous_stock_ids, prior_variant_stock_ids=prior_variant_stock_ids,
+            variant_index=variant_index, beam_width=beam_width,
+            exact_material_count=exact_material_count, identity_words=identity_words,
+            unary_cache=None,
+        )
+    finally:
+        _PERFORMANCE_PASS.reset(token)
+    reached = _long_lasting_reached(stronger.holds)
+    if stronger.status != "SOLVED" or (reached is not None and reached <= short_of):
+        result.solver_receipt["performance_pass"] = {
+            "long_lasting_ul_per_ml": str(short_of), "kept": "FIRST_SOLVE",
+            "performance_solve_ul_per_ml": None if reached is None else str(reached),
+        }
+        return result
+    stronger.solver_receipt["performance_pass"] = {
+        "long_lasting_ul_per_ml": "AT_FLOOR" if reached is None else str(reached),
+        "kept": "PERFORMANCE_SOLVE",
+        "first_solve_ul_per_ml": str(short_of),
+    }
+    return stronger
 
 
 # Factory seam: tests point it at temporary personal files.

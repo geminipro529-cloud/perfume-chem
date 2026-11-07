@@ -525,6 +525,17 @@ def _execution_verified(
             rows: list[dict[str, Any]] = []
             totals = {"liquid_total_ul": "0", "mass_total_mg": "0"}
             holds: list[str] = []
+            # The solver's own post-allocation doses (Hedione cap, sub-10 uL
+            # pours): each must pin one bound stock, in uL.
+            pins = receipt.get("solver_dose_pins", [])
+            bound_names = {stocks[s].candidate.stock.name for s in stock_ids}
+            if not isinstance(pins, list) or any(
+                set(pin) != {"scope", "material", "amount_decimal", "unit"}
+                or pin["scope"] != "MATERIAL_DOSE" or pin["unit"] != "uL"
+                or pin["material"] not in bound_names
+                for pin in pins
+            ):
+                return False
             if missing or len(assignments) < min(6, len(brief.roles)):
                 replay = solver.solve_formula(
                     brief=brief, index=index, liquid_total_ul=int(total),
@@ -552,7 +563,7 @@ def _execution_verified(
                             int(total), inputs["explicit_quantities"],
                             solver._has_exact_material_count(interpretation),
                         ),
-                        liquid_total_ul=int(total), quantities=inputs["explicit_quantities"],
+                        liquid_total_ul=int(total), quantities=(*inputs["explicit_quantities"], *pins),
                     )
                 except ValueError as exc:
                     status = "WITHHELD_DOSE_ALLOCATION_INFEASIBLE"

@@ -342,6 +342,12 @@ _LEMON_FCF_EO_CONSTITUENTS = [
     ("limonene", 0.5139, 136.24, 200.0, 20.0, 3.0),
     ("beta pinene", 0.1704, 136.24, 250.0, 30.0, 3.0),
     ("gamma terpinene", 0.1346, 136.24, 90.0, 50.0, 3.0),
+    # The three rows above are Djenane (2015, doi:10.3390/foods4020208), a hydrodistilled
+    # Algerian peel oil with no citral.  Kenny's stock is cold-pressed Sicilian lemon (FCF),
+    # which carries 2-3% citral (geranial + neral; Southwell 2021, doi:10.3390/foods10071596,
+    # citing ISO 855:2003): its midpoint, added 6 Nov 2026 so the lemon note can be judged
+    # through citral (note_markers).  VP and air ODT as the sweet-orange geranial/neral rows.
+    ("citral", 0.025, 152.23, 14.1, 4.337, 1.5),
 ]
 
 _NEROLI_EO_CONSTITUENTS = [
@@ -2519,7 +2525,10 @@ _PROFILE_SOURCES: dict[str, tuple[str, ...]] = {
         "https://www.env.go.jp/en/air/odor/measure/02_3_2.pdf",
         "https://thegoodscentscompany.com/data/es1030852.html",
     ),
-    "lemon fcf oil sicilian": ("https://pubmed.ncbi.nlm.nih.gov/28231199/",),
+    "lemon fcf oil sicilian": (
+        "https://pubmed.ncbi.nlm.nih.gov/28231199/",
+        "https://doi.org/10.3390/foods10071596",
+    ),
     "neroli eo": ("https://pubmed.ncbi.nlm.nih.gov/24163946/",),
     "ginger eo": ("https://pubmed.ncbi.nlm.nih.gov/21366054/",),
     "galbanum eo": ("https://pmc.ncbi.nlm.nih.gov/articles/PMC10474915/",),

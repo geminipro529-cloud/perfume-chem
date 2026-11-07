@@ -172,25 +172,15 @@ def test_the_fougere_lavender_lead_carries_its_share(mode):
 
 @pytest.mark.usefixtures("evernyl_crystals_still_owned")
 @pytest.mark.parametrize("mode", ["FAST_SKETCH", "DEEP_COMPOSE"])
-def test_a_fruit_lead_on_hexyl_acetate_keeps_the_one_percent_grade(mode):
-    # Since 29 Oct 2026 Pear Valerate (registry odour words) leads this brief;
-    # leaving it out keeps the Hexyl Acetate lead whose grade this pins.
-    # The pin holds on the stock as it stood with the Evernyl Crystals (gone 30 Oct 2026):
-    # on today's stock both formulas take the 10% grade though no Evernyl row is placed.
+def test_a_pear_and_apple_brief_keeps_the_apple_ester_without_hexyl_acetate(mode):
+    # Until 6 Nov 2026 this pinned the 1% grade of a Hexyl Acetate fruit lead.
+    # Since then an apple brief keeps Ethyl 2-Methylbutyrate and Hexyl Acetate
+    # gives way: Kenny dislikes the two together as a fruity top.
     result = design_formula(idea="A pear and apple fruity floral over a warm balsamic base, no Pear Valerate.",
                             liquid_concentrate_ul_decimal="6000", design_mode=mode)
-    # The solved formula and the structural control; a stock-alternative
-    # variant steps off the control's stocks and may take the 10% grade.
-    # Since 31 Oct 2026 (sourced character scores) Diethyl Malonate, a green-apple
-    # ester, leads the facet and Hexyl Acetate sits in its accord; the grade pin holds.
     formulas = [result["optimized_formula"], result["design_variants"][0]["formula"]]
-    leads = [
-        row for formula in formulas for row in formula["rows"]
-        if row["slot"].startswith("facet_fruit") and row["identity_name"] == "Hexyl Acetate"
-    ]
-    assert len(leads) == 2
-    for row in leads:
-        assert float(row["stock_fraction_decimal"]) < .05, row["stock_label"]
+    for formula in formulas:
+        assert "Hexyl Acetate" not in {row["identity_name"] for row in formula["rows"]}
 
 
 def test_a_name_that_only_contains_the_trace_name_is_another_material(monkeypatch):
