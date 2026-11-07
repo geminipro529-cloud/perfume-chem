@@ -6127,6 +6127,76 @@ _refresh_normalized_odt_index()
 SOURCED_ODT_BATCH_2026_10_31 = True
 
 
+# Engine fault check (6 Nov 2026): three composer picks the gate could not score for want of an
+# air threshold. van Gemert quotes re-opened before loading; Glycolierral has no published air value.
+_VAN_GEMERT_2011_AIR = (
+    "van Gemert L.J. (2011) Odour Thresholds: Compilations of Odour Threshold Values in Air, Water and Other Media (2nd ed., Oliemans Punter & Partners), AIR section, mg/m3 (book text as hosted on vdoc.pub, https://vdoc.pub/documents/odour-thresholds-compilations-of-odour-threshold-values-in-air-water-and-other-media-6535sgvmi7l0)"
+)
+_SOURCED_ODT_2026_11_06 = {
+    "gamma octalactone": (0.31, "PEER_SINGLE", [
+        _VAN_GEMERT_2011_AIR + ": '(R)-4-HYDROXYOCTANOIC ACID LACTONE ((R)-gamma-octalactone) Buhr (2006) "
+        "0.0018 (S)-4-HYDROXYOCTANOIC ACID LACTONE ((S)-gamma-octalactone) Buhr (2006) 0.0018'; primary: "
+        "Buhr K. (2006) PhD thesis, Bergische Universitaet Wuppertal (GC-olfactometry). Both enantiomers "
+        "0.0018 mg/m3 = 1.8 ng/L; 1.8 x 24.45 / 142.2 = 0.31 ppb for the racemate.",
+        "Cross-check (DERIVED, not independent): Czerny et al. 2008 water threshold 6.5 ug/L x Kaw about "
+        "2.2e-4 (engine VP 14.1 Pa, TGSC est. solubility 3632 mg/L) = 1.45 ng/L = 0.25 ppb.",
+    ]),
+    "ethyl acetoacetate": (3.4, "PEER_SINGLE", [
+        _VAN_GEMERT_2011_AIR + ": 'ETHYL 3-OXOBUTANOATE (ethyl acetoacetate) [141-97-9] Backman (1917) r "
+        "0.016 - 0.020'; the only air entry. A RECOGNITION threshold (r), so detection is probably lower: "
+        "16-20 ng/L x 24.45 / 130.14 = 3.0-3.8 ppb, geometric mean 3.4 ppb (working range 1-15 ppb). "
+        "Backman 1917 values run erratic elsewhere in the same table (ethyl isobutyrate r 0.86-1.06 vs "
+        "Nagata 2003 d 0.00011 mg/m3).",
+    ]),
+}
+_ANALOGUE_ODT_ESTIMATES_2026_11_06 = {
+    "glycolierral": (0.78, [
+        "No published air threshold: van Gemert 2011 (dioxolane and bicyclo[2.2.2] entries), TGSC "
+        "rw1492991 and Givaudan's page (https://www.givaudan.com/fragrance-beauty/fragrance-ingredients-"
+        "business/fragrance-molecules/glycolierral: odour value 'Impactful', threshold not printed).",
+        "Analogues: Givaudan GC-O air values for bicyclic dioxanes/dioxolanes compiled in "
+        + _VAN_GEMERT_2011_AIR + ": Bajgrowicz & Frank (2001) spiro[bicyclo[2.2.1]heptane-2,4'-(1,3-dioxane)] "
+        "stereoisomers 0.0002, 0.040, 0.004, 0.250 mg/m3 and Naetscher et al. (2010) 2,4-dimethyl-2-"
+        "(1,1,3,3-tetramethylindan-5-yl)-1,3-dioxolane stereoisomers 0.0025, 0.018, 0.0015, 0.020 mg/m3. "
+        "Geometric mean of the 8 = 0.0076 mg/m3 = 7.6 ng/L; 7.6 x 24.45 / 236.35 = 0.78 ppb (isomers span "
+        "0.02-26 ppb; working range 0.2-5). The analogues smell amber-woody, not green: order of magnitude only.",
+    ]),
+}
+_refresh_normalized_odt_index()
+for _name, (_odt_air, _vfy, _sources) in _SOURCED_ODT_2026_11_06.items():
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": _vfy,
+        "sources": list(_sources),
+        "note": "Sourced threshold 2026-11-06 (stock thread, engine fault check); source re-opened before loading.",
+    }
+    if ODT_VERIFICATION.get(_key):
+        _meta["superseded"] = dict(ODT_VERIFICATION[_key])
+    ODT_VERIFICATION[_key] = _meta
+for _name, (_odt_air, _sources) in _ANALOGUE_ODT_ESTIMATES_2026_11_06.items():
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": "UNVERIFIED",
+        "sources": list(_sources),
+        "note": "Analogue estimate 2026-11-06 (stock thread, engine fault check); not a measurement.",
+    }
+    if ODT_VERIFICATION.get(_key):
+        _meta["superseded"] = dict(ODT_VERIFICATION[_key])
+    ODT_VERIFICATION[_key] = _meta
+_refresh_normalized_odt_index()
+SOURCED_ODT_BATCH_2026_11_06 = True
+
+
 # (auditor CRITICAL C1: without this, batch ODT_DATA entries are unreachable via runtime lookup)
 MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True
 _refresh_normalized_odt_index()

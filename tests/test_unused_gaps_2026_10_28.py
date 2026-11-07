@@ -66,7 +66,9 @@ def test_analogue_thresholds_are_tagged_unverified_with_their_inputs(name, odt):
     assert spine.provenance["odt_air_ppb"].startswith("UNVERIFIED analogue estimate")
 
 
-@pytest.mark.parametrize("name", ["Glycolierral", "Fructone B"])
+# Glycolierral left this list on 2026-11-06: a labelled UNVERIFIED estimate from Givaudan's
+# bicyclic dioxane/dioxolane GC-O air values (tests/test_engine_fault_data_2026_11_06.py).
+@pytest.mark.parametrize("name", ["Fructone B"])
 def test_materials_with_no_measured_analogue_get_no_threshold(name):
     assert ODT_DATA[lookup_odt_raw_name(name)]["odt_air"] is None
 
@@ -249,8 +251,11 @@ def test_partly_declared_bases_load_with_their_undeclared_part():
     from engine.ifra_standards import load_partly_declared_bases, partly_declared_base
 
     names = {b.name for b in load_partly_declared_bases()}
-    # Suederal joined on 28 Oct 2026 (IFF's FPIS as a closest-identity proxy, below).
-    assert names == {"Black Tea Base", "Palm Dates Base", "Sandalwood Base X3", "Costus Olifac", "Suederal"}
+    # Suederal joined on 28 Oct 2026 (IFF's FPIS as a closest-identity proxy, below); Fixative 505
+    # on 6 Nov 2026 (Firmenich's SDS as a closest-identity proxy).
+    assert names == {
+        "Black Tea Base", "Palm Dates Base", "Sandalwood Base X3", "Costus Olifac", "Suederal", "Fixative 505",
+    }
     assert partly_declared_base(["Sandalwood Base 3X"]).sku == "6WX24054"
     assert partly_declared_base(["Black Tea Base (neat / as supplied)"]).allergens_pct["Linalool"] == 0.2189
     assert partly_declared_base(["Lilyreal ND"]) is None

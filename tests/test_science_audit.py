@@ -147,9 +147,11 @@ def test_live_inventory_oav_audit_separates_supported_opaque_and_unresolved() ->
     # PROC value and Cis-3 Hexenyl Hexanoate, Linalool Oxide and Rhubofix labelled UNVERIFIED
     # analogue estimates (268 -> 273). 2026-11-04 headspace blockers: a labelled partial
     # Baser 2003 oil profile made Opoponax Resinoid OAV-available (273 -> 274).
-    assert audit["oav_available_count"] == 274
-    assert audit["oav_unknown_count"] == 16
-    assert audit["oav_coverage_pct"] == 94.483
+    # 2026-11-06 engine-fault data fixes: Buhr 2006 (van Gemert) made Gamma Octalactone and a
+    # labelled UNVERIFIED analogue estimate made Glycolierral OAV-available (274 -> 276).
+    assert audit["oav_available_count"] == 276
+    assert audit["oav_unknown_count"] == 14
+    assert audit["oav_coverage_pct"] == 95.172
     assert "Costus Olifac" in categories["other_oav_unknowns"]
     assert not {"Maltol", "Saffranal"} & set(categories["other_oav_unknowns"])
     assert audit["status"] == "FAIL_CLOSED_GAPS"

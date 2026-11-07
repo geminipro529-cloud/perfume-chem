@@ -24,10 +24,6 @@ _NO_AIR_ODT_1023 = (
     "no published human detection threshold in air found; searched RIFM and TGSC "
     "(2026-10-23); the Nagata 2003 table could not be read"
 )
-_NO_AIR_ODT_1025 = (
-    "no published human detection threshold in air found; searched Nagata 2003, van Gemert "
-    "2011 and Givaudan's PROC patent tables (2026-10-25)"
-)
 _ALL = ("logp", "mw", "odt", "vp")
 _MSR_COSMETIC_EXTRACT = (
     "MySkinRecipes cosmetic extract in a propylene glycol carrier; no odorant data published"
@@ -38,8 +34,8 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # ethanol or usage-level number is not an air threshold).
     "Diethyl Malonate": (("odt",), _NO_AIR_ODT),
     "Fructone B": (("odt",), _NO_AIR_ODT),
-    "Gamma Octalactone": (("odt",), _NO_AIR_ODT + "; a 6.5 ug/L water threshold exists and is not usable"),
-    "Glycolierral": (("odt",), _NO_AIR_ODT),
+    # (Gamma Octalactone and Glycolierral left this list on 2026-11-06: Buhr 2006 air threshold and a
+    # labelled UNVERIFIED analogue estimate, engine/odor_thresholds.py SOURCED_ODT_BATCH_2026_11_06.)
     # (Buccoxime, Cis-3 Hexenyl Hexanoate, Linalool Oxide, Rhubofix and Veloutone left this list on
     # 2026-10-28, group 7: a Symrise air threshold, Givaudan PROC values and labelled analogue estimates.)
     # Filled 2026-10-23 with RDKit MW and a labelled Crippen log P; still no air threshold.
@@ -57,7 +53,7 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     # when the fruit batch loaded Givaudan US 12,340,876 air thresholds.)
     # Searched in the 2026-10-25 literature fill. (Anisyl Acetate, Cedroxyde and Cedryl Acetate left
     # this list on 2026-10-28: Givaudan VP and labelled analogue air ODTs.)
-    "Ethyl Acetoacetate": (("odt",), _NO_AIR_ODT_1025),
+    # (Ethyl Acetoacetate left this list on 2026-11-06: Backman 1917 air threshold, PEER_SINGLE.)
     "Palm Dates Base": (_ALL, "PerfumersWorld compound base, not a pure chemical; no composition published"),
     # Proprietary bases: a mixture with no CAS has no single MW, VP or log P.
     "Black Tea Base": (_ALL, "PerfumersWorld blend, not a pure chemical; no composition published"),
@@ -95,7 +91,8 @@ HOLDS: dict[str, tuple[tuple[str, ...], str]] = {
     "Fixative 505": (
         _ALL,
         "PerfumersWorld proprietary base, probably Firmenich Fixateur 505 E; Firmenich's SDS gives "
-        "ambroxide and rosin esters only as bands (15-<20%, 20-<30%), so no profile (2026-10-28)",
+        "ambroxide and rosin esters only as bands (15-<20%, 20-<30%), so no profile (2026-10-28); "
+        "a partly declared base since 2026-11-06, so the gate warns on its undeclared part",
     ),
 }
 
