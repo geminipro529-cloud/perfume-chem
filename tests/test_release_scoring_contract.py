@@ -147,6 +147,10 @@ def test_unified_release_scoring_contract_has_provenance(monkeypatch):
         "descriptor_distance",
     }
     assert score_contract["release_authorized_axes"] == []
+    assert score_contract["public_benchmark"]["status"] == "FAILED_PUBLIC_BENCHMARK"
+    assert set(score_contract["public_benchmark"]["axes"]) == {"longevity", "sillage", "skin_performance"}
+    assert score_contract["oil_left_6h"]["status"] == "RANKS_PUBLIC_LONGEVITY_FAILS_JUDGED_BOTTLES"
+    assert "ul_per_ml" in score_contract["oil_left_6h"]
     assert (
         score_contract["axis_authority"]["longevity"]
         == "HEURISTIC_UNCALIBRATED_NOT_SKIN_LIFE"
