@@ -1,6 +1,7 @@
-"""Every composed formula carries as much active and long-lasting material as
-Kenny's weakest reference formula: 57 uL of long-lasting material per mL of a
-30 mL bottle (his weakest is 57.2, median 66) and 52% of the concentrate active
+"""Every composed formula leaves as much oil on skin at 6 h, and carries as much
+active material, as Kenny's weakest reference: 81 uL per mL of a 30 mL bottle
+still on skin at 6 h on the release gate's clock (his weakest duel card,
+Chimie Femme R8.1, leaves 81.4; median 121) and 52% of the concentrate active
 (his weakest 52.7%, median 73%).  The volume is moved between the formula's own
 rows; what the caps, the named-note floor and the 40% active ceiling leave
 short is reported as a hold, never forced.
@@ -26,7 +27,7 @@ TOTAL = 6000
 
 
 def _floor_ul() -> Decimal:
-    """The long-lasting active volume a formula holds: 57 uL/mL x 30 mL."""
+    """The active volume a formula leaves on skin at 6 h: 81 uL/mL x 30 mL."""
 
     return planner.LONG_LASTING_FLOOR_ACTIVE_UL
 
@@ -111,12 +112,12 @@ def _active(choices: Sequence[Any], state: dict[int, int]) -> Decimal:
 
 
 def _long_active(choices: Sequence[Any], state: dict[int, int]) -> Decimal:
+    """The floors' measure: each row's active times its share left at 6 h in
+    this formula."""
+
+    lasting = planner._state_lasting(choices, state)
     return sum(
-        (
-            planner._active_ul(choices[index], amount)
-            for index, amount in state.items()
-            if planner._is_long_lasting(choices[index])
-        ),
+        (planner._active_ul(choices[index], amount) * lasting[index] for index, amount in state.items()),
         Decimal(0),
     )
 
@@ -142,43 +143,86 @@ def test_the_floor_constants_are_the_gate_s_and_the_yardstick_s() -> None:
     assert planner.LONG_LASTING_VP_25C_PA == gates.TENACITY_LONG_LASTING_VP_25C_PA
     assert planner.LONGEVITY_FLOOR_BOTTLE_ML == checks.DEFAULT_BOTTLE_ML
     assert planner.LONGEVITY_FLOOR_BOTTLE_ML == Decimal(str(yardstick.BOTTLE_ML))
-    # 57 uL per mL of a 30 mL bottle.
-    assert planner.LONG_LASTING_FLOOR_ACTIVE_UL == Decimal(1710)
+    # 81 uL per mL of a 30 mL bottle left on skin at 6 h.
+    assert planner.LONG_LASTING_FLOOR_ACTIVE_UL == Decimal(2430)
+    assert planner.LASTING_HOURS == 6.0 and planner.LASTING_FRACTION_MIN == Decimal("0.5")
     assert planner.ACTIVE_SHARE_FLOOR == Decimal("0.52")
 
 
+def _in_a_heavy_base(name: str) -> Decimal:
+    """``name``'s share left at 6 h as 100 uL in 5900 uL of Benzyl Benzoate."""
+
+    return planner.lasting_shares({name: 100.0, "Benzyl Benzoate": 5900.0})[name]
+
+
 @pytest.mark.parametrize(
-    "identity,dilution,long_lasting",
+    "identity,lasting",
     [
-        ("Hedione", 1.0, True),
-        ("Iso E Super", 1.0, False),
-        ("Galaxolide", 0.5, True),
-        ("Benzyl Salicylate", 1.0, True),
-        # Vanillin: Yaws' 0.0157 Pa at 25 C (via HSDB) since the 2026-10-25 literature batch.
-        ("Vanillin", 0.1, True),
-        ("Linalool", 1.0, False),
+        ("Hedione", True),
+        # 0.23 Pa, over the gate's 0.1 Pa tenacity line, yet 98% is left at 6 h.
+        ("Iso E Super", True),
+        ("Benzyl Salicylate", True),
+        ("Vanillin", True),
+        ("Linalool", False),
+        ("Dihydromyrcenol", False),
+        ("Bergamot FCF Oil Sicilian", False),
     ],
 )
-def test_long_lasting_agrees_with_the_release_gate(
-    identity: str, dilution: float, long_lasting: bool
-) -> None:
-    vp = gate_vp_25c_pa(identity)
-    assert vp is not None
-    # The gate's own screen, and the planner's reading of it.
-    assert (vp < gates.TENACITY_LONG_LASTING_VP_25C_PA) is long_lasting
-    assert planner._is_long_lasting(_choice(identity, dilution)) is long_lasting
+def test_half_left_at_six_hours_in_a_heavy_base(identity: str, lasting: bool) -> None:
+    assert (_in_a_heavy_base(identity) >= planner.LASTING_FRACTION_MIN) is lasting
+
+
+def test_lasting_shares_are_the_gate_s_own_oil_left_at_six_hours() -> None:
+    from pathlib import Path
+
+    from engine.calibration import public_performance as pp
+
+    path = Path(__file__).resolve().parents[1] / "formulas" / "L_Homme_Realistic_Reconstruction_30mL_EDT.md"
+    run = pp.simulate_build(path, hours=(0.0, planner.LASTING_HOURS))
+    start, end = run.active_ul
+    shares = planner.lasting_shares(start)
+    checked = 0
+    for name, ul in start.items():
+        if ul < 20 or shares[name] == 0:
+            continue
+        assert abs(float(shares[name]) - end[name] / ul) <= 0.01, name
+        checked += 1
+    assert checked >= 8
+    counted = sum(float(shares[name]) * ul for name, ul in start.items()) / run.batch_ml
+    whole = sum(end[name] for name in start if shares[name] > 0 or start[name] == 0) / run.batch_ml
+    assert abs(counted - whole) <= 0.2
+
+
+def test_a_material_s_share_depends_on_the_formula_around_it() -> None:
+    # In a cologne the lavender oil goes with the citrus and the linalyl
+    # acetate; in a heavy base far more of it is left at 6 h.
+    cologne = planner.lasting_shares(
+        {"Lavender EO (BONTAUX SAS)": 1900.0, "Linalyl Acetate": 1300.0, "Lemon FCF Oil Sicilian": 300.0}
+    )
+    assert cologne["Lavender EO (BONTAUX SAS)"] < Decimal("0.1")
+    assert _in_a_heavy_base("Lavender EO (BONTAUX SAS)") > Decimal("0.2")
+
+
+def test_a_material_without_physics_never_counts_as_lasting() -> None:
+    # The simulator never evaporates a material it has no physics for.
+    assert _in_a_heavy_base("Mate Absolute") == 0
+    assert _in_a_heavy_base("No Such Material Anywhere") == 0
 
 
 def test_a_formula_under_the_longevity_floor_is_brought_to_it(plain_caps: dict[str, int]) -> None:
     # A named neat citrus, two unnamed neat rows that are not long-lasting and
-    # two unnamed neat long-lasting rows whose shares leave them small.
+    # three unnamed neat long-lasting rows whose shares leave them small.  (Read
+    # on the whole formula the citrus lead, 40% of the oil, keeps 4% of itself
+    # at 6 h, so two long-lasting rows of 6% and 4% could not reach the floor
+    # with the fleeting rows keeping half their dose.)
     choices = [
         _choice("Bergamot FCF Oil Sicilian", named=True, share=.30, cap=.25,
                 role_id="facet_citrus_peel"),
-        _choice("Linalool", share=.35, cap=.35, function="volume"),
-        _choice("Dihydromyrcenol", share=.25, cap=.35, function="volume"),
-        _choice("Hedione", share=.06, cap=.20, function="structure"),
-        _choice("Cedarwood Virginia", share=.04, cap=.20, function="structure"),
+        _choice("Linalool", share=.25, cap=.35, function="volume"),
+        _choice("Dihydromyrcenol", share=.20, cap=.35, function="volume"),
+        _choice("Hedione", share=.12, cap=.25, function="structure"),
+        _choice("Cedarwood Virginia", share=.08, cap=.25, function="structure"),
+        _choice("Iso E Super", share=.04, cap=.25, function="structure"),
     ]
     before = _composed(choices, [])
     assert _long_active(choices, before) < _floor_ul()
@@ -192,7 +236,7 @@ def test_a_formula_under_the_longevity_floor_is_brought_to_it(plain_caps: dict[s
     assert _max_row_share(choices, state) <= planner.ROW_ACTIVE_CEILING_SHARE
     assert sum(state.values()) == int(totals["liquid_total_ul"]) == TOTAL
     # The long-lasting rows grew; nothing was added, dropped or swapped.
-    assert state[3] > before[3] and state[4] > before[4]
+    assert state[3] > before[3] and state[4] > before[4] and state[5] > before[5]
     assert len(rows) == len(choices)
 
 
@@ -260,12 +304,14 @@ def test_a_functional_carrier_never_counts_and_never_grows(plain_caps: dict[str,
     carrier = _choice("Benzyl Benzoate", share=.20, cap=.30, function="volume")
     # Below the threshold by vapour pressure, yet no active material at all.
     assert gate_vp_25c_pa("Benzyl Benzoate") < planner.LONG_LASTING_VP_25C_PA
-    assert planner._is_long_lasting(carrier) is False
+    assert planner._is_low_vp_row(carrier) is False
+    assert planner._state_lasting([carrier], {0: 1000}) == {0: Decimal(0)}
     choices = [
         carrier,
         _choice("Linalool", share=.30, cap=.30, function="volume"),
         _choice("Dihydromyrcenol", share=.30, cap=.30, function="volume"),
-        _choice("Cedarwood Virginia", share=.10, cap=.20, function="structure"),
+        _choice("Cedarwood Virginia", share=.05, cap=.20, function="structure"),
+        _choice("Hedione", share=.05, cap=.20, function="structure"),
     ]
     holds: list[str] = []
     before = _composed(choices, [])
@@ -332,20 +378,22 @@ def test_a_donor_giving_in_several_passes_keeps_half_its_entry_dose(
 
 
 def test_the_amber_base_rows_are_left_alone_by_the_floor_step(plain_caps: dict[str, int]) -> None:
-    # The amber lead is long-lasting and the amber layer is not, so without the
-    # rule one would take volume and the other would give it.
+    # Both amber rows stay on skin at 6 h; without the rule the crystal lead
+    # (under the 0.1 Pa line) would take volume from the fleeting rows and the
+    # 10% layer would give it.
     amber_lead = _choice("Ambrox Super", 0.25, share=.20, cap=.22, function="structure",
                          role_id="facet_amber_mineral")
     amber_layer = _choice("Amber Xtreme", 0.1, share=.10, cap=.10, function="structure",
                           role_id="base_amber_layer")
-    assert planner._is_long_lasting(amber_lead) is True
-    assert planner._is_long_lasting(amber_layer) is False
+    assert planner._is_low_vp_row(amber_lead) is True
+    assert _in_a_heavy_base("Amber Xtreme") >= planner.LASTING_FRACTION_MIN
     choices = [
         amber_lead,
         amber_layer,
         _choice("Linalool", share=.30, cap=.30, function="volume"),
         _choice("Dihydromyrcenol", share=.25, cap=.30, function="volume"),
-        _choice("Cedarwood Virginia", share=.10, cap=.20, function="structure"),
+        _choice("Cedarwood Virginia", share=.05, cap=.20, function="structure"),
+        _choice("Hedione", share=.05, cap=.20, function="structure"),
     ]
     holds: list[str] = []
     before = _composed(choices, [])
@@ -422,7 +470,11 @@ def test_a_diluted_long_lasting_raise_keeps_the_long_lasting_measure(monkeypatch
     )
     monkeypatch.setattr(dp, "_row_cap", lambda row, role, index, total: (Decimal(5000), "role cap"))
     monkeypatch.setattr(dp, "_blocking_checks", lambda formula, name: set())
-    monkeypatch.setattr(planner, "_long_lasting_material", lambda name: name in {"Slow", "Fixer"})
+    monkeypatch.setattr(
+        planner,
+        "lasting_shares",
+        lambda actives: {name: Decimal(1) if name in {"Slow", "Fixer"} else Decimal(0) for name in actives},
+    )
 
     result = dp.apply_detection_pass(
         {"rows": rows}, role_plan=None, interpretation={}, formula_name="t", index=[object()],
@@ -437,9 +489,10 @@ def test_a_diluted_long_lasting_raise_keeps_the_long_lasting_measure(monkeypatch
 
 
 def _row_measures(rows: Sequence[dict]) -> tuple[Decimal, Decimal]:
-    """(uL/mL of long-lasting active on the 30 mL basis, % of the concentrate active)."""
+    """(uL/mL of active left at 6 h on the 30 mL basis, % of the concentrate active)."""
 
-    active = long_active = raw = Decimal(0)
+    active = raw = Decimal(0)
+    actives: dict[str, Decimal] = {}
     for row in rows:
         amount = Decimal(row["amount_decimal"])
         raw += amount
@@ -447,9 +500,22 @@ def _row_measures(rows: Sequence[dict]) -> tuple[Decimal, Decimal]:
             continue
         part = amount * Decimal(row["stock_fraction_decimal"])
         active += part
-        if planner._long_lasting_material(row["identity_name"]):
-            long_active += part
+        actives[row["identity_name"]] = actives.get(row["identity_name"], Decimal(0)) + part
+    shares = planner.lasting_shares({name: float(part) for name, part in actives.items()})
+    long_active = sum((part * shares[name] for name, part in actives.items()), Decimal(0))
     return long_active / planner.LONGEVITY_FLOOR_BOTTLE_ML, active / raw * 100
+
+
+def _duel_idea(brief_id: str) -> str:
+    """A brief's idea from the opus duel set (data/benchmarks/opus_duel_v1.json)."""
+
+    import json
+    from pathlib import Path
+
+    data = json.loads(
+        (Path(__file__).resolve().parents[1] / "data" / "benchmarks" / "opus_duel_v1.json").read_text()
+    )
+    return next(entry["idea"] for entry in data["duel"] if entry["id"] == brief_id)
 
 
 def _composed_rows(formula: dict) -> list[dict]:
@@ -479,8 +545,10 @@ def test_the_floor_holds_describe_the_rows_the_detection_pass_delivers() -> None
     # the overlay stock ids, the solver's stable tie picked Ethyl Maltol 1% over
     # 10%, and the pass no longer raised a row there. It was "coffee vanilla" until
     # 29 Oct 2026, when the composer's stock-choice fixes left that brief's rows
-    # needing no raise.)
-    result = design_inventory_formula(idea="coffee")
+    # needing no raise, and "coffee" until 14 Nov 2026, when the oil-left-at-6-h
+    # floor did the same; no short brief raised a row after that, so it is the
+    # duel's frangipani soliflore brief, which raises twelve.)
+    result = design_inventory_formula(idea=_duel_idea("frangipani-soliflore-r1"))
     formula = result["optimized_formula"]
     assert formula["detection_check"]["adjustments"]
     long_per_ml, active_pct = _row_measures(formula["rows"])
@@ -539,11 +607,11 @@ def test_a_named_weighed_crystal_counts_in_the_named_share(plain_caps: dict[str,
 def test_the_short_holds_describe_the_rows_the_ceiling_pass_delivers(
     plain_caps: dict[str, int]
 ) -> None:
-    # Half the concentrate is a capped carrier, so the long-lasting Hedione
-    # (2100 uL after the bulk fallback, over the floor) carries 70% of the
-    # active oil; the ceiling pass then gives 600 uL of it to the Linalool
-    # modifier, which takes the formula under the long-lasting floor.
-    plain_caps.update({"Benzyl Benzoate": 3000})
+    # Nearly half the concentrate is a capped carrier, so the long-lasting
+    # Hedione (2200 uL after the bulk fallback, over the floor) carries 71% of
+    # the active oil; the ceiling pass then gives part of it to the Linalool
+    # modifier, which takes the formula under the longevity floor.
+    plain_caps.update({"Benzyl Benzoate": 2900})
     choices = [
         _choice("Benzyl Benzoate", share=.50, cap=.50, function="fixative"),
         _choice("Hedione", share=.30, cap=.05, function="volume"),
@@ -575,7 +643,8 @@ def test_the_short_holds_describe_the_rows_the_ceiling_pass_delivers(
 
 def test_a_formula_of_requested_rows_only_still_carries_the_floor_holds() -> None:
     # Every liquid row is a requested quantity, so nothing is allocated; the
-    # delivered rows still carry no long-lasting material and say so.
+    # delivered rows leave only what is left of two fleeting materials at 6 h,
+    # and say so.
     choices = [
         _choice("Linalool", share=.5, function="volume"),
         _choice("Dihydromyrcenol", share=.5, function="volume"),
@@ -589,7 +658,11 @@ def test_a_formula_of_requested_rows_only_still_carries_the_floor_holds() -> Non
 
     assert [row["amount_decimal"] for row in rows] == ["3000", "3000"]
     assert totals["liquid_total_ul"] == str(TOTAL)
-    assert "LONG_LASTING_FLOOR_SHORT:0.0" in holds
+    shares = planner.lasting_shares({"Linalool": 3000.0, "Dihydromyrcenol": 3000.0})
+    left = sum((Decimal(3000) * shares[name] for name in ("Linalool", "Dihydromyrcenol")), Decimal(0))
+    reached = (left / planner.LONGEVITY_FLOOR_BOTTLE_ML).quantize(Decimal("0.1"))
+    assert reached < planner.LONG_LASTING_FLOOR_UL_PER_ML
+    assert f"LONG_LASTING_FLOOR_SHORT:{reached}" in holds
     assert not [hold for hold in holds if hold.startswith("ACTIVE_SHARE_FLOOR_SHORT:")]
 
 
@@ -597,16 +670,7 @@ def test_a_light_brief_reaches_the_floor_or_carries_the_hold() -> None:
     result = design_inventory_formula(idea="A fresh citrus cologne")
     formula = result["optimized_formula"] or result["initial_formula"]
     rows = [row for row in formula["rows"] if row["amount_unit"] == "uL"]
-    long_active = sum(
-        (
-            Decimal(row["amount_decimal"]) * Decimal(row["stock_fraction_decimal"])
-            for row in rows
-            if planner._key(row["identity_name"]) not in planner._DESIGN_FUNCTIONAL_CARRIERS
-            and planner._long_lasting_material(row["identity_name"])
-        ),
-        Decimal(0),
-    )
-    per_ml = long_active / planner.LONGEVITY_FLOOR_BOTTLE_ML
+    per_ml, _ = _row_measures(rows)
     holds = result["constraint_audit"]["holds"]
     assert per_ml >= planner.LONG_LASTING_FLOOR_UL_PER_ML or any(
         hold.startswith("LONG_LASTING_FLOOR_SHORT:") for hold in holds

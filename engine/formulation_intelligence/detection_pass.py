@@ -24,9 +24,9 @@ re-checked, staying inside every limit the composer already applies:
   raise may not put any row, liquid or weighed, above that share of the
   active oil (weighed solids count 1 mg as 1 uL), nor a row the composed
   formula already had above it past the share it had there;
-* the long-lasting floor (``composition_planner.LONG_LASTING_FLOOR_ACTIVE_UL``,
-  the floors step's own measure: active volume of the materials the
-  ``_long_lasting_material`` test counts): a raise and its donors may not take
+* the longevity floor (``composition_planner.LONG_LASTING_FLOOR_ACTIVE_UL``,
+  the floors step's own measure: active volume left on skin at 6 h, each row
+  weighted by its ``lasting_shares`` in the composed formula): a raise and its donors may not take
   that measure below the floor, or below what the composed formula had when
   that was already less.  A diluted long-lasting stock adds only its active
   part, so it is held to this as much as a row that is not long-lasting.
@@ -321,12 +321,13 @@ def apply_detection_pass(
     from engine.research.composition_planner import (
         _DESIGN_FUNCTIONAL_CARRIERS,
         _MIN_RAW_TRANSFER_UL,
+        LASTING_FRACTION_MIN,
         LONG_LASTING_FLOOR_ACTIVE_UL,
         NAMED_NOTE_FLOOR_SHARE,
         ROW_ACTIVE_CEILING_SHARE,
-        _long_lasting_material,
         accord_lead_checked,
         accord_lead_role_id,
+        lasting_shares,
     )
 
     named_rows = {
@@ -352,24 +353,37 @@ def apply_detection_pass(
 
     named_floor = min(NAMED_NOTE_FLOOR_SHARE, named_share(original)) if named_rows else None
 
-    # The long-lasting floor: the composer's own test (the release gate's
-    # reference VP at 25 C), on the same 1 mg = 1 uL basis for weighed solids.
-    long_lasting = {
-        i: strength[i] > 0 and _long_lasting_material(material_of(rows[i])) for i in original
+    # The longevity floor: the composer's own measure (active left on skin at
+    # 6 h on the gate's clock, ``lasting_shares`` of the composed formula), on
+    # the same 1 mg = 1 uL basis for weighed solids.  The shares are read once,
+    # on the formula as composed.
+    # A functional carrier holds the others back at its full volume.
+    composed_actives: dict[str, float] = {}
+    for row in rows:
+        name = material_of(row)
+        carrier = _key(name) in _DESIGN_FUNCTIONAL_CARRIERS
+        part = Decimal(str(row.get("amount_decimal"))) * (Decimal(1) if carrier else strength_of(row))
+        if part > 0:
+            composed_actives[name] = composed_actives.get(name, 0.0) + float(part)
+    shares = lasting_shares(composed_actives)
+    lasting_share = {
+        i: shares.get(material_of(rows[i]), Decimal(0)) if strength[i] > 0 else Decimal(0) for i in original
     }
+    # Rows leaving under half a uL at 6 h per uL poured (a volatile row, or a
+    # diluted stock of any material) give first when the floor is at stake,
+    # as in the floors step.
+    long_lasting = {i: strength[i] * lasting_share[i] >= LASTING_FRACTION_MIN for i in original}
     solid_long_active = sum(
         (
-            Decimal(str(row.get("amount_decimal"))) * strength_of(row)
+            Decimal(str(row.get("amount_decimal"))) * strength_of(row) * shares.get(material_of(row), Decimal(0))
             for row in rows
-            if row.get("amount_unit") == "mg" and _long_lasting_material(material_of(row))
+            if row.get("amount_unit") == "mg"
         ),
         Decimal(0),
     )
 
     def long_active(current: Mapping[int, Decimal]) -> Decimal:
-        return solid_long_active + sum(
-            (current[i] * strength[i] for i in current if long_lasting[i]), Decimal(0)
-        )
+        return solid_long_active + sum((current[i] * strength[i] * lasting_share[i] for i in current), Decimal(0))
 
     # Never below the floor, and never below what the composer reached when
     # that was already short of it.
@@ -602,7 +616,7 @@ def apply_detection_pass(
                 worst = min(
                     sorted(wants),
                     key=lambda i: (
-                        strength[i] if long_lasting[i] else Decimal(0), -(wants[i] - amounts[i]),
+                        strength[i] * lasting_share[i], -(wants[i] - amounts[i]),
                     ),
                 )
 

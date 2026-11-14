@@ -480,7 +480,7 @@ def _detection(monkeypatch, rows: list[dict], per_ul: dict[str, float]) -> dict:
     )
     monkeypatch.setattr(dp, "_row_cap", lambda row, role, index, total: (Decimal(5000), "role cap"))
     monkeypatch.setattr(dp, "_blocking_checks", lambda formula, name: set())
-    monkeypatch.setattr(planner, "_long_lasting_material", lambda name: False)
+    monkeypatch.setattr(planner, "lasting_shares", lambda actives: {name: Decimal(0) for name in actives})
     return dp.apply_detection_pass(
         {"rows": rows}, role_plan=None, interpretation={}, formula_name="t", index=[object()],
     )

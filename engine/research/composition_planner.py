@@ -2246,16 +2246,32 @@ CEILING_ABSORB_MAX_FACTOR = 2
 # planner reads the gate's own reference VP through material_resolver rather
 # than importing the gate.
 LONG_LASTING_VP_25C_PA = 0.1
-# Kenny's weakest reference formula carries 57.2 uL of long-lasting material
-# per mL of its 30 mL bottle (median 66), and 52.7% of its concentrate is
-# active material (median 73%).  Every composed formula reaches at least those
-# two floors, by moving volume between its own rows.
-LONG_LASTING_FLOOR_UL_PER_ML = Decimal("57")
+# The longevity floor is oil left on skin at 6 h on the release gate's own
+# clock (Kenny chose it on 14 Nov 2026): the active uL the gate's simulator
+# still holds at 6 h, the measure behind the gate's score_contract.oil_left_6h,
+# which ranks 19 commercial originals' Parfumo longevity 0.86 where the old
+# count of active uL under 0.1 Pa ranked them 0.57
+# (data/benchmarks/public_performance_v1.json).  Kenny's weakest duel card
+# (Chimie Femme R8.1) leaves 81.4 uL per mL of its 30 mL bottle (median of his
+# 13 cards 121), and 52.7% of his weakest reference concentrate is active
+# material (median 73%).  Every composed formula reaches at least those two
+# floors, by moving volume between its own rows.
+LONG_LASTING_FLOOR_UL_PER_ML = Decimal("81")
+# How the floors read oil left at 6 h: the gate's simulator run once on the
+# formula's active volumes (``lasting_shares``), which gives the gate's own
+# read-out to 0.1 uL/mL.  A material's share depends on the formula around it:
+# in a lavender cologne 5% of the lavender oil is left at 6 h, in a heavy base
+# 23%.  A row "holds oil" (a floor recipient, never a donor) when it leaves at
+# least LASTING_FRACTION_MIN uL at 6 h for each uL poured.
+LASTING_HOURS = 6.0
+LASTING_FRACTION_MIN = Decimal("0.5")
+# How many times the longevity floor reads a moved formula again.
+_FLOOR_READINGS = 3
 ACTIVE_SHARE_FLOOR = Decimal("0.52")
 # The bottle the floor is per mL of (composition_checks.DEFAULT_BOTTLE_ML and
 # yardstick.BOTTLE_ML; a test pins all three equal).
 LONGEVITY_FLOOR_BOTTLE_ML = Decimal("30")
-# 57 uL/mL x 30 mL: the long-lasting active volume a formula holds.
+# 81 uL/mL x 30 mL: the active volume a formula leaves on skin at 6 h.
 LONG_LASTING_FLOOR_ACTIVE_UL = LONG_LASTING_FLOOR_UL_PER_ML * LONGEVITY_FLOOR_BOTTLE_ML
 # The amber base moves only with the whole formula (the weighed-crystal rule):
 # no floor step moves one of its rows.  The identities are
@@ -2265,9 +2281,94 @@ _AMBER_BASE_IDENTITY_WORDS = ("ambrox", "ambrofix", "amber xtreme", "ambrocenide
 _AMBER_BASE_ROLE_IDS = frozenset({"facet_amber_mineral", "base_amber_layer"})
 
 
+@lru_cache(maxsize=4096)
+def _lasting_shares_of(key: tuple[tuple[str, float], ...]) -> tuple[tuple[str, Decimal], ...]:
+    from engine.pipeline.simulator import simulate_formula
+
+    actives = dict(key)
+    try:
+        frames = simulate_formula(
+            actives,
+            {name: 1.0 for name in actives},
+            batch_volume_ml=float(LONGEVITY_FLOOR_BOTTLE_ML),
+            windows=(("opening", 0.0), ("lasting", LASTING_HOURS * 3600.0)),
+        )
+    except Exception:  # an unreadable formula counts no oil left
+        return tuple((name, Decimal(0)) for name in actives)
+    start = {material.name: material for material in frames[0].state.materials}
+    end = {material.name: material for material in frames[-1].state.materials}
+    shares: list[tuple[str, Decimal]] = []
+    for name in actives:
+        first, last = start.get(name), end.get(name)
+        if first is None or last is None or not first.active_ul:
+            shares.append((name, Decimal(0)))
+            continue
+        has_physics = first.vp_pure_pa is not None or (
+            bool(first.natural_composite_metadata) and first.physics_status != "WITHHELD"
+        )
+        share = float(last.active_ul or 0.0) / float(first.active_ul) if has_physics else 0.0
+        shares.append((name, Decimal(str(round(max(0.0, min(1.0, share)), 4)))))
+    return tuple(shares)
+
+
+def lasting_shares(actives: Mapping[str, float]) -> dict[str, Decimal]:
+    """Each material's share the gate's simulator leaves on skin at LASTING_HOURS
+    in this formula.
+
+    ``actives`` is the formula's active uL per material (a weighed solid 1 mg
+    as 1 uL), with any functional carrier at its full volume: it holds the
+    others back on skin, though it is no oil itself (its share is the
+    caller's to ignore).  One run of the gate's simulator on those volumes, each material
+    neat, with the default ethanol fill of a LONGEVITY_FLOOR_BOTTLE_ML bottle
+    at skin temperature: the gate's score_contract.oil_left_6h to 0.1 uL/mL.
+    A material the simulator holds no physics for (no vapour pressure and no
+    natural-composite profile) counts 0: it never evaporates in the model, so
+    it cannot stand for lasting oil (the gate's read-out counts it whole).
+    """
+
+    key = tuple(sorted((str(name), round(float(ul), 1)) for name, ul in actives.items() if ul > 0))
+    return dict(_lasting_shares_of(key))
+
+
+def _choice_name(choice: Choice) -> str:
+    stock = choice.candidate.stock
+    return str(stock.identity_name or stock.name)
+
+
+def _state_lasting(
+    choices: Sequence[Choice], *parts: Mapping[int, int]
+) -> dict[int, Decimal]:
+    """``lasting_shares`` of a planner state, by row index: the rows of every
+    mapping in ``parts`` (liquid uL, weighed mg) simulated together.  A
+    functional carrier is simulated at its full volume and counts 0."""
+
+    actives: dict[str, float] = {}
+    for part in parts:
+        for index, amount in part.items():
+            name = _choice_name(choices[index])
+            carrier = _key(name) in _DESIGN_FUNCTIONAL_CARRIERS
+            active = Decimal(amount) if carrier else _active_ul(choices[index], amount)
+            if active > 0:
+                actives[name] = actives.get(name, 0.0) + float(active)
+    shares = lasting_shares(actives)
+    return {
+        index: Decimal(0)
+        if _key(_choice_name(choices[index])) in _DESIGN_FUNCTIONAL_CARRIERS
+        else shares.get(_choice_name(choices[index]), Decimal(0))
+        for part in parts
+        for index in part
+    }
+
+
 @lru_cache(maxsize=None)
-def _long_lasting_material(name: str) -> bool:
-    """Whether the release gate's reference VP at 25 C for ``name`` is long-lasting."""
+def _low_vp_material(name: str) -> bool:
+    """Whether the release gate's reference VP at 25 C for ``name`` is under its
+    0.1 Pa tenacity line (LONG_LASTING_VP_25C_PA).
+
+    The solver's stock preferences for a short formula (formula_solver's
+    performance bonus and strongest-grade pour) keep this test; only the
+    floors' measure moved to oil left at 6 h, so no stock choice changes with it.
+    """
 
     from engine.material_resolver import gate_vp_25c_pa
 
@@ -2275,19 +2376,15 @@ def _long_lasting_material(name: str) -> bool:
     return vp is not None and float(vp) < LONG_LASTING_VP_25C_PA
 
 
-def _is_long_lasting(choice: Choice) -> bool:
-    """Whether the release gate counts this row's material as long-lasting.
-
-    The gate's own reference VP (material_resolver.gate_vp_25c_pa), never the
-    design profile's ``vp``.  A material with no VP counts False, and so does a
-    functional carrier, which carries no fragrance-active material at all.
-    """
+def _is_low_vp_row(choice: Choice) -> bool:
+    """Whether this row's material is under the gate's 0.1 Pa tenacity line
+    (``_low_vp_material``); False for a functional carrier."""
 
     stock = choice.candidate.stock
     name = str(stock.identity_name or stock.name)
     if _key(name) in _DESIGN_FUNCTIONAL_CARRIERS:
         return False
-    return _long_lasting_material(name)
+    return _low_vp_material(name)
 
 
 def _is_amber_base_row(choice: Choice) -> bool:
@@ -2795,16 +2892,17 @@ def _longevity_floor_holds(
 
     ``state`` is every liquid row (requested quantities included); weighed
     solids count 1 mg as 1 uL.  LONG_LASTING_FLOOR_SHORT gives the uL/mL of
-    long-lasting active reached and ACTIVE_SHARE_FLOOR_SHORT the percentage of
+    active left on skin at 6 h and ACTIVE_SHARE_FLOOR_SHORT the percentage of
     the concentrate that is active; when either is short, each named row of a
     weak grade (under a quarter active) holding over a tenth of the volume is
     named in a WEAK_GRADE_NAMED_ROW hold.
     """
 
     rows = [*state.items(), *(solid_amounts or {}).items()]
+    lasting = _state_lasting(choices, state, solid_amounts or {})
     active = sum((_active_ul(choices[index], amount) for index, amount in rows), Decimal(0))
     long_active = sum(
-        (_active_ul(choices[index], amount) for index, amount in rows if _is_long_lasting(choices[index])),
+        (_active_ul(choices[index], amount) * lasting[index] for index, amount in rows),
         Decimal(0),
     )
     raw = Decimal(sum(amount for _index, amount in rows))
@@ -2824,7 +2922,7 @@ def _longevity_floor_holds(
 
 def _floor_short_holds(active: Decimal, long_active: Decimal, raw: Decimal) -> list[str]:
     """LONG_LASTING_FLOOR_SHORT / ACTIVE_SHARE_FLOOR_SHORT for the floors' measure:
-    ``long_active`` uL of long-lasting active and ``active`` uL of active in
+    ``long_active`` uL of active left on skin at 6 h and ``active`` uL of active in
     ``raw`` uL of concentrate (weighed solids count 1 mg as 1 uL)."""
 
     share = active / raw if raw > 0 else Decimal(0)
@@ -2849,12 +2947,14 @@ def longevity_floor_holds_of_rows(
     """``_longevity_floor_holds`` read from delivered formula rows.
 
     The same measure: a row's active is its amount times its stock fraction (a
-    functional carrier has none, a weighed solid counts 1 mg as 1 uL), and it is
-    long-lasting by ``_long_lasting_material``.  ``named_slots`` are the slots
+    functional carrier has none, a weighed solid counts 1 mg as 1 uL), and its
+    lasting part is that times its ``lasting_shares`` in these rows.  ``named_slots`` are the slots
     of the rows serving the brief's named notes (WEAK_GRADE_NAMED_ROW).
     """
 
-    active = long_active = raw = liquid = Decimal(0)
+    active = raw = liquid = Decimal(0)
+    actives: dict[str, Decimal] = {}
+    carriers: dict[str, Decimal] = {}
     for row in rows:
         amount = Decimal(str(row.get("amount_decimal") or 0))
         raw += amount
@@ -2862,11 +2962,15 @@ def longevity_floor_holds_of_rows(
             liquid += amount
         name = str(row.get("identity_name") or row.get("material") or "")
         if _key(name) in _DESIGN_FUNCTIONAL_CARRIERS:
+            carriers[name] = carriers.get(name, Decimal(0)) + amount
             continue
         part = amount * Decimal(str(row.get("stock_fraction_decimal") or 1))
         active += part
-        if _long_lasting_material(name):
-            long_active += part
+        actives[name] = actives.get(name, Decimal(0)) + part
+    shares = lasting_shares({name: float(part) for name, part in {**carriers, **actives}.items()})
+    long_active = sum(
+        (part * shares.get(name, Decimal(0)) for name, part in actives.items()), Decimal(0)
+    )
     holds = _floor_short_holds(active, long_active, raw)
     if holds:
         holds.extend(
@@ -2898,14 +3002,25 @@ def _meet_longevity_floors(
 
     A. Active material: at least ACTIVE_SHARE_FLOOR of the concentrate is
        fragrance-active.  Raw volume moves from the diluted unnamed rows (the
-       carrier is what the formula lacks) to the neat rows, long-lasting neat
-       rows first, in proportion to their allocation weight.
-    B. Long-lasting material: at least LONG_LASTING_FLOOR_ACTIVE_UL of active
-       volume has a reference VP at 25 C under LONG_LASTING_VP_25C_PA
-       (``_is_long_lasting``), which is LONG_LASTING_FLOOR_UL_PER_ML per mL of
+       carrier is what the formula lacks) to the neat rows, those under the
+       gate's 0.1 Pa tenacity line first (``_is_low_vp_row``), in proportion
+       to their allocation weight.  That order is the one this step had before
+       floor B moved to oil left at 6 h: ordering by B's measure instead
+       spreads the volume over more unnamed rows, and the named-note floor
+       then refuses the move, which left formulas lighter.
+    B. Oil left at 6 h: at least LONG_LASTING_FLOOR_ACTIVE_UL of active volume
+       is still on skin at 6 h on the gate's clock (each row's active times
+       ``lasting_shares``), which is LONG_LASTING_FLOOR_UL_PER_ML per mL of
        a LONGEVITY_FLOOR_BOTTLE_ML bottle.  Raw volume moves from the unnamed
-       rows that are not long-lasting to the long-lasting ones, neat rows
-       first, in proportion to allocation weight times stock strength.  First
+       rows that leave under LASTING_FRACTION_MIN uL at 6 h per uL poured
+       (a volatile row, or a diluted stock of any material) to the rows that
+       leave at least that, neat rows first, in proportion to allocation
+       weight times stock strength.  The rows that give and take are picked
+       two ways, and the one that leaves more oil at 6 h is kept: by that oil
+       per uL poured, and by the gate's 0.1 Pa tenacity line (the split this
+       step had before), which also moves volume from a middling row such as
+       a geranium or an ionone to one that stays whole.  Each row's share is
+       read once on the formula as this step finds it (after floor A).  First
        within the recipients' design caps; then a second pass may push a
        long-lasting recipient past its role cap (never a firm or IFRA cap, and
        never a generic bridge, layer or accent slot, ``_may_pass_design_cap``,
@@ -2946,19 +3061,30 @@ def _meet_longevity_floors(
     solids = dict(solid_amounts or {})
     solid_raw = Decimal(sum(solids.values()))
     solid_active = sum((_active_ul(choices[index], mg) for index, mg in solids.items()), Decimal(0))
-    solid_long = sum(
-        (
-            _active_ul(choices[index], mg)
-            for index, mg in solids.items()
-            if _is_long_lasting(choices[index])
-        ),
-        Decimal(0),
-    )
+    solid_long = Decimal(0)
     caps = {index: cap for index, _weight, cap in free_rows}
     firm = {index: _firm_cap_ul(choices[index], liquid_total_ul) for index in allocated}
     state = {**fixed_liquid, **allocated}
     strength = {index: _active_ul(choices[index], 1) for index in state}
-    long_lasting = {index: _is_long_lasting(choices[index]) for index in state}
+    lasting: dict[int, Decimal] = {}
+    holds_oil: dict[int, bool] = {}
+
+    def read_lasting(current: dict[int, int]) -> None:
+        """Each row's share left at 6 h in ``current`` (with the weighed solids)."""
+
+        nonlocal solid_long
+        shares = _state_lasting(choices, current, solids)
+        lasting.update({index: shares[index] for index in current})
+        holds_oil.update(
+            {index: strength[index] * lasting[index] >= LASTING_FRACTION_MIN for index in current}
+        )
+        solid_long = sum(
+            (_active_ul(choices[index], mg) * shares[index] for index, mg in solids.items()),
+            Decimal(0),
+        )
+
+    read_lasting(state)
+    low_vp = {index: _is_low_vp_row(choices[index]) for index in state}
     neat = {index: float(choices[index].candidate.stock.dilution) >= 0.999 for index in state}
     named_all = {index for index in state if choices[index].role.serves_requested_facet}
     star_all = {index for index in state if getattr(choices[index].role, "star_note", False)}
@@ -2980,7 +3106,7 @@ def _meet_longevity_floors(
 
     def long_active(current: dict[int, int]) -> Decimal:
         return solid_long + sum(
-            (active(current, index) for index in current if long_lasting[index]), Decimal(0)
+            (active(current, index) * lasting[index] for index in current), Decimal(0)
         )
 
     def active_share(current: dict[int, int]) -> Decimal:
@@ -3168,8 +3294,8 @@ def _meet_longevity_floors(
         groups = [
             group
             for group in (
-                [index for index in recipients if long_lasting[index]],
-                [index for index in recipients if not long_lasting[index]],
+                [index for index in recipients if low_vp[index]],
+                [index for index in recipients if not low_vp[index]],
             )
             if group
         ]
@@ -3182,17 +3308,8 @@ def _meet_longevity_floors(
                 lambda index: _allocation_weight(choices[index]),
             )
 
+    read_lasting(state)
     if long_active(state) < LONG_LASTING_FLOOR_ACTIVE_UL:
-        donors = [index for index in donor_rows if not long_lasting[index]]
-        recipients = [index for index in free if long_lasting[index]]
-        groups = [
-            group
-            for group in (
-                [index for index in recipients if neat[index]],
-                [index for index in recipients if not neat[index]],
-            )
-            if group
-        ]
 
         def weight(index: int) -> float:
             return _allocation_weight(choices[index]) * float(
@@ -3202,31 +3319,66 @@ def _meet_longevity_floors(
         def met(current: dict[int, int]) -> bool:
             return long_active(current) >= LONG_LASTING_FLOOR_ACTIVE_UL
 
-        rounds = (
-            [index for index in donors if neat[index]],
-            [index for index in donors if not neat[index]],
-        )
-        if donors and groups:
+        def lift(gives: Any, receives: Any) -> tuple[dict[int, int], list[str]]:
+            lifted = dict(state)
+            notes: list[str] = []
+            donors = [index for index in donor_rows if gives(index)]
+            recipients = [index for index in free if receives(index)]
+            groups = [
+                group
+                for group in (
+                    [index for index in recipients if neat[index]],
+                    [index for index in recipients if not neat[index]],
+                )
+                if group
+            ]
+            rounds = (
+                [index for index in donors if neat[index]],
+                [index for index in donors if not neat[index]],
+            )
+            if not (donors and groups):
+                return lifted, notes
             for round_donors in rounds:
-                if round_donors and not met(state):
-                    state = reach(state, round_donors, groups, met, weight)
-            if not met(state):
+                if round_donors and not met(lifted):
+                    lifted = reach(lifted, round_donors, groups, met, weight)
+            if not met(lifted):
                 # Second pass: a long-lasting recipient may pass its role cap.
                 past = frozenset(
                     index for index in recipients if _may_pass_design_cap(choices[index])
                 )
-                before = dict(state)
+                before = dict(lifted)
                 if past:
                     for round_donors in rounds:
-                        if round_donors and not met(state):
-                            state = reach(state, round_donors, groups, met, weight, past)
+                        if round_donors and not met(lifted):
+                            lifted = reach(lifted, round_donors, groups, met, weight, past)
                     for index in sorted(past):
                         cap = caps.get(index)
-                        if cap is not None and state[index] > cap and state[index] > before[index]:
-                            holds.append(
+                        if cap is not None and lifted[index] > cap and lifted[index] > before[index]:
+                            notes.append(
                                 "ROLE_CAP_EXCEEDED_FOR_LONGEVITY_FLOOR:"
                                 f"{choices[index].candidate.stock.stock_id}"
                             )
+            return lifted, notes
+
+        # The shares are read on the formula as it stands, so a move that
+        # reaches the floor is read again on the moved formula (each row's
+        # share shifts a little with the rows around it), and moves again
+        # while that reading is short.
+        noted: list[str] = []
+        for _reading in range(_FLOOR_READINGS):
+            tries = [
+                lift(lambda index: not holds_oil[index], lambda index: holds_oil[index]),
+                lift(lambda index: not low_vp[index], lambda index: low_vp[index]),
+            ]
+            moved, notes = max(tries, key=lambda tried: long_active(tried[0]))
+            if moved == state:
+                break
+            state = moved
+            noted.extend(note for note in notes if note not in noted)
+            read_lasting(state)
+            if met(state):
+                break
+        holds.extend(noted)
 
     if report_short:
         holds.extend(_longevity_floor_holds(state, choices, liquid_total_ul, solids))

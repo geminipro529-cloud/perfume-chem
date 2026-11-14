@@ -52,7 +52,7 @@ from engine.research.composition_planner import (
     _formula_rows,
     _hard_cap_ul,
     _ifra_cap_ul,
-    _long_lasting_material,
+    _low_vp_material,
     _quantity_for_candidate,
 )
 from future_modules._shared_types import NoteTier, get_note_tier_from_vp
@@ -1667,7 +1667,7 @@ def _unary_rank_for_role(
             score -= _CINEOLE_STACK_PENALTY
         if (
             _PERFORMANCE_PASS.get() and _performance_role(role)
-            and _long_lasting_material(capability.identity_name)
+            and _low_vp_material(capability.identity_name)
         ):
             score += _PERFORMANCE_BONUS
         if brief_text is not None and role.exact_material is None and _unasked_sweet_or_berry(capability, brief_text):
@@ -2641,7 +2641,8 @@ def _strengthen_long_lasting_rows(
     """Pour the strongest owned liquid grade of each long-lasting row.
 
     Performance comes first for Kenny (kenny-performance-first), and the
-    planner's floor of 57 uL long-lasting per mL (his weakest card) only
+    planner's longevity floor (81 uL per mL left on skin at 6 h since 14 Nov
+    2026, his weakest card; 57 uL long-lasting per mL before) only
     moves volume between rows: a long-lasting row poured from a 10% stock
     carries a tenth of the active it could, so 25 of 34 test formulas ended
     under 60 uL/mL (Violette 20 against his 58, 6 Nov 2026 fault hunt).
@@ -2664,7 +2665,7 @@ def _strengthen_long_lasting_rows(
             current.candidate.solid
             or _is_amber_base(current)
             or _quantity_for_candidate(choice.candidate, quantities) is not None
-            or not _long_lasting_material(str(stock.identity_name or stock.name))
+            or not _low_vp_material(str(stock.identity_name or stock.name))
         ):
             continue
         exact = getattr(role, "exact_material", None)
