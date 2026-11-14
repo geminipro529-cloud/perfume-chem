@@ -502,8 +502,15 @@ def test_each_solve_is_criticized_against_its_own_role_plan(monkeypatch):
 
     monkeypatch.setattr(runtime, "critique_formula", check)
     result = design_inventory_formula(idea="A peppery freesia perfume", design_mode="DEEP_COMPOSE")
-    assert len(inspected) == len(result["design_variants"]) == 3
-    assert inspected == [v["role_plan_sha256"] for v in result["design_variants"]]
+    attempts = result["architecture_attempts"]
+    assert len(inspected) == len(attempts) == 3
+    # Since 6 Nov 2026 (gate-safe picks, backbone penalty) the third branch
+    # lands on the second's stocks and is withheld as a duplicate; it is
+    # still criticized against its own role plan.
+    kept = [plan for plan, attempt in zip(inspected, attempts, strict=True)
+            if attempt["state"] != "WITHHELD_DUPLICATE_PHYSICAL_COMPOSITION"]
+    assert kept == [v["role_plan_sha256"] for v in result["design_variants"]]
+    assert len(result["design_variants"]) >= 2
 
 
 def test_failed_control_is_retained_and_not_relabelled_as_successful_stock_alternative(monkeypatch):

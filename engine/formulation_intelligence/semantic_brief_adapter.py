@@ -1142,6 +1142,55 @@ def _star_role_ids(
     )
 
 
+@lru_cache(maxsize=None)
+def _owned_ready_names() -> frozenset[str]:
+    from engine.inventory_parser import parse_current_inventory
+    from engine.material_resolver import normalize_name
+
+    return frozenset(
+        normalize_name(name)
+        for stock in parse_current_inventory(unique=False, include_unavailable=True)
+        if stock.status == "owned" and stock.execution_ready
+        for name in (stock.identity_name, stock.name)
+        if name
+    )
+
+
+def _one_anchor_per_material(materials: Sequence[str]) -> tuple[str, ...]:
+    """One explicit anchor for each material the release gate counts as one.
+
+    "a vetiver centred scent built on Haitian Vetiver EO" named both the
+    legacy text row "Haitian Vetiver EO" and the owned "Vetiver EO (Haiti)",
+    so the formula carried the oil twice and the gate failed it
+    (duplicate_canonical_materials, 6 Nov 2026 fault hunt).  Of labels that
+    resolve to one canonical material, the one naming an owned, ready stock
+    stays; otherwise the first.  A pair the gate allows (Hedione and
+    Hedione HC) keeps both.
+    """
+
+    from engine.material_resolver import normalize_name, resolve_material
+    from engine.pipeline.gates import ALLOWED_VARIANT_DUPLICATES
+
+    def canonical(material: str) -> str:
+        try:
+            return resolve_material(material).canonical_name or _key(material)
+        except (KeyError, ValueError):
+            return _key(material)
+
+    owned = _owned_ready_names()
+    groups: dict[str, list[str]] = {}
+    for material in materials:
+        groups.setdefault(canonical(material), []).append(material)
+    kept = set()
+    for group in groups.values():
+        if {material.casefold() for material in group} in ALLOWED_VARIANT_DUPLICATES:
+            kept.update(group)
+            continue
+        ready = [material for material in group if normalize_name(material) in owned]
+        kept.add((ready or group)[0])
+    return tuple(material for material in materials if material in kept)
+
+
 def _roles(
     *,
     formula_name: str,
@@ -1165,7 +1214,8 @@ def _roles(
         target_count if target_count is not None else ordinary_target,
     )
     roles: list[SemanticRole] = []
-    for index, material in enumerate(_dedupe(explicit_materials), start=1):
+    explicit_materials = _one_anchor_per_material(_dedupe(explicit_materials))
+    for index, material in enumerate(explicit_materials, start=1):
         roles.append(
             SemanticRole(
                 role_id=f"explicit_anchor_{index}",
