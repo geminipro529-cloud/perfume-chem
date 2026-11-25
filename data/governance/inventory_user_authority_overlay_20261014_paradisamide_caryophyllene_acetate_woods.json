@@ -12519,6 +12519,43 @@
         "physical_form_from_user_message": true
       },
       "note": "Kenny, 2 Nov 2026 09:21:30 UTC: 'Heliotropal is liquid and neat'. It replaces the V5 row 131 neat stock ('Heliotropal neat'), which had no physical form; the bottle is pipetted, not weighed. PerfumersWorld 6VN21924 (read 2 Nov 2026): CAS 120-57-0 (piperonal), 'Yellow To Brown oily liquid', melting point 37 (unit not printed). Pure piperonal melts near 37 C, so a warm room keeps it liquid; if it ever sets, warm the closed bottle before pipetting. The V5 'Heliotropal 10%' preparation row is unchanged. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-248",
+      "canonical_name": "Grapefruit FCF Oil Sicilian",
+      "aliases": [
+        "Grapefruit FCF oil Sicilian",
+        "Grapefruit FCF EO"
+      ],
+      "state": "NOT_OWNED",
+      "category": "citrus",
+      "stock": null,
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 123
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 123,
+          "disposition": "GAP",
+          "status": "NOT OWNED - USED UP (2026-11-25)",
+          "actual_stock_text": "User 25 Nov 2026: out of the Grapefruit FCF oil; none owned",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-11-25",
+      "source_kind": "DIRECT_USER_STOCK_CORRECTION",
+      "source_quote": "No, i run out of FCF free and i am conidering alternative if any ill mell better and till pa  IFRA",
+      "source_message_timestamp_utc": "2026-11-25T09:40:29Z",
+      "authority_limits": {
+        "availability_confirmed": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false
+      },
+      "note": "Kenny in another project thread (25 Nov 2026 09:40:29 UTC), answering whether a non-FCF grapefruit would help: 'No, i run out of FCF free and i am conidering alternative...', read as 'I ran out of the FCF one' (his keyboard drops letters); relayed to the Stock data thread. His only grapefruit FCF stock was the neat Grapefruit FCF oil Sicilian (inventory.txt L46, V5 row 123), which this record retires. Pomelo EO (PerfumersWorld 7CN23708) is a separate owned stock and is unchanged. Formula files that name the grapefruit FCF are history and are not rewritten; inventory.txt is not edited."
     }
   ]
 }

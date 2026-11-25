@@ -131,7 +131,6 @@ def test_crosswalk_semantic_drift_aborts(
         ("Blood Orange EO", 1.0, "", "IDCL-006", 50, "inventory:v5:"),
         # 2026-10-15: re-recorded w/w in DPG under Kenny's rule.
         ("Coffee Absolute 10%", 0.10, "dpg", "IDCL-010", 80, "inventory:user-20261014:"),
-        ("Grapefruit FCF EO", 1.0, "", "IDCL-012", 123, "inventory:v5:"),
         ("Himalayan Cedarwood EO", 1.0, "", "IDCL-013", 63, "inventory:v5:"),
         ("Lemon FCF EO", 1.0, "", "IDCL-014", 158, "inventory:v5:"),
         ("Rose Essential Oil", 1.0, "", "IDCL-017", 214, "inventory:user-20260828:"),
@@ -154,6 +153,15 @@ def test_execution_ready_aliases_bind_only_to_exact_native_stock(
     assert matched[0]["identity_crosswalk_contract_id"] == contract_id
     assert matched[0]["source_rows"] == [source_row]
     assert matched[0]["stock_id"].startswith(stock_prefix)
+
+
+def test_used_up_grapefruit_fcf_alias_binds_to_no_stock() -> None:
+    # 2026-11-25: Kenny ran out of his Grapefruit FCF oil Sicilian (overlay STK-248), so the
+    # IDCL-012 alias now names stock he does not own.
+    check = _dilution_consistency_check(_formula("Grapefruit FCF EO", 1.0))
+    assert check.status == "FAIL"
+    assert check.data["issues"][0]["identity_crosswalk_contract_id"] == "IDCL-012"
+    assert check.data["issues"][0]["reason"] == "inventory_gap"
 
 
 def test_old_opoponax_alias_does_not_infer_a_new_prepared_stock() -> None:

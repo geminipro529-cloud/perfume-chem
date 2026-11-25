@@ -281,7 +281,7 @@ _CONCEPTS: tuple[ConceptSpec, ...] = (
         "bitter_grapefruit_tea",
         ("black tea", "tea cologne", "grapefruit and tea", "grapefruit, dry black-tea"),
         (
-            _r("grapefruit_peel", "Bitter grapefruit peel", "top", "character", .17, "grapefruit fcf oil sicilian", required=True),
+            _r("grapefruit_peel", "Bitter grapefruit peel", "top", "character", .17, "grapefruit fcf oil sicilian", "pomelo eo", required=True),
             _r("grapefruit_pith", "Dry grapefruit pith", "top", "modifier", .08, "methyl pamplemousse", required=True),
             _r("tea_leaf", "Tannic leaf illusion", "heart", "character", .14, "violet leaf absolute", "tobacco absolute"),
             _r(
@@ -544,7 +544,7 @@ _CONCEPTS: tuple[ConceptSpec, ...] = (
         "mineral_coast",
         ("mineral coastal", "salt air", "wet stone", "mineral fresh", "storm-air", "mineral, bitter-citrus"),
         (
-            _r("bitter_peel", "Bitter citrus peel", "top", "character", .12, "grapefruit fcf oil sicilian", "methyl pamplemousse", required=True),
+            _r("bitter_peel", "Bitter citrus peel", "top", "character", .12, "grapefruit fcf oil sicilian", "pomelo eo", "methyl pamplemousse", required=True),
             _r("cold_wind", "Cold wind", "top", "volume", .18, "helional", "floralozone 10", "dihydromyrcenol", cap=.22),
             _r("wet_stone", "Wet mineral stone", "heart", "character", .08, "adoxal 10", "helional 10", required=True),
             _r(
@@ -626,7 +626,7 @@ _CONCEPTS: tuple[ConceptSpec, ...] = (
         (
             _r("rain_pavement", "Wet pavement", "top", "character", .012, "geosmin 0 1", "adoxal 10", "violet leaf absolute", "vetiveryl acetate", "patchouli eo", required=True),
             _r("storm_air", "Storm air", "top", "volume", .09, "helional 10", "floralozone 10", "triplal"),
-            _r("citrus_peel", "Crushed citrus peel", "top", "character", .08, "lime eo", "grapefruit fcf oil sicilian", "petitgrain"),
+            _r("citrus_peel", "Crushed citrus peel", "top", "character", .08, "lime eo", "grapefruit fcf oil sicilian", "pomelo eo", "petitgrain"),
             _r("thai_herbs", "Crushed aromatic herbs", "top", "character", .065, "basil eo", "coriander essential oil", "lemongrass eo", required=True),
             _r("humid_jasmine", "Humid jasmine", "heart", "character", .12, "jasmine sambac absolute", "jasmine absolute", required=True),
             _r("jasmine_tea", "Jasmine tea air", "heart", "bridge", .13, "cis jasmone", "hedione"),

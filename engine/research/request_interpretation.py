@@ -156,7 +156,9 @@ _MATERIAL_ALIASES = {
     "crystal ambrox": "Ambrox Super Crystals",
     "ambrox crystals": "Ambrox Super Crystals",
     "lavender": "Lavender EO (BONTAUX SAS)",
-    "grapefruit": "Grapefruit FCF Oil Sicilian",
+    # Kenny ran out of his Grapefruit FCF oil Sicilian on 2026-11-25 (overlay STK-248); his only
+    # grapefruit oil now is Pomelo EO, Synarome Pomelo Corsica rectified (Citrus paradisi, CAS 8016-20-4).
+    "grapefruit": "Pomelo EO",
     "cedar": "Cedarwood Virginia",
     "vetiver": "Vetiver EO (Haiti)",
     "patchouli": "Patchouli EO",

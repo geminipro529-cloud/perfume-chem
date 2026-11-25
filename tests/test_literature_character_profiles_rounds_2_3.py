@@ -44,7 +44,14 @@ def test_every_profile_reaches_an_owned_composer_candidate() -> None:
         for candidate in candidates
         if candidate.profile_source == "DECLARED_MATERIAL_PROFILE"
     }
-    assert [entry["profile_key"] for entry in ENTRIES if entry["profile_key"].casefold() not in declared] == []
+    # Profiles of stock Kenny has since used up keep their sourced entry but have no candidate:
+    # Grapefruit FCF oil Sicilian, 25 Nov 2026 (overlay STK-248).
+    used_up = {"grapefruit fcf oil sicilian"}
+    assert [
+        entry["profile_key"]
+        for entry in ENTRIES
+        if entry["profile_key"].casefold() not in declared and entry["profile_key"].casefold() not in used_up
+    ] == []
 
 
 def test_round3_overrides_keep_existing_entries() -> None:
