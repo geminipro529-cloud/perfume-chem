@@ -93,5 +93,4 @@ def test_vetiveryl_acetate_was_used_up_then_restocked(stocks, overlay):
 def test_his_dilutions_of_the_fruit_bottles_are_unchanged(stocks):
     assert stocks["Ethyl 2-Methylbutyrate 1%"].dilution == pytest.approx(0.01)
     assert stocks["Ethyl 2-Methylbutyrate 0.01%"].dilution == pytest.approx(0.0001)
-    # 2026-11-27: his only AAG, the 10% in DPG, carries the V5 row 7 name it now replaces.
-    assert stocks["Allyl Amyl Glycolate (AAG)"].dilution == pytest.approx(0.1)
+    assert stocks["Allyl Amyl Glycolate 10%"].dilution == pytest.approx(0.1)

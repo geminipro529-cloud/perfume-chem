@@ -4505,11 +4505,9 @@
     },
     {
       "record_id": "INV-USER-20261014-STK-084",
-      "canonical_name": "Allyl Amyl Glycolate (AAG)",
+      "canonical_name": "Allyl Amyl Glycolate 10%",
       "aliases": [
-        "Allyl Amyl Glycolate 10%",
-        "Allyl Amyl Glycolate (10%)",
-        "AAG 10%"
+        "Allyl Amyl Glycolate (10%)"
       ],
       "state": "OWNED",
       "category": "green_fruit",
@@ -4537,6 +4535,10 @@
           "can_prepare": ""
         }
       ],
+      "replaced_v5_row_labels": [
+        "Allyl Amyl Glycolate (AAG)",
+        "AAG 10%"
+      ],
       "effective_date": "2026-10-14",
       "source_kind": "DIRECT_USER_STOCK_CORRECTION",
       "source_quote": "Load the rule",
@@ -4556,7 +4558,7 @@
         "release_authorized": false,
         "carrier_from_user_message": true
       },
-      "note": "Kenny, 27 Nov 2026 10:19:20 UTC (L'Homme thread, relayed to the Stock data thread): 'Also, only have AAG in 10% DPG'. This 10% w/w in DPG bottle is his only Allyl Amyl Glycolate: it now also replaces the V5 row 7 neat stock ('Allyl Amyl Glycolate (AAG)') and answers that row's 10% requirement, so it takes the V5 row name (as Coffee Absolute Grasse 10% in DPG did for row 80); the neat PerfumersWorld 4FG00029 bottle (STK-157) is no longer owned. Earlier note: inventory.txt L294 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG)."
+      "note": "Kenny, 27 Nov 2026 10:19:20 UTC (L'Homme thread, relayed to the Stock data thread): 'Also, only have AAG in 10% DPG'. This 10% w/w in DPG bottle is his only Allyl Amyl Glycolate: it now also replaces the V5 row 7 neat stock ('Allyl Amyl Glycolate (AAG)') and answers that row's 10% requirement (replaced_v5_row_labels lets the row's old labels 'Allyl Amyl Glycolate (AAG)' and 'AAG 10%' reach it in release preflight); the neat PerfumersWorld 4FG00029 bottle (STK-157) is no longer owned. Earlier note: inventory.txt L294 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG)."
     },
     {
       "record_id": "INV-USER-20261014-STK-085",

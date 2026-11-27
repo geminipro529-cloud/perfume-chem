@@ -86,3 +86,16 @@ def test_aag_is_owned_only_as_10pct_in_dpg():
         if s.status == "owned" and "amyl glycolate" in (s.identity_name or s.name).casefold()
     ]
     assert [(s.dilution, s.carrier, s.fraction_basis) for s in stocks] == [(0.1, "dpg", "mass_fraction")]
+
+
+def test_aag_labels_bind_to_the_10pct_stock():
+    from engine.pipeline.preflight import _dilution_consistency_check
+
+    for label in ("Allyl Amyl Glycolate", "Allyl Amyl Glycolate 10%", "Allyl Amyl Glycolate (AAG)", "AAG 10%"):
+        check = _dilution_consistency_check({
+            "ingredients_ul": {label: 100.0},
+            "dilutions": {label: 0.1},
+            "stock_specs": {label: {"declared": True, "fraction": 0.1, "fraction_basis": "mass_fraction", "carrier": "dpg"}},
+        })
+        assert check.status == "PASS", (label, check.data.get("issues"))
+        assert check.data["matched_stocks"][0]["source_rows"] == [7]
