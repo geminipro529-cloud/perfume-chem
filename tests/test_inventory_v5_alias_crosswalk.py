@@ -131,7 +131,8 @@ def test_crosswalk_semantic_drift_aborts(
         ("Blood Orange EO", 1.0, "", "IDCL-006", 50, "inventory:v5:"),
         # 2026-10-15: re-recorded w/w in DPG under Kenny's rule.
         ("Coffee Absolute 10%", 0.10, "dpg", "IDCL-010", 80, "inventory:user-20261014:"),
-        ("Grapefruit FCF EO", 1.0, "", "IDCL-012", 123, "inventory:v5:"),
+        # 2026-11-27: his new Grapefruit FCF bottle (overlay STK-248) replaces the V5 row 123 stock.
+        ("Grapefruit FCF EO", 1.0, "", "IDCL-012", 123, "inventory:user-20261014:"),
         ("Himalayan Cedarwood EO", 1.0, "", "IDCL-013", 63, "inventory:v5:"),
         ("Lemon FCF EO", 1.0, "", "IDCL-014", 158, "inventory:v5:"),
         ("Rose Essential Oil", 1.0, "", "IDCL-017", 214, "inventory:user-20260828:"),
