@@ -90,19 +90,3 @@ def evernyl_crystals_still_owned(monkeypatch: pytest.MonkeyPatch, tmp_path: Path
         "not_owned_names",
         lambda directory=None: said_not_owned(directory) - {normalize_name("Evernyl Crystals")},
     )
-
-
-# Kenny ran out of his Grapefruit FCF oil Sicilian on 2026-11-25 ("No, i run out of FCF free", STK-248,
-# which retired V5 row 123). Tests pinned on formulas built with it replay the overlay with the oil owned.
-GRAPEFRUIT_FCF_USED_UP = {"INV-USER-20261014-STK-248": None}
-
-
-@pytest.fixture
-def grapefruit_fcf_still_owned(monkeypatch: pytest.MonkeyPatch, tmp_path: Path) -> None:
-    use_overlay_without(monkeypatch, tmp_path, GRAPEFRUIT_FCF_USED_UP)
-    said_not_owned = stock_matching.not_owned_names
-    monkeypatch.setattr(
-        stock_matching,
-        "not_owned_names",
-        lambda directory=None: said_not_owned(directory) - {normalize_name("Grapefruit FCF Oil Sicilian")},
-    )

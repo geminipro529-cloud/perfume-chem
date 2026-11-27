@@ -63,10 +63,8 @@ def test_formula_design_preserves_crystal_ambrox_as_separate_mass() -> None:
     assert ambrox["operation"] == "MASS_ADD"
     assert int(result["optimized_formula"]["separate_totals"]["mass_total_mg"]) > 0
     assert result["optimized_formula"]["basis_state"] == "SEPARATE_LIQUID_AND_SOLID_TOTALS"
-    # Kenny's Grapefruit FCF oil is used up (25 Nov 2026, overlay STK-248); his grapefruit oil is
-    # now Pomelo EO (Synarome Pomelo Corsica, Citrus paradisi).
-    assert any(row["identity_name"] == "Pomelo EO" for row in rows)
-    grapefruit = next(row for row in rows if row["identity_name"] == "Pomelo EO")
+    assert any(row["identity_name"] == "Grapefruit FCF Oil Sicilian" for row in rows)
+    grapefruit = next(row for row in rows if row["identity_name"] == "Grapefruit FCF Oil Sicilian")
     assert grapefruit["profile_source"] == "DECLARED_MATERIAL_PROFILE"  # sourced profile since 31 Oct 2026
 
 
