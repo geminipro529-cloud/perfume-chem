@@ -55,3 +55,21 @@ def test_muscone_is_owned_neat_liquid():
     (stock,) = _owned("Muscone")
     assert (stock.dilution, stock.carrier, stock.physical_form) == (1.0, "", "liquid")
     assert stock.execution_ready is True
+
+
+def test_muscone_physics_and_ifra_row_are_loaded():
+    import json
+    from pathlib import Path
+
+    from engine.pipeline import simulator
+
+    (material,) = simulator.simulate_formula({"Muscone": 10.0}, {"Muscone": 1.0})[0].state.materials
+    assert material.mw_g_mol == 238.41
+    assert material.logp == 6.06
+    assert material.odt_air_ppm == 0.00046
+    assert material.vp_pure_pa is not None
+    table = json.loads(
+        (Path(__file__).resolve().parents[1] / "data/regulatory/ifra_cat4_51.json").read_text(encoding="utf-8")
+    )
+    row = table["materials"]["Muscone"]
+    assert row["status"] == "no_standard" and row["cas"] == ["541-91-3", "10403-00-6"]

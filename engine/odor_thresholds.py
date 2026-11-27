@@ -6197,6 +6197,39 @@ _refresh_normalized_odt_index()
 SOURCED_ODT_BATCH_2026_11_06 = True
 
 
+# Stock thread (27 Nov 2026): Kenny's new neat racemic Muscone (PerfumersWorld 4XU05022, overlay STK-249).
+# Sources gathered by the L'Homme thread (lhomme-final3-20261127/research/P_MUSK_SWAP_MUSCONE.md, section 3).
+_SOURCED_ODT_2026_11_27 = {
+    "muscone": (0.46, "PEER_SINGLE", [
+        "Ahmed L. et al. (2018) PNAS 115:E3950, https://pmc.ncbi.nlm.nih.gov/articles/PMC5924878 "
+        "(doi 10.1073/pnas.1713026115): '(R)-1 has an odor detection threshold of 4.5 ng/L' (air; their "
+        "ref 6 not opened). 4.5 ng/L x 24.45 / 238.41 = 0.46 ppb. Measured on (R)-muscone and used for his "
+        "racemate, which is probably somewhat weaker.",
+        "Band 1.2-7 ng/L (0.12-0.72 ppb): racemate 1.2 ng/L air (Kraft-group compilation, seen only as a "
+        "search excerpt of a UC thesis figure) and about 7 ng/L estimated from the 4.5 ng/L (R) value and "
+        "Leffingwell's (R):(S) 61:223 ratio (water). Not averaged; the measured (R) value is used.",
+    ]),
+}
+_refresh_normalized_odt_index()
+for _name, (_odt_air, _vfy, _sources) in _SOURCED_ODT_2026_11_27.items():
+    _key = lookup_odt_raw_name(_name) or _name
+    _entry = dict(ODT_DATA.get(_key) or {"odt_eth": None})
+    _entry["odt_air"] = _odt_air
+    for _field in ("vfy", "sources", "note"):
+        _entry.pop(_field, None)
+    ODT_DATA[_key] = _entry
+    _meta = {
+        "vfy": _vfy,
+        "sources": list(_sources),
+        "note": "Sourced threshold 2026-11-27 (stock thread, new Muscone stock); source opened by the L'Homme thread.",
+    }
+    if ODT_VERIFICATION.get(_key):
+        _meta["superseded"] = dict(ODT_VERIFICATION[_key])
+    ODT_VERIFICATION[_key] = _meta
+_refresh_normalized_odt_index()
+SOURCED_ODT_BATCH_2026_11_27 = True
+
+
 # (auditor CRITICAL C1: without this, batch ODT_DATA entries are unreachable via runtime lookup)
 MATERIAL_INTAKE_REMEDIATION_2026_08_07 = True
 _refresh_normalized_odt_index()
