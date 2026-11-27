@@ -2471,41 +2471,56 @@
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
 - canonical_name: Muscone
-  aliases: []
-  cas:
-  smiles:
+  aliases:
+  - Muscone neat
+  - 3-Methylcyclopentadecanone
+  - dl-Muscone
+  cas: '541-91-3'
+  smiles: CC1CCCCCCCCCCCCC(=O)C1
   inchikey:
-  mw_g_mol:
-  density_25c_g_ml:
-  logp:
+  mw_g_mol: 238.41
+  density_25c_g_ml: 0.919
+  logp: 6.06
   functional_groups: []
-  chirality:
-  vp_25c_pa:
-  vp_source: null  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
+  chirality: racemic
+  vp_25c_pa: 0.041
+  vp_source: ECHA_extrapolated_25C_via_SDS  # NIST, EPI, PubChem_exp, PubChem_pred, ingredient_intelligence, UNKNOWN
   antoine:
   dhvap_kj_mol:
   kaw_eff:
   hsp:
-  odt_air_ppb:
+  odt_air_ppb: 0.46
   odt_eth_ppm:
   stevens_n:
-  or_targets: []
+  or_targets:
+  - OR5AN1
   trp_targets:
   hedonic_valence:
   ifra_max_pct_edp:
-  user_stock_dilution:
-  user_in_inventory: false
+  user_stock_dilution: neat
+  user_in_inventory: true
   supplier:
     perfumersworld_sku: 4XU05022
     perfumersworld_price_usd_per_g: 4.5
     perfumersworld_form: neat
     perfumersworld_snapshot_date: '2026-04-11'
     other: {}
-  families: []
-  character:
-  notes:
+  families:
+  - musks
+  character: 'PerfumersWorld 4XU05022: "A very soft, sweet, musky odor with a warm animal tonality, reminiscent of the natural Tonkin musk"'
+  notes: 'His bottle is racemic Firmenich-grade muscone (PerfumersWorld 4XU05022, synonyms include "Muscone 95pc"), owned neat since 27 Nov 2026 (overlay STK-249). Other values seen: MW Firmenich 238, Takasago 238.42; density TGSC SG 0.918-0.925 at 25 C, PerfumersWorld 0.918; log P Firmenich sheet 6.11, Firmenich SDS 6.056, Takasago ClogP 5.96 (calculated); VP Firmenich 0.03 Pa at 20 C, Takasago 0.063 Pa at 25 C (l-muscone), TGSC 0.023 Pa at 25 C (estimate); mp -12 C (Firmenich SDS) or 8.6 C (TGSC, PerfumersWorld): liquid at room temperature; bp 322 C at 101.325 kPa (ECHA, GLP). Air threshold band 1.2 ng/L (racemate, Kraft-group figure seen only as a search excerpt) to about 7 ng/L; the value used is the measured (R)-muscone figure, so the racemate may be somewhat weaker. Strip life 2 weeks (Firmenich), 400 h (TGSC, PerfumersWorld). No IFRA 51st Amendment Standard; not named in the 52nd End of Consultation letter (31 Aug 2026).'
   provenance:
     supplier.perfumersworld: knowledge/perfumersworld_stock.md
+    cas: 'The Good Scents Company rw1025391 (dextro,laevo-muscone), https://www.thegoodscentscompany.com/data/rw1025391.html; dsm-firmenich Muscone 962195 sheet, https://www.firmenich.com/sites/default/files/uploads/files/ingredients/marketing-sheet/perfumery/MUSCONE_962195.pdf; PerfumersWorld 4XU05022 page "CAS No.541-91-3" (read 27 Nov 2026), https://www.perfumersworld.com/view.php?pro_id=4XU05022. (R)-muscone is 10403-00-6 (TGSC rw1557221). Research file /mnt/project-files/lhomme-improve/lhomme-final3-20261127/research/P_MUSK_SWAP_MUSCONE.md section 3 (L''Homme thread literature agent, 27 Nov 2026)'
+    smiles: 'Structure of 3-methylcyclopentadecan-1-one (C16H30O), as given in Research file /mnt/project-files/lhomme-improve/lhomme-final3-20261127/research/P_MUSK_SWAP_MUSCONE.md section 3 (L''Homme thread literature agent, 27 Nov 2026)'
+    mw_g_mol: 'The Good Scents Company, C16H30O, 238.4143 g/mol, http://www.thegoodscentscompany.com/data/rw1557221.html. Research file /mnt/project-files/lhomme-improve/lhomme-final3-20261127/research/P_MUSK_SWAP_MUSCONE.md section 3 (L''Homme thread literature agent, 27 Nov 2026)'
+    density_25c_g_ml: 'MEASURED at 20 C (filed in the 25 C field): ECHA registration data (dossier 18970) as reproduced in the ECHEMI SDS for (+/-)-muscone, 0.919 g/mL at 20 C, https://www.echemi.com/sds/3-methylcyclopentadecanone-pid_Seven43353.html; TGSC 0.918-0.925 at 25 C. Research file /mnt/project-files/lhomme-improve/lhomme-final3-20261127/research/P_MUSK_SWAP_MUSCONE.md section 3 (L''Homme thread literature agent, 27 Nov 2026)'
+    logp: 'MEASURED: ECHA registration dossier 18970, partition coefficient, OECD 123 slow-stirring, GLP, "6.06 +/- 0.08" at 25 C, https://echa.europa.eu/registration-dossier/-/registered-dossier/18970/4/8. Research file /mnt/project-files/lhomme-improve/lhomme-final3-20261127/research/P_MUSK_SWAP_MUSCONE.md section 3 (L''Homme thread literature agent, 27 Nov 2026)'
+    vp_25c_pa: 'ECHA data via the ECHEMI SDS: "0.024 Pa ... 20 C ... Extrapolated; 0.041 Pa ... 25 C ... Extrapolated; 0.49 Pa ... 50 C ... Interpolated", https://www.echemi.com/sds/3-methylcyclopentadecanone-pid_Seven43353.html (the ECHA page itself returned 404). Agrees with Firmenich 0.03 Pa at 20 C. Research file /mnt/project-files/lhomme-improve/lhomme-final3-20261127/research/P_MUSK_SWAP_MUSCONE.md section 3 (L''Homme thread literature agent, 27 Nov 2026)'
+    odt_air_ppb: 'PEER_SINGLE, (R)-enantiomer: Ahmed L. et al. (2018) PNAS 115:E3950, "(R)-1 has an odor detection threshold of 4.5 ng/L", https://pmc.ncbi.nlm.nih.gov/articles/PMC5924878 (doi 10.1073/pnas.1713026115); 4.5 ng/L x 24.45 / 238.41 = 0.46 ppb. Used for his racemate; band 1.2-7 ng/L (0.12-0.72 ppb). Loaded 2026-11-27 (stock thread). Research file /mnt/project-files/lhomme-improve/lhomme-final3-20261127/research/P_MUSK_SWAP_MUSCONE.md section 3 (L''Homme thread literature agent, 27 Nov 2026)'
+    or_targets: 'Shirasu M. et al. (2014) Neuron 81:165, "the human muscone receptor, OR5AN1", https://doi.org/10.1016/j.neuron.2013.10.021. Research file /mnt/project-files/lhomme-improve/lhomme-final3-20261127/research/P_MUSK_SWAP_MUSCONE.md section 3 (L''Homme thread literature agent, 27 Nov 2026)'
+    character: PerfumersWorld 4XU05022 page (read 27 Nov 2026)
+    user_in_inventory: 'overlay INV-USER-20261014-STK-249 (Kenny, 27 Nov 2026: "...now have grapefruit FCF silicon and muscone in stock now")'
 - canonical_name: Mushroom F-TEC
   aliases:
   - MUSHROOM F-TEC

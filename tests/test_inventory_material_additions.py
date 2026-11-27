@@ -120,7 +120,7 @@ def test_july_2026_additions_are_synced_to_legacy_material_properties() -> None:
         "Coriander Essential Oil": (True, 1.0),
         "2-Acetyl Pyrazine": (True, None),
         "Safraleine": (True, 0.10),
-        "Blackcurrant Absolute": (True, 0.10),
+        "Blackcurrant Absolute": (False, None),  # his 10% bottle is used up (2026-11-27, STK-040)
         "Violet Leaf Absolute": (True, 0.10),
         "Black Agarwood Artificial": (True, 0.10),
         "Castoreum Synthetic": (True, 0.10),

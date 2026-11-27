@@ -196,7 +196,9 @@ def test_runtime_odt_numeric_map_is_unchanged():
     # 2026-11-06 (engine-fault data fixes, SOURCED_ODT_BATCH_2026_11_06): gamma octalactone 0.31
     # (Buhr 2006 via van Gemert), ethyl acetoacetate 3.4 (Backman 1917) and glycolierral 0.78
     # (UNVERIFIED analogue estimate); without those three the digest is 3bf88c1a….
-    assert digest == "88c726905488675ed0feaaa5204e090c3604ca7c70f32c9ac7632846325813cf"
+    # 2026-11-27 (new Muscone stock, SOURCED_ODT_BATCH_2026_11_27): muscone 0.46 ((R)-muscone,
+    # Ahmed et al. PNAS 2018); without it the digest is 88c72690….
+    assert digest == "cdce27c1612047edebdde7d61396a1fff904dc341e75c5e6b91c147af7c48554"
     # The receipt adds explicit unknowns; none is a measured threshold.
     assert all(row["odt_air"] is None and row["odt_eth"] is None
                for row in _INVENTORY_ODT_UNAVAILABLE_20261007.values())

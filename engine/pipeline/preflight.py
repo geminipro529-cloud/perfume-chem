@@ -30,6 +30,7 @@ from engine.inventory_parser import (
     CURRENT_INVENTORY_WORKBOOK_SHA256,
     live_inventory_text_binding,
     load_current_inventory_alias_crosswalk,
+    load_current_user_inventory_overlay,
     parse_current_inventory,
 )
 from engine.knowledge.literature_rules import (
@@ -640,6 +641,12 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
     exact_identity: dict[str, list] = defaultdict(list)
     legacy_identity: dict[str, list] = defaultdict(list)
     literal_identity: dict[str, list] = defaultdict(list)
+    overlay_alias_owner: dict[str, str] = {}
+    for overlay_record in load_current_user_inventory_overlay()["records"]:
+        if overlay_record.get("state") != "OWNED":
+            continue
+        for alias in overlay_record.get("replaced_v5_row_labels") or []:
+            overlay_alias_owner.setdefault(normalize_name(str(alias)), str(overlay_record["canonical_name"]))
     for record in parse_current_inventory(
         unique=False,
         include_solvents=True,
@@ -683,6 +690,15 @@ def _dilution_consistency_check(formula: Mapping[str, Any]) -> PreflightCheck:
             }
         norm = normalize_name(lookup_name)
         candidates = direct_candidates or exact_identity.get(norm) or legacy_identity.get(norm) or []
+        if not candidates:
+            # An owned overlay record that replaced a V5 row lists the row's old labels in
+            # "replaced_v5_row_labels"; only those labels reach it (Kenny's AAG 10% in DPG
+            # replaced V5 row 7 on 2026-11-27). Ordinary aliases never bind here.
+            for alias_label in (formula_label, lookup_name):
+                owner = overlay_alias_owner.get(normalize_name(alias_label))
+                if owner:
+                    candidates = legacy_identity.get(normalize_name(owner), [])
+                    break
         if len(candidates) > 1:
             literal_candidates = literal_identity.get(_literal_inventory_key(lookup_name))
             if literal_candidates:
