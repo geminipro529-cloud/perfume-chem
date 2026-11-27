@@ -285,6 +285,10 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         "Orris butter 10% is out, there is only orris butter 50%",
         # 2026-11-02 09:36 UTC: his 7.7% Cocoa CO2 Extract is a suspension (STK-045).
         "The 7.7% cocoa co2 bottle is a suspension",
+        # 2026-11-27 07:13 UTC: Blackcurrant Absolute 10% used up (STK-040); a new Grapefruit
+        # FCF bottle (STK-248) and Muscone (STK-249) arrived.
+        "I have ran out of blackcurrant absolute but now have grapefruit FCF silicon and muscone "
+        "in stock now. Grapefruit FCF silician and hexysalicylate is waiting for shipping.",
     ]
     superseded = [
         "INV-USER-20260830-010",
@@ -373,7 +377,7 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         NEAT_NEROLI_NOT_OWNED,
         *ADDED_20261015,
         *ADDED_20261015_PM,
-        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 248)),
+        *(f"INV-USER-20261014-STK-{n:03d}" for n in range(35, 250)),
     ]
     retired = {r["record_id"] for r in overlay["retired_records"]}
     assert set(superseded) <= retired

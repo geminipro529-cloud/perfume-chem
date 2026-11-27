@@ -632,6 +632,11 @@
         "message_timestamp_utc": "2026-11-02T09:36:37Z",
         "text": "The 7.7% cocoa co2 bottle is a suspension",
         "context": "Kenny's own words in another thread of the project (Dior Homme Parfum). STK-045 records the 7.7% Cocoa CO2 Extract stock as a suspension."
+      },
+      {
+        "message_timestamp_utc": "2026-11-27T07:13:54Z",
+        "text": "I have ran out of blackcurrant absolute but now have grapefruit FCF silicon and muscone in stock now. Grapefruit FCF silician and hexysalicylate is waiting for shipping.",
+        "context": "Kenny's own words in the project chat, relayed to the Stock data thread. STK-040 (Blackcurrant Absolute 10% in DPG) is used up; STK-248 records his new Grapefruit FCF oil Sicilian bottle and STK-249 his Muscone, both from PerfumersWorld order 261125-053816ecd. The order still on its way (261127-01522986a) holds Blackcurrant Absolute 10% and Hexyl Salicylate and is not recorded yet."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -2494,30 +2499,29 @@
       "record_id": "INV-USER-20261014-STK-040",
       "canonical_name": "Blackcurrant Absolute 10%",
       "aliases": [],
-      "state": "OWNED",
+      "state": "NOT_OWNED",
       "category": "green / fruit",
-      "stock": {
-        "physical_form": "solution",
-        "fraction": 0.1,
-        "fraction_basis": "mass_fraction",
-        "carrier": "dpg",
-        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
-        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_49",
-        "execution_ready": true,
-        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
-      },
+      "stock": null,
       "supersedes_parent_stocks": [
         {
           "source_row": 49,
           "fraction": 0.1
         }
       ],
-      "requirement_overrides": [],
-      "effective_date": "2026-10-14",
+      "requirement_overrides": [
+        {
+          "source_row": 49,
+          "disposition": "GAP",
+          "status": "NOT OWNED - USED UP (2026-11-27)",
+          "actual_stock_text": "User 27 Nov 2026: out of the Blackcurrant Absolute 10%; none owned",
+          "can_prepare": ""
+        }
+      ],
+      "effective_date": "2026-11-27",
       "source_kind": "DIRECT_USER_STOCK_CORRECTION",
-      "source_quote": "Load the rule",
+      "source_quote": "I have ran out of blackcurrant absolute but now have grapefruit FCF silicon and muscone in stock now. Grapefruit FCF silician and hexysalicylate is waiting for shipping.",
       "authority_limits": {
-        "availability_confirmed": true,
+        "availability_confirmed": false,
         "fraction_from_v5_stock_row": true,
         "basis_from_user_ww_rule_20261015": true,
         "carrier_from_v5_stock_row": true,
@@ -2533,7 +2537,18 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "V5 row 49 had 'Blackcurrant Absolute 10%' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept."
+      "note": "Used up. Kenny, 27 Nov 2026 07:13:54 UTC (project chat, relayed to the Stock data thread): 'I have ran out of blackcurrant absolute...'. His only blackcurrant absolute was this 10% w/w in DPG bottle (V5 row 49, inventory.txt 'Blackcurrant Absolute (10% in DPG)'); the stock it recorded is kept as used_up_stock and V5 row 49 stays retired. A new 2 g bottle (PerfumersWorld 5FB20096, Blackcurrant Absolute 10% in DPG, order 261127-01522986a placed 27 Nov 2026) is not recorded until it arrives. Cassis Base 345B is a separate owned stock and is unchanged. Formula files that name the 10% are history and are not rewritten; inventory.txt is not edited. Earlier note: V5 row 49 had 'Blackcurrant Absolute 10%' at 10% with no basis. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (the V5 workbook row names it). The display name is kept.",
+      "used_up_stock": {
+        "physical_form": "solution",
+        "fraction": 0.1,
+        "fraction_basis": "mass_fraction",
+        "carrier": "dpg",
+        "fraction_authority": "V5_STOCK_STRENGTH_USER_WW_RULE_20261015",
+        "execution_basis": "USER_WW_DPG_RULE_20261015_V5_ROW_49",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "source_message_timestamp_utc": "2026-11-27T07:13:54Z"
     },
     {
       "record_id": "INV-USER-20261014-STK-041",
@@ -12519,6 +12534,112 @@
         "physical_form_from_user_message": true
       },
       "note": "Kenny, 2 Nov 2026 09:21:30 UTC: 'Heliotropal is liquid and neat'. It replaces the V5 row 131 neat stock ('Heliotropal neat'), which had no physical form; the bottle is pipetted, not weighed. PerfumersWorld 6VN21924 (read 2 Nov 2026): CAS 120-57-0 (piperonal), 'Yellow To Brown oily liquid', melting point 37 (unit not printed). Pure piperonal melts near 37 C, so a warm room keeps it liquid; if it ever sets, warm the closed bottle before pipetting. The V5 'Heliotropal 10%' preparation row is unchanged. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-248",
+      "canonical_name": "Grapefruit FCF Oil Sicilian",
+      "aliases": [
+        "Grapefruit FCF oil Sicilian",
+        "Grapefruit FCF EO"
+      ],
+      "state": "OWNED",
+      "category": "citrus",
+      "stock": {
+        "physical_form": "liquid",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261127_PW_261125_053816ECD_GRAPEFRUIT_FCF",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Grapefruit FCF oil Sicilian",
+        "sku": "7CA24030",
+        "order": "261125-053816ecd",
+        "pack": "5 g",
+        "tracking": "Thai EMS EQ291310583TH"
+      },
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 123,
+          "fraction": 1.0
+        }
+      ],
+      "requirement_overrides": [],
+      "effective_date": "2026-11-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have ran out of blackcurrant absolute but now have grapefruit FCF silicon and muscone in stock now. Grapefruit FCF silician and hexysalicylate is waiting for shipping.",
+      "source_message_timestamp_utc": "2026-11-27T07:13:54Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "shipped_email_seen": true
+      },
+      "note": "PerfumersWorld order 261125-053816ecd, THB 312.80, placed 25 Nov 2026 17:39 ICT, payment approved 17:43 ICT (pworders@perfumersworld.com); PerfumersWorld's 26 Nov 2026 03:48 UTC mail says it shipped by Thai EMS, EQ291310583TH. Kenny, 27 Nov 2026 07:13:54 UTC (project chat, relayed to the Stock data thread): '...now have grapefruit FCF silicon and muscone in stock now'. Listed as 'Grapefruit FCF oil Sicilian' (7CA24030), 5 g; neat as supplied, as PerfumersWorld lists it (no dilution in the name). His 'Grapefruit FCF silician ... is waiting for shipping' is read against the mails: this order has arrived, and the order still waiting (261127-01522986a) holds Blackcurrant Absolute 10% and Hexyl Salicylate, not grapefruit. He ran out of the earlier bottle (inventory.txt L46, V5 row 123) on 25 Nov 2026 ('No, i run out of FCF free...', 09:40:29 UTC) and reordered the same day; this record replaces that V5 stock. No lot is recorded. Pomelo EO is a separate owned stock and is unchanged. inventory.txt is not edited."
+    },
+    {
+      "record_id": "INV-USER-20261014-STK-249",
+      "canonical_name": "Muscone",
+      "aliases": [
+        "Muscone neat",
+        "3-Methylcyclopentadecanone"
+      ],
+      "state": "OWNED",
+      "category": "musk",
+      "stock": {
+        "physical_form": "liquid",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LISTING_AS_SUPPLIED_USER_STOCK_INSTRUCTION",
+        "execution_basis": "USER_STOCK_20261127_PW_261125_053816ECD_MUSCONE",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
+      },
+      "supplier_product": {
+        "supplier": "PerfumersWorld",
+        "product_name": "Muscone",
+        "sku": "4XU05022",
+        "order": "261125-053816ecd",
+        "pack": "1 g",
+        "tracking": "Thai EMS EQ291310583TH"
+      },
+      "supersedes_parent_stocks": [],
+      "requirement_overrides": [],
+      "effective_date": "2026-11-27",
+      "source_kind": "DIRECT_USER_STOCK_ADDITION",
+      "source_quote": "I have ran out of blackcurrant absolute but now have grapefruit FCF silicon and muscone in stock now. Grapefruit FCF silician and hexysalicylate is waiting for shipping.",
+      "source_message_timestamp_utc": "2026-11-27T07:13:54Z",
+      "authority_limits": {
+        "availability_confirmed": true,
+        "supplier_from_user_order": true,
+        "fraction_from_supplier_listing": true,
+        "lot_from_supplier_coa": false,
+        "purity_assay_asserted": false,
+        "user_lot_asserted": false,
+        "density_asserted": false,
+        "remaining_quantity_asserted": false,
+        "formula_rebase_authorized": false,
+        "compounding_authorized": false,
+        "safety_asserted": false,
+        "release_authorized": false,
+        "shipped_email_seen": true,
+        "physical_form_from_supplier_listing": true
+      },
+      "note": "PerfumersWorld order 261125-053816ecd, THB 312.80, placed 25 Nov 2026 17:39 ICT, payment approved 17:43 ICT (pworders@perfumersworld.com); PerfumersWorld's 26 Nov 2026 03:48 UTC mail says it shipped by Thai EMS, EQ291310583TH. Kenny, 27 Nov 2026 07:13:54 UTC (project chat, relayed to the Stock data thread): '...now have grapefruit FCF silicon and muscone in stock now'. Listed as 'Muscone' (4XU05022), 1 g; neat as supplied (no dilution in the name). PerfumersWorld's page (https://www.perfumersworld.com/view.php?pro_id=4XU05022, read 27 Nov 2026): CAS 541-91-3, 'colorless clear liquid', specific gravity 0.9180, melting point 8.6, synonyms include 'Muscone 95pc'; typical use 0.06% to 6% in compounds. It is a liquid at room temperature, so the bottle is pipetted; it is new to his inventory (no V5 row). No lot is recorded. inventory.txt is not edited."
     }
   ]
 }
