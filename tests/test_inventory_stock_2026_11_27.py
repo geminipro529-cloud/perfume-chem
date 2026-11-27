@@ -73,3 +73,16 @@ def test_muscone_physics_and_ifra_row_are_loaded():
     )
     row = table["materials"]["Muscone"]
     assert row["status"] == "no_standard" and row["cas"] == ["541-91-3", "10403-00-6"]
+
+
+def test_aag_is_owned_only_as_10pct_in_dpg():
+    # Kenny, 27 Nov 2026 10:19 UTC: "Also, only have AAG in 10% DPG".
+    records = _records()
+    assert records["INV-USER-20261014-STK-157"]["state"] == "NOT_OWNED"
+    assert records["INV-USER-20261014-STK-157"]["used_up_stock"]["fraction"] == 1.0
+    assert records["INV-USER-20261014-STK-084"]["supersedes_parent_stocks"] == [{"source_row": 7}]
+    stocks = [
+        s for s in parse_current_inventory(unique=False)
+        if s.status == "owned" and "amyl glycolate" in (s.identity_name or s.name).casefold()
+    ]
+    assert [(s.dilution, s.carrier, s.fraction_basis) for s in stocks] == [(0.1, "dpg", "mass_fraction")]

@@ -637,6 +637,11 @@
         "message_timestamp_utc": "2026-11-27T07:13:54Z",
         "text": "I have ran out of blackcurrant absolute but now have grapefruit FCF silicon and muscone in stock now. Grapefruit FCF silician and hexysalicylate is waiting for shipping.",
         "context": "Kenny's own words in the project chat, relayed to the Stock data thread. STK-040 (Blackcurrant Absolute 10% in DPG) is used up; STK-248 records his new Grapefruit FCF oil Sicilian bottle and STK-249 his Muscone, both from PerfumersWorld order 261125-053816ecd. The order still on its way (261127-01522986a) holds Blackcurrant Absolute 10% and Hexyl Salicylate and is not recorded yet."
+      },
+      {
+        "message_timestamp_utc": "2026-11-27T10:19:20Z",
+        "text": "Also, only have AAG in 10% DPG",
+        "context": "Kenny's own words in another thread of the project (L'Homme), relayed to the Stock data thread. STK-084 (Allyl Amyl Glycolate 10% w/w in DPG) replaces the V5 row 7 neat stock; STK-157 (the neat PerfumersWorld 4FG00029 bottle) is not owned."
       }
     ],
     "defaults_applied": "New dilutions are in DPG unless Kenny says otherwise; a strength with no recorded basis is w/w. Paradisamide (14 Oct) uses that default. On 15 Oct 19:27 UTC Kenny chose 'Load the rule' on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?' (thread 'Update logs. Chimie Femme'), so the INV-USER-20261014-STK-0NN records that cite USER_WW_DPG_RULE_20261015 are w/w, in DPG or in the solvent his inventory line names. Every other record states where its strength and carrier came from."
@@ -4500,9 +4505,11 @@
     },
     {
       "record_id": "INV-USER-20261014-STK-084",
-      "canonical_name": "Allyl Amyl Glycolate 10%",
+      "canonical_name": "Allyl Amyl Glycolate (AAG)",
       "aliases": [
-        "Allyl Amyl Glycolate (10%)"
+        "Allyl Amyl Glycolate 10%",
+        "Allyl Amyl Glycolate (10%)",
+        "AAG 10%"
       ],
       "state": "OWNED",
       "category": "green_fruit",
@@ -4516,8 +4523,20 @@
         "execution_ready": true,
         "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY"
       },
-      "supersedes_parent_stocks": [],
-      "requirement_overrides": [],
+      "supersedes_parent_stocks": [
+        {
+          "source_row": 7
+        }
+      ],
+      "requirement_overrides": [
+        {
+          "source_row": 7,
+          "disposition": "OWNED",
+          "status": "HAVE - 10% (USER-CONFIRMED 2026-11-27); REPLACES THE V5 NEAT / AS SUPPLIED STOCK",
+          "actual_stock_text": "Allyl Amyl Glycolate 10% w/w in DPG",
+          "can_prepare": ""
+        }
+      ],
       "effective_date": "2026-10-14",
       "source_kind": "DIRECT_USER_STOCK_CORRECTION",
       "source_quote": "Load the rule",
@@ -4534,9 +4553,10 @@
         "formula_rebase_authorized": false,
         "compounding_authorized": false,
         "safety_asserted": false,
-        "release_authorized": false
+        "release_authorized": false,
+        "carrier_from_user_message": true
       },
-      "note": "inventory.txt L294 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG)."
+      "note": "Kenny, 27 Nov 2026 10:19:20 UTC (L'Homme thread, relayed to the Stock data thread): 'Also, only have AAG in 10% DPG'. This 10% w/w in DPG bottle is his only Allyl Amyl Glycolate: it now also replaces the V5 row 7 neat stock ('Allyl Amyl Glycolate (AAG)') and answers that row's 10% requirement, so it takes the V5 row name (as Coffee Absolute Grasse 10% in DPG did for row 80); the neat PerfumersWorld 4FG00029 bottle (STK-157) is no longer owned. Earlier note: inventory.txt L294 lists this bottle; the gate's stock list did not have it. Kenny chose 'Load the rule' (15 Oct 19:27 UTC, 'Update logs. Chimie Femme') on the card 'Load your \"w/w in DPG\" rule for the 72 dilutions with nothing recorded?': where no basis is recorded it is w/w, and the solvent is DPG unless his inventory line names another. Solvent: DPG (nothing recorded, so his rule's DPG)."
     },
     {
       "record_id": "INV-USER-20261014-STK-085",
@@ -8053,33 +8073,24 @@
       "record_id": "INV-USER-20261014-STK-157",
       "canonical_name": "Allyl Amyl Glycolate",
       "aliases": [],
-      "state": "OWNED",
+      "state": "NOT_OWNED",
       "category": "sweet / gourmand / balsamic",
-      "stock": {
-        "physical_form": "as_supplied",
-        "fraction": 1.0,
-        "fraction_basis": "neat",
-        "carrier": "",
-        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
-        "execution_ready": true,
-        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
-        "execution_basis": "INV-USER-20261007-PW-045_INTAKE_HOLD_CLEARED_BY_USER_ALL_NEAT_CARD_20261025"
-      },
+      "stock": null,
       "supplier_product": {
         "supplier": "PerfumersWorld",
         "product_name": "Allyl Amyl Glycolate",
         "sku": "4FG00029"
       },
       "received_quantity_g": "1",
-      "receipt_line": 45,
+      "pw_receipt_line": 45,
       "supersedes_parent_stocks": [],
       "requirement_overrides": [],
-      "effective_date": "2026-10-25",
+      "effective_date": "2026-11-27",
       "source_kind": "DIRECT_USER_STOCK_CORRECTION",
-      "source_quote": "All neat",
-      "source_message_timestamp_utc": "2026-10-25T08:16:22Z",
+      "source_quote": "Also, only have AAG in 10% DPG",
+      "source_message_timestamp_utc": "2026-11-27T10:19:20Z",
       "authority_limits": {
-        "availability_confirmed": true,
+        "availability_confirmed": false,
         "quantity_is_received_not_remaining": true,
         "fraction_basis_from_user_message": true,
         "fraction_from_supplier_label": true,
@@ -8093,7 +8104,17 @@
         "safety_asserted": false,
         "release_authorized": false
       },
-      "note": "Asked on a Stock data thread card 'Mark these 15 PerfumersWorld fruit bottles neat, as supplied?', Kenny chose 'All neat' (25 Oct 2026 08:16:22 UTC). The 1 g bottle (SKU 4FG00029, receipt line 45 of the 2026-10-07 order) was held at intake (INV-USER-20261007-PW-045, superseded) and is now neat as supplied, ready for raw-stock volume transfer. Dilutions he made from it are separate records and unchanged."
+      "note": "Not owned. Kenny, 27 Nov 2026 10:19:20 UTC (L'Homme thread, relayed to the Stock data thread): 'Also, only have AAG in 10% DPG'. The neat 1 g PerfumersWorld bottle (4FG00029) is gone; the stock it recorded is kept as used_up_stock. His Allyl Amyl Glycolate 10% w/w in DPG (STK-084) stays owned. Formula files that name the neat AAG are history and are not rewritten; inventory.txt is not edited. Earlier note: Asked on a Stock data thread card 'Mark these 15 PerfumersWorld fruit bottles neat, as supplied?', Kenny chose 'All neat' (25 Oct 2026 08:16:22 UTC). The 1 g bottle (SKU 4FG00029, receipt line 45 of the 2026-10-07 order) was held at intake (INV-USER-20261007-PW-045, superseded) and is now neat as supplied, ready for raw-stock volume transfer. Dilutions he made from it are separate records and unchanged.",
+      "used_up_stock": {
+        "physical_form": "as_supplied",
+        "fraction": 1.0,
+        "fraction_basis": "neat",
+        "carrier": "",
+        "fraction_authority": "SUPPLIER_LABEL_AND_USER_RECEIPT_CONFIRMATION",
+        "execution_ready": true,
+        "execution_scope": "RAW_STOCK_VOLUME_TRANSFER_ONLY",
+        "execution_basis": "INV-USER-20261007-PW-045_INTAKE_HOLD_CLEARED_BY_USER_ALL_NEAT_CARD_20261025"
+      }
     },
     {
       "record_id": "INV-USER-20261014-STK-158",

@@ -30,7 +30,12 @@ def test_received_order_totals_and_all_stock_forms_are_visible() -> None:
     stocks = materialize_personal_inventory().stocks
     # Received bottles Kenny has since used up: Ambrofix Crystals on 2026-10-29 (STK-232)
     # and Orris Butter 10% in DPG on 2026-11-02 (STK-077).
-    used_up = {normalize_name("Ambrofix Crystals"), normalize_name("Orris Concrete Orris Butter")}
+    # The neat Allyl Amyl Glycolate is not owned since 2026-11-27 (STK-157): his only AAG is 10% in DPG.
+    used_up = {
+        normalize_name("Ambrofix Crystals"),
+        normalize_name("Orris Concrete Orris Butter"),
+        normalize_name("Allyl Amyl Glycolate"),
+    }
     for row in receipt["records"]:
         visible = any(
             normalize_name(stock.identity_name or stock.name) == normalize_name(row["inventory_identity"])

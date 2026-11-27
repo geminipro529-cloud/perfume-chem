@@ -190,7 +190,8 @@ def test_neat_and_one_percent_2_acetyl_pyrazine_bind_separately() -> None:
 @pytest.mark.parametrize(
     ("material", "fraction", "reason", "contract_id", "source_row"),
     [
-        ("AAG 10%", 0.10, "preparation_required", "IDCL-002", 7),
+        # 2026-11-27: his only AAG is the 10% w/w in DPG (STK-084), now bound to V5 row 7.
+        ("AAG 10%", 0.10, None, "IDCL-002", 7),
         ("Cedrat FCF EO", 1.0, "inventory_gap", "IDCL-007", 66),
         # 2026-10-15: Kenny's w/w rule gave these two stocks their basis.
         ("Cocoa CO2 7.7%", 0.077, None, "IDCL-009", 79),

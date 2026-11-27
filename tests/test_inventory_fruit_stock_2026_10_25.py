@@ -18,7 +18,7 @@ NEAT_NOW = [
     "Manzanate",
     "Fructone B",
     "Diethyl Malonate",
-    "Allyl Amyl Glycolate",
+    # (Allyl Amyl Glycolate left this list on 2026-11-27: "only have AAG in 10% DPG", STK-157.)
     "Gamma Octalactone",
     "Gamma Decalactone",
     "Aldehyde C-18",
@@ -57,7 +57,8 @@ def test_fruit_bottles_are_neat_and_ready(stocks, name):
 
 def test_fruit_bottle_records_quote_his_card_answer(overlay):
     cleared = [r for r in overlay["delta_records"] if r.get("source_quote") == "All neat"]
-    assert len(cleared) == 15
+    # 15 bottles; the neat Allyl Amyl Glycolate (STK-157) is not owned since 2026-11-27.
+    assert len(cleared) == 14
     for record in cleared:
         assert record["receipt_line"] and record["supplier_product"]["supplier"] == "PerfumersWorld"
         assert record["stock"]["execution_basis"].endswith("_INTAKE_HOLD_CLEARED_BY_USER_ALL_NEAT_CARD_20261025")
@@ -92,4 +93,5 @@ def test_vetiveryl_acetate_was_used_up_then_restocked(stocks, overlay):
 def test_his_dilutions_of_the_fruit_bottles_are_unchanged(stocks):
     assert stocks["Ethyl 2-Methylbutyrate 1%"].dilution == pytest.approx(0.01)
     assert stocks["Ethyl 2-Methylbutyrate 0.01%"].dilution == pytest.approx(0.0001)
-    assert stocks["Allyl Amyl Glycolate 10%"].dilution == pytest.approx(0.1)
+    # 2026-11-27: his only AAG, the 10% in DPG, carries the V5 row 7 name it now replaces.
+    assert stocks["Allyl Amyl Glycolate (AAG)"].dilution == pytest.approx(0.1)

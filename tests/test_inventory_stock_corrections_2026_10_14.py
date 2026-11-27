@@ -289,6 +289,8 @@ def test_v26_is_current_and_pinned_to_v25_and_live_inventory() -> None:
         # FCF bottle (STK-248) and Muscone (STK-249) arrived.
         "I have ran out of blackcurrant absolute but now have grapefruit FCF silicon and muscone "
         "in stock now. Grapefruit FCF silician and hexysalicylate is waiting for shipping.",
+        # 2026-11-27 10:19 UTC: his only AAG is the 10% in DPG (STK-084); the neat bottle STK-157 is gone.
+        "Also, only have AAG in 10% DPG",
     ]
     superseded = [
         "INV-USER-20260830-010",
